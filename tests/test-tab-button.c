@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_tab_button_view (void)
 {
   AdwTabButton *button = g_object_ref_sink (ADW_TAB_BUTTON (adw_tab_button_new ()));
   AdwTabView *view;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::view", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::view", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "view", &view, NULL);
   g_assert_null (view);

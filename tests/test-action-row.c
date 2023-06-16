@@ -6,14 +6,11 @@
 
 #include <adwaita.h>
 
-int activated;
-
 static void
-activated_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  activated++;
+  (*data)++;
 }
-
 
 static void
 test_adw_action_row_add_remove (void)
@@ -121,10 +118,11 @@ static void
 test_adw_action_row_activate (void)
 {
   AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  int activated = 0;
+
   g_assert_nonnull (row);
 
-  activated = 0;
-  g_signal_connect (row, "activated", G_CALLBACK (activated_cb), NULL);
+  g_signal_connect_swapped (row, "activated", G_CALLBACK (increment), &activated);
 
   adw_action_row_activate (row);
   g_assert_cmpint (activated, ==, 1);

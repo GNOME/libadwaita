@@ -6,13 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget,
-           gpointer   user_data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -20,11 +17,11 @@ test_adw_switch_row_active (void)
 {
   AdwSwitchRow *row = g_object_ref_sink (ADW_SWITCH_ROW (adw_switch_row_new ()));
   gboolean is_active;
+  int notified = 0;
 
   g_assert_nonnull (row);
 
-  notified = 0;
-  g_signal_connect (row, "notify::active", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (row, "notify::active", G_CALLBACK (increment), &notified);
 
   is_active = adw_switch_row_get_active (row);
   g_assert_false (is_active);

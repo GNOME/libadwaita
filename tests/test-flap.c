@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_flap_flap (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::flap", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::flap", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "flap", &widget, NULL);
   g_assert_null (widget);
@@ -50,11 +48,11 @@ test_adw_flap_separator (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::separator", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::separator", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "separator", &widget, NULL);
   g_assert_null (widget);
@@ -79,11 +77,11 @@ test_adw_flap_flap_position (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkPackType position;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::flap-position", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::flap-position", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "flap-position", &position, NULL);
   g_assert_cmpint (position, ==, GTK_PACK_START);
@@ -107,13 +105,13 @@ test_adw_flap_reveal_flap (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean reveal;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
 
-  notified = 0;
-  g_signal_connect (flap, "notify::reveal-flap", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::reveal-flap", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "reveal-flap", &reveal, NULL);
   g_assert_true (reveal);
@@ -137,11 +135,11 @@ test_adw_flap_reveal_progress (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   double progress;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::reveal-progress", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::reveal-progress", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "reveal-progress", &progress, NULL);
   g_assert_cmpint (progress, ==, 1.0);
@@ -162,11 +160,11 @@ test_adw_flap_fold_policy (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapFoldPolicy policy;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::fold-policy", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::fold-policy", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "fold-policy", &policy, NULL);
   g_assert_cmpint (policy, ==, ADW_FLAP_FOLD_POLICY_AUTO);
@@ -190,11 +188,11 @@ test_adw_flap_fold_duration (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   guint duration;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::fold-duration", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::fold-duration", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "fold-duration", &duration, NULL);
   g_assert_cmpint (duration, ==, 250);
@@ -218,14 +216,14 @@ test_adw_flap_folded (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean folded;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
   adw_flap_set_fold_policy (flap, ADW_FLAP_FOLD_POLICY_NEVER);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::folded", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::folded", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "folded", &folded, NULL);
   g_assert_false (folded);
@@ -242,13 +240,13 @@ test_adw_flap_locked (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean locked;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
 
-  notified = 0;
-  g_signal_connect (flap, "notify::locked", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::locked", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "locked", &locked, NULL);
   g_assert_false (locked);
@@ -272,11 +270,11 @@ test_adw_flap_transition_type (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapTransitionType policy;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
-  notified = 0;
-  g_signal_connect (flap, "notify::transition-type", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::transition-type", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "transition-type", &policy, NULL);
   g_assert_cmpint (policy, ==, ADW_FLAP_TRANSITION_TYPE_OVER);
@@ -300,13 +298,13 @@ test_adw_flap_modal (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean modal;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
 
-  notified = 0;
-  g_signal_connect (flap, "notify::modal", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::modal", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "modal", &modal, NULL);
   g_assert_true (modal);
@@ -330,13 +328,13 @@ test_adw_flap_swipe_to_open (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_open;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
 
-  notified = 0;
-  g_signal_connect (flap, "notify::swipe-to-open", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::swipe-to-open", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "swipe-to-open", &swipe_to_open, NULL);
   g_assert_true (swipe_to_open);
@@ -360,13 +358,13 @@ test_adw_flap_swipe_to_close (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_close;
+  int notified = 0;
 
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
 
-  notified = 0;
-  g_signal_connect (flap, "notify::swipe-to-close", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (flap, "notify::swipe-to-close", G_CALLBACK (increment), &notified);
 
   g_object_get (flap, "swipe-to-close", &swipe_to_close, NULL);
   g_assert_true (swipe_to_close);

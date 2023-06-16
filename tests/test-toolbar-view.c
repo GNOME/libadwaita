@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_toolbar_view_content (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::content", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "content", &widget, NULL);
   g_assert_null (widget);
@@ -79,11 +77,11 @@ test_adw_toolbar_view_top_bar_style (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   AdwToolbarStyle style = ADW_TOOLBAR_FLAT;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::top-bar-style", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::top-bar-style", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "top-bar-style", &style, NULL);
   g_assert_cmpint (style, ==, ADW_TOOLBAR_FLAT);
@@ -107,11 +105,11 @@ test_adw_toolbar_view_bottom_bar_style (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   AdwToolbarStyle style = ADW_TOOLBAR_FLAT;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::bottom-bar-style", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::bottom-bar-style", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "bottom-bar-style", &style, NULL);
   g_assert_cmpint (style, ==, ADW_TOOLBAR_FLAT);
@@ -135,11 +133,11 @@ test_adw_toolbar_view_reveal_top_bars (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   gboolean reveal = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::reveal-top-bars", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::reveal-top-bars", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "reveal-top-bars", &reveal, NULL);
   g_assert_true (reveal);
@@ -163,11 +161,11 @@ test_adw_toolbar_view_reveal_bottom_bars (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   gboolean reveal = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::reveal-bottom-bars", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::reveal-bottom-bars", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "reveal-bottom-bars", &reveal, NULL);
   g_assert_true (reveal);
@@ -191,11 +189,11 @@ test_adw_toolbar_view_extend_content_to_top_edge (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   gboolean extend = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::extend-content-to-top-edge", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::extend-content-to-top-edge", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "extend-content-to-top-edge", &extend, NULL);
   g_assert_false (extend);
@@ -219,11 +217,11 @@ test_adw_toolbar_view_extend_content_to_bottom_edge (void)
 {
   AdwToolbarView *view = g_object_ref_sink (ADW_TOOLBAR_VIEW (adw_toolbar_view_new ()));
   gboolean extend = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::extend-content-to-bottom-edge", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::extend-content-to-bottom-edge", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "extend-content-to-bottom-edge", &extend, NULL);
   g_assert_false (extend);

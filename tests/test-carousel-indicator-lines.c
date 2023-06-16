@@ -6,12 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -19,11 +17,11 @@ test_adw_carousel_indicator_lines_carousel (void)
 {
   AdwCarouselIndicatorLines *lines = g_object_ref_sink (ADW_CAROUSEL_INDICATOR_LINES (adw_carousel_indicator_lines_new ()));
   AdwCarousel *carousel;
+  int notified = 0;
 
   g_assert_nonnull (lines);
 
-  notified = 0;
-  g_signal_connect (lines, "notify::carousel", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (lines, "notify::carousel", G_CALLBACK (increment), &notified);
 
   carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   g_assert_nonnull (carousel);

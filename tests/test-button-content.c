@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_button_content_icon_name (void)
 {
   AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   char *icon_name;
+  int notified = 0;
 
   g_assert_nonnull (content);
 
-  notified = 0;
-  g_signal_connect (content, "notify::icon-name", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (content, "notify::icon-name", G_CALLBACK (increment), &notified);
 
   g_object_get (content, "icon-name", &icon_name, NULL);
   g_assert_cmpstr (icon_name, ==, "");
@@ -50,11 +48,11 @@ test_adw_button_content_label (void)
 {
   AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   char *label;
+  int notified = 0;
 
   g_assert_nonnull (content);
 
-  notified = 0;
-  g_signal_connect (content, "notify::label", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (content, "notify::label", G_CALLBACK (increment), &notified);
 
   g_object_get (content, "label", &label, NULL);
   g_assert_cmpstr (label, ==, "");
@@ -79,11 +77,11 @@ test_adw_button_content_use_underline (void)
 {
   AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   gboolean use_underline;
+  int notified = 0;
 
   g_assert_nonnull (content);
 
-  notified = 0;
-  g_signal_connect (content, "notify::use-underline", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (content, "notify::use-underline", G_CALLBACK (increment), &notified);
 
   g_object_get (content, "use-underline", &use_underline, NULL);
   g_assert_false (use_underline);

@@ -8,8 +8,6 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
 value_cb (double   value,
           gpointer user_data)
@@ -17,9 +15,9 @@ value_cb (double   value,
 }
 
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -32,12 +30,11 @@ test_adw_animation_value_from (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   double value;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::value-from", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::value-from", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "value-from", &value, NULL);
   g_assert_true (G_APPROX_VALUE (value, 10, DBL_EPSILON));
@@ -67,14 +64,13 @@ test_adw_animation_value_to (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   double value;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
   adw_animation_skip (ADW_ANIMATION (animation));
 
-  g_signal_connect (animation, "notify::value-to", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::value-to", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "value-to", &value, NULL);
   g_assert_true (G_APPROX_VALUE (value, 20, DBL_EPSILON));
@@ -104,12 +100,11 @@ test_adw_animation_duration (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   guint duration;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::duration", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::duration", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "duration", &duration, NULL);
   g_assert_cmpint (duration, ==, 100);
@@ -139,12 +134,11 @@ test_adw_animation_easing (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   AdwEasing easing;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::easing", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::easing", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "easing", &easing, NULL);
   g_assert_cmpint (easing, ==, ADW_EASE_OUT_CUBIC);
@@ -174,12 +168,11 @@ test_adw_animation_repeat_count (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   guint repeat_count;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::repeat-count", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::repeat-count", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "repeat-count", &repeat_count, NULL);
   g_assert_cmpint (repeat_count, ==, 1);
@@ -209,12 +202,11 @@ test_adw_animation_reverse (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   gboolean reverse;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::reverse", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::reverse", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "reverse", &reverse, NULL);
   g_assert_false (reverse);
@@ -244,12 +236,11 @@ test_adw_animation_alternate (void)
     ADW_TIMED_ANIMATION (adw_timed_animation_new (widget, 10, 20, 100,
                                                   g_object_ref (target)));
   gboolean alternate;
+  int notified = 0;
 
   g_assert_nonnull (animation);
 
-  notified = 0;
-
-  g_signal_connect (animation, "notify::alternate", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (animation, "notify::alternate", G_CALLBACK (increment), &notified);
 
   g_object_get (animation, "alternate", &alternate, NULL);
   g_assert_false (alternate);

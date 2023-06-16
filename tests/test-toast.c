@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_toast_title (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::title", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "Title");
@@ -65,11 +63,11 @@ test_adw_toast_button_label (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   char *button_label;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::button-label", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::button-label", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "button-label", &button_label, NULL);
   g_assert_null (button_label);
@@ -90,11 +88,11 @@ test_adw_toast_action_name (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   char *action_name;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::action-name", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::action-name", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "action-name", &action_name, NULL);
   g_assert_null (action_name);
@@ -115,11 +113,11 @@ test_adw_toast_action_target (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   GVariant *action_target, *variant;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::action-target", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::action-target", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "action-target", &action_target, NULL);
   g_assert_null (action_target);
@@ -173,11 +171,11 @@ test_adw_toast_priority (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   AdwToastPriority priority;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::priority", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::priority", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "priority", &priority, NULL);
   g_assert_cmpint (priority, ==, ADW_TOAST_PRIORITY_NORMAL);
@@ -198,11 +196,11 @@ test_adw_toast_timeout (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
   guint timeout;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::timeout", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::timeout", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "timeout", &timeout, NULL);
   g_assert_cmpint (timeout, ==, 5);
@@ -246,11 +244,11 @@ test_adw_toast_custom_title (void)
   AdwToast *toast = adw_toast_new ("Title");
   GtkWidget *widget = NULL;
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (toast);
 
-  notified = 0;
-  g_signal_connect (toast, "notify::custom-title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast, "notify::custom-title", G_CALLBACK (increment), &notified);
 
   g_object_get (toast, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "Title");

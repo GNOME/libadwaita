@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_window_title_title (void)
 {
   AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", NULL)));
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (window_title);
 
-  notified = 0;
-  g_signal_connect (window_title, "notify::title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (window_title, "notify::title", G_CALLBACK (increment), &notified);
 
   g_object_get (window_title, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "Some title");
@@ -50,11 +48,11 @@ test_adw_window_title_subtitle (void)
 {
   AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new (NULL, "Some subtitle")));
   char *subtitle;
+  int notified = 0;
 
   g_assert_nonnull (window_title);
 
-  notified = 0;
-  g_signal_connect (window_title, "notify::subtitle", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (window_title, "notify::subtitle", G_CALLBACK (increment), &notified);
 
   g_object_get (window_title, "subtitle", &subtitle, NULL);
   g_assert_cmpstr (subtitle, ==, "Some subtitle");

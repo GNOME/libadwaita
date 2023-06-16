@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_tab_overview_view (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   AdwTabView *view;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::view", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::view", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "view", &view, NULL);
   g_assert_null (view);
@@ -51,11 +49,11 @@ test_adw_tab_overview_child (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::child", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::child", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "child", &widget, NULL);
   g_assert_null (widget);
@@ -81,6 +79,7 @@ test_adw_tab_overview_open (void)
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   AdwTabView *view = ADW_TAB_VIEW (adw_tab_view_new ());
   gboolean open = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
   g_assert_nonnull (view);
@@ -90,8 +89,7 @@ test_adw_tab_overview_open (void)
   adw_tab_overview_set_child (overview, GTK_WIDGET (view));
   adw_tab_overview_set_view (overview, g_object_ref (view));
 
-  notified = 0;
-  g_signal_connect (overview, "notify::open", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::open", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "open", &open, NULL);
   g_assert_false (open);
@@ -116,11 +114,11 @@ test_adw_tab_overview_inverted (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   gboolean inverted = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::inverted", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::inverted", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "inverted", &inverted, NULL);
   g_assert_false (inverted);
@@ -144,11 +142,11 @@ test_adw_tab_overview_enable_search (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   gboolean enable_search = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::enable-search", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::enable-search", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "enable-search", &enable_search, NULL);
   g_assert_true (enable_search);
@@ -172,11 +170,11 @@ test_adw_tab_overview_enable_new_tab (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   gboolean enable_new_tab = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::enable-new-tab", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::enable-new-tab", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "enable-new-tab", &enable_new_tab, NULL);
   g_assert_false (enable_new_tab);
@@ -200,11 +198,11 @@ test_adw_tab_overview_show_start_title_buttons (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   gboolean show_start_title_buttons = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::show-start-title-buttons", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::show-start-title-buttons", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "show-start-title-buttons", &show_start_title_buttons, NULL);
   g_assert_true (show_start_title_buttons);
@@ -228,11 +226,11 @@ test_adw_tab_overview_show_end_title_buttons (void)
 {
   AdwTabOverview *overview = g_object_ref_sink (ADW_TAB_OVERVIEW (adw_tab_overview_new ()));
   gboolean show_end_title_buttons = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::show-end-title-buttons", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::show-end-title-buttons", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "show-end-title-buttons", &show_end_title_buttons, NULL);
   g_assert_true (show_end_title_buttons);
@@ -258,11 +256,11 @@ test_adw_tab_overview_secondary_menu (void)
   GMenuModel *model;
   GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
   GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
+  int notified = 0;
 
   g_assert_nonnull (overview);
 
-  notified = 0;
-  g_signal_connect (overview, "notify::secondary-menu", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (overview, "notify::secondary-menu", G_CALLBACK (increment), &notified);
 
   g_object_get (overview, "secondary-menu", &model, NULL);
   g_assert_null (model);

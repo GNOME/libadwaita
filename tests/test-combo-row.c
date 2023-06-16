@@ -6,12 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -54,12 +52,11 @@ test_adw_combo_row_selected (void)
 {
   AdwComboRow *row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   GListModel *model;
-  int selected = 0;
+  int selected = 0, notified = 0;
 
   g_assert_nonnull (row);
 
-  notified = 0;
-  g_signal_connect (row, "notify::selected", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (row, "notify::selected", G_CALLBACK (increment), &notified);
 
   g_object_get (row, "selected", &selected, NULL);
   g_assert_cmpint (selected, ==, -1);
@@ -91,11 +88,11 @@ test_adw_combo_row_use_subtitle (void)
 {
   AdwComboRow *row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   gboolean use_subtitle = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (row);
 
-  notified = 0;
-  g_signal_connect (row, "notify::use-subtitle", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (row, "notify::use-subtitle", G_CALLBACK (increment), &notified);
 
   g_assert_false (adw_combo_row_get_use_subtitle (row));
 

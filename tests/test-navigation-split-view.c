@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_navigation_split_view_sidebar (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   AdwNavigationPage *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar", &widget, NULL);
   g_assert_null (widget);
@@ -50,11 +48,11 @@ test_adw_navigation_split_view_content (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   AdwNavigationPage *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::content", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "content", &widget, NULL);
   g_assert_null (widget);
@@ -79,11 +77,11 @@ test_adw_navigation_split_view_collapsed (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   gboolean collapsed;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::collapsed", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::collapsed", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "collapsed", &collapsed, NULL);
   g_assert_false (collapsed);
@@ -138,11 +136,11 @@ test_adw_navigation_split_view_show_content (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   gboolean show_content;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::show-content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::show-content", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "show-content", &show_content, NULL);
   g_assert_false (show_content);
@@ -197,11 +195,11 @@ test_adw_navigation_split_view_min_sidebar_width (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   double width;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::min-sidebar-width", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::min-sidebar-width", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "min-sidebar-width", &width, NULL);
   g_assert_true (G_APPROX_VALUE (width, 180, DBL_EPSILON));
@@ -225,11 +223,11 @@ test_adw_navigation_split_view_max_sidebar_width (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   double width;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::max-sidebar-width", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::max-sidebar-width", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "max-sidebar-width", &width, NULL);
   g_assert_true (G_APPROX_VALUE (width, 280, DBL_EPSILON));
@@ -253,11 +251,11 @@ test_adw_navigation_split_view_sidebar_width_fraction (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   double fraction;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar-width-fraction", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar-width-fraction", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar-width-fraction", &fraction, NULL);
   g_assert_true (G_APPROX_VALUE (fraction, 0.25, DBL_EPSILON));
@@ -281,11 +279,11 @@ test_adw_navigation_split_view_sidebar_width_unit (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   AdwLengthUnit unit;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar-width-unit", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar-width-unit", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar-width-unit", &unit, NULL);
   g_assert_cmpint (unit, ==, ADW_LENGTH_UNIT_SP);
@@ -336,11 +334,11 @@ static void
 test_adw_navigation_split_view_actions (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::show-content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::show-content", G_CALLBACK (increment), &notified);
 
   adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
   adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));

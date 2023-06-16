@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -80,11 +78,11 @@ test_adw_tab_view_n_pages (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   int n_pages;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::n-pages", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::n-pages", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "n-pages", &n_pages, NULL);
   g_assert_cmpint (n_pages, ==, 0);
@@ -120,11 +118,11 @@ test_adw_tab_view_n_pinned_pages (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   int n_pages;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::n-pinned-pages", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::n-pinned-pages", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "n-pinned-pages", &n_pages, NULL);
   g_assert_cmpint (n_pages, ==, 0);
@@ -161,11 +159,11 @@ test_adw_tab_view_default_icon (void)
   GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
   GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
   char *icon_str;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::default-icon", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::default-icon", G_CALLBACK (increment), &notified);
 
   icon_str = g_icon_to_string (adw_tab_view_get_default_icon (view));
   g_assert_cmpstr (icon_str, ==, "adw-tab-icon-missing-symbolic");
@@ -192,11 +190,11 @@ test_adw_tab_view_menu_model (void)
   GMenuModel *model;
   GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
   GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::menu-model", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::menu-model", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "menu-model", &model, NULL);
   g_assert_null (model);
@@ -220,11 +218,11 @@ test_adw_tab_view_shortcuts (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabViewShortcuts shortcuts;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::shortcuts", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::shortcuts", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "shortcuts", &shortcuts, NULL);
   g_assert_cmpint (shortcuts, ==, ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS);
@@ -292,11 +290,11 @@ test_adw_tab_view_select (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page1, *page2, *selected_page;
   gboolean ret;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::selected-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::selected-page", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "selected-page", &selected_page, NULL);
   g_assert_null (selected_page);
@@ -969,14 +967,14 @@ test_adw_tab_page_title (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::title", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "");
@@ -1000,14 +998,14 @@ test_adw_tab_page_tooltip (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   char *tooltip;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::tooltip", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::tooltip", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "tooltip", &tooltip, NULL);
   g_assert_cmpstr (tooltip, ==, "");
@@ -1031,14 +1029,14 @@ test_adw_tab_page_keyword (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   char *keyword;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::keyword", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::keyword", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "keyword", &keyword, NULL);
   g_assert_null (keyword);
@@ -1063,14 +1061,14 @@ test_adw_tab_page_icon (void)
   GIcon *icon;
   GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
   GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::icon", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::icon", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "icon", &icon, NULL);
   g_assert_null (icon);
@@ -1095,14 +1093,14 @@ test_adw_tab_page_loading (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean loading;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::loading", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::loading", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "loading", &loading, NULL);
   g_assert_false (loading);
@@ -1128,14 +1126,14 @@ test_adw_tab_page_indicator_icon (void)
   GIcon *icon;
   GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
   GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::indicator-icon", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::indicator-icon", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "indicator-icon", &icon, NULL);
   g_assert_null (icon);
@@ -1160,14 +1158,14 @@ test_adw_tab_page_indicator_tooltip (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   char *tooltip;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::indicator-tooltip", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::indicator-tooltip", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "indicator-tooltip", &tooltip, NULL);
   g_assert_cmpstr (tooltip, ==, "");
@@ -1191,14 +1189,14 @@ test_adw_tab_page_indicator_activatable (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean activatable;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::indicator-activatable", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::indicator-activatable", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "indicator-activatable", &activatable, NULL);
   g_assert_false (activatable);
@@ -1222,14 +1220,14 @@ test_adw_tab_page_needs_attention (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean needs_attention;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::needs-attention", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::needs-attention", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "needs-attention", &needs_attention, NULL);
   g_assert_false (needs_attention);
@@ -1253,14 +1251,14 @@ test_adw_tab_page_thumbnail_xalign (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   float xalign;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::thumbnail-xalign", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::thumbnail-xalign", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "thumbnail_xalign", &xalign, NULL);
   g_assert_true (G_APPROX_VALUE (xalign, 0, FLT_EPSILON));
@@ -1284,14 +1282,14 @@ test_adw_tab_page_thumbnail_yalign (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   float yalign;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::thumbnail-yalign", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::thumbnail-yalign", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "thumbnail_yalign", &yalign, NULL);
   g_assert_true (G_APPROX_VALUE (yalign, 0, FLT_EPSILON));
@@ -1315,14 +1313,14 @@ test_adw_tab_page_live_thumbnail (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean live_thumbnail;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::live-thumbnail", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::live-thumbnail", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "live-thumbnail", &live_thumbnail, NULL);
   g_assert_false (live_thumbnail);

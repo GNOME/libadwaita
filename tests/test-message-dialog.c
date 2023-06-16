@@ -8,39 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-int responses;
-int responses_cancel;
-int responses_save;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
-}
-
-static void
-response_cb (AdwMessageDialog *dialog,
-             const char       *response,
-             gpointer          data)
-{
-  responses++;
-}
-
-static void
-response_cancel_cb (AdwMessageDialog *dialog,
-                    const char       *response,
-                    gpointer          data)
-{
-  responses_cancel++;
-}
-
-static void
-response_save_cb (AdwMessageDialog *dialog,
-                  const char       *response,
-                  gpointer          data)
-{
-  responses_save++;
+  (*data)++;
 }
 
 static void
@@ -48,11 +19,11 @@ test_adw_message_dialog_heading (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   char *heading;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::heading", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::heading", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "heading", &heading, NULL);
   g_assert_cmpstr (heading, ==, "");
@@ -74,11 +45,11 @@ test_adw_message_dialog_heading_use_markup (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   gboolean use_markup;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::heading-use-markup", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::heading-use-markup", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "heading-use-markup", &use_markup, NULL);
   g_assert_false (use_markup);
@@ -99,11 +70,11 @@ test_adw_message_dialog_body (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   char *body;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::body", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::body", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "body", &body, NULL);
   g_assert_cmpstr (body, ==, "");
@@ -125,11 +96,11 @@ test_adw_message_dialog_body_use_markup (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   gboolean use_markup;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::body-use-markup", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::body-use-markup", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "body-use-markup", &use_markup, NULL);
   g_assert_false (use_markup);
@@ -176,11 +147,11 @@ test_adw_message_dialog_extra_child (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::extra-child", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::extra-child", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "extra-child", &widget, NULL);
   g_assert_null (widget);
@@ -296,11 +267,11 @@ static void
 test_adw_message_dialog_response_signal (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
+  int responses = 0, responses_cancel = 0, responses_save = 0;
 
-  responses = responses_cancel = responses_save = 0;
-  g_signal_connect (dialog, "response", G_CALLBACK (response_cb), NULL);
-  g_signal_connect (dialog, "response::cancel", G_CALLBACK (response_cancel_cb), NULL);
-  g_signal_connect (dialog, "response::save", G_CALLBACK (response_save_cb), NULL);
+  g_signal_connect_swapped (dialog, "response", G_CALLBACK (increment), &responses);
+  g_signal_connect_swapped (dialog, "response::cancel", G_CALLBACK (increment), &responses_cancel);
+  g_signal_connect_swapped (dialog, "response::save", G_CALLBACK (increment), &responses_save);
 
   adw_message_dialog_add_response (dialog, "cancel", "Cancel");
   adw_message_dialog_add_response (dialog, "save", "Save");
@@ -323,11 +294,11 @@ test_adw_message_dialog_default_response (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   char *response;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::default-response", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::default-response", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "default-response", &response, NULL);
   g_assert_null (response);
@@ -349,11 +320,11 @@ test_adw_message_dialog_close_response (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
   char *response;
+  int notified = 0;
 
   g_assert_nonnull (dialog);
 
-  notified = 0;
-  g_signal_connect (dialog, "notify::close-response", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (dialog, "notify::close-response", G_CALLBACK (increment), &notified);
 
   g_object_get (dialog, "close-response", &response, NULL);
   g_assert_cmpstr (response, ==, "close");

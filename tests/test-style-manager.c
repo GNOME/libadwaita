@@ -9,12 +9,10 @@
 #include <adwaita.h>
 #include "adw-settings-private.h"
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -22,9 +20,9 @@ test_adw_style_manager_color_scheme (void)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
   AdwColorScheme color_scheme;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (manager, "notify::color-scheme", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (manager, "notify::color-scheme", G_CALLBACK (increment), &notified);
 
   g_object_get (manager, "color-scheme", &color_scheme, NULL);
   g_assert_cmpint (color_scheme, ==, ADW_COLOR_SCHEME_DEFAULT);
@@ -42,21 +40,23 @@ test_adw_style_manager_color_scheme (void)
   g_assert_cmpint (adw_style_manager_get_color_scheme (manager), ==, ADW_COLOR_SCHEME_PREFER_LIGHT);
   g_assert_cmpint (notified, ==, 2);
 
-  g_signal_handlers_disconnect_by_func (manager, G_CALLBACK (notify_cb), NULL);
+  g_signal_handlers_disconnect_by_func (manager, increment, &notified);
   adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_DEFAULT);
 }
 
-static int
+static void
 test_dark (AdwStyleManager *manager,
            gboolean         initial_dark,
-           int              expected_notified,
            ...)
 {
   va_list args;
   AdwColorScheme scheme;
   gboolean last_dark = initial_dark;
+  int notified = 0, expected_notified = 0;
 
-  va_start (args, expected_notified);
+  g_signal_connect_swapped (manager, "notify::dark", G_CALLBACK (increment), &notified);
+
+  va_start (args, initial_dark);
 
   for (scheme = ADW_COLOR_SCHEME_DEFAULT; scheme <= ADW_COLOR_SCHEME_FORCE_DARK; scheme++) {
     gboolean dark = va_arg (args, gboolean);
@@ -78,7 +78,7 @@ test_dark (AdwStyleManager *manager,
 
   va_end (args);
 
-  return expected_notified;
+  g_signal_handlers_disconnect_by_func (manager, increment, &notified);
 }
 
 static void
@@ -86,29 +86,21 @@ test_adw_style_manager_dark (void)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
   AdwSettings *settings = adw_settings_get_default ();
-  int expected_notified = 0;
 
   adw_settings_start_override (settings);
   adw_settings_override_system_supports_color_schemes (settings, TRUE);
   adw_settings_override_color_scheme (settings, ADW_SYSTEM_COLOR_SCHEME_PREFER_LIGHT);
 
-  notified = 0;
-  g_signal_connect (manager, "notify::dark", G_CALLBACK (notify_cb), NULL);
-
-  expected_notified = test_dark (manager, FALSE, expected_notified,
-                                 FALSE, FALSE, FALSE, FALSE, TRUE);
+  test_dark (manager, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE);
 
   adw_settings_override_color_scheme (settings, ADW_SYSTEM_COLOR_SCHEME_DEFAULT);
-  expected_notified = test_dark (manager, TRUE, expected_notified,
-                                 FALSE, FALSE, FALSE, TRUE, TRUE);
+  test_dark (manager, TRUE,  FALSE, FALSE, FALSE, TRUE, TRUE);
 
   adw_settings_override_color_scheme (settings, ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK);
-  expected_notified = test_dark (manager, TRUE, expected_notified,
-                                 TRUE, FALSE, TRUE, TRUE, TRUE);
+  test_dark (manager, TRUE,  TRUE, FALSE, TRUE, TRUE, TRUE);
 
   adw_settings_end_override (settings);
 
-  g_signal_handlers_disconnect_by_func (manager, G_CALLBACK (notify_cb), NULL);
   adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_DEFAULT);
 }
 
@@ -117,12 +109,12 @@ test_adw_style_manager_high_contrast (void)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
   AdwSettings *settings = adw_settings_get_default ();
+  int notified = 0;
 
   adw_settings_start_override (settings);
   adw_settings_override_high_contrast (settings, FALSE);
 
-  notified = 0;
-  g_signal_connect (manager, "notify::high-contrast", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (manager, "notify::high-contrast", G_CALLBACK (increment), &notified);
 
   g_assert_false (adw_style_manager_get_high_contrast (manager));
 
@@ -136,7 +128,7 @@ test_adw_style_manager_high_contrast (void)
 
   adw_settings_end_override (settings);
 
-  g_signal_handlers_disconnect_by_func (manager, G_CALLBACK (notify_cb), NULL);
+  g_signal_handlers_disconnect_by_func (manager, increment, &notified);
 }
 
 static void
@@ -144,12 +136,12 @@ test_adw_style_manager_system_supports_color_schemes (void)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
   AdwSettings *settings = adw_settings_get_default ();
+  int notified = 0;
 
   adw_settings_start_override (settings);
   adw_settings_override_system_supports_color_schemes (settings, FALSE);
 
-  notified = 0;
-  g_signal_connect (manager, "notify::system-supports-color-schemes", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (manager, "notify::system-supports-color-schemes", G_CALLBACK (increment), &notified);
 
   g_assert_false (adw_style_manager_get_system_supports_color_schemes (manager));
 
@@ -163,7 +155,7 @@ test_adw_style_manager_system_supports_color_schemes (void)
 
   adw_settings_end_override (settings);
 
-  g_signal_handlers_disconnect_by_func (manager, G_CALLBACK (notify_cb), NULL);
+  g_signal_handlers_disconnect_by_func (manager, increment, &notified);
 }
 
 static void

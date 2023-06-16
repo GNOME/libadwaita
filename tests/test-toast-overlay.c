@@ -6,12 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -19,11 +17,11 @@ test_adw_toast_overlay_child (void)
 {
   AdwToastOverlay *toast_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (toast_overlay);
 
-  notified = 0;
-  g_signal_connect (toast_overlay, "notify::child", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (toast_overlay, "notify::child", G_CALLBACK (increment), &notified);
 
   g_object_get (toast_overlay, "child", &widget, NULL);
   g_assert_null (widget);

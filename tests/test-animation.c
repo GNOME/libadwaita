@@ -9,7 +9,6 @@
 #include <adwaita.h>
 
 static double last_value;
-static int done_count;
 
 static void
 value_cb (double   value,
@@ -19,9 +18,9 @@ value_cb (double   value,
 }
 
 static void
-done_cb (gpointer user_data)
+increment (int *data)
 {
-  done_count++;
+  (*data)++;
 }
 
 static void
@@ -34,11 +33,11 @@ test_adw_animation_general (void)
     adw_callback_animation_target_new (value_cb, NULL, NULL);
   AdwAnimation *animation =
     adw_timed_animation_new (widget, 10, 20, 100, g_object_ref (target));
+  int done_count = 0;
 
   last_value = 0;
-  done_count = 0;
 
-  g_signal_connect (animation, "done", G_CALLBACK (done_cb), NULL);
+  g_signal_connect_swapped (animation, "done", G_CALLBACK (increment), &done_count);
 
   g_assert_nonnull (animation);
 

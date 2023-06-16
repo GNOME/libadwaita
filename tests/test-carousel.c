@@ -6,12 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -31,13 +29,13 @@ test_adw_carousel_add_remove (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   GtkWidget *child1, *child2, *child3;
+  int notified = 0;
 
   child1 = gtk_label_new ("");
   child2 = gtk_label_new ("");
   child3 = gtk_label_new ("");
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::n-pages", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::n-pages", G_CALLBACK (increment), &notified);
 
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 0);
 
@@ -163,9 +161,9 @@ test_adw_carousel_interactive (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean interactive;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::interactive", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::interactive", G_CALLBACK (increment), &notified);
 
   /* Accessors */
   g_assert_true (adw_carousel_get_interactive (carousel));
@@ -191,9 +189,9 @@ test_adw_carousel_spacing (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   guint spacing;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::spacing", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::spacing", G_CALLBACK (increment), &notified);
 
   /* Accessors */
   g_assert_cmpuint (adw_carousel_get_spacing (carousel), ==, 0);
@@ -219,9 +217,9 @@ test_adw_carousel_allow_mouse_drag (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean allow_mouse_drag;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::allow-mouse-drag", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::allow-mouse-drag", G_CALLBACK (increment), &notified);
 
   /* Accessors */
   g_assert_true (adw_carousel_get_allow_mouse_drag (carousel));
@@ -247,9 +245,9 @@ test_adw_carousel_allow_long_swipes (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean allow_long_swipes;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::allow-long-swipes", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::allow-long-swipes", G_CALLBACK (increment), &notified);
 
   /* Accessors */
   g_assert_false (adw_carousel_get_allow_long_swipes (carousel));
@@ -275,9 +273,9 @@ test_adw_carousel_reveal_duration (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   guint duration;
+  int notified = 0;
 
-  notified = 0;
-  g_signal_connect (carousel, "notify::reveal-duration", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (carousel, "notify::reveal-duration", G_CALLBACK (increment), &notified);
 
   /* Accessors */
   g_assert_cmpuint (adw_carousel_get_reveal_duration (carousel), ==, 0);

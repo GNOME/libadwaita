@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_overlay_split_view_sidebar (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar", &widget, NULL);
   g_assert_null (widget);
@@ -50,11 +48,11 @@ test_adw_overlay_split_view_content (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::content", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "content", &widget, NULL);
   g_assert_null (widget);
@@ -79,11 +77,11 @@ test_adw_overlay_split_view_collapsed (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   gboolean collapsed;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::collapsed", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::collapsed", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "collapsed", &collapsed, NULL);
   g_assert_false (collapsed);
@@ -138,11 +136,11 @@ test_adw_overlay_split_view_sidebar_position (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   GtkPackType position;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar-position", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar-position", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar-position", &position, NULL);
   g_assert_cmpint (position, ==, GTK_PACK_START);
@@ -166,11 +164,11 @@ test_adw_overlay_split_view_show_sidebar (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   gboolean show_sidebar;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::show-sidebar", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::show-sidebar", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "show-sidebar", &show_sidebar, NULL);
   g_assert_true (show_sidebar);
@@ -194,11 +192,11 @@ test_adw_overlay_split_view_pin_sidebar (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   gboolean pin_sidebar;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::pin-sidebar", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::pin-sidebar", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "pin-sidebar", &pin_sidebar, NULL);
   g_assert_false (pin_sidebar);
@@ -222,11 +220,11 @@ test_adw_overlay_split_view_enable_show_gesture (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   gboolean enable_show_gesture;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::enable-show-gesture", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::enable-show-gesture", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "enable-show-gesture", &enable_show_gesture, NULL);
   g_assert_true (enable_show_gesture);
@@ -250,11 +248,11 @@ test_adw_overlay_split_view_enable_hide_gesture (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   gboolean enable_hide_gesture;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::enable-hide-gesture", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::enable-hide-gesture", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "enable-hide-gesture", &enable_hide_gesture, NULL);
   g_assert_true (enable_hide_gesture);
@@ -278,11 +276,11 @@ test_adw_overlay_split_view_min_sidebar_width (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   double width;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::min-sidebar-width", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::min-sidebar-width", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "min-sidebar-width", &width, NULL);
   g_assert_true (G_APPROX_VALUE (width, 180, DBL_EPSILON));
@@ -306,11 +304,11 @@ test_adw_overlay_split_view_max_sidebar_width (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   double width;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::max-sidebar-width", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::max-sidebar-width", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "max-sidebar-width", &width, NULL);
   g_assert_true (G_APPROX_VALUE (width, 280, DBL_EPSILON));
@@ -334,11 +332,11 @@ test_adw_overlay_split_view_sidebar_width_fraction (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   double fraction;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar-width-fraction", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar-width-fraction", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar-width-fraction", &fraction, NULL);
   g_assert_true (G_APPROX_VALUE (fraction, 0.25, DBL_EPSILON));
@@ -362,11 +360,11 @@ test_adw_overlay_split_view_sidebar_width_unit (void)
 {
   AdwOverlaySplitView *split_view = g_object_ref_sink (ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ()));
   AdwLengthUnit unit;
+  int notified = 0;
 
   g_assert_nonnull (split_view);
 
-  notified = 0;
-  g_signal_connect (split_view, "notify::sidebar-width-unit", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (split_view, "notify::sidebar-width-unit", G_CALLBACK (increment), &notified);
 
   g_object_get (split_view, "sidebar-width-unit", &unit, NULL);
   g_assert_cmpint (unit, ==, ADW_LENGTH_UNIT_SP);

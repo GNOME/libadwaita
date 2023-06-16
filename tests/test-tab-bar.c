@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_tab_bar_view (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   AdwTabView *view;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::view", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::view", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "view", &view, NULL);
   g_assert_null (view);
@@ -51,11 +49,11 @@ test_adw_tab_bar_start_action_widget (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::start-action-widget", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::start-action-widget", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "start-action-widget", &widget, NULL);
   g_assert_null (widget);
@@ -80,11 +78,11 @@ test_adw_tab_bar_end_action_widget (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   GtkWidget *widget = NULL;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::end-action-widget", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::end-action-widget", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "end-action-widget", &widget, NULL);
   g_assert_null (widget);
@@ -109,11 +107,11 @@ test_adw_tab_bar_autohide (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean autohide = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::autohide", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::autohide", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "autohide", &autohide, NULL);
   g_assert_true (autohide);
@@ -139,11 +137,11 @@ test_adw_tab_bar_tabs_revealed (void)
   AdwTabView *view;
   gboolean tabs_revealed = FALSE;
   AdwTabPage *page;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::tabs-revealed", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::tabs-revealed", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "tabs-revealed", &tabs_revealed, NULL);
   g_assert_false (tabs_revealed);
@@ -192,11 +190,11 @@ test_adw_tab_bar_expand_tabs (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean expand_tabs = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::expand-tabs", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::expand-tabs", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "expand-tabs", &expand_tabs, NULL);
   g_assert_true (expand_tabs);
@@ -220,11 +218,11 @@ test_adw_tab_bar_inverted (void)
 {
   AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean inverted = FALSE;
+  int notified = 0;
 
   g_assert_nonnull (bar);
 
-  notified = 0;
-  g_signal_connect (bar, "notify::inverted", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (bar, "notify::inverted", G_CALLBACK (increment), &notified);
 
   g_object_get (bar, "inverted", &inverted, NULL);
   g_assert_false (inverted);

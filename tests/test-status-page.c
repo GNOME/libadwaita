@@ -6,12 +6,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -19,11 +17,11 @@ test_adw_status_page_icon_name (void)
 {
   AdwStatusPage *status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   const char *icon_name = NULL;
+  int notified = 0;
 
   g_assert_nonnull (status_page);
 
-  notified = 0;
-  g_signal_connect (status_page, "notify::icon-name", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (status_page, "notify::icon-name", G_CALLBACK (increment), &notified);
 
   g_object_get (status_page, "icon-name", &icon_name, NULL);
   g_assert_cmpstr (icon_name, ==, NULL);
@@ -47,11 +45,11 @@ test_adw_status_page_title (void)
 {
   AdwStatusPage *status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (status_page);
 
-  notified = 0;
-  g_signal_connect (status_page, "notify::title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (status_page, "notify::title", G_CALLBACK (increment), &notified);
 
   g_object_get (status_page, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "");
@@ -76,11 +74,11 @@ test_adw_status_page_description (void)
 {
   AdwStatusPage *status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   char *description;
+  int notified = 0;
 
   g_assert_nonnull (status_page);
 
-  notified = 0;
-  g_signal_connect (status_page, "notify::description", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (status_page, "notify::description", G_CALLBACK (increment), &notified);
 
   g_object_get (status_page, "description", &description, NULL);
   g_assert_cmpstr (description, ==, "");

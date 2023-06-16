@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -21,11 +19,11 @@ test_adw_split_button_icon_name (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   const char *icon_name;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::icon-name", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::icon-name", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "icon-name", &icon_name, NULL);
   g_assert_null (icon_name);
@@ -61,11 +59,11 @@ test_adw_split_button_label (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   const char *label;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::label", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::label", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "label", &label, NULL);
   g_assert_null (label);
@@ -101,11 +99,11 @@ test_adw_split_button_use_underline (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   gboolean use_underline;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::use-underline", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::use-underline", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "use-underline", &use_underline, NULL);
   g_assert_false (use_underline);
@@ -129,6 +127,7 @@ test_adw_split_button_child (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkWidget *child1, *child2, *child3, *child;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
@@ -136,8 +135,7 @@ test_adw_split_button_child (void)
   child2 = gtk_button_new ();
   child3 = gtk_button_new ();
 
-  notified = 0;
-  g_signal_connect (button, "notify::child", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::child", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "child", &child, NULL);
   g_assert_null (child);
@@ -178,11 +176,11 @@ test_adw_split_button_menu_model (void)
   GMenuModel *model;
   GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
   GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::menu-model", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::menu-model", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "menu-model", &model, NULL);
   g_assert_null (model);
@@ -211,14 +209,14 @@ test_adw_split_button_popover (void)
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkPopover *popover, *popover1, *popover2;
   GMenuModel *model;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
   popover1 = GTK_POPOVER (gtk_popover_new ());
   popover2 = GTK_POPOVER (gtk_popover_new ());
 
-  notified = 0;
-  g_signal_connect (button, "notify::popover", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::popover", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "popover", &popover, NULL);
   g_assert_null (popover);
@@ -249,11 +247,11 @@ test_adw_split_button_direction (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkArrowType direction;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::direction", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::direction", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "direction", &direction, NULL);
   g_assert_cmpint (direction, ==, GTK_ARROW_DOWN);
@@ -277,11 +275,11 @@ test_adw_split_button_dropdown_tooltip (void)
 {
   AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   char *tooltip;
+  int notified = 0;
 
   g_assert_nonnull (button);
 
-  notified = 0;
-  g_signal_connect (button, "notify::dropdown-tooltip", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (button, "notify::dropdown-tooltip", G_CALLBACK (increment), &notified);
 
   g_object_get (button, "dropdown-tooltip", &tooltip, NULL);
   g_assert_cmpstr (tooltip, ==, "");

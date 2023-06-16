@@ -8,54 +8,10 @@
 
 #include <adwaita.h>
 
-int notified, pushed, popped, replaced, showing, hiding, shown, hidden;
-
 static void
-notify_cb (void)
+increment (int *data)
 {
-  notified++;
-}
-
-static void
-pushed_cb (void)
-{
-  pushed++;
-}
-
-static void
-popped_cb (void)
-{
-  popped++;
-}
-
-static void
-replaced_cb (void)
-{
-  replaced++;
-}
-
-static void
-showing_cb (void)
-{
-  showing++;
-}
-
-static void
-hiding_cb (void)
-{
-  hiding++;
-}
-
-static void
-shown_cb (void)
-{
-  shown++;
-}
-
-static void
-hidden_cb (void)
-{
-  hidden++;
+  (*data)++;
 }
 
 static void
@@ -92,16 +48,16 @@ test_adw_navigation_view_add_remove (void)
   AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
   AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2 again", "page-2"));
+  int notified = 0, pushed = 0, popped = 0;
 
   g_assert_nonnull (view);
   g_assert_nonnull (page_1);
   g_assert_nonnull (page_2);
   g_assert_nonnull (page_3);
 
-  notified = pushed = popped = 0;
-  g_signal_connect (view, "pushed", G_CALLBACK (pushed_cb), NULL);
-  g_signal_connect (view, "popped", G_CALLBACK (popped_cb), NULL);
-  g_signal_connect (view, "notify::visible-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "pushed", G_CALLBACK (increment), &pushed);
+  g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
+  g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   g_assert_null (adw_navigation_view_get_visible_page (view));
   check_navigation_stack (view, 0);
@@ -152,6 +108,7 @@ test_adw_navigation_view_push_pop (void)
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 3", "page-3"));
   AdwNavigationPage *page_4 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 4", "page-4"));
   AdwNavigationPage *page_5 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 4 again", "page-4"));
+  int notified = 0, pushed = 0, popped = 0;
 
   g_assert_nonnull (view);
   g_assert_nonnull (page_1);
@@ -159,10 +116,9 @@ test_adw_navigation_view_push_pop (void)
   g_assert_nonnull (page_3);
   g_assert_nonnull (page_4);
 
-  notified = pushed = popped = 0;
-  g_signal_connect (view, "pushed", G_CALLBACK (pushed_cb), NULL);
-  g_signal_connect (view, "popped", G_CALLBACK (popped_cb), NULL);
-  g_signal_connect (view, "notify::visible-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "pushed", G_CALLBACK (increment), &pushed);
+  g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
+  g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   g_assert_cmpint (pushed, ==, 0);
   g_assert_cmpint (popped, ==, 0);
@@ -272,6 +228,7 @@ test_adw_navigation_view_push_pop_by_tag (void)
   AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 3", "page-3"));
   AdwNavigationPage *page_4 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 4", "page-4"));
+  int notified = 0, pushed = 0, popped = 0;
 
   g_assert_nonnull (view);
   g_assert_nonnull (page_1);
@@ -279,10 +236,9 @@ test_adw_navigation_view_push_pop_by_tag (void)
   g_assert_nonnull (page_3);
   g_assert_nonnull (page_4);
 
-  notified = pushed = popped = 0;
-  g_signal_connect (view, "pushed", G_CALLBACK (pushed_cb), NULL);
-  g_signal_connect (view, "popped", G_CALLBACK (popped_cb), NULL);
-  g_signal_connect (view, "notify::visible-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "pushed", G_CALLBACK (increment), &pushed);
+  g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
+  g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   adw_navigation_view_add (view, page_1);
   adw_navigation_view_add (view, page_2);
@@ -365,6 +321,7 @@ test_adw_navigation_view_pop_to_page (void)
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 3", "page-3"));
   AdwNavigationPage *page_4 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 4", "page-4"));
   AdwNavigationPage *page_5 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 5", "page-5"));
+  int notified = 0, popped = 0;
 
   g_assert_nonnull (view);
   g_assert_nonnull (page_1);
@@ -372,9 +329,8 @@ test_adw_navigation_view_pop_to_page (void)
   g_assert_nonnull (page_3);
   g_assert_nonnull (page_4);
 
-  notified = popped = 0;
-  g_signal_connect (view, "popped", G_CALLBACK (popped_cb), NULL);
-  g_signal_connect (view, "notify::visible-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
+  g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   adw_navigation_view_add (view, page_1);
   adw_navigation_view_add (view, page_3);
@@ -426,12 +382,12 @@ test_adw_navigation_view_replace (void)
   AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
   AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 3", "page-3"));
+  int notified = 0, pushed = 0, popped = 0, replaced = 0;
 
-  notified = pushed = popped = replaced = 0;
-  g_signal_connect (view, "pushed", G_CALLBACK (pushed_cb), NULL);
-  g_signal_connect (view, "popped", G_CALLBACK (popped_cb), NULL);
-  g_signal_connect (view, "replaced", G_CALLBACK (replaced_cb), NULL);
-  g_signal_connect (view, "notify::visible-page", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "pushed", G_CALLBACK (increment), &pushed);
+  g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
+  g_signal_connect_swapped (view, "replaced", G_CALLBACK (increment), &replaced);
+  g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   check_navigation_stack (view, 0);
 
@@ -591,11 +547,11 @@ test_adw_navigation_view_animate_transitions (void)
 {
   AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
   gboolean animate_transitions;
+  int notified = 0;
 
   g_assert_nonnull (view);
 
-  notified = 0;
-  g_signal_connect (view, "notify::animate-transitions", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (view, "notify::animate-transitions", G_CALLBACK (increment), &notified);
 
   g_object_get (view, "animate-transitions", &animate_transitions, NULL);
   g_assert_true (animate_transitions);
@@ -620,11 +576,11 @@ test_adw_navigation_page_child (void)
   GtkWidget *button = g_object_ref_sink (gtk_button_new ());
   AdwNavigationPage *page = g_object_ref_sink (adw_navigation_page_new (button, "Title"));
   GtkWidget *widget;
+  int notified = 0;
 
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::child", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::child", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "child", &widget, NULL);
   g_assert_true (widget == button);
@@ -648,11 +604,11 @@ test_adw_navigation_page_title (void)
 {
   AdwNavigationPage *page = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
   char *title;
+  int notified = 0;
 
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::title", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::title", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "title", &title, NULL);
   g_assert_cmpstr (title, ==, "Title");
@@ -675,11 +631,11 @@ test_adw_navigation_page_tag (void)
 {
   AdwNavigationPage *page = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
   char *tag;
+  int notified = 0;
 
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::tag", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::tag", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "tag", &tag, NULL);
   g_assert_null (tag);
@@ -701,11 +657,11 @@ test_adw_navigation_page_can_pop (void)
 {
   AdwNavigationPage *page = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
   gboolean can_pop;
+  int notified = 0;
 
   g_assert_nonnull (page);
 
-  notified = 0;
-  g_signal_connect (page, "notify::can-pop", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (page, "notify::can-pop", G_CALLBACK (increment), &notified);
 
   g_object_get (page, "can-pop", &can_pop, NULL);
   g_assert_true (can_pop);
@@ -731,12 +687,12 @@ test_adw_navigation_page_signals (void)
   AdwNavigationPage *page = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
   AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
   AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Title"));
+  int showing = 0, shown = 0, hiding = 0, hidden = 0;
 
-  showing = shown = hiding = hidden = 0;
-  g_signal_connect (page, "showing", G_CALLBACK (showing_cb), NULL);
-  g_signal_connect (page, "shown", G_CALLBACK (shown_cb), NULL);
-  g_signal_connect (page, "hiding", G_CALLBACK (hiding_cb), NULL);
-  g_signal_connect (page, "hidden", G_CALLBACK (hidden_cb), NULL);
+  g_signal_connect_swapped (page, "showing", G_CALLBACK (increment), &showing);
+  g_signal_connect_swapped (page, "shown", G_CALLBACK (increment), &shown);
+  g_signal_connect_swapped (page, "hiding", G_CALLBACK (increment),&hiding);
+  g_signal_connect_swapped (page, "hidden", G_CALLBACK (increment), &hidden);
 
   g_assert_cmpint (showing, ==, 0);
   g_assert_cmpint (shown, ==, 0);

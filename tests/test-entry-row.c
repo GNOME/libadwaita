@@ -8,12 +8,10 @@
 
 #include <adwaita.h>
 
-int notified;
-
 static void
-notify_cb (GtkWidget *widget, gpointer data)
+increment (int *data)
 {
-  notified++;
+  (*data)++;
 }
 
 static void
@@ -44,11 +42,11 @@ test_adw_entry_row_show_apply_button (void)
 {
   AdwEntryRow *row = g_object_ref_sink (ADW_ENTRY_ROW (adw_entry_row_new ()));
   gboolean show_apply_button;
+  int notified = 0;
 
   g_assert_nonnull (row);
 
-  notified = 0;
-  g_signal_connect (row, "notify::show-apply-button", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect_swapped (row, "notify::show-apply-button", G_CALLBACK (increment), &notified);
 
   g_object_get (row, "show-apply-button", &show_apply_button, NULL);
   g_assert_false (show_apply_button);
