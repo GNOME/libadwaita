@@ -266,6 +266,20 @@ parent_size_cb (AdwMessageDialog *self)
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
+static gboolean
+parent_state_idle_cb (AdwMessageDialog *self)
+{
+  parent_size_cb (self);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+parent_state_cb (AdwMessageDialog *self)
+{
+  g_idle_add (G_SOURCE_FUNC (parent_state_idle_cb), self);
+}
+
 static void
 parent_realize_cb (AdwMessageDialog *self)
 {
@@ -282,6 +296,8 @@ parent_realize_cb (AdwMessageDialog *self)
                             G_CALLBACK (parent_size_cb), self);
   g_signal_connect_swapped (surface, "notify::height",
                             G_CALLBACK (parent_size_cb), self);
+  g_signal_connect_swapped (surface, "notify::state",
+                            G_CALLBACK (parent_state_cb), self);
 
   parent_size_cb (self);
 }
@@ -298,6 +314,9 @@ parent_unrealize_cb (AdwMessageDialog *self)
 
   g_signal_handlers_disconnect_by_func (surface,
                                         G_CALLBACK (parent_size_cb),
+                                        self);
+  g_signal_handlers_disconnect_by_func (surface,
+                                        G_CALLBACK (parent_state_cb),
                                         self);
 
   priv->parent_width = -1;
