@@ -14,7 +14,7 @@
 #include "adw-bin.h"
 #include "adw-enums.h"
 #include "adw-length-unit.h"
-#include "adw-navigation-view.h"
+#include "adw-navigation-view-private.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -433,18 +433,33 @@ update_collapsed (AdwNavigationSplitView *self)
     g_object_ref (self->content);
 
   if (self->sidebar_bin && self->sidebar) {
+    if (self->show_content && self->sidebar && self->content) {
+      adw_navigation_page_hiding (self->sidebar);
+      adw_navigation_page_hidden (self->sidebar);
+    }
+
     g_signal_handlers_disconnect_by_func (self->sidebar, check_tags_cb, self);
 
     adw_bin_set_child (ADW_BIN (self->sidebar_bin), NULL);
   }
 
   if (self->content_bin && self->content) {
+    if (!self->show_content && self->sidebar && self->content) {
+      adw_navigation_page_hiding (self->content);
+      adw_navigation_page_hidden (self->content);
+    }
+
     g_signal_handlers_disconnect_by_func (self->content, check_tags_cb, self);
 
     adw_bin_set_child (ADW_BIN (self->content_bin), NULL);
   }
 
   if (self->navigation_view) {
+    if (self->sidebar)
+      adw_navigation_page_block_signals (self->sidebar);
+    if (self->content)
+      adw_navigation_page_block_signals (self->content);
+
     if (self->sidebar && self->content)
       g_signal_handlers_disconnect_by_func (self->navigation_view,
                                             notify_visible_page_cb, self);
@@ -455,9 +470,15 @@ update_collapsed (AdwNavigationSplitView *self)
     if (self->sidebar)
       adw_navigation_view_remove (ADW_NAVIGATION_VIEW (self->navigation_view),
                                   self->sidebar);
+
     if (self->content)
       adw_navigation_view_remove (ADW_NAVIGATION_VIEW (self->navigation_view),
                                   self->content);
+
+    if (self->sidebar)
+      adw_navigation_page_unblock_signals (self->sidebar);
+    if (self->content)
+      adw_navigation_page_unblock_signals (self->content);
   }
 
   g_clear_pointer (&self->sidebar_bin, gtk_widget_unparent);
@@ -470,14 +491,24 @@ update_collapsed (AdwNavigationSplitView *self)
     self->navigation_view = adw_navigation_view_new ();
     gtk_widget_set_parent (self->navigation_view, GTK_WIDGET (self));
 
-    if (self->sidebar)
+    if (self->sidebar) {
+      adw_navigation_page_block_signals (self->sidebar);
       adw_navigation_view_add (ADW_NAVIGATION_VIEW (self->navigation_view),
                                self->sidebar);
-    if (self->content)
+    }
+
+    if (self->content) {
+      adw_navigation_page_block_signals (self->content);
       adw_navigation_view_add (ADW_NAVIGATION_VIEW (self->navigation_view),
                                self->content);
+    }
 
     update_navigation_stack (self);
+
+    if (self->sidebar)
+      adw_navigation_page_unblock_signals (self->sidebar);
+    if (self->content)
+      adw_navigation_page_unblock_signals (self->content);
 
     if (self->sidebar && self->content)
       g_signal_connect_swapped (self->navigation_view, "notify::visible-page",
@@ -497,6 +528,11 @@ update_collapsed (AdwNavigationSplitView *self)
 
       g_signal_connect_swapped (self->sidebar, "notify::tag",
                                 G_CALLBACK (check_tags_cb), self);
+
+      if (self->show_content && self->sidebar && self->content) {
+        adw_navigation_page_showing (self->sidebar);
+        adw_navigation_page_shown (self->sidebar);
+      }
     }
 
     self->content_bin = adw_bin_new ();
@@ -508,6 +544,11 @@ update_collapsed (AdwNavigationSplitView *self)
 
       g_signal_connect_swapped (self->content, "notify::tag",
                                 G_CALLBACK (check_tags_cb), self);
+
+      if (!self->show_content && self->sidebar && self->content) {
+        adw_navigation_page_showing (self->content);
+        adw_navigation_page_shown (self->content);
+      }
     }
   }
 
@@ -945,6 +986,9 @@ adw_navigation_split_view_set_sidebar (AdwNavigationSplitView *self,
 
   if (self->sidebar) {
     if (self->sidebar_bin) {
+      adw_navigation_page_hiding (self->sidebar);
+      adw_navigation_page_hidden (self->sidebar);
+
       g_signal_handlers_disconnect_by_func (self->sidebar, check_tags_cb, self);
 
       adw_bin_set_child (ADW_BIN (self->sidebar_bin), NULL);
@@ -963,6 +1007,9 @@ adw_navigation_split_view_set_sidebar (AdwNavigationSplitView *self,
 
       g_signal_connect_swapped (self->sidebar, "notify::tag",
                                 G_CALLBACK (check_tags_cb), self);
+
+      adw_navigation_page_showing (self->sidebar);
+      adw_navigation_page_shown (self->sidebar);
     } else if (self->navigation_view) {
       adw_navigation_view_add (ADW_NAVIGATION_VIEW (self->navigation_view),
                                self->sidebar);
@@ -1032,6 +1079,9 @@ adw_navigation_split_view_set_content (AdwNavigationSplitView *self,
 
   if (self->content) {
     if (self->content_bin) {
+      adw_navigation_page_hiding (self->content);
+      adw_navigation_page_hidden (self->content);
+
       g_signal_handlers_disconnect_by_func (self->content, check_tags_cb, self);
 
       adw_bin_set_child (ADW_BIN (self->content_bin), NULL);
@@ -1050,6 +1100,9 @@ adw_navigation_split_view_set_content (AdwNavigationSplitView *self,
 
       g_signal_connect_swapped (self->content, "notify::tag",
                                 G_CALLBACK (check_tags_cb), self);
+
+      adw_navigation_page_showing (self->content);
+      adw_navigation_page_shown (self->content);
     } else if (self->navigation_view) {
       adw_navigation_view_add (ADW_NAVIGATION_VIEW (self->navigation_view),
                                self->content);

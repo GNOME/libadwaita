@@ -19,7 +19,7 @@ test_adw_navigation_split_view_sidebar (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   AdwNavigationPage *widget = NULL;
-  int notified = 0;
+  int notified = 0, showing = 0, hiding = 0, shown = 0, hidden = 0;
 
   g_assert_nonnull (split_view);
 
@@ -31,15 +31,29 @@ test_adw_navigation_split_view_sidebar (void)
   adw_navigation_split_view_set_sidebar (split_view, NULL);
   g_assert_cmpint (notified, ==, 0);
 
-  widget = adw_navigation_page_new (gtk_button_new (), "Sidebar");
+  widget = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Sidebar"));
+  g_signal_connect_swapped (widget, "showing", G_CALLBACK (increment), &showing);
+  g_signal_connect_swapped (widget, "hiding", G_CALLBACK (increment), &hiding);
+  g_signal_connect_swapped (widget, "shown", G_CALLBACK (increment), &shown);
+  g_signal_connect_swapped (widget, "hidden", G_CALLBACK (increment), &hidden);
+
   adw_navigation_split_view_set_sidebar (split_view, widget);
   g_assert_true (adw_navigation_split_view_get_sidebar (split_view) == widget);
   g_assert_cmpint (notified, ==, 1);
+  g_assert_cmpint (showing, ==, 1);
+  g_assert_cmpint (shown, ==, 1);
+  g_assert_cmpint (hiding, ==, 0);
+  g_assert_cmpint (hidden, ==, 0);
 
   g_object_set (split_view, "sidebar", NULL, NULL);
   g_assert_null (adw_navigation_split_view_get_sidebar (split_view));
   g_assert_cmpint (notified, ==, 2);
+  g_assert_cmpint (showing, ==, 1);
+  g_assert_cmpint (shown, ==, 1);
+  g_assert_cmpint (hiding, ==, 1);
+  g_assert_cmpint (hidden, ==, 1);
 
+  g_assert_finalize_object (widget);
   g_assert_finalize_object (split_view);
 }
 
@@ -48,7 +62,7 @@ test_adw_navigation_split_view_content (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   AdwNavigationPage *widget = NULL;
-  int notified = 0;
+  int notified = 0, showing = 0, hiding = 0, shown = 0, hidden = 0;
 
   g_assert_nonnull (split_view);
 
@@ -60,15 +74,29 @@ test_adw_navigation_split_view_content (void)
   adw_navigation_split_view_set_content (split_view, NULL);
   g_assert_cmpint (notified, ==, 0);
 
-  widget = adw_navigation_page_new (gtk_button_new (), "Content");
+  widget = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Content"));
+  g_signal_connect_swapped (widget, "showing", G_CALLBACK (increment), &showing);
+  g_signal_connect_swapped (widget, "hiding", G_CALLBACK (increment), &hiding);
+  g_signal_connect_swapped (widget, "shown", G_CALLBACK (increment), &shown);
+  g_signal_connect_swapped (widget, "hidden", G_CALLBACK (increment), &hidden);
+
   adw_navigation_split_view_set_content (split_view, widget);
   g_assert_true (adw_navigation_split_view_get_content (split_view) == widget);
   g_assert_cmpint (notified, ==, 1);
+  g_assert_cmpint (showing, ==, 1);
+  g_assert_cmpint (shown, ==, 1);
+  g_assert_cmpint (hiding, ==, 0);
+  g_assert_cmpint (hidden, ==, 0);
 
   g_object_set (split_view, "content", NULL, NULL);
   g_assert_null (adw_navigation_split_view_get_content (split_view));
   g_assert_cmpint (notified, ==, 2);
+  g_assert_cmpint (showing, ==, 1);
+  g_assert_cmpint (shown, ==, 1);
+  g_assert_cmpint (hiding, ==, 1);
+  g_assert_cmpint (hidden, ==, 1);
 
+  g_assert_finalize_object (widget);
   g_assert_finalize_object (split_view);
 }
 
@@ -78,6 +106,9 @@ test_adw_navigation_split_view_collapsed (void)
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
   gboolean collapsed;
   int notified = 0;
+  int sidebar_showing = 0, sidebar_hiding = 0, sidebar_shown = 0, sidebar_hidden = 0;
+  int content_showing = 0, content_hiding = 0, content_shown = 0, content_hidden = 0;
+  AdwNavigationPage *sidebar, *content;
 
   g_assert_nonnull (split_view);
 
@@ -97,7 +128,23 @@ test_adw_navigation_split_view_collapsed (void)
   g_assert_false (adw_navigation_split_view_get_collapsed (split_view));
   g_assert_cmpint (notified, ==, 2);
 
-  adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new (gtk_button_new (), "Sidebar"));
+  sidebar = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Sidebar"));
+  g_signal_connect_swapped (sidebar, "showing", G_CALLBACK (increment), &sidebar_showing);
+  g_signal_connect_swapped (sidebar, "hiding", G_CALLBACK (increment), &sidebar_hiding);
+  g_signal_connect_swapped (sidebar, "shown", G_CALLBACK (increment), &sidebar_shown);
+  g_signal_connect_swapped (sidebar, "hidden", G_CALLBACK (increment), &sidebar_hidden);
+
+  content = g_object_ref_sink (adw_navigation_page_new (gtk_button_new (), "Content"));
+  g_signal_connect_swapped (content, "showing", G_CALLBACK (increment), &content_showing);
+  g_signal_connect_swapped (content, "hiding", G_CALLBACK (increment), &content_hiding);
+  g_signal_connect_swapped (content, "shown", G_CALLBACK (increment), &content_shown);
+  g_signal_connect_swapped (content, "hidden", G_CALLBACK (increment), &content_hidden);
+
+  adw_navigation_split_view_set_sidebar (split_view, sidebar);
+  g_assert_cmpint (sidebar_showing, ==, 1);
+  g_assert_cmpint (sidebar_shown, ==, 1);
+  g_assert_cmpint (sidebar_hiding, ==, 0);
+  g_assert_cmpint (sidebar_hidden, ==, 0);
 
   adw_navigation_split_view_set_collapsed (split_view, TRUE);
   g_assert_true (adw_navigation_split_view_get_collapsed (split_view));
@@ -108,7 +155,15 @@ test_adw_navigation_split_view_collapsed (void)
   g_assert_cmpint (notified, ==, 4);
 
   adw_navigation_split_view_set_sidebar (split_view, NULL);
-  adw_navigation_split_view_set_content (split_view, adw_navigation_page_new (gtk_button_new (), "Content"));
+  adw_navigation_split_view_set_content (split_view, content);
+  g_assert_cmpint (sidebar_showing, ==, 1);
+  g_assert_cmpint (sidebar_shown, ==, 1);
+  g_assert_cmpint (sidebar_hiding, ==, 1);
+  g_assert_cmpint (sidebar_hidden, ==, 1);
+  g_assert_cmpint (content_showing, ==, 1);
+  g_assert_cmpint (content_shown, ==, 1);
+  g_assert_cmpint (content_hiding, ==, 0);
+  g_assert_cmpint (content_hidden, ==, 0);
 
   adw_navigation_split_view_set_collapsed (split_view, TRUE);
   g_assert_true (adw_navigation_split_view_get_collapsed (split_view));
@@ -118,17 +173,67 @@ test_adw_navigation_split_view_collapsed (void)
   g_assert_false (adw_navigation_split_view_get_collapsed (split_view));
   g_assert_cmpint (notified, ==, 6);
 
-  adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new (gtk_button_new (), "Sidebar"));
+  adw_navigation_split_view_set_sidebar (split_view, sidebar);
+  g_assert_cmpint (sidebar_showing, ==, 2);
+  g_assert_cmpint (sidebar_shown, ==, 2);
+  g_assert_cmpint (sidebar_hiding, ==, 1);
+  g_assert_cmpint (sidebar_hidden, ==, 1);
+
+  adw_navigation_split_view_set_show_content (split_view, TRUE);
 
   adw_navigation_split_view_set_collapsed (split_view, TRUE);
   g_assert_true (adw_navigation_split_view_get_collapsed (split_view));
   g_assert_cmpint (notified, ==, 7);
+  g_assert_cmpint (sidebar_showing, ==, 2);
+  g_assert_cmpint (sidebar_shown, ==, 2);
+  g_assert_cmpint (sidebar_hiding, ==, 2);
+  g_assert_cmpint (sidebar_hidden, ==, 2);
+  g_assert_cmpint (content_showing, ==, 1);
+  g_assert_cmpint (content_shown, ==, 1);
+  g_assert_cmpint (content_hiding, ==, 0);
+  g_assert_cmpint (content_hidden, ==, 0);
 
   adw_navigation_split_view_set_collapsed (split_view, FALSE);
   g_assert_false (adw_navigation_split_view_get_collapsed (split_view));
   g_assert_cmpint (notified, ==, 8);
+  g_assert_cmpint (sidebar_showing, ==, 3);
+  g_assert_cmpint (sidebar_shown, ==, 3);
+  g_assert_cmpint (sidebar_hiding, ==, 2);
+  g_assert_cmpint (sidebar_hidden, ==, 2);
+  g_assert_cmpint (content_showing, ==, 1);
+  g_assert_cmpint (content_shown, ==, 1);
+  g_assert_cmpint (content_hiding, ==, 0);
+  g_assert_cmpint (content_hidden, ==, 0);
+
+  adw_navigation_split_view_set_show_content (split_view, FALSE);
+
+  adw_navigation_split_view_set_collapsed (split_view, TRUE);
+  g_assert_true (adw_navigation_split_view_get_collapsed (split_view));
+  g_assert_cmpint (notified, ==, 9);
+  g_assert_cmpint (sidebar_showing, ==, 3);
+  g_assert_cmpint (sidebar_shown, ==, 3);
+  g_assert_cmpint (sidebar_hiding, ==, 2);
+  g_assert_cmpint (sidebar_hidden, ==, 2);
+  g_assert_cmpint (content_showing, ==, 1);
+  g_assert_cmpint (content_shown, ==, 1);
+  g_assert_cmpint (content_hiding, ==, 1);
+  g_assert_cmpint (content_hidden, ==, 1);
+
+  adw_navigation_split_view_set_collapsed (split_view, FALSE);
+  g_assert_false (adw_navigation_split_view_get_collapsed (split_view));
+  g_assert_cmpint (notified, ==, 10);
+  g_assert_cmpint (sidebar_showing, ==, 3);
+  g_assert_cmpint (sidebar_shown, ==, 3);
+  g_assert_cmpint (sidebar_hiding, ==, 2);
+  g_assert_cmpint (sidebar_hidden, ==, 2);
+  g_assert_cmpint (content_showing, ==, 2);
+  g_assert_cmpint (content_shown, ==, 2);
+  g_assert_cmpint (content_hiding, ==, 1);
+  g_assert_cmpint (content_hidden, ==, 1);
 
   g_assert_finalize_object (split_view);
+  g_assert_finalize_object (sidebar);
+  g_assert_finalize_object (content);
 }
 
 static void
