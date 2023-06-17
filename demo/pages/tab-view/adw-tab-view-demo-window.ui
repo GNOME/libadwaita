@@ -23,6 +23,7 @@
                   <object class="GtkButton">
                     <property name="action-name">win.window-new</property>
                     <property name="icon-name">window-new-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">New Window</property>
                   </object>
                 </child>
                 <child type="end">
@@ -43,6 +44,7 @@
                   <object class="GtkButton" id="new_tab_btn">
                     <property name="action-name">win.tab-new</property>
                     <property name="icon-name">tab-new-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">New Tab</property>
                   </object>
                 </child>
               </object>
