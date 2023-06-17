@@ -285,7 +285,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeafletPage:name: (attributes org.gtk.Property.get=adw_leaflet_page_get_name org.gtk.Property.set=adw_leaflet_page_set_name)
@@ -297,7 +297,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
   page_props[PAGE_PROP_NAME] =
     g_param_spec_string ("name", NULL, NULL,
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeafletPage:navigatable: (attributes org.gtk.Property.get=adw_leaflet_page_get_navigatable org.gtk.Property.set=adw_leaflet_page_set_navigatable)
@@ -315,7 +315,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
   page_props[PAGE_PROP_NAVIGATABLE] =
     g_param_spec_boolean ("navigatable", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 }
@@ -2200,7 +2200,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CAN_UNFOLD] =
     g_param_spec_boolean ("can-unfold", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:folded: (attributes org.gtk.Property.get=adw_leaflet_get_folded)
@@ -2216,7 +2216,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded", NULL, NULL,
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:fold-threshold-policy: (attributes org.gtk.Property.get=adw_leaflet_get_fold_threshold_policy org.gtk.Property.set=adw_leaflet_set_fold_threshold_policy)
@@ -2236,7 +2236,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
     g_param_spec_enum ("fold-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:homogeneous: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
@@ -2251,7 +2251,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:visible-child: (attributes org.gtk.Property.get=adw_leaflet_get_visible_child org.gtk.Property.set=adw_leaflet_set_visible_child)
@@ -2268,7 +2268,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:visible-child-name: (attributes org.gtk.Property.get=adw_leaflet_get_visible_child_name org.gtk.Property.set=adw_leaflet_set_visible_child_name)
@@ -2282,7 +2282,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_VISIBLE_CHILD_NAME] =
     g_param_spec_string ("visible-child-name", NULL, NULL,
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:transition-type: (attributes org.gtk.Property.get=adw_leaflet_get_transition_type org.gtk.Property.set=adw_leaflet_set_transition_type)
@@ -2298,7 +2298,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE, ADW_LEAFLET_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:mode-transition-duration: (attributes org.gtk.Property.get=adw_leaflet_get_mode_transition_duration org.gtk.Property.set=adw_leaflet_set_mode_transition_duration)
@@ -2310,7 +2310,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration", NULL, NULL,
                        0, G_MAXUINT, 250,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:child-transition-params: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_params org.gtk.Property.set=adw_leaflet_set_child_transition_params)
@@ -2328,7 +2328,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CHILD_TRANSITION_PARAMS] =
     g_param_spec_boxed ("child-transition-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:child-transition-running: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_running)
@@ -2340,7 +2340,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CHILD_TRANSITION_RUNNING] =
     g_param_spec_boolean ("child-transition-running", NULL, NULL,
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:can-navigate-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_back org.gtk.Property.set=adw_leaflet_set_can_navigate_back)
@@ -2368,7 +2368,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CAN_NAVIGATE_BACK] =
     g_param_spec_boolean ("can-navigate-back", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:can-navigate-forward: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_forward org.gtk.Property.set=adw_leaflet_set_can_navigate_forward)
@@ -2396,7 +2396,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CAN_NAVIGATE_FORWARD] =
     g_param_spec_boolean ("can-navigate-forward", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwLeaflet:pages: (attributes org.gtk.Property.get=adw_leaflet_get_pages)
@@ -2412,7 +2412,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
  props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

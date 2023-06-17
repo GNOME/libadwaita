@@ -1273,7 +1273,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_CONTENT] =
     g_param_spec_object ("content", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:flap: (attributes org.gtk.Property.get=adw_flap_get_flap org.gtk.Property.set=adw_flap_set_flap)
@@ -1287,7 +1287,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_FLAP] =
     g_param_spec_object ("flap", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:separator: (attributes org.gtk.Property.get=adw_flap_get_separator org.gtk.Property.set=adw_flap_set_separator)
@@ -1303,7 +1303,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_SEPARATOR] =
     g_param_spec_object ("separator", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:flap-position: (attributes org.gtk.Property.get=adw_flap_get_flap_position org.gtk.Property.set=adw_flap_set_flap_position)
@@ -1319,7 +1319,7 @@ adw_flap_class_init (AdwFlapClass *klass)
     g_param_spec_enum ("flap-position", NULL, NULL,
                        GTK_TYPE_PACK_TYPE,
                        GTK_PACK_START,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:reveal-flap: (attributes org.gtk.Property.get=adw_flap_get_reveal_flap org.gtk.Property.set=adw_flap_set_reveal_flap)
@@ -1331,7 +1331,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_REVEAL_FLAP] =
     g_param_spec_boolean ("reveal-flap", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:reveal-params: (attributes org.gtk.Property.get=adw_flap_get_reveal_params org.gtk.Property.set=adw_flap_set_reveal_params)
@@ -1349,7 +1349,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_REVEAL_PARAMS] =
     g_param_spec_boxed ("reveal-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:reveal-progress: (attributes org.gtk.Property.get=adw_flap_get_reveal_progress)
@@ -1365,7 +1365,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_REVEAL_PROGRESS] =
     g_param_spec_double ("reveal-progress", NULL, NULL,
                           0.0, 1.0, 1.0,
-                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:fold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_policy org.gtk.Property.set=adw_flap_set_fold_policy)
@@ -1378,7 +1378,7 @@ adw_flap_class_init (AdwFlapClass *klass)
     g_param_spec_enum ("fold-policy", NULL, NULL,
                        ADW_TYPE_FLAP_FOLD_POLICY,
                        ADW_FLAP_FOLD_POLICY_AUTO,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:fold-threshold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_threshold_policy org.gtk.Property.set=adw_flap_set_fold_threshold_policy)
@@ -1398,7 +1398,7 @@ adw_flap_class_init (AdwFlapClass *klass)
     g_param_spec_enum ("fold-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:fold-duration: (attributes org.gtk.Property.get=adw_flap_get_fold_duration org.gtk.Property.set=adw_flap_set_fold_duration)
@@ -1411,7 +1411,7 @@ adw_flap_class_init (AdwFlapClass *klass)
     g_param_spec_uint ("fold-duration", NULL, NULL,
                        0, G_MAXINT,
                        250,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:folded: (attributes org.gtk.Property.get=adw_flap_get_folded)
@@ -1425,7 +1425,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded", NULL, NULL,
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:locked: (attributes org.gtk.Property.get=adw_flap_get_locked org.gtk.Property.set=adw_flap_set_locked)
@@ -1441,7 +1441,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_LOCKED] =
     g_param_spec_boolean ("locked", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:transition-type: (attributes org.gtk.Property.get=adw_flap_get_transition_type org.gtk.Property.set=adw_flap_set_transition_type)
@@ -1459,7 +1459,7 @@ adw_flap_class_init (AdwFlapClass *klass)
     g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_FLAP_TRANSITION_TYPE,
                        ADW_FLAP_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:modal: (attributes org.gtk.Property.get=adw_flap_get_modal org.gtk.Property.set=adw_flap_set_modal)
@@ -1475,7 +1475,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_MODAL] =
     g_param_spec_boolean ("modal", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:swipe-to-open: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_open org.gtk.Property.set=adw_flap_set_swipe_to_open)
@@ -1490,7 +1490,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_SWIPE_TO_OPEN] =
     g_param_spec_boolean ("swipe-to-open", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwFlap:swipe-to-close: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_close org.gtk.Property.set=adw_flap_set_swipe_to_close)
@@ -1505,7 +1505,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   props[PROP_SWIPE_TO_CLOSE] =
     g_param_spec_boolean ("swipe-to-close", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

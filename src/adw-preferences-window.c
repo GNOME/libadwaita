@@ -642,7 +642,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   props[PROP_CAN_NAVIGATE_BACK] =
     g_param_spec_boolean ("can-navigate-back", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

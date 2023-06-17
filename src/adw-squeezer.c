@@ -227,7 +227,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezerPage:enabled: (attributes org.gtk.Property.get=adw_squeezer_page_get_enabled org.gtk.Property.set=adw_squeezer_page_set_enabled)
@@ -248,7 +248,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
   page_props[PAGE_PROP_ENABLED] =
     g_param_spec_boolean ("enabled", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 }
@@ -1049,7 +1049,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:homogeneous: (attributes org.gtk.Property.get=adw_squeezer_get_homogeneous org.gtk.Property.set=adw_squeezer_set_homogeneous)
@@ -1065,7 +1065,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:switch-threshold-policy: (attributes org.gtk.Property.get=adw_squeezer_get_switch_threshold_policy org.gtk.Property.set=adw_squeezer_set_switch_threshold_policy)
@@ -1087,7 +1087,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
     g_param_spec_enum ("switch-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_NATURAL,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:allow-none: (attributes org.gtk.Property.get=adw_squeezer_get_allow_none org.gtk.Property.set=adw_squeezer_set_allow_none)
@@ -1103,7 +1103,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_ALLOW_NONE] =
     g_param_spec_boolean ("allow-none", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
@@ -1115,7 +1115,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_TRANSITION_DURATION] =
     g_param_spec_uint ("transition-duration", NULL, NULL,
                        0, G_MAXUINT, 200,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:transition-type: (attributes org.gtk.Property.get=adw_squeezer_get_transition_type org.gtk.Property.set=adw_squeezer_set_transition_type)
@@ -1128,7 +1128,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
     g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_SQUEEZER_TRANSITION_TYPE,
                        ADW_SQUEEZER_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:transition-running: (attributes org.gtk.Property.get=adw_squeezer_get_transition_running)
@@ -1144,7 +1144,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_TRANSITION_RUNNING] =
     g_param_spec_boolean ("transition-running", NULL, NULL,
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:interpolate-size: (attributes org.gtk.Property.get=adw_squeezer_get_interpolate_size org.gtk.Property.set=adw_squeezer_set_interpolate_size)
@@ -1161,7 +1161,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_INTERPOLATE_SIZE] =
     g_param_spec_boolean ("interpolate-size", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:xalign: (attributes org.gtk.Property.get=adw_squeezer_get_xalign org.gtk.Property.set=adw_squeezer_set_xalign)
@@ -1180,7 +1180,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
     g_param_spec_float ("xalign", NULL, NULL,
                         0.0, 1.0,
                         0.5,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:yalign: (attributes org.gtk.Property.get=adw_squeezer_get_yalign org.gtk.Property.set=adw_squeezer_set_yalign)
@@ -1199,7 +1199,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
     g_param_spec_float ("yalign", NULL, NULL,
                         0.0, 1.0,
                         0.5,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwSqueezer:pages: (attributes org.gtk.Property.get=adw_squeezer_get_pages)
@@ -1214,7 +1214,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

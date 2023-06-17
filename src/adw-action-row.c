@@ -298,7 +298,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwActionRow:activatable-widget: (attributes org.gtk.Property.get=adw_action_row_get_activatable_widget org.gtk.Property.set=adw_action_row_set_activatable_widget)

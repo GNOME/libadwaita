@@ -290,7 +290,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   props[PROP_STACK] =
     g_param_spec_object ("stack", NULL, NULL,
                          ADW_TYPE_VIEW_STACK,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwViewSwitcherTitle:title: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title org.gtk.Property.set=adw_view_switcher_title_set_title)
@@ -305,7 +305,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwViewSwitcherTitle:subtitle: (attributes org.gtk.Property.get=adw_view_switcher_title_get_subtitle org.gtk.Property.set=adw_view_switcher_title_set_subtitle)
@@ -319,7 +319,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwViewSwitcherTitle:view-switcher-enabled: (attributes org.gtk.Property.get=adw_view_switcher_title_get_view_switcher_enabled org.gtk.Property.set=adw_view_switcher_title_set_view_switcher_enabled)
@@ -338,7 +338,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   props[PROP_VIEW_SWITCHER_ENABLED] =
     g_param_spec_boolean ("view-switcher-enabled", NULL, NULL,
                          TRUE,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
    * AdwViewSwitcherTitle:title-visible: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title_visible)
@@ -353,7 +353,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   props[PROP_TITLE_VISIBLE] =
     g_param_spec_boolean ("title-visible", NULL, NULL,
                          TRUE,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
