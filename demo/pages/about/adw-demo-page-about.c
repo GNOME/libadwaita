@@ -78,8 +78,6 @@ demo_run_cb (AdwDemoPageAbout *self)
                                                 special_thanks);
 
   gtk_window_present (GTK_WINDOW (about));
-
-  gtk_window_present (GTK_WINDOW (about));
 }
 
 static void
