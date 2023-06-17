@@ -555,7 +555,7 @@ measure_responses_do (AdwMessageDialog *self,
 
     if (horiz == compact) {
         min = MAX (min, child_min);
-        nat = MAX (nat, child_min);
+        nat = MAX (nat, child_nat);
       } else {
         min += child_min;
         nat += child_nat;
@@ -735,7 +735,7 @@ adw_message_dialog_measure (GtkWidget      *widget,
                                                                NULL, NULL);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    int wide_min, narrow_nat;
+    int wide_nat, narrow_nat;
 
     min_size = MAX (min_size, DIALOG_MIN_WIDTH);
 
@@ -746,12 +746,12 @@ adw_message_dialog_measure (GtkWidget      *widget,
       max_size = DIALOG_MAX_WIDTH;
     }
 
-    measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+    measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, NULL, &wide_nat);
     measure_responses_do (self, TRUE, GTK_ORIENTATION_HORIZONTAL, NULL, &narrow_nat);
 
     narrow_nat = MAX (narrow_nat, DIALOG_MIN_WIDTH);
 
-    if (max_size < wide_min)
+    if (max_size < wide_nat)
       max_size = MIN (max_size, narrow_nat);
   } else {
     max_size = priv->parent_height - DIALOG_MARGIN * 2;
