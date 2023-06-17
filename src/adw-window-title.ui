@@ -12,6 +12,7 @@
             <property name="wrap">False</property>
             <property name="single-line-mode">True</property>
             <property name="width-chars">5</property>
+            <property name="visible">False</property>
             <style>
               <class name="title"/>
             </style>
