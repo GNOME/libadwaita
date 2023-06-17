@@ -1886,6 +1886,7 @@ adw_about_window_init (AdwAboutWindow *self)
   self->debug_info_filename = g_strdup ("");
   self->copyright = g_strdup ("");
   self->license = g_strdup ("");
+  self->translator_credits = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -3045,7 +3046,7 @@ adw_about_window_set_translator_credits (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (translator_credits != NULL);
 
-  if (self->translator_credits == translator_credits)
+  if (g_strcmp0 (self->translator_credits, translator_credits) == 0)
     return;
 
   g_free (self->translator_credits);
