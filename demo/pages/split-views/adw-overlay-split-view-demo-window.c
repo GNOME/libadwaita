@@ -30,6 +30,8 @@ adw_overlay_split_view_demo_window_class_init (AdwOverlaySplitViewDemoWindowClas
   gtk_widget_class_bind_template_child (widget_class, AdwOverlaySplitViewDemoWindow, split_view);
   gtk_widget_class_bind_template_child (widget_class, AdwOverlaySplitViewDemoWindow, start_button);
   gtk_widget_class_bind_template_callback (widget_class, start_button_notify_active_cb);
+
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
 }
 
 static void

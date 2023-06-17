@@ -157,6 +157,8 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   gtk_widget_class_install_action (widget_class, "style.status-page", NULL, status_page_cb);
   gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, sidebar_cb);
   gtk_widget_class_install_action (widget_class, "style.dummy", NULL, dummy_cb);
+
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
 }
 
 static void
