@@ -17,6 +17,7 @@
               <object class="GtkButton">
                 <property name="label" translatable="yes">Navigation Split View</property>
                 <property name="action-name">demo.run-navigation</property>
+                <property name="can-shrink">True</property>
                 <style>
                   <class name="pill"/>
                 </style>
@@ -26,6 +27,7 @@
               <object class="GtkButton">
                 <property name="label" translatable="yes">Overlay Split View</property>
                 <property name="action-name">demo.run-overlay</property>
+                <property name="can-shrink">True</property>
                 <style>
                   <class name="pill"/>
                 </style>
