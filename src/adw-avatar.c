@@ -432,6 +432,7 @@ adw_avatar_init (AdwAvatar *self)
   gtk_widget_set_parent (GTK_WIDGET (self->custom_image), self->gizmo);
 
   self->text = g_strdup ("");
+  self->size = -1;
 
   set_class_color (self);
   update_initials (self);
