@@ -7,7 +7,7 @@
  */
 
 #include "config.h"
-#include "adw-navigation-view.h"
+#include "adw-navigation-view-private.h"
 
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
@@ -203,6 +203,8 @@ typedef struct
 
   GtkWidget *last_focus;
   gboolean remove_on_pop;
+
+  int block_signals;
 } AdwNavigationPagePrivate;
 
 static void adw_navigation_page_buildable_init (GtkBuildableIface *iface);
@@ -710,7 +712,7 @@ switch_page (AdwNavigationView *self,
   if (self->hiding_page && self->hiding_page != prev_page) {
     AdwNavigationPage *hiding_page = g_steal_pointer (&self->hiding_page);
 
-    g_signal_emit (hiding_page, page_signals[PAGE_SIGNAL_HIDDEN], 0);
+    adw_navigation_page_hidden (hiding_page);
 
     adw_animation_reset (self->transition);
 
@@ -728,7 +730,7 @@ switch_page (AdwNavigationView *self,
     gtk_widget_set_child_visible (GTK_WIDGET (page), TRUE);
 
     if (page != self->showing_page)
-      g_signal_emit (page, page_signals[PAGE_SIGNAL_SHOWING], 0);
+      adw_navigation_page_showing (page);
 
     if (contains_focus) {
       if (priv->last_focus)
@@ -756,7 +758,7 @@ switch_page (AdwNavigationView *self,
   adw_animation_reset (self->transition);
 
   if (prev_page && prev_page != self->hiding_page)
-    g_signal_emit (prev_page, page_signals[PAGE_SIGNAL_HIDING], 0);
+    adw_navigation_page_hiding (prev_page);
 
   g_set_object (&self->showing_page, page);
   g_set_object (&self->hiding_page, prev_page);
@@ -869,11 +871,11 @@ transition_done_cb (AdwNavigationView *self)
     AdwNavigationPage *hiding_page = g_steal_pointer (&self->hiding_page);
 
     if (self->transition_cancel) {
-      g_signal_emit (hiding_page, page_signals[PAGE_SIGNAL_SHOWN], 0);
+      adw_navigation_page_shown (hiding_page);
 
       gtk_widget_insert_before (GTK_WIDGET (hiding_page), GTK_WIDGET (self), NULL);
     } else {
-      g_signal_emit (hiding_page, page_signals[PAGE_SIGNAL_HIDDEN], 0);
+      adw_navigation_page_hidden (hiding_page);
 
       if (self->transition_pop && get_remove_on_pop (hiding_page))
         adw_navigation_view_remove (self, hiding_page);
@@ -888,14 +890,14 @@ transition_done_cb (AdwNavigationView *self)
     AdwNavigationPage *showing_page = g_steal_pointer (&self->showing_page);
 
     if (self->transition_cancel) {
-      g_signal_emit (showing_page, page_signals[PAGE_SIGNAL_HIDDEN], 0);
+      adw_navigation_page_hidden (showing_page);
 
       if (!self->transition_pop && get_remove_on_pop (showing_page))
         adw_navigation_view_remove (self, showing_page);
       else
         gtk_widget_set_child_visible (GTK_WIDGET (showing_page), FALSE);
     } else {
-      g_signal_emit (showing_page, page_signals[PAGE_SIGNAL_SHOWN], 0);
+      adw_navigation_page_shown (showing_page);
 
       gtk_widget_insert_before (GTK_WIDGET (showing_page), GTK_WIDGET (self), NULL);
     }
@@ -1204,8 +1206,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
   gtk_widget_insert_before (GTK_WIDGET (self->shield), GTK_WIDGET (self), NULL);
   gtk_widget_set_child_visible (self->shield, TRUE);
 
-  g_signal_emit (self->showing_page, page_signals[PAGE_SIGNAL_SHOWING], 0);
-  g_signal_emit (self->hiding_page, page_signals[PAGE_SIGNAL_HIDING], 0);
+  adw_navigation_page_showing (self->showing_page);
+  adw_navigation_page_hiding (self->hiding_page);
 
   self->gesture_active = TRUE;
 
@@ -2210,6 +2212,72 @@ adw_navigation_page_set_can_pop (AdwNavigationPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CAN_POP]);
 }
 
+void
+adw_navigation_page_showing (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  if (!priv->block_signals)
+    g_signal_emit (self, page_signals[PAGE_SIGNAL_SHOWING], 0);
+}
+
+void
+adw_navigation_page_shown (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  if (!priv->block_signals)
+    g_signal_emit (self, page_signals[PAGE_SIGNAL_SHOWN], 0);
+}
+
+void
+adw_navigation_page_hiding (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  if (!priv->block_signals)
+    g_signal_emit (self, page_signals[PAGE_SIGNAL_HIDING], 0);
+}
+
+void
+adw_navigation_page_hidden (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  if (!priv->block_signals)
+    g_signal_emit (self, page_signals[PAGE_SIGNAL_HIDDEN], 0);
+}
+
+void
+adw_navigation_page_block_signals (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  priv->block_signals++;
+}
+
+void
+adw_navigation_page_unblock_signals (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  g_assert (priv->block_signals > 0);
+
+  priv->block_signals--;
+}
+
 /**
  * adw_navigation_view_new:
  *
@@ -2559,8 +2627,8 @@ adw_navigation_view_replace (AdwNavigationView  *self,
     if (get_remove_on_pop (c) &&
         !g_hash_table_contains (added_pages, c)) {
       if (c == visible_page) {
-        g_signal_emit (visible_page, page_signals[PAGE_SIGNAL_HIDING], 0);
-        g_signal_emit (visible_page, page_signals[PAGE_SIGNAL_HIDDEN], 0);
+        adw_navigation_page_hiding (visible_page);
+        adw_navigation_page_hidden (visible_page);
         visible_page = NULL;
       }
 
