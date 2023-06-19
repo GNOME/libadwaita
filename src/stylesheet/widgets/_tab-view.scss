@@ -5,7 +5,7 @@ tabbar {
 
   tabbox {
     > tabboxchild {
-      @include focus-ring();
+      @include focus-ring($focus-state: ':focus-within:focus-visible');
       border-radius: $button_radius;
       margin-bottom: 5px;
       margin-top: 5px;
