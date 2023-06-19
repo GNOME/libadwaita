@@ -712,13 +712,22 @@ adw_tab_bar_tabs_have_visible_focus (AdwTabBar *self)
   g_return_val_if_fail (ADW_IS_TAB_BAR (self), FALSE);
 
   pinned_focus_child = gtk_widget_get_focus_child (GTK_WIDGET (self->pinned_box));
+
+  if (pinned_focus_child) {
+    GtkWidget *tab = gtk_widget_get_first_child (pinned_focus_child);
+
+    if (gtk_widget_has_visible_focus (tab))
+      return TRUE;
+  }
+
   scroll_focus_child = gtk_widget_get_focus_child (GTK_WIDGET (self->box));
 
-  if (pinned_focus_child && gtk_widget_has_visible_focus (pinned_focus_child))
-    return TRUE;
+  if (scroll_focus_child) {
+    GtkWidget *tab = gtk_widget_get_first_child (scroll_focus_child);
 
-  if (scroll_focus_child && gtk_widget_has_visible_focus (scroll_focus_child))
-    return TRUE;
+    if (gtk_widget_has_visible_focus (tab))
+      return TRUE;
+  }
 
   return FALSE;
 }

@@ -1828,10 +1828,12 @@ create_tab_info (AdwTabBox  *self,
   info->unshifted_pos = -1;
   info->pos = -1;
   info->width = -1;
-  info->container = adw_gizmo_new ("tabboxchild", measure_tab, allocate_tab,
-                                   NULL, NULL,
-                                   (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                   (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_self);
+  info->container = adw_gizmo_new_with_role ("tabboxchild",
+                                             GTK_ACCESSIBLE_ROLE_GROUP,
+                                             measure_tab, allocate_tab,
+                                             NULL, NULL,
+                                             (AdwGizmoFocusFunc) adw_widget_focus_child,
+                                             (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
   info->tab = adw_tab_new (self->view, self->pinned);
 
   g_object_set_data (G_OBJECT (info->container), "info", info);
@@ -3711,6 +3713,7 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
   add_reorder_bindings (widget_class, GDK_KEY_End,       GTK_DIR_TAB_FORWARD,  TRUE);
 
   gtk_widget_class_set_css_name (widget_class, "tabbox");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB_LIST);
 }
 
 static void
