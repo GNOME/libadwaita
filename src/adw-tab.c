@@ -842,6 +842,7 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_add_binding (widget_class, GDK_KEY_KP_Enter,  0, (GtkShortcutFunc) activate_cb, NULL);
 
   gtk_widget_class_set_css_name (widget_class, "tab");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
 
   g_type_ensure (ADW_TYPE_FADING_LABEL);
   g_type_ensure (ADW_TYPE_GIZMO);
