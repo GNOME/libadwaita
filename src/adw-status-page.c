@@ -214,7 +214,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   /**
    * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
    *
-   * The title to be displayed below the icon.
+   * The title to be displayed below the icon. It is not parsed as Pango markup.
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -224,7 +224,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   /**
    * AdwStatusPage:description: (attributes org.gtk.Property.get=adw_status_page_get_description org.gtk.Property.set=adw_status_page_set_description)
    *
-   * The description to be displayed below the title.
+   * The description markup to be displayed below the title.
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description", NULL, NULL,
@@ -423,7 +423,7 @@ adw_status_page_get_title (AdwStatusPage *self)
  *
  * Sets the title for @self.
  *
- * The title is displayed below the icon.
+ * The title is displayed below the icon. It is not parsed as Pango markup.
  */
 void
 adw_status_page_set_title (AdwStatusPage *self,
@@ -443,7 +443,7 @@ adw_status_page_set_title (AdwStatusPage *self,
  * adw_status_page_get_description: (attributes org.gtk.Method.get_property=description)
  * @self: a status page
  *
- * Gets the description for @self.
+ * Gets the description markup for @self.
  *
  * Returns: (nullable): the description
  */
@@ -460,9 +460,9 @@ adw_status_page_get_description (AdwStatusPage *self)
  * @self: a status page
  * @description: (nullable): the description
  *
- * Sets the description for @self.
+ * Sets the description markup for @self.
  *
- * The description is displayed below the title.
+ * The description is displayed below the title. It is parsed as Pango markup.
  */
 void
 adw_status_page_set_description (AdwStatusPage *self,
