@@ -1089,7 +1089,8 @@ invalidate_texture (AdwTabPaintable *self)
   if (!texture)
     return;
 
-  g_set_object (&self->cached_paintable, GDK_PAINTABLE (texture));
+  g_clear_object (&self->cached_paintable);
+  self->cached_paintable = GDK_PAINTABLE (texture);
 
   old_aspect_ratio = self->cached_aspect_ratio;
   self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
