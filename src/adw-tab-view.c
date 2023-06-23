@@ -23,6 +23,8 @@ static GSList *tab_view_list;
 #define MAX_ASPECT_RATIO 2.7
 #define DEFAULT_ICON_ALPHA_HC 0.3
 #define DEFAULT_ICON_ALPHA 0.15
+#define THUMBNAIL_BITMAP_WIDTH 500
+#define MIN_THUMBNAIL_BITMAP_HEIGHT 150
 
 /**
  * AdwTabView:
@@ -981,34 +983,115 @@ get_background_color (AdwTabPaintable *self,
 }
 
 static void
-invalidate_contents_and_clear_cache (AdwTabPaintable *self)
+transform_thumbnail (GtkSnapshot *snapshot,
+                     double       width,
+                     double       height,
+                     double       child_ratio,
+                     double       xalign,
+                     double       yalign,
+                     double      *adjusted_width,
+                     double      *adjusted_height)
 {
-  gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
+  double snapshot_ratio = width / height;
+  double new_width, new_height;
 
-  if (!self->frozen &&
-      self->page->bin &&
-      gtk_widget_get_mapped (self->page->bin))
-    g_clear_object (&self->cached_paintable);
+  new_width = width;
+  new_height = height;
+
+  if (child_ratio > snapshot_ratio) {
+    new_width = height * child_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT ((float) (width - new_width) * xalign, 0));
+  } else if (child_ratio < snapshot_ratio) {
+    new_height = width / child_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) * yalign));
+  }
+
+  if (adjusted_width)
+    *adjusted_width = new_width;
+  if (adjusted_height)
+    *adjusted_height = new_height;
 }
 
 static double
 get_unclamped_aspect_ratio (AdwTabPaintable *self)
 {
-  if (self->frozen || !self->view_paintable)
+  if (self->frozen)
     return self->cached_aspect_ratio;
 
   return gdk_paintable_get_intrinsic_aspect_ratio (self->view_paintable);
 }
 
-static void
-child_unmap_cb (AdwTabPaintable *self)
+static GdkTexture *
+render_child (AdwTabPaintable *self)
 {
+  GdkPaintable *current_paintable;
+  GtkSnapshot *snapshot;
+  GskRenderNode *node;
+  double aspect_ratio;
+  int scale_factor, width, height;
+  GtkNative *native;
+  GskRenderer *renderer;
+  graphene_rect_t bounds;
+  GdkTexture *ret;
+
   if (self->frozen)
+    return NULL;
+
+  current_paintable = gdk_paintable_get_current_image (self->child_paintable);
+
+  snapshot = gtk_snapshot_new ();
+
+  aspect_ratio = get_unclamped_aspect_ratio (self);
+  scale_factor = gtk_widget_get_scale_factor (self->view);
+
+  if (THUMBNAIL_BITMAP_WIDTH / aspect_ratio < MIN_THUMBNAIL_BITMAP_HEIGHT) {
+    height = MIN_THUMBNAIL_BITMAP_HEIGHT * scale_factor;
+    width = ceil (height * aspect_ratio) * scale_factor;
+  } else {
+    width = THUMBNAIL_BITMAP_WIDTH * scale_factor;
+    height = ceil (THUMBNAIL_BITMAP_WIDTH / aspect_ratio) * scale_factor;
+  }
+
+  gdk_paintable_snapshot (current_paintable, snapshot, width, height);
+  g_object_unref (current_paintable);
+
+  node = gtk_snapshot_free_to_node (snapshot);
+
+  if (!node)
+    return NULL;
+
+  native = gtk_widget_get_native (self->view);
+  renderer = gtk_native_get_renderer (native);
+
+  graphene_rect_init (&bounds, 0, 0, width, height);
+  ret = gsk_renderer_render_texture (renderer, node, &bounds);
+
+  gsk_render_node_unref (node);
+
+  return ret;
+}
+
+static void
+invalidate_texture (AdwTabPaintable *self)
+{
+  GdkTexture *texture;
+
+  if (!self->page->bin || !gtk_widget_get_mapped (self->page->bin))
     return;
 
-  g_clear_object (&self->cached_paintable);
-  self->cached_paintable = gdk_paintable_get_current_image (self->child_paintable);
+  texture = render_child (self);
+
+  if (!texture)
+    return;
+
+  g_set_object (&self->cached_paintable, GDK_PAINTABLE (texture));
   self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
+
+  gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
 }
 
 static void
@@ -1121,36 +1204,6 @@ snapshot_default_icon (GtkSnapshot *snapshot,
   gtk_snapshot_pop (snapshot);
 }
 
-static void
-snapshot_paintable (GtkSnapshot  *snapshot,
-                    double        width,
-                    double        height,
-                    GdkPaintable *paintable,
-                    double        paintable_ratio,
-                    double        xalign,
-                    double        yalign)
-{
-  double snapshot_ratio = width / height;
-
-  if (paintable_ratio > snapshot_ratio) {
-    double new_width = height * paintable_ratio;
-
-    gtk_snapshot_translate (snapshot,
-                            &GRAPHENE_POINT_INIT ((float) (width - new_width) * xalign, 0));
-
-    width = new_width;
-  } else if (paintable_ratio < snapshot_ratio) {
-    double new_height = width / paintable_ratio;
-
-    gtk_snapshot_translate (snapshot,
-                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) * yalign));
-
-    height = new_height;
-  }
-
-  gdk_paintable_snapshot (paintable, snapshot, width, height);
-}
-
 static GdkPaintable *
 adw_tab_paintable_get_current_image (GdkPaintable *paintable)
 {
@@ -1195,18 +1248,10 @@ adw_tab_paintable_snapshot (GdkPaintable *paintable,
   }
 
   if (self->cached_paintable) {
-    snapshot_paintable (GTK_SNAPSHOT (snapshot), width, height,
-                        self->cached_paintable, self->cached_aspect_ratio,
-                        xalign, yalign);
-    return;
-  }
+    transform_thumbnail (snapshot, width, height, self->cached_aspect_ratio,
+                         xalign, yalign, &width, &height);
 
-  if (child && gtk_widget_get_mapped (child)) {
-    double aspect_ratio = get_unclamped_aspect_ratio (self);
-
-    snapshot_paintable (GTK_SNAPSHOT (snapshot), width, height,
-                        self->child_paintable, aspect_ratio,
-                        xalign, yalign);
+    gdk_paintable_snapshot (self->cached_paintable, snapshot, width, height);
     return;
   }
 
@@ -1271,7 +1316,7 @@ adw_tab_paintable_new (AdwTabPage *page)
   self->child_paintable = gtk_widget_paintable_new (page->bin);
 
   g_signal_connect_swapped (self->child_paintable, "invalidate-contents",
-                            G_CALLBACK (invalidate_contents_and_clear_cache), self);
+                            G_CALLBACK (invalidate_texture), self);
 
   g_signal_connect_object (self->page, "notify::thumbnail-xalign",
                            G_CALLBACK (gdk_paintable_invalidate_contents), self,
@@ -1283,9 +1328,6 @@ adw_tab_paintable_new (AdwTabPage *page)
   g_signal_connect_object (page->bin, "notify::parent",
                            G_CALLBACK (child_parent_changed), self,
                            G_CONNECT_SWAPPED);
-  g_signal_connect_object (page->bin, "unmap",
-                           G_CALLBACK (child_unmap_cb), self,
-                           G_CONNECT_SWAPPED);
 
   return GDK_PAINTABLE (self);
 }
@@ -1293,13 +1335,6 @@ adw_tab_paintable_new (AdwTabPage *page)
 static void
 adw_tab_paintable_freeze (AdwTabPaintable *self)
 {
-  if (!self->cached_paintable) {
-    if (self->page->bin && gtk_widget_get_mapped (self->page->bin))
-      child_unmap_cb (self);
-    else
-      self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
-  }
-
   self->last_xalign = adw_tab_page_get_thumbnail_xalign (self->page);
   self->last_yalign = adw_tab_page_get_thumbnail_yalign (self->page);
   get_background_color (self, &self->last_bg_color);
@@ -2113,8 +2148,6 @@ adw_tab_view_snapshot (GtkWidget   *widget,
       GtkSnapshot *child_snapshot = gtk_snapshot_new ();
 
       gtk_widget_snapshot_child (widget, page->bin, child_snapshot);
-
-      child_unmap_cb (ADW_TAB_PAINTABLE (page->paintable));
 
       g_object_unref (child_snapshot);
     }
@@ -4625,3 +4658,4 @@ adw_tab_view_close_overview (AdwTabView *self)
 
   g_assert (self->overview_count >= 0);
 }
+
