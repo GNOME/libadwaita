@@ -732,12 +732,16 @@ adw_tab_thumbnail_fade_out (AdwTabThumbnail *self)
   g_return_if_fail (ADW_IS_TAB_THUMBNAIL (self));
 
   adw_animation_reset (self->fade_animation);
+
+  gtk_widget_set_opacity (self->overlay, 0);
 }
 
 void
 adw_tab_thumbnail_fade_in (AdwTabThumbnail *self)
 {
   g_return_if_fail (ADW_IS_TAB_THUMBNAIL (self));
+
+  gtk_widget_set_opacity (self->overlay, 1);
 
   adw_animation_play (self->fade_animation);
 }
