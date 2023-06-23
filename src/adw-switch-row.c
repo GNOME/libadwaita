@@ -64,6 +64,11 @@ slider_notify_active_cb (AdwSwitchRow *self)
 {
   g_assert (ADW_IS_SWITCH_ROW (self));
 
+  gtk_accessible_update_state (GTK_ACCESSIBLE (self),
+                               GTK_ACCESSIBLE_STATE_CHECKED,
+                               gtk_switch_get_active (GTK_SWITCH (self->slider)),
+                               -1);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVE]);
 }
 
@@ -140,7 +145,11 @@ adw_switch_row_init (AdwSwitchRow *self)
 {
   self->slider = gtk_switch_new ();
   gtk_widget_set_valign (self->slider, GTK_ALIGN_CENTER);
-
+  gtk_accessible_update_state (GTK_ACCESSIBLE (self),
+                               GTK_ACCESSIBLE_STATE_CHECKED,
+                               FALSE,
+                               -1);
+  gtk_widget_set_can_focus (self->slider, FALSE);
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), TRUE);
   adw_action_row_add_suffix (ADW_ACTION_ROW (self), self->slider);
   adw_action_row_set_activatable_widget (ADW_ACTION_ROW (self), self->slider);
