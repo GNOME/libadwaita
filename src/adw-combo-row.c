@@ -79,6 +79,7 @@ typedef struct
   gboolean use_subtitle;
   gboolean enable_search;
 
+  gboolean uses_default_factory;
   GtkListItemFactory *factory;
   GtkListItemFactory *list_factory;
   GListModel *model;
@@ -339,6 +340,26 @@ unbind_item (GtkSignalListItemFactory *factory,
 }
 
 static void
+set_factory (AdwComboRow        *self,
+             GtkListItemFactory *factory,
+             gboolean            is_default)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
+  if (!g_set_object (&priv->factory, factory))
+    return;
+
+  gtk_list_view_set_factory (priv->current, factory);
+
+  priv->uses_default_factory = is_default;
+
+  if (priv->list_factory == NULL)
+    gtk_list_view_set_factory (priv->list, factory);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FACTORY]);
+}
+
+static void
 set_default_factory (AdwComboRow *self)
 {
   GtkListItemFactory *factory = gtk_signal_list_item_factory_new ();
@@ -347,7 +368,7 @@ set_default_factory (AdwComboRow *self)
   g_signal_connect (factory, "bind", G_CALLBACK (bind_item), self);
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), self);
 
-  adw_combo_row_set_factory (self, factory);
+  set_factory (self, factory, TRUE);
 
   g_object_unref (factory);
 }
@@ -843,22 +864,10 @@ void
 adw_combo_row_set_factory (AdwComboRow        *self,
                            GtkListItemFactory *factory)
 {
-  AdwComboRowPrivate *priv;
-
   g_return_if_fail (ADW_IS_COMBO_ROW (self));
   g_return_if_fail (factory == NULL || GTK_LIST_ITEM_FACTORY (factory));
 
-  priv = adw_combo_row_get_instance_private (self);
-
-  if (!g_set_object (&priv->factory, factory))
-    return;
-
-  gtk_list_view_set_factory (priv->current, factory);
-
-  if (priv->list_factory == NULL)
-    gtk_list_view_set_factory (priv->list, factory);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FACTORY]);
+  set_factory (self, factory, FALSE);
 }
 
 /**
@@ -969,6 +978,9 @@ adw_combo_row_set_expression (AdwComboRow   *self,
   selection_changed (self);
 
   update_filter (self);
+
+  if (priv->uses_default_factory)
+    set_default_factory (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPRESSION]);
 }
