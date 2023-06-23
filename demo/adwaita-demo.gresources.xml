@@ -12,7 +12,6 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-world-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-layout-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-search-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/row-copy-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-forbidden-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-preferences-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-shutdown-symbolic.svg</file>

@@ -92,6 +92,7 @@
                           <object class="GtkButton">
                             <property name="valign">center</property>
                             <property name="icon_name">edit-copy-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Copy</property>
                             <style>
                               <class name="flat"/>
                             </style>
@@ -192,7 +193,8 @@
                         <child type="suffix">
                           <object class="GtkButton">
                             <property name="valign">center</property>
-                            <property name="icon-name">row-copy-symbolic</property>
+                            <property name="icon_name">edit-copy-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Copy</property>
                             <style>
                               <class name="flat"/>
                             </style>
