@@ -1293,7 +1293,13 @@ adw_tab_paintable_new (AdwTabPage *page)
 static void
 adw_tab_paintable_freeze (AdwTabPaintable *self)
 {
-  child_unmap_cb (self);
+  if (!self->cached_paintable) {
+    if (self->page->bin && gtk_widget_get_mapped (self->page->bin))
+      child_unmap_cb (self);
+    else
+      self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
+  }
+
   self->last_xalign = adw_tab_page_get_thumbnail_xalign (self->page);
   self->last_yalign = adw_tab_page_get_thumbnail_yalign (self->page);
   get_background_color (self, &self->last_bg_color);
