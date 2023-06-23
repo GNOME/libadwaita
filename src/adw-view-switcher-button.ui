@@ -31,6 +31,7 @@
                 <property name="child">
                   <object class="GtkImage" id="horizontal_image">
                     <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+                    <property name="accessible-role">presentation</property>
                   </object>
                 </property>
               </object>
@@ -67,6 +68,7 @@
                 <property name="child">
                   <object class="GtkImage" id="vertical_image">
                     <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+                    <property name="accessible-role">presentation</property>
                   </object>
                 </property>
               </object>
