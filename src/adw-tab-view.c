@@ -1019,7 +1019,7 @@ transform_thumbnail (GtkSnapshot *snapshot,
 static double
 get_unclamped_aspect_ratio (AdwTabPaintable *self)
 {
-  if (self->frozen)
+  if (!self->view_paintable)
     return self->cached_aspect_ratio;
 
   return gdk_paintable_get_intrinsic_aspect_ratio (self->view_paintable);
@@ -1079,6 +1079,7 @@ static void
 invalidate_texture (AdwTabPaintable *self)
 {
   GdkTexture *texture;
+  double old_aspect_ratio;
 
   if (!self->page->bin || !gtk_widget_get_mapped (self->page->bin))
     return;
@@ -1089,9 +1090,14 @@ invalidate_texture (AdwTabPaintable *self)
     return;
 
   g_set_object (&self->cached_paintable, GDK_PAINTABLE (texture));
+
+  old_aspect_ratio = self->cached_aspect_ratio;
   self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
 
-  gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
+  if (G_APPROX_VALUE (old_aspect_ratio, self->cached_aspect_ratio, DBL_EPSILON))
+    gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
+  else
+    gdk_paintable_invalidate_size (GDK_PAINTABLE (self));
 }
 
 static void
@@ -1102,6 +1108,8 @@ connect_to_view (AdwTabPaintable *self)
 
   self->view = gtk_widget_get_parent (self->page->bin);
   self->view_paintable = gtk_widget_paintable_new (self->view);
+
+  self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
 
   g_signal_connect_swapped (self->view_paintable, "invalidate-size",
                             G_CALLBACK (gdk_paintable_invalidate_size), self);
@@ -1125,9 +1133,8 @@ static double
 adw_tab_paintable_get_intrinsic_aspect_ratio (GdkPaintable *paintable)
 {
   AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
-  double ratio = get_unclamped_aspect_ratio (self);
 
-  return CLAMP (ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
+  return CLAMP (self->cached_aspect_ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
 }
 
 static void
