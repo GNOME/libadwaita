@@ -23,8 +23,10 @@ static GSList *tab_view_list;
 #define MAX_ASPECT_RATIO 2.7
 #define DEFAULT_ICON_ALPHA_HC 0.3
 #define DEFAULT_ICON_ALPHA 0.15
-#define THUMBNAIL_BITMAP_WIDTH 500
-#define MIN_THUMBNAIL_BITMAP_HEIGHT 150
+#define MIN_THUMBNAIL_BITMAP_WIDTH 250
+#define MAX_THUMBNAIL_BITMAP_WIDTH 500
+#define MIN_THUMBNAIL_BITMAP_HEIGHT 200
+#define MAX_THUMBNAIL_BITMAP_HEIGHT 600
 
 /**
  * AdwTabView:
@@ -1048,12 +1050,20 @@ render_child (AdwTabPaintable *self)
   aspect_ratio = get_unclamped_aspect_ratio (self);
   scale_factor = gtk_widget_get_scale_factor (self->view);
 
-  if (THUMBNAIL_BITMAP_WIDTH / aspect_ratio < MIN_THUMBNAIL_BITMAP_HEIGHT) {
+  if (MAX_THUMBNAIL_BITMAP_WIDTH / aspect_ratio < MIN_THUMBNAIL_BITMAP_HEIGHT) {
     height = MIN_THUMBNAIL_BITMAP_HEIGHT * scale_factor;
     width = ceil (height * aspect_ratio) * scale_factor;
+  } else if (MAX_THUMBNAIL_BITMAP_WIDTH / aspect_ratio > MAX_THUMBNAIL_BITMAP_HEIGHT) {
+    height = MAX_THUMBNAIL_BITMAP_HEIGHT * scale_factor;
+    width = ceil (height * aspect_ratio) * scale_factor;
   } else {
-    width = THUMBNAIL_BITMAP_WIDTH * scale_factor;
-    height = ceil (THUMBNAIL_BITMAP_WIDTH / aspect_ratio) * scale_factor;
+    width = MAX_THUMBNAIL_BITMAP_WIDTH * scale_factor;
+    height = ceil (MAX_THUMBNAIL_BITMAP_WIDTH / aspect_ratio) * scale_factor;
+  }
+
+  if (width < MIN_THUMBNAIL_BITMAP_WIDTH * scale_factor) {
+    width = MIN_THUMBNAIL_BITMAP_WIDTH * scale_factor;
+    height = ceil (MIN_THUMBNAIL_BITMAP_WIDTH / aspect_ratio) * scale_factor;
   }
 
   gdk_paintable_snapshot (current_paintable, snapshot, width, height);
