@@ -1084,6 +1084,15 @@ invalidate_texture (AdwTabPaintable *self)
   if (!self->page->bin || !gtk_widget_get_mapped (self->page->bin))
     return;
 
+  if (self->view) {
+    AdwTabView *view = ADW_TAB_VIEW (self->view);
+
+    if (!view->overview_count) {
+      adw_tab_page_invalidate_thumbnail (self->page);
+      return;
+    }
+  }
+
   texture = render_child (self);
 
   if (!texture)
@@ -1102,6 +1111,15 @@ invalidate_texture (AdwTabPaintable *self)
 }
 
 static void
+invalidate_size_cb (AdwTabPaintable *self)
+{
+  if (!self->cached_paintable)
+    self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
+
+  gdk_paintable_invalidate_size (GDK_PAINTABLE (self));
+}
+
+static void
 connect_to_view (AdwTabPaintable *self)
 {
   if (self->view || !gtk_widget_get_parent (self->page->bin))
@@ -1110,10 +1128,10 @@ connect_to_view (AdwTabPaintable *self)
   self->view = gtk_widget_get_parent (self->page->bin);
   self->view_paintable = gtk_widget_paintable_new (self->view);
 
-  self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
-
   g_signal_connect_swapped (self->view_paintable, "invalidate-size",
-                            G_CALLBACK (gdk_paintable_invalidate_size), self);
+                            G_CALLBACK (invalidate_size_cb), self);
+
+  adw_tab_page_invalidate_thumbnail (self->page);
 }
 
 static void
@@ -1134,8 +1152,14 @@ static double
 adw_tab_paintable_get_intrinsic_aspect_ratio (GdkPaintable *paintable)
 {
   AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
+  double ratio;
 
-  return CLAMP (self->cached_aspect_ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
+  if (self->view_paintable)
+    ratio = gdk_paintable_get_intrinsic_aspect_ratio (self->view_paintable);
+  else
+    ratio = self->cached_aspect_ratio;
+
+  return CLAMP (ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
 }
 
 static void
@@ -2142,15 +2166,13 @@ adw_tab_view_snapshot (GtkWidget   *widget,
   for (i = 0; i < self->n_pages; i++) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
 
-    if (page == self->selected_page) {
-      page->invalidated = FALSE;
-      continue;
-    }
-
     if (!gtk_widget_get_child_visible (page->bin))
       continue;
 
     if (page->paintable) {
+      if (page == self->selected_page && page->invalidated)
+        gtk_widget_queue_draw (page->bin);
+
       /* We don't want to actually draw the child, but we do need it
        * to redraw so that it can be displayed by its paintable */
       GtkSnapshot *child_snapshot = gtk_snapshot_new ();
@@ -3361,6 +3383,9 @@ void
 adw_tab_page_invalidate_thumbnail (AdwTabPage *self)
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  if (self->invalidated)
+    return;
 
   self->invalidated = TRUE;
 
