@@ -46,6 +46,19 @@ test_adw_spin_row_configure (void)
   g_assert_finalize_object (adjustment);
 }
 
+static void
+test_adw_spin_row_set_range (void)
+{
+  AdwSpinRow *row = g_object_ref_sink (ADW_SPIN_ROW (adw_spin_row_new_with_range (1, 2, 1)));
+
+  g_assert_true (G_APPROX_VALUE (adw_spin_row_get_value (row), 1, DBL_EPSILON));
+
+  adw_spin_row_set_range (row, 2, 3);
+
+  g_assert_true (G_APPROX_VALUE (adw_spin_row_get_value (row), 2, DBL_EPSILON));
+  g_assert_finalize_object (row);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -55,6 +68,7 @@ main (int   argc,
 
   g_test_add_func("/Adwaita/SpinRow/new_with_range", test_adw_spin_row_new_with_range);
   g_test_add_func("/Adwaita/SpinRow/configure", test_adw_spin_row_configure);
+  g_test_add_func("/Adwaita/SpinRow/set_range", test_adw_spin_row_set_range);
 
   return g_test_run();
 }

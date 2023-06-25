@@ -974,3 +974,26 @@ adw_spin_row_update (AdwSpinRow *self)
 
   gtk_spin_button_update (GTK_SPIN_BUTTON (self->spin_button));
 }
+
+/**
+ * adw_spin_row_set_range:
+ * @self: a spin row
+ * @min: minimum allowable value
+ * @max: maximum allowable value
+ *
+ * Sets the minimum and maximum allowable values for @self.
+ *
+ * If the current value is outside this range, it will be adjusted
+ * to fit within the range, otherwise it will remain unchanged.
+ *
+ * Since: 1.4
+ */
+void
+adw_spin_row_set_range (AdwSpinRow *self,
+                        double      min,
+                        double      max)
+{
+  g_return_if_fail (ADW_IS_SPIN_ROW (self));
+
+  gtk_spin_button_set_range (GTK_SPIN_BUTTON (self->spin_button), min, max);
+}

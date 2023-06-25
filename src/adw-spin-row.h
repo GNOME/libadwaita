@@ -88,4 +88,9 @@ void     adw_spin_row_set_wrap (AdwSpinRow *self,
 ADW_AVAILABLE_IN_1_4
 void adw_spin_row_update (AdwSpinRow *self);
 
+ADW_AVAILABLE_IN_1_4
+void adw_spin_row_set_range (AdwSpinRow *self,
+                             double      min,
+                             double      max);
+
 G_END_DECLS
