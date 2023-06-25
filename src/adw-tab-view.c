@@ -2178,12 +2178,8 @@ adw_tab_view_snapshot (GtkWidget   *widget,
       continue;
 
     if (page->paintable) {
-      if (page == self->selected_page) {
-        if (page->invalidated)
-          gtk_widget_queue_draw (page->bin);
-
-        continue;
-      }
+      if (page == self->selected_page && page->invalidated)
+        gtk_widget_queue_draw (page->bin);
 
       /* We don't want to actually draw the child, but we do need it
        * to redraw so that it can be displayed by its paintable */
