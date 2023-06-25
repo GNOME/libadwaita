@@ -346,7 +346,7 @@ map_or_unmap_page (AdwTabPage *self)
     return;
 
   should_be_visible = self == view->selected_page ||
-  page_should_be_visible (view, self);
+                      page_should_be_visible (view, self);
 
   if (gtk_widget_get_child_visible (self->bin) == should_be_visible)
     return;
@@ -1140,8 +1140,6 @@ connect_to_view (AdwTabPaintable *self)
 
   g_signal_connect_swapped (self->view_paintable, "invalidate-size",
                             G_CALLBACK (invalidate_size_cb), self);
-
-  adw_tab_page_invalidate_thumbnail (self->page);
 }
 
 static void
@@ -2180,8 +2178,12 @@ adw_tab_view_snapshot (GtkWidget   *widget,
       continue;
 
     if (page->paintable) {
-      if (page == self->selected_page && page->invalidated)
-        gtk_widget_queue_draw (page->bin);
+      if (page == self->selected_page) {
+        if (page->invalidated)
+          gtk_widget_queue_draw (page->bin);
+
+        continue;
+      }
 
       /* We don't want to actually draw the child, but we do need it
        * to redraw so that it can be displayed by its paintable */
