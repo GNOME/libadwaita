@@ -38,10 +38,6 @@
  *
  * `AdwClampLayout` can scale with the text scale factor, use the
  * [property@ClampLayout:unit] property to enable that behavior.
- *
- * Each child will get the style  classes .large when it reached its maximum
- * size, .small when it's allocated the full size, .medium in-between, or none
- * if it hasn't been allocated yet.
  */
 
 #define ADW_EASE_OUT_TAN_CUBIC 3
