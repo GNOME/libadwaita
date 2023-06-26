@@ -6,7 +6,7 @@
 
 /*
  * Heavily based on GTK 3.99.3 GtkDropDown widget initially written by Matthias
- * Clasen, and heavily modified for libadwaita by Alexander Mikhaylenko on
+ * Clasen, and heavily modified for libadwaita by Alice Mikhaylenko on
  * behalf of Purism SPC 2020.
  */
 

@@ -36,7 +36,7 @@ show_about (GSimpleAction *action,
 {
   const char *developers[] = {
     "Adrien Plazas",
-    "Alexander Mikhaylenko",
+    "Alice Mikhaylenko",
     "Andrei Lișiță",
     "Guido Günther",
     "Jamie Murphy",

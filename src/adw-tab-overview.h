@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: LGPL-2.1+
  *
- * Author: Alexander Mikhaylenko <alexander.mikhaylenko@puri.sm>
+ * Author: Alice Mikhaylenko <alice.mikhaylenko@puri.sm>
  */
 
 #pragma once

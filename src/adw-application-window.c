@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexander Mikhaylenko <alexm@gnome.org>
+ * Copyright (C) 2020 Alice Mikhaylenko <alicem@gnome.org>
  * Copyright (C) 2023 Purism SPC
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
