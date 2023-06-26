@@ -1009,6 +1009,14 @@ open_animation_done_cb (AdwTabOverview *self)
   gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
+static inline double
+inverse_lerp (double a,
+              double b,
+              double t)
+{
+  return (t - a) / (b - a);
+}
+
 static void
 calculate_bounds (AdwTabOverview  *self,
                   graphene_rect_t *bounds,
@@ -1058,11 +1066,18 @@ calculate_bounds (AdwTabOverview  *self,
                       adw_lerp (1, thumbnail_bounds.size.width / view_bounds.size.width, self->progress),
                       adw_lerp (1, thumbnail_bounds.size.height / view_bounds.size.height, self->progress));
 
-  graphene_rect_init (transition_bounds,
-                      adw_lerp (0, thumbnail_bounds.origin.x, self->progress),
-                      adw_lerp (0, thumbnail_bounds.origin.y, self->progress),
+  graphene_size_init (&transition_bounds->size,
                       clip_bounds->size.width * clip_scale->width,
                       clip_bounds->size.height * clip_scale->height);
+  graphene_point_init (&transition_bounds->origin,
+                       adw_lerp (0, thumbnail_bounds.origin.x,
+                                 inverse_lerp (bounds->size.width,
+                                               thumbnail_bounds.size.width,
+                                               transition_bounds->size.width)),
+                       adw_lerp (0, thumbnail_bounds.origin.y,
+                                 inverse_lerp (bounds->size.height,
+                                               thumbnail_bounds.size.height,
+                                               transition_bounds->size.height)));
 }
 
 static void
