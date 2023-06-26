@@ -716,7 +716,7 @@ Specify the header bar's title using [property@Gtk.Window:title] or
     <object class="AdwBreakpoint">
       <condition>max-width: 550sp</condition>
       <setter object="header_bar" property="title-widget"/>
-      <setter object="switcher_bar" property="reveal">True</property>
+      <setter object="switcher_bar" property="reveal">True</setter>
     </object>
   </child>
   <property name="child">
