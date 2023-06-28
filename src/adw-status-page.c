@@ -214,7 +214,9 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   /**
    * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
    *
-   * The title to be displayed below the icon. It is not parsed as Pango markup.
+   * The title to be displayed below the icon. ]
+   * 
+   * It is not parsed as Pango markup.
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
