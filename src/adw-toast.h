@@ -82,6 +82,12 @@ ADW_AVAILABLE_IN_1_2
 void       adw_toast_set_custom_title (AdwToast  *self,
                                        GtkWidget *widget);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_toast_get_use_markup (AdwToast *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_toast_set_use_markup (AdwToast *self,
+                                   gboolean  use_markup);
+
 ADW_AVAILABLE_IN_ALL
 void adw_toast_dismiss (AdwToast *self);
 

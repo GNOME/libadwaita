@@ -45,6 +45,9 @@
  * [property@Toast:priority] determines how it behaves if another toast is
  * already being displayed.
  *
+ * Toast titles use Pango markup by default, set [property@Toast:use-markup] to
+ * `FALSE` if this is unwanted.
+ *
  * [property@Toast:custom-title] can be used to replace the title label with a
  * custom widget.
  *
@@ -154,6 +157,7 @@ struct _AdwToast {
   AdwToastPriority priority;
   guint timeout;
   GtkWidget *custom_title;
+  gboolean use_markup;
 
   AdwToastOverlay *overlay;
 };
@@ -167,7 +171,8 @@ enum {
   PROP_PRIORITY,
   PROP_TIMEOUT,
   PROP_CUSTOM_TITLE,
-  LAST_PROP,
+  PROP_USE_MARKUP,
+  LAST_PROP
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -241,6 +246,9 @@ adw_toast_get_property (GObject    *object,
   case PROP_CUSTOM_TITLE:
     g_value_set_object (value, adw_toast_get_custom_title (self));
     break;
+  case PROP_USE_MARKUP:
+    g_value_set_boolean (value, adw_toast_get_use_markup (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -275,6 +283,9 @@ adw_toast_set_property (GObject      *object,
     break;
   case PROP_CUSTOM_TITLE:
     adw_toast_set_custom_title (self, g_value_get_object (value));
+    break;
+  case PROP_USE_MARKUP:
+    adw_toast_set_use_markup (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -400,6 +411,20 @@ adw_toast_class_init (AdwToastClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwToast:use-markup: (attributes org.gtk.Property.get=adw_toast_get_use_markup org.gtk.Property.set=adw_toast_set_use_markup)
+   *
+   * Whether to use Pango markup for the toast title.
+   *
+   * See also [func@Pango.parse_markup].
+   *
+   * Since: 1.4
+   */
+  props[PROP_USE_MARKUP] =
+    g_param_spec_boolean ("use-markup", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -448,6 +473,7 @@ adw_toast_init (AdwToast *self)
   self->priority = ADW_TOAST_PRIORITY_NORMAL;
   self->timeout = 5;
   self->custom_title = NULL;
+  self->use_markup = TRUE;
 
   g_signal_connect (self, "dismissed", G_CALLBACK (dismissed_cb), self);
 }
@@ -950,4 +976,49 @@ adw_toast_set_overlay (AdwToast        *self,
   g_return_if_fail (overlay == NULL || ADW_IS_TOAST_OVERLAY (overlay));
 
   self->overlay = overlay;
+}
+
+/**
+ * adw_toast_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
+ * @self: a toast
+ *
+ * Gets whether to use Pango markup for the toast title.
+ *
+ * Returns: whether the toast uses markup
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_toast_get_use_markup (AdwToast *self)
+{
+  g_return_val_if_fail (ADW_IS_TOAST (self), FALSE);
+
+  return self->use_markup;
+}
+
+/**
+ * adw_toast_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
+ * @self: a toast
+ * @use_markup: whether to use markup
+ *
+ * Whether to use Pango markup for the toast title.
+ *
+ * See also [func@Pango.parse_markup].
+ *
+ * Since: 1.4
+ */
+void
+adw_toast_set_use_markup (AdwToast *self,
+                          gboolean  use_markup)
+{
+  g_return_if_fail (ADW_IS_TOAST (self));
+
+  use_markup = !!use_markup;
+
+  if (adw_toast_get_use_markup (self) == use_markup)
+    return;
+
+  self->use_markup = use_markup;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_MARKUP]);
 }

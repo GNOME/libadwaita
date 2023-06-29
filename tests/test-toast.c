@@ -298,6 +298,25 @@ test_adw_toast_custom_title_overlay (void)
   g_assert_finalize_object (widget);
 }
 
+static void
+test_adw_toast_use_markup (void)
+{
+  AdwToastOverlay *toast_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new()));
+  AdwToast *toast = adw_toast_new ("");
+
+  g_assert_nonnull (toast_overlay);
+  g_assert_nonnull (toast);
+
+  adw_toast_overlay_add_toast (toast_overlay, g_object_ref (toast));
+  adw_toast_set_use_markup (toast, FALSE);
+  adw_toast_set_title (toast, "<span false>bad markup</sp>");
+
+  g_assert_cmpstr (adw_toast_get_title (toast), ==, "<span false>bad markup</sp>");
+
+  g_assert_finalize_object (toast_overlay);
+  g_assert_finalize_object (toast);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -316,6 +335,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Toast/dismiss", test_adw_toast_dismiss);
   g_test_add_func ("/Adwaita/Toast/custom_title", test_adw_toast_custom_title);
   g_test_add_func ("/Adwaita/Toast/custom_title_overlay", test_adw_toast_custom_title_overlay);
+  g_test_add_func ("/Adwaita/Toast/use_markup", test_adw_toast_use_markup);
 
   return g_test_run ();
 }
