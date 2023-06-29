@@ -1429,8 +1429,10 @@ adw_breakpoint_buildable_custom_finished (GtkBuildable *buildable,
 
     condition = adw_breakpoint_condition_parse (data->condition->str);
 
-    if (condition)
+    if (condition) {
       adw_breakpoint_set_condition (ADW_BREAKPOINT (data->object), condition);
+      adw_breakpoint_condition_free (condition);
+    }
 
     condition_data_free (data);
     return;
