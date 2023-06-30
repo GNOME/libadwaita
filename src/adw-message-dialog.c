@@ -205,6 +205,8 @@ typedef struct
   GtkWindow *parent_window;
   int parent_width;
   int parent_height;
+
+  guint parent_state_idle_id;
 } AdwMessageDialogPrivate;
 
 static void adw_message_dialog_buildable_init (GtkBuildableIface *iface);
@@ -269,7 +271,11 @@ parent_size_cb (AdwMessageDialog *self)
 static gboolean
 parent_state_idle_cb (AdwMessageDialog *self)
 {
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+
   parent_size_cb (self);
+
+  priv->parent_state_idle_id = 0;
 
   return G_SOURCE_REMOVE;
 }
@@ -277,7 +283,11 @@ parent_state_idle_cb (AdwMessageDialog *self)
 static void
 parent_state_cb (AdwMessageDialog *self)
 {
-  g_idle_add (G_SOURCE_FUNC (parent_state_idle_cb), self);
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+
+  g_clear_handle_id (&priv->parent_state_idle_id, g_source_remove);
+
+  priv->parent_state_idle_id = g_idle_add (G_SOURCE_FUNC (parent_state_idle_cb), self);
 }
 
 static void
@@ -328,6 +338,8 @@ parent_window_notify_cb (AdwMessageDialog *self)
 {
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
 
+  g_clear_handle_id (&priv->parent_state_idle_id, g_source_remove);
+
   priv->parent_window = NULL;
   priv->parent_width = -1;
   priv->parent_height = -1;
@@ -343,6 +355,8 @@ set_parent (AdwMessageDialog *self,
     return;
 
   if (priv->parent_window) {
+    g_clear_handle_id (&priv->parent_state_idle_id, g_source_remove);
+
     g_signal_handlers_disconnect_by_func (priv->parent_window,
                                           G_CALLBACK (parent_realize_cb),
                                           self);
