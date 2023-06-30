@@ -76,4 +76,10 @@ ADW_AVAILABLE_IN_ALL
 void     adw_combo_row_set_use_subtitle (AdwComboRow *self,
                                          gboolean     use_subtitle);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_combo_row_get_enable_search (AdwComboRow *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_combo_row_set_enable_search (AdwComboRow *self,
+                                          gboolean     enable_search);
+
 G_END_DECLS

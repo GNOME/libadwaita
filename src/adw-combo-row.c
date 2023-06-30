@@ -75,11 +75,14 @@ typedef struct
   GtkListView *current;
   GtkListView *list;
   GtkPopover *popover;
+  GtkSearchEntry *search_entry;
   gboolean use_subtitle;
+  gboolean enable_search;
 
   GtkListItemFactory *factory;
   GtkListItemFactory *list_factory;
   GListModel *model;
+  GListModel *filter_model;
   GtkSelectionModel *selection;
   GtkSelectionModel *popup_selection;
   GtkSelectionModel *current_selection;
@@ -98,6 +101,7 @@ enum {
   PROP_LIST_FACTORY,
   PROP_EXPRESSION,
   PROP_USE_SUBTITLE,
+  PROP_ENABLE_SEARCH,
   LAST_PROP,
 };
 
@@ -181,10 +185,63 @@ notify_popover_visible_cb (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
 
-  if (gtk_widget_get_visible (GTK_WIDGET (priv->popover)))
+  if (gtk_widget_get_visible (GTK_WIDGET (priv->popover))) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "has-open-popup");
-  else
+  } else {
     gtk_widget_remove_css_class (GTK_WIDGET (self), "has-open-popup");
+    gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
+  }
+}
+
+static void
+update_filter (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+  
+  if (priv->filter_model) {
+      GtkFilter *filter;
+
+      if (priv->expression) {
+        filter = GTK_FILTER (gtk_string_filter_new (gtk_expression_ref (priv->expression)));
+      } else {
+        filter = GTK_FILTER (gtk_every_filter_new ());
+      }
+      gtk_filter_list_model_set_filter (GTK_FILTER_LIST_MODEL (priv->filter_model), filter);
+      g_object_unref (filter);
+  }
+}
+
+static void
+search_changed_cb (GtkSearchEntry *entry,
+                   AdwComboRow    *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
+  const char *text;
+  GtkFilter *filter;
+
+  text = gtk_editable_get_text (GTK_EDITABLE (entry));
+
+  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
+  if (GTK_IS_STRING_FILTER (filter))
+    gtk_string_filter_set_search (GTK_STRING_FILTER (filter), text);
+}
+
+static void
+search_stop_cb (GtkSearchEntry *entry,
+                AdwComboRow    *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
+  GtkFilter *filter;
+
+  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
+  if (GTK_IS_STRING_FILTER (filter)) {
+    if (gtk_string_filter_get_search (GTK_STRING_FILTER (filter)))
+      gtk_string_filter_set_search (GTK_STRING_FILTER (filter), NULL);
+    else
+      gtk_popover_popdown (GTK_POPOVER (priv->popover));
+  }
 }
 
 static void
@@ -327,6 +384,9 @@ adw_combo_row_get_property (GObject    *object,
   case PROP_USE_SUBTITLE:
     g_value_set_boolean (value, adw_combo_row_get_use_subtitle (self));
     break;
+  case PROP_ENABLE_SEARCH:
+    g_value_set_boolean (value, adw_combo_row_get_enable_search (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -359,6 +419,9 @@ adw_combo_row_set_property (GObject      *object,
   case PROP_USE_SUBTITLE:
     adw_combo_row_set_use_subtitle (self, g_value_get_boolean (value));
     break;
+  case PROP_ENABLE_SEARCH:
+    adw_combo_row_set_enable_search (self, g_value_get_boolean (value));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -384,6 +447,7 @@ adw_combo_row_dispose (GObject *object)
   g_clear_object (&priv->current_selection);
   g_clear_object (&priv->factory);
   g_clear_object (&priv->list_factory);
+  g_clear_object (&priv->filter_model);
 
   g_clear_object (&priv->model);
 
@@ -526,6 +590,19 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwComboRow:enable-search: (attributes org.gtk.Property.get=adw_combo_row_get_enable_search org.gtk.Property.set=adw_combo_row_set_enable_search)
+   *
+   * Whether to show a search entry in the popup.
+   *
+   * Note that search requires [property@ComboRow:expression]
+   * to be set.
+   */
+  props[PROP_ENABLE_SEARCH] =
+    g_param_spec_boolean ("enable-search", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -534,8 +611,11 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, arrow_box);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, popover);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, search_entry);
   gtk_widget_class_bind_template_callback (widget_class, row_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_popover_visible_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_stop_cb);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_COMBO_BOX);
 }
@@ -692,16 +772,24 @@ adw_combo_row_set_model (AdwComboRow *self,
     g_clear_object (&priv->current_selection);
   } else {
     GtkSelectionModel *selection;
+    GListModel *filter_model;
     GListModel *current_model;
 
-    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (model)));
+    filter_model = G_LIST_MODEL (gtk_filter_list_model_new (g_object_ref (model), NULL));
+    g_set_object (&priv->filter_model, filter_model);
+
+    update_filter (self);
+
+    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (filter_model)));
     g_set_object (&priv->popup_selection, selection);
     gtk_list_view_set_model (priv->list, selection);
     g_object_unref (selection);
 
-    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (model)));
+    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (filter_model)));
     g_set_object (&priv->selection, selection);
     g_object_unref (selection);
+
+    g_object_unref (filter_model);
 
     current_model = G_LIST_MODEL (gtk_selection_filter_model_new (priv->selection));
     selection = GTK_SELECTION_MODEL (gtk_no_selection_new (current_model));
@@ -878,6 +966,8 @@ adw_combo_row_set_expression (AdwComboRow   *self,
 
   selection_changed (self);
 
+  update_filter (self);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPRESSION]);
 }
 
@@ -935,6 +1025,60 @@ adw_combo_row_set_use_subtitle (AdwComboRow *self,
   selection_changed (self);
   if (!use_subtitle)
     adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_SUBTITLE]);
+}
+
+/**
+ * adw_combo_row_get_enable_search: (attributes org.gtk.Method.set_property=enable-search)
+ * @self: a combo row
+ *
+ * Returns whether search is enabled.
+ *
+ * Returns: %TRUE if the popup includes a search entry
+ */
+gboolean
+adw_combo_row_get_enable_search (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_COMBO_ROW (self), FALSE);
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  return priv->enable_search;
+}
+
+/**
+ * adw_combo_row_set_enable_search: (attributes org.gtk.Method.set_property=enable-search)
+ * @self: a combo row
+ * @enable_search: whether to enable search
+ *
+ * Sets whether a search entry will be shown in the popup that
+ * allows to search for items in the list.
+ *
+ * Note that [property@ComboRow:expression] must be set for
+ * search to work.
+ */
+void
+adw_combo_row_set_enable_search (AdwComboRow *self,
+                                 gboolean     enable_search)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_COMBO_ROW (self));
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  enable_search = !!enable_search;
+
+  if (priv->enable_search == enable_search)
+    return;
+
+  priv->enable_search = enable_search;
+  
+  gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
+  gtk_widget_set_visible (GTK_WIDGET (priv->search_entry), enable_search);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_SUBTITLE]);
 }

@@ -157,6 +157,7 @@
                       <object class="AdwComboRow" id="enum_combo_row">
                         <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
                         <property name="title" translatable="yes">Enumeration Combo Row</property>
+                        <property name="enable-search">True</property>
                         <property name="model">
                           <object class="AdwEnumListModel">
                             <property name="enum-type">GtkLicense</property>

@@ -309,6 +309,10 @@ row.combo {
 
   popover > contents {
     min-width: 120px;
+
+    .combo-searchbar {
+      margin: 6px;
+    }
   }
 }
 
