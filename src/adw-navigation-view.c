@@ -205,6 +205,8 @@ typedef struct
   gboolean remove_on_pop;
 
   int block_signals;
+
+  AdwNavigationView *child_view;
 } AdwNavigationPagePrivate;
 
 static void adw_navigation_page_buildable_init (GtkBuildableIface *iface);
@@ -221,6 +223,7 @@ enum {
   PAGE_PROP_TAG,
   PAGE_PROP_TITLE,
   PAGE_PROP_CAN_POP,
+  PAGE_PROP_CHILD_VIEW,
   LAST_PAGE_PROP
 };
 
@@ -379,6 +382,13 @@ adw_navigation_page_dispose (GObject *object)
 
   g_clear_pointer (&priv->child, gtk_widget_unparent);
 
+  if (priv->child_view) {
+    g_object_remove_weak_pointer (G_OBJECT (priv->child_view),
+                                  (gpointer *) &priv->child_view);
+
+    priv->child_view = NULL;
+  }
+
   G_OBJECT_CLASS (adw_navigation_page_parent_class)->dispose (object);
 }
 
@@ -418,6 +428,9 @@ adw_navigation_page_get_property (GObject    *object,
     break;
   case PAGE_PROP_CAN_POP:
     g_value_set_boolean (value, adw_navigation_page_get_can_pop (self));
+    break;
+  case PAGE_PROP_CHILD_VIEW:
+    g_value_set_object (value, adw_navigation_page_get_child_view (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -531,6 +544,18 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
     g_param_spec_boolean ("can-pop", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwNavigationPage:child-view: (attributes org.gtk.Property.get=adw_navigation_page_get_child_view)
+   *
+   * TODO
+   *
+   * Since: 1.4
+   */
+  page_props[PAGE_PROP_CHILD_VIEW] =
+    g_param_spec_object ("child-view", NULL, NULL,
+                         ADW_TYPE_NAVIGATION_VIEW,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 
@@ -1288,6 +1313,30 @@ end_swipe_cb (AdwSwipeTracker   *tracker,
 }
 
 static void
+set_child_view (AdwNavigationPage *self,
+                AdwNavigationView *view)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  if (view == priv->child_view)
+    return;
+
+  if (priv->child_view) {
+    g_object_remove_weak_pointer (G_OBJECT (priv->child_view),
+                                  (gpointer *) &priv->child_view);
+  }
+
+  priv->child_view = view;
+
+  if (priv->child_view) {
+    g_object_add_weak_pointer (G_OBJECT (priv->child_view),
+                               (gpointer *) &priv->child_view);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CHILD_VIEW]);
+}
+
+static void
 adw_navigation_view_measure (GtkWidget      *widget,
                              GtkOrientation  orientation,
                              int             for_size,
@@ -1480,6 +1529,33 @@ adw_navigation_view_snapshot (GtkWidget   *widget,
 }
 
 static void
+adw_navigation_view_root (GtkWidget *widget)
+{
+  AdwNavigationView *self = ADW_NAVIGATION_VIEW (widget);
+  GtkWidget *parent_page;
+
+  GTK_WIDGET_CLASS (adw_navigation_view_parent_class)->root (widget);
+
+  parent_page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+
+  if (parent_page)
+    set_child_view (ADW_NAVIGATION_PAGE (parent_page), self);
+}
+
+static void
+adw_navigation_view_unroot (GtkWidget *widget)
+{
+  GtkWidget *parent_page;
+
+  parent_page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+
+  if (parent_page)
+    set_child_view (ADW_NAVIGATION_PAGE (parent_page), NULL);
+
+  GTK_WIDGET_CLASS (adw_navigation_view_parent_class)->unroot (widget);
+}
+
+static void
 adw_navigation_view_direction_changed (GtkWidget        *widget,
                                        GtkTextDirection  previous_direction)
 {
@@ -1593,6 +1669,8 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   widget_class->measure = adw_navigation_view_measure;
   widget_class->size_allocate = adw_navigation_view_size_allocate;
   widget_class->snapshot = adw_navigation_view_snapshot;
+  widget_class->root = adw_navigation_view_root;
+  widget_class->unroot = adw_navigation_view_unroot;
   widget_class->direction_changed = adw_navigation_view_direction_changed;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -2004,6 +2082,8 @@ adw_navigation_page_set_child (AdwNavigationPage *self,
   if (priv->child == child)
     return;
 
+  g_object_freeze_notify (G_OBJECT (self));
+
   if (priv->child)
     gtk_widget_unparent (priv->child);
 
@@ -2013,6 +2093,8 @@ adw_navigation_page_set_child (AdwNavigationPage *self,
     gtk_widget_set_parent (priv->child, GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CHILD]);
+
+  g_object_thaw_notify (G_OBJECT (self));
 }
 
 /**
@@ -2210,6 +2292,28 @@ adw_navigation_page_set_can_pop (AdwNavigationPage *self,
   priv->can_pop = can_pop;
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CAN_POP]);
+}
+
+/**
+ * adw_navigation_page_get_child_view: (attributes org.gtk.Method.get_property=child-view)
+ * @self: a navigation page
+ *
+ * Sets TODO
+ *
+ * Returns: (transfer none) (nullable): TODO
+ *
+ * Since: 1.4
+ */
+AdwNavigationView *
+adw_navigation_page_get_child_view (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_NAVIGATION_PAGE (self), NULL);
+
+  priv = adw_navigation_page_get_instance_private (self);
+
+  return priv->child_view;
 }
 
 void
