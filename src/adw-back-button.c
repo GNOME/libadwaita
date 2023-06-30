@@ -10,6 +10,8 @@
 #include <glib/gi18n-lib.h>
 
 #include "adw-back-button-private.h"
+
+#include "adw-bin.h"
 #include "adw-navigation-view.h"
 #include "adw-widget-utils-private.h"
 
@@ -20,7 +22,7 @@ typedef struct {
 } NavigationViewData;
 
 struct _AdwBackButton {
-  GtkButton parent_instance;
+  AdwBin parent_instance;
 
   GSList *navigation_views;
 
@@ -31,7 +33,7 @@ struct _AdwBackButton {
   guint clear_menu_id;
 };
 
-G_DEFINE_FINAL_TYPE (AdwBackButton, adw_back_button, GTK_TYPE_BUTTON)
+G_DEFINE_FINAL_TYPE (AdwBackButton, adw_back_button, ADW_TYPE_BIN)
 
 typedef gboolean (*TraverseFunc) (AdwNavigationView *view,
                                   AdwNavigationPage *page,
@@ -321,7 +323,9 @@ clear_menu (AdwBackButton *self)
 static void
 navigation_menu_closed_cb (AdwBackButton *self)
 {
-  gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
+  GtkWidget *button = adw_bin_get_child (ADW_BIN (self));
+
+  gtk_widget_unset_state_flags (button, GTK_STATE_FLAG_CHECKED);
 
   self->clear_menu_id = g_idle_add (G_SOURCE_FUNC (clear_menu), self);
 }
@@ -364,11 +368,13 @@ create_navigation_menu (AdwBackButton *self)
 static void
 open_navigation_menu (AdwBackButton *self)
 {
+  GtkWidget *button = adw_bin_get_child (ADW_BIN (self));
+
   create_navigation_menu (self);
 
   gtk_popover_popup (GTK_POPOVER (self->navigation_menu));
 
-  gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED, FALSE);
+  gtk_widget_set_state_flags (button, GTK_STATE_FLAG_CHECKED, FALSE);
 }
 
 static void
@@ -402,6 +408,44 @@ right_click_pressed_cb (GtkGesture    *gesture,
   open_navigation_menu (self);
 
   gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+}
+
+static AdwNavigationPage *
+get_inner_page (AdwNavigationPage *page)
+{
+  AdwNavigationView *child_view = adw_navigation_page_get_child_view (page);
+  AdwNavigationPage *visible_page;
+
+  if (!child_view)
+    return page;
+
+  visible_page = adw_navigation_view_get_visible_page (child_view);
+
+  if (!visible_page)
+    return page;
+
+  return get_inner_page (visible_page);
+}
+
+static gboolean
+query_tooltip (AdwBackButton *self,
+               int            x,
+               int            y,
+               gboolean       keyboard_tooltip,
+               GtkTooltip    *tooltip)
+{
+  AdwNavigationPage *page;
+  const char *title;
+
+  if (!self->page)
+    return FALSE;
+
+  page = get_inner_page (self->page);
+  title = adw_navigation_page_get_title (page);
+
+  gtk_tooltip_set_text (tooltip, title ? title : _("Back"));
+
+  return TRUE;
 }
 
 static void
@@ -463,45 +507,6 @@ adw_back_button_unroot (GtkWidget *widget)
   GTK_WIDGET_CLASS (adw_back_button_parent_class)->unroot (widget);
 }
 
-static AdwNavigationPage *
-get_inner_page (AdwNavigationPage *page)
-{
-  AdwNavigationView *child_view = adw_navigation_page_get_child_view (page);
-  AdwNavigationPage *visible_page;
-
-  if (!child_view)
-    return page;
-
-  visible_page = adw_navigation_view_get_visible_page (child_view);
-
-  if (!visible_page)
-    return page;
-
-  return get_inner_page (visible_page);
-}
-
-static gboolean
-adw_back_button_query_tooltip (GtkWidget  *widget,
-                               int         x,
-                               int         y,
-                               gboolean    keyboard_tooltip,
-                               GtkTooltip *tooltip)
-{
-  AdwBackButton *self = ADW_BACK_BUTTON (widget);
-  AdwNavigationPage *page;
-  const char *title;
-
-  if (!self->page)
-    return FALSE;
-
-  page = get_inner_page (self->page);
-  title = adw_navigation_page_get_title (page);
-
-  gtk_tooltip_set_text (tooltip, title ? title : _("Back"));
-
-  return TRUE;
-}
-
 static void
 adw_back_button_dispose (GObject *object)
 {
@@ -524,7 +529,6 @@ adw_back_button_class_init (AdwBackButtonClass *klass)
 
   widget_class->root = adw_back_button_root;
   widget_class->unroot = adw_back_button_unroot;
-  widget_class->query_tooltip = adw_back_button_query_tooltip;
 
   gtk_widget_class_install_action (widget_class, "menu.popup", NULL,
                                    (GtkWidgetActionActivateFunc) open_navigation_menu);
@@ -538,13 +542,18 @@ adw_back_button_class_init (AdwBackButtonClass *klass)
 static void
 adw_back_button_init (AdwBackButton *self)
 {
+  GtkWidget *button;
   GtkGesture *gesture;
 
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (self), "navigation.pop");
-  gtk_button_set_icon_name (GTK_BUTTON (self), "go-previous-symbolic");
-  gtk_widget_add_css_class (GTK_WIDGET (self), "back");
-  gtk_widget_set_has_tooltip (GTK_WIDGET (self), TRUE);
   gtk_widget_set_visible (GTK_WIDGET (self), FALSE);
+
+  button = gtk_button_new_from_icon_name ("go-previous-symbolic");
+  gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "navigation.pop");
+  gtk_widget_add_css_class (GTK_WIDGET (button), "back");
+  gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
+  g_signal_connect_swapped (button, "query-tooltip",
+                            G_CALLBACK (query_tooltip), self);
+  adw_bin_set_child (ADW_BIN (self), button);
 
   gesture = gtk_gesture_click_new ();
   gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture), GDK_BUTTON_SECONDARY);

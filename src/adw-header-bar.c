@@ -85,7 +85,8 @@
  *         ├── widget
  *         │   ╰── box.start
  *         │       ├── windowcontrols.start
- *         │       ├── [button.back]
+ *         │       ├── widget
+ *         │       │   ╰── [button.back]
  *         │       ╰── [other children]
  *         ├── widget
  *         │   ╰── [Title Widget]
@@ -105,7 +106,8 @@
  * [class@Gtk.WindowControls] for details, as well as other children.
  *
  * When [property@HeaderBar:show-back-button] is `TRUE`, the start box also
- * contains a node with the name `button` and `.back` style class.
+ * contains a node with the name `widget` that contains a node with the name
+ * `button` and `.back` style class.
  *
  * ## Accessibility
  *

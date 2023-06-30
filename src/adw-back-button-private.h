@@ -16,11 +16,13 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-bin.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_BACK_BUTTON (adw_back_button_get_type())
 
-G_DECLARE_FINAL_TYPE (AdwBackButton, adw_back_button, ADW, BACK_BUTTON, GtkButton)
+G_DECLARE_FINAL_TYPE (AdwBackButton, adw_back_button, ADW, BACK_BUTTON, AdwBin)
 
 GtkWidget *adw_back_button_new (void);
 
