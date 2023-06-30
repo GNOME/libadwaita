@@ -1,3 +1,184 @@
+=================
+Version 1.4.alpha
+=================
+
+- Build
+  - Depend on GTK 4.11.3
+  - Depend on libappstream
+  - Add Vala metadata file
+  - Fix gnome.compile_resources() on MSBuild
+  - Fix doc include path
+  - Make metainfo build reproducible
+- Add AdwBreakpoint and AdwBreakpointBin
+- Add AdwNavigationView
+- Add AdwNavigationSplitView
+- Add AdwOverlaySplitView
+- Add AdwSpinRow
+- Add AdwSwitchRow
+- Add AdwToolbarView
+- Deprecate AdwFlap, AdwLeaflet, AdwSqueezer and AdwViewSwitcherTitle
+- AdwAboutWindow
+  - Add new_from_appdata()
+  - Add a missing Since annotation
+  - Fix accessible role on the application icon
+- AdwActionRow
+  - Fix an inaccuracy in docs
+- AdwAvatar
+  - Fix a memory leak
+- AdwBanner
+  - Allow to ellipsize the button
+  - Clarify title placement in docs
+  - Add a backdrop style
+- AdwButtonContent
+  - Add :can-shrink
+- AdwCarousel
+  - Fix allocation
+  - Fix scrolling to a recently inserted item
+- AdwClamp/AdwClampLayout/AdwClampScrollable
+  - Add :unit, default to the sp unit instead of px
+  - Deprecate clamp child  style classes
+- AdwComboRow
+  - Add :enable-search
+  - Fix accessible role on the dropdown arrow
+- AdwExpanderRow
+  - Deprecate add_action(), replace it with add_suffix()
+- AdwFlap
+  - Add a missing setter annotation for :fold-policy
+  - Correctly measure separator
+  - Avoid notify emissions in dispose()
+- AdwEntryRow
+  - Fix baseline with new GTK
+  - Fix accessibility
+- AdwHeaderBar
+  - Add :show-title property
+  - Show page title instead of window title inside AdwNavigationPage
+  - Show back buttons inside AdwNavigationView, add :show-back-button
+  - Hide redundant window buttons inside AdwNavigationSplitView and
+    AdwOverlaySplitView
+  - Ellipsize title before start/end children
+- AdwMessageDialog
+  - Allow to ellipsize the buttons
+  - Be more responsive on parent state changes
+  - Fix criticals when using choose() with hide-on-close=true
+- AdwPasswordEntryRow
+  - Say password instead of text in the ui
+- AdwPreferencesPage
+  - Add :description
+- AdwPreferencesWindow
+  - Deprecate present_subpage(), close_subpage() and :can-navigate-back,
+    replace with push_subpage() and pop_subpage() using AdwNavigationView
+  - Move search button to the left
+  - Add placeholder to the search entry
+  - Fix markup handling when searching
+- AdwSplitButton
+  - Add :can-shrink
+- AdwStatusPage
+  - Clarify docs
+- AdwStyleManager
+  - Stop reading GNOME-specific color-scheme setting via settings portal
+  - Only use GSettings with ADW_DISABLE_PORTAL=1
+  - Fix get_for_display() annotation
+- AdwSwipeTracker
+  - Add overshoot properties
+  - Fix swipe area handling
+- AdwTabBar
+  - Add :extra-drag-preferred-action
+  - Fix dropping data onto tabs/thumbnails
+  - Fix accessibility
+  - Fix clipped labels
+  - Correctly unparent context menu
+- AdwTabOverview
+  - Rework thumbnails, reducing the number of glitches with
+    WebKitWebView, and gaining antialiasing in process
+  - Fix the transition curve
+  - Add :extra-drag-preferred-action
+  - Add a translator comment for "%u tabs"
+  - Fix dropping data onto tabs/thumbnails
+  - Fix clipped labels
+  - Correctly unparent context menu
+- AdwTabView
+  - Allow Ctrl+Page Up/Down to wrap around
+- AdwToast
+  - Add :use-markup
+  - Allow to ellipsize toast buttons
+- AdwViewSwitcher
+  - Ellipsize labels in wide mode
+  - Set correct accessible role for icons
+- AdwViewSwitcherBar
+  - Modernize style
+- AdwWindow/AdwApplicationWindow
+  - Add API for using breakpoints, matching AdwBreakpointBin
+- AdwWindowTitle
+  - Fix initial title visibility
+- Demo
+  - Drop leaflet and flap demos
+  - Fix a critical when trying to set a non-image file as avatar
+  - Add tooltip to the main menu button
+  - Open primary menu with F10
+  - Make sure dialogs can be closed with Esc
+- Docs
+  - Add a breakpoint migration guide
+  - Rewrite the adaptive layouts page using the new widgetry
+  - Update examples everywhere
+  - Fix success/error color values
+  - List thumbnail colors on the named colors page
+  - Consistently mention since/deprecated since versions for named
+    colors and style classes
+  - Drop alpha migration guide
+  - Adjust heading levels so that document outline consistently works
+  - Crop screenshots more precisely
+  - Don't show marshal functions in docs
+- Tests
+  - Add a few manual tests, intended to be ran from Builder
+- Stylesheet
+  - Make header bars white in light variant
+  - Use shadow instead of a border for GtkWindow:titlebar
+  - Revert menubar style changes from 1.3
+  - Use a shadow for undershoot styles
+  - Add .undershoot-top/bottom/start/end style classes
+  - Add @popover_shade_color, use for undershoots and transition shadows
+    within popovers
+  - Move toolbar padding to toolbars instead of buttons/entries/etc.
+    Applications may need to adapt if they were relying on the previous
+    padding.
+  - Add .property style class for list rows
+  - Deprecate headerbar.flat
+  - Remove non-overlay scrollbar background
+  - Remove outline on scrollbar troughs
+  - Use flat header bars for GtkShortcutsWindow, GtkAboutDialog,
+    GtkColorDialog, GtkPrintUnixDialog and GtkPageSetupUnixDialog
+  - Adapt styles for GTK 4.11.x additions
+  - Improve selected list/grid item contrast
+  - Fix click areas in file chooser rows and grid items
+  - Fix file chooser grid dimensions
+  - Fix button.card checked state
+  - Fix link hover color
+- Warn when trying to add a child that already has a parent
+- Fix GTK deprecation warnings
+- Translation updates
+  - Basque
+  - Brazilian Portuguese
+  - British English
+  - Bulgarian
+  - Catalan
+  - Chinese (Taiwan)
+  - Dutch
+  - Finnish
+  - French
+  - Friulian
+  - German
+  - Hebrew
+  - Hungarian
+  - Italian
+  - Lithuanian
+  - Persian
+  - Polish
+  - Portuguese
+  - Russian
+  - Slovak
+  - Swedish
+  - Turkish
+
 ==============
 Version 1.3.rc
 ==============
