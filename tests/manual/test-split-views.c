@@ -190,7 +190,6 @@ triple_pane_mail_cb (void)
                               G_OBJECT (inner_view), "sidebar-width-fraction", 0.33f,
                               G_OBJECT (inbox_button), "visible", TRUE,
                               G_OBJECT (message_button), "visible", TRUE,
-                              G_OBJECT (inner_view_page), "title", "Inbox",
                               NULL);
   adw_window_add_breakpoint (ADW_WINDOW (window), breakpoint);
 
@@ -269,20 +268,6 @@ triple_pane_feeds_cb (void)
 }
 
 static void
-notify_visible_page_cb (AdwNavigationView *view,
-                        GParamSpec        *pspec,
-                        AdwNavigationPage *page)
-{
-  AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (view);
-  const char *title = "";
-
-  if (visible_page)
-    title = adw_navigation_page_get_title (visible_page);
-
-  adw_navigation_page_set_title (page, title);
-}
-
-static void
 complex_navigation_cb (void)
 {
   GtkWidget *window, *sidebar, *content, *content_button, *view;
@@ -300,10 +285,7 @@ complex_navigation_cb (void)
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (sidebar), sidebar_1);
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (sidebar), sidebar_2);
 
-  sidebar_page = adw_navigation_page_new (sidebar, "Sidebar");
-
-  g_signal_connect (sidebar, "notify::visible-page",
-                    G_CALLBACK (notify_visible_page_cb), sidebar_page);
+  sidebar_page = adw_navigation_page_new (sidebar, "");
 
   /* Content */
   content_1 = create_page_with_button ("content", "Content", "Open Page 2", "navigation.push::content-2", NULL);
@@ -313,7 +295,7 @@ complex_navigation_cb (void)
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (content), content_1);
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (content), content_2);
 
-  content_page = adw_navigation_page_new_with_tag (content, "Content", "content");
+  content_page = adw_navigation_page_new_with_tag (content, "", "content");
 
   /* Window */
   view = adw_navigation_split_view_new ();

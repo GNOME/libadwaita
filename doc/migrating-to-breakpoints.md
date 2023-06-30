@@ -249,7 +249,8 @@ wrap your child widgets into `AdwNavigationPage` instead.
 Use [property@NavigationPage:title] instead of manually adding titles to your
 header bars. Even if you need a subtitle, [property@NavigationPage:title] should
 always be set to something meaningful, as it will be used as a tooltip for the
-back button, as well as read out by the screen reader.
+back button and label in its context menu, as well as read out by the screen
+reader.
 
 Replace [property@LeafletPage:name] with [property@NavigationPage:tag] and
 remove the back button as [class@HeaderBar] already provides one. If back

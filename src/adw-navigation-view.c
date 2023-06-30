@@ -45,7 +45,8 @@
  *
  * When used inside `AdwNavigationView`, [class@HeaderBar] will automatically
  * display a back button that can be used to go back to the previous page when
- * possible.
+ * possible. The button also has a context menu, allowing to pop multiple pages
+ * at once, potentially across multiple navigation views.
  *
  * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
  * if it's unwanted.
