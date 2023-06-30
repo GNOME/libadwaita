@@ -312,6 +312,10 @@ row.combo {
 
     .combo-searchbar {
       margin: 6px;
+
+      + scrolledwindow {
+        @include undershoot(top, $popover_shade_color);
+      }
     }
   }
 }

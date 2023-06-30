@@ -201,11 +201,10 @@ update_filter (AdwComboRow *self)
   if (priv->filter_model) {
       GtkFilter *filter;
 
-      if (priv->expression) {
+      if (priv->expression) 
         filter = GTK_FILTER (gtk_string_filter_new (gtk_expression_ref (priv->expression)));
-      } else {
+      else 
         filter = GTK_FILTER (gtk_every_filter_new ());
-      }
       gtk_filter_list_model_set_filter (GTK_FILTER_LIST_MODEL (priv->filter_model), filter);
       g_object_unref (filter);
   }
@@ -216,7 +215,6 @@ search_changed_cb (GtkSearchEntry *entry,
                    AdwComboRow    *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
-
   const char *text;
   GtkFilter *filter;
 
@@ -595,8 +593,12 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * Whether to show a search entry in the popup.
    *
-   * Note that search requires [property@ComboRow:expression]
-   * to be set.
+   * If set to `TRUE`, a search entry will be shown in the popup that
+   * allows to search for items in the list.
+   * 
+   * Search requires [property@ComboRow:expression] to be set.
+   * 
+   * Since: 1.4
    */
   props[PROP_ENABLE_SEARCH] =
     g_param_spec_boolean ("enable-search", NULL, NULL,
@@ -1033,9 +1035,16 @@ adw_combo_row_set_use_subtitle (AdwComboRow *self,
  * adw_combo_row_get_enable_search: (attributes org.gtk.Method.set_property=enable-search)
  * @self: a combo row
  *
- * Returns whether search is enabled.
+ * Gets whether search is enabled.
+ * 
+ * If set to `TRUE`, a search entry will be shown in the popup that
+ * allows to search for items in the list.
+ * 
+ * Search requires [property@ComboRow:expression] to be set.
  *
- * Returns: %TRUE if the popup includes a search entry
+ * Returns: whether the popup includes a search entry
+ * 
+ * Since: 1.4
  */
 gboolean
 adw_combo_row_get_enable_search (AdwComboRow *self)
@@ -1054,11 +1063,14 @@ adw_combo_row_get_enable_search (AdwComboRow *self)
  * @self: a combo row
  * @enable_search: whether to enable search
  *
- * Sets whether a search entry will be shown in the popup that
+ * Sets whether to enable search.
+ * 
+ * If set to `TRUE`, a search entry will be shown in the popup that
  * allows to search for items in the list.
- *
- * Note that [property@ComboRow:expression] must be set for
- * search to work.
+ * 
+ * Search requires [property@ComboRow:expression] to be set.
+ * 
+ * Since: 1.4
  */
 void
 adw_combo_row_set_enable_search (AdwComboRow *self,
