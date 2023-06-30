@@ -164,17 +164,6 @@ scrolledwindow {
     }
   }
 
-  > junction { // the small square between two scrollbars
-    // Only color the top-left (or top right in RTL) pixel, to visually connect
-    // the borders of the two scrollbars.
-
-    background: linear-gradient(to bottom right, $border_color 1px, $view_bg_color 1px);
-
-    &:dir(rtl) {
-      background: linear-gradient(to bottom left, $border_color 1px, $view_bg_color 1px);
-    }
-  }
-
   &.undershoot-top {
     @include undershoot(top);
   }
