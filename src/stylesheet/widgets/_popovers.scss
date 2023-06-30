@@ -1,3 +1,9 @@
+toolbarview.undershoot-top    popover scrolledwindow undershoot.top,
+toolbarview.undershoot-bottom popover scrolledwindow undershoot.bottom {
+  background: none;
+  box-shadow: none;
+}
+
 popover {
   &.background {
     background-color: transparent;
