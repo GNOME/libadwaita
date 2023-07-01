@@ -966,12 +966,26 @@ struct _AdwTabPaintable
 
   double last_xalign;
   double last_yalign;
-  GdkRGBA last_bg_color;
 };
 
 static void
 get_background_color (AdwTabPaintable *self,
                       GdkRGBA         *rgba)
+{
+  GtkWidget *child = adw_tab_page_get_child (self->page);
+
+  if (adw_widget_lookup_color (child, "window_bg_color", rgba))
+    return;
+
+  rgba->red = 1;
+  rgba->green = 1;
+  rgba->blue = 1;
+  rgba->alpha = 1;
+}
+
+static void
+get_empty_color (AdwTabPaintable *self,
+                 GdkRGBA         *rgba)
 {
   GtkWidget *child = adw_tab_page_get_child (self->page);
 
@@ -1027,10 +1041,89 @@ get_unclamped_aspect_ratio (AdwTabPaintable *self)
   return gdk_paintable_get_intrinsic_aspect_ratio (self->view_paintable);
 }
 
-static GdkTexture *
-render_child (AdwTabPaintable *self)
+static void
+snapshot_default_icon (AdwTabPaintable *self,
+                       GtkSnapshot     *snapshot,
+                       double           width,
+                       double           height)
 {
-  GdkPaintable *current_paintable;
+  GdkDisplay *display;
+  GtkIconTheme *icon_theme;
+  GIcon *default_icon;
+  GtkIconPaintable *icon;
+  GdkRGBA colors[4];
+  GdkRGBA bg;
+  double x, y;
+  double view_width, view_height;
+  double view_ratio, snapshot_ratio;
+  double icon_size;
+  gboolean hc;
+
+  get_empty_color (self, &bg);
+  gtk_snapshot_append_color (snapshot, &bg,
+                             &GRAPHENE_RECT_INIT (0, 0, width, height));
+
+  view_width = gtk_widget_get_width (self->view);
+  view_height = gtk_widget_get_height (self->view);
+
+  view_ratio = view_width / view_height;
+  snapshot_ratio = width / height;
+
+  if (view_ratio > snapshot_ratio) {
+    double new_width = height * view_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT ((float) (width - new_width) / 2, 0));
+
+    width = new_width;
+  } else if (view_ratio < snapshot_ratio) {
+    double new_height = width / view_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) / 2));
+
+    height = new_height;
+  }
+
+  icon_size = MIN (view_width / 4, view_height / 4);
+
+  display = gtk_widget_get_display (self->view);
+  icon_theme = gtk_icon_theme_get_for_display (display);
+  default_icon = adw_tab_view_get_default_icon (ADW_TAB_VIEW (self->view));
+  icon = gtk_icon_theme_lookup_by_gicon (icon_theme, default_icon, icon_size,
+                                         gtk_widget_get_scale_factor (self->view),
+                                         gtk_widget_get_direction (self->view),
+                                         GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
+
+  gtk_widget_get_color (self->view, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
+  adw_widget_lookup_color (self->view, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
+  adw_widget_lookup_color (self->view, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
+  adw_widget_lookup_color (self->view, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);
+
+  hc = adw_style_manager_get_high_contrast (adw_style_manager_get_for_display (display));
+
+  gtk_snapshot_push_opacity (snapshot, hc ? DEFAULT_ICON_ALPHA_HC : DEFAULT_ICON_ALPHA);
+
+  gtk_snapshot_scale (snapshot, width / view_width, height / view_height);
+
+  x = (view_width - icon_size) / 2;
+  y = (view_height - icon_size) / 2;
+  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
+
+  gtk_symbolic_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (icon),
+                                            snapshot,
+                                            icon_size,
+                                            icon_size,
+                                            colors,
+                                            4);
+
+  gtk_snapshot_pop (snapshot);
+}
+
+static GdkTexture *
+render_contents (AdwTabPaintable *self,
+                 gboolean         empty)
+{
   GtkSnapshot *snapshot;
   GskRenderNode *node;
   double aspect_ratio;
@@ -1042,8 +1135,6 @@ render_child (AdwTabPaintable *self)
 
   if (self->frozen)
     return NULL;
-
-  current_paintable = gdk_paintable_get_current_image (self->child_paintable);
 
   snapshot = gtk_snapshot_new ();
 
@@ -1066,8 +1157,22 @@ render_child (AdwTabPaintable *self)
     height = ceil (MIN_THUMBNAIL_BITMAP_WIDTH / aspect_ratio) * scale_factor;
   }
 
-  gdk_paintable_snapshot (current_paintable, snapshot, width, height);
-  g_object_unref (current_paintable);
+  if (empty) {
+    snapshot_default_icon (self, snapshot, width, height);
+  } else {
+    GdkPaintable *current_paintable;
+    GdkRGBA background;
+
+    get_background_color (self, &background);
+
+    gtk_snapshot_append_color (snapshot, &background,
+                               &GRAPHENE_RECT_INIT (0, 0, width, height));
+
+    current_paintable = gdk_paintable_get_current_image (self->child_paintable);
+    gdk_paintable_snapshot (current_paintable, snapshot, width, height);
+
+    g_object_unref (current_paintable);
+  }
 
   node = gtk_snapshot_free_to_node (snapshot);
 
@@ -1103,7 +1208,7 @@ invalidate_texture (AdwTabPaintable *self)
     }
   }
 
-  texture = render_child (self);
+  texture = render_contents (self, FALSE);
 
   if (!texture)
     return;
@@ -1170,80 +1275,6 @@ adw_tab_paintable_get_intrinsic_aspect_ratio (GdkPaintable *paintable)
   return CLAMP (ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
 }
 
-static void
-snapshot_default_icon (GtkSnapshot *snapshot,
-                       double       width,
-                       double       height,
-                       GtkWidget   *view)
-{
-  GdkDisplay *display;
-  GtkIconTheme *icon_theme;
-  GIcon *default_icon;
-  GtkIconPaintable *icon;
-  GdkRGBA colors[4];
-  double x, y;
-  double view_width, view_height;
-  double view_ratio, snapshot_ratio;
-  double icon_size;
-  gboolean hc;
-
-  view_width = gtk_widget_get_width (view);
-  view_height = gtk_widget_get_height (view);
-
-  view_ratio = view_width / view_height;
-  snapshot_ratio = width / height;
-
-  if (view_ratio > snapshot_ratio) {
-    double new_width = height * view_ratio;
-
-    gtk_snapshot_translate (snapshot,
-                            &GRAPHENE_POINT_INIT ((float) (width - new_width) / 2, 0));
-
-    width = new_width;
-  } else if (view_ratio < snapshot_ratio) {
-    double new_height = width / view_ratio;
-
-    gtk_snapshot_translate (snapshot,
-                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) / 2));
-
-    height = new_height;
-  }
-
-  icon_size = MIN (view_width / 4, view_height / 4);
-
-  display = gtk_widget_get_display (view);
-  icon_theme = gtk_icon_theme_get_for_display (display);
-  default_icon = adw_tab_view_get_default_icon (ADW_TAB_VIEW (view));
-  icon = gtk_icon_theme_lookup_by_gicon (icon_theme, default_icon, icon_size,
-                                         gtk_widget_get_scale_factor (view),
-                                         gtk_widget_get_direction (view),
-                                         GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
-
-  gtk_widget_get_color (view, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
-  adw_widget_lookup_color (view, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
-  adw_widget_lookup_color (view, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
-  adw_widget_lookup_color (view, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);
-
-  hc = adw_style_manager_get_high_contrast (adw_style_manager_get_for_display (display));
-
-  gtk_snapshot_push_opacity (snapshot, hc ? DEFAULT_ICON_ALPHA_HC : DEFAULT_ICON_ALPHA);
-
-  gtk_snapshot_scale (snapshot, width / view_width, height / view_height);
-
-  x = (view_width - icon_size) / 2;
-  y = (view_height - icon_size) / 2;
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
-
-  gtk_symbolic_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (icon),
-                                            snapshot,
-                                            icon_size,
-                                            icon_size,
-                                            colors,
-                                            4);
-
-  gtk_snapshot_pop (snapshot);
-}
-
 static GdkPaintable *
 adw_tab_paintable_get_current_image (GdkPaintable *paintable)
 {
@@ -1271,7 +1302,6 @@ adw_tab_paintable_snapshot (GdkPaintable *paintable,
 {
   AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
   GtkWidget *child;
-  GdkRGBA bg;
   double xalign, yalign;
 
   if (self->frozen) {
@@ -1287,24 +1317,15 @@ adw_tab_paintable_snapshot (GdkPaintable *paintable,
       xalign = 1 - xalign;
   }
 
-  if (self->cached_paintable) {
-    transform_thumbnail (snapshot, width, height, self->cached_aspect_ratio,
-                         xalign, yalign, &width, &height);
-
-    gdk_paintable_snapshot (self->cached_paintable, snapshot, width, height);
+  if (!self->cached_paintable) {
+    snapshot_default_icon (self, snapshot, width, height);
     return;
   }
 
-  if (self->frozen)
-    bg = self->last_bg_color;
-  else
-    get_background_color (self, &bg);
+  transform_thumbnail (snapshot, width, height, self->cached_aspect_ratio,
+                       xalign, yalign, &width, &height);
 
-  gtk_snapshot_append_color (GTK_SNAPSHOT (snapshot), &bg,
-                             &GRAPHENE_RECT_INIT (0, 0, width, height));
-
-  if (self->view)
-    snapshot_default_icon (snapshot, width, height, self->view);
+  gdk_paintable_snapshot (self->cached_paintable, snapshot, width, height);
 }
 
 static void
@@ -1377,7 +1398,9 @@ adw_tab_paintable_freeze (AdwTabPaintable *self)
 {
   self->last_xalign = adw_tab_page_get_thumbnail_xalign (self->page);
   self->last_yalign = adw_tab_page_get_thumbnail_yalign (self->page);
-  get_background_color (self, &self->last_bg_color);
+
+  if (!self->cached_paintable)
+    self->cached_paintable = GDK_PAINTABLE (render_contents (self, TRUE));
 
   if (gtk_widget_get_direction (self->page->bin) == GTK_TEXT_DIR_RTL)
     self->last_xalign = 1 - self->last_xalign;
