@@ -186,6 +186,24 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwHeaderBar, adw_header_bar, GTK_TYPE_WIDGET,
 static GtkBuildableIface *parent_buildable_iface;
 
 static void
+update_box_visibility (GtkWidget *box)
+{
+  gboolean has_visible = FALSE;
+  GtkWidget *child;
+
+  for (child = gtk_widget_get_first_child (box);
+       child;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (gtk_widget_get_visible (child)) {
+      has_visible = TRUE;
+      break;
+    }
+  }
+
+  gtk_widget_set_visible (box, has_visible);
+}
+
+static void
 create_start_window_controls (AdwHeaderBar *self)
 {
   GtkWidget *controls = gtk_window_controls_new (GTK_PACK_START);
@@ -195,6 +213,9 @@ create_start_window_controls (AdwHeaderBar *self)
   g_object_bind_property (controls, "empty",
                           controls, "visible",
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
+  g_signal_connect_swapped (controls, "notify::visible",
+                            G_CALLBACK (update_box_visibility),
+                            self->start_box);
   gtk_box_prepend (GTK_BOX (self->start_box), controls);
   self->start_window_controls = controls;
 }
@@ -209,6 +230,9 @@ create_end_window_controls (AdwHeaderBar *self)
   g_object_bind_property (controls, "empty",
                           controls, "visible",
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
+  g_signal_connect_swapped (controls, "notify::visible",
+                            G_CALLBACK (update_box_visibility),
+                            self->end_box);
   gtk_box_append (GTK_BOX (self->end_box), controls);
   self->end_window_controls = controls;
 }
@@ -221,6 +245,9 @@ create_back_button (AdwHeaderBar *self)
   gtk_box_insert_child_after (GTK_BOX (self->start_box),
                               button,
                               self->start_window_controls);
+  g_signal_connect_swapped (button, "notify::visible",
+                            G_CALLBACK (update_box_visibility),
+                            self->start_box);
 
   self->back_button = button;
 }
@@ -260,9 +287,14 @@ update_start_title_buttons (AdwHeaderBar *self)
   if (show) {
     create_start_window_controls (self);
   } else if (self->start_box && self->start_window_controls) {
+    g_signal_handlers_disconnect_by_func (self->start_window_controls,
+                                          update_box_visibility,
+                                          self->start_box);
     gtk_box_remove (GTK_BOX (self->start_box), self->start_window_controls);
     self->start_window_controls = NULL;
   }
+
+  update_box_visibility (self->start_box);
 }
 
 static void
@@ -300,9 +332,14 @@ update_end_title_buttons (AdwHeaderBar *self)
   if (show) {
     create_end_window_controls (self);
   } else if (self->end_box && self->end_window_controls) {
+    g_signal_handlers_disconnect_by_func (self->end_window_controls,
+                                          update_box_visibility,
+                                          self->end_box);
     gtk_box_remove (GTK_BOX (self->end_box), self->end_window_controls);
     self->end_window_controls = NULL;
   }
+
+  update_box_visibility (self->end_box);
 }
 
 static void
@@ -813,6 +850,11 @@ adw_header_bar_pack_start (AdwHeaderBar *self,
                            GtkWidget    *child)
 {
   gtk_box_append (GTK_BOX (self->start_box), child);
+  update_box_visibility (self->start_box);
+
+  g_signal_connect_swapped (child, "notify::visible",
+                            G_CALLBACK (update_box_visibility),
+                            self->start_box);
 }
 
 /**
@@ -827,6 +869,11 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
                          GtkWidget    *child)
 {
   gtk_box_prepend (GTK_BOX (self->end_box), child);
+  update_box_visibility (self->end_box);
+
+  g_signal_connect_swapped (child, "notify::visible",
+                            G_CALLBACK (update_box_visibility),
+                            self->end_box);
 }
 
 /**
@@ -850,14 +897,19 @@ adw_header_bar_remove (AdwHeaderBar *self,
 
   parent = gtk_widget_get_parent (child);
 
-  if (parent == self->start_box)
-    gtk_box_remove (GTK_BOX (self->start_box), child);
-  else if (parent == self->end_box)
-    gtk_box_remove (GTK_BOX (self->end_box), child);
-  else if (parent == self->center_bin)
+  if (parent == self->start_box || parent == self->end_box) {
+    g_signal_handlers_disconnect_by_func (child,
+                                          update_box_visibility,
+                                          parent);
+
+    gtk_box_remove (GTK_BOX (parent), child);
+
+    update_box_visibility (parent);
+  } else if (parent == self->center_bin) {
     adw_bin_set_child (ADW_BIN (self->center_bin), NULL);
-  else
+  } else {
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+  }
 }
 
 /**
@@ -1069,6 +1121,9 @@ adw_header_bar_set_show_back_button (AdwHeaderBar *self,
     if (self->show_back_button) {
       create_back_button (self);
     } else if (self->back_button) {
+      g_signal_handlers_disconnect_by_func (self->back_button,
+                                            update_box_visibility,
+                                            self->start_box);
       gtk_box_remove (GTK_BOX (self->start_box), self->back_button);
       self->back_button = NULL;
     }
