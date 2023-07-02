@@ -849,6 +849,10 @@ void
 adw_header_bar_pack_start (AdwHeaderBar *self,
                            GtkWidget    *child)
 {
+  g_return_if_fail (ADW_IS_HEADER_BAR (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
   gtk_box_append (GTK_BOX (self->start_box), child);
   update_box_visibility (self->start_box);
 
@@ -868,6 +872,10 @@ void
 adw_header_bar_pack_end (AdwHeaderBar *self,
                          GtkWidget    *child)
 {
+  g_return_if_fail (ADW_IS_HEADER_BAR (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
   gtk_box_prepend (GTK_BOX (self->end_box), child);
   update_box_visibility (self->end_box);
 
