@@ -14,10 +14,21 @@ headerbar {
   > windowhandle > box {
     padding: 6px 7px 7px 7px;
 
-    &,
     > box.start,
     > box.end {
       border-spacing: 6px;
+    }
+
+    &, > widget {
+      > box.start:dir(ltr),
+      > box.end:dir(rtl) {
+        margin-right: 6px;
+      }
+
+      > box.start:dir(rtl),
+      > box.end:dir(ltr) {
+        margin-left: 6px;
+      }
     }
   }
 
