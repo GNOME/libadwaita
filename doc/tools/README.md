@@ -39,6 +39,9 @@ to `libadwaita.toml.in`.
 
 # Regenerating screenshots
 
+Make sure your system has Cantarell and Noto Sans Mono fonts installed on your
+system, otherwise the screenshots may have wrong fonts.
+
 To regenerate all screenshots, run:
 
 ```c
