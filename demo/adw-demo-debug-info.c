@@ -166,5 +166,5 @@ adw_demo_generate_debug_info (void)
       g_string_append_printf (string, "- ADW_DISABLE_PORTAL: %s\n", adw_disable_portal);
   }
 
-  return g_string_free (string, FALSE);
+  return g_string_free_and_steal (string);
 }

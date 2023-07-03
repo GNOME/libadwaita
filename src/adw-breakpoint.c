@@ -820,7 +820,7 @@ adw_breakpoint_condition_parse (const char *str)
       g_string_append_c (line, '-');
 
     g_string_append_c (line, '^');
-    line_str = g_string_free (line, FALSE);
+    line_str = g_string_free_and_steal (line);
 
     g_critical ("Unable to parse condition: %s\n%s\n%s", message, str, line_str);
 

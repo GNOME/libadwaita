@@ -105,7 +105,7 @@ extract_initials_from_text (const char *text)
 
   g_free (normalized);
 
-  return g_string_free (initials, FALSE);
+  return g_string_free_and_steal (initials);
 }
 
 static void
