@@ -13,6 +13,37 @@ static GOptionEntry entries[] =
   { NULL }
 };
 
+static void
+pixbuf_texture_unref_cb (guchar   *pixels,
+                         gpointer  bytes)
+{
+  g_bytes_unref (bytes);
+}
+
+static GdkPixbuf *
+create_pixbuf_from_texture (GdkTexture *texture)
+{
+  GdkTextureDownloader *downloader;
+  GBytes *bytes;
+  gsize stride;
+
+  downloader = gdk_texture_downloader_new (texture);
+  gdk_texture_downloader_set_format (downloader, GDK_MEMORY_R8G8B8A8);
+  bytes = gdk_texture_downloader_download_bytes (downloader, &stride);
+
+  gdk_texture_downloader_free (downloader);
+
+  return gdk_pixbuf_new_from_data (g_bytes_get_data (bytes, NULL),
+                                   GDK_COLORSPACE_RGB,
+                                   TRUE,
+                                   8,
+                                   gdk_texture_get_width (texture),
+                                   gdk_texture_get_height (texture),
+                                   stride,
+                                   pixbuf_texture_unref_cb,
+                                   bytes);
+}
+
 typedef struct {
   GtkWidget *widget;
   GtkWidget *hover_widget;
@@ -179,7 +210,7 @@ draw_paintable_cb (ScreenshotData *data)
                                          &GRAPHENE_RECT_INIT (0, 0, width, height));
 
   if (GTK_IS_NATIVE (data->widget)) {
-    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_texture (texture);
+    GdkPixbuf *pixbuf = create_pixbuf_from_texture (texture);
     GdkPixbuf *cropped_pixbuf = crop_alpha (pixbuf);
 
     gdk_pixbuf_save (cropped_pixbuf, data->name, "png", NULL, NULL);
