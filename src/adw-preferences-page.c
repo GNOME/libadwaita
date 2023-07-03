@@ -237,6 +237,7 @@ static void
 adw_preferences_page_init (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+
   priv->title = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -359,11 +360,8 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  if (g_strcmp0 (priv->icon_name, icon_name) == 0)
+  if (!g_set_str (&priv->icon_name, icon_name))
     return;
-
-  g_clear_pointer (&priv->icon_name, g_free);
-  priv->icon_name = g_strdup (icon_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -405,11 +403,8 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  if (g_strcmp0 (priv->title, title) == 0)
+  if (!g_set_str (&priv->title, title ? title : ""))
     return;
-
-  g_clear_pointer (&priv->title, g_free);
-  priv->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -504,11 +499,8 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  if (g_strcmp0(priv->name, name) == 0)
+  if (!g_set_str (&priv->name, name))
     return;
-
-  g_clear_pointer (&priv->name, g_free);
-  priv->name = g_strdup (name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NAME]);
 }

@@ -2850,11 +2850,8 @@ adw_tab_page_set_title (AdwTabPage *self,
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
 
-  if (!g_strcmp0 (title, self->title))
+  if (!g_set_str (&self->title, title ? title : ""))
     return;
-
-  g_clear_pointer (&self->title, g_free);
-  self->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
 
@@ -2897,11 +2894,8 @@ adw_tab_page_set_tooltip (AdwTabPage *self,
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
 
-  if (!g_strcmp0 (tooltip, self->tooltip))
+  if (!g_set_str (&self->tooltip, tooltip ? tooltip : ""))
     return;
-
-  g_clear_pointer (&self->tooltip, g_free);
-  self->tooltip = g_strdup (tooltip ? tooltip : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TOOLTIP]);
 }
@@ -2942,10 +2936,8 @@ adw_tab_page_set_icon (AdwTabPage *self,
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
   g_return_if_fail (icon == NULL || G_IS_ICON (icon));
 
-  if (self->icon == icon)
+  if (!g_set_object (&self->icon, icon))
     return;
-
-  g_set_object (&self->icon, icon);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_ICON]);
 }
@@ -3041,10 +3033,8 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
   g_return_if_fail (indicator_icon == NULL || G_IS_ICON (indicator_icon));
 
-  if (self->indicator_icon == indicator_icon)
+  if (!g_set_object (&self->indicator_icon, indicator_icon))
     return;
-
-  g_set_object (&self->indicator_icon, indicator_icon);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_INDICATOR_ICON]);
 }
@@ -3087,11 +3077,8 @@ adw_tab_page_set_indicator_tooltip (AdwTabPage *self,
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
   g_return_if_fail (tooltip != NULL);
 
-  if (!g_strcmp0 (tooltip, self->indicator_tooltip))
+  if (!g_set_str (&self->indicator_tooltip, tooltip ? tooltip : ""))
     return;
-
-  g_clear_pointer (&self->indicator_tooltip, g_free);
-  self->indicator_tooltip = g_strdup (tooltip ? tooltip : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_INDICATOR_TOOLTIP]);
 }
@@ -3228,11 +3215,8 @@ adw_tab_page_set_keyword (AdwTabPage *self,
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
 
-  if (!g_strcmp0 (keyword, self->keyword))
+  if (!g_set_str (&self->keyword, keyword))
     return;
-
-  g_clear_pointer (&self->keyword, g_free);
-  self->keyword = g_strdup (keyword);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_KEYWORD]);
 }

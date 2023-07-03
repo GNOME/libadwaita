@@ -524,11 +524,8 @@ adw_avatar_set_icon_name (AdwAvatar  *self,
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
 
-  if (g_strcmp0 (self->icon_name, icon_name) == 0)
+  if (!g_set_str (&self->icon_name, icon_name))
     return;
-
-  g_clear_pointer (&self->icon_name, g_free);
-  self->icon_name = g_strdup (icon_name);
 
   update_icon (self);
 
@@ -568,11 +565,8 @@ adw_avatar_set_text (AdwAvatar  *self,
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
 
-  if (g_strcmp0 (self->text, text) == 0)
+  if (!g_set_str (&self->text, text ? text : ""))
     return;
-
-  g_clear_pointer (&self->text, g_free);
-  self->text = g_strdup (text ? text : "");
 
   set_class_color (self);
 

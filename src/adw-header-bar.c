@@ -1121,8 +1121,8 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
 {
   g_return_if_fail (ADW_IS_HEADER_BAR (self));
 
-  g_clear_pointer (&self->decoration_layout, g_free);
-  self->decoration_layout = g_strdup (layout);
+  if (!g_set_str (&self->decoration_layout, layout))
+    return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DECORATION_LAYOUT]);
 }

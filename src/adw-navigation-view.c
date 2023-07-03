@@ -2168,8 +2168,7 @@ adw_navigation_page_set_tag (AdwNavigationPage *self,
   if (priv->tag && view)
     g_hash_table_remove (view->tag_mapping, priv->tag);
 
-  g_free (priv->tag);
-  priv->tag = g_strdup (tag);
+  g_set_str (&priv->tag, tag);
 
   if (priv->tag && view)
     g_hash_table_insert (view->tag_mapping, g_strdup (priv->tag), self);
@@ -2222,11 +2221,8 @@ adw_navigation_page_set_title (AdwNavigationPage *self,
 
   priv = adw_navigation_page_get_instance_private (self);
 
-  if (!g_strcmp0 (priv->title, title))
+  if (!g_set_str (&priv->title, title))
     return;
-
-  g_free (priv->title);
-  priv->title = g_strdup (title);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
 

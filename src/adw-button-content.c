@@ -342,11 +342,8 @@ adw_button_content_set_icon_name (AdwButtonContent *self,
   g_return_if_fail (ADW_IS_BUTTON_CONTENT (self));
   g_return_if_fail (icon_name != NULL);
 
-  if (!g_strcmp0 (icon_name, adw_button_content_get_icon_name (self)))
+  if (!g_set_str (&self->icon_name, icon_name))
     return;
-
-  g_free (self->icon_name);
-  self->icon_name = g_strdup (icon_name);
 
   if (!icon_name[0])
     icon_name = "image-missing";
@@ -488,3 +485,4 @@ adw_button_content_set_can_shrink (AdwButtonContent *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SHRINK]);
 }
+

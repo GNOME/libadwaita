@@ -232,11 +232,8 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
 
   priv = adw_preferences_row_get_instance_private (self);
 
-  if (g_strcmp0 (priv->title, title) == 0)
+  if (!g_set_str (&priv->title, title ? title : ""))
     return;
-
-  g_free (priv->title);
-  priv->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }

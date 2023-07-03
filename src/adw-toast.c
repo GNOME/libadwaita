@@ -585,8 +585,7 @@ adw_toast_set_title (AdwToast   *self,
 
   adw_toast_set_custom_title (self, NULL);
 
-  g_clear_pointer (&self->title, g_free);
-  self->title = g_strdup (title);
+  g_set_str (&self->title, title);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 
@@ -628,11 +627,8 @@ adw_toast_set_button_label (AdwToast   *self,
 {
   g_return_if_fail (ADW_IS_TOAST (self));
 
-  if (!g_strcmp0 (self->button_label, button_label))
+  if (!g_set_str (&self->button_label, button_label))
     return;
-
-  g_clear_pointer (&self->button_label, g_free);
-  self->button_label = g_strdup (button_label);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BUTTON_LABEL]);
 }
@@ -670,11 +666,8 @@ adw_toast_set_action_name (AdwToast   *self,
 {
   g_return_if_fail (ADW_IS_TOAST (self));
 
-  if (!g_strcmp0 (self->action_name, action_name))
+  if (!g_set_str (&self->action_name, action_name))
     return;
-
-  g_clear_pointer (&self->action_name, g_free);
-  self->action_name = g_strdup (action_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTION_NAME]);
 }

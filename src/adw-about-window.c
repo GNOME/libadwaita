@@ -2130,11 +2130,8 @@ adw_about_window_set_application_icon (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (application_icon != NULL);
 
-  if (g_strcmp0 (self->application_icon, application_icon) == 0)
+  if (!g_set_str (&self->application_icon, application_icon))
     return;
-
-  g_free (self->application_icon);
-  self->application_icon = g_strdup (application_icon);
 
   gtk_widget_set_visible (self->app_icon_image,
                           application_icon && *application_icon);
@@ -2178,11 +2175,8 @@ adw_about_window_set_application_name (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (application_name != NULL);
 
-  if (g_strcmp0 (self->application_name, application_name) == 0)
+  if (!g_set_str (&self->application_name, application_name))
     return;
-
-  g_free (self->application_name);
-  self->application_name = g_strdup (application_name);
 
   gtk_widget_set_visible (self->app_name_label,
                           application_name && *application_name);
@@ -2231,11 +2225,8 @@ adw_about_window_set_developer_name (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (developer_name != NULL);
 
-  if (g_strcmp0 (self->developer_name, developer_name) == 0)
+  if (!g_set_str (&self->developer_name, developer_name))
     return;
-
-  g_free (self->developer_name);
-  self->developer_name = g_strdup (developer_name);
 
   gtk_widget_set_visible (self->developer_name_label,
                           developer_name && *developer_name);
@@ -2282,11 +2273,8 @@ adw_about_window_set_version (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (version != NULL);
 
-  if (g_strcmp0 (self->version, version) == 0)
+  if (!g_set_str (&self->version, version))
     return;
-
-  g_free (self->version);
-  self->version = g_strdup (version);
 
   gtk_widget_set_visible (self->version_button, version && *version);
 
@@ -2338,11 +2326,8 @@ adw_about_window_set_release_notes_version (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (version != NULL);
 
-  if (g_strcmp0 (self->release_notes_version, version) == 0)
+  if (!g_set_str (&self->release_notes_version, version))
     return;
-
-  g_free (self->release_notes_version);
-  self->release_notes_version = g_strdup (version);
 
   update_release_notes (self);
   update_details (self);
@@ -2407,11 +2392,8 @@ adw_about_window_set_release_notes (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (release_notes != NULL);
 
-  if (g_strcmp0 (self->release_notes, release_notes) == 0)
+  if (!g_set_str (&self->release_notes, release_notes))
     return;
-
-  g_free (self->release_notes);
-  self->release_notes = g_strdup (release_notes);
 
   update_release_notes (self);
   update_details (self);
@@ -2458,11 +2440,8 @@ adw_about_window_set_comments (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (comments != NULL);
 
-  if (g_strcmp0 (self->comments, comments) == 0)
+  if (!g_set_str (&self->comments, comments))
     return;
-
-  g_free (self->comments);
-  self->comments = g_strdup (comments);
 
   update_details (self);
 
@@ -2508,11 +2487,8 @@ adw_about_window_set_website (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (website != NULL);
 
-  if (g_strcmp0 (self->website, website) == 0)
+  if (!g_set_str (&self->website, website))
     return;
-
-  g_free (self->website);
-  self->website = g_strdup (website);
 
   update_details (self);
 
@@ -2555,11 +2531,8 @@ adw_about_window_set_support_url (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (support_url != NULL);
 
-  if (g_strcmp0 (self->support_url, support_url) == 0)
+  if (!g_set_str (&self->support_url, support_url))
     return;
-
-  g_free (self->support_url);
-  self->support_url = g_strdup (support_url);
 
   update_support (self);
 
@@ -2602,11 +2575,8 @@ adw_about_window_set_issue_url (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (issue_url != NULL);
 
-  if (g_strcmp0 (self->issue_url, issue_url) == 0)
+  if (!g_set_str (&self->issue_url, issue_url))
     return;
-
-  g_free (self->issue_url);
-  self->issue_url = g_strdup (issue_url);
 
   update_support (self);
 
@@ -2704,11 +2674,8 @@ adw_about_window_set_debug_info (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (debug_info != NULL);
 
-  if (g_strcmp0 (self->debug_info, debug_info) == 0)
+  if (!g_set_str (&self->debug_info, debug_info))
     return;
-
-  g_free (self->debug_info);
-  self->debug_info = g_strdup (debug_info);
 
   update_support (self);
 
@@ -2754,11 +2721,8 @@ adw_about_window_set_debug_info_filename (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (filename != NULL);
 
-  if (g_strcmp0 (self->debug_info_filename, filename) == 0)
+  if (!g_set_str (&self->debug_info_filename, filename))
     return;
-
-  g_free (self->debug_info_filename);
-  self->debug_info_filename = g_strdup (filename);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEBUG_INFO_FILENAME]);
 }
@@ -3046,11 +3010,8 @@ adw_about_window_set_translator_credits (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (translator_credits != NULL);
 
-  if (g_strcmp0 (self->translator_credits, translator_credits) == 0)
+  if (!g_set_str (&self->translator_credits, translator_credits))
     return;
-
-  g_free (self->translator_credits);
-  self->translator_credits = g_strdup (translator_credits);
 
   update_credits (self);
 
@@ -3184,11 +3145,8 @@ adw_about_window_set_copyright (AdwAboutWindow *self,
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (copyright != NULL);
 
-  if (g_strcmp0 (self->copyright, copyright) == 0)
+  if (!g_set_str (&self->copyright, copyright))
     return;
-
-  g_free (self->copyright);
-  self->copyright = g_strdup (copyright);
 
   update_legal (self);
 
@@ -3248,10 +3206,8 @@ adw_about_window_set_license_type (AdwAboutWindow *self,
   if (self->license_type == license_type)
     return;
 
-  if (license_type != GTK_LICENSE_CUSTOM) {
-    g_free (self->license);
-    self->license = g_strdup ("");
-  }
+  if (license_type != GTK_LICENSE_CUSTOM)
+    g_set_str (&self->license, "");
 
   self->license_type = license_type;
 
@@ -3314,8 +3270,7 @@ adw_about_window_set_license (AdwAboutWindow *self,
 
   g_object_freeze_notify (G_OBJECT (self));
 
-  g_free (self->license);
-  self->license = g_strdup (license);
+  g_set_str (&self->license, license);
   self->license_type = GTK_LICENSE_CUSTOM;
 
   update_legal (self);

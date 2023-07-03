@@ -1403,11 +1403,8 @@ adw_message_dialog_set_heading (AdwMessageDialog *self,
 
   priv = adw_message_dialog_get_instance_private (self);
 
-  if (heading == priv->heading)
+  if (!g_set_str (&priv->heading, heading))
     return;
-
-  g_free (priv->heading);
-  priv->heading = g_strdup (heading);
 
   gtk_label_set_label (GTK_LABEL (priv->heading_label), heading);
   gtk_widget_set_visible (priv->heading_label, heading && *heading);
@@ -1614,11 +1611,8 @@ adw_message_dialog_set_body (AdwMessageDialog *self,
 
   priv = adw_message_dialog_get_instance_private (self);
 
-  if (body == priv->body)
+  if (!g_set_str (&priv->body, body))
     return;
-
-  g_free (priv->body);
-  priv->body = g_strdup (body);
 
   gtk_label_set_label (GTK_LABEL (priv->body_label), body);
   gtk_widget_set_visible (priv->body_label, body && *body);
@@ -2017,8 +2011,7 @@ adw_message_dialog_set_response_label (AdwMessageDialog *self,
 
   info = find_response (self, response);
 
-  g_free (info->label);
-  info->label = g_strdup (label);
+  g_set_str (&info->label, label);
 
   gtk_button_set_label (GTK_BUTTON (info->button), label);
 }

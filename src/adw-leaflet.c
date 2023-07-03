@@ -2750,11 +2750,9 @@ adw_leaflet_page_set_name (AdwLeafletPage *self,
     }
   }
 
-  if (name == self->name)
+  if (!g_set_str (&self->name, name))
     return;
 
-  g_free (self->name);
-  self->name = g_strdup (name);
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NAME]);
 
   if (leaflet && leaflet->visible_child == self)

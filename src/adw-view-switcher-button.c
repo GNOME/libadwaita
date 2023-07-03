@@ -395,12 +395,10 @@ adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
   if (!g_strcmp0 (self->icon_name, icon_name))
     return;
 
-  g_free (self->icon_name);
-
-  if (icon_name && strlen (icon_name) > 0)
-    self->icon_name = g_strdup (icon_name);
+  if (icon_name && *icon_name)
+    g_set_str (&self->icon_name, icon_name);
   else
-    self->icon_name = g_strdup ("image-missing");
+    g_set_str (&self->icon_name, "image-missing");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -510,11 +508,8 @@ adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self));
 
-  if (!g_strcmp0 (self->label, label))
+  if (!g_set_str (&self->label, label))
     return;
-
-  g_free (self->label);
-  self->label = g_strdup (label);
 
   g_object_notify (G_OBJECT (self), "label");
 }

@@ -1228,11 +1228,8 @@ adw_view_stack_page_set_name (AdwViewStackPage *self,
     }
   }
 
-  if (name == self->name)
+  if (!g_set_str (&self->name, name))
     return;
-
-  g_free (self->name);
-  self->name = g_strdup (name);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NAME]);
 
@@ -1270,11 +1267,8 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
 {
   g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
 
-  if (title == self->title)
+  if (!g_set_str (&self->title, title))
     return;
-
-  g_free (self->title);
-  self->title = g_strdup (title);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
 
@@ -1347,11 +1341,8 @@ adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
 {
   g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
 
-  if (icon_name == self->icon_name)
+  if (!g_set_str (&self->icon_name, icon_name))
     return;
-
-  g_free (self->icon_name);
-  self->icon_name = g_strdup (icon_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_ICON_NAME]);
 }
