@@ -834,14 +834,12 @@ get_scroll_animation_value (AdwTabBox *self)
   return round (adw_lerp (self->scroll_animation_from, to, value));
 }
 
-static gboolean
+static void
 drop_switch_timeout_cb (AdwTabBox *self)
 {
   self->drop_switch_timeout_id = 0;
   adw_tab_view_set_selected_page (self->view,
                                   self->drop_target_tab->page);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -858,9 +856,9 @@ set_drop_target_tab (AdwTabBox *self,
 
   if (self->drop_target_tab) {
     self->drop_switch_timeout_id =
-      g_timeout_add (DROP_SWITCH_TIMEOUT,
-                     (GSourceFunc) drop_switch_timeout_cb,
-                     self);
+      g_timeout_add_once (DROP_SWITCH_TIMEOUT,
+                          (GSourceOnceFunc) drop_switch_timeout_cb,
+                          self);
   }
 }
 
@@ -2300,13 +2298,11 @@ remove_animation_done_cb (TabInfo *info)
   update_separators (self);
 }
 
-static gboolean
+static void
 remove_placeholder_scroll_cb (AdwTabBox *self)
 {
   animate_scroll_relative (self, -self->placeholder_scroll_offset, CLOSE_ANIMATION_DURATION);
   self->placeholder_scroll_offset = 0;
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2324,7 +2320,7 @@ remove_placeholder (AdwTabBox *self)
   if (info->appear_animation)
     adw_animation_skip (info->appear_animation);
 
-  g_idle_add ((GSourceFunc) remove_placeholder_scroll_cb, self);
+  g_idle_add_once ((GSourceOnceFunc) remove_placeholder_scroll_cb, self);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               appear_animation_value_cb,
@@ -2739,13 +2735,11 @@ view_drag_drop_cb (AdwTabBox      *self,
 
 /* DND autoscrolling */
 
-static gboolean
+static void
 reset_drop_target_tab_cb (AdwTabBox *self)
 {
   self->reset_drop_target_tab_id = 0;
   set_drop_target_tab (self, NULL);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2763,7 +2757,7 @@ drag_leave_cb (AdwTabBox               *self,
 
   if (!self->reset_drop_target_tab_id)
     self->reset_drop_target_tab_id =
-      g_idle_add ((GSourceFunc) reset_drop_target_tab_cb, self);
+      g_idle_add_once ((GSourceOnceFunc) reset_drop_target_tab_cb, self);
 
   end_autoscroll (self);
 }
@@ -2802,12 +2796,10 @@ drag_enter_motion_cb (AdwTabBox               *self,
 
 /* Context menu */
 
-static gboolean
+static void
 reset_setup_menu_cb (AdwTabBox *self)
 {
   g_signal_emit_by_name (self->view, "setup-menu", NULL);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2819,7 +2811,7 @@ touch_menu_notify_visible_cb (AdwTabBox *self)
   self->hovering = FALSE;
   update_hover (self);
 
-  g_idle_add ((GSourceFunc) reset_setup_menu_cb, self);
+  g_idle_add_once ((GSourceOnceFunc) reset_setup_menu_cb, self);
 }
 
 static void

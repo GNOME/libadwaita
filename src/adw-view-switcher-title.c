@@ -217,8 +217,8 @@ adw_view_switcher_title_dispose (GObject *object)
   G_OBJECT_CLASS (adw_view_switcher_title_parent_class)->dispose (object);
 }
 
-static gboolean
-check_window_width (AdwViewSwitcherTitle *self)
+static void
+check_window_width_cb (AdwViewSwitcherTitle *self)
 {
   GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
   int width = gtk_widget_get_width (GTK_WIDGET (root));
@@ -227,14 +227,16 @@ check_window_width (AdwViewSwitcherTitle *self)
   update_view_switcher_visible (self);
 
   self->check_window_width_id = 0;
-  return G_SOURCE_REMOVE;
 }
 
 static void
 notify_surface_width_cb (AdwViewSwitcherTitle *self)
 {
-  if (self->check_window_width_id == 0)
-    self->check_window_width_id = g_idle_add (G_SOURCE_FUNC (check_window_width), self);
+  if (self->check_window_width_id)
+    return;
+
+  self->check_window_width_id =
+    g_idle_add_once ((GSourceOnceFunc) check_window_width_cb, self);
 }
 
 static void

@@ -174,12 +174,11 @@ color_values_changed (AdwSettingsImplWin32 *self)
   return S_OK;
 }
 
-static int
+static void
 color_values_changed_idle (gpointer settings)
 {
   color_values_changed (settings);
   g_object_unref (settings);
-  return G_SOURCE_REMOVE;
 }
 
 static HRESULT STDMETHODCALLTYPE
@@ -193,7 +192,7 @@ ColorValuesChanged_Invoke (__FITypedEventHandler_2_Windows__CUI__CViewManagement
   settings = g_weak_ref_get (&handler->settings);
   if (settings != NULL) {
     /* Event handler is invoked from another thread */
-    g_idle_add (color_values_changed_idle, settings);
+    g_idle_add_once (color_values_changed_idle, settings);
   }
   return S_OK;
 }

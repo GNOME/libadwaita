@@ -2159,7 +2159,7 @@ adw_tab_view_size_allocate (GtkWidget *widget,
   }
 }
 
-static gboolean
+static void
 unmap_extra_pages (AdwTabView *self)
 {
   int i;
@@ -2180,8 +2180,6 @@ unmap_extra_pages (AdwTabView *self)
   }
 
   self->unmap_extra_pages_cb = 0;
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2217,7 +2215,7 @@ adw_tab_view_snapshot (GtkWidget   *widget,
 
     if (!self->unmap_extra_pages_cb)
       self->unmap_extra_pages_cb =
-        g_idle_add ((GSourceFunc) unmap_extra_pages, self);
+        g_idle_add_once ((GSourceOnceFunc) unmap_extra_pages, self);
   }
 }
 

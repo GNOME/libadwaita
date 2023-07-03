@@ -305,7 +305,7 @@ pop_to_page_cb (AdwBackButton *self,
   g_slist_free_full (pop_data.pop_before, g_free);
 }
 
-static gboolean
+static void
 clear_menu (AdwBackButton *self)
 {
   g_clear_pointer (&self->navigation_menu, gtk_widget_unparent);
@@ -316,8 +316,6 @@ clear_menu (AdwBackButton *self)
   }
 
   self->clear_menu_id = 0;
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -327,7 +325,7 @@ navigation_menu_closed_cb (AdwBackButton *self)
 
   gtk_widget_unset_state_flags (button, GTK_STATE_FLAG_CHECKED);
 
-  self->clear_menu_id = g_idle_add (G_SOURCE_FUNC (clear_menu), self);
+  self->clear_menu_id = g_idle_add_once ((GSourceOnceFunc) clear_menu, self);
 }
 
 static void

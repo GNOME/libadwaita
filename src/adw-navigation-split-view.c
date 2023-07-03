@@ -353,12 +353,10 @@ update_navigation_stack (AdwNavigationSplitView *self)
                                stack, i);
 }
 
-static gboolean
+static void
 changing_page_done_cb (AdwNavigationSplitView *self)
 {
   self->changing_page = FALSE;
-
-  return G_SOURCE_REMOVE;
 }
 
 static gboolean
@@ -1223,7 +1221,7 @@ adw_navigation_split_view_set_show_content (AdwNavigationSplitView *self,
   }
 
   self->changing_page = TRUE;
-  g_idle_add (G_SOURCE_FUNC (changing_page_done_cb), self);
+  g_idle_add_once ((GSourceOnceFunc) changing_page_done_cb, self);
 
   if (show_content)
     adw_navigation_view_push (ADW_NAVIGATION_VIEW (self->navigation_view),

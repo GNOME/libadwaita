@@ -465,11 +465,10 @@ update_orientation (AdwCarousel *self)
   set_orientable_style_classes (GTK_ORIENTABLE (self));
 }
 
-static gboolean
+static void
 scroll_timeout_cb (AdwCarousel *self)
 {
   self->can_scroll = TRUE;
-  return G_SOURCE_REMOVE;
 }
 
 static gboolean
@@ -535,7 +534,9 @@ scroll_cb (AdwCarousel              *self,
 
   self->can_scroll = FALSE;
   self->scroll_timeout_id =
-   g_timeout_add (SCROLL_TIMEOUT_DURATION, (GSourceFunc) scroll_timeout_cb, self);
+   g_timeout_add_once (SCROLL_TIMEOUT_DURATION,
+                       (GSourceOnceFunc) scroll_timeout_cb,
+                       self);
 
   return GDK_EVENT_STOP;
 }
@@ -1388,7 +1389,7 @@ typedef struct {
   gboolean animate;
 } ScrollData;
 
-static gboolean
+static void
 scroll_to_idle_cb (ScrollData *data)
 {
   do_scroll_to (data->carousel, data->widget, data->animate);
@@ -1396,8 +1397,6 @@ scroll_to_idle_cb (ScrollData *data)
   g_object_unref (data->carousel);
   g_object_unref (data->widget);
   g_free (data);
-
-  return FALSE;
 }
 
 /**
@@ -1432,7 +1431,7 @@ adw_carousel_scroll_to (AdwCarousel *self,
     data->widget = g_object_ref (widget);
     data->animate = animate;
 
-    g_idle_add (G_SOURCE_FUNC (scroll_to_idle_cb), data);
+    g_idle_add_once ((GSourceOnceFunc) scroll_to_idle_cb, data);
     return;
   }
 

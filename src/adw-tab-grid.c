@@ -981,14 +981,12 @@ activate_tab (AdwTabGrid *self)
 
 /* Scrolling */
 
-static gboolean
+static void
 drop_switch_timeout_cb (AdwTabGrid *self)
 {
   self->drop_switch_timeout_id = 0;
   adw_tab_view_set_selected_page (self->view,
                                   self->drop_target_tab->page);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -1005,9 +1003,9 @@ set_drop_target_tab (AdwTabGrid *self,
 
   if (self->drop_target_tab) {
     self->drop_switch_timeout_id =
-      g_timeout_add (DROP_SWITCH_TIMEOUT,
-                     (GSourceFunc) drop_switch_timeout_cb,
-                     self);
+      g_timeout_add_once (DROP_SWITCH_TIMEOUT,
+                          (GSourceOnceFunc) drop_switch_timeout_cb,
+                          self);
   }
 }
 
@@ -2726,13 +2724,11 @@ view_drag_drop_cb (AdwTabGrid    *self,
 
 /* DND autoscrolling */
 
-static gboolean
+static void
 reset_drop_target_tab_cb (AdwTabGrid *self)
 {
   self->reset_drop_target_tab_id = 0;
   set_drop_target_tab (self, NULL);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2750,7 +2746,7 @@ drag_leave_cb (AdwTabGrid              *self,
 
   if (!self->reset_drop_target_tab_id)
     self->reset_drop_target_tab_id =
-      g_idle_add ((GSourceFunc) reset_drop_target_tab_cb, self);
+      g_idle_add_once ((GSourceOnceFunc) reset_drop_target_tab_cb, self);
 
   end_autoscroll (self);
 }
@@ -2788,12 +2784,10 @@ drag_enter_motion_cb (AdwTabGrid              *self,
 
 /* Context menu */
 
-static gboolean
+static void
 reset_setup_menu_cb (AdwTabGrid *self)
 {
   g_signal_emit_by_name (self->view, "setup-menu", NULL);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2806,7 +2800,7 @@ touch_menu_notify_visible_cb (AdwTabGrid *self)
   get_other_tab_grid (self)->hovering = FALSE;
   update_hover (self);
 
-  g_idle_add ((GSourceFunc) reset_setup_menu_cb, self);
+  g_idle_add_once ((GSourceOnceFunc) reset_setup_menu_cb, self);
 }
 
 static void

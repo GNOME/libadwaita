@@ -117,15 +117,13 @@ register_display (GdkDisplayManager *display_manager,
                     NULL);
 }
 
-static gboolean
+static void
 enable_animations_cb (AdwStyleManager *self)
 {
   gtk_style_context_remove_provider_for_display (self->display,
                                                  GTK_STYLE_PROVIDER (self->animations_provider));
 
   self->animation_timeout_id = 0;
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -172,9 +170,9 @@ update_stylesheet (AdwStyleManager *self)
   }
 
   self->animation_timeout_id =
-    g_timeout_add (SWITCH_DURATION,
-                   G_SOURCE_FUNC (enable_animations_cb),
-                   self);
+    g_timeout_add_once (SWITCH_DURATION,
+                        (GSourceOnceFunc) enable_animations_cb,
+                        self);
 }
 
 static gboolean

@@ -54,14 +54,12 @@ static GParamSpec *props[LAST_PROP];
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewSwitcherButton, adw_view_switcher_button, GTK_TYPE_TOGGLE_BUTTON,
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
-static gboolean
-adw_view_switcher_button_switch_timeout (AdwViewSwitcherButton *self)
+static void
+switch_timeout_cb (AdwViewSwitcherButton *self)
 {
   self->switch_timer = 0;
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self), TRUE);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -83,10 +81,11 @@ drag_enter_cb (AdwViewSwitcherButton *self)
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self)))
     return;
 
-  self->switch_timer = g_timeout_add (TIMEOUT_EXPAND,
-                                      (GSourceFunc) adw_view_switcher_button_switch_timeout,
-                                      self);
-  g_source_set_name_by_id (self->switch_timer, "[gtk] adw_view_switcher_switch_timeout");
+  self->switch_timer =
+    g_timeout_add_once (TIMEOUT_EXPAND,
+                        (GSourceOnceFunc) switch_timeout_cb,
+                        self);
+  g_source_set_name_by_id (self->switch_timer, "[adw] switch_timeout_cb");
 }
 
 static void

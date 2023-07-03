@@ -40,14 +40,12 @@ string_is_not_empty (gpointer    user_data,
   return string && string[0];
 }
 
-static gboolean
+static void
 timeout_cb (AdwToastWidget *self)
 {
   self->hide_timeout_id = 0;
 
   adw_toast_dismiss (self->toast);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -57,7 +55,9 @@ start_timeout (AdwToastWidget *self)
 
   if (!self->hide_timeout_id && timeout)
     self->hide_timeout_id =
-      g_timeout_add (timeout * 1000, G_SOURCE_FUNC (timeout_cb), self);
+      g_timeout_add_once (timeout * 1000,
+                          (GSourceOnceFunc) (timeout_cb),
+                          self);
 }
 
 static void
@@ -90,13 +90,11 @@ dismiss (AdwToastWidget *self)
   adw_toast_dismiss (self->toast);
 }
 
-static gboolean
+static void
 close_idle_cb (AdwToastWidget *self)
 {
   dismiss (self);
   g_object_unref (self);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -108,7 +106,7 @@ action_clicked_cb (AdwToastWidget *self)
 
   /* Keep the widget alive through the idle. Otherwise it may be immediately
    * destroyed if animations are disabled */
-  g_idle_add (G_SOURCE_FUNC (close_idle_cb), g_object_ref (self));
+  g_idle_add_once ((GSourceOnceFunc) close_idle_cb, g_object_ref (self));
 }
 
 static void

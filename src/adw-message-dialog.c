@@ -268,7 +268,7 @@ parent_size_cb (AdwMessageDialog *self)
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
-static gboolean
+static void
 parent_state_idle_cb (AdwMessageDialog *self)
 {
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
@@ -276,8 +276,6 @@ parent_state_idle_cb (AdwMessageDialog *self)
   parent_size_cb (self);
 
   priv->parent_state_idle_id = 0;
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -287,7 +285,8 @@ parent_state_cb (AdwMessageDialog *self)
 
   g_clear_handle_id (&priv->parent_state_idle_id, g_source_remove);
 
-  priv->parent_state_idle_id = g_idle_add (G_SOURCE_FUNC (parent_state_idle_cb), self);
+  priv->parent_state_idle_id =
+    g_idle_add_once ((GSourceOnceFunc) parent_state_idle_cb, self);
 }
 
 static void

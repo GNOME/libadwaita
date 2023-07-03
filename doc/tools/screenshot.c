@@ -227,7 +227,7 @@ load_css (const char *name)
   return provider;
 }
 
-static gboolean
+static void
 take_screenshot_cb (ScreenshotData *data)
 {
   if (GTK_IS_POPOVER (data->widget))
@@ -289,8 +289,6 @@ take_screenshot_cb (ScreenshotData *data)
                             G_CALLBACK (draw_paintable), data);
 
   gtk_widget_queue_draw (data->widget);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -395,7 +393,7 @@ take_screenshot (const char *name,
 
   if (!wait) {
     if (hscroll_widget || vscroll_widget)
-      g_idle_add (G_SOURCE_FUNC (take_screenshot_cb), data);
+      g_idle_add_once ((GSourceOnceFunc) take_screenshot_cb, data);
     else
       take_screenshot_cb (data);
   }
