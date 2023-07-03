@@ -14,8 +14,8 @@ G_BEGIN_DECLS
 # error "libadwaita requires gtk4 >= 4.11.3"
 #endif
 
-#if !GLIB_CHECK_VERSION(2, 72, 0)
-# error "libadwaita requires glib-2.0 >= 2.72.0"
+#if !GLIB_CHECK_VERSION(2, 76, 0)
+# error "libadwaita requires glib-2.0 >= 2.76.0"
 #endif
 
 #define _ADWAITA_INSIDE

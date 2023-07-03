@@ -266,7 +266,7 @@ libadwaita_public_sources += files(src_sources)
 
 install_headers(src_headers, subdir: libadwaita_header_subdir)
 
-glib_min_version = '>= 2.72.0'
+glib_min_version = '>= 2.76.0'
 gtk_min_version = '>= 4.11.3'
 
 gio_dep = dependency('gio-2.0', version: glib_min_version)
