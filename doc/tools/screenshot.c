@@ -45,6 +45,7 @@ create_pixbuf_from_texture (GdkTexture *texture)
 }
 
 typedef struct {
+  GtkWidget *window;
   GtkWidget *widget;
   GtkWidget *hover_widget;
   GtkWidget *hscroll_widget;
@@ -166,10 +167,9 @@ draw_paintable_cb (ScreenshotData *data)
   GdkTexture *texture;
   GskRenderNode *node;
   int x, y, width, height;
-  int widget_width, widget_height;
+  graphene_rect_t bounds;
 
-  widget_width = gtk_widget_get_width (data->widget);
-  widget_height = gtk_widget_get_height (data->widget);
+  g_assert (gtk_widget_compute_bounds (data->widget, data->window, &bounds));
 
   if (GTK_IS_NATIVE (data->widget)) {
     GdkSurface *surface;
@@ -185,18 +185,18 @@ draw_paintable_cb (ScreenshotData *data)
   } else {
     x = gtk_widget_get_margin_start (data->widget);
     y = gtk_widget_get_margin_top (data->widget);
-    width = widget_width + x + gtk_widget_get_margin_end (data->widget);
-    height = widget_height + y + gtk_widget_get_margin_bottom (data->widget);
+    width = bounds.size.width + x + gtk_widget_get_margin_end (data->widget);
+    height = bounds.size.height + y + gtk_widget_get_margin_bottom (data->widget);
   }
 
   snapshot = gtk_snapshot_new ();
 
   gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
-  gdk_paintable_snapshot (data->paintable, snapshot, widget_width, widget_height);
+  gdk_paintable_snapshot (data->paintable, snapshot, bounds.size.width, bounds.size.height);
   node = gtk_snapshot_free_to_node (snapshot);
 
   if (gsk_render_node_get_node_type (node) == GSK_CLIP_NODE &&
-      (x > 0 || y > 0 || widget_width < width || widget_height < height)) {
+      (x > 0 || y > 0 || bounds.size.width < width || bounds.size.height < height)) {
     GskRenderNode *original_node = g_steal_pointer (&node);
 
     node = gsk_render_node_ref (gsk_clip_node_get_child (original_node));
@@ -398,6 +398,7 @@ take_screenshot (const char *name,
     gtk_window_set_child (GTK_WINDOW (window), data->widget);
   }
 
+  data->window = window;
   data->paintable = gtk_widget_paintable_new (data->widget);
   data->name = g_file_get_path (output_file);
   data->provider = load_css ("style");
