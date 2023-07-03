@@ -342,7 +342,7 @@ map_or_unmap_page (AdwTabPage *self)
 
   view = ADW_TAB_VIEW (parent);
 
-  if (!view->overview_count)
+  if (!view->overview_count || !gtk_widget_get_mapped (GTK_WIDGET (view)))
     return;
 
   should_be_visible = self == view->selected_page ||
@@ -1136,10 +1136,13 @@ render_contents (AdwTabPaintable *self,
   if (self->frozen)
     return NULL;
 
-  snapshot = gtk_snapshot_new ();
-
   aspect_ratio = get_unclamped_aspect_ratio (self);
+
+  if (G_APPROX_VALUE (aspect_ratio, 0, DBL_EPSILON))
+    return NULL;
+
   scale_factor = gtk_widget_get_scale_factor (self->view);
+  snapshot = gtk_snapshot_new ();
 
   if (MAX_THUMBNAIL_BITMAP_WIDTH / aspect_ratio < MIN_THUMBNAIL_BITMAP_HEIGHT) {
     height = MIN_THUMBNAIL_BITMAP_HEIGHT * scale_factor;
@@ -2220,6 +2223,37 @@ adw_tab_view_snapshot (GtkWidget   *widget,
 }
 
 static void
+draw_overview_pages_after_map_cb (AdwTabView *self)
+{
+  int i;
+
+  if (!self->overview_count)
+    return;
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+    if (page->live_thumbnail || page->invalidated)
+      gtk_widget_set_child_visible (page->bin, TRUE);
+    else if (page == self->selected_page)
+      gtk_widget_queue_draw (GTK_WIDGET (page->bin));
+  }
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+adw_tab_view_map (GtkWidget *widget)
+{
+  AdwTabView *self = ADW_TAB_VIEW (widget);
+
+  GTK_WIDGET_CLASS (adw_tab_view_parent_class)->map (widget);
+
+  if (self->overview_count)
+    g_idle_add_once ((GSourceOnceFunc) draw_overview_pages_after_map_cb, self);
+}
+
+static void
 adw_tab_view_dispose (GObject *object)
 {
   AdwTabView *self = ADW_TAB_VIEW (object);
@@ -2350,6 +2384,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   widget_class->measure = adw_tab_view_measure;
   widget_class->size_allocate = adw_tab_view_size_allocate;
   widget_class->snapshot = adw_tab_view_snapshot;
+  widget_class->map = adw_tab_view_map;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
@@ -4665,7 +4700,7 @@ adw_tab_view_open_overview (AdwTabView *self)
 {
   g_return_if_fail (ADW_IS_TAB_VIEW (self));
 
-  if (self->overview_count == 0) {
+  if (self->overview_count == 0 && gtk_widget_get_mapped (GTK_WIDGET (self))) {
     int i;
 
     for (i = 0; i < self->n_pages; i++) {
