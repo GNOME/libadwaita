@@ -224,7 +224,6 @@ enum {
   PAGE_PROP_TAG,
   PAGE_PROP_TITLE,
   PAGE_PROP_CAN_POP,
-  PAGE_PROP_CHILD_VIEW,
   LAST_PAGE_PROP
 };
 
@@ -430,9 +429,6 @@ adw_navigation_page_get_property (GObject    *object,
   case PAGE_PROP_CAN_POP:
     g_value_set_boolean (value, adw_navigation_page_get_can_pop (self));
     break;
-  case PAGE_PROP_CHILD_VIEW:
-    g_value_set_object (value, adw_navigation_page_get_child_view (self));
-    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -545,18 +541,6 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
     g_param_spec_boolean ("can-pop", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwNavigationPage:child-view: (attributes org.gtk.Property.get=adw_navigation_page_get_child_view)
-   *
-   * TODO
-   *
-   * Since: 1.4
-   */
-  page_props[PAGE_PROP_CHILD_VIEW] =
-    g_param_spec_object ("child-view", NULL, NULL,
-                         ADW_TYPE_NAVIGATION_VIEW,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 
@@ -1333,8 +1317,6 @@ set_child_view (AdwNavigationPage *self,
     g_object_add_weak_pointer (G_OBJECT (priv->child_view),
                                (gpointer *) &priv->child_view);
   }
-
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CHILD_VIEW]);
 }
 
 static void
@@ -2291,16 +2273,6 @@ adw_navigation_page_set_can_pop (AdwNavigationPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_CAN_POP]);
 }
 
-/**
- * adw_navigation_page_get_child_view: (attributes org.gtk.Method.get_property=child-view)
- * @self: a navigation page
- *
- * Sets TODO
- *
- * Returns: (transfer none) (nullable): TODO
- *
- * Since: 1.4
- */
 AdwNavigationView *
 adw_navigation_page_get_child_view (AdwNavigationPage *self)
 {

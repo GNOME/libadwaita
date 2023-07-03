@@ -12,7 +12,7 @@
 #include "adw-back-button-private.h"
 
 #include "adw-bin.h"
-#include "adw-navigation-view.h"
+#include "adw-navigation-view-private.h"
 #include "adw-widget-utils-private.h"
 
 typedef struct {

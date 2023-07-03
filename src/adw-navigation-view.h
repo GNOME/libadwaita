@@ -75,11 +75,6 @@ struct _AdwNavigationPageClass
   gpointer padding[8];
 };
 
-#define ADW_TYPE_NAVIGATION_VIEW (adw_navigation_view_get_type())
-
-ADW_AVAILABLE_IN_1_4
-G_DECLARE_FINAL_TYPE (AdwNavigationView, adw_navigation_view, ADW, NAVIGATION_VIEW, GtkWidget)
-
 ADW_AVAILABLE_IN_1_4
 AdwNavigationPage *adw_navigation_page_new (GtkWidget  *child,
                                             const char *title) G_GNUC_WARN_UNUSED_RESULT;
@@ -113,8 +108,10 @@ ADW_AVAILABLE_IN_1_4
 void     adw_navigation_page_set_can_pop (AdwNavigationPage *self,
                                           gboolean           can_pop);
 
+#define ADW_TYPE_NAVIGATION_VIEW (adw_navigation_view_get_type())
+
 ADW_AVAILABLE_IN_1_4
-AdwNavigationView *adw_navigation_page_get_child_view (AdwNavigationPage *self);
+G_DECLARE_FINAL_TYPE (AdwNavigationView, adw_navigation_view, ADW, NAVIGATION_VIEW, GtkWidget)
 
 ADW_AVAILABLE_IN_1_4
 GtkWidget *adw_navigation_view_new (void) G_GNUC_WARN_UNUSED_RESULT;

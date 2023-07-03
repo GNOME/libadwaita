@@ -16,6 +16,8 @@
 
 G_BEGIN_DECLS
 
+AdwNavigationView *adw_navigation_page_get_child_view (AdwNavigationPage *self);
+
 void adw_navigation_page_showing (AdwNavigationPage *self);
 void adw_navigation_page_shown   (AdwNavigationPage *self);
 void adw_navigation_page_hiding  (AdwNavigationPage *self);
