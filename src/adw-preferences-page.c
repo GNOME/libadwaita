@@ -8,6 +8,8 @@
 
 #include "adw-preferences-page-private.h"
 
+#include "adw-animation-util.h"
+#include "adw-gizmo-private.h"
 #include "adw-preferences-group-private.h"
 #include "adw-widget-utils-private.h"
 
@@ -35,7 +37,7 @@
 
 typedef struct
 {
-  GtkBox *box;
+  GtkWidget *box;
   GtkLabel *description;
   GtkWidget *scrolled_window;
 
@@ -67,6 +69,296 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
+
+/* Copied and modified from from gtk-box-layout.c */
+/* gtkboxlayout.c: Box layout manager
+ *
+ * Copyright 2019  GNOME Foundation
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.         See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+static void
+count_expand_children (GtkWidget *widget,
+                       int       *visible_children,
+                       int       *expand_children)
+{
+  GtkWidget *child;
+
+  *visible_children = *expand_children = 0;
+
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    *visible_children += 1;
+
+    if (gtk_widget_compute_expand (child, GTK_ORIENTATION_VERTICAL))
+      *expand_children += 1;
+  }
+}
+
+static inline double
+inverse_lerp (double a,
+              double b,
+              double t)
+{
+  return (t - a) / (b - a);
+}
+
+static int
+get_spacing (int width)
+{
+  if (width < 1)
+    return 36;
+
+  return adw_lerp (18, 36, CLAMP (inverse_lerp (360, 576, width), 0, 1));
+}
+
+static int
+get_top_padding (int width)
+{
+  return MAX (get_spacing (width) - 12, 3);
+}
+
+static int
+get_bottom_padding (int width)
+{
+  return get_spacing (width) - 6;
+}
+
+static void
+compute_box_height (GtkWidget *widget,
+                    int        for_size,
+                    int       *minimum,
+                    int       *natural)
+{
+  GtkWidget *child;
+  int n_visible_children = 0;
+  int required_min = 0, required_nat = 0;
+  int largest_min = 0, largest_nat = 0;
+  int spacing = get_spacing (for_size);
+  int top_padding = get_top_padding (for_size);
+  int bottom_padding = get_bottom_padding (for_size);
+  int pos;
+
+  for (child = gtk_widget_get_first_child (widget), pos = 0;
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child), pos++) {
+    int child_min = 0;
+    int child_nat = 0;
+
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    gtk_widget_measure (child,
+                        GTK_ORIENTATION_VERTICAL,
+                        for_size,
+                        &child_min, &child_nat,
+                        NULL, NULL);
+
+    largest_min = MAX (largest_min, child_min);
+    largest_nat = MAX (largest_nat, child_nat);
+
+    required_min += child_min;
+    required_nat += child_nat;
+
+    n_visible_children += 1;
+  }
+
+  if (n_visible_children > 0) {
+    required_min += (n_visible_children - 1) * spacing + top_padding + bottom_padding;
+    required_nat += (n_visible_children - 1) * spacing + top_padding + bottom_padding;
+  }
+
+  *minimum = required_min;
+  *natural = required_nat;
+}
+
+static void
+compute_box_width (GtkWidget *widget,
+                   int       *minimum,
+                   int       *natural)
+{
+  GtkWidget *child;
+  int largest_min = 0, largest_nat = 0;
+
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    int child_min = 0;
+    int child_nat = 0;
+
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    gtk_widget_measure (child,
+                        GTK_ORIENTATION_HORIZONTAL,
+                        -1,
+                        &child_min, &child_nat,
+                        NULL, NULL);
+
+    largest_min = MAX (largest_min, child_min);
+    largest_nat = MAX (largest_nat, child_nat);
+  }
+
+  *minimum = largest_min;
+  *natural = largest_nat;
+}
+\
+static GtkSizeRequestMode
+get_box_request_mode (GtkWidget *widget)
+{
+  return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
+static void
+measure_box (GtkWidget      *widget,
+             GtkOrientation  orientation,
+             int             for_size,
+             int            *minimum,
+             int            *natural,
+             int            *min_baseline,
+             int            *nat_baseline)
+{
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    compute_box_width (widget, minimum, natural);
+  else
+    compute_box_height (widget, for_size, minimum, natural);
+
+  if (min_baseline)
+    *min_baseline = -1;
+  if (nat_baseline)
+    *nat_baseline = -1;
+}
+
+static void
+allocate_box (GtkWidget *widget,
+              int        width,
+              int        height,
+              int        baseline)
+{
+  GtkWidget *child;
+  int nvis_children;
+  int nexpand_children;
+  GtkAllocation child_allocation;
+  GtkRequestedSize *sizes;
+  int extra_space;
+  int children_minimum_size = 0;
+  int size_given_to_child;
+  int n_extra_widgets = 0; /* Number of widgets that receive 1 extra px */
+  int y = 0, i;
+  int child_size;
+  int spacing, top_padding, bottom_padding;
+
+  count_expand_children (widget, &nvis_children, &nexpand_children);
+
+  /* If there is no visible child, simply return. */
+  if (nvis_children <= 0)
+    return;
+
+  sizes = g_newa (GtkRequestedSize, nvis_children);
+  spacing = get_spacing (width);
+  top_padding = get_top_padding (width);
+  bottom_padding = get_bottom_padding (width);
+
+  extra_space = height - (nvis_children - 1) * spacing - top_padding - bottom_padding;
+
+  /* Retrieve desired size for visible children. */
+  for (i = 0, child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    gtk_widget_measure (child,
+                        GTK_ORIENTATION_VERTICAL,
+                        width,
+                        &sizes[i].minimum_size, &sizes[i].natural_size,
+                        NULL, NULL);
+
+    children_minimum_size += sizes[i].minimum_size;
+
+    sizes[i].data = child;
+
+    i++;
+  }
+
+  /* Bring children up to size first */
+  extra_space -= children_minimum_size;
+  extra_space = MAX (0, extra_space);
+  extra_space = gtk_distribute_natural_allocation (extra_space, nvis_children, sizes);
+
+  /* Calculate space which hasn't distributed yet,
+   * and is available for expanding children.
+   */
+  if (nexpand_children > 0) {
+    size_given_to_child = extra_space / nexpand_children;
+    n_extra_widgets = extra_space % nexpand_children;
+  } else {
+    size_given_to_child = 0;
+  }
+
+  /* Allocate child sizes. */
+  for (i = 0, child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    child_size = sizes[i].minimum_size;
+
+    if (gtk_widget_compute_expand (child, GTK_ORIENTATION_VERTICAL)) {
+      child_size += size_given_to_child;
+
+      if (n_extra_widgets > 0) {
+        child_size++;
+        n_extra_widgets--;
+      }
+    }
+
+    sizes[i].natural_size = child_size;
+
+    i++;
+  }
+
+  /* Allocate child positions. */
+  child_allocation.x = 0;
+  child_allocation.width = width;
+  y = top_padding;
+
+  for (i = 0, child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    child_size = sizes[i].natural_size;
+
+    /* Assign the child's position. */
+    child_allocation.height = child_size;
+    child_allocation.y = y;
+
+    y += child_size + spacing;
+
+    gtk_widget_size_allocate (child, &child_allocation, -1);
+
+    i++;
+  }
+}
 
 static gboolean
 is_visible_group (GtkWidget *widget,
@@ -231,6 +523,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+
+  g_type_ensure (ADW_TYPE_GIZMO);
 }
 
 static void
@@ -241,6 +535,11 @@ adw_preferences_page_init (AdwPreferencesPage *self)
   priv->title = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_widget_set_layout_manager (priv->box,
+                                 gtk_custom_layout_new (get_box_request_mode,
+                                                        measure_box,
+                                                        allocate_box));
 }
 
 static void
@@ -296,7 +595,7 @@ adw_preferences_page_add (AdwPreferencesPage  *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  gtk_box_append (priv->box, GTK_WIDGET (group));
+  gtk_widget_set_parent (GTK_WIDGET (group), priv->box);
 }
 
 /**
@@ -317,8 +616,8 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
-    gtk_box_remove (priv->box, GTK_WIDGET (group));
+  if (gtk_widget_get_parent (GTK_WIDGET (group)) == priv->box)
+    gtk_widget_unparent (GTK_WIDGET (group));
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, group);
 }
@@ -583,7 +882,7 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
 
   filter = gtk_custom_filter_new ((GtkCustomFilterFunc) is_visible_group, NULL, NULL);
 
-  model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
+  model = gtk_widget_observe_children (priv->box);
   model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (filter)));
   model = G_LIST_MODEL (gtk_map_list_model_new (model,
                                                 (GtkMapListModelMapFunc) preferences_group_to_rows,

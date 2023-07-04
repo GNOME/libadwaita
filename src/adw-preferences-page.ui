@@ -9,8 +9,8 @@
         <property name="child">
           <object class="AdwClamp">
             <property name="child">
-              <object class="GtkBox" id="box">
-                <property name="orientation">vertical</property>
+              <object class="AdwGizmo" id="box">
+                <property name="css-name">box</property>
                 <child>
                   <object class="GtkLabel" id="description">
                     <property name="visible">False</property>
