@@ -138,4 +138,15 @@ void     adw_view_stack_set_vhomogeneous (AdwViewStack *self,
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_view_stack_get_pages (AdwViewStack *self);
 
+#define ADW_TYPE_VIEW_STACK_PAGES (adw_view_stack_pages_get_type ())
+
+ADW_AVAILABLE_IN_1_4
+G_DECLARE_FINAL_TYPE (AdwViewStackPages, adw_view_stack_pages, ADW, VIEW_STACK_PAGES, GObject)
+
+ADW_AVAILABLE_IN_1_4
+AdwViewStackPage *adw_view_stack_pages_get_selected_page (AdwViewStackPages *pages);
+ADW_AVAILABLE_IN_1_4
+void              adw_view_stack_pages_set_selected_page (AdwViewStackPages *pages,
+                                                          AdwViewStackPage  *page);
+
 G_END_DECLS
