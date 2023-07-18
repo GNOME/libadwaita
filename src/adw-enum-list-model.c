@@ -9,6 +9,7 @@
 #include "adw-enum-list-model.h"
 
 #include <gio/gio.h>
+#include <gtk/gtk.h>
 
 /**
  * AdwEnumListModel:
@@ -353,6 +354,8 @@ adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
  * @value: an enum value
  *
  * Finds the position of a given enum value in @self.
+ *
+ * If the value is not found, `GTK_INVALID_LIST_POSITION` is returned.
  */
 guint
 adw_enum_list_model_find_position (AdwEnumListModel *self,
@@ -369,5 +372,5 @@ adw_enum_list_model_find_position (AdwEnumListModel *self,
   g_critical ("%s does not contain value %d",
               G_ENUM_CLASS_TYPE_NAME (self->enum_class), value);
 
-  return 0;
+  return GTK_INVALID_LIST_POSITION;
 }
