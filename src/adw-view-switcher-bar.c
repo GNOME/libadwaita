@@ -125,14 +125,14 @@ update_bar_revealed (AdwViewSwitcherBar *self)
 }
 
 static void
-adw_view_switcher_bar_root (GtkWidget *widget)
+adw_view_switcher_bar_realize (GtkWidget *widget)
 {
   AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (widget);
   gboolean found_breakpoint_bin = FALSE;
   GtkWidget *bin;
   GtkRevealer *revealer;
 
-  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->root (widget);
+  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->realize (widget);
 
   bin = gtk_widget_get_ancestor (widget, ADW_TYPE_BREAKPOINT_BIN);
 
@@ -152,21 +152,19 @@ adw_view_switcher_bar_root (GtkWidget *widget)
 
   if (found_breakpoint_bin)
     gtk_revealer_set_transition_duration (revealer, 0);
-  else
-    gtk_revealer_set_transition_duration (revealer, 250);
 }
 
 static void
-adw_view_switcher_bar_unroot (GtkWidget *widget)
+adw_view_switcher_bar_unrealize (GtkWidget *widget)
 {
   AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (widget);
   GtkRevealer *revealer;
 
   revealer = GTK_REVEALER (gtk_widget_get_first_child (self->action_bar));
 
-  gtk_revealer_set_transition_type (revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
+  gtk_revealer_set_transition_duration (revealer, 250);
 
-  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->unroot (widget);
+  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->unrealize (widget);
 }
 
 static void
@@ -236,8 +234,8 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   object_class->set_property = adw_view_switcher_bar_set_property;
   object_class->dispose = adw_view_switcher_bar_dispose;
 
-  widget_class->root = adw_view_switcher_bar_root;
-  widget_class->unroot = adw_view_switcher_bar_unroot;
+  widget_class->realize = adw_view_switcher_bar_realize;
+  widget_class->unrealize = adw_view_switcher_bar_unrealize;
 
   /**
    * AdwViewSwitcherBar:stack: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_stack org.gtk.Property.set=adw_view_switcher_bar_set_stack)
