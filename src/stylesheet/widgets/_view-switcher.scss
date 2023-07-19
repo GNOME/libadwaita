@@ -13,12 +13,12 @@ viewswitcher {
       &.narrow {
         font-size: 0.75rem;
         padding-top: 4px;
-        padding-bottom: 4px;
-        border-spacing: 2px;
 
-        > stack > label {
-          padding-left: 8px;
-          padding-right: 8px;
+        > label {
+          min-height: 18px;
+          padding-left: 3px;
+          padding-right: 3px;
+          padding-bottom: 2px;
         }
       }
 
@@ -86,18 +86,21 @@ indicatorbin {
   }
 
   > indicator {
+    min-height: 13px;
     margin: 1px;
     background: gtkalpha(currentColor, .4);
 
     > label {
       font-size: 0.6rem;
       font-weight: bold;
-      padding: 1px 4px;
+      padding-left: 4px;
+      padding-right: 4px;
       color: white;
     }
   }
 
   > mask {
+    min-height: 13px;
     padding: 1px;
     background: black;
   }
