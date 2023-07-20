@@ -567,7 +567,7 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStackPages, adw_view_stack_pages, G_TYPE_O
 
 /**
  * adw_view_stack_pages_get_selected_page: (attributes org.gtk.Method.get_property=selected-page)
- * @pages: a [class@ViewStackPages]
+ * @self: a [class@ViewStackPages]
  *
  * Gets the [class@ViewStackPage] for the visible child of a view stack
  *
@@ -597,7 +597,7 @@ adw_view_stack_pages_get_selected_page (AdwViewStackPages *self)
 
 /**
  * adw_view_stack_pages_set_selected_page: (attributes org.gtk.Method.set_property=selected-page)
- * @pages: a [class@ViewStackPages]
+ * @self: a [class@ViewStackPages]
  * @page: a stack page within the associated stack
  *
  * Sets the visible child in the associated [class@ViewStack].
