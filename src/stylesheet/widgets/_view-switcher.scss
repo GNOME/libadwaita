@@ -86,21 +86,11 @@ indicatorbin {
   }
 
   > indicator {
-    min-height: 13px;
     margin: 1px;
     background: gtkalpha(currentColor, .4);
-
-    > label {
-      font-size: 0.6rem;
-      font-weight: bold;
-      padding-left: 4px;
-      padding-right: 4px;
-      color: white;
-    }
   }
 
   > mask {
-    min-height: 13px;
     padding: 1px;
     background: black;
   }
@@ -109,9 +99,24 @@ indicatorbin {
     background: $accent_color;
   }
 
-  &.needs-attention.badge > indicator {
-    background: $accent_bg_color;
+  &.badge {
+    > indicator,
+    > mask {
+      min-height: 13px;
+    }
 
-    > label { color: $accent_fg_color; }
+    > indicator > label {
+      font-size: 0.6rem;
+      font-weight: bold;
+      padding-left: 4px;
+      padding-right: 4px;
+      color: white;
+    }
+
+    &.needs-attention > indicator {
+      background: $accent_bg_color;
+
+      > label { color: $accent_fg_color; }
+    }
   }
 }
