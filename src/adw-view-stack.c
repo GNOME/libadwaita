@@ -135,6 +135,20 @@ enum {
 
 static GParamSpec *page_props[LAST_PAGE_PROP];
 
+struct _AdwViewStackPages
+{
+  GObject parent_instance;
+  AdwViewStack *stack;
+};
+
+enum {
+  PAGES_PROP_0,
+  PAGES_PROP_SELECTED_PAGE,
+  N_PAGES_PROPS,
+};
+
+static GParamSpec *pages_props[N_PAGES_PROPS];
+
 struct _AdwViewStack {
   GtkWidget parent_instance;
 
@@ -476,16 +490,6 @@ adw_view_stack_page_accessible_init (GtkAccessibleInterface *iface)
   iface->get_bounds = adw_view_stack_page_accessible_get_bounds;
 }
 
-#define ADW_TYPE_VIEW_STACK_PAGES (adw_view_stack_pages_get_type ())
-
-G_DECLARE_FINAL_TYPE (AdwViewStackPages, adw_view_stack_pages, ADW, VIEW_STACK_PAGES, GObject)
-
-struct _AdwViewStackPages
-{
-  GObject parent_instance;
-  AdwViewStack *stack;
-};
-
 static GType
 adw_view_stack_pages_get_item_type (GListModel *model)
 {
@@ -561,6 +565,102 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStackPages, adw_view_stack_pages, G_TYPE_O
                                G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_view_stack_pages_list_model_init)
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_view_stack_pages_selection_model_init))
 
+/**
+ * adw_view_stack_pages_get_selected_page: (attributes org.gtk.Method.get_property=selected-page)
+ * @pages: a [class@ViewStackPages]
+ *
+ * Gets the [class@ViewStackPage] for the visible child of a view stack
+ *
+ * Gets the [class@ViewStackPage] for the visible child of the associated stack.
+ *
+ * Returns `NULL` if there's no selected page.
+ *
+ * Returns: (transfer none) (nullable): the stack page
+ *
+ * Since: 1.4
+ */
+AdwViewStackPage *
+adw_view_stack_pages_get_selected_page (AdwViewStackPages *self)
+{
+  GtkWidget *child;
+
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGES (self), NULL);
+
+  if (self->stack == NULL)
+    return NULL;
+
+  if ((child = adw_view_stack_get_visible_child (self->stack)))
+    return adw_view_stack_get_page (self->stack, child);
+
+  return NULL;
+}
+
+/**
+ * adw_view_stack_pages_set_selected_page: (attributes org.gtk.Method.set_property=selected-page)
+ * @pages: a [class@ViewStackPages]
+ * @page: a stack page within the associated stack
+ *
+ * Sets the visible child in the associated [class@ViewStack].
+ *
+ * See [property@ViewStack:visible-child].
+ *
+ * Since: 1.4
+ */
+void
+adw_view_stack_pages_set_selected_page (AdwViewStackPages *self,
+                                        AdwViewStackPage  *page)
+{
+  GtkWidget *child = NULL;
+
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGES (self));
+  g_return_if_fail (!page || ADW_IS_VIEW_STACK_PAGE (page));
+
+  if (self->stack == NULL)
+    return;
+
+  if (page == adw_view_stack_pages_get_selected_page (self))
+    return;
+
+  if (page != NULL)
+    child = adw_view_stack_page_get_child (page);
+
+  adw_view_stack_set_visible_child (self->stack, child);
+}
+
+static void
+adw_view_stack_pages_get_property (GObject    *object,
+                                   guint       prop_id,
+                                   GValue     *value,
+                                   GParamSpec *pspec)
+{
+  AdwViewStackPages *self = ADW_VIEW_STACK_PAGES (object);
+
+  switch (prop_id) {
+  case PAGES_PROP_SELECTED_PAGE:
+    g_value_set_object (value, adw_view_stack_pages_get_selected_page (self));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+adw_view_stack_pages_set_property (GObject      *object,
+                                   guint         prop_id,
+                                   const GValue *value,
+                                   GParamSpec   *pspec)
+{
+  AdwViewStackPages *self = ADW_VIEW_STACK_PAGES (object);
+
+  switch (prop_id) {
+  case PAGES_PROP_SELECTED_PAGE:
+    adw_view_stack_pages_set_selected_page (self, g_value_get_object (value));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
 static void
 adw_view_stack_pages_init (AdwViewStackPages *pages)
 {
@@ -569,6 +669,29 @@ adw_view_stack_pages_init (AdwViewStackPages *pages)
 static void
 adw_view_stack_pages_class_init (AdwViewStackPagesClass *class)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (class);
+
+  object_class->get_property = adw_view_stack_pages_get_property;
+  object_class->set_property = adw_view_stack_pages_set_property;
+
+  /**
+   * AdwViewStackPages:selected-page: (attributes org.gtk.Property.get=adw_view_stack_pages_get_selected_page org.gtk.Property.set=adw_view_stack_pages_set_selected_page)
+   *
+   * The selected [class@ViewStackPage] within the [class@ViewStackPages].
+   *
+   * This can be used to keep an up-to-date view of the [class@ViewStackPage] for
+   * The visible [class@ViewStackPage] within the associated [class@ViewStackPages].
+   *
+   * This can be used to keep an up-to-date view of the visible child.
+   *
+   * Since: 1.4
+   */
+  pages_props[PAGES_PROP_SELECTED_PAGE] =
+    g_param_spec_object ("selected-page", NULL, NULL,
+                         ADW_TYPE_VIEW_STACK_PAGE,
+                         (G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS));
+
+  g_object_class_install_properties (object_class, N_PAGES_PROPS, pages_props);
 }
 
 static AdwViewStackPages *
@@ -719,6 +842,9 @@ set_visible_child (AdwViewStack     *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
+
+  if (self->pages != NULL)
+    g_object_notify_by_pspec (G_OBJECT (self->pages), pages_props[PAGES_PROP_SELECTED_PAGE]);
 
   if (self->pages) {
     if (old_pos == GTK_INVALID_LIST_POSITION && new_pos == GTK_INVALID_LIST_POSITION)
