@@ -324,6 +324,7 @@ static_browser_cb (void)
 
   view = adw_navigation_view_new ();
   adw_navigation_view_set_animate_transitions (ADW_NAVIGATION_VIEW (view), FALSE);
+  adw_navigation_view_set_pop_on_escape (ADW_NAVIGATION_VIEW (view), FALSE);
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (view), page_1);
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (view), page_2);
   adw_navigation_view_add (ADW_NAVIGATION_VIEW (view), page_3);
@@ -396,6 +397,7 @@ dynamic_browser_cb (void)
 
   view = adw_navigation_view_new ();
   adw_navigation_view_set_animate_transitions (ADW_NAVIGATION_VIEW (view), FALSE);
+  adw_navigation_view_set_pop_on_escape (ADW_NAVIGATION_VIEW (view), FALSE);
 
   toolbar_view = adw_toolbar_view_new ();
   adw_toolbar_view_set_top_bar_style (ADW_TOOLBAR_VIEW (toolbar_view),

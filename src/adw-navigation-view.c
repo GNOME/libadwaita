@@ -59,6 +59,8 @@
  * `AdwNavigationView` supports the following shortcuts for going to the
  * previous page:
  *
+ * - <kbd>Escape</kbd> (unless [property@NavigationView:pop-on-escape] is set to
+ *   `FALSE`)
  * - <kbd>Alt</kbd>+<kbd>←</kbd>
  * - Back mouse button
  *
@@ -247,6 +249,7 @@ struct _AdwNavigationView
   GListStore *navigation_stack;
 
   gboolean animate_transitions;
+  gboolean pop_on_escape;
 
   AdwAnimation *transition;
   AdwNavigationPage *showing_page;
@@ -275,6 +278,7 @@ enum {
   PROP_0,
   PROP_VISIBLE_PAGE,
   PROP_ANIMATE_TRANSITIONS,
+  PROP_POP_ON_ESCAPE,
   PROP_NAVIGATION_STACK,
   LAST_PROP
 };
@@ -988,6 +992,48 @@ get_next_page (AdwNavigationView *self)
 }
 
 static gboolean
+pop_shortcut_cb (AdwNavigationView *self)
+{
+  AdwNavigationPage *page = adw_navigation_view_get_visible_page (self);
+
+  if (!page)
+    return GDK_EVENT_PROPAGATE;
+
+  /* Stop it so that it's not propagated to parent navigation views */
+  if (!adw_navigation_page_get_can_pop (page))
+    return GDK_EVENT_STOP;
+
+  if (adw_navigation_view_pop (self))
+    return GDK_EVENT_STOP;
+
+  return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+push_shortcut_cb (AdwNavigationView *self)
+{
+  AdwNavigationPage *next_page = get_next_page (self);
+
+  if (!next_page)
+    return GDK_EVENT_PROPAGATE;
+
+  adw_navigation_view_push (self, next_page);
+
+  g_object_unref (next_page);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+escape_shortcut_cb (AdwNavigationView *self)
+{
+  if (self->pop_on_escape)
+    return pop_shortcut_cb (self);
+
+  return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
 back_forward_shortcut_cb (AdwNavigationView *self,
                           GVariant          *args)
 {
@@ -998,32 +1044,10 @@ back_forward_shortcut_cb (AdwNavigationView *self,
   if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
     is_pop = !is_pop;
 
-  if (is_pop) {
-    AdwNavigationPage *page = adw_navigation_view_get_visible_page (self);
-
-    if (!page)
-      return GDK_EVENT_PROPAGATE;
-
-    /* Stop it so that it's not propagated to parent navigation views */
-    if (!adw_navigation_page_get_can_pop (page))
-      return GDK_EVENT_STOP;
-
-    if (!adw_navigation_view_get_previous_page (self, page))
-      return GDK_EVENT_PROPAGATE;
-
-    adw_navigation_view_pop (self);
-  } else {
-    AdwNavigationPage *next_page = get_next_page (self);
-
-    if (!next_page)
-      return GDK_EVENT_PROPAGATE;
-
-    adw_navigation_view_push (self, next_page);
-
-    g_object_unref (next_page);
-  }
-
-  return GDK_EVENT_STOP;
+  if (is_pop)
+    return pop_shortcut_cb (self);
+  else
+    return push_shortcut_cb (self);
 }
 
 static void
@@ -1596,6 +1620,9 @@ adw_navigation_view_get_property (GObject    *object,
   case PROP_ANIMATE_TRANSITIONS:
     g_value_set_boolean (value, adw_navigation_view_get_animate_transitions (self));
     break;
+  case PROP_POP_ON_ESCAPE:
+    g_value_set_boolean (value, adw_navigation_view_get_pop_on_escape (self));
+    break;
   case PROP_NAVIGATION_STACK:
     g_value_take_object (value, adw_navigation_view_get_navigation_stack (self));
     break;
@@ -1615,6 +1642,9 @@ adw_navigation_view_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_ANIMATE_TRANSITIONS:
     adw_navigation_view_set_animate_transitions (self, g_value_get_boolean (value));
+    break;
+  case PROP_POP_ON_ESCAPE:
+    adw_navigation_view_set_pop_on_escape (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1677,6 +1707,21 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
    */
   props[PROP_ANIMATE_TRANSITIONS] =
     g_param_spec_boolean ("animate-transitions", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwNavigationView:pop-on-escape: (attributes org.gtk.Property.get=adw_navigation_view_get_pop_on_escape org.gtk.Property.set=adw_navigation_view_set_pop_on_escape)
+   *
+   * Whether pressing Escape pops the current page.
+   *
+   * Applications using `AdwNavigationView` to implement a browser may want to
+   * disable it.
+   *
+   * Since: 1.4
+   */
+  props[PROP_POP_ON_ESCAPE] =
+    g_param_spec_boolean ("pop-on-escape", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1809,6 +1854,8 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   gtk_widget_class_install_action (widget_class, "navigation.pop", NULL,
                                    (GtkWidgetActionActivateFunc) navigation_pop_cb);
 
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0,
+                                (GtkShortcutFunc) escape_shortcut_cb, NULL);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_Back, 0,
                                 (GtkShortcutFunc) back_forward_shortcut_cb, "b", TRUE);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_Forward, 0,
@@ -1830,6 +1877,8 @@ adw_navigation_view_init (AdwNavigationView *self)
   GtkGesture *gesture;
 
   self->animate_transitions = TRUE;
+  self->pop_on_escape = TRUE;
+
   self->navigation_stack = g_list_store_new (ADW_TYPE_NAVIGATION_PAGE);
 
   self->tag_mapping = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -2921,6 +2970,52 @@ adw_navigation_view_set_animate_transitions (AdwNavigationView *self,
   self->animate_transitions = animate_transitions;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ANIMATE_TRANSITIONS]);
+}
+
+/**
+ * adw_navigation_view_get_pop_on_escape: (attributes org.gtk.Method.get_property=pop-on-escape)
+ * @self: a navigation view
+ *
+ * Gets whether pressing Escape pops the current page on @self.
+ *
+ * Returns: whether to pop the current page
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_navigation_view_get_pop_on_escape (AdwNavigationView *self)
+{
+  g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), FALSE);
+
+  return self->pop_on_escape;
+}
+
+/**
+ * adw_navigation_view_set_pop_on_escape: (attributes org.gtk.Method.set_property=pop-on-escape)
+ * @self: a navigation view
+ * @pop_on_escape: whether to pop the current page when pressing Escape
+ *
+ * Sets whether pressing Escape pops the current page on @self.
+ *
+ * Applications using `AdwNavigationView` to implement a browser may want to
+ * disable it.
+ *
+ * Since: 1.4
+ */
+void
+adw_navigation_view_set_pop_on_escape (AdwNavigationView *self,
+                                       gboolean           pop_on_escape)
+{
+  g_return_if_fail (ADW_IS_NAVIGATION_VIEW (self));
+
+  pop_on_escape = !!pop_on_escape;
+
+  if (pop_on_escape == self->pop_on_escape)
+    return;
+
+  self->pop_on_escape = pop_on_escape;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POP_ON_ESCAPE]);
 }
 
 /**

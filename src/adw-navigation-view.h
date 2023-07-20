@@ -171,6 +171,12 @@ void     adw_navigation_view_set_animate_transitions (AdwNavigationView *self,
                                                       gboolean           animate_transitions);
 
 ADW_AVAILABLE_IN_1_4
+gboolean adw_navigation_view_get_pop_on_escape (AdwNavigationView *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_navigation_view_set_pop_on_escape (AdwNavigationView *self,
+                                                gboolean           pop_on_escape);
+
+ADW_AVAILABLE_IN_1_4
 GListModel *adw_navigation_view_get_navigation_stack (AdwNavigationView *self);
 
 G_END_DECLS

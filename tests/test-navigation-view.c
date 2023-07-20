@@ -571,6 +571,34 @@ test_adw_navigation_view_animate_transitions (void)
 }
 
 static void
+test_adw_navigation_view_pop_on_escape (void)
+{
+  AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+  gboolean pop_on_escape;
+  int notified = 0;
+
+  g_assert_nonnull (view);
+
+  g_signal_connect_swapped (view, "notify::pop-on-escape", G_CALLBACK (increment), &notified);
+
+  g_object_get (view, "pop-on-escape", &pop_on_escape, NULL);
+  g_assert_true (pop_on_escape);
+
+  adw_navigation_view_set_pop_on_escape (view, TRUE);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_navigation_view_set_pop_on_escape (view, FALSE);
+  g_assert_false (adw_navigation_view_get_pop_on_escape (view));
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (view, "pop-on-escape", TRUE, NULL);
+  g_assert_true (adw_navigation_view_get_pop_on_escape (view));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+}
+
+static void
 test_adw_navigation_page_child (void)
 {
   GtkWidget *button = g_object_ref_sink (gtk_button_new ());
@@ -772,6 +800,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/NavigationView/previous_page", test_adw_navigation_view_previous_page);
   g_test_add_func ("/Adwaita/NavigationView/find_page", test_adw_navigation_view_find_page);
   g_test_add_func ("/Adwaita/NavigationView/animate_transitions", test_adw_navigation_view_animate_transitions);
+  g_test_add_func ("/Adwaita/NavigationView/pop_on_escape", test_adw_navigation_view_pop_on_escape);
   g_test_add_func ("/Adwaita/NavigationPage/child", test_adw_navigation_page_child);
   g_test_add_func ("/Adwaita/NavigationPage/title", test_adw_navigation_page_title);
   g_test_add_func ("/Adwaita/NavigationPage/tag", test_adw_navigation_page_tag);
