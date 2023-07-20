@@ -1313,19 +1313,6 @@ save_debug_info_cb (AdwAboutWindow *self)
 }
 
 static gboolean
-close_cb (GtkWidget *widget,
-          GVariant  *args,
-          gpointer   user_data)
-{
-  AdwAboutWindow *self = ADW_ABOUT_WINDOW (widget);
-
-  if (!adw_navigation_view_pop (ADW_NAVIGATION_VIEW (self->navigation_view)))
-    gtk_window_close (GTK_WINDOW (self));
-
-  return GDK_EVENT_STOP;
-}
-
-static gboolean
 save_debug_info_shortcut_cb (GtkWidget *widget,
                              GVariant  *args,
                              gpointer   user_data)
@@ -1863,7 +1850,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   gtk_widget_class_install_action (widget_class, "about.save-debug-info", NULL,
                                    (GtkWidgetActionActivateFunc) save_debug_info_cb);
 
-  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0, close_cb, NULL);
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_S, GDK_CONTROL_MASK,
                                 save_debug_info_shortcut_cb, NULL);
 }
