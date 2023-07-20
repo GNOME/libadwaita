@@ -1426,11 +1426,6 @@ back_forward_button_pressed_cb (GtkGesture *gesture,
   guint button;
   AdwNavigationDirection direction;
 
-  if (n_press > 1) {
-    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
-    return;
-  }
-
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
   /* Unfortunately, there are no constants for these buttons */
@@ -1440,6 +1435,7 @@ back_forward_button_pressed_cb (GtkGesture *gesture,
     direction = ADW_NAVIGATION_DIRECTION_FORWARD;
   } else {
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (gesture));
     return;
   }
 
