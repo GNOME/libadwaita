@@ -159,7 +159,7 @@ crop_alpha (GdkPixbuf *pixbuf)
   return gdk_pixbuf_new_subpixbuf (pixbuf, left, top, right - left, bottom - top);
 }
 
-static gboolean
+static void
 draw_paintable_cb (ScreenshotData *data)
 {
   GtkSnapshot *snapshot;
@@ -227,8 +227,6 @@ draw_paintable_cb (ScreenshotData *data)
 
   g_object_unref (texture);
   gsk_render_node_unref (node);
-
-  return G_SOURCE_REMOVE;
 }
 
 static void
@@ -239,7 +237,7 @@ draw_paintable (ScreenshotData *data)
                                         data);
 
   /* Handle the case where something immediately invalidates allocation. */
-  g_timeout_add (50, G_SOURCE_FUNC (draw_paintable_cb), data);
+  g_timeout_add_once (50, (GSourceOnceFunc) draw_paintable_cb, data);
 }
 
 static GtkCssProvider *
@@ -419,7 +417,7 @@ take_screenshot (const char *name,
     data->nav_view_child_widget = GTK_WIDGET (nav_view_child_widget);
 
   if (wait)
-    g_timeout_add_seconds (1, G_SOURCE_FUNC (take_screenshot_cb), data);
+    g_timeout_add_once (1000, (GSourceOnceFunc) take_screenshot_cb, data);
 
   gtk_window_present (GTK_WINDOW (window));
 
