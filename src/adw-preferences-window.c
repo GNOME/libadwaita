@@ -368,7 +368,7 @@ update_view_switcher (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   AdwBreakpoint *breakpoint;
-  AdwBreakpointCondition *main_condition, *fallback_condition;
+  AdwBreakpointCondition *main_condition, *fallback_condition, *condition;
 
   main_condition =
     adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
@@ -379,9 +379,9 @@ update_view_switcher (AdwPreferencesWindow *self)
                                          VIEW_SWITCHER_FALLBACK_THRESHOLD,
                                          ADW_LENGTH_UNIT_PX);
 
-  adw_breakpoint_set_condition (priv->breakpoint,
-                                adw_breakpoint_condition_new_or (main_condition,
-                                                                 fallback_condition));
+  condition = adw_breakpoint_condition_new_or (main_condition, fallback_condition);
+
+  adw_breakpoint_set_condition (priv->breakpoint, condition);
 
   breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->breakpoint_bin));
 
@@ -389,6 +389,8 @@ update_view_switcher (AdwPreferencesWindow *self)
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->view_switcher);
   else
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->title);
+
+  adw_breakpoint_condition_free (condition);
 }
 
 static void
