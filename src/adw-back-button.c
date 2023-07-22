@@ -454,7 +454,6 @@ adw_back_button_root (GtkWidget *widget)
 
   GTK_WIDGET_CLASS (adw_back_button_parent_class)->root (widget);
 
-
   page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
 
   while (page) {
@@ -496,6 +495,8 @@ adw_back_button_unroot (GtkWidget *widget)
     g_signal_handlers_disconnect_by_func (data->view, pushed_cb, data);
     g_signal_handlers_disconnect_by_func (data->view, update_page, self);
     g_signal_handlers_disconnect_by_func (data->page, update_page, self);
+
+    g_free (data);
   }
 
   g_clear_pointer (&self->navigation_views, g_slist_free);
