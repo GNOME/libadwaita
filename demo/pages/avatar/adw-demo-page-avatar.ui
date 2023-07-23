@@ -65,6 +65,8 @@
                         <child>
                           <object class="AdwEntryRow" id="text">
                             <property name="title" translatable="yes">Text</property>
+                            <property name="input-purpose">name</property>
+                            <property name="input-hints">no-spellcheck | uppercase-words</property>
                           </object>
                         </child>
                         <child>
