@@ -3,6 +3,10 @@ popover.menu {
     min-width: 120px;
   }
 
+  scrollbar.vertical > range > trough > slider {
+    min-height: 30px;
+  }
+
   box.inline-buttons {
     padding: 0 $menu_padding;
 
