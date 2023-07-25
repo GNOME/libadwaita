@@ -8,105 +8,105 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-06 17:44+0000\n"
-"PO-Revision-Date: 2023-03-07 01:11+0100\n"
+"POT-Creation-Date: 2023-07-20 08:42+0000\n"
+"PO-Revision-Date: 2023-07-26 01:41+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public License, 2-es vagy későbbi verzió"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public License, 3-as vagy későbbi verzió"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public License, 2.1-es vagy későbbi verzió"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License, 3-as vagy későbbi verzió"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause License"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
 msgstr "The MIT License (MIT)"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:212
 msgid "Artistic License 2.0"
 msgstr "Artistic License 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public License, csak 2-es verzió"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public License, csak 3-as verzió"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License, csak 2.1-es verzió"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License, csak 3-as verzió"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License, 3-as vagy későbbi verzió"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, csak 3-as verzió"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause License"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
 msgstr "Apache License, 2.0-s verzió"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:535
 msgid "Code by"
 msgstr "Kód:"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:536
 msgid "Design by"
 msgstr "Tervezés:"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:537
 msgid "Artwork by"
 msgstr "Grafika:"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:538
 msgid "Documentation by"
 msgstr "Dokumentáció:"
 
-#: src/adw-about-window.c:533
+#: src/adw-about-window.c:539
 msgid "Translated by"
 msgstr "Fordította:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:562
+#: src/adw-about-window.c:568
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -115,37 +115,37 @@ msgstr ""
 "Erre az alkalmazásra egyáltalán nem vonatkozik garancia. További részletek "
 "a(z) <a href=\"%s\">%s</a> szövegében."
 
-#: src/adw-about-window.c:640
+#: src/adw-about-window.c:646
 msgid "This Application"
 msgstr "Ez az alkalmazás"
 
-#: src/adw-about-window.c:942
+#: src/adw-about-window.c:948
 #, c-format
 msgid "Version %s"
 msgstr "Verzió: %s"
 
-#: src/adw-about-window.c:968
+#: src/adw-about-window.c:974
 msgid "Unable to parse release notes:"
 msgstr "Nem lehet feldolgozni a kiadási megjegyzéseket:"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:980
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Sor: %d, karakter: %d"
 
-#: src/adw-about-window.c:1267
+#: src/adw-about-window.c:1256
 msgid "Copied to clipboard"
 msgstr "Vágólapra másolva"
 
-#: src/adw-about-window.c:1301
+#: src/adw-about-window.c:1284
 msgid "Unable to save debugging information"
 msgstr "Nem lehet elmenteni a hibakeresési információkat"
 
-#: src/adw-about-window.c:1306
+#: src/adw-about-window.c:1289
 msgid "Close"
 msgstr "Bezárás"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1305
 msgid "Save debugging information"
 msgstr "Hibakeresési információk mentése"
 
@@ -153,62 +153,55 @@ msgstr "Hibakeresési információk mentése"
 msgid "About"
 msgstr "Névjegy"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-window.ui:91
 msgid "_What’s New"
 msgstr "Új_donságok"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-window.ui:106
 msgid "_Details"
 msgstr "_Részletek"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
 msgid "_Website"
 msgstr "_Weboldal"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-window.ui:144
 msgid "_Support Questions"
 msgstr "_Támogatási kérdések"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:160
 msgid "_Report an Issue"
 msgstr "_Hiba jelentése"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:175
 msgid "_Troubleshooting"
 msgstr "Hi_baelhárítás"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-window.ui:194
 msgid "_Credits"
 msgstr "_Készítők"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-window.ui:209
 msgid "_Legal"
 msgstr "_Jogi információk"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-window.ui:224
 msgid "_Acknowledgements"
 msgstr "_Köszönetnyilvánítás"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-window.ui:253
 msgid "What’s New"
 msgstr "Újdonságok"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
-msgid "Back"
-msgstr "Vissza"
-
-#: src/adw-about-window.ui:351
+#: src/adw-about-window.ui:293
 msgid "Details"
 msgstr "Részletek"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:358
 msgid "Troubleshooting"
 msgstr "Hibaelhárítás"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-window.ui:381
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -218,35 +211,44 @@ msgstr ""
 "információkat. Ezen információk megadása az alkalmazás fejlesztőinek "
 "segíthet a probléma bejelentésekor felmerülő problémák diagnosztizálásában."
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-window.ui:392
 msgid "_Debugging Information"
 msgstr "_Hibakeresési információk"
 
-#: src/adw-about-window.ui:507
-msgid "Credits"
-msgstr "Készítők"
-
-#: src/adw-about-window.ui:554
-msgid "Legal"
-msgstr "Jogi információk"
-
-#: src/adw-about-window.ui:601
-msgid "Acknowledgements"
-msgstr "Köszönetnyilvánítás"
-
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:418
 msgid "Debugging Information"
 msgstr "Hibakeresési információk"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-window.ui:460
 msgid "_Copy Text"
 msgstr "_Szöveg másolása"
 
-#: src/adw-about-window.ui:703
+#: src/adw-about-window.ui:468
 msgid "_Save as…"
 msgstr "_Mentés másként…"
 
-#: src/adw-entry-row.ui:95
+#: src/adw-about-window.ui:481
+msgid "Credits"
+msgstr "Készítők"
+
+#: src/adw-about-window.ui:512
+msgid "Legal"
+msgstr "Jogi információk"
+
+#: src/adw-about-window.ui:543
+msgid "Acknowledgements"
+msgstr "Köszönetnyilvánítás"
+
+#: src/adw-back-button.c:444
+msgid "Back"
+msgstr "Vissza"
+
+#: src/adw-combo-row.ui:50
+#| msgid "Search"
+msgid "Search…"
+msgstr "Keresés…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "Alkalmaz"
 
@@ -283,11 +285,11 @@ msgstr ""
 msgid "System Supports Color Schemes"
 msgstr "A rendszer támogatja a színsémákat"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "Előnyben részesített színséma"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Nagy kontraszt"
 
@@ -307,7 +309,7 @@ msgstr "Caps Lock bekapcsolva"
 msgid "_Show Password"
 msgstr "Jelszó _megjelenítése"
 
-#: src/adw-preferences-window.c:243
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Névtelen lap"
 
@@ -315,24 +317,23 @@ msgstr "Névtelen lap"
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: src/adw-preferences-window.ui:55
-#| msgid "Preferences"
+#: src/adw-preferences-window.ui:81
 msgid "Search preferences"
 msgstr "Keresési beállítások"
 
-#: src/adw-preferences-window.ui:70
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "Keresés"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Nincs találat"
 
-#: src/adw-preferences-window.ui:141 src/adw-tab-overview.ui:113
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Próbáljon másfajta keresést."
 
-#: src/adw-split-button.c:495 src/adw-split-button.c:957
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
 msgstr "További beállítások"
 
@@ -340,33 +341,34 @@ msgstr "További beállítások"
 msgid "View Open Tabs"
 msgstr "Nyitott lapok megtekintése"
 
-#: src/adw-tab-overview.c:899
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:918
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%u lap"
 msgstr[1] "%u lap"
 
-#: src/adw-tab-overview.ui:23
+#: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
 msgstr "Lapok keresése"
 
-#: src/adw-tab-overview.ui:53
+#: src/adw-tab-overview.ui:51
 msgid "Search tabs"
 msgstr "Lapok keresése"
 
-#: src/adw-tab-overview.ui:99
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Nincsenek nyitott lapok"
 
-#: src/adw-tab-overview.ui:112
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Nem találhatók lapok"
 
-#: src/adw-tab-overview.ui:133
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Új _lap"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Lap bezárása"
