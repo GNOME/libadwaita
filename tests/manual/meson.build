@@ -13,6 +13,7 @@ test_names = [
   'test-toggle-groups',
   'test-toolbars',
   'test-view-switcher-bars',
+  'test-view-switchers',
 ]
 
 foreach test_name : test_names

@@ -54,6 +54,7 @@ G_BEGIN_DECLS
 #include "adw-flap.h"
 #include "adw-fold-threshold-policy.h"
 #include "adw-header-bar.h"
+#include "adw-inline-view-switcher.h"
 #include "adw-layout.h"
 #include "adw-layout-slot.h"
 #include "adw-leaflet.h"

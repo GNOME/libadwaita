@@ -187,7 +187,6 @@ toggle-group {
     background: none;
     color: inherit;
     box-shadow: none;
-    border-radius: 0;
 
     > toggle {
       @include focus-ring($transition: $button_transition);
@@ -219,6 +218,43 @@ toggle-group {
 
     > separator {
       background: none;
+    }
+  }
+}
+
+/*************************
+ * AdwInlineViewSwitcher *
+ *************************/
+
+inline-view-switcher > toggle-group {
+  &.icons > toggle {
+    min-width: 34px;
+  }
+
+  &.labels > toggle {
+    min-width: calc(18px + var(---group-padding) * 2);
+
+    > widget > indicatorbin {
+      padding-left: calc(11px - var(---group-padding));
+      padding-right: calc(11px - var(---group-padding));
+
+      > label {
+        padding: 0 6px;
+      }
+
+      > indicator, > mask {
+        transform: translateY(2px);
+      }
+    }
+  }
+
+  &.both > toggle {
+    min-width: calc(10px + var(---group-padding) * 2);
+
+    > widget > box {
+      padding-left: calc(15px - var(---group-padding));
+      padding-right: calc(15px - var(---group-padding));
+      border-spacing: 6px;
     }
   }
 }

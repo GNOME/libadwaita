@@ -35,7 +35,7 @@ dnd {
 }
 
 %osd,
-.osd:not(progressbar):not(button):not(menubutton):not(splitbutton) {
+.osd:not(progressbar):not(button):not(menubutton):not(splitbutton):not(inline-view-switcher) {
   --accent-bg-color: RGB(255 255 255 / 75%);
   --accent-fg-color: RGB(0 0 0 / 75%);
   --scrollbar-outline-color: RGB(0 0 0 / 50%);

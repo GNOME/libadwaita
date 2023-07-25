@@ -59,6 +59,7 @@ test_names = [
   'test-expander-row',
   'test-flap',
   'test-header-bar',
+  'test-inline-view-switcher',
   'test-leaflet',
   'test-message-dialog',
   'test-multi-layout-view',

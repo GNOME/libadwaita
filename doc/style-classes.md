@@ -121,8 +121,8 @@ It can be used in combination with [`.suggested-action`](#suggested-action),
 
 # Toggle Groups
 
-The following style classes can be applied to [class@ToggleGroup] to change its
-appearance.
+The following style classes can be applied to [class@ToggleGroup] or
+[class@InlineViewSwitcher] to change its appearance.
 
 ## Flat
 

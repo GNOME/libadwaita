@@ -217,6 +217,11 @@ Slug: widget-gallery
   <img src="view-switcher-bar.png" alt="view-switcher-bar">
 </picture>](class.ViewSwitcherBar.html)
 
+[<picture>
+  <source srcset="inline-view-switcher-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="inline-view-switcher.png" alt="inline-view-switcher">
+</picture>](class.InlineViewSwitcher.html)
+
 ## Tabs
 
 [<picture>

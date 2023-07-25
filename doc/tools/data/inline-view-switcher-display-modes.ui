@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="orientation">vertical</property>
+    <property name="spacing">12</property>
+    <child>
+      <object class="AdwInlineViewSwitcher">
+        <property name="stack">stack</property>
+        <property name="display-mode">icons</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwInlineViewSwitcher">
+        <property name="stack">stack</property>
+        <property name="display-mode">labels</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwInlineViewSwitcher">
+        <property name="stack">stack</property>
+        <property name="display-mode">both</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+  </object>
+  <object class="AdwViewStack" id="stack">
+    <child>
+      <object class="AdwViewStackPage">
+        <property name="title">Page 1</property>
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="child">
+          <object class="AdwBin"/>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwViewStackPage">
+        <property name="title">Page 2</property>
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="child">
+          <object class="AdwBin"/>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwViewStackPage">
+        <property name="title">Page 3</property>
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="needs-attention">True</property>
+        <property name="badge-number">3</property>
+        <property name="child">
+          <object class="AdwBin"/>
+        </property>
+      </object>
+    </child>
+  </object>
+</interface>

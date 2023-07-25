@@ -66,6 +66,8 @@
  *  </object>
  * ```
  *
+ * See also: [class@InlineViewSwitcher].
+ *
  * ## CSS nodes
  *
  * `AdwToggleGroup` has a main CSS node with the name `toggle-group`.
