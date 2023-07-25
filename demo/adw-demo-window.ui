@@ -241,6 +241,14 @@
                         </property>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="title" translatable="yes">Toggle Groups</property>
+                        <property name="child">
+                          <object class="AdwDemoPageToggles"/>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </property>
               </object>

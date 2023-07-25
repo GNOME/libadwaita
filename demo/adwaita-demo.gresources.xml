@@ -33,6 +33,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toast-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toggle-group-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.example.Typeset.svg</file>
@@ -68,6 +69,7 @@
     <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-page.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/toasts/adw-demo-page-toasts.ui</file>
+    <file preprocess="xml-stripblanks">pages/toggles/adw-demo-page-toggles.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-demo-page-view-switcher.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-view-switcher-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/welcome/adw-demo-page-welcome.ui</file>

@@ -50,6 +50,7 @@ adwaita_demo_sources = [
   'pages/tab-view/adw-tab-view-demo-page.c',
   'pages/tab-view/adw-tab-view-demo-window.c',
   'pages/toasts/adw-demo-page-toasts.c',
+  'pages/toggles/adw-demo-page-toggles.c',
   'pages/view-switcher/adw-demo-page-view-switcher.c',
   'pages/view-switcher/adw-view-switcher-demo-dialog.c',
   'pages/welcome/adw-demo-page-welcome.c',
