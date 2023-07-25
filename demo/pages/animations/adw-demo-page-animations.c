@@ -6,7 +6,7 @@ struct _AdwDemoPageAnimations
 {
   AdwBin parent_instance;
 
-  GtkStack *animation_preferences_stack;
+  AdwViewStack *animation_preferences_stack;
   AdwAnimation *timed_animation;
   GtkWidget *timed_animation_sample;
   GtkWidget *timed_animation_button_box;
@@ -40,7 +40,7 @@ get_current_animation (AdwDemoPageAnimations *self)
 {
   const char *current_animation;
 
-  current_animation = gtk_stack_get_visible_child_name (self->animation_preferences_stack);
+  current_animation = adw_view_stack_get_visible_child_name (self->animation_preferences_stack);
 
   if (!g_strcmp0 (current_animation, "Timed")) {
     return self->timed_animation;

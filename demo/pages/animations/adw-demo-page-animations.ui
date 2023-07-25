@@ -142,10 +142,12 @@
                 <child>
                   <object class="AdwPreferencesGroup">
                     <child>
-                      <object class="GtkStackSwitcher">
+                      <object class="AdwInlineViewSwitcher">
                         <property name="stack">animation_preferences_stack</property>
-                        <property name="margin-bottom">32</property>
+                        <property name="homogeneous">True</property>
                         <property name="halign">center</property>
+                        <property name="width-request">250</property>
+                        <property name="margin-bottom">32</property>
                       </object>
                     </child>
                   </object>
@@ -155,14 +157,17 @@
                     <property name="maximum-size">400</property>
                     <property name="tightening-threshold">300</property>
                     <property name="child">
-                      <object class="GtkStack" id="animation_preferences_stack">
+                      <object class="AdwViewStack" id="animation_preferences_stack">
+                        <property name="vhomogeneous">False</property>
+                        <property name="enable-transitions">True</property>
                         <signal name="notify::visible-child-name" handler="timed_animation_reset" swapped="true"/>
                         <child>
-                          <object class="GtkStackPage">
+                          <object class="AdwViewStackPage">
                             <property name="title" translatable="yes">Timed</property>
                             <property name="name">Timed</property>
                             <property name="child">
                               <object class="AdwPreferencesGroup">
+                                <property name="valign">start</property>
                                 <child>
                                   <object class="AdwComboRow" id="timed_animation_easing">
                                     <property name="title" translatable="yes">Easing</property>
@@ -221,11 +226,12 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkStackPage">
+                          <object class="AdwViewStackPage">
                             <property name="title" translatable="yes">Spring</property>
                             <property name="name">Spring</property>
                             <property name="child">
                               <object class="AdwPreferencesGroup">
+                                <property name="valign">start</property>
                                 <child>
                                   <object class="AdwSpinRow" id="spring_animation_velocity">
                                     <property name="title" translatable="yes">Initial Velocity</property>
