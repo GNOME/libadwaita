@@ -642,3 +642,47 @@ adw_decoration_layout_prefers_start (const char *layout)
 
   return counts[0] > counts[1];
 }
+
+/* Copied and modified from gtklabel.c, separate_uline_pattern() */
+char *
+adw_strip_mnemonic (const char *src)
+{
+  char *new_str = g_new (char, strlen (src) + 1);
+  char *dest = new_str;
+  gboolean underscore = FALSE;
+
+  while (*src) {
+    gunichar c;
+    const char *next_src;
+
+    c = g_utf8_get_char (src);
+    if (c == (gunichar) -1) {
+      g_warning ("Invalid input string");
+
+      g_free (new_str);
+
+      return NULL;
+    }
+
+    next_src = g_utf8_next_char (src);
+
+    if (underscore) {
+      while (src < next_src)
+        *dest++ = *src++;
+
+      underscore = FALSE;
+    } else {
+      if (c == '_'){
+        underscore = TRUE;
+        src = next_src;
+      } else {
+        while (src < next_src)
+          *dest++ = *src++;
+      }
+    }
+  }
+
+  *dest = 0;
+
+  return new_str;
+}

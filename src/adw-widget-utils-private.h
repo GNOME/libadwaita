@@ -67,4 +67,6 @@ GtkWidget *adw_widget_get_ancestor (GtkWidget *widget,
 
 gboolean adw_decoration_layout_prefers_start (const char *layout);
 
+char *adw_strip_mnemonic (const char *src);
+
 G_END_DECLS

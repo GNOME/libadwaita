@@ -88,50 +88,6 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-/* Copied and modified from gtklabel.c, separate_uline_pattern() */
-static char *
-strip_mnemonic (const char *src)
-{
-  char *new_str = g_new (char, strlen (src) + 1);
-  char *dest = new_str;
-  gboolean underscore = FALSE;
-
-  while (*src) {
-    gunichar c;
-    const char *next_src;
-
-    c = g_utf8_get_char (src);
-    if (c == (gunichar) -1) {
-      g_warning ("Invalid input string");
-
-      g_free (new_str);
-
-      return NULL;
-    }
-
-    next_src = g_utf8_next_char (src);
-
-    if (underscore) {
-      while (src < next_src)
-        *dest++ = *src++;
-
-      underscore = FALSE;
-    } else {
-      if (c == '_'){
-        underscore = TRUE;
-        src = next_src;
-      } else {
-        while (src < next_src)
-          *dest++ = *src++;
-      }
-    }
-  }
-
-  *dest = 0;
-
-  return new_str;
-}
-
 static char *
 make_comparable (const char        *src,
                  AdwPreferencesRow *row,
@@ -153,7 +109,7 @@ make_comparable (const char        *src,
   }
 
   if (allow_underline && adw_preferences_row_get_use_underline (row)) {
-    char *comparable = strip_mnemonic (plaintext);
+    char *comparable = adw_strip_mnemonic (plaintext);
     g_free (plaintext);
     return comparable;
   }
@@ -233,7 +189,7 @@ create_search_row_subtitle (AdwPreferencesDialog *self,
     const char *title = adw_preferences_page_get_title (ADW_PREFERENCES_PAGE (page));
 
     if (adw_preferences_page_get_use_underline (ADW_PREFERENCES_PAGE (page)))
-      page_title = strip_mnemonic (title);
+      page_title = adw_strip_mnemonic (title);
     else
       page_title = g_strdup (title);
 
