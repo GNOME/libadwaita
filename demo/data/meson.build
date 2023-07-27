@@ -34,25 +34,23 @@ appdata_config = configuration_data()
 appdata_config.set('BUILD_VERSION', meson.project_version())
 appdata_config.set('BUILD_DATE', today)
 
-if target_system != 'windows'
-  appstream_file = i18n.merge_file(
-    input: configure_file(
-      input: 'org.gnome.Adwaita1.Demo.metainfo.xml.in.in',
-      output: 'org.gnome.Adwaita1.Demo.metainfo.xml.in',
-      configuration: appdata_config
-    ),
-    output: 'org.gnome.Adwaita1.Demo.metainfo.xml',
-    po_dir: '../../po',
-    install: true,
-    install_dir: datadir / 'metainfo'
-  )
+appstream_file = i18n.merge_file(
+  input: configure_file(
+    input: 'org.gnome.Adwaita1.Demo.metainfo.xml.in.in',
+    output: 'org.gnome.Adwaita1.Demo.metainfo.xml.in',
+    configuration: appdata_config
+  ),
+  output: 'org.gnome.Adwaita1.Demo.metainfo.xml',
+  po_dir: '../../po',
+  install: true,
+  install_dir: datadir / 'metainfo'
+)
 
-  appstreamcli = find_program('appstreamcli', required: false)
-  if appstreamcli.found()
-    test('Validate appstream file', appstreamcli,
-      args: ['validate', '--no-net', '--explain', appstream_file]
-    )
-  endif
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
+  test('Validate appstream file', appstreamcli,
+    args: ['validate', '--no-net', '--explain', appstream_file]
+  )
 endif
 
 install_data(
