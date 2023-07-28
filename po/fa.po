@@ -1,14 +1,14 @@
 # Persian translation for libadwaita.
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2021-2022.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2021-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-17 17:40+0000\n"
-"PO-Revision-Date: 2023-03-18 04:55+0330\n"
+"POT-Creation-Date: 2023-07-20 08:42+0000\n"
+"PO-Revision-Date: 2023-07-29 02:50+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -16,96 +16,96 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
 msgstr "نگارش ۲ یا بالاتر پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "نگارش ۲٫۱ یا بالاتر پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
 msgstr "پروانهٔ دو بندی بی‌اس‌دی"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
 msgstr "پروانهٔ ام‌آی‌تی"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:212
 msgid "Artistic License 2.0"
 msgstr "پروانهٔ آرتیستیک ۲٫۰"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
 msgstr "نگارش ۲ پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "نگارش ۲٫۱ پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ اعمالی جامع همگانی گنو"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ اعمالی جامع همگانی گنو"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
 msgstr "پروانهٔ سه بندی بی‌اس‌دی"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
 msgstr "نگارش ۲٫۰ پروانهٔ آپاچی"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
 msgstr "نگارش ۲٫۰ پروانهٔ همگانی موزیلا"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:535
 msgid "Code by"
 msgstr "کد به دست"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:536
 msgid "Design by"
 msgstr "طرح به دست"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:537
 msgid "Artwork by"
 msgstr "کار هنری به دست"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:538
 msgid "Documentation by"
 msgstr "مستندسازی به دست"
 
-#: src/adw-about-window.c:533
+#: src/adw-about-window.c:539
 msgid "Translated by"
 msgstr "بازگردانی به دست"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:562
+#: src/adw-about-window.c:568
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -113,37 +113,37 @@ msgid ""
 msgstr ""
 "این برنامه بی هیچ ضمانتی می‌آید. برای جزییات <a href=\"%s\">%s</a> را ببینید."
 
-#: src/adw-about-window.c:640
+#: src/adw-about-window.c:646
 msgid "This Application"
 msgstr "این برنامه"
 
-#: src/adw-about-window.c:942
+#: src/adw-about-window.c:948
 #, c-format
 msgid "Version %s"
 msgstr "نگارش %s"
 
-#: src/adw-about-window.c:968
+#: src/adw-about-window.c:974
 msgid "Unable to parse release notes:"
 msgstr "ناتوان در تجزیهٔ یادداشت انتشار:"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:980
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "خط: %Id، نویسه: %Id"
 
-#: src/adw-about-window.c:1267
+#: src/adw-about-window.c:1256
 msgid "Copied to clipboard"
 msgstr "در تخته‌گیره رونوشت شد"
 
-#: src/adw-about-window.c:1301
+#: src/adw-about-window.c:1284
 msgid "Unable to save debugging information"
 msgstr "ناتوان در ذخیرهٔ اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-window.c:1306
+#: src/adw-about-window.c:1289
 msgid "Close"
 msgstr "بستن"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1305
 msgid "Save debugging information"
 msgstr "ذخیرهٔ اطّلاعات اشکال‌زدایی"
 
@@ -151,62 +151,55 @@ msgstr "ذخیرهٔ اطّلاعات اشکال‌زدایی"
 msgid "About"
 msgstr "درباره"
 
-#: src/adw-about-window.ui:119
+#: src/adw-about-window.ui:91
 msgid "_What’s New"
 msgstr "_چیزهای جدید"
 
-#: src/adw-about-window.ui:134
+#: src/adw-about-window.ui:106
 msgid "_Details"
 msgstr "_جزییات"
 
-#: src/adw-about-window.ui:149 src/adw-about-window.ui:391
+#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
 msgid "_Website"
 msgstr "_پایگاه وب"
 
-#: src/adw-about-window.ui:172
+#: src/adw-about-window.ui:144
 msgid "_Support Questions"
 msgstr "_پرسش‌های پشتیبانی"
 
-#: src/adw-about-window.ui:188
+#: src/adw-about-window.ui:160
 msgid "_Report an Issue"
-msgstr "_گزارش یک مشکل"
+msgstr "_گزارش مشکل"
 
-#: src/adw-about-window.ui:203
+#: src/adw-about-window.ui:175
 msgid "_Troubleshooting"
 msgstr "_رفع اشکال"
 
-#: src/adw-about-window.ui:222
+#: src/adw-about-window.ui:194
 msgid "_Credits"
 msgstr "_دست‌اندرکاران"
 
-#: src/adw-about-window.ui:237
+#: src/adw-about-window.ui:209
 msgid "_Legal"
 msgstr "_حقوقی"
 
-#: src/adw-about-window.ui:252
+#: src/adw-about-window.ui:224
 msgid "_Acknowledgements"
 msgstr "_سپاسگزاری‌ها"
 
-#: src/adw-about-window.ui:291
+#: src/adw-about-window.ui:253
 msgid "What’s New"
 msgstr "چیزهای جدید"
 
-#: src/adw-about-window.ui:296 src/adw-about-window.ui:352
-#: src/adw-about-window.ui:433 src/adw-about-window.ui:508
-#: src/adw-about-window.ui:555 src/adw-about-window.ui:602
-#: src/adw-about-window.ui:649
-msgid "Back"
-msgstr "بازگشت"
-
-#: src/adw-about-window.ui:347
+#: src/adw-about-window.ui:293
 msgid "Details"
 msgstr "جزییات"
 
-#: src/adw-about-window.ui:428
+#: src/adw-about-window.ui:358
 msgid "Troubleshooting"
 msgstr "رفع اشکال"
 
-#: src/adw-about-window.ui:457
+#: src/adw-about-window.ui:381
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -216,35 +209,43 @@ msgstr ""
 "این اطّلاعات به توسعه‌دهندگان برنامه می‌تواند به تشخیص مشکلاتی که هنگام گزارش "
 "مشکل با آن مواجه شدید کمک کند."
 
-#: src/adw-about-window.ui:468
+#: src/adw-about-window.ui:392
 msgid "_Debugging Information"
 msgstr "_اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-window.ui:503
-msgid "Credits"
-msgstr "دست‌اندرکاران"
-
-#: src/adw-about-window.ui:550
-msgid "Legal"
-msgstr "حقوقی"
-
-#: src/adw-about-window.ui:597
-msgid "Acknowledgements"
-msgstr "سپاسگزاری‌ها"
-
-#: src/adw-about-window.ui:644
+#: src/adw-about-window.ui:418
 msgid "Debugging Information"
 msgstr "اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-window.ui:692
+#: src/adw-about-window.ui:460
 msgid "_Copy Text"
 msgstr "_رونوشت از متن"
 
-#: src/adw-about-window.ui:699
+#: src/adw-about-window.ui:468
 msgid "_Save as…"
 msgstr "_ذخیره به عنوان…"
 
-#: src/adw-entry-row.ui:95
+#: src/adw-about-window.ui:481
+msgid "Credits"
+msgstr "دست‌اندرکاران"
+
+#: src/adw-about-window.ui:512
+msgid "Legal"
+msgstr "حقوقی"
+
+#: src/adw-about-window.ui:543
+msgid "Acknowledgements"
+msgstr "سپاسگزاری‌ها"
+
+#: src/adw-back-button.c:444
+msgid "Back"
+msgstr "بازگشت"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "جست‌وجو…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "اعمال"
 
@@ -279,11 +280,11 @@ msgstr "پایمالی تنظیمات برای این برنامه. با بست�
 msgid "System Supports Color Schemes"
 msgstr "سامانه از شماهای رنگی پشتیبانی می‌کند"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "شمای رنگی ترجیحی"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "سایه‌روشن بالا"
 
@@ -303,7 +304,7 @@ msgstr "قفل تبدیل روشن است"
 msgid "_Show Password"
 msgstr "_نمایش گذرواژه"
 
-#: src/adw-preferences-window.c:243
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "صفحهٔ بی‌عنوان"
 
@@ -311,23 +312,23 @@ msgstr "صفحهٔ بی‌عنوان"
 msgid "Preferences"
 msgstr "ترجیحات"
 
-#: src/adw-preferences-window.ui:55
+#: src/adw-preferences-window.ui:81
 msgid "Search preferences"
 msgstr "ترجیحات جست‌وجو"
 
-#: src/adw-preferences-window.ui:70
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "هیچ نتیجه‌ای پیدا نشد"
 
-#: src/adw-preferences-window.ui:141 src/adw-tab-overview.ui:113
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "جست‌وجویی دیگر را بیازمایید."
 
-#: src/adw-split-button.c:495 src/adw-split-button.c:957
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
 msgstr "گزینه‌های بیش‌تر"
 
@@ -336,34 +337,34 @@ msgid "View Open Tabs"
 msgstr "دیدن زبانه‌های باز"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:900
+#: src/adw-tab-overview.c:918
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%Iu زبانه"
 msgstr[1] "%Iu زبانه"
 
-#: src/adw-tab-overview.ui:23
+#: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
 msgstr "جست‌وجوی زبانه‌ها"
 
-#: src/adw-tab-overview.ui:53
+#: src/adw-tab-overview.ui:51
 msgid "Search tabs"
 msgstr "جست‌وجوی زبانه‌ها"
 
-#: src/adw-tab-overview.ui:99
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "بدون زبانهٔ باز"
 
-#: src/adw-tab-overview.ui:112
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "زبانه‌ای پیدا نشد"
 
-#: src/adw-tab-overview.ui:133
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "_‌زبانهٔ جدید"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "بستن زبانه"
 
