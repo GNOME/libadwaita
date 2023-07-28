@@ -115,16 +115,14 @@
 /**
  * AdwToolbarStyle:
  * @ADW_TOOLBAR_FLAT: No background, shadow only for scrolled content
- * @ADW_TOOLBAR_RAISED: Opaque background with persistent shadow
+ * @ADW_TOOLBAR_RAISED: Opaque background with a persistent shadow
+ * @ADW_TOOLBAR_RAISED_BORDER: Opaque background with a persistent border
  *
  * Describes the possible top or bottom bar styles in an [class@ToolbarView]
  * widget.
  *
  * `ADW_TOOLBAR_FLAT` is suitable for simple content, such as
  * [class@StatusPage], [class@PreferencesPage] or sidebars.
- *
- * `ADW_TOOLBAR_RAISED` style is suitable for more complex content, such as
- * utility panes or [class@TabView].
  *
  * <picture style="min-width: 33%; display: inline-block;">
  *   <source srcset="toolbar-view-flat-1-dark.png" media="(prefers-color-scheme: dark)">
@@ -134,9 +132,22 @@
  *   <source srcset="toolbar-view-flat-2-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="toolbar-view-flat-2.png" alt="toolbar-view-flat-2">
  * </picture>
+ *
+ * `ADW_TOOLBAR_RAISED` style is suitable for more complex content, such as
+ * utility panes or [class@TabView].
+ *
+ * `ADW_TOOLBAR_RAISED_BORDER` style is similar to `ADW_TOOLBAR_RAISED`, but
+ * with the shadow replaced with a more subtle border. It's intended to be used
+ * in applications like image viewers, where a shadow over the content might be
+ * undesired.
+ *
  * <picture style="min-width: 33%; display: inline-block;">
  *   <source srcset="toolbar-view-raised-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="toolbar-view-raised.png" alt="toolbar-view-raised">
+ * </picture>
+ * <picture style="min-width: 33%; display: inline-block;">
+ *   <source srcset="toolbar-view-raised-border-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="toolbar-view-raised-border.png" alt="toolbar-view-raised-border">
  * </picture>
  *
  * See [property@ToolbarView:top-bar-style] and
@@ -492,6 +503,10 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
    * persistent shadow, this can be useful for more complex content, such as
    * utility panes or [class@TabView].
    *
+   * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
+   * shadow is replaced with a more subtle border. This can be useful for
+   * applications like image viewers.
+   *
    * See also [property@ToolbarView:bottom-bar-style].
    *
    * Since: 1.4
@@ -520,6 +535,10 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
    * If set to `ADW_TOOLBAR_RAISED`, bottom bars have an opaque background and a
    * persistent shadow, this can be useful for more complex content, such as
    * utility panes or [class@TabView].
+   *
+   * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
+   * shadow is replaced with a more subtle border. This can be useful for
+   * applications like image viewers.
    *
    * See also [property@ToolbarView:top-bar-style].
    *
@@ -906,6 +925,10 @@ adw_toolbar_view_get_top_bar_style (AdwToolbarView *self)
  * persistent shadow, this can be useful for more complex content, such as
  * utility panes or [class@TabView].
  *
+ * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
+ * shadow is replaced with a more subtle border. This can be useful for
+ * applications like image viewers.
+ *
  * See also [method@ToolbarView.set_bottom_bar_style].
  *
  * Since: 1.4
@@ -915,17 +938,29 @@ adw_toolbar_view_set_top_bar_style (AdwToolbarView  *self,
                                     AdwToolbarStyle  style)
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
-  g_return_if_fail (style <= ADW_TOOLBAR_RAISED);
+  g_return_if_fail (style <= ADW_TOOLBAR_RAISED_BORDER);
 
   if (self->top_bar_style == style)
     return;
 
   self->top_bar_style = style;
 
-  if (style == ADW_TOOLBAR_RAISED)
-    gtk_widget_add_css_class (self->top_bar, "raised");
-  else
-    gtk_widget_remove_css_class (self->top_bar, "raised");
+  switch (style) {
+    case ADW_TOOLBAR_FLAT:
+      gtk_widget_remove_css_class (self->top_bar, "raised");
+      gtk_widget_remove_css_class (self->top_bar, "border");
+      break;
+    case ADW_TOOLBAR_RAISED:
+      gtk_widget_add_css_class (self->top_bar, "raised");
+      gtk_widget_remove_css_class (self->top_bar, "border");
+      break;
+    case ADW_TOOLBAR_RAISED_BORDER:
+      gtk_widget_add_css_class (self->top_bar, "raised");
+      gtk_widget_add_css_class (self->top_bar, "border");
+      break;
+    default:
+      g_assert_not_reached ();
+  }
 
   update_undershoots (self);
 
@@ -973,6 +1008,10 @@ adw_toolbar_view_get_bottom_bar_style (AdwToolbarView *self)
  * persistent shadow, this can be useful for more complex content, such as
  * utility panes or [class@TabView].
  *
+ * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
+ * shadow is replaced with a more subtle border. This can be useful for
+ * applications like image viewers.
+ *
  * See also [method@ToolbarView.set_top_bar_style].
  *
  * Since: 1.4
@@ -982,17 +1021,29 @@ adw_toolbar_view_set_bottom_bar_style (AdwToolbarView  *self,
                                        AdwToolbarStyle  style)
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
-  g_return_if_fail (style <= ADW_TOOLBAR_RAISED);
+  g_return_if_fail (style <= ADW_TOOLBAR_RAISED_BORDER);
 
   if (self->bottom_bar_style == style)
     return;
 
   self->bottom_bar_style = style;
 
-  if (style == ADW_TOOLBAR_RAISED)
-    gtk_widget_add_css_class (self->bottom_bar, "raised");
-  else
-    gtk_widget_remove_css_class (self->bottom_bar, "raised");
+  switch (style) {
+    case ADW_TOOLBAR_FLAT:
+      gtk_widget_remove_css_class (self->bottom_bar, "raised");
+      gtk_widget_remove_css_class (self->bottom_bar, "border");
+      break;
+    case ADW_TOOLBAR_RAISED:
+      gtk_widget_add_css_class (self->bottom_bar, "raised");
+      gtk_widget_remove_css_class (self->bottom_bar, "border");
+      break;
+    case ADW_TOOLBAR_RAISED_BORDER:
+      gtk_widget_add_css_class (self->bottom_bar, "raised");
+      gtk_widget_add_css_class (self->bottom_bar, "border");
+      break;
+    default:
+      g_assert_not_reached ();
+  }
 
   update_undershoots (self);
 

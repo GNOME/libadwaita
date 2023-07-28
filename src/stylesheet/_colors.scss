@@ -35,6 +35,7 @@ $headerbar_fg_color: gtkcolor(headerbar_fg_color);
 $headerbar_border_color: gtkalpha(gtkcolor(headerbar_border_color), $border_opacity);
 $headerbar_backdrop_color: gtkcolor(headerbar_backdrop_color);
 $headerbar_shade_color: gtkcolor(headerbar_shade_color);
+$headerbar_darker_shade_color: gtkcolor(headerbar_darker_shade_color);
 
 $sidebar_bg_color: gtkcolor(sidebar_bg_color);
 $sidebar_fg_color: gtkcolor(sidebar_fg_color);

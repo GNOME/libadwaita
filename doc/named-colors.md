@@ -364,6 +364,13 @@ the top or bottom sides of a window. The full list of widgets using them:
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
     <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
   </tr>
+  <tr>
+    <td><tt>&#64;headerbar_darker_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.12)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.12)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.9)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.9)</tt></td>
+  </tr>
 </table>
 
 <code>&#64;headerbar_border_color</code> has the same default value as
@@ -382,6 +389,12 @@ value matching your <code>&#64;headerbar_bg_color</code>.
 <code>&#64;headerbar_shade_color</code> is used to provide a dark shadow or a
 border for header bars and similar widgets. This color should always be
 partially transparent black.
+
+<code>&#64;headerbar_darker_shade_color</code> is used for the
+`ADW_TOOLBAR_RAISED_BORDER` border. This color should always be
+partially transparent black, and is intended to be darker than both
+<code>&#64;headerbar_bg_color</code> and
+<code>&#64;headerbar_backdrop_color</code> on top of white color.
 
 ## Sidebar Colors
 

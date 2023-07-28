@@ -264,6 +264,8 @@ content_images = [
   "images/toolbar-view-flat-2-dark.png",
   "images/toolbar-view-raised.png",
   "images/toolbar-view-raised-dark.png",
+  "images/toolbar-view-raised-border.png",
+  "images/toolbar-view-raised-border-dark.png",
   "images/toolbar-view-spacing.png",
   "images/toolbar-view-spacing-dark.png",
   "images/toolbar-view-spacing-box.png",

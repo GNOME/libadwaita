@@ -279,11 +279,19 @@ toolbarview {
   > .top-bar.raised {
     box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
                 0 2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    &.border {
+      box-shadow: 0 1px if($contrast == 'high', $border_color, $headerbar_darker_shade_color);
+    }
   }
 
   > .bottom-bar.raised {
     box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
                 0 -2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    &.border {
+      box-shadow: 0 -1px if($contrast == 'high', $border_color, $headerbar_darker_shade_color);
+    }
   }
 
   &.undershoot-top    scrolledwindow { @include undershoot(top); }
