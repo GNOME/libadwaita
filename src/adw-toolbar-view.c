@@ -54,13 +54,17 @@
  * undershoot shadow, same as when using the
  * [`.undershoot-top`](style-classes.html#undershot-indicators) and
  * [`.undershoot-bottom`](style-classes.html#undershot-indicators) style
- * classes. This works well for simple content, e.g. [class@StatusPage],
- * [class@PreferencesPage], or sidebars.
+ * classes. This works well in most cases, e.g. with [class@StatusPage] or
+ * [class@PreferencesPage], where the background at the top and bottom parts of
+ * the page is uniform. Additionally, windows with sidebars should always use
+ * this style.
  *
  * [property@ToolbarView:top-bar-style] and
  * [property@ToolbarView:bottom-bar-style] properties can be used add an opaque
  * background and a persistent shadow to top and bottom bars, this can be useful
- * for more complex content, such as utility panes or [class@TabView].
+ * for content such as [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+ * where some elements are adjacent to the top/bottom bars, or [class@TabView],
+ * where each page can have a different background.
  *
  * <picture style="min-width: 33%; display: inline-block;">
  *   <source srcset="toolbar-view-flat-1-dark.png" media="(prefers-color-scheme: dark)">
@@ -122,7 +126,9 @@
  * widget.
  *
  * `ADW_TOOLBAR_FLAT` is suitable for simple content, such as
- * [class@StatusPage], [class@PreferencesPage] or sidebars.
+ * [class@StatusPage] or [class@PreferencesPage], where the background at the
+ * top and bottom parts of the page is uniform. Additionally, windows with
+ * sidebars should always use this style.
  *
  * <picture style="min-width: 33%; display: inline-block;">
  *   <source srcset="toolbar-view-flat-1-dark.png" media="(prefers-color-scheme: dark)">
@@ -133,8 +139,10 @@
  *   <img src="toolbar-view-flat-2.png" alt="toolbar-view-flat-2">
  * </picture>
  *
- * `ADW_TOOLBAR_RAISED` style is suitable for more complex content, such as
- * utility panes or [class@TabView].
+ * `ADW_TOOLBAR_RAISED` style is suitable for content such as
+ * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+ * where some elements are directly adjacent to the top/bottom bars, or
+ * [class@TabView], where each page can have a different background.
  *
  * `ADW_TOOLBAR_RAISED_BORDER` style is similar to `ADW_TOOLBAR_RAISED`, but
  * with the shadow replaced with a more subtle border. It's intended to be used
@@ -492,16 +500,19 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
    * If set to `ADW_TOOLBAR_FLAT`, top bars are flat and scrolling content has a
    * subtle undershoot shadow when touching them, same as the
    * [`.undershoot-top`](style-classes.html#undershot-indicators)
-   * style class. This works well for simple content, e.g. [class@StatusPage],
-   * [class@PreferencesPage], or sidebars.
+   * style class. This works well for simple content, e.g. [class@StatusPage] or
+   * [class@PreferencesPage], where the background at the top of the page is
+   * uniform. Additionally, windows with sidebars should always use this style.
    *
    * Undershoot shadow is only present if a top bar is actually present and
    * visible. It is also never present if
    * [property@ToolbarView:extend-content-to-top-edge] is set to `TRUE`.
    *
    * If set to `ADW_TOOLBAR_RAISED`, top bars have an opaque background and a
-   * persistent shadow, this can be useful for more complex content, such as
-   * utility panes or [class@TabView].
+   * persistent shadow, this is suitable for content such as
+   * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+   * where some elements are directly adjacent to the top bars, or
+   * [class@TabView], where each page can have a different background.
    *
    * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
    * shadow is replaced with a more subtle border. This can be useful for
@@ -525,16 +536,19 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
    * If set to `ADW_TOOLBAR_FLAT`, bottom bars are flat and scrolling content
    * has a subtle undershoot shadow when touching them, same as the
    * [`.undershoot-bottom`](style-classes.html#undershot-indicators)
-   * style class. This works well for simple content, e.g. [class@StatusPage],
-   * [class@PreferencesPage], or sidebars.
+   * style class. This works well for simple content, e.g. [class@StatusPage] or
+   * [class@PreferencesPage], where the background at the bottom of the page is
+   * uniform. Additionally, windows with sidebars should always use this style.
    *
    * Undershoot shadow is only present if a bottom bar is actually present and
    * visible. It is also never present if
    * [property@ToolbarView:extend-content-to-bottom-edge] is set to `TRUE`.
    *
    * If set to `ADW_TOOLBAR_RAISED`, bottom bars have an opaque background and a
-   * persistent shadow, this can be useful for more complex content, such as
-   * utility panes or [class@TabView].
+   * persistent shadow, this is suitable for content such as
+   * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+   * where some elements are directly adjacent to the bottom bars, or
+   * [class@TabView], where each page can have a different background.
    *
    * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
    * shadow is replaced with a more subtle border. This can be useful for
@@ -914,16 +928,19 @@ adw_toolbar_view_get_top_bar_style (AdwToolbarView *self)
  * If set to `ADW_TOOLBAR_FLAT`, top bars are flat and scrolling content has a
  * subtle undershoot shadow when touching them, same as the
  * [`.undershoot-top`](style-classes.html#undershot-indicators)
- * style class. This works well for simple content, e.g. [class@StatusPage],
- * [class@PreferencesPage], or sidebars.
+ * style class. This works well for simple content, e.g. [class@StatusPage] or
+ * [class@PreferencesPage], where the background at the top of the page is
+ * uniform. Additionally, windows with sidebars should always use this style.
  *
  * Undershoot shadow is only present if a top bar is actually present and
  * visible. It is also never present if
  * [property@ToolbarView:extend-content-to-top-edge] is set to `TRUE`.
  *
  * If set to `ADW_TOOLBAR_RAISED`, top bars have an opaque background and a
- * persistent shadow, this can be useful for more complex content, such as
- * utility panes or [class@TabView].
+ * persistent shadow, this is suitable for content such as
+ * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+ * where some elements are directly adjacent to the top bars, or
+ * [class@TabView], where each page can have a different background.
  *
  * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
  * shadow is replaced with a more subtle border. This can be useful for
@@ -997,16 +1014,19 @@ adw_toolbar_view_get_bottom_bar_style (AdwToolbarView *self)
  * If set to `ADW_TOOLBAR_FLAT`, bottom bars are flat and scrolling content has
  * a subtle undershoot shadow when touching them, same as the
  * [`.undershoot-bottom`](style-classes.html#undershot-indicators)
- * style class. This works well for simple content, e.g. [class@StatusPage],
- * [class@PreferencesPage], or sidebars.
+ * style class. This works well for simple content, e.g. [class@StatusPage] or
+ * [class@PreferencesPage], where the background at the bottom of the page is
+ * uniform. Additionally, windows with sidebars should always use this style.
  *
  * Undershoot shadow is only present if a bottom bar is actually present and
  * visible. It is also never present if
  * [property@ToolbarView:extend-content-to-bottom-edge] is set to `TRUE`.
  *
  * If set to `ADW_TOOLBAR_RAISED`, bottom bars have an opaque background and a
- * persistent shadow, this can be useful for more complex content, such as
- * utility panes or [class@TabView].
+ * persistent shadow, this is suitable for content such as
+ * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+ * where some elements are directly adjacent to the bottom bars, or
+ * [class@TabView], where each page can have a different background.
  *
  * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
  * shadow is replaced with a more subtle border. This can be useful for
