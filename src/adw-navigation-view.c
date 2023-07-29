@@ -33,13 +33,30 @@
  * `AdwNavigationView` can only contain [class@NavigationPage] children.
  *
  * It maintains a navigation stack that can be controlled with
- * [method@NavigationView.push] and [method@NavigationView.pop].
+ * [method@NavigationView.push] and [method@NavigationView.pop]. The whole
+ * navigation stack can also be replaced using [method@NavigationView.replace].
  *
- * The whole navigation stack can be replaced using
- * [method@NavigationView.replace].
+ * `AdwNavigationView` allows to manage pages statically or dynamically.
  *
- * `AdwNavigationView` also provides a way to manage persistent pages using the
- * [method@NavigationView.add] and [method@NavigationView.remove] methods.
+ * Static pages can be added using the [method@NavigationView.add] method. The
+ * `AdwNavigationView` will keep a reference to these pages, but they aren't
+ * accessible to the user until [method@NavigationView.push] is called (except
+ * for the first page, which is pushed automatically). Use the
+ * [method@NavigationView.remove] method to remove them. This is useful for
+ * applications that have a small number of unique pages and just need
+ * navigation between them.
+ *
+ * Dynamic pages are automatically destroyed once they are popped off the
+ * navigation stack. To add a page like this, push it using the
+ * [method@NavigationView.push] method without calling
+ * [method@NavigationView.add] first.
+ *
+ * ## Tags
+ *
+ * Static pages, as well as any pages in the navigation stack, can be accessed
+ * by their [property@NavigationPage:tag]. For example,
+ * [method@NavigationView.push_by_tag] can be used to push a static page that's
+ * not in the navigation stack without having to keep a reference to it manually.
  *
  * ## Header Bar Integration
  *
