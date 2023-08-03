@@ -56,7 +56,9 @@ AdwTabThumbnail *adw_tab_grid_get_transition_thumbnail (AdwTabGrid *self);
 void adw_tab_grid_set_visible_range (AdwTabGrid *self,
                                      double      lower,
                                      double      upper,
-                                     double      page_size);
+                                     double      page_size,
+                                     double      lower_inset,
+                                     double      upper_inset);
 
 void adw_tab_grid_adjustment_shifted (AdwTabGrid *self,
                                       double      delta);

@@ -534,11 +534,15 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
   adw_tab_grid_set_visible_range (ADW_TAB_GRID (self->pinned_grid),
                                   CLAMP (value - self->pinned_grid_pos, 0, pinned_height),
                                   CLAMP (value - self->pinned_grid_pos + height - new_button_height, 0, pinned_height),
-                                  height - new_button_height);
+                                  height - new_button_height,
+                                  0,
+                                  CLAMP (self->pinned_grid_pos + pinned_height - height + new_button_height - value, 0, new_button_height));
   adw_tab_grid_set_visible_range (ADW_TAB_GRID (self->grid),
                                   CLAMP (value - self->grid_pos, 0, grid_height),
                                   CLAMP (value - self->grid_pos + height - new_button_height, 0, grid_height),
-                                  height - new_button_height);
+                                  height - new_button_height,
+                                  0,
+                                  CLAMP (self->grid_pos + grid_height - height + new_button_height - value, 0, new_button_height));
 
   if (self->scroll_animation_done) {
     g_clear_pointer (&self->scroll_animation_grid, adw_tab_grid_reset_scrolled_tab);
