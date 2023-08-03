@@ -110,7 +110,7 @@ button {
   &.osd {
     min-width: 32px;
     min-height: 32px;
-    @include focus-ring($outer: true, $offset: 1px, $fc: $osd_focus_color, $transition: $button_transition);
+    @include focus-ring($outer: true, $offset: 1px, $transition: $button_transition);
 
     color: $osd_fg_color;
     background-color: transparentize(black, .35);
@@ -146,6 +146,10 @@ button {
     // Specificity bump
     &:drop(active) {
       @extend %button_basic_drop_active;
+    }
+
+    .osd &:focus:focus-visible {
+      outline-color: $osd_focus_color;
     }
   }
 
