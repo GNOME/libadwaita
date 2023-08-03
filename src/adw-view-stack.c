@@ -83,6 +83,16 @@
  * An auxiliary class used by [class@ViewStack].
  */
 
+/**
+ * AdwViewStackPages:
+ *
+ * An auxiliary class used by [class@ViewStack].
+ *
+ * See [property@ViewStack:pages].
+ *
+ * Since: 1.4
+ */
+
 #define OPPOSITE_ORIENTATION(_orientation) (1 - (_orientation))
 
 enum {
