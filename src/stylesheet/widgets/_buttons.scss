@@ -333,6 +333,10 @@ button {
       &:active { background-image: image($view_selected_active_color); }
 
       &.has-open-popup { background-image: image($view_selected_hover_color); }
+
+      .osd & {
+        background-color: gtkalpha(currentColor, .1);
+      }
     }
 
     &:drop(active) {
