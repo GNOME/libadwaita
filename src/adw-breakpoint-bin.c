@@ -212,15 +212,25 @@ allocate_child (AdwBreakpointBin *self,
   }
 
   if (!priv->block_warnings) {
-    if (min_width > width && min_height > height)
-      g_warning ("%s %p exceeds its window size: requested %d×%d px, %d×%d px available",
-                 G_OBJECT_TYPE_NAME (priv->child), priv->child, min_width, min_height, width, height);
-    else if (min_width > width)
-      g_warning ("%s %p exceeds its window width: requested %d px, %d px available",
-                 G_OBJECT_TYPE_NAME (priv->child), priv->child, min_width, width);
+    GtkWidget *warning_widget;
+
+    if (priv->warning_widget)
+      warning_widget = priv->warning_widget;
     else
-      g_warning ("%s %p exceeds its window height: requested %d px, %d px available",
-                 G_OBJECT_TYPE_NAME (priv->child), priv->child, min_height, height);
+      warning_widget = GTK_WIDGET (self);
+
+    if (min_width > width && min_height > height)
+      g_warning ("%s %p exceeds %s size: requested %d×%d px, %d×%d px available",
+                 G_OBJECT_TYPE_NAME (priv->child), priv->child,
+                 G_OBJECT_TYPE_NAME (warning_widget), min_width, min_height, width, height);
+    else if (min_width > width)
+      g_warning ("%s %p exceeds %s width: requested %d px, %d px available",
+                 G_OBJECT_TYPE_NAME (priv->child), priv->child,
+                 G_OBJECT_TYPE_NAME (warning_widget), min_width, width);
+    else
+      g_warning ("%s %p exceeds %s height: requested %d px, %d px available",
+                 G_OBJECT_TYPE_NAME (priv->child), priv->child,
+                 G_OBJECT_TYPE_NAME (warning_widget), min_height, height);
   }
 
   width = MAX (width, min_width);
