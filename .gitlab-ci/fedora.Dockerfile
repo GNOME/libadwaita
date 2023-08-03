@@ -6,6 +6,7 @@ RUN dnf -y update \
     appstream-devel \
     expat-devel \
     git \
+    graphviz \
     libabigail \
     libjpeg-turbo-devel \
     python3-jinja2 \
