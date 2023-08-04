@@ -4,6 +4,45 @@
 $deprecated_linked_widgets: ("combobox",         "> box > button.combo"),
                             ("appchooserbutton", "> combobox > box > button.combo");
 
+/***********************
+ * GtkAppChooserDialog *
+ ***********************/
+
+window.appchooser {
+  headerbar.titlebar {
+    @extend .flat;
+    @extend %headerbar-shrunk;
+
+    > windowhandle {
+      padding-top: 3px;
+    }
+
+    box.start + box {
+      margin-top: -6px;
+      margin-bottom: -6px;
+      min-height: 12px;
+    }
+  }
+
+  searchbar {
+    @extend %searchbar-flat;
+
+    background: none;
+  }
+
+  &.csd searchbar {
+    @extend %searchbar-shrunk;
+  }
+
+  .dialog-vbox > box > box:not(.dialog-action-area) {
+    margin: 6px;
+  }
+
+  .dialog-action-area {
+    margin-top: 0;
+  }
+}
+
 /****************
  * GtkAssistant *
  ****************/
