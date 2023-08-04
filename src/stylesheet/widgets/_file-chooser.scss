@@ -81,6 +81,15 @@ placesview {
 filechooser {
   box-shadow: 0 1px $border_color;
 
+  // Make the toolbar buttons flat like on an actual toolbar
+  #pathbarbox > stack > box > {
+    button,
+    box > button,
+    menubutton > button {
+      @extend %button_basic_flat;
+    }
+  }
+
   pathbar button {
     &:not(.image-button) {
       padding-left: 9px;
@@ -126,6 +135,89 @@ filechooser {
       & box {
         border-spacing: 6px;
       }
+    }
+  }
+
+  // Style the outer action bar with a toolbar view-like shadow
+  > box > actionbar {
+    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
+                0 -2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    > revealer > box {
+      box-shadow: none;
+      padding-top: 6px;
+    }
+  }
+
+  // Style the remote search action bar like a banner
+  scrolledwindow + actionbar > revealer > box {
+    background-color: gtkmix($accent_bg_color, $view_bg_color, 30%);
+    color: $window_fg_color;
+    box-shadow: none;
+    padding-top: 6px;
+    font-weight: bold;
+
+    &:backdrop {
+      background-color: gtkmix($accent_bg_color, $view_bg_color, 15%);
+    }
+  }
+
+  placesview {
+    // Only the bottom undershoot, since the action bar is guaranteed to be
+    // there, while the search bar can show and hide. That's a problem, since
+    // we only need top undershoot when it's visible, to avoid a double shadow.
+    > stack > scrolledwindow {
+      @include undershoot(bottom);
+    }
+
+    // Make the Connect to Server action bar flat
+    > actionbar > revealer > box {
+      background: $view_bg_color;
+      color: $view_fg_color;
+      box-shadow: none;
+      padding-top: 6px;
+
+      &:backdrop {
+        background: $view_bg_color;
+        transition: none;
+      }
+    }
+  }
+
+  placessidebar {
+    background-color: $sidebar_bg_color;
+    color: $sidebar_fg_color;
+
+    &:backdrop {
+      background-color: $sidebar_backdrop_color;
+      transition: background-color $backdrop_transition;
+    }
+  }
+
+  // The separator is a part of GtkPaned, so it needs to be styled separately
+  paned.horizontal > separator {
+    &:dir(ltr) {
+      box-shadow: inset 1px 0 $sidebar_bg_color,
+                  inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+
+      &:backdrop {
+        box-shadow: inset 1px 0 $sidebar_backdrop_color,
+                    inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+      }
+    }
+
+    &:dir(rtl) {
+      box-shadow: inset -1px 0 $sidebar_bg_color,
+                  inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+
+      &:backdrop {
+        box-shadow: inset -1px 0 $sidebar_backdrop_color,
+                    inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+      }
+    }
+
+    &:backdrop {
+      transition: box-shadow $backdrop_transition;
     }
   }
 }
