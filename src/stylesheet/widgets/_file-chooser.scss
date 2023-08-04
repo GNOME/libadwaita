@@ -221,3 +221,10 @@ filechooser {
     }
   }
 }
+
+/* Fix header bar height in the file chooser */
+window.filechooser headerbar box.start + box {
+  margin-top: -6px;
+  margin-bottom: -6px;
+  min-height: 12px;
+}
