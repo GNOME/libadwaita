@@ -11,7 +11,24 @@ $deprecated_linked_widgets: ("combobox",         "> box > button.combo"),
 window.assistant {
   .sidebar {
     padding: $menu-margin;
-    background-clip: padding-box;
+    background-color: $sidebar_bg_color;
+    color: $sidebar_fg_color;
+
+    &:not(separator) {
+      &:dir(ltr) {
+        border-right: none;
+        box-shadow: inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+      }
+
+      &:dir(rtl) {
+        box-shadow: inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+      }
+    }
+
+    &:backdrop {
+      background-color: $sidebar_backdrop_color;
+      transition: background-color $backdrop_transition;
+    }
 
     > label {
       padding: 6px 12px;
