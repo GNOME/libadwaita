@@ -284,7 +284,7 @@ adw_toolbar_view_measure (GtkWidget      *widget,
                       &bottom_min, &bottom_nat, NULL, NULL);
 
   if (self->content)
-    gtk_widget_measure (self->content, orientation, -1,
+    gtk_widget_measure (self->content, orientation, for_size,
                         &content_min, &content_nat, NULL, NULL);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
