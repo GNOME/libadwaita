@@ -270,6 +270,21 @@ adw_breakpoint_bin_snapshot (GtkWidget   *widget,
                                                                 snapshot);
 }
 
+static GtkSizeRequestMode
+adw_breakpoint_bin_get_request_mode (GtkWidget *widget)
+{
+  AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  if (priv->breakpoints)
+    return GTK_SIZE_REQUEST_CONSTANT_SIZE;
+
+  if (priv->child)
+    return gtk_widget_get_request_mode (priv->child);
+
+  return GTK_SIZE_REQUEST_CONSTANT_SIZE;
+}
+
 static void
 adw_breakpoint_bin_measure (GtkWidget      *widget,
                             GtkOrientation  orientation,
@@ -445,6 +460,7 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
   object_class->get_property = adw_breakpoint_bin_get_property;
   object_class->set_property = adw_breakpoint_bin_set_property;
 
+  widget_class->get_request_mode = adw_breakpoint_bin_get_request_mode;
   widget_class->measure = adw_breakpoint_bin_measure;
   widget_class->size_allocate = adw_breakpoint_bin_size_allocate;
   widget_class->compute_expand = adw_widget_compute_expand;
