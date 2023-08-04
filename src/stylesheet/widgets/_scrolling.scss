@@ -169,7 +169,7 @@ scrolledwindow {
   }
 
   &.undershoot-bottom {
-    @include undershoot(bottom)
+    @include undershoot(bottom);
   }
 
   &.undershoot-start {
