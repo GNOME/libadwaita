@@ -1,3 +1,72 @@
+================
+Version 1.4.beta
+================
+
+- Build
+  - Depend on GLib 2.76.0
+  - Fix build on Windows
+  - Add a GTK subproject
+- AdwBreakpointBin
+  - Mention the correct widget in exceeded size warnings
+  - Fix width-for-height and height-for-width sizing
+- AdwComboRow
+  - Recreate default factory on expression changes
+- AdwEnumListModel
+  - Better invalid value for find_position()
+- AdwHeaderBar
+  - Fix spacing when there are no start/end children
+  - Fix a memory leak
+  - Fix GtkCenterBox:shrink-center-last usage
+- AdwLeaflet
+  - Fix back/forward mouse button handling
+- AdwMessageDialog
+  - Fix shadow style
+- AdwNavigationView
+  - Pop the current page when pressing Escape
+  - Make AdwNavigationPage:child-view private
+  - Fix back/forward mouse button handling
+  - Clarify docs
+- AdwPreferencesWindow
+  - Fix a memory leak
+- AdwTabOverview
+  - Cull invisible thumbnails
+  - Fix a crash when opening overview before it's mpped
+- AdwTabView
+  - Fix thumbnail regressions from 1.4.alpha
+- AdwToastOverlay
+  - Fix width-for-height and height-for-width sizing
+- AdwToolbarView
+  - Add ADW_TOOLBAR_RAISED_BORDER style
+  - Fix width-for-height and height-for-width sizing
+  - Clarify docs
+- AdwViewStack
+  - Add AdwViewStackPages:selected-page
+- AdwViewSwitcherBar
+  - Fix disabling reveal animation when using breakpoints
+  - Make sure the height doesn't change with large text
+- Demo
+  - Fix view switcher demo minimum height
+  - Set input hints and purpose in the entries
+- Docs
+  - Assorted screenshot tool fixes
+  - Fix a deprecation warning in the screenshot tool
+- Stylesheet
+  - Make button.osd focus rings blue for better visibility
+  - Fix .card buttons within .osd
+  - Fix button transitions in high contrast mode
+  - Fix single-item menu height
+  - Modernize GtkFileDialog, GtkAppChooserDialog and GtkAssistant styles
+- Translation updates
+  - Belarusian
+  - Friulian
+  - Georgian
+  - Hebrew
+  - Hungarian
+  - Persian
+  - Russian
+  - Slovenian
+  - Ukrainian
+
 =================
 Version 1.4.alpha
 =================
