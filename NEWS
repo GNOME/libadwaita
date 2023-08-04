@@ -1,4 +1,40 @@
 =============
+Version 1.2.5
+=============
+
+- Fix doc include path
+- AdwAboutWindow
+  - Fix :translator-credits property
+- AdwCarousel
+  - Fix scrolling to a recently inserted item
+- AdwComboRow
+  - Fix accessible role on the dropdown arrow
+- AdwEntryRow
+  - Fix accessibility
+- AdwLeaflet
+  - Fix back/forward mouse button handling
+- AdwPreferencesWindow
+  - Fix markup handling when searching
+- AdwTabBar
+  - Fix accessibility
+- AdwToastOverlay
+  - Fix width-for-height and height-for-width sizing
+- AdwViewSwitcher
+  - Set correct accessible role for icons
+- AdwWindowTitle
+  - Fix initial title visibility
+- Build
+  - Fix build on Windows
+- Demo
+  - Fix a critical when trying to set a non-image file as avatar
+- Docs
+  - Remove an erroneous mention of mnemonics in row subtitles
+  - Mention the version .large-title is deprecated since
+  - Fix successs/error color values
+- Stylesheet
+  - Fix button.card checked state
+
+=============
 Version 1.2.4
 =============
 
