@@ -253,6 +253,17 @@ update_collapse_style (GtkWidget *box)
     gtk_widget_remove_css_class (box, "collapse-spacing");
 }
 
+static GtkSizeRequestMode
+adw_toolbar_view_get_request_mode (GtkWidget *widget)
+{
+  AdwToolbarView *self = ADW_TOOLBAR_VIEW (widget);
+
+  if (self->content)
+    return gtk_widget_get_request_mode (self->content);
+
+  return GTK_SIZE_REQUEST_CONSTANT_SIZE;
+}
+
 static void
 adw_toolbar_view_measure (GtkWidget      *widget,
                           GtkOrientation  orientation,
@@ -475,6 +486,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
   object_class->get_property = adw_toolbar_view_get_property;
   object_class->set_property = adw_toolbar_view_set_property;
 
+  widget_class->get_request_mode = adw_toolbar_view_get_request_mode;
   widget_class->measure = adw_toolbar_view_measure;
   widget_class->size_allocate = adw_toolbar_view_size_allocate;
   widget_class->focus = adw_widget_focus_child;
