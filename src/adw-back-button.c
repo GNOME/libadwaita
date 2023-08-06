@@ -550,6 +550,9 @@ adw_back_button_init (AdwBackButton *self)
   gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "navigation.pop");
   gtk_widget_add_css_class (GTK_WIDGET (button), "back");
   gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
+  gtk_accessible_update_property (GTK_ACCESSIBLE (button),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, _("Back"),
+                                  -1);
   g_signal_connect_swapped (button, "query-tooltip",
                             G_CALLBACK (query_tooltip), self);
   adw_bin_set_child (ADW_BIN (self), button);
