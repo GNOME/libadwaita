@@ -3218,6 +3218,9 @@ adw_tab_grid_snapshot (GtkWidget   *widget,
     TabInfo *info = l->data;
     int pos, height;
 
+    if (info == self->reordered_tab)
+      continue;
+
     pos = get_tab_y (self, info, FALSE);
     height = gtk_widget_get_height (info->container);
 
@@ -3229,6 +3232,9 @@ adw_tab_grid_snapshot (GtkWidget   *widget,
 
     gtk_widget_snapshot_child (widget, info->container, snapshot);
   }
+
+  if (self->reordered_tab)
+    gtk_widget_snapshot_child (widget, self->reordered_tab->container, snapshot);
 }
 
 static void
