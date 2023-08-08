@@ -4,219 +4,204 @@
 #
 # Translators:
 # Silence Zhou <silence_zhou@126.com>, 2021
-# lumingzh <lumingzh@qq.com>, 2021-2022.
+# lumingzh <lumingzh@qq.com>, 2021-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-08 09:09+0000\n"
-"PO-Revision-Date: 2022-08-13 15:19-0400\n"
-"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
+"POT-Creation-Date: 2023-08-08 09:00+0000\n"
+"PO-Revision-Date: 2023-08-08 20:41+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 42.0\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU 通用公共许可证，第 2 版及以上"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU 通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU 宽松通用公共许可证，第 2.1 版及以上"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU 宽松通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause 许可证"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
 msgstr "MIT 许可证"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:212
 msgid "Artistic License 2.0"
 msgstr "艺术许可证第 2.0 版"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU 通用公共许可证，仅限第 2 版"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU 通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU 宽松通用公共许可证，仅限第 2.1 版"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU 宽松通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero 通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero 通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause 许可证"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
 msgstr "Apache 许可证第 2.0 版"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla 公用许可证第 2.0 版"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:535
 msgid "Code by"
 msgstr "编程"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:536
 msgid "Design by"
 msgstr "设计"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:537
 msgid "Artwork by"
 msgstr "美工"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:538
 msgid "Documentation by"
 msgstr "文档"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:539
 msgid "Translated by"
 msgstr "翻译"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:568
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr "本程序不作任何担保。详情请见 <a href=\"%s\">%s</a>。"
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:646
 msgid "This Application"
 msgstr "本应用程序"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:948
 #, c-format
 msgid "Version %s"
 msgstr "版本 %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:974
 msgid "Unable to parse release notes:"
 msgstr "无法解析发行注记："
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:980
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "行：%d，字符：%d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1256
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1284
 msgid "Unable to save debugging information"
 msgstr "无法保存调试信息"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1289
 msgid "Close"
 msgstr "关闭"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1305
 msgid "Save debugging information"
 msgstr "保存调试信息"
-
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "保存(_S)"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "取消(_C)"
 
 #: src/adw-about-window.ui:5
 msgid "About"
 msgstr "关于"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-window.ui:91
 msgid "_What’s New"
 msgstr "最近更新(_W)"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-window.ui:106
 msgid "_Details"
 msgstr "详细信息(_D)"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
 msgid "_Website"
 msgstr "网站(_W)"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-window.ui:144
 msgid "_Support Questions"
 msgstr "支持问题(_S)"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:160
 msgid "_Report an Issue"
 msgstr "报告问题(_R)"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:175
 msgid "_Troubleshooting"
 msgstr "故障排除(_T)"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-window.ui:194
 msgid "_Credits"
 msgstr "鸣谢(_C)"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-window.ui:209
 msgid "_Legal"
 msgstr "法律信息(_L)"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-window.ui:224
 msgid "_Acknowledgements"
 msgstr "致谢(_A)"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-window.ui:253
 msgid "What’s New"
 msgstr "更新内容"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
-msgid "Back"
-msgstr "后退"
-
-#: src/adw-about-window.ui:351
+#: src/adw-about-window.ui:293
 msgid "Details"
 msgstr "详细信息"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:358
 msgid "Troubleshooting"
 msgstr "故障排除"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-window.ui:381
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -225,52 +210,60 @@ msgstr ""
 "您可以查看您的调试信息以帮助进行故障排除。在报告问题时，请将这些信息提供给应"
 "用程序开发人员以帮助其进行问题诊断。"
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-window.ui:392
 msgid "_Debugging Information"
 msgstr "调试信息(_D)"
 
-#: src/adw-about-window.ui:507
-msgid "Credits"
-msgstr "鸣谢"
-
-#: src/adw-about-window.ui:554
-msgid "Legal"
-msgstr "法律信息"
-
-#: src/adw-about-window.ui:601
-msgid "Acknowledgements"
-msgstr "致谢"
-
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:418
 msgid "Debugging Information"
 msgstr "调试信息"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-window.ui:460
 msgid "_Copy Text"
 msgstr "复制文字(_C)"
 
-#: src/adw-about-window.ui:703
+#: src/adw-about-window.ui:468
 msgid "_Save as…"
 msgstr "另存为(_S)…"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-about-window.ui:481
+msgid "Credits"
+msgstr "鸣谢"
+
+#: src/adw-about-window.ui:512
+msgid "Legal"
+msgstr "法律信息"
+
+#: src/adw-about-window.ui:543
+msgid "Acknowledgements"
+msgstr "致谢"
+
+#: src/adw-back-button.c:444 src/adw-back-button.c:554
+msgid "Back"
+msgstr "后退"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "搜索…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "应用"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "无首选项"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "首选暗色"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "首选亮色"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -288,31 +281,31 @@ msgstr "覆盖该应用的设置。它们会在关闭该检查器时被重置。
 msgid "System Supports Color Schemes"
 msgstr "系统支持颜色方案"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "首选的颜色方案"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "高对比度"
 
-#: src/adw-password-entry-row.c:71
-msgid "Hide Text"
-msgstr "隐藏文本"
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "隐藏密码"
 
-#: src/adw-password-entry-row.c:75
-msgid "Show Text"
-msgstr "显示文本"
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "显示密码"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "大写锁定已开启"
 
-#: src/adw-password-entry-row.c:177
-msgid "_Show Text"
-msgstr "显示文本(_S)"
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "显示密码(_S)"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "无标题页面"
 
@@ -320,18 +313,72 @@ msgstr "无标题页面"
 msgid "Preferences"
 msgstr "首选项"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "搜索首选项"
+
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "搜索"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "没有找到结果"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "尝试搜索其它内容。"
 
-#: src/adw-tab.ui:88
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "更多选项"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "查看打开的标签页"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:922
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u 个标签页"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "搜索标签页"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "搜索标签页"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "无打开的标签页"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "未找到标签页"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "新建标签页(_T)"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "关闭标签页"
+
+#~ msgid "_Save"
+#~ msgstr "保存(_S)"
+
+#~ msgid "_Cancel"
+#~ msgstr "取消(_C)"
+
+#~ msgid "Hide Text"
+#~ msgstr "隐藏文本"
+
+#~ msgid "Show Text"
+#~ msgstr "显示文本"
+
+#~ msgid "_Show Text"
+#~ msgstr "显示文本(_S)"
