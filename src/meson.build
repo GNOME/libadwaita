@@ -429,7 +429,7 @@ pkgg.generate(
       version: meson.project_version(),
          name: 'Adwaita',
      filebase: package_api_name,
-  description: 'Adwaita Mobile widgets',
+  description: 'Building blocks for modern GNOME applications',
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
