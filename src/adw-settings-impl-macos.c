@@ -57,8 +57,6 @@ get_ns_color_scheme (void)
      */
 #endif
 
-    [style release];
-
     return isDark ?
       ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK :
       ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
@@ -95,7 +93,7 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
 
   if (@available(*, macOS 10.14)) {
     static ThemeChangedObserver *observer;
-    
+
     observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
 
     [[NSDistributedNotificationCenter defaultCenter]
