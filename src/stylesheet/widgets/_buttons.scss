@@ -591,18 +591,20 @@ splitbutton {
 }
 
 buttoncontent {
-  border-spacing: 6px;
+  > box {
+    border-spacing: 6px;
 
-  > label {
-    font-weight: bold;
+    > label {
+      font-weight: bold;
 
-    &:dir(ltr) { padding-right: 2px; }
-    &:dir(rtl) { padding-left: 2px; }
+      &:dir(ltr) { padding-right: 2px; }
+      &:dir(rtl) { padding-left: 2px; }
+    }
   }
 
   .arrow-button > box > &,
   splitbutton > button > & {
-    > label {
+    > box > label {
       &:dir(ltr) { padding-right: 0; }
       &:dir(rtl) { padding-left: 0; }
     }

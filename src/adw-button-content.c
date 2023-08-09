@@ -46,12 +46,13 @@
  *
  * ```
  * buttoncontent
- * ├── image
- * ╰── label
+ * ╰── box
+ *     ├── image
+ *     ╰── label
  * ```
  *
- * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains the
- * subnodes `image` and `label`.
+ * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains a `box`
+ * subnode that serves as a container for the  `image` and `label` nodes.
  *
  * When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
  * `.image-text-button` style class. When inside a `GtkMenuButton`, the
@@ -65,6 +66,7 @@
 struct _AdwButtonContent {
   GtkWidget parent_instance;
 
+  GtkWidget *box;
   GtkWidget *icon;
   GtkWidget *label;
 
@@ -134,8 +136,9 @@ adw_button_content_dispose (GObject *object)
 {
   AdwButtonContent *self = ADW_BUTTON_CONTENT (object);
 
-  g_clear_pointer (&self->icon, gtk_widget_unparent);
-  g_clear_pointer (&self->label, gtk_widget_unparent);
+  self->icon = NULL;
+  self->label = NULL;
+  g_clear_pointer (&self->box, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_button_content_parent_class)->dispose (object);
 }
@@ -270,7 +273,7 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "buttoncontent");
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
 }
@@ -281,6 +284,9 @@ adw_button_content_init (AdwButtonContent *self)
   self->icon_name = g_strdup ("");
 
   gtk_widget_set_hexpand (GTK_WIDGET (self), FALSE);
+
+  self->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_set_halign (self->box, GTK_ALIGN_CENTER);
 
   self->icon = g_object_new (GTK_TYPE_IMAGE,
                              "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
@@ -293,8 +299,9 @@ adw_button_content_init (AdwButtonContent *self)
   gtk_widget_set_hexpand (self->label, TRUE);
   gtk_widget_set_visible (self->label, FALSE);
 
-  gtk_widget_set_parent (self->icon, GTK_WIDGET (self));
-  gtk_widget_set_parent (self->label, GTK_WIDGET (self));
+  gtk_box_append (GTK_BOX (self->box), self->icon);
+  gtk_box_append (GTK_BOX (self->box), self->label);
+  gtk_widget_set_parent (self->box, GTK_WIDGET (self));
 }
 
 /**
