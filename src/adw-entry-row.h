@@ -80,6 +80,9 @@ ADW_AVAILABLE_IN_1_2
 void     adw_entry_row_set_activates_default (AdwEntryRow *self,
                                               gboolean     activates);
 
+ADW_AVAILABLE_IN_1_4
+guint adw_entry_row_get_text_length (AdwEntryRow *self);
+
 ADW_AVAILABLE_IN_1_3
 gboolean adw_entry_row_grab_focus_without_selecting (AdwEntryRow *self);
 

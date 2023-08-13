@@ -128,4 +128,7 @@
       <class name="entry"/>
     </style>
   </template>
+  <object class="GSignalGroup" id="buffer_signals">
+    <property name="target-type">GtkEntryBuffer</property>
+  </object>
 </interface>
