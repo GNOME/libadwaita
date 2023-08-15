@@ -48,6 +48,10 @@
                     <property name="active" bind-source="AdwExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
                     <property name="valign">center</property>
                     <property name="visible" bind-source="AdwExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
+                    <accessibility>
+                      <relation name="labelled-by">AdwExpanderRow</relation>
+                      <relation name="described-by">>AdwExpanderRow</relation>
+                    </accessibility>
                   </object>
                 </child>
                 <child>
