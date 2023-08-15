@@ -258,7 +258,7 @@
               </object>
             </child>
             <child>
-              <object class="AdwNavigationPage">
+              <object class="AdwNavigationPage" id="whatsnew_page">
                 <property name="title" translatable="yes">What’s New</property>
                 <property name="tag">whatsnew</property>
                 <property name="child">
@@ -287,6 +287,9 @@
                                     <property name="enable-undo">False</property>
                                   </object>
                                 </property>
+                                <accessibility>
+                                  <relation name="labelled-by">whatsnew_page</relation>
+                                </accessibility>
                               </object>
                             </property>
                           </object>
@@ -455,6 +458,9 @@
                                     <property name="text" bind-source="AdwAboutWindow" bind-property="debug-info" bind-flags="sync-create"/>
                                   </object>
                                 </property>
+                                <accessibility>
+                                  <relation name="labelled-by">debug_info_page</relation>
+                                </accessibility>
                               </object>
                             </property>
                           </object>
