@@ -50,7 +50,7 @@
                     <property name="visible" bind-source="AdwExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
                     <accessibility>
                       <relation name="labelled-by">AdwExpanderRow</relation>
-                      <relation name="described-by">>AdwExpanderRow</relation>
+                      <relation name="described-by">AdwExpanderRow</relation>
                     </accessibility>
                   </object>
                 </child>
