@@ -54,6 +54,7 @@
                   <object class="GtkImage" id="image">
                     <property name="icon-name">adw-expander-arrow-symbolic</property>
                     <property name="sensitive" bind-source="AdwExpanderRow" bind-property="enable-expansion" bind-flags="sync-create"/>
+                    <property name="accessible-role">presentation</property>
                     <style>
                       <class name="expander-row-arrow"/>
                     </style>
