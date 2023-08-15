@@ -96,6 +96,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -111,6 +112,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -127,6 +129,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">adw-external-link-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -149,6 +152,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">adw-external-link-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -165,6 +169,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">adw-external-link-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -180,6 +185,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -200,6 +206,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -215,6 +222,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -230,6 +238,7 @@
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
+                                                <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
                                           </object>
@@ -337,6 +346,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">adw-external-link-symbolic</property>
+                                            <property name="accessible-role">presentation</property>
                                           </object>
                                         </child>
                                       </object>
@@ -397,6 +407,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
+                                            <property name="accessible-role">presentation</property>
                                           </object>
                                         </child>
                                       </object>

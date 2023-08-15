@@ -482,7 +482,9 @@ add_credits_section (GtkWidget   *box,
     adw_preferences_group_add (ADW_PREFERENCES_GROUP (group), row);
 
     if (link) {
-      GtkWidget *image = gtk_image_new ();
+      GtkWidget *image = g_object_new (GTK_TYPE_IMAGE,
+                                       "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                       NULL);
 
       if (is_email)
         gtk_image_set_from_icon_name (GTK_IMAGE (image), "adw-mail-send-symbolic");
@@ -2592,6 +2594,7 @@ adw_about_window_add_link (AdwAboutWindow *self,
                            const char     *url)
 {
   GtkWidget *row;
+  GtkWidget *image;
 
   g_return_if_fail (ADW_IS_ABOUT_WINDOW (self));
   g_return_if_fail (title != NULL);
@@ -2601,8 +2604,11 @@ adw_about_window_add_link (AdwAboutWindow *self,
   adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), title);
   adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (row), TRUE);
 
-  adw_action_row_add_suffix (ADW_ACTION_ROW (row),
-                             gtk_image_new_from_icon_name ("adw-external-link-symbolic"));
+  image = g_object_new (GTK_TYPE_IMAGE,
+                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                        "icon-name", "adw-external-link-symbolic",
+                        NULL);
+  adw_action_row_add_suffix (ADW_ACTION_ROW (row), image);
 
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
   gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "about.show-url");
