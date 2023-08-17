@@ -7,60 +7,274 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2021-12-21 13:10+0100\n"
-"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"POT-Creation-Date: 2023-07-08 11:22+0000\n"
+"PO-Revision-Date: 2023-08-01 12:16+0300\n"
+"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
+"gmail [dot] com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);;\n"
-"X-Generator: Poedit 3.0.1\n"
+"20)) ? 1 : 2);\n"
+"X-Generator: Poedit 3.3.2\n"
 
-#: src/adw-preferences-window.c:212
-msgid "Untitled page"
-msgstr "Pagină fără titlu"
+#: src/adw-about-window.c:206
+msgid "GNU General Public License, version 2 or later"
+msgstr "Licența Publică Generală GNU, versiunea 2 sau mai nouă"
 
-#: src/adw-preferences-window.ui:8
-msgid "Preferences"
-msgstr "Preferințe"
+#: src/adw-about-window.c:207
+msgid "GNU General Public License, version 3 or later"
+msgstr "Licența Publică Generală GNU, versiunea 3 sau mai nouă"
 
-#: src/adw-preferences-window.ui:69
-msgid "Search"
-msgstr "Caută"
+#: src/adw-about-window.c:208
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Licența Publică Generală Minoră GNU, versiunea 2.1 sau mai nouă"
 
-#: src/adw-preferences-window.ui:139
-msgid "No Results Found"
-msgstr "Nu s-au găsit rezultate"
+#: src/adw-about-window.c:209
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Licența Publică Generală Minoră GNU, versiunea 3 sau mai nouă"
 
-#: src/adw-preferences-window.ui:140
-msgid "Try a different search."
-msgstr "Încercați o căutare diferită."
+#: src/adw-about-window.c:210
+msgid "BSD 2-Clause License"
+msgstr "Licența BSD clauza-2"
 
-#: src/inspector/adw-inspector-page.c:76
+#: src/adw-about-window.c:211
+msgid "The MIT License (MIT)"
+msgstr "Licența MIT (MIT)"
+
+#: src/adw-about-window.c:212
+msgid "Artistic License 2.0"
+msgstr "Licența artistică 2.0"
+
+#: src/adw-about-window.c:213
+msgid "GNU General Public License, version 2 only"
+msgstr "Licența Publică Generală GNU, doar versiunea 2"
+
+#: src/adw-about-window.c:214
+msgid "GNU General Public License, version 3 only"
+msgstr "Licența Publică Generală GNU, doar versiunea 3"
+
+#: src/adw-about-window.c:215
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Licența Publică Generală Minoră GNU, doar versiunea 2.1"
+
+#: src/adw-about-window.c:216
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Licența Publică Generală Minoră GNU, doar versiunea 3"
+
+#: src/adw-about-window.c:217
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Licența Publică Generală Affero GNU, versiunea 3 sau mai nouă"
+
+#: src/adw-about-window.c:218
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Licența Publică Generală Affero GNU, doar versiunea 3"
+
+#: src/adw-about-window.c:219
+msgid "BSD 3-Clause License"
+msgstr "Licența BSD clauza-3"
+
+#: src/adw-about-window.c:220
+msgid "Apache License, Version 2.0"
+msgstr "Licența Apache, versiunea 2.0"
+
+#: src/adw-about-window.c:221
+msgid "Mozilla Public License 2.0"
+msgstr "Licența Publică Mozilla 2.0"
+
+#: src/adw-about-window.c:535
+msgid "Code by"
+msgstr "Cod de"
+
+#: src/adw-about-window.c:536
+msgid "Design by"
+msgstr "Design de"
+
+#: src/adw-about-window.c:537
+msgid "Artwork by"
+msgstr "Artă de"
+
+#: src/adw-about-window.c:538
+msgid "Documentation by"
+msgstr "Documentație de"
+
+#: src/adw-about-window.c:539
+msgid "Translated by"
+msgstr "Tradus de"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:568
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Această aplicație nu vine cu niciun fel de garanție. Vedeți <a "
+"href=\"%s\">%s</a> pentru detalii."
+
+#: src/adw-about-window.c:646
+msgid "This Application"
+msgstr "Această aplicație"
+
+#: src/adw-about-window.c:948
+#, c-format
+msgid "Version %s"
+msgstr "Versiunea %s"
+
+#: src/adw-about-window.c:974
+msgid "Unable to parse release notes:"
+msgstr "Nu se pot parsa notițele de lansare:"
+
+#: src/adw-about-window.c:980
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Linie: %d, caracter: %d"
+
+#: src/adw-about-window.c:1256
+msgid "Copied to clipboard"
+msgstr "Copiat la clipboard"
+
+#: src/adw-about-window.c:1284
+msgid "Unable to save debugging information"
+msgstr "Nu se pot salva informațiile de depanare"
+
+#: src/adw-about-window.c:1289
+msgid "Close"
+msgstr "Închide"
+
+#: src/adw-about-window.c:1305
+msgid "Save debugging information"
+msgstr "Salvează informațiile de depanare"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Despre"
+
+#: src/adw-about-window.ui:91
+msgid "_What’s New"
+msgstr "_Ce este nou"
+
+#: src/adw-about-window.ui:106
+msgid "_Details"
+msgstr "_Detalii"
+
+#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+msgid "_Website"
+msgstr "_Pagină web"
+
+#: src/adw-about-window.ui:144
+msgid "_Support Questions"
+msgstr "Întrebări de _suport"
+
+#: src/adw-about-window.ui:160
+msgid "_Report an Issue"
+msgstr "_Raportează o problemă"
+
+#: src/adw-about-window.ui:175
+msgid "_Troubleshooting"
+msgstr "_Depanare"
+
+#: src/adw-about-window.ui:194
+msgid "_Credits"
+msgstr "_Autori"
+
+#: src/adw-about-window.ui:209
+msgid "_Legal"
+msgstr "_Legal"
+
+#: src/adw-about-window.ui:224
+msgid "_Acknowledgements"
+msgstr "_Mulțumiri"
+
+#: src/adw-about-window.ui:253
+msgid "What’s New"
+msgstr "Ce este nou"
+
+#: src/adw-about-window.ui:293
+msgid "Details"
+msgstr "Detalii"
+
+#: src/adw-about-window.ui:358
+msgid "Troubleshooting"
+msgstr "Depanare"
+
+#: src/adw-about-window.ui:381
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Pentru a asista la depanare, puteți vizualiza informațiile de depanare. "
+"Furnizarea acestor informații dezvoltatorilor aplicației poate ajuta la "
+"diagnosticarea oricăror probleme pe care le întâlniți când raportați o "
+"problemă."
+
+#: src/adw-about-window.ui:392
+msgid "_Debugging Information"
+msgstr "Informații de _depanare"
+
+#: src/adw-about-window.ui:418
+msgid "Debugging Information"
+msgstr "Informații de depanare"
+
+#: src/adw-about-window.ui:460
+msgid "_Copy Text"
+msgstr "_Copiază textul"
+
+#: src/adw-about-window.ui:468
+msgid "_Save as…"
+msgstr "_Salvează ca…"
+
+#: src/adw-about-window.ui:481
+msgid "Credits"
+msgstr "Autori"
+
+#: src/adw-about-window.ui:512
+msgid "Legal"
+msgstr "Legal"
+
+#: src/adw-about-window.ui:543
+msgid "Acknowledgements"
+msgstr "Mulțumiri"
+
+#: src/adw-back-button.c:444
+msgid "Back"
+msgstr "Înapoi"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "Caută…"
+
+#: src/adw-entry-row.ui:97
+msgid "Apply"
+msgstr "Aplică"
+
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Nicio preferință"
 
-#: src/inspector/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Preferă întunecat"
 
-#: src/inspector/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Preferă luminat"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
-#: src/inspector/adw-inspector-page.ui:10
+#: src/adw-inspector-page.ui:10
 msgid "System Appearance"
 msgstr "Aspectul sistemului"
 
-#: src/inspector/adw-inspector-page.ui:11
+#: src/adw-inspector-page.ui:11
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
@@ -68,17 +282,98 @@ msgstr ""
 "Suprascrie configurările acestei aplicații. Vor fi restabilite la închiderea "
 "inspectorului."
 
-#: src/inspector/adw-inspector-page.ui:14
+#: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
 msgstr "Sistemul suportă scheme de culoare"
 
-#: src/inspector/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "Schemă de culoare preferată"
 
-#: src/inspector/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Contrast ridicat"
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "Ascunde parola"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "Arată parola"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Caps Lock este activat"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "_Arată parola"
+
+#: src/adw-preferences-window.c:259
+msgid "Untitled page"
+msgstr "Pagină fără titlu"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Preferințe de căutare"
+
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Caută"
+
+#: src/adw-preferences-window.ui:163
+msgid "No Results Found"
+msgstr "Nu s-au găsit rezultate"
+
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
+msgid "Try a different search."
+msgstr "Încercați o căutare diferită."
+
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "Mai multe opțiuni"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Vizualizează filele deschise"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:918
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u filă"
+msgstr[1] "%u file"
+msgstr[2] "%u de file"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "Caută filele"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "Caută filele"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Nu sunt file deschise"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Nu au fost găsite file"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "_Filă nouă"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+msgid "Close Tab"
+msgstr "Închide fila"
 
 #~ msgid "This property does not apply unless Show Indicators is set."
 #~ msgstr ""
@@ -324,9 +619,6 @@ msgstr "Contrast ridicat"
 #~ msgid "Whether the switch enabling the expansion is visible"
 #~ msgstr "Dacă comutatorul care activează extinderea este vizibil"
 
-#~ msgid "Application menu"
-#~ msgstr "Meniul aplicației"
-
 #~ msgid "Minimize"
 #~ msgstr "Minimizează"
 
@@ -335,12 +627,6 @@ msgstr "Contrast ridicat"
 
 #~ msgid "Maximize"
 #~ msgstr "Maximizează"
-
-#~ msgid "Close"
-#~ msgstr "Închide"
-
-#~ msgid "Back"
-#~ msgstr "Înapoi"
 
 #~ msgid "Pack type"
 #~ msgstr "Tip de pachet"
@@ -541,9 +827,6 @@ msgstr "Contrast ridicat"
 
 #~ msgid "The title of the preference"
 #~ msgstr "Titlul preferinței"
-
-#~ msgid "Search enabled"
-#~ msgstr "Căutarea activată"
 
 #~ msgid "Whether search is enabled"
 #~ msgstr "Dacă căutarea este activată"
