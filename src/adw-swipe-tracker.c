@@ -539,9 +539,8 @@ should_suppress_drag (AdwSwipeTracker *self,
   return found_window_handle;
 }
 
-
 static inline gboolean
-is_in_swipe_area (AdwSwipeTracker        *self,
+is_in_swipe_area (AdwSwipeable           *swipeable,
                   double                  x,
                   double                  y,
                   AdwNavigationDirection  direction,
@@ -549,13 +548,74 @@ is_in_swipe_area (AdwSwipeTracker        *self,
 {
   GdkRectangle rect;
 
-  adw_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
+  adw_swipeable_get_swipe_area (swipeable, direction, is_drag, &rect);
 
   return rect.width > 0 && rect.height > 0 &&
          (G_APPROX_VALUE (x, rect.x, DBL_EPSILON) || x > rect.x) &&
          x < rect.x + rect.width &&
          (G_APPROX_VALUE (y, rect.y, DBL_EPSILON) || y > rect.y) &&
          y < rect.y + rect.height;
+}
+
+static gboolean
+should_suppress_scroll (AdwSwipeTracker        *self,
+                        AdwNavigationDirection  direction)
+{
+  GtkWidget *parent =
+    gtk_widget_pick (GTK_WIDGET (self->swipeable),
+                     self->pointer_x,
+                     self->pointer_y,
+                     GTK_PICK_DEFAULT);
+
+  while (parent && parent != GTK_WIDGET (self->swipeable)) {
+    if (ADW_IS_SWIPEABLE (parent)) {
+      graphene_point_t point;
+
+      g_assert (gtk_widget_compute_point (GTK_WIDGET (self->swipeable), parent,
+                                          &GRAPHENE_POINT_INIT (self->pointer_x,
+                                                                self->pointer_y),
+                                          &point));
+      if (!is_in_swipe_area (ADW_SWIPEABLE (parent), point.x, point.y, direction, FALSE)) {
+        parent = gtk_widget_get_parent (parent);
+        continue;
+      }
+
+      double progress = adw_swipeable_get_progress (ADW_SWIPEABLE (parent));
+      int n_points;
+      double *points = adw_swipeable_get_snap_points (ADW_SWIPEABLE (parent),
+                                                      &n_points);
+
+      if (n_points <= 0 ||
+          (progress <= points[0] && direction == ADW_NAVIGATION_DIRECTION_BACK) ||
+          (progress >= points[n_points - 1] && direction == ADW_NAVIGATION_DIRECTION_FORWARD)) {
+        g_free (points);
+        parent = gtk_widget_get_parent (parent);
+        continue;
+      }
+
+      return TRUE;
+    }
+
+    parent = gtk_widget_get_parent (parent);
+  }
+
+  return FALSE;
+}
+
+static GtkScrolledWindow *
+find_scrolled_window (AdwSwipeTracker *self,
+                      GtkWidget       *widget)
+{
+  GtkWidget *parent = widget;
+
+  while (parent && parent != GTK_WIDGET (self->swipeable)) {
+    if (GTK_IS_SCROLLED_WINDOW (parent))
+      return GTK_SCROLLED_WINDOW (parent);
+
+    parent = gtk_widget_get_parent (parent);
+  }
+
+  return NULL;
 }
 
 static void
@@ -650,8 +710,8 @@ drag_update_cb (AdwSwipeTracker *self,
       gtk_gesture_drag_get_start_point (gesture, &start_x, &start_y);
       direction = offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
 
-      if (!is_in_swipe_area (self, start_x, start_y, direction, TRUE) &&
-          !is_in_swipe_area (self, start_x + offset_x, start_y + offset_y, direction, TRUE))
+      if (!is_in_swipe_area (self->swipeable, start_x, start_y, direction, TRUE) &&
+          !is_in_swipe_area (self->swipeable, start_x + offset_x, start_y + offset_y, direction, TRUE))
         return;
 
       if (is_vertical != is_offset_vertical) {
@@ -780,10 +840,13 @@ handle_scroll_event (AdwSwipeTracker *self,
 
     direction = delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
 
-    if (!is_in_swipe_area (self, self->pointer_x, self->pointer_y, direction, FALSE)) {
+    if (!is_in_swipe_area (self->swipeable, self->pointer_x, self->pointer_y, direction, FALSE)) {
       self->state = ADW_SWIPE_TRACKER_STATE_REJECTED;
       return GDK_EVENT_PROPAGATE;
     }
+
+    if (should_suppress_scroll (self, direction))
+      return GDK_EVENT_PROPAGATE;
 
     gesture_prepare (self, delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK);
   }
@@ -813,8 +876,24 @@ handle_scroll_event (AdwSwipeTracker *self,
       if ((!self->lower_overshoot && is_overshooting_lower) ||
           (!self->upper_overshoot && is_overshooting_upper))
         gesture_cancel (self, distance, time, TRUE);
-      else
+      else {
+        GtkScrolledWindow *window;
+        GtkWidget *widget =
+          gtk_widget_pick (GTK_WIDGET (self->swipeable),
+                           self->pointer_x,
+                           self->pointer_y,
+                           GTK_PICK_DEFAULT);
+
+        window = find_scrolled_window (self, widget);
+
+        /* Cancel kinetic scrolling on the scrolled window */
+        if (window && gtk_scrolled_window_get_kinetic_scrolling (window)) {
+          gtk_scrolled_window_set_kinetic_scrolling (window, FALSE);
+          gtk_scrolled_window_set_kinetic_scrolling (window, TRUE);
+        }
+
         gesture_begin (self);
+      }
     }
   }
 
@@ -893,7 +972,7 @@ update_controllers (AdwSwipeTracker *self)
   if (self->scroll_controller) {
     gtk_event_controller_scroll_set_flags (GTK_EVENT_CONTROLLER_SCROLL (self->scroll_controller), flags);
     gtk_event_controller_set_propagation_phase (self->scroll_controller,
-                                                self->enabled ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
+                                                self->enabled ? GTK_PHASE_CAPTURE : GTK_PHASE_NONE);
   }
 
   if (self->motion_controller)
