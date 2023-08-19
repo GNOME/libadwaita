@@ -7,30 +7,263 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-03-13 00:50+0000\n"
-"PO-Revision-Date: 2022-03-13 11:34+0500\n"
+"POT-Creation-Date: 2023-07-08 11:22+0000\n"
+"PO-Revision-Date: 2023-08-19 13:14+0600\n"
 "Last-Translator: \n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-about-window.c:206
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, нұсқасы 2 не одан кейін шыққан"
+
+#: src/adw-about-window.c:207
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, нұсқасы 3 не одан кейін шыққан"
+
+#: src/adw-about-window.c:208
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, нұсқасы 2.1 не одан кейін шыққан"
+
+#: src/adw-about-window.c:209
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, нұсқасы 3 не одан кейін шыққан"
+
+#: src/adw-about-window.c:210
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-пунктты лицензиясы"
+
+#: src/adw-about-window.c:211
+msgid "The MIT License (MIT)"
+msgstr "MIT лицензиясы (MIT)"
+
+#: src/adw-about-window.c:212
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:213
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, тек 2 нұсқасы"
+
+#: src/adw-about-window.c:214
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, тек 3 нұсқасы"
+
+#: src/adw-about-window.c:215
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, тек 2.1 нұсқасы"
+
+#: src/adw-about-window.c:216
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, тек 3 нұсқасы"
+
+#: src/adw-about-window.c:217
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, нұсқасы 3 не одан кейін шыққан"
+
+#: src/adw-about-window.c:218
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, тек 3 нұсқасы"
+
+#: src/adw-about-window.c:219
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-пунктты лицензиясы"
+
+#: src/adw-about-window.c:220
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, нұсқасы 2.0"
+
+#: src/adw-about-window.c:221
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:535
+msgid "Code by"
+msgstr "Кодты жазған"
+
+#: src/adw-about-window.c:536
+msgid "Design by"
+msgstr "Дизайн жасаған"
+
+#: src/adw-about-window.c:537
+msgid "Artwork by"
+msgstr "Графиканы жасаған"
+
+#: src/adw-about-window.c:538
+msgid "Documentation by"
+msgstr "Құжаттаманы жазған"
+
+#: src/adw-about-window.c:539
+msgid "Translated by"
+msgstr "Аударған"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:568
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Бұл қолданба ешқандай кепілдемесіз таратылады. Көбірек білу үшін, <a "
+"href=\"%s\">%s</a> қараңыз."
+
+#: src/adw-about-window.c:646
+msgid "This Application"
+msgstr "Бұл қолданба"
+
+#: src/adw-about-window.c:948
+#, c-format
+msgid "Version %s"
+msgstr "Нұсқасы %s"
+
+#: src/adw-about-window.c:974
+msgid "Unable to parse release notes:"
+msgstr "Шығарылым ескертпесін талдау мүмкін емес:"
+
+#: src/adw-about-window.c:980
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Жол: %d, таңба: %d"
+
+#: src/adw-about-window.c:1256
+msgid "Copied to clipboard"
+msgstr "Алмасу буферіне көшірілді"
+
+#: src/adw-about-window.c:1284
+msgid "Unable to save debugging information"
+msgstr "Жөндеу ақпаратын сақтау мүмкін емес"
+
+#: src/adw-about-window.c:1289
+msgid "Close"
+msgstr "Жабу"
+
+#: src/adw-about-window.c:1305
+msgid "Save debugging information"
+msgstr "Жөндеу ақпаратын сақтау"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Осы туралы"
+
+#: src/adw-about-window.ui:91
+msgid "_What’s New"
+msgstr "_Не жаңалық"
+
+#: src/adw-about-window.ui:106
+msgid "_Details"
+msgstr "_Ақпараты"
+
+#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+msgid "_Website"
+msgstr "_Веб-сайт"
+
+#: src/adw-about-window.ui:144
+msgid "_Support Questions"
+msgstr "Қол_дау көрсету сұрақтары"
+
+#: src/adw-about-window.ui:160
+msgid "_Report an Issue"
+msgstr "Мәселені хаба_рлау"
+
+#: src/adw-about-window.ui:175
+msgid "_Troubleshooting"
+msgstr "_Мәселелерді шешу"
+
+#: src/adw-about-window.ui:194
+msgid "_Credits"
+msgstr "Жа_сағандар"
+
+#: src/adw-about-window.ui:209
+msgid "_Legal"
+msgstr "Құқық_тық ақпарат"
+
+#: src/adw-about-window.ui:224
+msgid "_Acknowledgements"
+msgstr "_Алғыстар"
+
+#: src/adw-about-window.ui:253
+msgid "What’s New"
+msgstr "Не жаңалық"
+
+#: src/adw-about-window.ui:293
+msgid "Details"
+msgstr "Ақпараты"
+
+#: src/adw-about-window.ui:358
+msgid "Troubleshooting"
+msgstr "Мәселелерді шешу"
+
+#: src/adw-about-window.ui:381
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Мәселелерді шешуге көмектесу үшін сіз жөндеу ақпаратын көре аласыз. Бұл "
+"ақпаратты қолданба әзірлеушілеріне беру ақаулық туралы хабарлау кезінде "
+"кездесетін кез келген мәселелерді диагностикалауға көмектеседі."
+
+#: src/adw-about-window.ui:392
+msgid "_Debugging Information"
+msgstr "Жөн_деу ақпараты"
+
+#: src/adw-about-window.ui:418
+msgid "Debugging Information"
+msgstr "Жөндеу ақпараты"
+
+#: src/adw-about-window.ui:460
+msgid "_Copy Text"
+msgstr "Мәтінді _көшіріп алу"
+
+#: src/adw-about-window.ui:468
+msgid "_Save as…"
+msgstr "Қал_айша сақтау…"
+
+#: src/adw-about-window.ui:481
+msgid "Credits"
+msgstr "Жасағандар"
+
+#: src/adw-about-window.ui:512
+msgid "Legal"
+msgstr "Құқықтық ақпарат"
+
+#: src/adw-about-window.ui:543
+msgid "Acknowledgements"
+msgstr "Алғыстар"
+
+#: src/adw-back-button.c:444
+msgid "Back"
+msgstr "Артқа"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "Іздеу…"
+
+#: src/adw-entry-row.ui:97
+msgid "Apply"
+msgstr "Іске асыру"
+
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Қалаулар жоқ"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Қараңғыны таңдау"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Ашық түсті таңдау"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Адвайта"
 
@@ -50,15 +283,31 @@ msgstr ""
 msgid "System Supports Color Schemes"
 msgstr "Жүйе қолдайтын түстер схемалары"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "Таңдаулы түстер схемасы"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Жоғары контраст"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "Парольді жасыру"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "Парольді көрсету"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Caps Lock іске қосулы тұр"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "Парольді көр_сету"
+
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Атаусыз бет"
 
@@ -66,14 +315,58 @@ msgstr "Атаусыз бет"
 msgid "Preferences"
 msgstr "Баптаулар"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Баптаулар ішінен іздеу"
+
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "Іздеу нәтижесі"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Нәтижелер табылмады"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Басқа сөздерді іздеп көріңіз."
+
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "Көбірек опциялар"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Ашық беттерді қарау"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:918
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u бет"
+msgstr[1] "%u Tabs"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "Беттер ішінен іздеу"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "Беттер ішінен іздеу"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Ашық беттер жоқ"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Беттер табылмады"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "_Жаңа бет"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+msgid "Close Tab"
+msgstr "Бетті жабу"
