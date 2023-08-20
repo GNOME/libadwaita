@@ -58,6 +58,14 @@ columnview {
     }
   }
 
+  // Remove the default background of the internal list view
+  // since we already apply a background to the column view
+  // with the .view class. Doing this will avoid overdraw.
+  &.view > listview.view {
+    background: none;
+    color: inherit;
+  }
+
   // move padding to child cells
   > listview > row {
     padding: 0;
