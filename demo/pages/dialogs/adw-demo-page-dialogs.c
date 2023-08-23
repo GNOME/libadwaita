@@ -5,6 +5,8 @@
 struct _AdwDemoPageDialogs
 {
   AdwBin parent_instance;
+
+  AdwToast *last_toast;
 };
 
 G_DEFINE_FINAL_TYPE (AdwDemoPageDialogs, adw_demo_page_dialogs, ADW_TYPE_BIN)
@@ -17,12 +19,25 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
+toast_dismissed_cb (AdwToast           *toast,
+                    AdwDemoPageDialogs *self)
+{
+  if (toast == self->last_toast)
+    self->last_toast = NULL;
+}
+
+static void
 message_cb (AdwMessageDialog   *dialog,
             GAsyncResult       *result,
             AdwDemoPageDialogs *self)
 {
   const char *response = adw_message_dialog_choose_finish (dialog, result);
   AdwToast *toast = adw_toast_new_format (_("Dialog response: %s"), response);
+  g_signal_connect_object (toast, "dismissed", G_CALLBACK (toast_dismissed_cb), self, 0);
+
+  if (self->last_toast)
+    adw_toast_dismiss (self->last_toast);
+  self->last_toast = toast;
 
   g_signal_emit (self, signals[SIGNAL_ADD_TOAST], 0, toast);
 }
