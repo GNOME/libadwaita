@@ -9,4 +9,5 @@ build
 subprojects/sassc
 subprojects/libsass
 subprojects/gi-docgen
+subprojects/gtk
 
