@@ -54,9 +54,9 @@
  * When used together with [class@NavigationView] or [class@NavigationSplitView],
  * it will also display a back button that can be used to go back to the previous
  * page. The button also has a context menu, allowing to pop multiple pages at
- * once, potentially across multiple navigation views. Set
+ * once, potentially across multiple navigation views. In rare scenarios, set
  * [property@HeaderBar:show-back-button] to `FALSE` to disable the back button
- * if it's unwanted.
+ * if it's unwanted (e.g. in an extra header bar on the same page).
  *
  * ## Split View Integration
  *
@@ -688,7 +688,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Whether the header bar can show the back button.
    *
    * The back button will never be shown unless the header bar is placed inside an
-   * [class@NavigationView].
+   * [class@NavigationView]. Usually, there is no reason to set this to `FALSE`.
    *
    * Since: 1.4
    */
@@ -1106,7 +1106,7 @@ adw_header_bar_get_show_back_button (AdwHeaderBar *self)
  * Sets whether @self can show the back button.
  *
  * The back button will never be shown unless the header bar is placed inside an
- * [class@NavigationView].
+ * [class@NavigationView]. Usually, there is no reason to set it to `FALSE`.
  *
  * Since: 1.4
  */
