@@ -422,6 +422,10 @@ menubutton {
     padding-right: 5px;
   }
 
+  &.card > button {
+    border-radius: $card_radius;
+  }
+
   arrow {
     min-height: 16px;
     min-width: 16px;
