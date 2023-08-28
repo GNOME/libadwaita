@@ -312,7 +312,7 @@ button {
     font-weight: inherit;
     padding: 0;
 
-    transition: $button_transition;
+    @include focus-ring($offset: -1px, $transition: $button_transition);
 
     &:hover {
       background-image: image($view_hover_color);
