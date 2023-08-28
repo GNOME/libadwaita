@@ -343,7 +343,8 @@ create_navigation_menu (AdwBackButton *self)
 
   for (i = 0; i < history->len; i++) {
     AdwNavigationPage *page = g_ptr_array_index (history, i);
-    GMenuItem *item = g_menu_item_new (adw_navigation_page_get_title (page), NULL);
+    const char *title = adw_navigation_page_get_title (page);
+    GMenuItem *item = g_menu_item_new ((title && *title) ? title : _("Back"), NULL);
 
     g_menu_item_set_action_and_target (item, "menu.pop-to-page", "i", i);
 
