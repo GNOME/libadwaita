@@ -396,6 +396,20 @@ set_remove_on_pop (AdwNavigationPage *self,
 }
 
 static void
+adw_navigation_page_realize (GtkWidget *widget)
+{
+  AdwNavigationPage *self = ADW_NAVIGATION_PAGE (widget);
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  GTK_WIDGET_CLASS (adw_navigation_page_parent_class)->realize (widget);
+
+  if (!(priv->title && *priv->title) && !priv->child_view) {
+    g_warning ("AdwNavigationPage %p is missing a title. To hide a header bar" \
+               "title, consider using AdwHeaderBar:show-title instead.", self);
+  }
+}
+
+static void
 adw_navigation_page_dispose (GObject *object)
 {
   AdwNavigationPage *self = ADW_NAVIGATION_PAGE (object);
@@ -492,6 +506,7 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
   object_class->get_property = adw_navigation_page_get_property;
   object_class->set_property = adw_navigation_page_set_property;
 
+  widget_class->realize = adw_navigation_page_realize;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
