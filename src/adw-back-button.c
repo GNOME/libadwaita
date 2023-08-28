@@ -441,7 +441,7 @@ query_tooltip (AdwBackButton *self,
   page = get_inner_page (self->page);
   title = adw_navigation_page_get_title (page);
 
-  gtk_tooltip_set_text (tooltip, title ? title : _("Back"));
+  gtk_tooltip_set_text (tooltip, (title && *title) ? title : _("Back"));
 
   return TRUE;
 }
