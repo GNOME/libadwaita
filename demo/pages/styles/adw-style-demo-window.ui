@@ -1195,6 +1195,7 @@ audio-volume-medium</property>
         <property name="max-sidebar-width">240</property>
         <property name="sidebar">
           <object class="AdwNavigationPage">
+            <property name="title" translatable="yes">Sidebar</property>
             <property name="child">
               <object class="AdwToolbarView">
                 <child type="top">

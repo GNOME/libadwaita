@@ -78,7 +78,7 @@
               </object>
             </property>
             <property name="content">
-              <object class="AdwNavigationPage">
+              <object class="AdwNavigationPage" id="content_page">
                 <property name="child">
                   <object class="AdwToolbarView">
                     <child type="top">

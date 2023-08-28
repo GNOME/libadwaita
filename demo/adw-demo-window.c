@@ -25,6 +25,8 @@ struct _AdwDemoWindow
 
   GtkWidget *color_scheme_button;
   AdwNavigationSplitView *split_view;
+  AdwNavigationPage *content_page;
+  GtkStack *stack;
   AdwDemoPageToasts *toasts_page;
 };
 
@@ -63,6 +65,11 @@ notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
 static void
 notify_visible_child_cb (AdwDemoWindow *self)
 {
+  GtkWidget *child = gtk_stack_get_visible_child (self->stack);
+  GtkStackPage *page = gtk_stack_get_page (self->stack, child);
+
+  adw_navigation_page_set_title (self->content_page,
+                                 gtk_stack_page_get_title (page));
   adw_navigation_split_view_set_show_content (self->split_view, TRUE);
 }
 
@@ -82,6 +89,8 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, split_view);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_page);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
