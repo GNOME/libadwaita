@@ -919,7 +919,7 @@ notify_n_pages_cb (AdwTabOverview *self)
   n_pages = adw_tab_view_get_n_pages (self->view);
 
   /* Translators: Tab overview title, %u is the number of open tabs */
-  title_str = g_strdup_printf (ngettext ("%u Tab", "%u Tabs", n_pages), n_pages);
+  title_str = g_strdup_printf (dngettext (GETTEXT_PACKAGE, "%u Tab", "%u Tabs", n_pages), n_pages);
 
   adw_window_title_set_title (ADW_WINDOW_TITLE (self->title), title_str);
 
