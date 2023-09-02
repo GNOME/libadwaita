@@ -4,6 +4,8 @@
   <template class="AdwAboutWindow" parent="AdwWindow">
     <property name="title" translatable="yes">About</property>
     <property name="default-width">360</property>
+    <property name="width-request">360</property>
+    <property name="height-request">294</property>
     <property name="modal">True</property>
     <property name="destroy-with-parent">True</property>
     <style>
@@ -13,7 +15,6 @@
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
           <object class="AdwNavigationView" id="navigation_view">
-            <property name="width-request">360</property>
             <child>
               <object class="AdwNavigationPage">
                 <property name="title" bind-source="AdwAboutWindow" bind-property="title" bind-flags="sync-create"/>
