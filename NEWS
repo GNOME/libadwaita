@@ -1,3 +1,55 @@
+==============
+Version 1.4.rc
+==============
+
+- AdwAboutWindow
+  - Accessibility fixes
+  - Add a minimum size
+- AdwExpanderRow
+  - Accessibility fixes
+- AdwHeaderBar
+  - Fix missing title fallback for back button tooltip and history menu
+  - Set "Back" as an accessible label for the back button
+  - Clarify docs around :show-back-button
+- AdwNavigationView
+  - Warn when a navigation page is missing a title
+- AdwStyleManager
+  - Fix over-releasing a string on macOS
+- AdwTabButton
+  - Set the correct gettext domain
+- AdwTabOverview
+  - Set the correct gettext domain
+  - Fix reordered thumbnail being drawn below others
+- AdwToastOverlay
+  - Set the correct gettext domain
+- Build
+  - Update pkg-config description field
+- Demo
+  - Update screenshot in appdata
+  - Correctly dismiss the last toast in the dialogs demo
+  - Add missing navigation page titles
+- Stylesheet
+  - Fix filename entry margins in file chooser
+  - Fix menubutton.card corners
+  - Fix button.card focus ring transition
+  - Avoid background overdraw in GtkColumnView
+- Translation updates
+  - Basque
+  - Chinese (China)
+  - Czech
+  - Finnish
+  - Galician
+  - German
+  - Indonesian
+  - Kazakh
+  - Korean
+  - Lithuanian
+  - Persian
+  - Polish
+  - Romanian
+  - Spanish
+  - Turkish
+
 ================
 Version 1.4.beta
 ================
