@@ -1,4 +1,22 @@
 =============
+Version 1.3.5
+=============
+
+- Set the correct gettext domain on all widgets
+- AdwExpanderRow
+  - Accessibility fixes
+- AdwStyleManager
+  - Fix over-releasing a string on macOS
+- Demo
+  - Correctly dismiss the last toast in the dialogs demo
+- Stylesheet
+  - Fix menubutton.card corners
+  - Fix button.card focus ring transition
+  - Avoid background overdraw in GtkColumnView
+- Translation updates
+  - Spanish
+
+=============
 Version 1.3.4
 =============
 
