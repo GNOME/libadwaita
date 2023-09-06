@@ -13,6 +13,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkListBox">
+            <property name="accessible-role">generic</property>
             <property name="selection-mode">none</property>
             <!-- The header row is focusable, activatable, and can be activated
                  by clicking it or via keyboard. Activating the row should
