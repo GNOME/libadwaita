@@ -572,7 +572,7 @@ Add a setter to your breakpoint, setting the
       </child>
       <property name="content">
         <object class="AdwOverlaySplitView" id="split_view">
-          <property name="reveal-sidebar"
+          <property name="show-sidebar"
                     bind-source="toggle_pane_button"
                     bind-property="active"
                     bind-flags="sync-create|bidirectional"/>
