@@ -56,6 +56,7 @@
                 <property name="selection_mode">none</property>
                 <accessibility>
                   <relation name="labelled-by">title</relation>
+                  <relation name="described-by">description</relation>
                 </accessibility>
                 <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
                 <style>
