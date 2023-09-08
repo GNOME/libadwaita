@@ -275,7 +275,7 @@ appstream_dep = dependency('appstream',
   fallback : ['appstream', 'appstream_dep'],
   default_options : [
     'systemd=false', 'apidocs=false', 'install-docs=false',
-    '-Dstemming=false', '-Dsvg-support=false', '-Dgir=false',
+    'stemming=false', 'svg-support=false', 'gir=false',
   ],
 )
 
