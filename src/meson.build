@@ -270,7 +270,22 @@ glib_min_version = '>= 2.76.0'
 gtk_min_version = '>= 4.11.3'
 
 gio_dep = dependency('gio-2.0', version: glib_min_version)
-gtk_dep = dependency('gtk4', version: gtk_min_version)
+gtk_dep = dependency('gtk4',
+  version: gtk_min_version,
+  default_options: [
+    'warning_level=0',
+    'werror=false',
+    'introspection=@0@'.format(introspection_feature),
+    'documentation=false',
+    'gtk_doc=false',
+    'screenshots=false',
+    'update_screenshots=false',
+    'man-pages=false',
+    'build-demos=false',
+    'build-examples=false',
+    'build-tests=false',
+  ],
+)
 appstream_dep = dependency('appstream',
   fallback : ['appstream', 'appstream_dep'],
   default_options : [
