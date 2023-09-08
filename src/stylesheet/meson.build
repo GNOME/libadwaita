@@ -6,7 +6,7 @@ stylesheet_deps = []
 if not fs.exists('base.css')
   sassc = find_program('sassc', required: false)
   if not sassc.found()
-    subproject('sassc')
+    subproject('sassc', default_options: ['warning_level=0', 'werror=false'])
     sassc = find_program('sassc')
   endif
 
