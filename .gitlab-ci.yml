@@ -35,7 +35,7 @@ doc:
       -Dtests=false
       -Dvapi=false
   script:
-    - meson setup --prefix=/app ${MESON_ARGS} _build
+    - meson setup --fatal-meson-warnings --prefix=/app ${MESON_ARGS} _build
     - ninja -C _build
     - mv _build/doc/libadwaita-1 _doc/
   artifacts:
