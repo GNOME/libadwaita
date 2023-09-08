@@ -21,9 +21,9 @@ sh = find_program('sh')
 if date.found()
   time_epoch = run_command(sh, '-c', 'echo "$SOURCE_DATE_EPOCH"', check: true).stdout().strip()
   if time_epoch != ''
-    r = run_command(date, '-I', '-u', '-d', '@' + time_epoch)
+    r = run_command(date, '-I', '-u', '-d', '@' + time_epoch, check: false)
   else
-    r = run_command(date, '-I')
+    r = run_command(date, '-I', check: false)
   endif
   if r.returncode() == 0
     today = r.stdout().strip()
