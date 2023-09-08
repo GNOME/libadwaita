@@ -273,7 +273,10 @@ gio_dep = dependency('gio-2.0', version: glib_min_version)
 gtk_dep = dependency('gtk4', version: gtk_min_version)
 appstream_dep = dependency('appstream',
   fallback : ['appstream', 'appstream_dep'],
-  default_options : ['systemd=false', 'apidocs=false', 'install-docs=false'],
+  default_options : [
+    'systemd=false', 'apidocs=false', 'install-docs=false',
+    '-Dstemming=false', '-Dsvg-support=false', '-Dgir=false',
+  ],
 )
 
 libadwaita_deps = [
