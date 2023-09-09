@@ -17,14 +17,16 @@ stacksidebar row {
  **********************/
 
 .navigation-sidebar {
-  &, &.view {
+  &, &.view, &.view:disabled {
     background-color: transparent;
     color: inherit;
   }
 
   &.background {
-    background-color: $window_bg_color;
-    color: $window_fg_color;
+    &, &:disabled {
+      background-color: $window_bg_color;
+      color: $window_fg_color;
+    }
   }
 
   row {
