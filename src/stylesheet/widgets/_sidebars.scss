@@ -7,11 +7,11 @@
     transition: background-color $backdrop_transition;
   }
 
-  toolbar-view.undershoot-top scrolledwindow {
+  toolbarview.undershoot-top scrolledwindow {
     @include undershoot(top, $sidebar_shade_color);
   }
 
-  toolbar-view.undershoot-bottom scrolledwindow {
+  toolbarview.undershoot-bottom scrolledwindow {
     @include undershoot(bottom, $sidebar_shade_color);
   }
 
@@ -75,11 +75,11 @@
     transition: background-color $backdrop_transition;
   }
 
-  toolbar-view.undershoot-top scrolledwindow {
+  toolbarview.undershoot-top scrolledwindow {
     @include undershoot(top, $secondary_sidebar_shade_color);
   }
 
-  toolbar-view.undershoot-bottom scrolledwindow {
+  toolbarview.undershoot-bottom scrolledwindow {
     @include undershoot(bottom, $secondary_sidebar_shade_color);
   }
 
