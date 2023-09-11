@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-05-11 02:13+0000\n"
-"PO-Revision-Date: 2023-06-22 08:57+0100\n"
+"POT-Creation-Date: 2023-09-03 13:46+0000\n"
+"PO-Revision-Date: 2023-09-11 08:57+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "Language: ca\n"
@@ -86,29 +86,29 @@ msgstr "Llicència Apache, versió 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Llicència pública de Mozilla 2.0"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Codi per"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Dissenyat per"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Treball artístic per"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Documentat per"
 
-#: src/adw-about-window.c:540
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
-#: src/adw-about-window.c:569
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -117,37 +117,37 @@ msgstr ""
 "Aquesta aplicació no té absolutament cap garantia. Vegeu el <a "
 "href=\"%s\">%s</a> per a més detalls."
 
-#: src/adw-about-window.c:647
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Aquesta aplicació"
 
-#: src/adw-about-window.c:949
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Versió %s"
 
-#: src/adw-about-window.c:975
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "No s'han pogut analitzar les notes de publicació:"
 
-#: src/adw-about-window.c:981
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Línia: %d, caràcter: %d"
 
-#: src/adw-about-window.c:1274
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Copiat al porta-retalls"
 
-#: src/adw-about-window.c:1308
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "No s'ha pogut desar la informació de depuració"
 
-#: src/adw-about-window.c:1313
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Tanca"
 
-#: src/adw-about-window.c:1329
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Desa la informació de depuració"
 
@@ -155,62 +155,55 @@ msgstr "Desa la informació de depuració"
 msgid "About"
 msgstr "Quant a"
 
-#: src/adw-about-window.ui:89
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "_Novetats"
 
-#: src/adw-about-window.ui:104
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Detalls"
 
-#: src/adw-about-window.ui:119 src/adw-about-window.ui:357
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Lloc web"
 
-#: src/adw-about-window.ui:142
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "_Preguntes de suport"
 
-#: src/adw-about-window.ui:158
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "_Informa d'un problema"
 
-#: src/adw-about-window.ui:173
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "_Solució de problemes"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Crèdits"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Legal"
 
-#: src/adw-about-window.ui:222
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Reconeixements"
 
-#: src/adw-about-window.ui:260
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Novetats"
 
-#: src/adw-about-window.ui:265 src/adw-about-window.ui:319
-#: src/adw-about-window.ui:398 src/adw-about-window.ui:471
-#: src/adw-about-window.ui:516 src/adw-about-window.ui:561
-#: src/adw-about-window.ui:606
-msgid "Back"
-msgstr "Enrere"
-
-#: src/adw-about-window.ui:314
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Detalls"
 
-#: src/adw-about-window.ui:393
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Solució de problemes"
 
-#: src/adw-about-window.ui:421
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -221,35 +214,44 @@ msgstr ""
 "l'aplicació pot ajudar a diagnosticar qualsevol problema que trobeu quan "
 "informeu d'un problema."
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Informació de depuració"
 
-#: src/adw-about-window.ui:466
-msgid "Credits"
-msgstr "Crèdits"
-
-#: src/adw-about-window.ui:511
-msgid "Legal"
-msgstr "Legal"
-
-#: src/adw-about-window.ui:556
-msgid "Acknowledgements"
-msgstr "Reconeixements"
-
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Informació de depuració"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Copia el text"
 
-#: src/adw-about-window.ui:656
+#: src/adw-about-window.ui:486
 msgid "_Save as…"
 msgstr "_Anomena i desa…"
 
-#: src/adw-entry-row.ui:96
+#: src/adw-about-window.ui:499
+msgid "Credits"
+msgstr "Crèdits"
+
+#: src/adw-about-window.ui:530
+msgid "Legal"
+msgstr "Legal"
+
+#: src/adw-about-window.ui:561
+msgid "Acknowledgements"
+msgstr "Reconeixements"
+
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
+msgid "Back"
+msgstr "Enrere"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "Cerca…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "Aplica"
 
@@ -310,7 +312,7 @@ msgstr "Bloq Maj està activat"
 msgid "_Show Password"
 msgstr "_Mostra la contrasenya"
 
-#: src/adw-preferences-window.c:256
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Pàgina sense títol"
 
@@ -318,19 +320,19 @@ msgstr "Pàgina sense títol"
 msgid "Preferences"
 msgstr "Preferències"
 
-#: src/adw-preferences-window.ui:76
+#: src/adw-preferences-window.ui:81
 msgid "Search preferences"
 msgstr "Cerca les preferències"
 
-#: src/adw-preferences-window.ui:91
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "Cerca"
 
-#: src/adw-preferences-window.ui:158
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "No s'ha trobat cap resultat"
 
-#: src/adw-preferences-window.ui:159 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
 
@@ -343,7 +345,7 @@ msgid "View Open Tabs"
 msgstr "Mostra les pestanyes obertes"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:895
+#: src/adw-tab-overview.c:922
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -370,15 +372,6 @@ msgstr "No s'ha trobat cap pestanya"
 msgid "New _Tab"
 msgstr "_Pestanya nova"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
-
-#~ msgid "Hide Text"
-#~ msgstr "Oculta el text"
-
-#~ msgid "Show Text"
-#~ msgstr "Mostra el text"
-
-#~ msgid "_Show Text"
-#~ msgstr "_Mostra el text"
