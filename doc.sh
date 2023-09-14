@@ -7,9 +7,10 @@ libadwaita-1-0
 libadwaita-1-1
 libadwaita-1-2
 libadwaita-1-3
+libadwaita-1-4
 "
 
-LATEST_STABLE_1=1.3
+LATEST_STABLE_1=1.4
 
 IFS='
 '
