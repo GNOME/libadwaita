@@ -1,3 +1,29 @@
+=============
+Version 1.4.0
+=============
+
+- AdwBreakpointBin
+  - Clarify minimum size warnings
+- AdwExpanderRow
+  - Improve accessible roles
+- AdwPreferencesGroup
+  - Set described-by on the listbox
+- Docs
+  - Fix a property name in breakpoint migration guide
+- Stylesheet
+  - Fix toolbar view styles within sidebars
+  - Fix .navigation-sidebar:disabled style when used with GtkListView
+- Build system fixes
+- Translation updates
+  - Catalan
+  - Danish
+  - Dutch
+  - Esperanto
+  - Italian
+  - Occitan
+  - Spanish
+  - Swedish
+
 ==============
 Version 1.4.rc
 ==============
