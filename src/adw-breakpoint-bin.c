@@ -190,13 +190,16 @@ allocate_child (AdwBreakpointBin *self,
                                  &window_width, &window_height);
 
     if (window_width <= 0 && window_height <= 0)
-      g_warning ("%s %p does not have a minimum size",
+      g_warning ("%s %p does not have a minimum size, set the 'width-request' "
+                 "and 'height-request' properties to specify it",
                  G_OBJECT_TYPE_NAME (warning_widget), warning_widget);
     else if (window_width <= 0)
-      g_warning ("%s %p does not have a minimum width",
+      g_warning ("%s %p does not have a minimum width, set the "
+                 "'width-request' property to specify it",
                  G_OBJECT_TYPE_NAME (warning_widget), warning_widget);
     else if (window_height <= 0)
-      g_warning ("%s %p does not have a minimum height",
+      g_warning ("%s %p does not have a minimum height, set the "
+                 "'height-request' property to specify it",
                  G_OBJECT_TYPE_NAME (warning_widget), warning_widget);
   }
 
