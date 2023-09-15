@@ -1336,6 +1336,7 @@ adw_carousel_reorder (AdwCarousel *self,
            (G_APPROX_VALUE (closest_point, old_point, DBL_EPSILON) || closest_point > old_point))
     self->position_shift -= info->size;
 
+  self->is_being_allocated = TRUE;
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
