@@ -1789,6 +1789,7 @@ detach_page (AdwTabView *self,
 
   select_previous_page (self, page);
 
+  g_object_ref (self);
   g_object_ref (page);
   g_object_ref (page->bin);
 
@@ -1819,6 +1820,7 @@ detach_page (AdwTabView *self,
 
   g_object_unref (page->bin);
   g_object_unref (page);
+  g_object_unref (self);
 }
 
 static void
