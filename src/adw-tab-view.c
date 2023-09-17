@@ -1435,6 +1435,9 @@ adw_tab_pages_get_n_items (GListModel *model)
 {
   AdwTabPages *self = ADW_TAB_PAGES (model);
 
+  if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view)))
+    return 0;
+
   return self->view->n_pages;
 }
 
@@ -1443,7 +1446,12 @@ adw_tab_pages_get_item (GListModel *model,
                         guint       position)
 {
   AdwTabPages *self = ADW_TAB_PAGES (model);
-  AdwTabPage *page = adw_tab_view_get_nth_page (self->view, position);
+  AdwTabPage *page;
+
+  if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view)))
+    return NULL;
+
+  page = adw_tab_view_get_nth_page (self->view, position);
 
   if (!page)
     return NULL;
@@ -1466,6 +1474,9 @@ adw_tab_pages_is_selected (GtkSelectionModel *model,
   AdwTabPages *self = ADW_TAB_PAGES (model);
   AdwTabPage *page;
 
+  if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view)))
+    return FALSE;
+
   page = adw_tab_view_get_nth_page (self->view, position);
 
   return page->selected;
@@ -1478,6 +1489,9 @@ adw_tab_pages_select_item (GtkSelectionModel *model,
 {
   AdwTabPages *self = ADW_TAB_PAGES (model);
   AdwTabPage *page;
+
+  if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view)))
+    return FALSE;
 
   page = adw_tab_view_get_nth_page (self->view, position);
 
@@ -1503,8 +1517,21 @@ adw_tab_pages_init (AdwTabPages *self)
 }
 
 static void
+adw_tab_pages_dispose (GObject *object)
+{
+  AdwTabPages *self = ADW_TAB_PAGES (object);
+
+  g_clear_weak_pointer (&self->view);
+
+  G_OBJECT_CLASS (adw_tab_page_parent_class)->dispose (object);
+}
+
+static void
 adw_tab_pages_class_init (AdwTabPagesClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->dispose = adw_tab_pages_dispose;
 }
 
 static GtkSelectionModel *
@@ -1513,7 +1540,7 @@ adw_tab_pages_new (AdwTabView *view)
   AdwTabPages *pages;
 
   pages = g_object_new (ADW_TYPE_TAB_PAGES, NULL);
-  pages->view = view;
+  g_set_weak_pointer (&pages->view, view);
 
   return GTK_SELECTION_MODEL (pages);
 }
