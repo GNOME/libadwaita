@@ -292,7 +292,12 @@ appstream_dep = dependency('appstream',
     'systemd=false', 'apidocs=false', 'install-docs=false',
     'stemming=false', 'svg-support=false', 'gir=false',
   ],
+  required: false,
 )
+
+if appstream_dep.found()
+  config_h.set('HAVE_APPSTREAM', true)
+endif
 
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
