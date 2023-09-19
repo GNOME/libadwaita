@@ -292,6 +292,7 @@ appstream_dep = dependency('appstream',
     'systemd=false', 'apidocs=false', 'install-docs=false',
     'stemming=false', 'svg-support=false', 'gir=false',
   ],
+  required: false,
 )
 
 libadwaita_deps = [
@@ -322,6 +323,11 @@ if target_system == 'windows'
   config_h.set('_ADW_EXTERN', '__declspec(dllexport) extern')
 else
   config_h.set('_ADW_EXTERN', '__attribute__((visibility("default"))) extern')
+endif
+
+# AppStream availability
+if appstream_dep.found()
+  config_h.set('HAVE_APPSTREAM', true)
 endif
 
 if target_system == 'darwin'
