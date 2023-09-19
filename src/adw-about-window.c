@@ -6,7 +6,10 @@
 
 #include "config.h"
 #include <glib/gi18n-lib.h>
+
+#ifdef HAVE_APPSTREAM
 #include <appstream.h>
+#endif
 
 #include "adw-about-window.h"
 
@@ -388,12 +391,14 @@ activate_link_default_cb (AdwAboutWindow *self,
   return GDK_EVENT_STOP;
 }
 
+#ifdef HAVE_APPSTREAM
 static gboolean
 get_release_for_version (AsRelease  *rel,
                          const char *version)
 {
   return !g_strcmp0 (as_release_get_version (rel), version);
 }
+#endif
 
 static void
 update_credits_legal_group (AdwAboutWindow *self)
@@ -1953,23 +1958,24 @@ GtkWidget *
 adw_about_window_new_from_appdata (const char *resource_path,
                                    const char *release_notes_version)
 {
-  AdwAboutWindow *self;
+  AdwAboutWindow *self = ADW_ABOUT_WINDOW (adw_about_window_new ());
   GFile *appdata_file;
   char *appdata_uri;
-  AsMetadata *metadata;
   GPtrArray *releases;
-  AsComponent *component;
   char *application_id;
   const char *name, *developer_name, *project_license;
   const char *issue_url, *support_url, *website_url;
   GError *error = NULL;
+
+#ifdef HAVE_APPSTREAM
+  AsMetadata *metadata;
+  AsComponent *component;
 
   g_return_val_if_fail (resource_path, NULL);
 
   appdata_uri = g_strconcat ("resource://", resource_path, NULL);
   appdata_file = g_file_new_for_uri (appdata_uri);
 
-  self = ADW_ABOUT_WINDOW (adw_about_window_new ());
   metadata = as_metadata_new ();
 
   if (!as_metadata_parse_file (metadata, appdata_file, AS_FORMAT_KIND_UNKNOWN, &error)) {
@@ -2079,6 +2085,10 @@ adw_about_window_new_from_appdata (const char *resource_path,
   g_object_unref (metadata);
   g_free (application_id);
   g_free (appdata_uri);
+#else
+  g_message ("AppStream support not enabled, using stub implementation of %s", G_STRFUNC);
+  adw_about_window_set_license_type (self, GTK_LICENSE_UNKNOWN);
+#endif
 
   return GTK_WIDGET (self);
 }
