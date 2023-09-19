@@ -317,7 +317,7 @@ notify_visible_page_cb (AdwNavigationSplitView *self)
 static void
 update_navigation_stack (AdwNavigationSplitView *self)
 {
-  AdwNavigationPage *stack[2] = {};
+  AdwNavigationPage *stack[2] = {0};
   int i = 0;
 
   if (!self->navigation_view)
