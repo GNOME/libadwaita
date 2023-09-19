@@ -6,6 +6,8 @@
  * Author: Alice Mikhaylenko <alice.mikhaylenko@puri.sm>
  */
 
+#include "config.h"
+
 #include <adwaita.h>
 
 #include "adwaita-test-resources.h"
@@ -13,6 +15,7 @@
 static void
 test_adw_about_window_from_appdata (void)
 {
+#ifdef HAVE_APPSTREAM
   AdwAboutWindow *window = ADW_ABOUT_WINDOW (adw_about_window_new_from_appdata ("/org/gnome/Adwaita1/Test/org.gnome.Adwaita1.Test.metainfo.xml", "1.0"));
 
   g_assert_nonnull (window);
@@ -49,6 +52,9 @@ test_adw_about_window_from_appdata (void)
   g_assert_cmpstr (adw_about_window_get_version (window), ==, "1.0");
 
   g_assert_finalize_object (window);
+#else
+  g_test_skip ("AppStream support not enabled for this build");
+#endif
 }
 
 static void
