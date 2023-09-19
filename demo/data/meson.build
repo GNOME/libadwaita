@@ -17,9 +17,15 @@ endif
 today = 'unknown'
 date = find_program('date',
          required: false)
-sh = find_program('sh')
+
+# Note that the builtin 'date' program in 'cmd.exe' (Visual Studio/
+# clang-cl shells) cannot be found using find_program()
 if date.found()
-  time_epoch = run_command(sh, '-c', 'echo "$SOURCE_DATE_EPOCH"', check: true).stdout().strip()
+  sh = find_program('sh', required: target_system != 'windows')
+  time_epoch = ''
+  if sh.found()
+    time_epoch = run_command(sh, '-c', 'echo "$SOURCE_DATE_EPOCH"', check: true).stdout().strip()
+  endif
   if time_epoch != ''
     r = run_command(date, '-I', '-u', '-d', '@' + time_epoch, check: false)
   else
