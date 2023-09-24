@@ -2004,7 +2004,11 @@ adw_about_window_new_from_appdata (const char *resource_path,
     g_free (appid_desktop);
   }
 
+#if AS_CHECK_VERSION (1, 0, 0)
+  releases = as_component_get_releases_plain (component);
+#else
   releases = as_component_get_releases (component);
+#endif
 
   if (release_notes_version) {
     guint release_index = 0;
