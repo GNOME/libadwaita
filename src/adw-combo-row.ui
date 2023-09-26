@@ -59,6 +59,7 @@
                     <property name="child">
                       <object class="GtkListView" id="list">
                         <property name="single-click-activate">True</property>
+                        <property name="tab-behavior">item</property>
                         <signal name="activate" handler="row_activated_cb" swapped="true"/>
                       </object>
                     </property>
