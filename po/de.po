@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-07-08 11:22+0000\n"
-"PO-Revision-Date: 2023-07-27 18:56+0200\n"
+"POT-Creation-Date: 2023-09-26 15:00+0000\n"
+"PO-Revision-Date: 2023-09-26 19:28+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -84,30 +84,30 @@ msgstr "Apache Lizenz, Version 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:535
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Code von"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Design von"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Künstlerische Darstellung von"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Dokumentation von"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Übersetzung von"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:568
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -116,37 +116,37 @@ msgstr ""
 "Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
 "Besuchen Sie <a href=\"%s\">%s</a> für weitere Informationen."
 
-#: src/adw-about-window.c:646
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Diese Anwendung"
 
-#: src/adw-about-window.c:948
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Veröffentlichungshinweise konnten nicht verarbeitet werden:"
 
-#: src/adw-about-window.c:980
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Zeile %d, Zeichen: %d"
 
-#: src/adw-about-window.c:1256
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: src/adw-about-window.c:1284
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Informationen zur Fehlerbehebung konnten nicht gespeichert werden"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Schließen"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Informationen zur Fehlerbehebung speichern"
 
@@ -154,55 +154,55 @@ msgstr "Informationen zur Fehlerbehebung speichern"
 msgid "About"
 msgstr "Info"
 
-#: src/adw-about-window.ui:91
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "_Neuigkeiten"
 
-#: src/adw-about-window.ui:106
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Details"
 
-#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Webseite"
 
-#: src/adw-about-window.ui:144
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "_Hilfe bei Fragen"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "Ein _Problem melden"
 
-#: src/adw-about-window.ui:175
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "Fehler_behandlung"
 
-#: src/adw-about-window.ui:194
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Mitwirkende"
 
-#: src/adw-about-window.ui:209
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Rechtshinweis"
 
-#: src/adw-about-window.ui:224
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Danksagung"
 
-#: src/adw-about-window.ui:253
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Neuigkeiten"
 
-#: src/adw-about-window.ui:293
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Details"
 
-#: src/adw-about-window.ui:358
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Fehlerbehandlung"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -212,35 +212,36 @@ msgstr ""
 "Fehlerbehebung ansehen. Wenn Sie ein Problem melden, können diese "
 "Informationen den Anwendungsentwicklern bei der Diagnose helfen."
 
-#: src/adw-about-window.ui:392
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Informationen zur Fehlerbehebung"
 
-#: src/adw-about-window.ui:418
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Informationen zur Fehlerbehebung"
 
-#: src/adw-about-window.ui:460
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "Text _kopieren"
 
-#: src/adw-about-window.ui:468
-msgid "_Save as…"
+#: src/adw-about-window.ui:486
+msgid "_Save As…"
 msgstr "_Speichern unter …"
 
-#: src/adw-about-window.ui:481
+#: src/adw-about-window.ui:499
 msgid "Credits"
 msgstr "Mitwirkende"
 
-#: src/adw-about-window.ui:512
+#: src/adw-about-window.ui:530
 msgid "Legal"
 msgstr "Rechtshinweis"
 
-#: src/adw-about-window.ui:543
+#: src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Danksagung"
 
-#: src/adw-back-button.c:444
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
 msgid "Back"
 msgstr "Zurück"
 
@@ -342,7 +343,7 @@ msgid "View Open Tabs"
 msgstr "Geöffnete Reiter anzeigen"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:918
+#: src/adw-tab-overview.c:922
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
