@@ -271,7 +271,10 @@ setup_item (GtkSignalListItemFactory *factory,
   gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
   gtk_box_append (GTK_BOX (box), label);
 
-  icon = gtk_image_new_from_icon_name ("object-select-symbolic");
+  icon = g_object_new (GTK_TYPE_IMAGE,
+                       "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                       "icon-name", "object-select-symbolic",
+                       NULL);
   gtk_box_append (GTK_BOX (box), icon);
 
   gtk_list_item_set_child (list_item, box);
