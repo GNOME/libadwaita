@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-07-20 08:42+0000\n"
-"PO-Revision-Date: 2023-07-26 01:41+0200\n"
+"POT-Creation-Date: 2023-09-26 15:00+0000\n"
+"PO-Revision-Date: 2023-09-27 14:27+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -83,30 +83,30 @@ msgstr "Apache License, 2.0-s verzió"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:535
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Kód:"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Tervezés:"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Grafika:"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Dokumentáció:"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Fordította:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:568
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -115,37 +115,37 @@ msgstr ""
 "Erre az alkalmazásra egyáltalán nem vonatkozik garancia. További részletek "
 "a(z) <a href=\"%s\">%s</a> szövegében."
 
-#: src/adw-about-window.c:646
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Ez az alkalmazás"
 
-#: src/adw-about-window.c:948
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Verzió: %s"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Nem lehet feldolgozni a kiadási megjegyzéseket:"
 
-#: src/adw-about-window.c:980
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Sor: %d, karakter: %d"
 
-#: src/adw-about-window.c:1256
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Vágólapra másolva"
 
-#: src/adw-about-window.c:1284
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Nem lehet elmenteni a hibakeresési információkat"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Bezárás"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Hibakeresési információk mentése"
 
@@ -153,55 +153,55 @@ msgstr "Hibakeresési információk mentése"
 msgid "About"
 msgstr "Névjegy"
 
-#: src/adw-about-window.ui:91
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "Új_donságok"
 
-#: src/adw-about-window.ui:106
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Részletek"
 
-#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Weboldal"
 
-#: src/adw-about-window.ui:144
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "_Támogatási kérdések"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "_Hiba jelentése"
 
-#: src/adw-about-window.ui:175
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "Hi_baelhárítás"
 
-#: src/adw-about-window.ui:194
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Készítők"
 
-#: src/adw-about-window.ui:209
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Jogi információk"
 
-#: src/adw-about-window.ui:224
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Köszönetnyilvánítás"
 
-#: src/adw-about-window.ui:253
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Újdonságok"
 
-#: src/adw-about-window.ui:293
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Részletek"
 
-#: src/adw-about-window.ui:358
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Hibaelhárítás"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -211,40 +211,41 @@ msgstr ""
 "információkat. Ezen információk megadása az alkalmazás fejlesztőinek "
 "segíthet a probléma bejelentésekor felmerülő problémák diagnosztizálásában."
 
-#: src/adw-about-window.ui:392
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Hibakeresési információk"
 
-#: src/adw-about-window.ui:418
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Hibakeresési információk"
 
-#: src/adw-about-window.ui:460
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Szöveg másolása"
 
-#: src/adw-about-window.ui:468
-msgid "_Save as…"
+#: src/adw-about-window.ui:486
+#| msgid "_Save as…"
+msgid "_Save As…"
 msgstr "_Mentés másként…"
 
-#: src/adw-about-window.ui:481
+#: src/adw-about-window.ui:499
 msgid "Credits"
 msgstr "Készítők"
 
-#: src/adw-about-window.ui:512
+#: src/adw-about-window.ui:530
 msgid "Legal"
 msgstr "Jogi információk"
 
-#: src/adw-about-window.ui:543
+#: src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Köszönetnyilvánítás"
 
-#: src/adw-back-button.c:444
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
 msgid "Back"
 msgstr "Vissza"
 
 #: src/adw-combo-row.ui:50
-#| msgid "Search"
 msgid "Search…"
 msgstr "Keresés…"
 
@@ -342,7 +343,7 @@ msgid "View Open Tabs"
 msgstr "Nyitott lapok megtekintése"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:918
+#: src/adw-tab-overview.c:922
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
