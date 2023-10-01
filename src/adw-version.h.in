@@ -117,6 +117,16 @@ G_BEGIN_DECLS
  */
 #define ADW_VERSION_1_4 (ADW_ENCODE_VERSION (1, 4, 0))
 
+/**
+ * ADW_VERSION_1_5:
+ *
+ * A macro that evaluates to the 1.5 version of Adwaita, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.5
+ */
+#define ADW_VERSION_1_5 (ADW_ENCODE_VERSION (1, 5, 0))
+
 #ifndef _ADW_EXTERN
 #define _ADW_EXTERN extern
 #endif
@@ -211,6 +221,24 @@ G_BEGIN_DECLS
 # define ADW_DEPRECATED_IN_1_4_FOR(f)      _ADW_EXTERN
 # define ADW_DEPRECATED_TYPE_IN_1_4
 # define ADW_DEPRECATED_TYPE_IN_1_4_FOR(f)
+#endif
+
+#if ADW_VERSION_MAX_ALLOWED < ADW_VERSION_1_5
+# define ADW_AVAILABLE_IN_1_5 ADW_UNAVAILABLE(1, 5)
+#else
+# define ADW_AVAILABLE_IN_1_5 _ADW_EXTERN
+#endif
+
+#if ADW_VERSION_MIN_REQUIRED >= ADW_VERSION_1_5
+# define ADW_DEPRECATED_IN_1_5             _ADW_DEPRECATED
+# define ADW_DEPRECATED_IN_1_5_FOR(f)      _ADW_DEPRECATED_FOR(f)
+# define ADW_DEPRECATED_TYPE_IN_1_5        _ADW_DEPRECATED_TYPE
+# define ADW_DEPRECATED_TYPE_IN_1_5_FOR(f) _ADW_DEPRECATED_TYPE_FOR(f)
+#else
+# define ADW_DEPRECATED_IN_1_5             _ADW_EXTERN
+# define ADW_DEPRECATED_IN_1_5_FOR(f)      _ADW_EXTERN
+# define ADW_DEPRECATED_TYPE_IN_1_5
+# define ADW_DEPRECATED_TYPE_IN_1_5_FOR(f)
 #endif
 
 #define ADW_UNAVAILABLE(major, minor) G_UNAVAILABLE(major, minor) _ADW_EXTERN
