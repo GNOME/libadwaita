@@ -1523,7 +1523,7 @@ adw_tab_pages_dispose (GObject *object)
 
   g_clear_weak_pointer (&self->view);
 
-  G_OBJECT_CLASS (adw_tab_page_parent_class)->dispose (object);
+  G_OBJECT_CLASS (adw_tab_pages_parent_class)->dispose (object);
 }
 
 static void
