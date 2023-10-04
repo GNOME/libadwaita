@@ -71,6 +71,7 @@ typedef struct
   GtkWidget *indicator;
   GtkBox *suffixes;
   GtkBox *prefixes;
+  GSignalGroup *buffer_signals;
 
   gboolean empty;
   double empty_progress;
@@ -101,6 +102,7 @@ enum {
   PROP_ATTRIBUTES,
   PROP_ENABLE_EMOJI_COMPLETION,
   PROP_ACTIVATES_DEFAULT,
+  PROP_TEXT_LENGTH,
   PROP_LAST_PROP,
 };
 
@@ -256,6 +258,13 @@ text_activated_cb (AdwEntryRow *self)
 }
 
 static void
+on_length_changed (AdwEntryRow    *self,
+                   GtkEntryBuffer *buffer)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TEXT_LENGTH]);
+}
+
+static void
 measure_editable_area (GtkWidget      *widget,
                        GtkOrientation  orientation,
                        int             for_size,
@@ -374,6 +383,9 @@ adw_entry_row_get_property (GObject     *object,
     break;
   case PROP_ACTIVATES_DEFAULT:
     g_value_set_boolean (value, adw_entry_row_get_activates_default (self));
+    break;
+  case PROP_TEXT_LENGTH:
+    g_value_set_uint (value, adw_entry_row_get_text_length (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -543,6 +555,18 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwEntryRow:text-length: (attributes org.gtk.Property.get=adw_entry_row_get_text_length)
+   *
+   * The length of the text in the entry row.
+   *
+   * Since: 1.5
+   */
+  props[PROP_TEXT_LENGTH] =
+    g_param_spec_uint ("text-length", NULL, NULL,
+                       0, G_MAXUINT16, 0,
+                       G_PARAM_READABLE);
+
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   gtk_editable_install_properties (object_class, PROP_LAST_PROP);
@@ -601,6 +625,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, edit_icon);
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, apply_button);
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, indicator);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, buffer_signals);
 
   gtk_widget_class_bind_template_callback (widget_class, pressed_cb);
   gtk_widget_class_bind_template_callback (widget_class, text_state_flags_changed_cb);
@@ -637,6 +662,13 @@ adw_entry_row_init (AdwEntryRow *self)
   priv->empty_animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 0,
                              EMPTY_ANIMATION_DURATION, target);
+
+  g_signal_group_connect_swapped (priv->buffer_signals, "notify::length",
+                                  G_CALLBACK (on_length_changed), self);
+
+  g_object_bind_property (GTK_TEXT (priv->text), "buffer",
+                          priv->buffer_signals, "target",
+                          G_BINDING_SYNC_CREATE);
 
   update_empty (self);
 }
@@ -1144,6 +1176,28 @@ adw_entry_row_set_show_indicator (AdwEntryRow *self,
   priv->show_indicator = show_indicator;
 
   update_empty (self);
+}
+
+/**
+ * adw_entry_row_get_text_length:
+ * @self: an entry row
+ *
+ * Retrieves the current length of the text in @self.
+ *
+ * Returns: The current number of characters in @self, or 0 if there are none.
+ *
+ * Since: 1.5
+ */
+guint
+adw_entry_row_get_text_length (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), 0);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_text_length (GTK_TEXT (priv->text));
 }
 
 /**
