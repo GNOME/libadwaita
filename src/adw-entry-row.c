@@ -558,7 +558,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   /**
    * AdwEntryRow:text-length: (attributes org.gtk.Property.get=adw_entry_row_get_text_length)
    *
-   * The length of the text in the `AdwEntryRow`.
+   * The length of the text in the entry row.
    *
    * Since: 1.5
    */
