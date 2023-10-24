@@ -6,145 +6,145 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-02-16 05:51+0000\n"
-"PO-Revision-Date: 2023-02-16 11:00+0100\n"
+"POT-Creation-Date: 2023-10-02 08:39+0000\n"
+"PO-Revision-Date: 2023-10-24 06:06+0200\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.4\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
 msgstr "Гнуова Општа јавна лиценца, 2. издање или новије"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
 msgstr "Гнуова Општа јавна лиценца, издање 3 или новије"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Гнуова Мања општа јавна лиценца, издање 2.1 или новије"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Гнуова Мања општа јавна лиценца, издање 3 или новије"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
 msgstr "БСД дозвола 2-услова"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
 msgstr "МИТ-ова дозвола (MIT)"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:212
 msgid "Artistic License 2.0"
 msgstr "Уметничка дозвола 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
 msgstr "Гнуова Општа јавна лиценца, само издање 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
 msgstr "Гнуова Општа јавна лиценца, само издање 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Гнуова Мања општа јавна лиценца, само издање 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Гнуова Мања општа јавна лиценца, само издање 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Гнуова Аферо Општа јавна лиценца, издање 3 или новије"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Гнуова Аферо општа јавна лиценца, само издање 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
 msgstr "БСД дозвола 3-услова"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
 msgstr "Апач дозвола, издање 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
 msgstr "Мозилина јавна дозвола 2.0"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Дизајн"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Графика"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Документација"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Превод"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:561
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
 "Овај програм се испоручује без икакве гаранције. За више података, посетите "
 "<a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:639
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Овај програм"
 
-#: src/adw-about-window.c:941
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Издање %s"
 
-#: src/adw-about-window.c:967
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Не могу да прочитам белешке о издању:"
 
-#: src/adw-about-window.c:973
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Ред: %d, знак: %d"
 
-#: src/adw-about-window.c:1266
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Копирано у оставу"
 
-#: src/adw-about-window.c:1300
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Не могу да сачувам податке за поправљање грешака"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Затвори"
 
-#: src/adw-about-window.c:1321
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Сачувај податке за поправљање грешака"
 
@@ -152,62 +152,55 @@ msgstr "Сачувај податке за поправљање грешака"
 msgid "About"
 msgstr "О програму"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "Ш_та је ново"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "Поје_диности"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Веб страница"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "Пит_ања подршке"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "П_ријави проблем"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "Решавање про_блема"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "Заслу_ге"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "Пра_вно"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "З_ахвалнице"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Шта је ново"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
-msgid "Back"
-msgstr "Назад"
-
-#: src/adw-about-window.ui:351
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Појединости"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Решавање проблема"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -217,35 +210,44 @@ msgstr ""
 "решавање грешака. Достављање ових података програмерима апликације може "
 "помоћи у тражењу узрока, када пријавите проблем."
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "По_даци за решавање грешака"
 
-#: src/adw-about-window.ui:507
-msgid "Credits"
-msgstr "Заслуге"
-
-#: src/adw-about-window.ui:554
-msgid "Legal"
-msgstr "Правно"
-
-#: src/adw-about-window.ui:601
-msgid "Acknowledgements"
-msgstr "Захвалнице"
-
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Подаци за решавање грешака"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Копирај текст"
 
-#: src/adw-about-window.ui:703
+#: src/adw-about-window.ui:486
 msgid "_Save as…"
 msgstr "_Сачувај као…"
 
-#: src/adw-entry-row.ui:95
+#: src/adw-about-window.ui:499
+msgid "Credits"
+msgstr "Заслуге"
+
+#: src/adw-about-window.ui:530
+msgid "Legal"
+msgstr "Правно"
+
+#: src/adw-about-window.ui:561
+msgid "Acknowledgements"
+msgstr "Захвалнице"
+
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
+msgid "Back"
+msgstr "Назад"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "Потражи…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "Примени"
 
@@ -282,31 +284,31 @@ msgstr ""
 msgid "System Supports Color Schemes"
 msgstr "Систем подржава шеме боја"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "Жељена шема боја"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Велики контраст"
 
 #: src/adw-password-entry-row.c:70
-msgid "Hide Text"
-msgstr "Сакриј текст"
+msgid "Hide Password"
+msgstr "Сакриј лозинку"
 
 #: src/adw-password-entry-row.c:74
-msgid "Show Text"
-msgstr "Прикажи текст"
+msgid "Show Password"
+msgstr "Прикажи лозинку"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Укључена су велика слова"
 
 #: src/adw-password-entry-row.c:176
-msgid "_Show Text"
-msgstr "Прикажи _текст"
+msgid "_Show Password"
+msgstr "Пр_икажи лозинку"
 
-#: src/adw-preferences-window.c:243
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Неименована страница"
 
@@ -314,45 +316,72 @@ msgstr "Неименована страница"
 msgid "Preferences"
 msgstr "Поставке"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Поставке претраге"
+
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "Тражи"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Нисам пронашао резултате"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Покушајте другачију претрагу."
+
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "Више опција"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Погледај отворене језичке"
 
-#: src/adw-tab-overview.ui:23
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:922
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u језичак"
+msgstr[1] "%u језичка"
+msgstr[2] "%u језичака"
+msgstr[3] "Један језичак"
+
+#: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
 msgstr "Претражи језичке"
 
-#: src/adw-tab-overview.ui:53
+#: src/adw-tab-overview.ui:51
 msgid "Search tabs"
 msgstr "Претражи језичке"
 
-#: src/adw-tab-overview.ui:99
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Нема отворених језичака"
 
-#: src/adw-tab-overview.ui:112
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Нема пронађених језичака"
 
-#: src/adw-tab-overview.ui:133
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Нови _језичак"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Затвори језичак"
+
+#~ msgid "Hide Text"
+#~ msgstr "Сакриј текст"
+
+#~ msgid "Show Text"
+#~ msgstr "Прикажи текст"
+
+#~ msgid "_Show Text"
+#~ msgstr "Прикажи _текст"
 
 #~ msgid "_Save"
 #~ msgstr "_Сачувај"
