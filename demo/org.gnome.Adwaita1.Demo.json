@@ -34,6 +34,24 @@
       ]
     },
     {
+      "name": "gtk",
+      "buildsystem": "meson",
+      "config-opts" : [
+        "-Dvulkan=disabled",
+        "-Dbuildtype=debugoptimized",
+        "-Dbuild-examples=false",
+        "-Dbuild-testsuite=false",
+        "-Dbuild-tests=false"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/GNOME/gtk.git",
+          "branch": "wip/alice/css-variables"
+        }
+      ]
+    },
+    {
       "name": "libadwaita",
       "buildsystem": "meson",
       "builddir": true,

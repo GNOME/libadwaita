@@ -102,7 +102,10 @@ window.messagedialog {
     }
 
     &.destructive {
-      color: $destructive_color;
+      color: $accent_color;
+      --accent-color: var(--destructive-color);
+      --accent-bg-color: var(--destructive-bg-color);
+      --accent-fg-color: var(--destructive-fg-color);
     }
   }
 

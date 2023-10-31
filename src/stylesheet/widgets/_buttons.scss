@@ -195,11 +195,15 @@ button {
   &.destructive-action {
     @extend %opaque_button;
 
-    color: $destructive_fg_color;
+    color: $accent_fg_color;
 
     &, &:checked {
-      background-color: $destructive_bg_color;
+      background-color: $accent_bg_color;
     }
+
+    --accent-color: var(--destructive-color);
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
   }
 
   &.suggested-action {
@@ -389,11 +393,6 @@ menubutton {
   &.suggested-action {
     background-color: $accent_bg_color;
     color: $accent_fg_color;
-  }
-
-  &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
   }
 
   &.opaque {
