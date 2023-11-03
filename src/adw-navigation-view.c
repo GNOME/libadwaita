@@ -404,7 +404,7 @@ adw_navigation_page_realize (GtkWidget *widget)
   GTK_WIDGET_CLASS (adw_navigation_page_parent_class)->realize (widget);
 
   if (!(priv->title && *priv->title) && !priv->child_view) {
-    g_warning ("AdwNavigationPage %p is missing a title. To hide a header bar" \
+    g_warning ("AdwNavigationPage %p is missing a title. To hide a header bar " \
                "title, consider using AdwHeaderBar:show-title instead.", self);
   }
 }
