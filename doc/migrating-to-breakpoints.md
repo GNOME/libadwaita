@@ -431,7 +431,7 @@ Add a setter to your breakpoint, setting the
   </child>
   <property name="content">
     <object class="AdwNavigationSplitView" id="split_view">
-      <child>
+      <property name="sidebar">
         <object class="AdwNavigationPage">
           <property name="title" translatable="yes">Sidebar</property>
           <property name="child">
@@ -445,8 +445,8 @@ Add a setter to your breakpoint, setting the
             </object>
           </property>
         </object>
-      </child>
-      <child>
+      </property>
+      <property name="content">
         <object class="AdwNavigationPage">
           <property name="title" translatable="yes">Content</property>
           <property name="child">
@@ -460,7 +460,7 @@ Add a setter to your breakpoint, setting the
             </object>
           </property>
         </object>
-      </child>
+      </property>
     </object>
   </property>
 </object>
