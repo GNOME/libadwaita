@@ -160,6 +160,12 @@ enum {
   SIGNAL_LAST_SIGNAL,
 };
 
+typedef enum {
+  ANIMATION_NONE,
+  ANIMATION_IN,
+  ANIMATION_OUT,
+} AnimationDirection;
+
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 #define ADW_TYPE_TAB_OVERVIEW_SCROLLABLE (adw_tab_overview_scrollable_get_type ())
@@ -963,15 +969,17 @@ open_animation_value_cb (double          value,
 }
 
 static void
-set_overview_visible (AdwTabOverview *self,
-                      gboolean        visible,
-                      gboolean        animating)
+set_overview_visible (AdwTabOverview     *self,
+                      gboolean            visible,
+                      AnimationDirection  direction)
 {
+  gboolean animating = direction != ANIMATION_NONE;
+
   gtk_widget_set_child_visible (self->overview, visible || animating);
   gtk_widget_set_can_target (self->overview, visible);
   gtk_widget_set_can_focus (self->overview, visible);
   gtk_widget_set_can_target (self->child_bin, !visible && !animating);
-  gtk_widget_set_can_focus (self->child_bin, !visible && !animating);
+  gtk_widget_set_can_focus (self->child_bin, !visible && direction != ANIMATION_IN);
 
   if (visible || animating)
     gtk_widget_add_css_class (self->child_bin, "background");
@@ -989,7 +997,7 @@ open_animation_done_cb (AdwTabOverview *self)
     self->transition_thumbnail = NULL;
   }
 
-  set_overview_visible (self, self->is_open, FALSE);
+  set_overview_visible (self, self->is_open, ANIMATION_NONE);
 
   if (!self->is_open) {
     adw_tab_view_close_overview (self->view);
@@ -2096,11 +2104,11 @@ adw_tab_overview_set_open (AdwTabOverview *self,
 
     adw_tab_view_open_overview (self->view);
 
-    set_overview_visible (self, self->is_open, TRUE);
+    set_overview_visible (self, self->is_open, ANIMATION_IN);
 
     adw_tab_grid_try_focus_selected_tab (grid, FALSE);
   } else {
-    set_overview_visible (self, self->is_open, TRUE);
+    set_overview_visible (self, self->is_open, ANIMATION_OUT);
   }
 
   if (self->transition_picture)
