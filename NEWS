@@ -1,4 +1,28 @@
 =============
+Version 1.4.1
+=============
+
+- Fix build with MSVC
+- Fix build with libappstream 1.0
+- AdwCarousel
+  - Fix carousel scroll behavior with page reordering
+- AdwComboRow
+  - Fix focus when opening the popover
+  - Set the correct state on the selected checkmark
+- AdwNavigationView
+  - Fix a warning message
+- AdwTabOverview
+  - Allow child focus on out animations
+- AdwTabView
+  - Keep view alive during ::page-detached
+  - Fix crashes when using :pages
+- Docs
+  - Fix erroneous <child> use in breakpoints migration guide
+- Translation updates
+  - Russian
+  - Serbian
+
+=============
 Version 1.4.0
 =============
 
