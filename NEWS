@@ -1,4 +1,10 @@
 =============
+Version 1.4.2
+=============
+
+- Really fix build with libappstream 1.0
+
+=============
 Version 1.4.1
 =============
 
