@@ -1,4 +1,19 @@
 =============
+Version 1.3.6
+=============
+
+- AdwCarousel
+  - Fix carousel scroll behavior with page reordering
+- AdwExpanderRow
+  - Fix accessible role
+- AdwTabOverview
+  - Allow child focus on out animations
+- Stylesheet
+  - Fix .navigation-sidebar:disabled style when used with GtkListView
+- Translation updates
+  - Romanian
+
+=============
 Version 1.3.5
 =============
 
