@@ -134,6 +134,7 @@ selection_changed (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
   guint selected;
+  GtkFilter *filter;
 
   if (!GTK_IS_SINGLE_SELECTION (priv->selection))
     return;
@@ -154,6 +155,10 @@ selection_changed (AdwComboRow *self)
     }
   }
 
+  /* reset the filter so positions are 1-1 */
+  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
+  if (GTK_IS_STRING_FILTER (filter))
+    gtk_string_filter_set_search (GTK_STRING_FILTER (filter), "");
   gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (priv->popup_selection), selected);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED]);
@@ -175,9 +180,14 @@ static void
 row_activated_cb (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+  GtkFilter *filter;
 
   gtk_popover_popdown (GTK_POPOVER (priv->popover));
 
+  /* reset the filter so positions are 1-1 */
+  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
+  if (GTK_IS_STRING_FILTER (filter))
+    gtk_string_filter_set_search (GTK_STRING_FILTER (filter), "");
   adw_combo_row_set_selected (self, gtk_single_selection_get_selected (GTK_SINGLE_SELECTION (priv->popup_selection)));
 }
 
@@ -811,7 +821,7 @@ adw_combo_row_set_model (AdwComboRow *self,
     gtk_list_view_set_model (priv->list, selection);
     g_object_unref (selection);
 
-    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (filter_model)));
+    selection = GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (model)));
     g_set_object (&priv->selection, selection);
     g_object_unref (selection);
 
