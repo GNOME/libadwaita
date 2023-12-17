@@ -1992,10 +1992,10 @@ adw_message_dialog_remove_response (AdwMessageDialog *self,
 
   second_info = g_list_nth_data (priv->responses, 1);
 
-  if (g_list_index(priv->responses, info) == 0 && second_info != NULL)
-    g_clear_pointer(&second_info->separator, gtk_widget_unparent);
+  if (g_list_index (priv->responses, info) == 0 && second_info != NULL)
+    g_clear_pointer (&second_info->separator, gtk_widget_unparent);
   else
-    g_clear_pointer(&info->separator, gtk_widget_unparent);
+    g_clear_pointer (&info->separator, gtk_widget_unparent);
 
   priv->responses = g_list_remove (priv->responses, info);
   g_hash_table_remove (priv->id_to_response, id);
