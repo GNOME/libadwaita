@@ -1961,6 +1961,8 @@ adw_message_dialog_add_responses (AdwMessageDialog *self,
  * @id: the response ID
  *
  * Removes a response from @self.
+ *
+ * Since: 1.5
  */
 void
 adw_message_dialog_remove_response (AdwMessageDialog *self,

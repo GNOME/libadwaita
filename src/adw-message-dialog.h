@@ -101,7 +101,7 @@ void adw_message_dialog_add_response (AdwMessageDialog *self,
                                       const char       *id,
                                       const char       *label);
 
-ADW_AVAILABLE_IN_1_2
+ADW_AVAILABLE_IN_1_5
 void adw_message_dialog_remove_response (AdwMessageDialog *self,
                                          const char       *id);
 
