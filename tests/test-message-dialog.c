@@ -216,6 +216,21 @@ test_adw_message_dialog_add_responses (void)
 }
 
 static void
+test_adw_message_dialog_remove_response (void)
+{
+  AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
+
+  g_assert_nonnull (dialog);
+
+  adw_message_dialog_add_response (dialog, "response1", "Response 1");
+  adw_message_dialog_add_response (dialog, "response2", "Response 2");
+  adw_message_dialog_remove_response (dialog, "response1");
+
+  g_assert_false (adw_message_dialog_has_response (dialog, "response1"));
+  g_assert_cmpstr (adw_message_dialog_get_response_label (dialog, "response2"), ==, "Response 2");
+}
+
+static void
 test_adw_message_dialog_response_label (void)
 {
   AdwMessageDialog *dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (NULL, NULL, NULL));
@@ -356,6 +371,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/MessageDialog/extra_child", test_adw_message_dialog_extra_child);
   g_test_add_func ("/Adwaita/MessageDialog/add_response", test_adw_message_dialog_add_response);
   g_test_add_func ("/Adwaita/MessageDialog/add_responses", test_adw_message_dialog_add_responses);
+  g_test_add_func ("/Adwaita/MessageDialog/remove_response", test_adw_message_dialog_remove_response);
   g_test_add_func ("/Adwaita/MessageDialog/response_label", test_adw_message_dialog_response_label);
   g_test_add_func ("/Adwaita/MessageDialog/response_enabled", test_adw_message_dialog_response_enabled);
   g_test_add_func ("/Adwaita/MessageDialog/response_appearance", test_adw_message_dialog_response_appearance);

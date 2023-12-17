@@ -1956,6 +1956,46 @@ adw_message_dialog_add_responses (AdwMessageDialog *self,
 }
 
 /**
+ * adw_message_dialog_remove_response:
+ * @self: a message dialog
+ * @id: the response ID
+ *
+ * Removes a response from @self.
+ */
+void
+adw_message_dialog_remove_response (AdwMessageDialog *self,
+                                    const char       *id)
+{
+  AdwMessageDialogPrivate *priv;
+  ResponseInfo *info;
+
+  g_return_if_fail (ADW_IS_MESSAGE_DIALOG(self));
+  g_return_if_fail (id != NULL);
+
+  priv = adw_message_dialog_get_instance_private (self);
+
+  info = find_response (self, id);
+
+  if (!info)
+  {
+    g_critical ("Trying to remove a response with id '%s' from an "
+                "AdwMessageDialog, but such a response does not exist",
+                id);
+    return;
+  }
+
+  if (priv->default_response == info->id)
+    gtk_window_set_default_widget (GTK_WINDOW(self), NULL);
+
+  gtk_widget_unparent (info->button);
+
+  priv->responses = g_list_remove (priv->responses, info);
+  g_hash_table_remove (priv->id_to_response, id);
+
+  response_info_free (info);
+}
+
+/**
  * adw_message_dialog_get_response_label:
  * @self: a message dialog
  * @response: a response ID

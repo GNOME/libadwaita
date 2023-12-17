@@ -102,6 +102,10 @@ void adw_message_dialog_add_response (AdwMessageDialog *self,
                                       const char       *label);
 
 ADW_AVAILABLE_IN_1_2
+void adw_message_dialog_remove_response (AdwMessageDialog *self,
+                                         const char       *id);
+
+ADW_AVAILABLE_IN_1_2
 void adw_message_dialog_add_responses (AdwMessageDialog *self,
                                        const char       *first_id,
                                        ...) G_GNUC_NULL_TERMINATED;
