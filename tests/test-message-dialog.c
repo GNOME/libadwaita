@@ -228,6 +228,8 @@ test_adw_message_dialog_remove_response (void)
 
   g_assert_false (adw_message_dialog_has_response (dialog, "response1"));
   g_assert_cmpstr (adw_message_dialog_get_response_label (dialog, "response2"), ==, "Response 2");
+
+  g_assert_finalize_object (dialog);
 }
 
 static void
