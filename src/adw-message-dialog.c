@@ -1970,7 +1970,6 @@ adw_message_dialog_remove_response (AdwMessageDialog *self,
 {
   AdwMessageDialogPrivate *priv;
   ResponseInfo *info;
-  ResponseInfo *second_info;
 
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
   g_return_if_fail (id != NULL);
@@ -1990,12 +1989,12 @@ adw_message_dialog_remove_response (AdwMessageDialog *self,
 
   gtk_widget_unparent (info->button);
 
-  second_info = g_list_nth_data (priv->responses, 1);
-
-  if (g_list_index (priv->responses, info) == 0 && second_info != NULL)
-    g_clear_pointer (&second_info->separator, gtk_widget_unparent);
-  else
+  if (info == priv->responses->data && priv->responses->next) {
+    ResponseInfo *next_info = priv->responses->next->data;
+    g_clear_pointer (&next_info->separator, gtk_widget_unparent);
+  } else {
     g_clear_pointer (&info->separator, gtk_widget_unparent);
+  }
 
   priv->responses = g_list_remove (priv->responses, info);
   g_hash_table_remove (priv->id_to_response, id);
