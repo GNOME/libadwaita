@@ -1,7 +1,7 @@
 switch {
   // similar to GtkScale
   border-radius: 14px;
-  padding: 2px;
+  padding: 3px;
 
   background-color: $trough_color;
 
@@ -17,8 +17,8 @@ switch {
   }
 
   > slider {
-    min-width: 22px;
-    min-height: 22px;
+    min-width: 20px;
+    min-height: 20px;
     border-radius: 50%;
     background-color: $slider_color;
     box-shadow: 0 2px 4px transparentize(black, .8);
