@@ -31,6 +31,12 @@ ADW_AVAILABLE_IN_ALL
 void       adw_toast_overlay_set_child (AdwToastOverlay *self,
                                         GtkWidget       *child);
 
+ADW_AVAILABLE_IN_1_5
+int        adw_toast_overlay_get_inset_bottom (AdwToastOverlay *self);
+ADW_AVAILABLE_IN_1_5
+void       adw_toast_overlay_set_inset_bottom (AdwToastOverlay *self,
+                                               int             inset_bottom);
+
 ADW_AVAILABLE_IN_ALL
 void adw_toast_overlay_add_toast (AdwToastOverlay *self,
                                   AdwToast        *toast);

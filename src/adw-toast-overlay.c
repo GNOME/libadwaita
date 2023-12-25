@@ -87,11 +87,14 @@ struct _AdwToastOverlay {
   GQueue *queue;
   ToastInfo *current_toast;
   GList *hiding_toasts;
+
+  int inset_bottom;
 };
 
 enum {
   PROP_0,
   PROP_CHILD,
+  PROP_INSET_BOTTOM,
   LAST_PROP,
 };
 
@@ -246,6 +249,7 @@ show_toast (AdwToastOverlay *self,
   self->current_toast = info;
 
   info->widget = adw_toast_widget_new (info->toast);
+  g_object_bind_property (self, "inset-bottom", info->widget, "margin-bottom", G_BINDING_SYNC_CREATE);
   gtk_widget_insert_before (info->widget, GTK_WIDGET (self), NULL);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
@@ -459,6 +463,9 @@ adw_toast_overlay_get_property (GObject    *object,
   case PROP_CHILD:
     g_value_set_object (value, adw_toast_overlay_get_child (self));
     break;
+  case PROP_INSET_BOTTOM:
+    g_value_set_int (value, adw_toast_overlay_get_inset_bottom (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -475,6 +482,9 @@ adw_toast_overlay_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_CHILD:
     adw_toast_overlay_set_child (self, g_value_get_object (value));
+    break;
+  case PROP_INSET_BOTTOM:
+    adw_toast_overlay_set_inset_bottom (self, g_value_get_int (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -505,6 +515,16 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwToastOverlay:inset-bottom: (attributes org.gtk.Property.get=adw_toast_overlay_get_inset_bottom org.gtk.Property.set=adw_toast_overlay_set_inset_bottom)
+   *
+   * The bottom inset.
+   */
+  props[PROP_INSET_BOTTOM] =
+    g_param_spec_int ("inset-bottom", NULL, NULL,
+                         0, 1000, 0,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -687,4 +707,38 @@ adw_toast_overlay_add_toast (AdwToastOverlay *self,
   default:
     g_assert_not_reached ();
   }
+}
+
+/**
+ * adw_toast_overlay_get_inset_bottom: (attributes org.gtk.Method.get_property=inset-bottom)
+ * @self: a toast overlay
+ *
+ * Gets the bottom inset of @self.
+ *
+ * Returns: the bottom inset
+ */
+int
+adw_toast_overlay_get_inset_bottom (AdwToastOverlay *self)
+{
+  g_return_val_if_fail (ADW_IS_TOAST_OVERLAY (self), 0);
+
+  return self->inset_bottom;
+}
+
+/**
+ * adw_toast_overlay_set_inset_bottom: (attributes org.gtk.Method.set_property=inset-bottom)
+ * @self: a toast overlay
+ * @child: the bottom inset
+ *
+ * Sets bottom inset for @self. The bottom inset is an addition space added below the displayed toasts.
+ */
+void
+adw_toast_overlay_set_inset_bottom (AdwToastOverlay *self,
+                                    int             inset_bottom)
+{
+  g_return_if_fail (ADW_IS_TOAST_OVERLAY (self));
+
+  self->inset_bottom = inset_bottom;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INSET_BOTTOM]);
 }
