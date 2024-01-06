@@ -7,265 +7,265 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-09-08 17:18+0000\n"
-"PO-Revision-Date: 2022-09-09 00:23+0300\n"
-"Last-Translator: Efstathios Iosifidis <iosifidis@fedoraproject.org>\n"
+"POT-Creation-Date: 2023-09-27 15:39+0000\n"
+"PO-Revision-Date: 2024-01-06 11:08+0200\n"
+"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: Greek <gnome-el-list@gnome.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
 msgstr "Γενική δημόσια άδεια GNU, έκδοση 2 ή νεότερη"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
 msgstr "Γενική δημόσια άδεια GNU, έκδοση 3 ή νεότερη"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Γενική ελάσσων δημόσια άδεια GNU, έκδοση 2.1 ή νεότερη"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Γενική ελάσσων δημόσια άδεια GNU, έκδοση 3 ή νεότερη"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
-msgstr ""
+msgstr "BSD 2-Άδεια ρήτρας"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
 msgstr "Η άδεια MIT (MIT)"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:212
 msgid "Artistic License 2.0"
 msgstr "Καλλιτεχνική άδεια 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
 msgstr "Γενική δημόσια άδεια GNU, έκδοση 2 μόνο"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
 msgstr "Γενική δημόσια άδεια GNU, έκδοση 3 μόνο"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Γενική ελάσσων δημόσια άδεια GNU, έκδοση 2.1 μόνο"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Γενική ελάσσων δημόσια άδεια GNU, έκδοση 3 μόνο"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Γενική ελάσσων δημόσια άδεια GNU, έκδοση 3 ή νεότερη"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Γενική δημόσια άδεια GNU, έκδοση 3 μόνο"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
-msgstr ""
+msgstr "BSD 3-Άδεια ρήτρας"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
-msgstr ""
+msgstr "Άδεια Apache, Έκδοση 2.0"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
-msgstr ""
+msgstr "Δημόσια άδεια Mozilla 2.0"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:537
 msgid "Code by"
-msgstr ""
+msgstr "Προγραμματίστηκε από"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:538
 msgid "Design by"
-msgstr ""
+msgstr "Σχεδίαση από"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:539
 msgid "Artwork by"
-msgstr ""
+msgstr "Γραφικά από"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:540
 msgid "Documentation by"
-msgstr ""
+msgstr "Τεκμηρίωση από"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Μετάφραση από"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 msgstr ""
+"Αυτή η εφαρμογή έρχεται με καμία απολύτως εγγύηση. Δείτε το <a "
+"href=\"%s\">%s</a> για λεπτομέρειες."
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:648
 msgid "This Application"
-msgstr ""
+msgstr "Αυτή η εφαρμογή"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
-msgstr ""
+msgstr "Έκδοση %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
-msgstr ""
+msgstr "Αδυναμία ανάλυσης σημειώσεων έκδοσης:"
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
-msgstr ""
+msgstr "Γραμμή: %d, χαρακτήρας: %d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Αντιγράφτηκε στο πρόχειρο"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
-msgstr ""
+msgstr "Αδυναμία αποθήκευσης πληροφοριών εντοπισμού σφαλμάτων"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Αποθήκευση πληροφοριών αποσφαλμάτωσης"
-
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "Απ_οθήκευση"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "Ακύ_ρωση"
 
 #: src/adw-about-window.ui:5
 msgid "About"
 msgstr "Περί"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
-msgstr ""
+msgstr "_Τι νέο υπάρχει"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Λεπτομέρειες"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Ιστότοπος"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
-msgstr ""
+msgstr "Ερωτήσεις _υποστήριξης"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
-msgstr ""
+msgstr "_Αναφορά σφάλματος"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
-msgstr ""
+msgstr "_Αντιμετώπιση προβλημάτων"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Μνεία"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-window.ui:217
 msgid "_Legal"
-msgstr ""
+msgstr "_Νομικά"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Ευχαριστίες"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-window.ui:263
 msgid "What’s New"
-msgstr ""
+msgstr "Τι νέο υπάρχει"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
-msgid "Back"
-msgstr "Πίσω"
-
-#: src/adw-about-window.ui:351
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Λεπτομέριες"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Αντιμετώπιση προβλημάτων"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
+"Για να βοηθήσετε στην αντιμετώπιση προβλημάτων, μπορείτε να προβάλετε τις "
+"πληροφορίες εντοπισμού σφαλμάτων. Η παροχή αυτών των πληροφοριών στους "
+"προγραμματιστές της εφαρμογής μπορεί να βοηθήσει στη διάγνωση τυχόν "
+"προβλημάτων που αντιμετωπίζετε όταν αναφέρετε ένα πρόβλημα."
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
-msgstr ""
+msgstr "_Πληροφορίες αποσφαλμάτωσης"
 
-#: src/adw-about-window.ui:507
-msgid "Credits"
-msgstr "Συντελεστές"
-
-#: src/adw-about-window.ui:554
-msgid "Legal"
-msgstr "Νομικά"
-
-#: src/adw-about-window.ui:601
-msgid "Acknowledgements"
-msgstr "Ευχαριστίες"
-
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
-msgstr ""
+msgstr "Πληροφορίες αποσφαλμάτωσης"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
-msgstr ""
+msgstr "_Αντιγραφή κειμένου"
 
-#: src/adw-about-window.ui:703
+#: src/adw-about-window.ui:486
 msgid "_Save as…"
 msgstr "Απο_θήκευση ως…"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-about-window.ui:499
+msgid "Credits"
+msgstr "Συντελεστές"
+
+#: src/adw-about-window.ui:530
+msgid "Legal"
+msgstr "Νομικά"
+
+#: src/adw-about-window.ui:561
+msgid "Acknowledgements"
+msgstr "Ευχαριστίες"
+
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
+msgid "Back"
+msgstr "Πίσω"
+
+#: src/adw-combo-row.ui:50
+msgid "Search…"
+msgstr "Αναζήτηση…"
+
+#: src/adw-entry-row.ui:97
 msgid "Apply"
 msgstr "Εφαρμογή"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
-msgstr ""
+msgstr "Καμία προτίμηση"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
-msgstr ""
+msgstr "Προτίμηση σκοτεινού"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
-msgstr ""
+msgstr "Προτίμηση φωτεινού"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -278,36 +278,38 @@ msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
 msgstr ""
+"Παράκαμψη ρυθμίσεων για αυτήν την εφαρμογή. Θα γίνει επαναφορά με το "
+"κλείσιμο του επιθεωρητή."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
-msgstr ""
+msgstr "Το σύστημα υποστηρίζει συνδυασμό χρωμάτων"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
-msgstr ""
+msgstr "Προτιμώμενος συνδυασμός χρωμάτων"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Υψηλή Αντίθεση"
 
-#: src/adw-password-entry-row.c:71
-msgid "Hide Text"
-msgstr "Απόκρυψη κειμένου"
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "Απόκρυψη συνθηματικού"
 
-#: src/adw-password-entry-row.c:75
-msgid "Show Text"
-msgstr "Εμφάνιση κειμένου"
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "Εμφάνιση συνθηματικού"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Είναι πατημένο το Caps Lock"
 
-#: src/adw-password-entry-row.c:177
-msgid "_Show Text"
-msgstr "_Εμφάνιση κειμένου"
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "_Εμφάνιση συνθηματικού"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Σελίδα χωρίς τίτλο"
 
@@ -315,18 +317,73 @@ msgstr "Σελίδα χωρίς τίτλο"
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Αναζήτηση προτιμήσεων"
+
+#: src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Δε βρέθηκαν αποτελέσματα"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Δοκιμάστε μια διαφορετική αναζήτηση."
 
-#: src/adw-tab.ui:88
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "Περισσότερες επιλογές"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Προβολή ανοικτών καρτελών"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:922
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u καρτέλα"
+msgstr[1] "%u καρτέλες"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "Αναζήτηση καρτελών"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "Αναζήτηση καρτελών"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Καμία ανοικτή καρτέλα"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Δε βρέθηκαν καρτέλες"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Νέα _καρτέλα"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Κλείσιμο καρτέλας"
+
+#~ msgid "_Save"
+#~ msgstr "Απ_οθήκευση"
+
+#~ msgid "_Cancel"
+#~ msgstr "Ακύ_ρωση"
+
+#~ msgid "Hide Text"
+#~ msgstr "Απόκρυψη κειμένου"
+
+#~ msgid "Show Text"
+#~ msgstr "Εμφάνιση κειμένου"
+
+#~ msgid "_Show Text"
+#~ msgstr "_Εμφάνιση κειμένου"
