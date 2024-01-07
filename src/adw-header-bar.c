@@ -1130,6 +1130,8 @@ adw_header_bar_set_show_back_button (AdwHeaderBar *self,
       gtk_box_remove (GTK_BOX (self->start_box), self->back_button);
       self->back_button = NULL;
     }
+
+    update_box_visibility (self->start_box);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_BACK_BUTTON]);
