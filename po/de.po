@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2023-09-26 15:00+0000\n"
-"PO-Revision-Date: 2023-09-26 19:28+0200\n"
-"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
+"PO-Revision-Date: 2024-01-03 14:08+0100\n"
+"Last-Translator: Martin Wagner <martin.wagner.dev@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -320,7 +320,7 @@ msgstr "Einstellungen"
 
 #: src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Sucheinstellungen"
+msgstr "Einstellungen durchsuchen"
 
 #: src/adw-preferences-window.ui:96
 msgid "Search"
