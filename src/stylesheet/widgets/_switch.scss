@@ -8,8 +8,6 @@ switch {
   &:hover { background-color: $trough_hover_color; }
   &:active { background-color: $trough_active_color; }
 
-  > image { color: if($contrast == 'high', white, transparent); }
-
   @include focus-ring($offset: 1px, $outer: true);
 
   &:disabled {
