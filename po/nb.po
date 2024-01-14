@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-12-01 14:38+0000\n"
-"PO-Revision-Date: 2024-01-01 20:47+0100\n"
+"POT-Creation-Date: 2024-01-06 09:09+0000\n"
+"PO-Revision-Date: 2024-01-14 21:41+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -84,23 +84,23 @@ msgstr "Mozilla Public License 2.0"
 
 #: src/adw-about-window.c:537
 msgid "Code by"
-msgstr "Kode av"
+msgstr "Kodet av"
 
 #: src/adw-about-window.c:538
 msgid "Design by"
-msgstr "Design av"
+msgstr "Designet av"
 
 #: src/adw-about-window.c:539
 msgid "Artwork by"
-msgstr "Kunst av"
+msgstr "Utsmykket av"
 
 #: src/adw-about-window.c:540
 msgid "Documentation by"
-msgstr "Dokumentasjon av"
+msgstr "Dokumentert av"
 
 #: src/adw-about-window.c:541
 msgid "Translated by"
-msgstr "Oversettelser av"
+msgstr "Oversatt av"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
@@ -170,7 +170,7 @@ msgstr "Hjelp og _støtte"
 
 #: src/adw-about-window.ui:165
 msgid "_Report an Issue"
-msgstr "_Meld om et problem"
+msgstr "_Rapporter et problem"
 
 #: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
@@ -257,11 +257,11 @@ msgstr "Ingen preferanse"
 
 #: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
-msgstr "Foretrekk mørk"
+msgstr "Foretrekk mørkt"
 
 #: src/adw-inspector-page.c:79
 msgid "Prefer Light"
-msgstr "Foretrekk lys"
+msgstr "Foretrekk lyst"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:97
@@ -290,7 +290,7 @@ msgstr "Foretrukket fargevalg"
 
 #: src/adw-inspector-page.ui:37
 msgid "High Contrast"
-msgstr "Høykontrastmodus"
+msgstr "Høy kontrast"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -330,7 +330,7 @@ msgstr "Ingen resultater funnet"
 
 #: src/adw-preferences-window.ui:164 src/adw-tab-overview.ui:111
 msgid "Try a different search."
-msgstr "Prøv et annet søk"
+msgstr "Prøv et annet søk."
 
 #: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
@@ -350,11 +350,11 @@ msgstr[1] "%u faner"
 
 #: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
-msgstr "Søk i faner"
+msgstr "Søk etter faner"
 
 #: src/adw-tab-overview.ui:51
 msgid "Search tabs"
-msgstr "Søk i faner"
+msgstr "Søk etter faner"
 
 #: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
@@ -362,7 +362,7 @@ msgstr "Ingen åpne faner"
 
 #: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
-msgstr "Ingen faner funnet"
+msgstr "Fant ingen faner"
 
 #: src/adw-tab-overview.ui:131
 msgid "New _Tab"
