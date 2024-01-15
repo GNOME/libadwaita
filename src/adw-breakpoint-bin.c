@@ -130,6 +130,11 @@
  * Since: 1.4
  */
 
+typedef struct {
+  gboolean grab_focus;
+  GtkDirectionType direction;
+} DelayedFocus;
+
 typedef struct
 {
   GtkWidget *child;
@@ -143,6 +148,8 @@ typedef struct
 
   gboolean block_warnings;
   GtkWidget *warning_widget;
+
+  GArray *delayed_focus;
 } AdwBreakpointBinPrivate;
 
 static void adw_breakpoint_bin_buildable_init (GtkBuildableIface *iface);
@@ -248,11 +255,23 @@ breakpoint_changed_tick_cb (GtkWidget        *widget,
                             AdwBreakpointBin *self)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+  int i;
 
   priv->tick_cb_id = 0;
   priv->old_node = NULL;
   gtk_widget_set_child_visible (priv->child, TRUE);
   gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  for (i = 0; i < priv->delayed_focus->len; i++) {
+    DelayedFocus *focus = &g_array_index (priv->delayed_focus, DelayedFocus, i);
+
+    if (focus->grab_focus)
+      gtk_widget_grab_focus (GTK_WIDGET (widget));
+    else
+      adw_widget_focus_child (GTK_WIDGET (widget), focus->direction);
+  }
+
+  g_array_remove_range (priv->delayed_focus, 0, priv->delayed_focus->len);
 
   return G_SOURCE_REMOVE;
 }
@@ -395,6 +414,47 @@ adw_breakpoint_bin_map (GtkWidget *widget)
   GTK_WIDGET_CLASS (adw_breakpoint_bin_parent_class)->map (GTK_WIDGET (self));
 }
 
+static gboolean
+adw_breakpoint_bin_focus (GtkWidget        *widget,
+                          GtkDirectionType  direction)
+{
+  AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  if (priv->tick_cb_id > 0) {
+    DelayedFocus focus;
+
+    focus.grab_focus = FALSE;
+    focus.direction = direction;
+
+    g_array_append_val (priv->delayed_focus, focus);
+
+    return FALSE;
+  }
+
+  return adw_widget_focus_child (widget, direction);
+}
+
+static gboolean
+adw_breakpoint_bin_grab_focus (GtkWidget *widget)
+{
+  AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  if (priv->tick_cb_id > 0) {
+    DelayedFocus focus;
+
+    focus.grab_focus = TRUE;
+    focus.direction = 0;
+
+    g_array_append_val (priv->delayed_focus, focus);
+
+    return FALSE;
+  }
+
+  return adw_widget_grab_focus_child (widget);
+}
+
 static void
 adw_breakpoint_bin_dispose (GObject *object)
 {
@@ -412,6 +472,8 @@ adw_breakpoint_bin_dispose (GObject *object)
     g_list_free_full (priv->breakpoints, g_object_unref);
     priv->breakpoints = NULL;
   }
+
+  g_clear_pointer (&priv->delayed_focus, g_array_unref);
 
   G_OBJECT_CLASS (adw_breakpoint_bin_parent_class)->dispose (object);
 }
@@ -469,6 +531,8 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->snapshot = adw_breakpoint_bin_snapshot;
   widget_class->map = adw_breakpoint_bin_map;
+  widget_class->focus = adw_breakpoint_bin_focus;
+  widget_class->grab_focus = adw_breakpoint_bin_grab_focus;
 
   /**
    * AdwBreakpointBin:child: (attributes org.gtk.Property.get=adw_breakpoint_bin_get_child org.gtk.Property.set=adw_breakpoint_bin_set_child)
@@ -500,6 +564,10 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
 static void
 adw_breakpoint_bin_init (AdwBreakpointBin *self)
 {
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->delayed_focus = g_array_new (FALSE, FALSE, sizeof (DelayedFocus));
+
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 }
 
