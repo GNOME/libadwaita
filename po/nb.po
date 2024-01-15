@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-01-06 09:09+0000\n"
-"PO-Revision-Date: 2024-01-14 21:41+0100\n"
+"POT-Creation-Date: 2024-01-14 20:42+0000\n"
+"PO-Revision-Date: 2024-01-15 10:56+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -84,7 +84,7 @@ msgstr "Mozilla Public License 2.0"
 
 #: src/adw-about-window.c:537
 msgid "Code by"
-msgstr "Kodet av"
+msgstr "Programmert av"
 
 #: src/adw-about-window.c:538
 msgid "Design by"
@@ -162,7 +162,7 @@ msgstr "_Detaljer"
 
 #: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
-msgstr "_Hjemmeside"
+msgstr "_Nettside"
 
 #: src/adw-about-window.ui:148
 msgid "_Support Questions"
@@ -170,7 +170,7 @@ msgstr "Hjelp og _støtte"
 
 #: src/adw-about-window.ui:165
 msgid "_Report an Issue"
-msgstr "_Rapporter et problem"
+msgstr "_Meld om feil"
 
 #: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
@@ -212,18 +212,18 @@ msgstr ""
 
 #: src/adw-about-window.ui:406
 msgid "_Debugging Information"
-msgstr "_Feilsøkingsopplysninger"
+msgstr "_Feilsøkingsinformasjon"
 
 #: src/adw-about-window.ui:433
 msgid "Debugging Information"
-msgstr "Feilsøkingsopplysninger"
+msgstr "Feilsøkingsinformasjon"
 
 #: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Kopier tekst"
 
 #: src/adw-about-window.ui:486
-msgid "_Save As…"
+msgid "_Save as…"
 msgstr "_Lagre som…"
 
 #: src/adw-about-window.ui:499
