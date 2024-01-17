@@ -15,6 +15,7 @@
 #include <gtk/gtk.h>
 
 #include "adw-breakpoint.h"
+#include "adw-dialog.h"
 
 G_BEGIN_DECLS
 
@@ -46,5 +47,11 @@ void adw_window_add_breakpoint (AdwWindow     *self,
 
 ADW_AVAILABLE_IN_1_4
 AdwBreakpoint *adw_window_get_current_breakpoint (AdwWindow *self);
+
+ADW_AVAILABLE_IN_1_5
+GListModel *adw_window_get_dialogs (AdwWindow *self);
+
+ADW_AVAILABLE_IN_1_5
+AdwDialog *adw_window_get_visible_dialog (AdwWindow *self);
 
 G_END_DECLS
