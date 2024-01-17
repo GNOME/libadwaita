@@ -27,11 +27,11 @@ toast_dismissed_cb (AdwToast           *toast,
 }
 
 static void
-message_cb (AdwMessageDialog   *dialog,
-            GAsyncResult       *result,
-            AdwDemoPageDialogs *self)
+alert_cb (AdwAlertDialog     *dialog,
+          GAsyncResult       *result,
+          AdwDemoPageDialogs *self)
 {
-  const char *response = adw_message_dialog_choose_finish (dialog, result);
+  const char *response = adw_alert_dialog_choose_finish (dialog, result);
   AdwToast *toast = adw_toast_new_format (_("Dialog response: %s"), response);
   g_signal_connect_object (toast, "dismissed", G_CALLBACK (toast_dismissed_cb), self, 0);
 
@@ -43,29 +43,31 @@ message_cb (AdwMessageDialog   *dialog,
 }
 
 static void
-demo_message_dialog_cb (AdwDemoPageDialogs *self)
+demo_alert_dialog_cb (AdwDemoPageDialogs *self)
 {
-  GtkWindow *parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (self)));
-  GtkWidget *dialog;
+  AdwDialog *dialog;
 
-  dialog = adw_message_dialog_new (parent,
-                                   _("Save Changes?"),
-                                   _("Open document contains unsaved changes. Changes which are not saved will be permanently lost."));
+  dialog = adw_alert_dialog_new (_("Save Changes?"),
+                                 _("Open document contains unsaved changes. Changes which are not saved will be permanently lost."));
 
-  adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
-                                    "cancel",  _("_Cancel"),
-                                    "discard", _("_Discard"),
-                                    "save",    _("_Save"),
-                                    NULL);
+  adw_alert_dialog_add_responses (ADW_ALERT_DIALOG (dialog),
+                                  "cancel",  _("_Cancel"),
+                                  "discard", _("_Discard"),
+                                  "save",    _("_Save"),
+                                  NULL);
 
-  adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "discard", ADW_RESPONSE_DESTRUCTIVE);
-  adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "save", ADW_RESPONSE_SUGGESTED);
+  adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog),
+                                            "discard",
+                                            ADW_RESPONSE_DESTRUCTIVE);
+  adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog),
+                                            "save",
+                                            ADW_RESPONSE_SUGGESTED);
 
-  adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "save");
-  adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+  adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "save");
+  adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
 
-  adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL,
-                             (GAsyncReadyCallback) message_cb, self);
+  adw_alert_dialog_choose (ADW_ALERT_DIALOG (dialog), GTK_WIDGET (self), NULL,
+                           (GAsyncReadyCallback) alert_cb, self);
 }
 
 static void
@@ -84,7 +86,7 @@ adw_demo_page_dialogs_class_init (AdwDemoPageDialogsClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/dialogs/adw-demo-page-dialogs.ui");
 
-  gtk_widget_class_install_action (widget_class, "demo.message-dialog", NULL, (GtkWidgetActionActivateFunc) demo_message_dialog_cb);
+  gtk_widget_class_install_action (widget_class, "demo.alert-dialog", NULL, (GtkWidgetActionActivateFunc) demo_alert_dialog_cb);
 }
 
 static void

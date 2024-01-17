@@ -10,9 +10,9 @@
         <property name="description" translatable="yes">Adaptive dialog widgets.</property>
         <property name="child">
           <object class="GtkButton">
-            <property name="label" translatable="yes">Message Dialog</property>
+            <property name="label" translatable="yes">Alert Dialog</property>
             <property name="halign">center</property>
-            <property name="action-name">demo.message-dialog</property>
+            <property name="action-name">demo.alert-dialog</property>
             <style>
               <class name="pill"/>
             </style>
