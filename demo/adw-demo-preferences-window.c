@@ -2,13 +2,13 @@
 
 struct _AdwDemoPreferencesWindow
 {
-  AdwPreferencesWindow parent_instance;
+  AdwPreferencesDialog parent_instance;
 
   AdwNavigationPage *subpage1;
   AdwNavigationPage *subpage2;
 };
 
-G_DEFINE_FINAL_TYPE (AdwDemoPreferencesWindow, adw_demo_preferences_window, ADW_TYPE_PREFERENCES_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwDemoPreferencesWindow, adw_demo_preferences_window, ADW_TYPE_PREFERENCES_DIALOG)
 
 AdwDemoPreferencesWindow *
 adw_demo_preferences_window_new (void)
@@ -19,19 +19,19 @@ adw_demo_preferences_window_new (void)
 static void
 subpage1_activated_cb (AdwDemoPreferencesWindow *self)
 {
-  adw_preferences_window_push_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage1);
+  adw_preferences_dialog_push_subpage (ADW_PREFERENCES_DIALOG (self), self->subpage1);
 }
 
 static void
 subpage2_activated_cb (AdwDemoPreferencesWindow *self)
 {
-  adw_preferences_window_push_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage2);
+  adw_preferences_dialog_push_subpage (ADW_PREFERENCES_DIALOG (self), self->subpage2);
 }
 
 static void
-toast_show_cb (AdwPreferencesWindow *window)
+toast_show_cb (AdwPreferencesDialog *window)
 {
-  adw_preferences_window_add_toast (window, adw_toast_new ("Example Toast"));
+  adw_preferences_dialog_add_toast (window, adw_toast_new ("Example Toast"));
 }
 
 static void
