@@ -153,6 +153,9 @@ typedef struct
 
   gboolean pass_through;
 
+  int natural_width;
+  int natural_height;
+
   GArray *delayed_focus;
 } AdwBreakpointBinPrivate;
 
@@ -342,16 +345,31 @@ adw_breakpoint_bin_measure (GtkWidget      *widget,
 {
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
-  int min, nat;
+  int min = 0, nat, default_nat_size;
 
-  if (priv->child)
-    gtk_widget_measure (priv->child, orientation, for_size,
-                        &min, &nat, NULL, NULL);
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    default_nat_size = priv->natural_width;
   else
-    min = nat = 0;
+    default_nat_size = priv->natural_height;
 
-  if (priv->breakpoints)
-    min = 0;
+  if (default_nat_size < 0) {
+    if (priv->child) {
+      gtk_widget_measure (priv->child, orientation, for_size,
+                          &min, &nat, NULL, NULL);
+
+      if (priv->breakpoints)
+        min = 0;
+    } else {
+      nat = 0;
+    }
+  } else {
+    if (priv->child && !priv->breakpoints) {
+      gtk_widget_measure (priv->child, orientation, for_size,
+                          &min, NULL, NULL, NULL);
+    }
+
+    nat = default_nat_size;
+  }
 
   if (minimum)
     *minimum = min;
@@ -591,6 +609,8 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
 
+  priv->natural_width = -1;
+  priv->natural_height = -1;
   priv->enable_min_size_warnings = TRUE;
   priv->enable_overflow_warnings = TRUE;
 
@@ -824,4 +844,21 @@ adw_breakpoint_bin_set_pass_through (AdwBreakpointBin *self,
   priv = adw_breakpoint_bin_get_instance_private (self);
 
   priv->pass_through = !!pass_through;
+}
+
+void
+adw_breakpoint_bin_set_natural_size (AdwBreakpointBin *self,
+                                     int               width,
+                                     int               height)
+{
+  AdwBreakpointBinPrivate *priv;
+
+  g_return_if_fail (ADW_IS_BREAKPOINT_BIN (self));
+
+  priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->natural_width = width;
+  priv->natural_height = height;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
