@@ -24,4 +24,7 @@ void adw_breakpoint_bin_set_warning_widget (AdwBreakpointBin *self,
 
 gboolean adw_breakpoint_bin_has_breakpoints (AdwBreakpointBin *self);
 
+void adw_breakpoint_bin_set_pass_through (AdwBreakpointBin *self,
+                                          gboolean          pass_through);
+
 G_END_DECLS

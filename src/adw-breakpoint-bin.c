@@ -151,6 +151,8 @@ typedef struct
   gboolean enable_min_size_warnings;
   gboolean enable_overflow_warnings;
 
+  gboolean pass_through;
+
   GArray *delayed_focus;
 } AdwBreakpointBinPrivate;
 
@@ -282,6 +284,20 @@ static void
 breakpoint_notify_condition_cb (AdwBreakpointBin *self)
 {
   gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static gboolean
+adw_breakpoint_bin_contains (GtkWidget *widget,
+                             double     x,
+                             double     y)
+{
+  AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  if (priv->pass_through)
+    return FALSE;
+
+  return GTK_WIDGET_CLASS (adw_breakpoint_bin_parent_class)->contains (widget, x, y);
 }
 
 static void
@@ -533,6 +549,7 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
   object_class->get_property = adw_breakpoint_bin_get_property;
   object_class->set_property = adw_breakpoint_bin_set_property;
 
+  widget_class->contains = adw_breakpoint_bin_contains;
   widget_class->get_request_mode = adw_breakpoint_bin_get_request_mode;
   widget_class->measure = adw_breakpoint_bin_measure;
   widget_class->size_allocate = adw_breakpoint_bin_size_allocate;
@@ -794,4 +811,17 @@ adw_breakpoint_bin_has_breakpoints (AdwBreakpointBin *self)
   priv = adw_breakpoint_bin_get_instance_private (self);
 
   return !!priv->breakpoints;
+}
+
+void
+adw_breakpoint_bin_set_pass_through (AdwBreakpointBin *self,
+                                     gboolean          pass_through)
+{
+  AdwBreakpointBinPrivate *priv;
+
+  g_return_if_fail (ADW_IS_BREAKPOINT_BIN (self));
+
+  priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->pass_through = !!pass_through;
 }
