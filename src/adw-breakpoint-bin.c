@@ -277,6 +277,12 @@ breakpoint_changed_tick_cb (GtkWidget        *widget,
 }
 
 static void
+breakpoint_notify_condition_cb (AdwBreakpointBin *self)
+{
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
 adw_breakpoint_bin_snapshot (GtkWidget   *widget,
                              GtkSnapshot *snapshot)
 {
@@ -690,10 +696,37 @@ adw_breakpoint_bin_add_breakpoint (AdwBreakpointBin *self,
 
   priv->breakpoints = g_list_prepend (priv->breakpoints, breakpoint);
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  breakpoint_notify_condition_cb (self);
 
   g_signal_connect_swapped (breakpoint, "notify::condition",
-                            G_CALLBACK (gtk_widget_queue_allocate), self);
+                            G_CALLBACK (breakpoint_notify_condition_cb), self);
+}
+
+/**
+ * adw_breakpoint_bin_remove_breakpoint:
+ * @self: a breakpoint bin
+ * @breakpoint: a breakpoint to remove
+ *
+ * Removes @breakpoint from @self.
+ *
+ * Since: 1.5
+ */
+void
+adw_breakpoint_bin_remove_breakpoint (AdwBreakpointBin *self,
+                                      AdwBreakpoint    *breakpoint)
+{
+  AdwBreakpointBinPrivate *priv;
+
+  g_return_if_fail (ADW_IS_BREAKPOINT_BIN (self));
+  g_return_if_fail (ADW_IS_BREAKPOINT (breakpoint));
+
+  priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->breakpoints = g_list_remove (priv->breakpoints, breakpoint);
+
+  breakpoint_notify_condition_cb (self);
+
+  g_signal_handlers_disconnect_by_func (breakpoint, breakpoint_notify_condition_cb, self);
 }
 
 /**

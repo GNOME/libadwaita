@@ -46,6 +46,10 @@ ADW_AVAILABLE_IN_1_4
 void adw_breakpoint_bin_add_breakpoint (AdwBreakpointBin *self,
                                         AdwBreakpoint    *breakpoint);
 
+ADW_AVAILABLE_IN_1_5
+void adw_breakpoint_bin_remove_breakpoint (AdwBreakpointBin *self,
+                                           AdwBreakpoint    *breakpoint);
+
 ADW_AVAILABLE_IN_1_4
 AdwBreakpoint *adw_breakpoint_bin_get_current_breakpoint (AdwBreakpointBin *self);
 
