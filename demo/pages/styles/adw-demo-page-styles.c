@@ -15,10 +15,8 @@ static void
 demo_run_cb (AdwDemoPageStyles *self)
 {
   AdwStyleDemoWindow *window = adw_style_demo_window_new ();
-  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
 
-  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (root));
-  gtk_window_present (GTK_WINDOW (window));
+  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
 }
 
 static void

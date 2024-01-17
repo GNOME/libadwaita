@@ -2,17 +2,16 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="AdwStyleDemoWindow" parent="AdwWindow">
-    <property name="modal">True</property>
+  <template class="AdwStyleDemoWindow" parent="AdwDialog">
     <property name="title" translatable="yes">Style Classes</property>
-    <property name="default-width">800</property>
-    <property name="default-height">640</property>
+    <property name="content-width">800</property>
+    <property name="content-height">640</property>
     <property name="width-request">360</property>
     <property name="height-request">150</property>
-    <property name="content">
+    <property name="child">
       <object class="AdwToolbarView">
         <child type="top">
-          <object class="GtkHeaderBar"/>
+          <object class="AdwHeaderBar"/>
         </child>
         <property name="content">
           <object class="GtkOverlay">
@@ -1085,31 +1084,17 @@ audio-volume-medium</property>
       </object>
     </child>
   </template>
-  <object class="AdwWindow" id="status_page_window">
-    <property name="modal">True</property>
-    <property name="transient-for">AdwStyleDemoWindow</property>
+  <object class="AdwDialog" id="status_page_window">
     <property name="title" translatable="yes">Status Pages</property>
-    <property name="hide-on-close">True</property>
-    <property name="default-width">640</property>
-    <property name="default-height">480</property>
+    <property name="content-width">640</property>
+    <property name="content-height">480</property>
     <property name="width-request">360</property>
     <property name="height-request">200</property>
-    <child>
-      <object class="GtkShortcutController">
-        <property name="scope">managed</property>
-        <child>
-          <object class="GtkShortcut">
-            <property name="trigger">Escape</property>
-            <property name="action">action(window.close)</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <property name="content">
+    <property name="child">
       <object class="AdwToolbarView">
         <property name="top-bar-style">raised</property>
         <child type="top">
-          <object class="GtkHeaderBar">
+          <object class="AdwHeaderBar">
             <child>
               <object class="GtkToggleButton" id="compact_toggle_btn">
                 <property name="icon-name">view-sidebar-start</property>
@@ -1169,27 +1154,13 @@ audio-volume-medium</property>
       </object>
     </child>
   </object>
-  <object class="AdwWindow" id="sidebar_window">
-    <property name="modal">True</property>
-    <property name="transient-for">AdwStyleDemoWindow</property>
+  <object class="AdwDialog" id="sidebar_window">
     <property name="title" translatable="yes">Sidebar</property>
-    <property name="hide-on-close">True</property>
-    <property name="default-width">720</property>
-    <property name="default-height">480</property>
+    <property name="content-width">720</property>
+    <property name="content-height">480</property>
     <property name="width-request">360</property>
     <property name="height-request">240</property>
-    <child>
-      <object class="GtkShortcutController">
-        <property name="scope">managed</property>
-        <child>
-          <object class="GtkShortcut">
-            <property name="trigger">Escape</property>
-            <property name="action">action(window.close)</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <property name="content">
+    <property name="child">
       <object class="AdwNavigationSplitView" id="split_view">
         <property name="min-sidebar-width">140</property>
         <property name="max-sidebar-width">240</property>

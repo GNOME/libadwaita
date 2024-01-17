@@ -4,16 +4,16 @@
 
 struct _AdwStyleDemoWindow
 {
-  AdwWindow parent_instance;
+  AdwDialog parent_instance;
 
   gboolean progress;
 
-  GtkWindow *status_page_window;
-  GtkWindow *sidebar_window;
+  AdwDialog *status_page_window;
+  AdwDialog *sidebar_window;
   AdwNavigationSplitView *split_view;
 };
 
-G_DEFINE_FINAL_TYPE (AdwStyleDemoWindow, adw_style_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwStyleDemoWindow, adw_style_demo_window, ADW_TYPE_DIALOG)
 
 enum {
   PROP_0,
@@ -31,7 +31,7 @@ status_page_cb (GtkWidget  *sender,
 {
   AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (sender);
 
-  gtk_window_present (self->status_page_window);
+  adw_dialog_present (self->status_page_window, GTK_WIDGET (self));
 }
 
 static void
@@ -41,7 +41,7 @@ sidebar_cb (GtkWidget  *sender,
 {
   AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (sender);
 
-  gtk_window_present (self->sidebar_window);
+  adw_dialog_present (self->sidebar_window, GTK_WIDGET (self));
 }
 
 static void
@@ -111,20 +111,6 @@ adw_style_demo_window_set_property (GObject      *object,
 }
 
 static void
-adw_style_demo_window_dispose (GObject *object)
-{
-  AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (object);
-
-  if (self->status_page_window)
-    gtk_window_destroy (self->status_page_window);
-
-  if (self->sidebar_window)
-    gtk_window_destroy (self->sidebar_window);
-
-  G_OBJECT_CLASS (adw_style_demo_window_parent_class)->dispose (object);
-}
-
-static void
 adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -132,7 +118,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
 
   object_class->get_property = adw_style_demo_window_get_property;
   object_class->set_property = adw_style_demo_window_set_property;
-  object_class->dispose = adw_style_demo_window_dispose;
 
   props[PROP_DEVEL] =
     g_param_spec_boolean ("devel", NULL, NULL,
@@ -157,8 +142,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   gtk_widget_class_install_action (widget_class, "style.status-page", NULL, status_page_cb);
   gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, sidebar_cb);
   gtk_widget_class_install_action (widget_class, "style.dummy", NULL, dummy_cb);
-
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
 }
 
 static void
