@@ -10,6 +10,8 @@
 #include "adw-application-window.h"
 
 #include "adw-breakpoint-bin-private.h"
+#include "adw-dialog-host-private.h"
+#include "adw-dialog-private.h"
 #include "adw-gizmo-private.h"
 
 /**
@@ -52,7 +54,7 @@ typedef struct
 {
   GtkWidget *titlebar;
   GtkWidget *bin;
-  GtkWidget *content;
+  GtkWidget *dialog_host;
 } AdwApplicationWindowPrivate;
 
 static void adw_application_window_buildable_init (GtkBuildableIface *iface);
@@ -67,6 +69,8 @@ enum {
   PROP_0,
   PROP_CONTENT,
   PROP_CURRENT_BREAKPOINT,
+  PROP_DIALOGS,
+  PROP_VISIBLE_DIALOG,
   LAST_PROP,
 };
 
@@ -76,6 +80,12 @@ static void
 notify_current_breakpoint_cb (AdwApplicationWindow *self)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CURRENT_BREAKPOINT]);
+}
+
+static void
+notify_visible_dialog_cb (AdwApplicationWindow *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_DIALOG]);
 }
 
 static void
@@ -91,7 +101,7 @@ adw_application_window_size_allocate (GtkWidget *widget,
   if (gtk_window_get_titlebar (GTK_WINDOW (self)) != priv->titlebar)
     g_error ("gtk_window_set_titlebar() is not supported for AdwApplicationWindow");
 
-  if (gtk_window_get_child (GTK_WINDOW (self)) != priv->bin)
+  if (gtk_window_get_child (GTK_WINDOW (self)) != priv->dialog_host)
     g_error ("gtk_window_set_child() is not supported for AdwApplicationWindow");
 
   GTK_WIDGET_CLASS (adw_application_window_parent_class)->size_allocate (widget,
@@ -114,6 +124,12 @@ adw_application_window_get_property (GObject    *object,
     break;
   case PROP_CURRENT_BREAKPOINT:
     g_value_set_object (value, adw_application_window_get_current_breakpoint (self));
+    break;
+  case PROP_DIALOGS:
+    g_value_take_object (value, adw_application_window_get_dialogs (self));
+    break;
+  case PROP_VISIBLE_DIALOG:
+    g_value_set_object (value, adw_application_window_get_visible_dialog (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -171,7 +187,32 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
                          ADW_TYPE_BREAKPOINT,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
-  g_object_class_install_properties (object_class, LAST_PROP, props);}
+  /**
+   * AdwApplicationWindow:dialogs: (attributes org.gtk.Property.get=adw_application_window_get_dialogs)
+   *
+   * The open dialogs.
+   *
+   * Since: 1.5
+   */
+  props[PROP_DIALOGS] =
+    g_param_spec_object ("dialogs", NULL, NULL,
+                         G_TYPE_LIST_MODEL,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwApplicationWindow:visible-dialog: (attributes org.gtk.Property.get=adw_application_window_get_visible_dialog)
+   *
+   * The currently visible dialog
+   *
+   * Since: 1.5
+   */
+  props[PROP_VISIBLE_DIALOG] =
+    g_param_spec_object ("visible-dialog", NULL, NULL,
+                         ADW_TYPE_DIALOG,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
+}
 
 static void
 adw_application_window_init (AdwApplicationWindow *self)
@@ -183,13 +224,19 @@ adw_application_window_init (AdwApplicationWindow *self)
   gtk_widget_set_visible (priv->titlebar, FALSE);
   gtk_window_set_titlebar (GTK_WINDOW (self), priv->titlebar);
 
+  priv->dialog_host = adw_dialog_host_new ();
+  gtk_window_set_child (GTK_WINDOW (self), priv->dialog_host);
+  adw_dialog_host_set_proxy (ADW_DIALOG_HOST (priv->dialog_host), GTK_WIDGET (self));
+
   priv->bin = adw_breakpoint_bin_new ();
   adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->bin),
                                          GTK_WIDGET (self));
-  gtk_window_set_child (GTK_WINDOW (self), priv->bin);
+  adw_dialog_host_set_child (ADW_DIALOG_HOST (priv->dialog_host), priv->bin);
 
   g_signal_connect_swapped (priv->bin, "notify::current-breakpoint",
                             G_CALLBACK (notify_current_breakpoint_cb), self);
+  g_signal_connect_swapped (priv->dialog_host, "notify::visible-dialog",
+                            G_CALLBACK (notify_visible_dialog_cb), self);
 
   gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (self), FALSE);
 }
@@ -331,4 +378,50 @@ adw_application_window_get_current_breakpoint (AdwApplicationWindow *self)
   priv = adw_application_window_get_instance_private (self);
 
   return adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->bin));
+}
+
+/**
+ * adw_application_window_get_dialogs: (attributes org.gtk.Method.get_property=dialogs)
+ * @self: an application window
+ *
+ * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
+ *
+ * This can be used to keep an up-to-date view.
+ *
+ * Returns: (transfer full): a list model for the dialogs of @self
+ *
+ * Since: 1.5
+ */
+GListModel *
+adw_application_window_get_dialogs (AdwApplicationWindow *self)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_APPLICATION_WINDOW (self), NULL);
+
+  priv = adw_application_window_get_instance_private (self);
+
+  return adw_dialog_host_get_dialogs (ADW_DIALOG_HOST (priv->dialog_host));
+}
+
+/**
+ * adw_application_window_get_visible_dialog: (attributes org.gtk.Method.get_property=visible-dialog)
+ * @self: an application window
+ *
+ * Returns the currently visible dialog in @self, if there's one.
+ *
+ * Returns: (transfer full) (nullable): the visible dialog
+ *
+ * Since: 1.5
+ */
+AdwDialog *
+adw_application_window_get_visible_dialog (AdwApplicationWindow *self)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_APPLICATION_WINDOW (self), NULL);
+
+  priv = adw_application_window_get_instance_private (self);
+
+  return adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (priv->dialog_host));
 }
