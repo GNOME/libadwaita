@@ -4,13 +4,13 @@
 
 struct _AdwOverlaySplitViewDemoWindow
 {
-  AdwWindow parent_instance;
+  AdwDialog parent_instance;
 
   AdwOverlaySplitView *split_view;
   GtkToggleButton *start_button;
 };
 
-G_DEFINE_FINAL_TYPE (AdwOverlaySplitViewDemoWindow, adw_overlay_split_view_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwOverlaySplitViewDemoWindow, adw_overlay_split_view_demo_window, ADW_TYPE_DIALOG)
 
 static void
 start_button_notify_active_cb (AdwOverlaySplitViewDemoWindow *self)
@@ -30,8 +30,6 @@ adw_overlay_split_view_demo_window_class_init (AdwOverlaySplitViewDemoWindowClas
   gtk_widget_class_bind_template_child (widget_class, AdwOverlaySplitViewDemoWindow, split_view);
   gtk_widget_class_bind_template_child (widget_class, AdwOverlaySplitViewDemoWindow, start_button);
   gtk_widget_class_bind_template_callback (widget_class, start_button_notify_active_cb);
-
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
 }
 
 static void

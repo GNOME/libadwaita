@@ -2,12 +2,11 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="AdwNavigationSplitViewDemoWindow" parent="AdwWindow">
-    <property name="modal">True</property>
+  <template class="AdwNavigationSplitViewDemoWindow" parent="AdwDialog">
     <property name="width-request">360</property>
     <property name="height-request">200</property>
-    <property name="default-width">640</property>
-    <property name="default-height">480</property>
+    <property name="content-width">640</property>
+    <property name="content-height">480</property>
     <property name="title" translatable="yes">Navigation Split View</property>
     <child>
       <object class="AdwBreakpoint">
@@ -16,7 +15,7 @@
         <setter object="button" property="visible">True</setter>
       </object>
     </child>
-    <property name="content">
+    <property name="child">
       <object class="AdwNavigationSplitView" id="split_view">
         <property name="sidebar">
           <object class="AdwNavigationPage">
