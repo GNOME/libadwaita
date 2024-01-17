@@ -2,14 +2,13 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="AdwViewSwitcherDemoWindow" parent="AdwWindow">
-    <property name="modal">True</property>
+  <template class="AdwViewSwitcherDemoWindow" parent="AdwDialog">
     <property name="width-request">360</property>
     <property name="height-request">200</property>
-    <property name="default-width">640</property>
-    <property name="default-height">320</property>
+    <property name="content-width">640</property>
+    <property name="content-height">320</property>
     <property name="title" translatable="yes">AdwViewSwitcher Demo</property>
-    <property name="content">
+    <property name="child">
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar" id="header_bar">
