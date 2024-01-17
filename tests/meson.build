@@ -47,6 +47,7 @@ test_names = [
   'test-carousel-indicator-dots',
   'test-carousel-indicator-lines',
   'test-combo-row',
+  'test-dialog',
   'test-easing',
   'test-entry-row',
   'test-expander-row',

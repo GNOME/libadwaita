@@ -51,11 +51,29 @@ This is commonly used for patterns such as [boxed lists](boxed-lists.html):
 
 See also: [class@ClampLayout], [class@ClampScrollable].
 
+# Dialogs
+
+[class@Dialog] is an adaptive dialog container. It can be presented as a
+centered floating window or a bottom sheet, depending on the size of its parent
+window.
+
+<picture>
+  <source srcset="dialog-floating-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dialog-floating.png" alt="dialog-floating">
+</picture>
+<picture>
+  <source srcset="dialog-bottom-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dialog-bottom.png" alt="dialog-bottom">
+</picture>
+
+To use `AdwDialog`, your window must be [class@Window] or
+[class@ApplicationWindow].
+
 # Breakpoints
 
 [class@Breakpoint] allows applications to restructure UI in arbitrary ways
 depending on available size. Breakpoints can be used with [class@Window],
-[class@ApplicationWindow], or [class@BreakpointBin].
+[class@ApplicationWindow], [class@Dialog] or [class@BreakpointBin].
 
 When using breakpoints, the widget containing them will have no minimum size,
 and the application must manually set the [property@Gtk.Widget:width-request]

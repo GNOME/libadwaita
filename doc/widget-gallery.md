@@ -35,6 +35,17 @@ Slug: widget-gallery
 
 # Dialogs
 
+## Dialog
+
+[<picture>
+  <source srcset="dialog-floating-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dialog-floating.png" alt="dialog-floating">
+</picture>
+<picture>
+  <source srcset="dialog-bottom-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dialog-bottom.png" alt="dialog-bottom">
+</picture>](class.Dialog.html)
+
 ## Message Dialog
 
 [<picture>

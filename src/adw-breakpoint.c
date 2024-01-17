@@ -19,7 +19,7 @@
 /**
  * AdwBreakpoint:
  *
- * Describes a breakpoint for [class@Window].
+ * Describes a breakpoint for [class@Window] or [class@Dialog].
  *
  * Breakpoints are used to create adaptive UI, allowing to change the layout
  * depending on available size.
@@ -35,8 +35,8 @@
  * For more complicated scenarios, [signal@Breakpoint::apply] and
  * [signal@Breakpoint::unapply] can be used instead.
  *
- * Breakpoints can be used within [class@Window], [class@ApplicationWindow] or
- * [class@BreakpointBin].
+ * Breakpoints can be used within [class@Window], [class@ApplicationWindow],
+ * [class@Dialog] or [class@BreakpointBin].
  *
  * ## `AdwBreakpoint` as `GtkBuildable`:
  *
