@@ -4,10 +4,10 @@ test_cflags = [
 ]
 
 test_names = [
+  'test-alert-dialogs',
   'test-avatar-colors',
   'test-breakpoints',
   'test-button-states',
-  'test-message-dialogs',
   'test-navigation',
   'test-split-views',
   'test-toolbars',
