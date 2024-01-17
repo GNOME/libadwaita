@@ -148,6 +148,8 @@ typedef struct
 
   gboolean block_warnings;
   GtkWidget *warning_widget;
+  gboolean enable_min_size_warnings;
+  gboolean enable_overflow_warnings;
 
   GArray *delayed_focus;
 } AdwBreakpointBinPrivate;
@@ -184,7 +186,7 @@ allocate_child (AdwBreakpointBin *self,
   if (!priv->child)
     return;
 
-  if (!priv->block_warnings && priv->breakpoints) {
+  if (!priv->block_warnings && priv->breakpoints && priv->enable_min_size_warnings) {
     int window_width, window_height;
     GtkWidget *warning_widget;
 
@@ -221,7 +223,7 @@ allocate_child (AdwBreakpointBin *self,
     return;
   }
 
-  if (!priv->block_warnings) {
+  if (!priv->block_warnings && priv->enable_overflow_warnings) {
     GtkWidget *warning_widget;
 
     if (priv->warning_widget)
@@ -572,6 +574,9 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
 
+  priv->enable_min_size_warnings = TRUE;
+  priv->enable_overflow_warnings = TRUE;
+
   priv->delayed_focus = g_array_new (FALSE, FALSE, sizeof (DelayedFocus));
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
@@ -749,6 +754,21 @@ adw_breakpoint_bin_get_current_breakpoint (AdwBreakpointBin *self)
   priv = adw_breakpoint_bin_get_instance_private (self);
 
   return priv->current_breakpoint;
+}
+
+void
+adw_breakpoint_bin_set_warnings (AdwBreakpointBin *self,
+                                 gboolean          min_size_warnings,
+                                 gboolean          overflow_warnings)
+{
+  AdwBreakpointBinPrivate *priv;
+
+  g_return_if_fail (ADW_IS_BREAKPOINT_BIN (self));
+
+  priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->enable_min_size_warnings = !!min_size_warnings;
+  priv->enable_overflow_warnings = !!overflow_warnings;
 }
 
 void

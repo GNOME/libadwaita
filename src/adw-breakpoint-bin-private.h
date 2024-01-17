@@ -16,6 +16,9 @@
 
 G_BEGIN_DECLS
 
+void adw_breakpoint_bin_set_warnings (AdwBreakpointBin *self,
+                                      gboolean          min_size_warnings,
+                                      gboolean          overflow_warnings);
 void adw_breakpoint_bin_set_warning_widget (AdwBreakpointBin *self,
                                             GtkWidget        *warning_widget);
 
