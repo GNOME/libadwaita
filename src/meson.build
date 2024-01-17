@@ -11,6 +11,7 @@ libadwaita_resources = gnome.compile_resources(
 )
 
 adw_public_enum_headers = [
+  'adw-alert-dialog.h',
   'adw-animation.h',
   'adw-banner.h',
   'adw-breakpoint.h',
@@ -21,7 +22,6 @@ adw_public_enum_headers = [
   'adw-header-bar.h',
   'adw-leaflet.h',
   'adw-length-unit.h',
-  'adw-message-dialog.h',
   'adw-navigation-direction.h',
   'adw-style-manager.h',
   'adw-squeezer.h',

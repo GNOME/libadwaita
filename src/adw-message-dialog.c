@@ -151,22 +151,6 @@
  * Since: 1.2
  */
 
-/**
- * AdwResponseAppearance:
- * @ADW_RESPONSE_DEFAULT: the default appearance.
- * @ADW_RESPONSE_SUGGESTED: used to denote important responses such as the
- *     affirmative action.
- * @ADW_RESPONSE_DESTRUCTIVE: used to draw attention to the potentially damaging
- *     consequences of using the response. This appearance acts as a warning to
- *     the user.
- *
- * Describes the possible styles of [class@MessageDialog] response buttons.
- *
- * See [method@MessageDialog.set_response_appearance].
- *
- * Since: 1.2
- */
-
 #define DIALOG_MARGIN 30
 #define DIALOG_MAX_WIDTH 550
 #define DIALOG_MIN_WIDTH 300

@@ -154,6 +154,22 @@
  * Since: 1.5
  */
 
+/**
+ * AdwResponseAppearance:
+ * @ADW_RESPONSE_DEFAULT: the default appearance.
+ * @ADW_RESPONSE_SUGGESTED: used to denote important responses such as the
+ *     affirmative action.
+ * @ADW_RESPONSE_DESTRUCTIVE: used to draw attention to the potentially damaging
+ *     consequences of using the response. This appearance acts as a warning to
+ *     the user.
+ *
+ * Describes the possible styles of [class@AlertDialog] response buttons.
+ *
+ * See [method@AlertDialog.set_response_appearance].
+ *
+ * Since: 1.2
+ */
+
 #define DIALOG_MAX_WIDTH 550
 #define DIALOG_MIN_WIDTH 300
 

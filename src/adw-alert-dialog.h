@@ -18,9 +18,15 @@
 #include <gtk/gtk.h>
 
 #include "adw-dialog.h"
-#include "adw-message-dialog.h"
+#include "adw-enums.h"
 
 G_BEGIN_DECLS
+
+typedef enum {
+  ADW_RESPONSE_DEFAULT,
+  ADW_RESPONSE_SUGGESTED,
+  ADW_RESPONSE_DESTRUCTIVE,
+} AdwResponseAppearance;
 
 #define ADW_TYPE_ALERT_DIALOG (adw_alert_dialog_get_type())
 
