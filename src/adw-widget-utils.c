@@ -577,3 +577,36 @@ adw_widget_get_ancestor_same_native (GtkWidget *widget,
 
   return widget;
 }
+
+gboolean
+adw_decoration_layout_prefers_start (const char *layout)
+{
+  int counts[2];
+  char **sides;
+  int i;
+
+  sides = g_strsplit (layout, ":", 2);
+
+  for (i = 0; i < 2; i++) {
+    char **elements;
+    int j;
+
+    counts[i] = 0;
+
+    if (sides[i] == NULL)
+      continue;
+
+    elements = g_strsplit (sides[i], ",", -1);
+
+    for (j = 0; elements[j]; j++) {
+      if (!g_strcmp0 (elements[j], "close"))
+        counts[i]++;
+    }
+
+    g_strfreev (elements);
+  }
+
+  g_strfreev (sides);
+
+  return counts[0] > counts[1];
+}

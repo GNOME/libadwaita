@@ -58,4 +58,6 @@ gboolean adw_widget_lookup_color (GtkWidget  *widget,
 GtkWidget *adw_widget_get_ancestor_same_native (GtkWidget *widget,
                                                 GType      widget_type);
 
+gboolean adw_decoration_layout_prefers_start (const char *layout);
+
 G_END_DECLS

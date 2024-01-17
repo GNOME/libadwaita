@@ -77,6 +77,15 @@
  * Use [method@Dialog.force_close] to close the dialog even when `can-close` is set to
  * `FALSE`.
  *
+ * ## Header Bar Integration
+ *
+ * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
+ * title intead of window title. It will also adjust the decoration layout to
+ * ensure it always has a close button and nothing else. Set
+ * [property@HeaderBar:show-start-title-buttons] and
+ * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
+ * unwanted.
+ *
  * ## Breakpoints
  *
  * `AdwDialog` can be used with [class@Breakpoint] the same way as
