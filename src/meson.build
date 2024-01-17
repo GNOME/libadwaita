@@ -96,6 +96,7 @@ adw_marshalers = gnome.genmarshal('adw-marshalers',
 libadwaita_private_sources += adw_marshalers
 
 src_headers = [
+  'adw-about-dialog.h',
   'adw-about-window.h',
   'adw-action-row.h',
   'adw-animation.h',
@@ -173,6 +174,7 @@ libadwaita_init_public_types = custom_target('adw-public-types.c',
 )
 
 src_sources = [
+  'adw-about-dialog.c',
   'adw-about-window.c',
   'adw-action-row.c',
   'adw-animation.c',

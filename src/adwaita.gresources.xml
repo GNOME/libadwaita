@@ -12,6 +12,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-unpin-symbolic.svg</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
+    <file preprocess="xml-stripblanks">adw-about-dialog.ui</file>
     <file preprocess="xml-stripblanks">adw-about-window.ui</file>
     <file preprocess="xml-stripblanks">adw-action-row.ui</file>
     <file preprocess="xml-stripblanks">adw-banner.ui</file>

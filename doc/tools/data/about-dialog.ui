@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="window">
+    <property name="default-width">600</property>
+    <property name="default-height">650</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="AdwAboutDialog" id="widget">
+    <property name="application-icon">application-x-executable</property>
+    <property name="application-name" translatable="yes">Application</property>
+    <property name="developer-name" translatable="yes">Developer Name</property>
+    <property name="version" translatable="yes">1.2.3</property>
+    <property name="issue-url">https://example.org</property>
+    <property name="developers">Author</property>
+    <property name="copyright">© 2022 Example</property>
+  </object>
+</interface>

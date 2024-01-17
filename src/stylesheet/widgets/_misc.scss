@@ -92,7 +92,8 @@ video {
  * AdwAboutWindow *
  ******************/
 
-window.about {
+window.about,
+dialog.about {
   .main-page {
     > viewport > clamp > box {
       margin: 12px;

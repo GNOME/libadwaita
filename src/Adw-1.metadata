@@ -15,6 +15,9 @@ MessageDialog
 
 *.*_valist skip=false
 
+show_about_dialog skip=false
+show_about_dialog_from_appdata skip=false
+
 show_about_window skip=false
 show_about_window_from_appdata skip=false
 
