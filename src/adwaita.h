@@ -60,6 +60,7 @@ G_BEGIN_DECLS
 #include "adw-navigation-view.h"
 #include "adw-overlay-split-view.h"
 #include "adw-password-entry-row.h"
+#include "adw-preferences-dialog.h"
 #include "adw-preferences-group.h"
 #include "adw-preferences-page.h"
 #include "adw-preferences-row.h"

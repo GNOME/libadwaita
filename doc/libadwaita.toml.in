@@ -213,6 +213,8 @@ content_images = [
   "images/password-entry-row-dark.png",
   "images/popover-menu-list.png",
   "images/popover-menu-list-dark.png",
+  "images/preferences-dialog.png",
+  "images/preferences-dialog-dark.png",
   "images/preferences-group.png",
   "images/preferences-group-dark.png",
   "images/preferences-page.png",

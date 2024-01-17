@@ -61,6 +61,7 @@ test_names = [
   'test-navigation-view',
   'test-overlay-split-view',
   'test-password-entry-row',
+  'test-preferences-dialog',
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',
