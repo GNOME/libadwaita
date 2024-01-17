@@ -17,6 +17,9 @@
 
 #include "adw-widget-utils-private.h"
 
+#include "adw-bottom-sheet-private.h"
+#include "adw-floating-sheet-private.h"
+
 typedef struct _CompareInfo CompareInfo;
 
 enum Axis {
@@ -564,7 +567,9 @@ adw_widget_get_ancestor_same_native (GtkWidget *widget,
                                      GType      widget_type)
 {
   while (widget && !g_type_is_a (G_OBJECT_TYPE (widget), widget_type)) {
-    if (GTK_IS_NATIVE (widget))
+    if (GTK_IS_NATIVE (widget) ||
+        ADW_IS_FLOATING_SHEET (widget) ||
+        ADW_IS_BOTTOM_SHEET (widget))
       return NULL;
 
     widget = gtk_widget_get_parent (widget);
