@@ -242,6 +242,7 @@ src_sources = [
 libadwaita_private_sources += files([
   'adw-back-button.c',
   'adw-bidi.c',
+  'adw-bottom-sheet.c',
   'adw-fading-label.c',
   'adw-gizmo.c',
   'adw-gtkbuilder-utils.c',

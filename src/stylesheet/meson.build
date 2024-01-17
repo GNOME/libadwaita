@@ -23,6 +23,7 @@ if not fs.exists('base.css')
       '_widgets.scss',
 
       'widgets/_avatar.scss',
+      'widgets/_bottom-sheet.scss',
       'widgets/_buttons.scss',
       'widgets/_calendar.scss',
       'widgets/_checks.scss',
