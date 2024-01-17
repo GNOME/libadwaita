@@ -53,29 +53,28 @@ show_about (GSimpleAction *action,
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
   char *debug_info;
-  GtkWidget *about;
+  AdwDialog *about;
 
   debug_info = adw_demo_generate_debug_info ();
 
-  about = adw_about_window_new_from_appdata ("/org/gnome/Adwaita1/Demo/org.gnome.Adwaita1.Demo.metainfo.xml", NULL);
-  gtk_window_set_transient_for (GTK_WINDOW (about), window);
-  adw_about_window_set_version (ADW_ABOUT_WINDOW (about), ADW_VERSION_S);
-  adw_about_window_set_debug_info (ADW_ABOUT_WINDOW (about), debug_info);
-  adw_about_window_set_debug_info_filename (ADW_ABOUT_WINDOW (about), "adwaita-1-demo-debug-info.txt");
-  adw_about_window_set_copyright (ADW_ABOUT_WINDOW (about), "© 2017–2022 Purism SPC");
-  adw_about_window_set_developers (ADW_ABOUT_WINDOW (about), developers);
-  adw_about_window_set_designers (ADW_ABOUT_WINDOW (about), designers);
-  adw_about_window_set_artists (ADW_ABOUT_WINDOW (about), designers);
-  adw_about_window_set_translator_credits (ADW_ABOUT_WINDOW (about), _("translator-credits"));
+  about = adw_about_dialog_new_from_appdata ("/org/gnome/Adwaita1/Demo/org.gnome.Adwaita1.Demo.metainfo.xml", NULL);
+  adw_about_dialog_set_version (ADW_ABOUT_DIALOG (about), ADW_VERSION_S);
+  adw_about_dialog_set_debug_info (ADW_ABOUT_DIALOG (about), debug_info);
+  adw_about_dialog_set_debug_info_filename (ADW_ABOUT_DIALOG (about), "adwaita-1-demo-debug-info.txt");
+  adw_about_dialog_set_copyright (ADW_ABOUT_DIALOG (about), "© 2017–2022 Purism SPC");
+  adw_about_dialog_set_developers (ADW_ABOUT_DIALOG (about), developers);
+  adw_about_dialog_set_designers (ADW_ABOUT_DIALOG (about), designers);
+  adw_about_dialog_set_artists (ADW_ABOUT_DIALOG (about), designers);
+  adw_about_dialog_set_translator_credits (ADW_ABOUT_DIALOG (about), _("translator-credits"));
 
-  adw_about_window_add_link (ADW_ABOUT_WINDOW (about),
+  adw_about_dialog_add_link (ADW_ABOUT_DIALOG (about),
                              _("_Documentation"),
                              "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/");
-  adw_about_window_add_link (ADW_ABOUT_WINDOW (about),
+  adw_about_dialog_add_link (ADW_ABOUT_DIALOG (about),
                              _("_Chat"),
                              "https://matrix.to/#/#libadwaita:gnome.org");
 
-  gtk_window_present (GTK_WINDOW (about));
+  adw_dialog_present (about, GTK_WIDGET (window));
 
   g_free (debug_info);
 }
