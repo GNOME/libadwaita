@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwAlertDialog" parent="AdwDialog">
+    <property name="follows-content-size">True</property>
+    <property name="presentation-mode">floating</property>
+    <style>
+      <class name="alert"/>
+    </style>
+    <property name="child">
+      <object class="AdwGizmo" id="contents">
+        <child>
+          <object class="GtkWindowHandle" id="window_handle">
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkBox" id="message_area">
+                    <property name="orientation">vertical</property>
+                    <style>
+                      <class name="message-area"/>
+                    </style>
+                    <child>
+                      <object class="GtkLabel" id="heading_label">
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">20</property>
+                        <property name="justify">center</property>
+                        <property name="xalign">0.5</property>
+                        <property name="visible">False</property>
+                        <style>
+                          <class name="title-2"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="body_label">
+                        <property name="vexpand">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">40</property>
+                        <property name="justify">center</property>
+                        <property name="xalign">0.5</property>
+                        <property name="visible">False</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator"/>
+                </child>
+                <child>
+                  <object class="AdwGizmo" id="response_area">
+                    <style>
+                      <class name="response-area"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

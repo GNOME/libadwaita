@@ -65,16 +65,25 @@ window.dialog.message {
  * AdwMessageDialog *
  ********************/
 
-window.messagedialog {
+window.messagedialog,
+dialog.alert sheet {
   background-color: $dialog_bg_color;
   color: $dialog_fg_color;
+}
 
+window.messagedialog {
   @if $contrast != 'high' {
-    &.csd {
-      outline: none;
-    }
+    outline: none;
   }
+}
 
+dialog.alert floating-sheet sheet {
+  border-radius: $window_radius+1;
+  outline: none;
+}
+
+window.messagedialog,
+dialog.alert {
   .message-area {
     padding: 24px 30px;
     border-spacing: 24px;
@@ -106,37 +115,53 @@ window.messagedialog {
     }
   }
 
-  &.csd:not(.solid-csd) {
-    border-radius: $window_radius+1;
+ .response-area {
+    &:not(.compact) > button {
+      margin-top: -1px;
+      margin-right: -1px;
+      margin-left: -1px;
 
-    .response-area {
-      &:not(.compact) > button {
-        margin-top: -1px;
-        margin-right: -1px;
-        margin-left: -1px;
-
-        &:first-child:dir(ltr),
-        &:last-child:dir(rtl) {
-          border-bottom-left-radius: $window_radius+1;
-          margin-left: 0;
-        }
-
-        &:last-child:dir(ltr),
-        &:first-child:dir(rtl) {
-          border-bottom-right-radius: $window_radius+1;
-          margin-right: 0;
-        }
+      &:first-child:dir(ltr),
+      &:last-child:dir(rtl) {
+        margin-left: 0;
       }
 
-      &.compact > button {
-        margin-top: -1px;
-        margin-bottom: -1px;
+      &:last-child:dir(ltr),
+      &:first-child:dir(rtl) {
+        margin-right: 0;
+      }
+    }
 
-        &:first-child {
-          border-bottom-left-radius: $window_radius+1;
-          border-bottom-right-radius: $window_radius+1;
-          margin-bottom: 0;
-        }
+    &.compact > button {
+      margin-top: -1px;
+      margin-bottom: -1px;
+
+      &:first-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+window.messagedialog,
+dialog.alert floating-sheet {
+ .response-area {
+    &:not(.compact) > button {
+      &:first-child:dir(ltr),
+      &:last-child:dir(rtl) {
+        border-bottom-left-radius: $window_radius+1;
+      }
+
+      &:last-child:dir(ltr),
+      &:first-child:dir(rtl) {
+        border-bottom-right-radius: $window_radius+1;
+      }
+    }
+
+    &.compact > button {
+      &:first-child {
+        border-bottom-left-radius: $window_radius+1;
+        border-bottom-right-radius: $window_radius+1;
       }
     }
   }

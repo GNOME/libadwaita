@@ -3362,7 +3362,7 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
 }
 
 /**
- * adw_show_about_dialog:
+ * adw_show_about_dialog: (skip)
  * @parent: the parent widget
  * @first_property_name: the name of the first property
  * @...: value of first property, followed by more pairs of property name and
@@ -3392,7 +3392,7 @@ adw_show_about_dialog (GtkWidget  *parent,
 }
 
 /**
- * adw_show_about_dialog_from_appdata:
+ * adw_show_about_dialog_from_appdata: (skip)
  * @parent: the parent widget
  * @resource_path: The resource to use
  * @release_notes_version: (nullable): The version to retrieve release notes for

@@ -24,6 +24,7 @@ G_BEGIN_DECLS
 #include "adw-about-dialog.h"
 #include "adw-about-window.h"
 #include "adw-action-row.h"
+#include "adw-alert-dialog.h"
 #include "adw-animation.h"
 #include "adw-animation-target.h"
 #include "adw-animation-util.h"

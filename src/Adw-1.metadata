@@ -2,6 +2,12 @@
 
 // Allow printf-like functions
 
+AlertDialog
+  .format_body skip=false printf_format
+  .format_heading skip=false printf_format
+  .format_body_markup skip=false printf_format
+  .format_heading_markup skip=false printf_format
+
 Toast
   .new_format skip=false printf_format
 
@@ -20,6 +26,9 @@ show_about_dialog_from_appdata skip=false
 
 show_about_window skip=false
 show_about_window_from_appdata skip=false
+
+AlertDialog
+  .add_responses skip=false
 
 Breakpoint
   .add_setters skip=false
