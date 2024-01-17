@@ -14,7 +14,7 @@
 #include "adw-action-row.h"
 #include "adw-header-bar.h"
 #include "adw-marshalers.h"
-#include "adw-message-dialog.h"
+#include "adw-alert-dialog.h"
 #include "adw-navigation-view.h"
 #include "adw-preferences-group.h"
 #include "adw-toast-overlay.h"
@@ -1283,16 +1283,14 @@ save_debug_info_dialog_cb (GtkFileDialog  *dialog,
                              &error);
 
     if (error) {
-      GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
-      GtkWidget *message = adw_message_dialog_new (GTK_WINDOW (root),
-                                                  _("Unable to save debugging information"),
-                                                  NULL);
-      adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (message),
-                                      "%s", error->message);
-      adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (message),
-                                       "close", _("Close"));
+      AdwDialog *alert = adw_alert_dialog_new (_("Unable to save debugging information"),
+                                               NULL);
+      adw_alert_dialog_format_body (ADW_ALERT_DIALOG (alert),
+                                    "%s", error->message);
+      adw_alert_dialog_add_response (ADW_ALERT_DIALOG (alert),
+                                     "close", _("Close"));
 
-      gtk_window_present (GTK_WINDOW (message));
+      adw_dialog_present (alert, GTK_WIDGET (self));
 
       g_error_free (error);
     }
