@@ -589,7 +589,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   object_class->dispose = adw_preferences_window_dispose;
 
   /**
-   * AdwViewStack:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
+   * AdwPreferencesWindow:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
    *
    * The currently visible page.
    */
@@ -599,11 +599,11 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Property.set=adw_preferences_window_set_visible_page_name)
+   * AdwPreferencesWindow:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Property.set=adw_preferences_window_set_visible_page_name)
    *
    * The name of the currently visible page.
    *
-   * See [property@ViewStack:visible-child].
+   * See [property@PreferencesWindow:visible-page].
    */
   props[PROP_VISIBLE_PAGE_NAME] =
     g_param_spec_string ("visible-page-name", NULL, NULL,
@@ -881,7 +881,7 @@ adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
  *
  * Makes the page with the given name visible.
  *
- * See [property@ViewStack:visible-child].
+ * See [property@PreferencesWindow:visible-page].
  */
 void
 adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
