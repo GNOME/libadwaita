@@ -371,7 +371,6 @@ take_screenshot (const char *name,
   g_assert (GTK_IS_WIDGET (widget));
 
   data = g_new0 (ScreenshotData, 1);
-  data->widget = GTK_WIDGET (widget);
 
   if (GTK_IS_WINDOW (widget)) {
     window = GTK_WIDGET (widget);
@@ -388,6 +387,10 @@ take_screenshot (const char *name,
     gtk_window_set_child (GTK_WINDOW (window), button);
 
     wait = TRUE;
+  } else if (ADW_IS_DIALOG (widget)) {
+    window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+    adw_dialog_present (ADW_DIALOG (widget), window);
+    widget = G_OBJECT (window);
   } else if (gtk_widget_get_root (GTK_WIDGET (widget))) {
     window = GTK_WIDGET (gtk_widget_get_root (GTK_WIDGET (widget)));
   } else {
@@ -396,6 +399,7 @@ take_screenshot (const char *name,
     gtk_window_set_child (GTK_WINDOW (window), data->widget);
   }
 
+  data->widget = GTK_WIDGET (widget);
   data->window = window;
   data->paintable = gtk_widget_paintable_new (data->widget);
   data->name = g_file_get_path (output_file);
