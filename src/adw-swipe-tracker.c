@@ -73,6 +73,7 @@ struct _AdwSwipeTracker
   GtkOrientation orientation;
   gboolean lower_overshoot;
   gboolean upper_overshoot;
+  gboolean allow_window_handle;
 
   double pointer_x;
   double pointer_y;
@@ -105,10 +106,11 @@ enum {
   PROP_ALLOW_LONG_SWIPES,
   PROP_LOWER_OVERSHOOT,
   PROP_UPPER_OVERSHOOT,
+  PROP_ALLOW_WINDOW_HANDLE,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_UPPER_OVERSHOOT + 1,
+  LAST_PROP = PROP_ALLOW_WINDOW_HANDLE + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -524,8 +526,8 @@ gesture_cancel (AdwSwipeTracker *self,
 }
 
 static gboolean
-should_suppress_drag (AdwSwipeTracker *self,
-                      GtkWidget       *widget)
+has_window_handle (AdwSwipeTracker *self,
+                   GtkWidget       *widget)
 {
   GtkWidget *parent = widget;
   gboolean found_window_handle = FALSE;
@@ -539,6 +541,19 @@ should_suppress_drag (AdwSwipeTracker *self,
   return found_window_handle;
 }
 
+static gboolean
+should_suppress_drag (AdwSwipeTracker *self,
+                      GtkWidget       *widget)
+{
+  return !self->allow_window_handle && has_window_handle (self, widget);
+}
+
+static gboolean
+should_force_drag (AdwSwipeTracker *self,
+                   GtkWidget       *widget)
+{
+  return self->allow_window_handle && has_window_handle (self, widget);
+}
 
 static inline gboolean
 is_in_swipe_area (AdwSwipeTracker        *self,
@@ -564,6 +579,23 @@ drag_capture_begin_cb (AdwSwipeTracker *self,
                        double           start_y,
                        GtkGestureDrag  *gesture)
 {
+  GtkWidget *widget;
+
+  if (self->state != ADW_SWIPE_TRACKER_STATE_NONE) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
+                          start_x,
+                          start_y,
+                          GTK_PICK_DEFAULT);
+
+  if (should_force_drag (self, widget)) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+    return;
+  }
+
   gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
 }
 
@@ -1054,6 +1086,10 @@ adw_swipe_tracker_get_property (GObject    *object,
     g_value_set_boolean (value, adw_swipe_tracker_get_upper_overshoot (self));
     break;
 
+  case PROP_ALLOW_WINDOW_HANDLE:
+    g_value_set_boolean (value, adw_swipe_tracker_get_allow_window_handle (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -1098,6 +1134,10 @@ adw_swipe_tracker_set_property (GObject      *object,
 
   case PROP_UPPER_OVERSHOOT:
     adw_swipe_tracker_set_upper_overshoot (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_ALLOW_WINDOW_HANDLE:
+    adw_swipe_tracker_set_allow_window_handle (self, g_value_get_boolean (value));
     break;
 
   case PROP_ORIENTATION:
@@ -1200,6 +1240,20 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_UPPER_OVERSHOOT] =
     g_param_spec_boolean ("upper-overshoot", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSwipeTracker:allow-window-handle: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_window_handle org.gtk.Property.set=adw_swipe_tracker_set_allow_window_handle)
+   *
+   * Whether to allow touchscreen swiping from `GtkWindowHandle`.
+   *
+   * This will make dragging the window impossible.
+   *
+   * Since: 1.5
+   */
+  props[PROP_ALLOW_WINDOW_HANDLE] =
+    g_param_spec_boolean ("allow-window-handle", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1600,6 +1654,51 @@ adw_swipe_tracker_set_upper_overshoot (AdwSwipeTracker *self,
   self->upper_overshoot = overshoot;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_UPPER_OVERSHOOT]);
+}
+
+/**
+ * adw_swipe_tracker_get_allow_window_handle: (attributes org.gtk.Method.get_property=allow-window-handle)
+ * @self: a swipe tracker
+ *
+ * Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
+ *
+ * Returns: whether swiping from window handles is allowed
+ *
+ * Since: 1.5
+ */
+gboolean
+adw_swipe_tracker_get_allow_window_handle (AdwSwipeTracker *self)
+{
+  g_return_val_if_fail (ADW_IS_SWIPE_TRACKER (self), FALSE);
+
+  return self->allow_window_handle;
+}
+
+/**
+ * adw_swipe_tracker_set_allow_window_handle: (attributes org.gtk.Method.set_property=allow-window-handle)
+ * @self: a swipe tracker
+ * @allow_window_handle: whether to allow swiping from window handles
+ *
+ * Sets whether to allow touchscreen swiping from `GtkWindowHandle`.
+ *
+ * Setting it to `TRUE` will make dragging the window impossible.
+ *
+ * Since: 1.5
+ */
+void
+adw_swipe_tracker_set_allow_window_handle (AdwSwipeTracker *self,
+                                           gboolean         allow_window_handle)
+{
+  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
+
+  allow_window_handle = !!allow_window_handle;
+
+  if (self->allow_window_handle == allow_window_handle)
+    return;
+
+  self->allow_window_handle = allow_window_handle;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_WINDOW_HANDLE]);
 }
 
 /**

@@ -64,6 +64,12 @@ ADW_AVAILABLE_IN_1_4
 void     adw_swipe_tracker_set_upper_overshoot (AdwSwipeTracker *self,
                                                 gboolean         overshoot);
 
+ADW_AVAILABLE_IN_1_5
+gboolean adw_swipe_tracker_get_allow_window_handle (AdwSwipeTracker *self);
+ADW_AVAILABLE_IN_1_5
+void     adw_swipe_tracker_set_allow_window_handle (AdwSwipeTracker *self,
+                                                    gboolean         allow_window_handle);
+
 ADW_AVAILABLE_IN_ALL
 void adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
                                        double           delta);
