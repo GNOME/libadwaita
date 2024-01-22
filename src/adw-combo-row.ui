@@ -47,7 +47,7 @@
                     <property name="visible">False</property>
                     <property name="max-width-chars">6</property>
                     <property name="width-chars">6</property>
-                    <property name="placeholder-text" translatable="yes">Search…</property>
+                    <property name="placeholder-text" translatable="yes">Search</property>
                   </object>
                 </child>
                 <child>
