@@ -2415,7 +2415,7 @@ choose_cancelled_cb (GCancellable *cancellable,
 
 /**
  * adw_message_dialog_choose:
- * @self: (transfer full): a message dialog
+ * @self: a message dialog
  * @cancellable: (nullable): a `GCancellable` to cancel the operation
  * @callback: (scope async): a callback to call when the operation is complete
  * @user_data: (closure callback): data to pass to @callback
