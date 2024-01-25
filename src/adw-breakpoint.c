@@ -1534,11 +1534,12 @@ adw_breakpoint_set_condition (AdwBreakpoint          *self,
  * applying the breakpoint, and set it back to its original value upon
  * unapplying it.
  *
- * Note that setting properties to their original values does not work for
- * properties that have irreversible side effects. For example, changing
- * [property@Gtk.Button:label] while [property@Gtk.Button:icon-name] is set will
- * reset the icon. However, resetting the label will not set icon-name to its
- * original value.
+ * ::: note
+ *     Setting properties to their original values does not work for properties
+ *     that have irreversible side effects. For example, changing
+ *     [property@Gtk.Button:label] while [property@Gtk.Button:icon-name] is set
+ *     will reset the icon. However, resetting the label will not set
+ *     `icon-name` to its original value.
  *
  * Use the [signal@Breakpoint::apply] and [signal@Breakpoint::unapply] signals
  * for those properties instead, as follows:

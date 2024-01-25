@@ -550,7 +550,8 @@ The [`.flat`](style-classes.html#flat) and
 [`.raised`](style-classes.html#raised) style classes can always be used to
 override the default appearance.
 
-Important: the [property@Gtk.Button:has-frame] property will **not** be set to
-`FALSE` when a button gets the flat appearance automatically. It also cannot be
-set to `TRUE` to make a button raised, the style class should be used directly
-instead.
+::: important
+    The [property@Gtk.Button:has-frame] property will **not** be set to `FALSE`
+    when a button gets the flat appearance automatically. It also cannot be set
+    to `TRUE` to make a button raised, the style class should be used directly
+    instead.

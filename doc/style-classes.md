@@ -221,10 +221,11 @@ The following buttons keep default appearance:
 It also ensures 6px margins and spacing between widgets. The
 [`.spacer`](#spacers) style class can be useful to separate groups of widgets.
 
-Important: the [property@Gtk.Button:has-frame] property will **not** be set to
-`FALSE` when a button gets the flat appearance automatically. It also cannot be
-set to `TRUE` to make a button raised, the style class should be used directly
-instead.
+::: important
+    The [property@Gtk.Button:has-frame] property will **not** be set to `FALSE`
+    when a button gets the flat appearance automatically. It also cannot be set
+    to `TRUE` to make a button raised, the style class should be used directly
+    instead.
 
 # Spacers
 

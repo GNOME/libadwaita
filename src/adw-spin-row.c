@@ -550,9 +550,10 @@ adw_spin_row_new (GtkAdjustment *adjustment,
  * set to the minimum value and a page increment of 10 * @step is the default.
  * The precision of the spin row is equivalent to the precisions of @step.
  *
- * Note that the way in which the precision is derived works best if @step is a
- * power of ten. If the resulting precision is not suitable for your needs,
- * use [method@SpinRow.set_digits] to correct it.
+ * ::: note
+ *     The way in which the precision is derived works best if @step is a power
+ *     of ten. If the resulting precision is not suitable for your needs, use
+ *     [method@SpinRow.set_digits] to correct it.
  *
  * Returns: the new `AdwSpinRow`
  *
