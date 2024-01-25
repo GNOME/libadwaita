@@ -46,12 +46,19 @@ Slug: widget-gallery
   <img src="dialog-bottom.png" alt="dialog-bottom">
 </picture>](class.Dialog.html)
 
-## Message Dialog
+## Alert Dialog
 
 [<picture>
-  <source srcset="message-dialog-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="message-dialog.png" alt="message-dialog">
-</picture>](class.MessageDialog.html)
+  <source srcset="alert-dialog-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="alert-dialog.png" alt="alert-dialog">
+</picture>](class.AlertDialog.html)
+
+# About Dialog
+
+[<picture>
+  <source srcset="about-dialog-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="about-dialog.png" alt="about-dialog">
+</picture>](class.AboutDialog.html)
 
 # Boxed Lists
 
@@ -120,19 +127,12 @@ Slug: widget-gallery
   <img src="preferences-page.png" alt="preferences-page">
 </picture>](class.PreferencesPage.html)
 
-## Preferences Window
+## Preferences Dialog
 
 [<picture>
-  <source srcset="preferences-window-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="preferences-window.png" alt="preferences-window">
-</picture>](class.PreferencesWindow.html)
-
-# About Window
-
-[<picture>
-  <source srcset="about-window-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="about-window.png" alt="about-window">
-</picture>](class.AboutWindow.html)
+  <source srcset="preferences-dialog-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="preferences-dialog.png" alt="preferences-dialog">
+</picture>](class.PreferencesDialog.html)
 
 # Navigation
 

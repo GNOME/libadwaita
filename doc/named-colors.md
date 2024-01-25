@@ -588,7 +588,7 @@ Since: 1.3
 
 ## Dialog Colors
 
-These colors are used for [class@MessageDialog].
+These colors are used for [class@AlertDialog].
 
 <table>
   <tr>

@@ -25,7 +25,7 @@
  * which in turn are represented by [class@PreferencesRow].
  *
  * To summarize the role of the preferences it gathers, a group can have both a
- * title and a description. The title will be used by [class@PreferencesWindow]
+ * title and a description. The title will be used by [class@PreferencesDialog]
  * to let the user look for a preference.
  *
  * ## AdwPreferencesGroup as GtkBuildable

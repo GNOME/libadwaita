@@ -14,7 +14,7 @@
 /**
  * AdwPreferencesPage:
  *
- * A page from [class@PreferencesWindow].
+ * A page from [class@PreferencesDialog].
  *
  * <picture>
  *   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
