@@ -1057,6 +1057,8 @@ adw_dialog_get_child (AdwDialog *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.5
  */
 void
 adw_dialog_set_child (AdwDialog *self,
