@@ -677,6 +677,8 @@ adw_preferences_dialog_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwPreferencesDialog`.
  *
  * Returns: the newly created `AdwPreferencesDialog`
+ *
+ * Since: 1.5
  */
 AdwDialog *
 adw_preferences_dialog_new (void)
@@ -690,6 +692,8 @@ adw_preferences_dialog_new (void)
  * @page: the page to add
  *
  * Adds a preferences page to @self.
+ *
+ * Since: 1.5
  */
 void
 adw_preferences_dialog_add (AdwPreferencesDialog *self,
