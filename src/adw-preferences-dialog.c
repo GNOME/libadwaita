@@ -574,7 +574,7 @@ adw_preferences_dialog_class_init (AdwPreferencesDialogClass *klass)
    */
   props[PROP_SEARCH_ENABLED] =
     g_param_spec_boolean ("search-enabled", NULL, NULL,
-                          TRUE,
+                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -628,7 +628,7 @@ adw_preferences_dialog_init (AdwPreferencesDialog *self)
   GListModel *model;
   GtkExpression *expr;
 
-  priv->search_enabled = TRUE;
+  priv->search_enabled = FALSE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -644,7 +644,7 @@ adw_preferences_dialog_init (AdwPreferencesDialog *self)
   model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
   priv->filter_model = gtk_filter_list_model_new (model, priv->filter);
 
-  gtk_search_entry_set_key_capture_widget (priv->search_entry, GTK_WIDGET (self));
+  gtk_widget_set_visible (GTK_WIDGET (priv->search_button), FALSE);
 }
 
 static void

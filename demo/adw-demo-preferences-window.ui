@@ -4,6 +4,7 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPreferencesWindow" parent="AdwPreferencesDialog">
     <property name="content-height">1000</property>
+    <property name="search-enabled">True</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
@@ -205,3 +206,4 @@
     </property>
   </object>
 </interface>
+
