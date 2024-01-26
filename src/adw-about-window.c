@@ -3360,7 +3360,7 @@ adw_about_window_add_legal_section (AdwAboutWindow *self,
 }
 
 /**
- * adw_show_about_window:
+ * adw_show_about_window: (skip)
  * @parent: (nullable): the parent top-level window
  * @first_property_name: the name of the first property
  * @...: value of first property, followed by more pairs of property name and
@@ -3391,7 +3391,7 @@ adw_show_about_window (GtkWindow  *parent,
 }
 
 /**
- * adw_show_about_window_from_appdata:
+ * adw_show_about_window_from_appdata: (skip)
  * @parent: (nullable): the parent top-level window
  * @resource_path: The resource to use
  * @release_notes_version: (nullable): The version to retrieve release notes for
