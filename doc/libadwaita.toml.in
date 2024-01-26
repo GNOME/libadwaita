@@ -54,6 +54,11 @@ content_files = [
   "widget-gallery.md",
 ]
 content_images = [
+  "favicon.svg",
+  "favicon-32x32.png",
+  "favicon-128x128.png",
+  "favicon-180x180.png",
+  "favicon-192x192.png",
   "images/about-window.png",
   "images/about-window-dark.png",
   "images/about-window-credits.png",
