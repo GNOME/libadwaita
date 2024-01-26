@@ -272,7 +272,7 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
 
   sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
   sheet_y = height - round (sheet_height * self->progress);
-  sheet_height = MAX (sheet_height, height - top_padding - sheet_y);
+  sheet_height = MAX (sheet_height, height - sheet_y);
 
   if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
     align = 1 - self->align;
