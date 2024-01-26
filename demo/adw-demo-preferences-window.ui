@@ -3,6 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPreferencesWindow" parent="AdwPreferencesDialog">
+    <property name="content-height">1000</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
