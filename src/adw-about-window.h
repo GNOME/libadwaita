@@ -174,13 +174,13 @@ void adw_about_window_add_legal_section (AdwAboutWindow *self,
 ADW_AVAILABLE_IN_1_2
 void adw_show_about_window (GtkWindow  *parent,
                             const char *first_property_name,
-                            ...);
+                            ...) G_GNUC_NULL_TERMINATED;
 
 ADW_AVAILABLE_IN_1_4
 void adw_show_about_window_from_appdata (GtkWindow  *parent,
                                          const char *resource_path,
                                          const char *release_notes_version,
                                          const char *first_property_name,
-                                         ...);
+                                         ...) G_GNUC_NULL_TERMINATED;
 
 G_END_DECLS
