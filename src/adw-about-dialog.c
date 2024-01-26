@@ -3403,7 +3403,7 @@ adw_show_about_dialog (GtkWidget  *parent,
  *
  * See [ctor@AboutDialog.new_from_appdata] for details.
  *
- * Since: 1.4
+ * Since: 1.5
  */
 void
 adw_show_about_dialog_from_appdata (GtkWidget  *parent,
