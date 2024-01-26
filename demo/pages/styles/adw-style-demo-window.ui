@@ -5,7 +5,6 @@
   <template class="AdwStyleDemoWindow" parent="AdwDialog">
     <property name="title" translatable="yes">Style Classes</property>
     <property name="content-width">800</property>
-    <property name="content-height">640</property>
     <property name="width-request">360</property>
     <property name="height-request">150</property>
     <property name="child">
