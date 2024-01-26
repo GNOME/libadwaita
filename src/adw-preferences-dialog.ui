@@ -4,7 +4,6 @@
   <template class="AdwPreferencesDialog" parent="AdwDialog">
     <property name="title" translatable="yes">Preferences</property>
     <property name="content-width">640</property>
-    <property name="content-height">576</property>
     <style>
       <class name="preferences"/>
     </style>
