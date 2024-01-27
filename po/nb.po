@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-01-14 20:42+0000\n"
-"PO-Revision-Date: 2024-01-15 10:56+0100\n"
+"POT-Creation-Date: 2024-01-15 09:57+0000\n"
+"PO-Revision-Date: 2024-01-27 22:02+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -178,7 +178,7 @@ msgstr "_Feilsøking"
 
 #: src/adw-about-window.ui:201
 msgid "_Credits"
-msgstr "_Krediteringer"
+msgstr "_Skapere"
 
 #: src/adw-about-window.ui:217
 msgid "_Legal"
