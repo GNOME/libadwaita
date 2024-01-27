@@ -410,7 +410,7 @@ adw_application_window_get_dialogs (AdwApplicationWindow *self)
  *
  * Returns the currently visible dialog in @self, if there's one.
  *
- * Returns: (transfer full) (nullable): the visible dialog
+ * Returns: (transfer none) (nullable): the visible dialog
  *
  * Since: 1.5
  */
