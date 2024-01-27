@@ -55,8 +55,10 @@ gboolean adw_widget_lookup_color (GtkWidget  *widget,
                                   const char *name,
                                   GdkRGBA    *rgba);
 
-GtkWidget *adw_widget_get_ancestor_same_native (GtkWidget *widget,
-                                                GType      widget_type);
+GtkWidget *adw_widget_get_ancestor (GtkWidget *widget,
+                                    GType      widget_type,
+                                    gboolean   same_native,
+                                    gboolean   same_sheet);
 
 gboolean adw_decoration_layout_prefers_start (const char *layout);
 

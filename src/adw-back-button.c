@@ -455,7 +455,7 @@ adw_back_button_root (GtkWidget *widget)
 
   GTK_WIDGET_CLASS (adw_back_button_parent_class)->root (widget);
 
-  page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+  page = adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   while (page) {
     GtkWidget *view = gtk_widget_get_parent (page);
@@ -476,7 +476,7 @@ adw_back_button_root (GtkWidget *widget)
       self->navigation_views = g_slist_prepend (self->navigation_views, data);
     }
 
-    page = adw_widget_get_ancestor_same_native (view, ADW_TYPE_NAVIGATION_PAGE);
+    page = adw_widget_get_ancestor (view, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
   }
 
   self->navigation_views = g_slist_reverse (self->navigation_views);

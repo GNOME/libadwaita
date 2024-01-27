@@ -470,9 +470,9 @@ adw_header_bar_root (GtkWidget *widget)
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
   self->title_navigation_page =
-    adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+    adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
-  self->dialog = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_DIALOG);
+  self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
 
   if (self->title_navigation_page) {
     g_signal_connect_swapped (self->title_navigation_page, "notify::title",

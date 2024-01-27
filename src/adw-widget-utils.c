@@ -563,13 +563,16 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 GtkWidget *
-adw_widget_get_ancestor_same_native (GtkWidget *widget,
-                                     GType      widget_type)
+adw_widget_get_ancestor (GtkWidget *widget,
+                         GType      widget_type,
+                         gboolean   same_native,
+                         gboolean   same_sheet)
 {
   while (widget && !g_type_is_a (G_OBJECT_TYPE (widget), widget_type)) {
-    if (GTK_IS_NATIVE (widget) ||
-        ADW_IS_FLOATING_SHEET (widget) ||
-        ADW_IS_BOTTOM_SHEET (widget))
+    if (same_native && GTK_IS_NATIVE (widget))
+      return NULL;
+
+    if (same_sheet && (ADW_IS_FLOATING_SHEET (widget) || ADW_IS_BOTTOM_SHEET (widget)))
       return NULL;
 
     widget = gtk_widget_get_parent (widget);

@@ -1571,7 +1571,7 @@ adw_navigation_view_root (GtkWidget *widget)
 
   GTK_WIDGET_CLASS (adw_navigation_view_parent_class)->root (widget);
 
-  parent_page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+  parent_page = adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   if (parent_page)
     set_child_view (ADW_NAVIGATION_PAGE (parent_page), self);
@@ -1582,7 +1582,7 @@ adw_navigation_view_unroot (GtkWidget *widget)
 {
   GtkWidget *parent_page;
 
-  parent_page = adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
+  parent_page = adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   if (parent_page)
     set_child_view (ADW_NAVIGATION_PAGE (parent_page), NULL);
