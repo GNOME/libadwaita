@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-01-14 20:42+0000\n"
-"PO-Revision-Date: 2024-01-15 10:56+0100\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-01-27 22:04+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -178,7 +178,7 @@ msgstr "_Feilsøking"
 
 #: src/adw-about-window.ui:201
 msgid "_Credits"
-msgstr "_Krediteringer"
+msgstr "_Skapere"
 
 #: src/adw-about-window.ui:217
 msgid "_Legal"
@@ -223,7 +223,7 @@ msgid "_Copy Text"
 msgstr "_Kopier tekst"
 
 #: src/adw-about-window.ui:486
-msgid "_Save as…"
+msgid "_Save As…"
 msgstr "_Lagre som…"
 
 #: src/adw-about-window.ui:499
@@ -243,9 +243,10 @@ msgstr "Anerkjennelser"
 msgid "Back"
 msgstr "Tilbake"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Søk…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Søk"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -320,10 +321,6 @@ msgstr "Innstillinger"
 msgid "Search preferences"
 msgstr "Søk i innstillinger"
 
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Søk"
-
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Ingen resultater funnet"
@@ -371,3 +368,6 @@ msgstr "Ny _fane"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Lukk fane"
+
+#~ msgid "Search…"
+#~ msgstr "Søk…"
