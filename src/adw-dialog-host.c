@@ -277,6 +277,13 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
   for (child = gtk_widget_get_first_child (widget);
        child;
        child = gtk_widget_get_next_sibling (child)) {
+    GtkRequisition min;
+
+    gtk_widget_get_preferred_size (child, &min, NULL);
+
+    width = MAX (width, min.width);
+    height = MAX (height, min.height);
+
     gtk_widget_allocate (child, width, height, baseline, NULL);
   }
 }
