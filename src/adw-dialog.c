@@ -519,7 +519,7 @@ update_presentation_mode (AdwDialog *self)
     g_assert_not_reached ();
   }
 
-  if (had_breakpoint == (priv->portrait_breakpoint != NULL))
+  if (had_breakpoint != (priv->portrait_breakpoint != NULL))
     update_presentation (self);
 }
 
