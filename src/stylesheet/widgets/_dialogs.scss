@@ -102,3 +102,28 @@ dialog.bottom-sheet {
     }
   }
 }
+
+dialog.background {
+  background: none;
+
+  sheet {
+    background-color: $window_bg_color;
+    color: $window_fg_color;
+  }
+}
+
+dialog.view {
+  background: none;
+
+  sheet {
+    @extend %view;
+  }
+}
+
+dialog.osd {
+  background: none;
+
+  sheet {
+    @extend %osd;
+  }
+}
