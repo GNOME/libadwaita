@@ -1706,6 +1706,8 @@ find_dialog_host (GtkWidget *widget)
  *
  * Presents @self within @parent's window.
  *
+ * If @self is already shown, raises it to the top instead.
+ *
  * The window must be either an [class@Window] or [class@ApplicationWindow].
  *
  * Since: 1.5
@@ -1749,9 +1751,6 @@ adw_dialog_present (AdwDialog *self,
                   G_OBJECT_TYPE_NAME (proxy), proxy,
                   G_OBJECT_TYPE_NAME (current_proxy), current_proxy);
     }
-
-    if (!priv->closing)
-      return;
   }
 
   adw_dialog_host_present_dialog (host, self);

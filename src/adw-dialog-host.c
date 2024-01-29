@@ -482,6 +482,7 @@ adw_dialog_host_present_dialog (AdwDialogHost *self,
 {
   GtkRoot *root;
   gboolean closing;
+  guint index;
 
   g_return_if_fail (ADW_IS_DIALOG_HOST (self));
   g_return_if_fail (ADW_IS_DIALOG (dialog));
@@ -490,8 +491,31 @@ adw_dialog_host_present_dialog (AdwDialogHost *self,
 
   g_return_if_fail (GTK_IS_WINDOW (root));
 
-  if (g_ptr_array_find (self->dialogs, dialog, NULL))
+  if (g_ptr_array_find (self->dialogs, dialog, &index)) {
+    AdwDialog *last_dialog = adw_dialog_host_get_visible_dialog (self);
+
+    if (dialog == last_dialog)
+      return;
+
+    /* Raise the dialog to the top */
+    gtk_widget_insert_before (GTK_WIDGET (dialog), GTK_WIDGET (self), NULL);
+
+    adw_dialog_set_shadowed (last_dialog, TRUE);
+    adw_dialog_set_shadowed (dialog, FALSE);
+
+    g_ptr_array_remove (self->dialogs, dialog);
+    g_ptr_array_add (self->dialogs, dialog);
+
+    if (self->dialogs_model) {
+      g_list_model_items_changed (self->dialogs_model, index,
+                                  self->dialogs->len - index,
+                                  self->dialogs->len - index);
+    }
+
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_DIALOG]);
+
     return;
+  }
 
   closing = adw_dialog_get_closing (dialog);
   adw_dialog_set_closing (dialog, FALSE);
