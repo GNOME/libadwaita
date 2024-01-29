@@ -354,19 +354,31 @@ set_content_size (AdwDialog *self,
     height = priv->content_height_set ? priv->content_height : -1;
 
   if (priv->child) {
-    gtk_widget_get_preferred_size (priv->child, &min, &nat);
-  }else {
-    min.width = min.height = 0;
-    nat.width = nat.height = DEFAULT_NATURAL_SIZE;
+    if (gtk_widget_get_request_mode (priv->child) == GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT) {
+      gtk_widget_measure (priv->child, GTK_ORIENTATION_VERTICAL, -1,
+                          &min.height, &nat.height, NULL, NULL);
+
+      height = MAX (min.height, height < 0 ? nat.height : height);
+
+      gtk_widget_measure (priv->child, GTK_ORIENTATION_HORIZONTAL, height,
+                          &min.width, &nat.width, NULL, NULL);
+
+      width = MAX (min.width, width < 0 ? nat.width : width);
+    } else {
+      gtk_widget_measure (priv->child, GTK_ORIENTATION_HORIZONTAL, -1,
+                          &min.width, &nat.width, NULL, NULL);
+
+      width = MAX (min.width, width < 0 ? nat.width : width);
+
+      gtk_widget_measure (priv->child, GTK_ORIENTATION_VERTICAL, width,
+                          &min.height, &nat.height, NULL, NULL);
+
+      height = MAX (min.height, height < 0 ? nat.height : height);
+    }
+  } else {
+    width = width < 0 ? DEFAULT_NATURAL_SIZE : width;
+    height = height < 0 ? DEFAULT_NATURAL_SIZE : height;
   }
-
-  if (width < 0)
-    width = nat.width;
-  if (height < 0)
-    height = nat.height;
-
-  width = MAX (min.width, width);
-  height = MAX (min.height, height);
 
   g_object_freeze_notify (G_OBJECT (self));
 
