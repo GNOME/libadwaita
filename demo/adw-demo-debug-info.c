@@ -28,6 +28,8 @@ get_gtk_info (const char **backend,
   gsk_renderer = gsk_renderer_new_for_surface (surface);
   if (!g_strcmp0 (G_OBJECT_TYPE_NAME (gsk_renderer), "GskVulkanRenderer"))
     *renderer = "Vulkan";
+  else if (!g_strcmp0 (G_OBJECT_TYPE_NAME (gsk_renderer), "GskNglRenderer"))
+    *renderer = "NGL";
   else if (!g_strcmp0 (G_OBJECT_TYPE_NAME (gsk_renderer), "GskGLRenderer"))
     *renderer = "GL";
   else if (!g_strcmp0 (G_OBJECT_TYPE_NAME (gsk_renderer), "GskCairoRenderer"))
