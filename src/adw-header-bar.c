@@ -64,9 +64,10 @@
  * When used together with [class@NavigationView] or [class@NavigationSplitView],
  * it will also display a back button that can be used to go back to the previous
  * page. The button also has a context menu, allowing to pop multiple pages at
- * once, potentially across multiple navigation views. In rare scenarios, set
- * [property@HeaderBar:show-back-button] to `FALSE` to disable the back button
- * if it's unwanted (e.g. in an extra header bar on the same page).
+ * once, potentially across multiple navigation views.
+ *
+ * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
+ * in rare scenarios where it's unwanted.
  *
  * ## Split View Integration
  *
