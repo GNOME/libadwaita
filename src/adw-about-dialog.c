@@ -381,8 +381,9 @@ activate_link_default_cb (AdwAboutDialog *self,
                           const char     *uri)
 {
   GtkUriLauncher *launcher = gtk_uri_launcher_new (uri);
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
 
-  gtk_uri_launcher_launch (launcher, GTK_WINDOW (self), NULL, NULL, NULL);
+  gtk_uri_launcher_launch (launcher, GTK_WINDOW (root), NULL, NULL, NULL);
 
   g_object_unref (launcher);
 
