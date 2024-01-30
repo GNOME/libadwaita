@@ -711,8 +711,12 @@ adw_breakpoint_bin_set_child (AdwBreakpointBin *self,
 
   priv->child = child;
 
-  if (child)
+  if (child) {
     gtk_widget_set_parent (child, GTK_WIDGET (self));
+
+    if (priv->old_node)
+      gtk_widget_set_child_visible (child, FALSE);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
 }
