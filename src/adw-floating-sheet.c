@@ -130,7 +130,7 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
 {
   AdwFloatingSheet *self = ADW_FLOATING_SHEET (widget);
   GskTransform *transform;
-  int sheet_x, sheet_y, sheet_height, sheet_width;
+  int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
   int horz_padding, vert_padding;
   float scale;
 
@@ -151,14 +151,14 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
                                              VERT_PADDING_MIN_HEIGHT)));
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      NULL, &sheet_width, NULL, NULL);
+                      &sheet_min_width, &sheet_width, NULL, NULL);
 
-  sheet_width = MIN (sheet_width, width - horz_padding * 2);
+  sheet_width = MAX (sheet_min_width, MIN (sheet_width, width - horz_padding * 2));
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
-                      NULL, &sheet_height, NULL, NULL);
+                      &sheet_min_height, &sheet_height, NULL, NULL);
 
-  sheet_height = MIN (sheet_height, height - vert_padding * 2);
+  sheet_height = MAX (sheet_min_height, MIN (sheet_height, height - vert_padding * 2));
 
   sheet_x = round ((width - sheet_width) * 0.5);
   sheet_y = round ((height - sheet_height) * 0.5);
