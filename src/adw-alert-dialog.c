@@ -354,25 +354,29 @@ adw_alert_dialog_map (GtkWidget *widget)
   /* The rest of the function was copied from gtkdialog.c */
   focus = adw_dialog_get_focus (ADW_DIALOG (self));
   if (!focus) {
+    GtkWidget *extra_child = adw_alert_dialog_get_extra_child (self);
     GtkWidget *first_focus = NULL;
     GList *l;
 
-    do {
-      g_signal_emit_by_name (self, "move_focus", GTK_DIR_TAB_FORWARD);
+    if (extra_child) {
+      do {
+        g_signal_emit_by_name (extra_child, "move-focus", GTK_DIR_TAB_FORWARD);
 
-      focus = adw_dialog_get_focus (ADW_DIALOG (self));
-      if (GTK_IS_LABEL (focus) &&
-          !gtk_label_get_current_uri (GTK_LABEL (focus)))
-        gtk_label_select_region (GTK_LABEL (focus), 0, 0);
+        focus = adw_dialog_get_focus (ADW_DIALOG (self));
 
-      if (first_focus == NULL)
-        first_focus = focus;
-      else if (first_focus == focus)
-        break;
+        if (GTK_IS_LABEL (focus) &&
+            !gtk_label_get_current_uri (GTK_LABEL (focus)))
+          gtk_label_select_region (GTK_LABEL (focus), 0, 0);
 
-      if (!GTK_IS_LABEL (focus))
-        break;
-    } while (TRUE);
+        if (first_focus == NULL)
+          first_focus = focus;
+        else if (first_focus == focus)
+          break;
+
+        if (!GTK_IS_LABEL (focus))
+          break;
+      } while (TRUE);
+    }
 
     default_widget = adw_dialog_get_default_widget (ADW_DIALOG (self));
     for (l = priv->responses; l; l = l->next) {
