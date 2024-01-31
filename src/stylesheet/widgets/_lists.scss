@@ -384,7 +384,7 @@ row.expander {
     @extend .dim-label;
 
     transition: -gtk-icon-transform 200ms $ease-out-quad;
-    @include margin-start(6px);
+    @include margin-start(3px);
 
     &:dir(ltr) {
       -gtk-icon-transform: rotate(0.5turn);
