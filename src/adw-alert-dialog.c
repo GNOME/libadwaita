@@ -11,6 +11,7 @@
 
 #include "adw-alert-dialog.h"
 
+#include "adw-dialog-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-gtkbuilder-utils-private.h"
 #include "adw-marshalers.h"
@@ -341,8 +342,14 @@ adw_alert_dialog_map (GtkWidget *widget)
   AdwAlertDialog *self = ADW_ALERT_DIALOG (widget);
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
   GtkWidget *focus, *default_widget;
+  GtkWidget *window;
 
   GTK_WIDGET_CLASS (adw_alert_dialog_parent_class)->map (widget);
+
+  window = adw_dialog_get_window (ADW_DIALOG (self));
+
+  if (window)
+    gtk_widget_add_css_class (window, "alert");
 
   /* The rest of the function was copied from gtkdialog.c */
   focus = adw_dialog_get_focus (ADW_DIALOG (self));
@@ -2239,7 +2246,7 @@ choose_cancelled_cb (GCancellable *cancellable,
 /**
  * adw_alert_dialog_choose:
  * @self: an alert dialog
- * @parent: the parent widget
+ * @parent: (nullable): the parent widget
  * @cancellable: (nullable): a `GCancellable` to cancel the operation
  * @callback: (scope async): a callback to call when the operation is complete
  * @user_data: (closure callback): data to pass to @callback
@@ -2248,6 +2255,9 @@ choose_cancelled_cb (GCancellable *cancellable,
  *
  * The @callback will be called when the alert is dismissed. It should call
  * [method@AlertDialog.choose_finish] to obtain the result.
+ *
+ * If the window is an [class@Window] or [class@ApplicationWindow], the dialog
+ * will be shown within it. Otherwise, it will be a separate window.
  *
  * Since: 1.5
  */
@@ -2261,6 +2271,7 @@ adw_alert_dialog_choose (AdwAlertDialog      *self,
   GTask *task;
 
   g_return_if_fail (ADW_IS_ALERT_DIALOG (self));
+  g_return_if_fail (parent == NULL || GTK_IS_WIDGET (parent));
 
   task = g_task_new (self, cancellable, callback, user_data);
   g_task_set_source_tag (task, adw_alert_dialog_choose);

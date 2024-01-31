@@ -28,4 +28,6 @@ gboolean adw_dialog_get_closing (AdwDialog *self);
 void     adw_dialog_set_closing (AdwDialog *self,
                                  gboolean   closing);
 
+GtkWidget *adw_dialog_get_window (AdwDialog *self);
+
 G_END_DECLS

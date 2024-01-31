@@ -14,6 +14,7 @@
 #include "adw-breakpoint-bin-private.h"
 #include "adw-dialog-host-private.h"
 #include "adw-floating-sheet-private.h"
+#include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
@@ -136,6 +137,9 @@ typedef struct
   GFunc closing_callback;
   GFunc remove_callback;
   gpointer user_data;
+
+  GtkWidget *window;
+  gboolean force_closing;
 } AdwDialogPrivate;
 
 static void adw_dialog_buildable_init (GtkBuildableIface *iface);
@@ -183,7 +187,7 @@ map_tick_cb (AdwDialog *self)
   if (priv->ticks == 2) {
     if (priv->bottom_sheet)
       adw_bottom_sheet_set_open (priv->bottom_sheet, TRUE);
-    else
+    else if (priv->floating_sheet)
       adw_floating_sheet_set_open (priv->floating_sheet, TRUE);
 
     gtk_widget_grab_focus (GTK_WIDGET (self));
@@ -334,6 +338,9 @@ update_natural_size (AdwDialog *self)
 
   adw_breakpoint_bin_set_natural_size (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),
                                        width, height);
+
+  if (priv->window)
+    gtk_window_set_default_size (GTK_WINDOW (priv->window), width, height);
 }
 
 static void
@@ -408,6 +415,9 @@ update_presentation (AdwDialog *self)
   gboolean use_bottom_sheet;
   GtkRoot *root;
   GtkWidget *focus = NULL;
+
+  if (priv->window)
+    return;
 
   g_object_ref (priv->child_breakpoint_bin);
 
@@ -502,6 +512,9 @@ update_presentation_mode (AdwDialog *self)
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   gboolean had_breakpoint = (priv->portrait_breakpoint != NULL);
 
+  if (priv->window)
+    return;
+
   switch (priv->presentation_mode) {
   case ADW_DIALOG_AUTO:
     g_assert (!priv->portrait_breakpoint);
@@ -547,6 +560,64 @@ default_activate_cb (AdwDialog *self)
     gtk_widget_activate (priv->focus_widget);
 }
 
+static gboolean
+window_close_request_cb (AdwDialog *self)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+
+  if (priv->force_closing)
+    return GDK_EVENT_PROPAGATE;
+
+  if (adw_dialog_close (self))
+    return GDK_EVENT_PROPAGATE;
+
+  return GDK_EVENT_STOP;
+}
+
+static void
+present_as_window (AdwDialog *self,
+                   GtkWidget *parent)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+  GtkWidget *titlebar;
+
+  if (priv->window) {
+    gtk_window_present (GTK_WINDOW (priv->window));
+    return;
+  }
+
+  gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
+
+  priv->window = gtk_window_new ();
+  gtk_window_set_resizable (GTK_WINDOW (priv->window), FALSE);
+  gtk_widget_add_css_class (priv->window, "dialog-window");
+
+  if (parent) {
+    GtkRoot *root = gtk_widget_get_root (parent);
+
+    if (GTK_IS_WINDOW (root)) {
+      gtk_window_set_modal (GTK_WINDOW (priv->window), TRUE);
+      gtk_window_set_transient_for (GTK_WINDOW (priv->window), GTK_WINDOW (root));
+    }
+  }
+
+  titlebar = adw_gizmo_new_with_role ("nothing", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                      NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_visible (titlebar, FALSE);
+  gtk_window_set_titlebar (GTK_WINDOW (priv->window), titlebar);
+
+  gtk_widget_set_parent (priv->child_breakpoint_bin, GTK_WIDGET (self));
+  gtk_window_set_child (GTK_WINDOW (priv->window), GTK_WIDGET (self));
+
+  g_object_bind_property (self, "title",          priv->window, "title",          G_BINDING_SYNC_CREATE);
+  g_object_bind_property (self, "focus-widget",   priv->window, "focus-widget",   G_BINDING_SYNC_CREATE);
+  g_object_bind_property (self, "default-widget", priv->window, "default-widget", G_BINDING_SYNC_CREATE);
+
+  g_signal_connect_swapped (priv->window, "close-request", G_CALLBACK (window_close_request_cb), self);
+
+  gtk_window_present (GTK_WINDOW (priv->window));
+}
+
 static void
 adw_dialog_root (GtkWidget *widget)
 {
@@ -584,6 +655,9 @@ adw_dialog_map (GtkWidget *widget)
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
   GTK_WIDGET_CLASS (adw_dialog_parent_class)->map (widget);
+
+  if (priv->window)
+    return;
 
   priv->tick_cb_id = gtk_widget_add_tick_callback (GTK_WIDGET (self),
                                                    (GtkTickCallback) map_tick_cb,
@@ -638,10 +712,25 @@ adw_dialog_dispose (GObject *object)
     priv->default_widget = NULL;
   }
 
-  g_clear_pointer (&priv->bin, gtk_widget_unparent);
-  priv->bottom_sheet = NULL;
-  priv->floating_sheet = NULL;
-  priv->child = NULL;
+  if (priv->bin) {
+    /* It's an in-window dialog */
+    g_clear_pointer (&priv->bin, gtk_widget_unparent);
+    priv->bottom_sheet = NULL;
+    priv->floating_sheet = NULL;
+    priv->child_breakpoint_bin = NULL;
+    priv->child = NULL;
+  } else if (priv->window) {
+    /* It's an window-backed dialog */
+    g_clear_pointer (&priv->child_breakpoint_bin, gtk_widget_unparent);
+    priv->child = NULL;
+  } else {
+    /* It hasn't been presented so we have a floating child breakpoint bin */
+    if (priv->child_breakpoint_bin)
+      g_object_ref_sink (priv->child_breakpoint_bin);
+
+    g_clear_object (&priv->child_breakpoint_bin);
+    priv->child = NULL;
+  }
 
   G_OBJECT_CLASS (adw_dialog_parent_class)->dispose (object);
 }
@@ -865,6 +954,8 @@ adw_dialog_class_init (AdwDialogClass *klass)
    * present it a floating window or a bottom sheet respectively, regardless of
    * available size.
    *
+   * Presentation mode does nothing for dialogs presented as a window.
+   *
    * Since: 1.5
    */
   props[PROP_PRESENTATION_MODE] =
@@ -980,15 +1071,6 @@ adw_dialog_init (AdwDialog *self)
   priv->follows_content_size = FALSE;
   priv->presentation_mode = ADW_DIALOG_AUTO;
 
-  priv->bin = adw_breakpoint_bin_new ();
-  adw_breakpoint_bin_set_pass_through (ADW_BREAKPOINT_BIN (priv->bin), TRUE);
-  adw_breakpoint_bin_set_warnings (ADW_BREAKPOINT_BIN (priv->bin), FALSE, TRUE);
-
-  gtk_widget_set_parent (priv->bin, GTK_WIDGET (self));
-
-  g_signal_connect_swapped (priv->bin, "notify::current-breakpoint",
-                            G_CALLBACK (update_presentation), self);
-
   priv->child_breakpoint_bin = adw_breakpoint_bin_new ();
   adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),
                                          GTK_WIDGET (self));
@@ -998,9 +1080,6 @@ adw_dialog_init (AdwDialog *self)
   g_object_bind_property (self, "height-request",
                           priv->child_breakpoint_bin, "height-request",
                           G_BINDING_DEFAULT);
-
-  update_presentation_mode (self);
-  update_presentation (self);
 }
 
 static void
@@ -1398,6 +1477,8 @@ adw_dialog_get_presentation_mode (AdwDialog *self)
  * present it a floating window or a bottom sheet respectively, regardless of
  * available size.
  *
+ * Presentation mode does nothing for dialogs presented as a window.
+ *
  * Since: 1.5
  */
 void
@@ -1605,7 +1686,10 @@ adw_dialog_close (AdwDialog *self)
     return FALSE;
   }
 
-  adw_dialog_force_close (self);
+  if (priv->window)
+    gtk_window_close (GTK_WINDOW (priv->window));
+  else
+    adw_dialog_force_close (self);
 
   return TRUE;
 }
@@ -1632,10 +1716,14 @@ adw_dialog_force_close (AdwDialog *self)
 
   g_object_ref (self);
 
+  priv->force_closing = TRUE;
+
   if (priv->bottom_sheet)
     adw_bottom_sheet_set_open (priv->bottom_sheet, FALSE);
-  else
+  else if (priv->floating_sheet)
     adw_floating_sheet_set_open (priv->floating_sheet, FALSE);
+  else if (priv->window)
+    gtk_window_close (GTK_WINDOW (priv->window));
 
   g_object_unref (self);
 }
@@ -1714,13 +1802,14 @@ find_dialog_host (GtkWidget *widget)
 /**
  * adw_dialog_present:
  * @self: a dialog
- * @parent: a widget within the toplevel
+ * @parent: (nullable): a widget within the toplevel
  *
  * Presents @self within @parent's window.
  *
  * If @self is already shown, raises it to the top instead.
  *
- * The window must be either an [class@Window] or [class@ApplicationWindow].
+ * If the window is an [class@Window] or [class@ApplicationWindow], the dialog
+ * will be shown within it. Otherwise, it will be a separate window.
  *
  * Since: 1.5
  */
@@ -1729,22 +1818,56 @@ adw_dialog_present (AdwDialog *self,
                     GtkWidget *parent)
 {
   AdwDialogPrivate *priv;
-  AdwDialogHost *host, *current_host;
+  AdwDialogHost *host = NULL, *current_host;
 
   g_return_if_fail (ADW_IS_DIALOG (self));
-  g_return_if_fail (GTK_IS_WIDGET (parent));
+  g_return_if_fail (parent == NULL || GTK_IS_WIDGET (parent));
 
   priv = adw_dialog_get_instance_private (self);
 
-  host = find_dialog_host (parent);
-  current_host = find_dialog_host (GTK_WIDGET (self));
+  if (parent) {
+    GtkRoot *root = gtk_widget_get_root (parent);
+
+    host = find_dialog_host (parent);
+
+    if (GTK_IS_WINDOW (root) && !gtk_window_get_resizable (GTK_WINDOW (root)))
+      host = NULL;
+  }
 
   if (host == NULL) {
-    g_critical ("Cannot find a dialog host for %s %p, make sure it's within an "
-                "AdwWindow or AdwApplicationWindow",
-                G_OBJECT_TYPE_NAME (parent), parent);
+    current_host = find_dialog_host (GTK_WIDGET (self));
+
+    if (current_host) {
+      GtkWidget *current_proxy = adw_dialog_host_get_proxy (current_host);
+
+      if (!current_proxy)
+        current_proxy = GTK_WIDGET (current_host);
+
+      g_critical ("Cannot present %s %p as it's already presented for %s %p",
+                  G_OBJECT_TYPE_NAME (self), self,
+                  G_OBJECT_TYPE_NAME (current_proxy), current_proxy);
+      return;
+    }
+
+    present_as_window (self, parent);
     return;
   }
+
+  if (!priv->bin) {
+    priv->bin = adw_breakpoint_bin_new ();
+    adw_breakpoint_bin_set_pass_through (ADW_BREAKPOINT_BIN (priv->bin), TRUE);
+    adw_breakpoint_bin_set_warnings (ADW_BREAKPOINT_BIN (priv->bin), FALSE, TRUE);
+
+    gtk_widget_set_parent (priv->bin, GTK_WIDGET (self));
+
+    g_signal_connect_swapped (priv->bin, "notify::current-breakpoint",
+                              G_CALLBACK (update_presentation), self);
+
+    update_presentation_mode (self);
+    update_presentation (self);
+  }
+
+  current_host = find_dialog_host (GTK_WIDGET (self));
 
   if (current_host) {
     if (current_host != host) {
@@ -1770,7 +1893,7 @@ adw_dialog_present (AdwDialog *self,
   if (!priv->first_map) {
     if (priv->bottom_sheet)
       adw_bottom_sheet_set_open (priv->bottom_sheet, TRUE);
-    else
+    else if (priv->floating_sheet)
       adw_floating_sheet_set_open (priv->floating_sheet, TRUE);
   }
 
@@ -1848,4 +1971,16 @@ adw_dialog_set_closing (AdwDialog *self,
   priv = adw_dialog_get_instance_private (self);
 
   priv->closing = closing;
+}
+
+GtkWidget *
+adw_dialog_get_window (AdwDialog *self)
+{
+  AdwDialogPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_DIALOG (self), NULL);
+
+  priv = adw_dialog_get_instance_private (self);
+
+  return priv->window;
 }

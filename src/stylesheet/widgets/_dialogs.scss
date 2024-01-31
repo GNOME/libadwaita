@@ -103,7 +103,7 @@ dialog.bottom-sheet {
   }
 }
 
-dialog.background {
+dialog-host > dialog.background {
   background: none;
 
   sheet {
@@ -112,7 +112,7 @@ dialog.background {
   }
 }
 
-dialog.view {
+dialog-host > dialog.view {
   background: none;
 
   sheet {
@@ -120,7 +120,7 @@ dialog.view {
   }
 }
 
-dialog.osd {
+dialog-host > dialog.osd {
   background: none;
 
   sheet {
