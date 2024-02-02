@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2021 Purism SPC
+ * Copyright (C) 2024 GNOME Foundation, Inc.
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  *
@@ -126,26 +127,24 @@ changed_cb (GDBusProxy            *proxy,
 
   g_variant_get (parameters, "(&s&sv)", &namespace, &name, &value);
 
-  if (!g_strcmp0 (namespace, "org.freedesktop.appearance") &&
-      !g_strcmp0 (name, "color-scheme") &&
-      self->found_color_scheme) {
-    adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
-                                        get_fdo_color_scheme (value));
+  if (!g_strcmp0 (namespace, "org.freedesktop.appearance")) {
+    if (!g_strcmp0 (name, "color-scheme") && self->found_color_scheme) {
+      adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
+                                          get_fdo_color_scheme (value));
 
-    g_variant_unref (value);
+      g_variant_unref (value);
 
-    return;
-  }
+      return;
+    }
 
-  if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
-      !g_strcmp0 (name, "high-contrast") &&
-      self->found_high_contrast) {
-    adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
-                                         g_variant_get_boolean (value));
+    if (!g_strcmp0 (name, "contrast") && self->found_high_contrast) {
+      adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
+                                           g_variant_get_uint32 (value) == 1);
 
-    g_variant_unref (value);
+      g_variant_unref (value);
 
-    return;
+      return;
+    }
   }
 
   g_variant_unref (value);
@@ -213,12 +212,12 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
   }
 
   if (enable_high_contrast &&
-      read_setting (self, "org.gnome.desktop.a11y.interface",
-                    "high-contrast", "b", &variant)) {
+      read_setting (self, "org.freedesktop.appearance",
+                    "contrast", "u", &variant)) {
     self->found_high_contrast = TRUE;
 
     adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
-                                         g_variant_get_boolean (variant));
+                                         g_variant_get_uint32 (variant) == 1);
 
     g_variant_unref (variant);
   }
