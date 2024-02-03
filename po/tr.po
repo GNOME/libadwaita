@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-09-27 15:38+0000\n"
-"PO-Revision-Date: 2023-10-04 22:52+0300\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-01-23 02:01+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -111,15 +111,15 @@ msgstr "Çeviren"
 #: src/adw-about-window.c:570
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
-"Bu program kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a "
-"href=\"%s\">%s</a> bağlantısına bakın."
+"Bu uygulama kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a href=\"%s"
+"\">%s</a> bağlantısına bakın."
 
 #: src/adw-about-window.c:648
 msgid "This Application"
-msgstr "Uygulama"
+msgstr "Bu Uygulama"
 
 #: src/adw-about-window.c:950
 #, c-format
@@ -247,9 +247,10 @@ msgstr "Teşekkürler"
 msgid "Back"
 msgstr "Geri"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Ara…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Ara"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -261,11 +262,11 @@ msgstr "Yeğsiz"
 
 #: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
-msgstr "Karanlığı Yeğle"
+msgstr "Koyu Yeğle"
 
 #: src/adw-inspector-page.c:79
 msgid "Prefer Light"
-msgstr "Aydınlığı Yeğle"
+msgstr "Açık Yeğle"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:97
@@ -313,7 +314,7 @@ msgstr "Parolayı _Göster"
 
 #: src/adw-preferences-window.c:259
 msgid "Untitled page"
-msgstr "Adsız sayfa"
+msgstr "Başlıksız sayfa"
 
 #: src/adw-preferences-window.ui:8
 msgid "Preferences"
@@ -322,10 +323,6 @@ msgstr "Tercihler"
 #: src/adw-preferences-window.ui:81
 msgid "Search preferences"
 msgstr "Tercihleri ara"
-
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Ara"
 
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
@@ -344,7 +341,7 @@ msgid "View Open Tabs"
 msgstr "Açık Sekmeleri Gör"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:922
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -373,3 +370,6 @@ msgstr "Yeni _Sekme"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
+
+#~ msgid "Search…"
+#~ msgstr "Ara…"
