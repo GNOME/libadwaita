@@ -2047,7 +2047,7 @@ adw_about_window_new_from_appdata (const char *resource_path,
   support_url = as_component_get_url (component, AS_URL_KIND_HELP);
   website_url = as_component_get_url (component, AS_URL_KIND_HOMEPAGE);
 
-#if AS_CHECK_VERSION (1, 0, 0)
+#if AS_CHECK_VERSION (0, 16, 4)
   developer_name = as_developer_get_name (as_component_get_developer (component));
 #else
   developer_name = as_component_get_developer_name (component);
