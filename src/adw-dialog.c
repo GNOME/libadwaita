@@ -618,6 +618,102 @@ present_as_window (AdwDialog *self,
   gtk_window_present (GTK_WINDOW (priv->window));
 }
 
+static gboolean
+activate_focus_cb (AdwDialog *self)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+  GtkRoot *root;
+
+  if (priv->window)
+    return GDK_EVENT_PROPAGATE;
+
+  root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  if (!GTK_IS_WINDOW (root))
+    return GDK_EVENT_PROPAGATE;
+
+  g_signal_emit_by_name (root, "activate-focus");
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+activate_default_cb (AdwDialog *self)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+  GtkRoot *root;
+
+  if (priv->window)
+    return GDK_EVENT_PROPAGATE;
+
+  root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  if (!GTK_IS_WINDOW (root))
+    return GDK_EVENT_PROPAGATE;
+
+  g_signal_emit_by_name (root, "activate-default");
+
+  return GDK_EVENT_STOP;
+}
+
+static void
+add_tab_bindings (GtkWidgetClass   *widget_class,
+                  GdkModifierType   modifiers,
+                  GtkDirectionType  direction)
+{
+  GtkShortcut *shortcut;
+
+  shortcut = gtk_shortcut_new_with_arguments (
+                 gtk_alternative_trigger_new (gtk_keyval_trigger_new (GDK_KEY_Tab, modifiers),
+                                              gtk_keyval_trigger_new (GDK_KEY_KP_Tab, modifiers)),
+                 gtk_signal_action_new ("move-focus"),
+                 "(i)", direction);
+
+  gtk_widget_class_add_shortcut (widget_class, shortcut);
+
+  g_object_unref (shortcut);
+}
+
+static void
+add_arrow_bindings (GtkWidgetClass   *widget_class,
+                    guint             keysym,
+                    GtkDirectionType  direction)
+{
+  guint keypad_keysym = keysym - GDK_KEY_Left + GDK_KEY_KP_Left;
+
+  gtk_widget_class_add_binding_signal (widget_class, keysym, 0,
+                                       "move-focus", "(i)", direction);
+  gtk_widget_class_add_binding_signal (widget_class, keysym, GDK_CONTROL_MASK,
+                                       "move-focus", "(i)", direction);
+  gtk_widget_class_add_binding_signal (widget_class, keypad_keysym, 0,
+                                       "move-focus", "(i)", direction);
+  gtk_widget_class_add_binding_signal (widget_class, keypad_keysym, GDK_CONTROL_MASK,
+                                       "move-focus", "(i)", direction);
+}
+
+static gboolean
+open_inspector_cb (AdwDialog *self,
+                   GVariant  *args)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+  GtkRoot *root;
+  gboolean preselect_widget, ret;
+
+  if (priv->window)
+    return GDK_EVENT_PROPAGATE;
+
+  root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  if (!GTK_IS_WINDOW (root))
+    return GDK_EVENT_PROPAGATE;
+
+  preselect_widget = g_variant_get_boolean (args);
+
+  g_signal_emit_by_name (root, "enable-debugging", preselect_widget, &ret);
+
+  return ret;
+}
+
 static void
 adw_dialog_root (GtkWidget *widget)
 {
@@ -1058,11 +1154,38 @@ adw_dialog_class_init (AdwDialogClass *klass)
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__VOIDv);
 
-  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0,
-                                (GtkShortcutFunc) adw_dialog_close, NULL);
-
   gtk_widget_class_install_action (widget_class, "default.activate", NULL,
                                    (GtkWidgetActionActivateFunc) default_activate_cb);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_space, 0,
+                                (GtkShortcutFunc) activate_focus_cb, NULL);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_KP_Space, 0,
+                                (GtkShortcutFunc) activate_focus_cb, NULL);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Return, 0,
+                                (GtkShortcutFunc) activate_default_cb, NULL);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_ISO_Enter, 0,
+                                (GtkShortcutFunc) activate_default_cb, NULL);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_KP_Enter, 0,
+                                (GtkShortcutFunc) activate_default_cb, NULL);
+
+  add_arrow_bindings (widget_class, GDK_KEY_Up,    GTK_DIR_UP);
+  add_arrow_bindings (widget_class, GDK_KEY_Down,  GTK_DIR_DOWN);
+  add_arrow_bindings (widget_class, GDK_KEY_Left,  GTK_DIR_LEFT);
+  add_arrow_bindings (widget_class, GDK_KEY_Right, GTK_DIR_RIGHT);
+
+  add_tab_bindings (widget_class, 0,                                 GTK_DIR_TAB_FORWARD);
+  add_tab_bindings (widget_class, GDK_CONTROL_MASK,                  GTK_DIR_TAB_FORWARD);
+  add_tab_bindings (widget_class, GDK_SHIFT_MASK,                    GTK_DIR_TAB_BACKWARD);
+  add_tab_bindings (widget_class, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GTK_DIR_TAB_BACKWARD);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_I, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                                (GtkShortcutFunc) open_inspector_cb, "b", FALSE);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                                (GtkShortcutFunc) open_inspector_cb, "b", TRUE);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0,
+                                (GtkShortcutFunc) adw_dialog_close, NULL);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "dialog");

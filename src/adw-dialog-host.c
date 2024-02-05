@@ -204,6 +204,15 @@ dialog_remove_cb (AdwDialog     *dialog,
     gtk_widget_unparent (GTK_WIDGET (dialog));
 }
 
+static gboolean
+key_pressed_cb (AdwDialogHost *self)
+{
+  if (self->dialogs->len == 0)
+    return GDK_EVENT_PROPAGATE;
+
+  return GDK_EVENT_STOP;
+}
+
 static void
 adw_dialog_host_root (GtkWidget *widget)
 {
@@ -410,12 +419,18 @@ adw_dialog_host_class_init (AdwDialogHostClass *klass)
 static void
 adw_dialog_host_init (AdwDialogHost *self)
 {
+  GtkEventController *controller;
+
   self->dialogs = g_ptr_array_new ();
 
   self->dialogs_closed_during_unmap = g_ptr_array_new ();
 
   self->bin = adw_bin_new ();
   gtk_widget_set_parent (self->bin, GTK_WIDGET (self));
+
+  controller = gtk_event_controller_key_new ();
+  g_signal_connect_swapped (controller, "key-pressed", G_CALLBACK (key_pressed_cb), self);
+  gtk_widget_add_controller (GTK_WIDGET (self), controller);
 }
 
 static void
