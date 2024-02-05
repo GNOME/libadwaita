@@ -1203,6 +1203,16 @@ adw_about_window_set_property (GObject      *object,
 }
 
 static void
+adw_about_window_dispose (GObject *object)
+{
+  AdwAboutWindow *self = ADW_ABOUT_WINDOW (object);
+
+  g_clear_handle_id (&self->legal_showing_idle_id, g_source_remove);
+
+  G_OBJECT_CLASS (adw_about_window_parent_class)->dispose (object);
+}
+
+static void
 adw_about_window_finalize (GObject *object)
 {
   AdwAboutWindow *self = ADW_ABOUT_WINDOW (object);
@@ -1355,6 +1365,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->dispose = adw_about_window_dispose;
   object_class->finalize = adw_about_window_finalize;
   object_class->get_property = adw_about_window_get_property;
   object_class->set_property = adw_about_window_set_property;
