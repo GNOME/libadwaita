@@ -622,7 +622,9 @@ static void
 adw_dialog_root (GtkWidget *widget)
 {
   AdwDialog *self = ADW_DIALOG (widget);
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkRoot *root;
+  GtkWidget *parent;
 
   GTK_WIDGET_CLASS (adw_dialog_parent_class)->root (widget);
 
@@ -632,6 +634,14 @@ adw_dialog_root (GtkWidget *widget)
 
   if (!GTK_IS_WINDOW (root))
     return;
+
+  parent = gtk_widget_get_parent (widget);
+
+  if (parent != priv->window && !ADW_IS_DIALOG_HOST (parent)) {
+    g_error ("Trying to add %s %p to %s %p. Use adw_dialog_present() to show dialogs.",
+              G_OBJECT_TYPE_NAME (self), self,
+              G_OBJECT_TYPE_NAME (parent), parent);
+  }
 
   g_signal_connect_swapped (root, "notify::focus-widget",
                             G_CALLBACK (window_notify_focus_cb), self);
