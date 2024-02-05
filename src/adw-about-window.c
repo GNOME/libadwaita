@@ -293,6 +293,8 @@ struct _AdwAboutWindow {
   GtkLicense license_type;
   GSList *legal_sections;
   gboolean has_custom_links;
+
+  guint legal_showing_idle_id;
 };
 
 G_DEFINE_FINAL_TYPE (AdwAboutWindow, adw_about_window, ADW_TYPE_WINDOW)
@@ -386,6 +388,24 @@ activate_link_default_cb (AdwAboutWindow *self,
   g_object_unref (launcher);
 
   return GDK_EVENT_STOP;
+}
+
+static void
+legal_showing_idle_cb (AdwAboutWindow *self)
+{
+  GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW (self));
+
+  if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
+    gtk_label_select_region (GTK_LABEL (focus), 0, 0);
+
+  self->legal_showing_idle_id = 0;
+}
+
+static void
+legal_showing_cb (AdwAboutWindow *self)
+{
+  self->legal_showing_idle_id =
+    g_idle_add_once ((GSourceOnceFunc) legal_showing_idle_cb, self);
 }
 
 static gboolean
@@ -1842,6 +1862,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, acknowledgements_box);
 
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_showing_cb);
 
   gtk_widget_class_install_action (widget_class, "about.show-url", "s",
                                    (GtkWidgetActionActivateFunc) show_url_cb);
