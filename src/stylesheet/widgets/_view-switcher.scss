@@ -4,6 +4,7 @@ viewswitcher {
   &.narrow {
     margin-top: -3px;
     margin-bottom: -3px;
+    min-height: 6px;
   }
 
   button.toggle {
