@@ -294,6 +294,8 @@ struct _AdwAboutDialog {
   GtkLicense license_type;
   GSList *legal_sections;
   gboolean has_custom_links;
+
+  guint legal_showing_idle_id;
 };
 
 G_DEFINE_FINAL_TYPE (AdwAboutDialog, adw_about_dialog, ADW_TYPE_DIALOG)
@@ -388,6 +390,24 @@ activate_link_default_cb (AdwAboutDialog *self,
   g_object_unref (launcher);
 
   return GDK_EVENT_STOP;
+}
+
+static void
+legal_showing_idle_cb (AdwAboutDialog *self)
+{
+  GtkWidget *focus = adw_dialog_get_focus (ADW_DIALOG (self));
+
+  if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
+    gtk_label_select_region (GTK_LABEL (focus), 0, 0);
+}
+
+static void
+legal_showing_cb (AdwAboutDialog *self)
+{
+  self->legal_showing_idle_id =
+    g_idle_add_once ((GSourceOnceFunc) legal_showing_idle_cb, self);
+
+  self->legal_showing_idle_id = 0;
 }
 
 static gboolean
@@ -1185,6 +1205,16 @@ adw_about_dialog_set_property (GObject      *object,
 }
 
 static void
+adw_about_dialog_dispose (GObject *object)
+{
+  AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
+
+  g_clear_handle_id (&self->legal_showing_idle_id, g_source_remove);
+
+  G_OBJECT_CLASS (adw_about_dialog_parent_class)->dispose (object);
+}
+
+static void
 adw_about_dialog_finalize (GObject *object)
 {
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
@@ -1337,6 +1367,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->dispose = adw_about_dialog_dispose;
   object_class->finalize = adw_about_dialog_finalize;
   object_class->get_property = adw_about_dialog_get_property;
   object_class->set_property = adw_about_dialog_set_property;
@@ -1844,6 +1875,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, acknowledgements_box);
 
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_showing_cb);
 
   gtk_widget_class_install_action (widget_class, "about.show-url", "s",
                                    (GtkWidgetActionActivateFunc) show_url_cb);
