@@ -26,7 +26,12 @@ struct _AdwSettingsImplPortal
   GDBusProxy *settings_portal;
 
   gboolean found_color_scheme;
-  gboolean found_high_contrast;
+
+  enum {
+    HIGH_CONTRAST_STATE_NONE = 0,
+    HIGH_CONTRAST_STATE_FDO,
+    HIGH_CONTRAST_STATE_GNOME,
+  } high_contrast_portal_state;
 };
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplPortal, adw_settings_impl_portal, ADW_TYPE_SETTINGS_IMPL)
@@ -137,7 +142,8 @@ changed_cb (GDBusProxy            *proxy,
       return;
     }
 
-    if (!g_strcmp0 (name, "contrast") && self->found_high_contrast) {
+    if (!g_strcmp0 (name, "contrast") &&
+        self->high_contrast_portal_state == HIGH_CONTRAST_STATE_FDO) {
       adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
                                            g_variant_get_uint32 (value) == 1);
 
@@ -145,6 +151,13 @@ changed_cb (GDBusProxy            *proxy,
 
       return;
     }
+  }
+
+  if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
+      !g_strcmp0 (name, "high-contrast") &&
+      self->high_contrast_portal_state == HIGH_CONTRAST_STATE_GNOME ) {
+    adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
+                                         g_variant_get_boolean (value));
   }
 
   g_variant_unref (value);
@@ -211,22 +224,30 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
     g_variant_unref (variant);
   }
 
-  if (enable_high_contrast &&
-      read_setting (self, "org.freedesktop.appearance",
+  if (enable_high_contrast) {
+    if (read_setting (self, "org.freedesktop.appearance",
                     "contrast", "u", &variant)) {
-    self->found_high_contrast = TRUE;
+      self->high_contrast_portal_state = HIGH_CONTRAST_STATE_FDO;
 
-    adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
-                                         g_variant_get_uint32 (variant) == 1);
+      adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
+                                           g_variant_get_uint32 (variant) == 1);
 
-    g_variant_unref (variant);
+      g_variant_unref (variant);
+    } else if (read_setting (self, "org.gnome.desktop.a11y.interface",
+                    "high-contrast", "b", &variant)) {
+      self->high_contrast_portal_state = HIGH_CONTRAST_STATE_GNOME;
+
+      adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
+                                           g_variant_get_boolean (variant));
+      g_variant_unref (variant);
+    }
   }
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   self->found_color_scheme,
-                                  self->found_high_contrast);
+                                  self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE);
 
-  if (self->found_color_scheme || self->found_high_contrast)
+  if (self->found_color_scheme || self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE)
     g_signal_connect (self->settings_portal, "g-signal",
                       G_CALLBACK (changed_cb), self);
 
