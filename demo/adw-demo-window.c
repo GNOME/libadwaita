@@ -28,6 +28,9 @@ struct _AdwDemoWindow
   AdwNavigationPage *content_page;
   GtkStack *stack;
   AdwDemoPageToasts *toasts_page;
+
+  AdwDialog *close_dialog;
+  gboolean close_confirmed;
 };
 
 G_DEFINE_FINAL_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -100,6 +103,32 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 }
 
 static void
+close_request_confirmed_cb (AdwDemoWindow *self)
+{
+  self->close_confirmed = TRUE;
+  self->close_dialog = NULL;
+
+  gtk_window_close (GTK_WINDOW (self));
+}
+
+static gboolean
+close_request_cb (AdwDemoWindow *self)
+{
+  if (self->close_confirmed)
+    return GDK_EVENT_PROPAGATE;
+
+  if (!self->close_dialog) {
+    self->close_dialog = adw_alert_dialog_new ("A", "B");
+    adw_alert_dialog_add_response (ADW_ALERT_DIALOG (self->close_dialog), "t", "T");
+    g_signal_connect_swapped (self->close_dialog, "response",
+                              G_CALLBACK (close_request_confirmed_cb), self);
+    adw_dialog_present (self->close_dialog, GTK_WIDGET (self));
+  }
+
+  return GDK_EVENT_STOP;
+}
+
+static void
 adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
@@ -130,6 +159,8 @@ adw_demo_window_init (AdwDemoWindow *self)
                            G_CONNECT_SWAPPED);
 
   notify_system_supports_color_schemes_cb (self);
+
+  g_signal_connect (self, "close-request", G_CALLBACK (close_request_cb), NULL);
 
   notify_visible_child_cb (self);
 }
