@@ -1952,6 +1952,7 @@ adw_dialog_present (AdwDialog *self,
 {
   AdwDialogPrivate *priv;
   AdwDialogHost *host = NULL, *current_host;
+  GtkRoot *root = NULL;
 
   g_return_if_fail (ADW_IS_DIALOG (self));
   g_return_if_fail (parent == NULL || GTK_IS_WIDGET (parent));
@@ -1959,7 +1960,7 @@ adw_dialog_present (AdwDialog *self,
   priv = adw_dialog_get_instance_private (self);
 
   if (parent) {
-    GtkRoot *root = gtk_widget_get_root (parent);
+    root = gtk_widget_get_root (parent);
 
     host = find_dialog_host (parent);
 
@@ -2032,6 +2033,9 @@ adw_dialog_present (AdwDialog *self,
 
   if (current_host)
     gtk_widget_grab_focus (GTK_WIDGET (self));
+
+  if (GTK_IS_WINDOW (root))
+    gtk_window_present (GTK_WINDOW (root));
 }
 
 void
