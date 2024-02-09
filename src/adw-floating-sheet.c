@@ -19,7 +19,7 @@
 
 #include <math.h>
 
-#define MIN_SCALE 0.9
+#define MIN_SCALE 0.8
 
 #define HORZ_PADDING_MIN_WIDTH 720
 #define HORZ_PADDING_MIN_VALUE 30
@@ -311,9 +311,9 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   self->open_animation = adw_spring_animation_new (GTK_WIDGET (self),
                                                    0,
                                                    1,
-                                                   adw_spring_params_new (1, 1, 600),
+                                                   adw_spring_params_new (0.62, 1, 500),
                                                    target);
-  adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.0001);
+  adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.01);
   g_signal_connect_swapped (self->open_animation, "done",
                             G_CALLBACK (open_animation_done_cb), self);
 }
