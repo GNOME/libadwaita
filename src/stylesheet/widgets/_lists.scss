@@ -159,7 +159,7 @@ row {
 
   &.property > box.header > box.title > {
     .title {
-      @extend .caption;
+      font-size: smaller;
       @extend .dim-label;
     }
 
