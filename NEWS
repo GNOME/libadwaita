@@ -1,3 +1,80 @@
+================
+Version 1.5.beta
+================
+
+- Fix build with libappstream 1.0
+- Fix deprecation warning with libappstream 0.16.4
+- Fix a build error with MSVC
+- Add AdwDialog, AdwAlertDialog, AdwPreferencesDialog and AdwAboutDialog
+- AdwAboutWindow
+  - Don't pre-select the first section on the Legal page
+- AdwApplicationWindow
+  - Add :dialogs and :visible-dialog
+- AdwBreakpointBin
+  - Add remove_breakpoint()
+  - Fix focus during transitions
+  - Fix swapping the child during transitions
+- AdwButtonContent
+  - Horizontally center children
+- AdwCarousel
+  - Fix carousel scroll behavior with page reordering
+- AdwComboRow
+  - Don't change selection on filtering
+  - Fix focus when opening the popover
+  - Set the correct state on the selected checkmark
+- AdwEntryRow
+  - Add :text-length
+- AdwHeaderBar
+  - Integrate with AdwDialog
+  - Fix visibility after changing :show-back-button
+- AdwMessageDialog
+  - Add remove_response()
+  - Fix choose() annotations
+- AdwNavigationView
+  - Fix a warning message
+- AdwPreferencesWindow
+  - Fix :visible-page and :visible-page-name docs
+- AdwStyleManager
+  - Support contrast setting in the settings portal
+- AdwSwipeTracker
+  - Add :allow-window-handle
+- AdwTabOverview
+  - Allow child focus on out animations
+- AdwTabView
+  - Keep view alive during ::page-detached
+  - Fix crashes when using :pages
+- AdwViewSwitcherBar
+  - Fix a warning when empty
+- AdwWindow
+  - Add :dialogs and :visible-dialog
+- Demo
+  - Port everything to AdwDialog
+- Docs
+  - Add a migration guide for adaptive dialogs
+  - Add a favicon
+  - Use the new asides
+  - Fix erroneous <child> use in breakpoints migration guide
+- Stylesheet
+  - Increase GtkSwitch padding
+  - Align property row title and other row subtitle sizes
+  - Align expander row and combo row arrows
+  - Stop hiding switch shapes
+- Translation updates
+  - Czech
+  - French
+  - Galician
+  - German
+  - Greek
+  - Hebrew
+  - Hungarian
+  - Norwegian Bokmål
+  - Persian
+  - Russian
+  - Serbian
+  - Slovenian
+  - Turkish
+  - Ukrainian
+
 =============
 Version 1.4.0
 =============
