@@ -1,4 +1,21 @@
 =============
+Version 1.4.3
+=============
+
+- AdwAboutWindow
+  - Don't pre-select the first section on the Legal page
+- AdwHeaderBar
+  - Fix visibility after changing :show-back-button
+- AdwPreferencesWindow
+  - Fix :visible-page and :visible-page-name docs
+- AdwViewSwitcherBar
+  - Fix a warning when empty
+- Translation updates
+  - French
+  - Greek
+  - Norwegian Bokmål
+
+=============
 Version 1.4.2
 =============
 
