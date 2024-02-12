@@ -11,16 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-09-03 13:46+0000\n"
-"PO-Revision-Date: 2023-09-11 08:57+0100\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-01-30 23:01+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
-"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
+"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
+"ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -108,14 +109,15 @@ msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
+#.
 #: src/adw-about-window.c:570
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a "
-"href=\"%s\">%s</a> per a més detalls."
+"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a href=\"%s\">"
+"%s</a> per a més detalls."
 
 #: src/adw-about-window.c:648
 msgid "This Application"
@@ -227,8 +229,8 @@ msgid "_Copy Text"
 msgstr "_Copia el text"
 
 #: src/adw-about-window.ui:486
-msgid "_Save as…"
-msgstr "_Anomena i desa…"
+msgid "_Save As…"
+msgstr "De_sa com a…"
 
 #: src/adw-about-window.ui:499
 msgid "Credits"
@@ -247,9 +249,10 @@ msgstr "Reconeixements"
 msgid "Back"
 msgstr "Enrere"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Cerca…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Cerca"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -324,10 +327,6 @@ msgstr "Preferències"
 msgid "Search preferences"
 msgstr "Cerca les preferències"
 
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Cerca"
-
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "No s'ha trobat cap resultat"
@@ -345,7 +344,7 @@ msgid "View Open Tabs"
 msgstr "Mostra les pestanyes obertes"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:922
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -375,3 +374,6 @@ msgstr "_Pestanya nova"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
+
+#~ msgid "Search…"
+#~ msgstr "Cerca…"
