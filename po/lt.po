@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-08-05 08:39+0000\n"
-"PO-Revision-Date: 2023-08-31 23:18+0300\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-02-12 23:22+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -83,30 +83,30 @@ msgstr "Apache licencija, 2.0 versija"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla viešoji licencija 2.0"
 
-#: src/adw-about-window.c:535
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Kodas"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Dizainas"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Menas"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Dokumentacija"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Vertimas"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:568
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -115,37 +115,37 @@ msgstr ""
 "Ši programa pateikiama be jokios garantijos. Daugiau informacijos adresu <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:646
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Ši programa"
 
-#: src/adw-about-window.c:948
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Versija %s"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Nepavyko išanalizuoti leidimo naujienų:"
 
-#: src/adw-about-window.c:980
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Eilutė %d, simbolis: %d"
 
-#: src/adw-about-window.c:1256
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Nukopijuota į iškarpinę"
 
-#: src/adw-about-window.c:1284
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Nepavyko įrašyti derinimo informacijos"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Užverti"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Įrašyti derinimo informaciją"
 
@@ -153,55 +153,55 @@ msgstr "Įrašyti derinimo informaciją"
 msgid "About"
 msgstr "Apie"
 
-#: src/adw-about-window.ui:91
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "_Naujienos"
 
-#: src/adw-about-window.ui:106
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Detali informacija"
 
-#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Tinklalapis"
 
-#: src/adw-about-window.ui:144
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "_Pagalbos klausimai"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "P_ranešti apie problemą"
 
-#: src/adw-about-window.ui:175
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "_Problemų sprendimas"
 
-#: src/adw-about-window.ui:194
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Autoriai"
 
-#: src/adw-about-window.ui:209
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Teisinė informacija"
 
-#: src/adw-about-window.ui:224
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "Pa_dėkos"
 
-#: src/adw-about-window.ui:253
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Naujienos"
 
-#: src/adw-about-window.ui:293
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Detali informacija"
 
-#: src/adw-about-window.ui:358
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Problemų sprendimas"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -211,41 +211,43 @@ msgstr ""
 "informacijos pateikimas programos kūrėjams gali padėti diagnozuoti jūsų "
 "problemas, kai apie jas pranešate."
 
-#: src/adw-about-window.ui:392
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Derinimo informacija"
 
-#: src/adw-about-window.ui:418
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Derinimo informacija"
 
-#: src/adw-about-window.ui:460
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Kopijuoti tekstą"
 
-#: src/adw-about-window.ui:468
-msgid "_Save as…"
+#: src/adw-about-window.ui:486
+msgid "_Save As…"
 msgstr "Į_rašyti taip…"
 
-#: src/adw-about-window.ui:481
+#: src/adw-about-window.ui:499
 msgid "Credits"
 msgstr "Autoriai"
 
-#: src/adw-about-window.ui:512
+#: src/adw-about-window.ui:530
 msgid "Legal"
 msgstr "Teisinė informacija"
 
-#: src/adw-about-window.ui:543
+#: src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Padėkos"
 
-#: src/adw-back-button.c:444
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
 msgid "Back"
 msgstr "Grįžti"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Ieškoti…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Ieškoti"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -319,10 +321,6 @@ msgstr "Nuostatos"
 msgid "Search preferences"
 msgstr "Paieškos nuostatos"
 
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Ieškoti"
-
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Nerasta rezultatų"
@@ -340,7 +338,7 @@ msgid "View Open Tabs"
 msgstr "Rodyti atvertas korteles"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:922
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -371,6 +369,9 @@ msgstr "Nauja kor_telė"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Užverti kortelę"
+
+#~ msgid "Search…"
+#~ msgstr "Ieškoti…"
 
 #~ msgid "Hide Text"
 #~ msgstr "Slėpti tekstą"
