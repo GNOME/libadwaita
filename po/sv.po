@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-09-02 09:29+0000\n"
-"PO-Revision-Date: 2023-09-07 22:01+0200\n"
+"POT-Creation-Date: 2023-09-26 15:00+0000\n"
+"PO-Revision-Date: 2023-09-26 17:07+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -224,7 +224,7 @@ msgid "_Copy Text"
 msgstr "_Kopiera text"
 
 #: src/adw-about-window.ui:486
-msgid "_Save as…"
+msgid "_Save As…"
 msgstr "_Spara som…"
 
 #: src/adw-about-window.ui:499
