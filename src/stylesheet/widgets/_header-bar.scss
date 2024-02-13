@@ -222,4 +222,9 @@ window.devel {
                                  image(transparent));
     background-repeat: repeat-x;
   }
+
+  dialog headerbar > windowhandle {
+    background-image: unset;
+    background-repeat: unset;
+  }
 }
