@@ -51,23 +51,59 @@ dummy_cb (GtkWidget  *sender,
 {
 }
 
+static gboolean
+get_devel_style (AdwStyleDemoWindow *self)
+{
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  if (!GTK_IS_WIDGET (root))
+    return FALSE;
+
+  return gtk_widget_has_css_class (GTK_WIDGET (root), "devel");
+}
+
 static void
 set_devel_style (AdwStyleDemoWindow *self,
                  gboolean            devel)
 {
-  if (devel) {
-    gtk_widget_add_css_class (GTK_WIDGET (self), "devel");
-    gtk_widget_add_css_class (GTK_WIDGET (self->status_page_window), "devel");
-  } else {
-    gtk_widget_remove_css_class (GTK_WIDGET (self), "devel");
-    gtk_widget_remove_css_class (GTK_WIDGET (self->status_page_window), "devel");
-  }
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  if (!GTK_IS_WIDGET (root))
+    return;
+
+  if (devel)
+    gtk_widget_add_css_class (GTK_WIDGET (root), "devel");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (root), "devel");
 }
 
 static void
 sidebar_forward_cb (AdwStyleDemoWindow *self)
 {
   adw_navigation_split_view_set_show_content (self->split_view, TRUE);
+}
+
+static void
+adw_style_demo_window_root (GtkWidget *widget)
+{
+  AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (widget);
+
+  GTK_WIDGET_CLASS (adw_style_demo_window_parent_class)->root (widget);
+
+  if (get_devel_style (self))
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEVEL]);
+}
+
+static void
+adw_style_demo_window_unroot (GtkWidget *widget)
+{
+  AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (widget);
+  gboolean has_devel = get_devel_style (self);
+
+  GTK_WIDGET_CLASS (adw_style_demo_window_parent_class)->unroot (widget);
+
+  if (has_devel)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEVEL]);
 }
 
 static void
@@ -80,7 +116,7 @@ adw_style_demo_window_get_property (GObject    *object,
 
   switch (prop_id) {
   case PROP_DEVEL:
-    g_value_set_boolean (value, gtk_widget_has_css_class (GTK_WIDGET (self), "devel"));
+    g_value_set_boolean (value, get_devel_style (self));
     break;
   case PROP_PROGRESS:
     g_value_set_boolean (value, self->progress);
@@ -118,6 +154,8 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
 
   object_class->get_property = adw_style_demo_window_get_property;
   object_class->set_property = adw_style_demo_window_set_property;
+  widget_class->root = adw_style_demo_window_root;
+  widget_class->unroot = adw_style_demo_window_unroot;
 
   props[PROP_DEVEL] =
     g_param_spec_boolean ("devel", NULL, NULL,
