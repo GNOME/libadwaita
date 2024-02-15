@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-07-20 08:42+0000\n"
-"PO-Revision-Date: 2023-07-29 17:27+0300\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-02-15 08:53+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -87,30 +87,30 @@ msgstr "Ліцэнзія Apache, версія 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Публічная ліцэнзія Mozilla версіі 2.0"
 
-#: src/adw-about-window.c:535
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Дызайн"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Мастацкае афармленне"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Дакументацыя"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Пераклад"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:568
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,37 +119,37 @@ msgstr ""
 "Праграма распаўсюджваецца без аніякіх гарантый. Падрабязнасці глядзіце тут: "
 "<a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:646
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Праграма"
 
-#: src/adw-about-window.c:948
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Версія %s"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Не ўдалося разабраць спіс змен:"
 
-#: src/adw-about-window.c:980
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Радок: %d, знак: %d"
 
-#: src/adw-about-window.c:1256
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Скапіявана ў буфер абмену"
 
-#: src/adw-about-window.c:1284
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Не ўдалося захаваць адладачную інфармацыю"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Закрыць"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Захаваць адладачную інфармацыю"
 
@@ -157,55 +157,55 @@ msgstr "Захаваць адладачную інфармацыю"
 msgid "About"
 msgstr "Аб праграме"
 
-#: src/adw-about-window.ui:91
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "_Што новага"
 
-#: src/adw-about-window.ui:106
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Падрабязнасці"
 
-#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Вэб-сайт"
 
-#: src/adw-about-window.ui:144
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "П_ытанні падтрымкі"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "Паведаміць аб _праблеме"
 
-#: src/adw-about-window.ui:175
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "_Выпраўленне непаладак"
 
-#: src/adw-about-window.ui:194
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Удзельнікі"
 
-#: src/adw-about-window.ui:209
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "Прававыя _звесткі"
 
-#: src/adw-about-window.ui:224
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Падзякі"
 
-#: src/adw-about-window.ui:253
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Што новага"
 
-#: src/adw-about-window.ui:293
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Падрабязнасці"
 
-#: src/adw-about-window.ui:358
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Выпраўленне непаладак"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -215,41 +215,43 @@ msgstr ""
 "непаладак. Перадача гэтай інфармацыі распрацоўшчыкам праграмы, можа "
 "дапамагчы выявіць праблемы, з якімі вы сутыкнуліся."
 
-#: src/adw-about-window.ui:392
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Адладачная інфармацыя"
 
-#: src/adw-about-window.ui:418
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Адладачная інфармацыя"
 
-#: src/adw-about-window.ui:460
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Капіраваць тэкст"
 
-#: src/adw-about-window.ui:468
-msgid "_Save as…"
+#: src/adw-about-window.ui:486
+msgid "_Save As…"
 msgstr "Захаваць _як…"
 
-#: src/adw-about-window.ui:481
+#: src/adw-about-window.ui:499
 msgid "Credits"
 msgstr "Удзельнікі"
 
-#: src/adw-about-window.ui:512
+#: src/adw-about-window.ui:530
 msgid "Legal"
 msgstr "Прававыя звесткі"
 
-#: src/adw-about-window.ui:543
+#: src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Падзякі"
 
-#: src/adw-back-button.c:444
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
 msgid "Back"
 msgstr "Назад"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Пошук…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Пошук"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -324,10 +326,6 @@ msgstr "Параметры"
 msgid "Search preferences"
 msgstr "Параметры пошуку"
 
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Пошук"
-
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Нічога не знойдзена"
@@ -345,7 +343,7 @@ msgid "View Open Tabs"
 msgstr "Паказаць адкрытыя ўкладкі"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:918
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -376,6 +374,9 @@ msgstr "_Новая ўкладка"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Закрыць укладку"
+
+#~ msgid "Search…"
+#~ msgstr "Пошук…"
 
 #~ msgid "Hide Text"
 #~ msgstr "Схаваць тэкст"
