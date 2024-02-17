@@ -56,11 +56,11 @@ window.assistant {
     &:not(separator) {
       &:dir(ltr) {
         border-right: none;
-        box-shadow: inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+        box-shadow: inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
       }
 
       &:dir(rtl) {
-        box-shadow: inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+        box-shadow: inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
       }
     }
 

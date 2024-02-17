@@ -198,21 +198,21 @@ filechooser {
   paned.horizontal > separator {
     &:dir(ltr) {
       box-shadow: inset 1px 0 $sidebar_bg_color,
-                  inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+                  inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
 
       &:backdrop {
         box-shadow: inset 1px 0 $sidebar_backdrop_color,
-                    inset 1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+                    inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
       }
     }
 
     &:dir(rtl) {
       box-shadow: inset -1px 0 $sidebar_bg_color,
-                  inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+                  inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
 
       &:backdrop {
         box-shadow: inset -1px 0 $sidebar_backdrop_color,
-                    inset -1px 0 if($contrast == 'high', $border_color, $sidebar_shade_color);
+                    inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
       }
     }
 
