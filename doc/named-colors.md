@@ -432,11 +432,18 @@ sides of a window. They are used by [class@NavigationSplitView] and
     <td><tt>#2a2a2a</tt></td>
   </tr>
   <tr>
-    <td><tt>&#64;sidebar_shade_color</tt></td>
+    <td><tt>&#64;sidebar_border_color</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
     <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
     <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;sidebar_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
   </tr>
 </table>
 
@@ -450,6 +457,17 @@ sidebars, scroll undershoots within sidebars, as well as transitions in
 [class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
 [class@Flap]. This color should always be partially transparent black, with the
 opacity tuned to be well visible on top of <code>&#64;sidebar_bg_color</code>.
+
+<code>&#64;sidebar_border_color</code> is used to provide a dark border for
+sidebars. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of <code>&#64;sidebar_bg_color</code>
+next to <code>&#64;window_bg_color</code> or <code>&#64;view_bg_color</code>.
+
+<code>&#64;sidebar_shade_color</code> is used to provide scroll undershoots
+within sidebars, as well as transitions in [class@NavigationView],
+[class@OverlaySplitView], [class@Leaflet] and [class@Flap]. This color should
+always be partially transparent black, with the opacity tuned to be well visible
+on top of <code>&#64;sidebar_bg_color</code>.
 
 Since: 1.4
 
@@ -493,11 +511,18 @@ nesting two split views within one another.
     <td><tt>#272727</tt></td>
   </tr>
   <tr>
-    <td><tt>&#64;secondary_sidebar_shade_color</tt></td>
+    <td><tt>&#64;secondary_sidebar_border_color</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
     <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
     <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;secondary_sidebar_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
   </tr>
 </table>
 
@@ -505,6 +530,19 @@ nesting two split views within one another.
 <code>&#64;secondary_sidebar_bg_color</code> when the window is not focused.
 When overriding secondary sidebar colors, make sure to set it to a value
 matching your <code>&#64;secondary_sidebar_bg_color</code>.
+
+<code>&#64;secondary_sidebar_border_color</code> is used to provide a dark
+border for secondary sidebars. This color should always be partially transparent black, with
+the opacity tuned to be well visible on top of
+<code>&#64;secondary_sidebar_bg_color</code> next to
+<code>&#64;sidebar_bg_color</code>.
+
+<code>&#64;secondary_sidebar_shade_color</code> is used to provide scroll
+undershoots within secondary sidebars, as well as transitions in
+[class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
+[class@Flap]. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of
+<code>&#64;secondary_sidebar_bg_color</code>.
 
 <code>&#64;secondary_sidebar_shade_color</code> is used to provide a dark border
 for secondary sidebars, scroll undershoots within secondary sidebars, as well as
@@ -646,8 +684,8 @@ These colors are used for [class@Gtk.Popover].
     <td><tt>&#64;popover_shade_color</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
     <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
   </tr>
 </table>
 
@@ -672,8 +710,8 @@ This color is only available since 1.4.
     <td><tt>&#64;shade_color</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
     <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
   </tr>
   <tr>
     <td><tt>&#64;scrollbar_outline_color</tt></td>
