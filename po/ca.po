@@ -112,11 +112,12 @@ msgstr "Traduït per"
 #.
 #: src/adw-about-window.c:570
 #, c-format
+#. N.T.: %s comença per "Llicència"
 msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
 "%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a href=\"%s\">"
+"Aquesta aplicació no té absolutament cap garantia. Vegeu la <a href=\"%s\">"
 "%s</a> per a més detalls."
 
 #: src/adw-about-window.c:648
