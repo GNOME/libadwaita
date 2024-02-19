@@ -112,6 +112,9 @@ update_label_scale (AdwTabButton *self,
 
   g_object_get (settings, "gtk-xft-dpi", &xft_dpi, NULL);
 
+  if (xft_dpi == 0)
+    xft_dpi = 96 * PANGO_SCALE;
+
   attrs = pango_attr_list_new ();
 
   scale_attribute = pango_attr_scale_new (XFT_DPI_MULTIPLIER / (double) xft_dpi);
