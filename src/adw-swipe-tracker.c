@@ -92,6 +92,8 @@ struct _AdwSwipeTracker
   GtkEventController *scroll_controller;
   GtkGesture *touch_gesture;
   GtkGesture *touch_gesture_capture;
+
+  gboolean is_window_handle;
 };
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSwipeTracker, adw_swipe_tracker, G_TYPE_OBJECT,
@@ -592,11 +594,12 @@ drag_capture_begin_cb (AdwSwipeTracker *self,
                           GTK_PICK_DEFAULT);
 
   if (should_force_drag (self, widget)) {
-    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+    self->is_window_handle = TRUE;
     return;
   }
 
   gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+  self->is_window_handle = FALSE;
 }
 
 static void
@@ -616,6 +619,8 @@ drag_begin_cb (AdwSwipeTracker *self,
                           start_x,
                           start_y,
                           GTK_PICK_DEFAULT);
+
+  self->is_window_handle = FALSE;
 
   if (should_suppress_drag (self, widget)) {
     gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
@@ -666,15 +671,26 @@ drag_update_cb (AdwSwipeTracker *self,
   }
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_PENDING) {
-    double drag_distance;
+    double drag_distance, threshold;
     double first_point, last_point;
 
     get_range (self, &first_point, &last_point);
 
     drag_distance = sqrt (offset_x * offset_x + offset_y * offset_y);
 
-    if (G_APPROX_VALUE (drag_distance, DRAG_THRESHOLD_DISTANCE, DBL_EPSILON) ||
-        drag_distance > DRAG_THRESHOLD_DISTANCE) {
+    if (self->is_window_handle) {
+      GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self->swipeable));
+      int dnd_threshold;
+
+      g_object_get (settings, "gtk-dnd-drag-threshold", &dnd_threshold, NULL);
+
+      threshold = dnd_threshold;
+    } else {
+      threshold = DRAG_THRESHOLD_DISTANCE;
+    }
+
+    if (G_APPROX_VALUE (drag_distance, threshold, DBL_EPSILON) ||
+        drag_distance > threshold) {
       double start_x, start_y;
       AdwNavigationDirection direction;
       gboolean is_overshooting_lower, is_overshooting_upper;
