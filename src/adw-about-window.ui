@@ -529,7 +529,7 @@
               <object class="AdwNavigationPage">
                 <property name="title" translatable="yes">Legal</property>
                 <property name="tag">legal</property>
-                <signal name="showing" handler="legal_showing_cb" swapped="yes"/>"
+                <signal name="showing" handler="legal_showing_cb" swapped="yes"/>
                 <property name="child">
                   <object class="AdwToolbarView">
                     <child type="top">
