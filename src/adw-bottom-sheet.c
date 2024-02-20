@@ -91,6 +91,9 @@ released_cb (GtkGestureClick *gesture,
              double           y,
              AdwBottomSheet  *self)
 {
+  if (self->swipe_active)
+    return;
+
   adw_bottom_sheet_set_open (self, FALSE);
 }
 
