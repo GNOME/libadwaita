@@ -523,5 +523,5 @@ adw_status_page_set_child (AdwStatusPage *self,
   if (self->user_widget)
     gtk_box_append (self->toplevel_box, self->user_widget);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
 }
