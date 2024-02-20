@@ -55,4 +55,7 @@ void     adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
 void adw_bottom_sheet_set_dialog_mode (AdwBottomSheet *self,
                                        gboolean        dialog_mode);
 
+void adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
+                                             int             min_natural_width);
+
 G_END_DECLS

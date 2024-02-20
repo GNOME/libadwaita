@@ -85,10 +85,6 @@ floating-sheet {
 }
 
 dialog.bottom-sheet {
-  &.portrait sheet {
-    min-width: 360px;
-  }
-
   &.landscape sheet {
     margin-left: 30px;
     margin-right: 30px;

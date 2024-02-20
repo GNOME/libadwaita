@@ -51,6 +51,8 @@ struct _AdwBottomSheet
 
   AdwSwipeTracker *swipe_tracker;
   gboolean swipe_active;
+
+  int min_natural_width;
 };
 
 static void adw_bottom_sheet_buildable_init (GtkBuildableIface *iface);
@@ -136,6 +138,9 @@ measure_sheet (GtkWidget      *widget,
   } else {
     sheet_min = sheet_nat = 0;
   }
+
+  if (self->min_natural_width >= 0)
+    sheet_nat = MAX (sheet_nat, self->min_natural_width);
 
   if (gtk_widget_should_layout (self->drag_handle)) {
     gtk_widget_measure (self->drag_handle, orientation, for_size,
@@ -969,4 +974,13 @@ adw_bottom_sheet_set_dialog_mode (AdwBottomSheet *self,
     role = GTK_ACCESSIBLE_ROLE_GENERIC;
 
   g_object_set (self->sheet_bin, "accessible-role", role, NULL);
+}
+
+void
+adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
+                                        int             min_natural_width)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  self->min_natural_width = min_natural_width;
 }
