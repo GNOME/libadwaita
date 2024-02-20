@@ -218,12 +218,13 @@ static const LicenseInfo gtk_license_info [] = {
   { N_("GNU Affero General Public License, version 3 only"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-only" },
   { N_("BSD 3-Clause License"), "https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause" },
   { N_("Apache License, Version 2.0"), "https://opensource.org/licenses/Apache-2.0", "Apache-2.0" },
-  { N_("Mozilla Public License 2.0"), "https://opensource.org/licenses/MPL-2.0", "MPL-2.0" }
+  { N_("Mozilla Public License 2.0"), "https://opensource.org/licenses/MPL-2.0", "MPL-2.0" },
+  { N_("BSD Zero-Clause License"), "https://opensource.org/license/0bsd", "0BSD" }
 };
 /* Copied from GTK 4 for consistency with GtkAboutDialog. */
 /* Keep this static assertion updated with the last element of the enumeration,
  * and make sure it matches the last element of the array. */
-G_STATIC_ASSERT (G_N_ELEMENTS (gtk_license_info) - 1 == GTK_LICENSE_MPL_2_0);
+G_STATIC_ASSERT (G_N_ELEMENTS (gtk_license_info) - 1 == GTK_LICENSE_0BSD);
 
 typedef struct {
   char *name;
