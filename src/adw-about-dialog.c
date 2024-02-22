@@ -169,7 +169,7 @@
  *     NULL
  *   };
  *
- *   adw_show_about_dialog (gtk_application_get_active_window (app),
+ *   adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
  *                          "application-name", _("Example"),
  *                          "application-icon", "org.example.App",
  *                          "version", "1.2.3",
