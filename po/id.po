@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the libhandy package.
 # Andika Triwidada <atriwidada@gnome.org>, 2020.
 # Rofiquzzaki <babisayabundar@gmail.com>, 2021.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2023.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-08-08 09:00+0000\n"
-"PO-Revision-Date: 2023-08-11 19:05+0700\n"
+"POT-Creation-Date: 2024-01-22 22:25+0000\n"
+"PO-Revision-Date: 2024-02-22 21:07+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-DL-Team: id\n"
 "X-DL-Module: libadwaita\n"
 "X-DL-Branch: main\n"
@@ -89,30 +89,30 @@ msgstr "Lisensi Apache, Versi 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:535
+#: src/adw-about-window.c:537
 msgid "Code by"
 msgstr "Kode oleh"
 
-#: src/adw-about-window.c:536
+#: src/adw-about-window.c:538
 msgid "Design by"
 msgstr "Desain oleh"
 
-#: src/adw-about-window.c:537
+#: src/adw-about-window.c:539
 msgid "Artwork by"
 msgstr "Karya Seni oleh"
 
-#: src/adw-about-window.c:538
+#: src/adw-about-window.c:540
 msgid "Documentation by"
 msgstr "Dokumentasi oleh"
 
-#: src/adw-about-window.c:539
+#: src/adw-about-window.c:541
 msgid "Translated by"
 msgstr "Diterjemahkan oleh"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:568
+#: src/adw-about-window.c:570
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -121,37 +121,37 @@ msgstr ""
 "Aplikasi ini hadir tanpa jaminan sama sekali. Lihat <a href=\"%s\">%s</a> "
 "untuk detailnya ."
 
-#: src/adw-about-window.c:646
+#: src/adw-about-window.c:648
 msgid "This Application"
 msgstr "Aplikasi Ini"
 
-#: src/adw-about-window.c:948
+#: src/adw-about-window.c:950
 #, c-format
 msgid "Version %s"
 msgstr "Versi %s"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-window.c:976
 msgid "Unable to parse release notes:"
 msgstr "Tidak dapat mengurai catatan rilis:"
 
-#: src/adw-about-window.c:980
+#: src/adw-about-window.c:982
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Baris: %d, karakter: %d"
 
-#: src/adw-about-window.c:1256
+#: src/adw-about-window.c:1258
 msgid "Copied to clipboard"
 msgstr "Disalin ke papan klip"
 
-#: src/adw-about-window.c:1284
+#: src/adw-about-window.c:1286
 msgid "Unable to save debugging information"
 msgstr "Tidak dapat menyimpan informasi pengawakutuan"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1291
 msgid "Close"
 msgstr "Tutup"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1307
 msgid "Save debugging information"
 msgstr "Simpan informasi pengawakutuan"
 
@@ -159,55 +159,55 @@ msgstr "Simpan informasi pengawakutuan"
 msgid "About"
 msgstr "Tentang"
 
-#: src/adw-about-window.ui:91
+#: src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "Apa _yang Baru"
 
-#: src/adw-about-window.ui:106
+#: src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Detail"
 
-#: src/adw-about-window.ui:121 src/adw-about-window.ui:331
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "Situs _Web"
 
-#: src/adw-about-window.ui:144
+#: src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "Pertanyaan Du_kungan"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "Lapo_rkan Masalah"
 
-#: src/adw-about-window.ui:175
+#: src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "_Penyelesaian Masalah"
 
-#: src/adw-about-window.ui:194
+#: src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Kredit"
 
-#: src/adw-about-window.ui:209
+#: src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Legal"
 
-#: src/adw-about-window.ui:224
+#: src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "Uc_apan Terima Kasih"
 
-#: src/adw-about-window.ui:253
+#: src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Apa yang Baru"
 
-#: src/adw-about-window.ui:293
+#: src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Detail"
 
-#: src/adw-about-window.ui:358
+#: src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Penyelesaian Masalah"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -217,41 +217,43 @@ msgstr ""
 "pengawakutuan. Memberikan informasi ini kepada pengembang aplikasi dapat "
 "membantu mendiagnosis masalah yang Anda temui saat melaporkan masalah."
 
-#: src/adw-about-window.ui:392
+#: src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "Informasi _Pengawakutuan"
 
-#: src/adw-about-window.ui:418
+#: src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Informasi Pengawakutuan"
 
-#: src/adw-about-window.ui:460
+#: src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "S_alin Teks"
 
-#: src/adw-about-window.ui:468
-msgid "_Save as…"
-msgstr "_Simpan sebagai…"
+#: src/adw-about-window.ui:486
+msgid "_Save As…"
+msgstr "_Simpan Sebagai…"
 
-#: src/adw-about-window.ui:481
+#: src/adw-about-window.ui:499
 msgid "Credits"
 msgstr "Kredit"
 
-#: src/adw-about-window.ui:512
+#: src/adw-about-window.ui:530
 msgid "Legal"
 msgstr "Hukum"
 
-#: src/adw-about-window.ui:543
+#: src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Ucapan Terima Kasih"
 
-#: src/adw-back-button.c:444 src/adw-back-button.c:554
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
 msgid "Back"
 msgstr "Kembali"
 
-#: src/adw-combo-row.ui:50
-msgid "Search…"
-msgstr "Cari…"
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Cari"
 
 #: src/adw-entry-row.ui:97
 msgid "Apply"
@@ -326,10 +328,6 @@ msgstr "Preferensi"
 msgid "Search preferences"
 msgstr "Preferensi Pencarian"
 
-#: src/adw-preferences-window.ui:96
-msgid "Search"
-msgstr "Cari"
-
 #: src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Tak Ada Hasil yang Ditemukan"
@@ -347,7 +345,7 @@ msgid "View Open Tabs"
 msgstr "Lihat Tab yang Terbuka"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:922
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -376,6 +374,9 @@ msgstr "_Tab Baru"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Tutup Tab"
+
+#~ msgid "Search…"
+#~ msgstr "Cari…"
 
 #~ msgid "Hide Text"
 #~ msgstr "Sembunyikan Teks"
