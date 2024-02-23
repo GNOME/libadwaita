@@ -2535,7 +2535,7 @@ adw_navigation_view_find_page (AdwNavigationView *self,
  * If [method@NavigationView.add] hasn't been called, the page is automatically
  * removed once it's popped.
  *
- * [signal@NavigationView::popped] will be emitted for @page.
+ * [signal@NavigationView::pushed] will be emitted for @page.
  *
  * See [method@NavigationView.push_by_tag].
  *
@@ -2564,7 +2564,7 @@ adw_navigation_view_push (AdwNavigationView *self,
  * If [method@NavigationView.add] hasn't been called, the page is automatically
  * removed once it's popped.
  *
- * [signal@NavigationView::popped] will be emitted for pushed page.
+ * [signal@NavigationView::pushed] will be emitted for the page.
  *
  * See [method@NavigationView.push] and [property@NavigationPage:tag].
  *
