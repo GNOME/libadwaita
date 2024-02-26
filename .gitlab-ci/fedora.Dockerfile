@@ -6,6 +6,7 @@ RUN dnf -y update \
     appstream-devel \
     expat-devel \
     git \
+    glslc \
     graphviz \
     libabigail \
     libjpeg-turbo-devel \
