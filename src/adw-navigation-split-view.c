@@ -632,6 +632,32 @@ navigation_pop_cb (AdwNavigationSplitView *self)
 }
 
 static void
+adw_navigation_split_view_root (GtkWidget *widget)
+{
+  GtkWidget *parent_page;
+
+  GTK_WIDGET_CLASS (adw_navigation_split_view_parent_class)->root (widget);
+
+  parent_page = adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
+
+  if (parent_page)
+    adw_navigation_page_add_child_nav_split_view (ADW_NAVIGATION_PAGE (parent_page));
+}
+
+static void
+adw_navigation_split_view_unroot (GtkWidget *widget)
+{
+  GtkWidget *parent_page;
+
+  parent_page = adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
+
+  if (parent_page)
+    adw_navigation_page_remove_child_nav_split_view (ADW_NAVIGATION_PAGE (parent_page));
+
+  GTK_WIDGET_CLASS (adw_navigation_split_view_parent_class)->unroot (widget);
+}
+
+static void
 adw_navigation_split_view_dispose (GObject *object)
 {
   AdwNavigationSplitView *self = ADW_NAVIGATION_SPLIT_VIEW (object);
@@ -730,6 +756,9 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
   object_class->dispose = adw_navigation_split_view_dispose;
   object_class->get_property = adw_navigation_split_view_get_property;
   object_class->set_property = adw_navigation_split_view_set_property;
+
+  widget_class->root = adw_navigation_split_view_root;
+  widget_class->unroot = adw_navigation_split_view_unroot;
 
   /**
    * AdwNavigationSplitView:sidebar: (attributes org.gtk.Property.get=adw_navigation_split_view_get_sidebar org.gtk.Property.set=adw_navigation_split_view_set_sidebar)

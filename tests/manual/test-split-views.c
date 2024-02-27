@@ -160,7 +160,7 @@ triple_pane_mail_cb (void)
   adw_navigation_split_view_set_sidebar (ADW_NAVIGATION_SPLIT_VIEW (inner_view), folders);
   adw_navigation_split_view_set_content (ADW_NAVIGATION_SPLIT_VIEW (inner_view), inbox);
 
-  inner_view_page = adw_navigation_page_new (inner_view, "Folders and Inbox");
+  inner_view_page = adw_navigation_page_new (inner_view, "");
 
   outer_view = adw_navigation_split_view_new ();
   adw_navigation_split_view_set_min_sidebar_width (ADW_NAVIGATION_SPLIT_VIEW (outer_view), 470);

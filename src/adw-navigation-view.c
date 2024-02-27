@@ -227,6 +227,8 @@ typedef struct
   int block_signals;
 
   AdwNavigationView *child_view;
+
+  int nav_split_views;
 } AdwNavigationPagePrivate;
 
 static void adw_navigation_page_buildable_init (GtkBuildableIface *iface);
@@ -403,7 +405,7 @@ adw_navigation_page_realize (GtkWidget *widget)
 
   GTK_WIDGET_CLASS (adw_navigation_page_parent_class)->realize (widget);
 
-  if (!(priv->title && *priv->title) && !priv->child_view) {
+  if (!(priv->title && *priv->title) && !priv->child_view && priv->nav_split_views == 0) {
     g_warning ("AdwNavigationPage %p is missing a title. To hide a header bar " \
                "title, consider using AdwHeaderBar:show-title instead.", self);
   }
@@ -2426,6 +2428,26 @@ adw_navigation_page_unblock_signals (AdwNavigationPage *self)
   g_assert (priv->block_signals > 0);
 
   priv->block_signals--;
+}
+
+void
+adw_navigation_page_add_child_nav_split_view (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  priv->nav_split_views++;
+}
+
+void
+adw_navigation_page_remove_child_nav_split_view (AdwNavigationPage *self)
+{
+  AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
+
+  priv->nav_split_views--;
 }
 
 /**

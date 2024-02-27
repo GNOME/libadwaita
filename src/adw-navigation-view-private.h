@@ -26,4 +26,7 @@ void adw_navigation_page_hidden  (AdwNavigationPage *self);
 void adw_navigation_page_block_signals   (AdwNavigationPage *self);
 void adw_navigation_page_unblock_signals (AdwNavigationPage *self);
 
+void adw_navigation_page_add_child_nav_split_view    (AdwNavigationPage *self);
+void adw_navigation_page_remove_child_nav_split_view (AdwNavigationPage *self);
+
 G_END_DECLS
