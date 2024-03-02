@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-02-20 21:34+0000\n"
-"PO-Revision-Date: 2024-02-24 14:49+0100\n"
-"Last-Translator: Brage Fuglseth <bragefuglseth@gnome.org>\n"
+"POT-Creation-Date: 2024-03-02 19:53+0000\n"
+"PO-Revision-Date: 2024-03-03 00:46+0100\n"
+"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -82,30 +82,34 @@ msgstr "Apache-lisensen, versjon 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-dialog.c:559 src/adw-about-window.c:557
-msgid "Code by"
-msgstr "Programmert av"
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
+msgid "BSD Zero-Clause License"
+msgstr "BSD Zero Clause-lisensen"
 
 #: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+msgid "Code by"
+msgstr "Utviklet av"
+
+#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
 msgid "Design by"
 msgstr "Designet av"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
 msgid "Artwork by"
 msgstr "Utsmykket av"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
 msgid "Documentation by"
 msgstr "Dokumentert av"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
 msgid "Translated by"
 msgstr "Oversatt av"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:592 src/adw-about-window.c:590
+#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -114,37 +118,37 @@ msgstr ""
 "Denne appen kommer uten noen som helst garanti. Se <a href=\"%s\">%s</a> for "
 "mer informasjon."
 
-#: src/adw-about-dialog.c:670 src/adw-about-window.c:668
+#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
 msgid "This Application"
 msgstr "Denne appen"
 
-#: src/adw-about-dialog.c:972 src/adw-about-window.c:970
+#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
 #, c-format
 msgid "Version %s"
 msgstr "Versjon %s"
 
-#: src/adw-about-dialog.c:998 src/adw-about-window.c:996
+#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
 msgid "Unable to parse release notes:"
 msgstr "Kunne ikke lese endringslogg:"
 
-#: src/adw-about-dialog.c:1004 src/adw-about-window.c:1002
+#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linje: %d, tegn: %d"
 
-#: src/adw-about-dialog.c:1290 src/adw-about-window.c:1288
+#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
 msgid "Copied to clipboard"
 msgstr "Kopiert til utklippstavle"
 
-#: src/adw-about-dialog.c:1317 src/adw-about-window.c:1316
+#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
 msgid "Unable to save debugging information"
 msgstr "Kunne ikke lagre feilsøkingsopplysninger"
 
-#: src/adw-about-dialog.c:1322 src/adw-about-window.c:1321
+#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
 msgid "Close"
 msgstr "Lukk"
 
-#: src/adw-about-dialog.c:1339 src/adw-about-window.c:1337
+#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
 msgid "Save debugging information"
 msgstr "Lagre feilsøkingsopplysninger"
 
@@ -321,7 +325,7 @@ msgstr "Innstillinger"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Søk i innstillinger"
+msgstr "Søk etter innstillinger"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
@@ -338,7 +342,7 @@ msgstr "Flere valg"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
-msgstr "Se åpne faner"
+msgstr "Vis åpne faner"
 
 #. Translators: Tab overview title, %u is the number of open tabs
 #: src/adw-tab-overview.c:928
