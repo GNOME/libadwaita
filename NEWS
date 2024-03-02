@@ -1,3 +1,62 @@
+==============
+Version 1.5.rc
+==============
+
+
+- Depend on GTK 4.13.4
+- Fix layout with GtkSettings:gtk-xft-dpi == 0
+- AdwAboutDialog
+  - Support zero-clause bsd license
+  - Fix example
+- AdwAboutWindow
+  - Support zero-clause bsd license
+- AdwDialog
+  - Allow bottom sheets to shrink beyond 360px width
+  - Fix a crash when swiping on the dimming
+  - Adjust dimming intensity
+- AdwNavigationView
+  - Fix signal mentions in push() docs
+  - Disable missing title warning when containing a split view
+- AdwStatusPage
+  - Fix property notification in set_child()
+- AdwSwipeTracker
+  - Use a smaller threshold for window handles
+- AdwToolbarView
+  - Fix a typo in docs
+- Demo
+  - Fix window.devel demo
+- Stylesheet
+  - Adjust shade colors in dark
+  - Make .devel not propagate to dialogs
+
+
+- Translation updates
+  - Basque
+  - Belarusian
+  - Catalan
+  - Chinese (China)
+  - Chinese (Taiwan)
+  - Czech
+  - Dutch
+  - Finnish
+  - French
+  - Georgian
+  - Hebrew
+  - Hungarian
+  - Indonesian
+  - Kazakh
+  - Korean
+  - Latvian
+  - Lithuanian
+  - Norwegian Bokmål
+  - Occitan
+  - Persian
+  - Polish
+  - Russian
+  - Spanish
+  - Swedish
+  - Ukrainian
+
 ================
 Version 1.5.beta
 ================
