@@ -1,4 +1,18 @@
 =============
+Version 1.4.4
+=============
+
+- Fix layout with GtkSettings:gtk-xft-dpi == 0
+- AdwNavigationView
+  - Fix signal mentions in push() docs
+- AdwStatusPage
+  - Fix property notification in set_child()
+- AdwToolbarView
+  - Fix a typo in docs
+- Translation updates
+  - British English
+
+=============
 Version 1.4.3
 =============
 
