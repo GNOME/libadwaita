@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-02 19:53+0000\n"
-"PO-Revision-Date: 2024-03-03 00:47+0100\n"
+"POT-Creation-Date: 2024-03-02 23:48+0000\n"
+"PO-Revision-Date: 2024-03-03 15:57+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -96,7 +96,7 @@ msgstr "Designet av"
 
 #: src/adw-about-dialog.c:562 src/adw-about-window.c:560
 msgid "Artwork by"
-msgstr "Dekorert av"
+msgstr "Utsmykket av"
 
 #: src/adw-about-dialog.c:563 src/adw-about-window.c:561
 msgid "Documentation by"
