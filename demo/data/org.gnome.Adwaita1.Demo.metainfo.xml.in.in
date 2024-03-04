@@ -4,8 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1-or-later</project_license>
   <launchable type="desktop-id">org.gnome.Adwaita1.Demo.desktop</launchable>
-  <developer>
-    <id>gnome.org</id>
+  <developer id="org.gnome">
     <name>The GNOME Project</name>
   </developer>
 
