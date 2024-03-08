@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-02-07 11:18+0000\n"
-"PO-Revision-Date: 2022-03-14 14:36+0100\n"
+"POT-Creation-Date: 2023-08-04 22:47+0000\n"
+"PO-Revision-Date: 2022-12-03 20:15+0100\n"
 "Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -16,7 +16,246 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Licenza GNU General Public, versione 2 o successiva"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "Licenza GNU General Public, versione 3 o successiva"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Licenza GNU Lesser General Public, versione 2.1 o successiva"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Licenza GNU Lesser General Public, versione 3 o successiva"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "Licenza BSD 2-Clause"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "Licenza MIT"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Licenza Artistic 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Licenza GNU General Public, versione 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Licenza GNU General Public, versione 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Licenza GNU Lesser General Public, versione 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Licenza GNU Lesser General Public, versione 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Licenza GNU Affero General Public, versione 3 o successiva"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Licenza GNU Affero General Public, versione 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "Licenza BSD 3-Clause"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Licenza Apache, versione 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Licenza Mozilla Public 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Codice di"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Design di"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Grafica di"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Documentazione di"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Traduzione di"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Questo programma non fornisce alcuna garanzia. Per maggiori informazioni "
+"consultare la <a href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Questo programma"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Versione %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Impossibile interpretare le note di rilascio:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Linea: %d, carattere: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Copiata negli appunti"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Impossibile salvare informazioni di debug"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Chiudi"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Salva informazioni di debug"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "Salva"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "Annulla"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Informazioni"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "Novità"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "Dettagli"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "Sito web"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "Domande di supporto"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "Segnala un problema"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "Risoluzione dei problemi"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "Riconoscimenti"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "Legali"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "Ringraziamenti"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Novità"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Indietro"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Dettagli"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Risoluzione dei problemi"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Per ottenere assistenza nella risoluzione dei problemi, è possibile "
+"visualizzare le informazioni di debug. Fornire queste informazioni agli "
+"sviluppatori quando viene segnalato il problema può aiutare a identificarlo."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "Informazioni di debug"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Riconoscimenti"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Legali"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Ringraziamenti"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Informazioni di debug"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "Copia testo"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "Salva con nome…"
+
+#: src/adw-entry-row.ui:95
+msgid "Apply"
+msgstr "Applica"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -59,7 +298,23 @@ msgstr "Schema colore preferito"
 msgid "High Contrast"
 msgstr "Contrasto elevato"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Nascondi testo"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Mostra testo"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Blocco maiuscolo attivo"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "Mostra testo"
+
+#: src/adw-preferences-window.c:253
 msgid "Untitled page"
 msgstr "Pagina senza titolo"
 
@@ -78,3 +333,7 @@ msgstr "Nessun risultato trovato"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Provare un altro criterio di ricerca."
+
+#: src/adw-tab.ui:92
+msgid "Close Tab"
+msgstr "Chiudi scheda"
