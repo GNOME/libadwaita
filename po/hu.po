@@ -4,20 +4,21 @@
 #
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
 # Balázs Úr <ur.balazs at fsf dot hu>, 2022, 2023, 2024.
+# Benedek Dévényi <rdbende at proton dot me>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-01 18:59+0000\n"
-"PO-Revision-Date: 2024-03-02 12:29+0100\n"
+"POT-Creation-Date: 2024-03-08 16:57+0000\n"
+"PO-Revision-Date: 2024-03-09 17:48+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 45.3\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -84,7 +85,6 @@ msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
 #: src/adw-about-dialog.c:223 src/adw-about-window.c:222
-#| msgid "BSD 2-Clause License"
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
@@ -327,7 +327,7 @@ msgstr "Beállítások"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Keresési beállítások"
+msgstr "Beállítások keresése"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
