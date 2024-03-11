@@ -785,14 +785,6 @@ adw_dialog_grab_focus (GtkWidget *widget)
   return TRUE;
 }
 
-static gboolean
-adw_dialog_contains (GtkWidget *widget,
-                     double     x,
-                     double     y)
-{
-  return FALSE;
-}
-
 static void
 adw_dialog_dispose (GObject *object)
 {
@@ -954,7 +946,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
   widget_class->map = adw_dialog_map;
   widget_class->focus = adw_widget_focus_child;
   widget_class->grab_focus = adw_dialog_grab_focus;
-  widget_class->contains = adw_dialog_contains;
+  widget_class->contains = adw_widget_contains_passthrough;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**

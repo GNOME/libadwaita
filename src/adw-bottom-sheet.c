@@ -201,14 +201,6 @@ allocate_sheet (GtkWidget *widget,
     gtk_widget_allocate (self->outline, width, height, baseline, NULL);
 }
 
-static gboolean
-adw_bottom_sheet_contains (GtkWidget *widget,
-                           double     x,
-                           double     y)
-{
-  return FALSE;
-}
-
 static void
 adw_bottom_sheet_measure (GtkWidget      *widget,
                           GtkOrientation  orientation,
@@ -397,7 +389,7 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
   object_class->get_property = adw_bottom_sheet_get_property;
   object_class->set_property = adw_bottom_sheet_set_property;
 
-  widget_class->contains = adw_bottom_sheet_contains;
+  widget_class->contains = adw_widget_contains_passthrough;
   widget_class->measure = adw_bottom_sheet_measure;
   widget_class->size_allocate = adw_bottom_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;

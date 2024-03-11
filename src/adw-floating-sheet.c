@@ -86,14 +86,6 @@ open_animation_done_cb (AdwFloatingSheet *self)
   }
 }
 
-static gboolean
-adw_floating_sheet_contains (GtkWidget *widget,
-                             double     x,
-                             double     y)
-{
-  return FALSE;
-}
-
 static void
 adw_floating_sheet_measure (GtkWidget      *widget,
                             GtkOrientation  orientation,
@@ -233,7 +225,7 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   object_class->get_property = adw_floating_sheet_get_property;
   object_class->set_property = adw_floating_sheet_set_property;
 
-  widget_class->contains = adw_floating_sheet_contains;
+  widget_class->contains = adw_widget_contains_passthrough;
   widget_class->measure = adw_floating_sheet_measure;
   widget_class->size_allocate = adw_floating_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
