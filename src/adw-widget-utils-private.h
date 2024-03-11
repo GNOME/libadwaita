@@ -51,6 +51,10 @@ void adw_widget_compute_expand_horizontal_only (GtkWidget *widget,
 
 GtkSizeRequestMode adw_widget_get_request_mode (GtkWidget *widget);
 
+gboolean adw_widget_contains_passthrough (GtkWidget *widget,
+                                          double     x,
+                                          double     y);
+
 gboolean adw_widget_lookup_color (GtkWidget  *widget,
                                   const char *name,
                                   GdkRGBA    *rgba);

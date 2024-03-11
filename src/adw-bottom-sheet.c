@@ -569,7 +569,9 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->drag_handle = adw_gizmo_new ("drag-handle", NULL, NULL, NULL, NULL, NULL, NULL);
   gtk_widget_set_parent (self->drag_handle, self->sheet_bin);
 
-  self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL,
+                                 (AdwGizmoContainsFunc) adw_widget_contains_passthrough,
+                                 NULL, NULL);
   gtk_widget_set_can_target (self->outline, FALSE);
   gtk_widget_set_can_focus (self->outline, FALSE);
   gtk_widget_set_parent (self->outline, self->sheet_bin);
