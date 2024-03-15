@@ -1,3 +1,29 @@
+=============
+Version 1.5.0
+=============
+
+- AdwDialog
+  - Fix widget selection in inspector when presented as a bottom sheet
+  - Fix clicks on the dimming still working with can-closed=true
+- Demo
+  - Fix <developer> in metainfo
+- Translation updates
+  - Belarusian
+  - Brazilian Portuguese
+  - Danish
+  - French
+  - Galician
+  - Hungarian
+  - Italian
+  - Kabyle
+  - Kazakh
+  - Latvian
+  - Norwegian Bokmål
+  - Occitan
+  - Slovenian
+  - Swedish
+  - Turkish
+
 ==============
 Version 1.5.rc
 ==============
