@@ -96,6 +96,9 @@ released_cb (GtkGestureClick *gesture,
   if (self->swipe_active)
     return;
 
+  if (!self->can_close)
+    return;
+
   adw_bottom_sheet_set_open (self, FALSE);
 }
 
