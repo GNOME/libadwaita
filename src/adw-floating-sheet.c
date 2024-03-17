@@ -285,7 +285,7 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   gtk_widget_set_can_target (self->dimming, FALSE);
   gtk_widget_set_parent (self->dimming, GTK_WIDGET (self));
 
-  self->sheet_bin = adw_gizmo_new_with_role ("sheet", GTK_ACCESSIBLE_ROLE_DIALOG,
+  self->sheet_bin = adw_gizmo_new_with_role ("sheet", GTK_ACCESSIBLE_ROLE_GENERIC,
                                              NULL, NULL, NULL, NULL,
                                              (AdwGizmoFocusFunc) adw_widget_focus_child,
                                              (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);

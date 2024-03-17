@@ -81,7 +81,7 @@
  * ## Header Bar Integration
  *
  * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
- * title intead of window title. It will also adjust the decoration layout to
+ * title instead of window title. It will also adjust the decoration layout to
  * ensure it always has a close button and nothing else. Set
  * [property@HeaderBar:show-start-title-buttons] and
  * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
@@ -451,7 +451,6 @@ update_presentation (AdwDialog *self)
   if (use_bottom_sheet) {
     priv->bottom_sheet = ADW_BOTTOM_SHEET (adw_bottom_sheet_new ());
 
-    adw_bottom_sheet_set_dialog_mode (priv->bottom_sheet, TRUE);
     adw_bottom_sheet_set_min_natural_width (priv->bottom_sheet, 360);
 
     if (!priv->first_map)
@@ -566,11 +565,18 @@ window_close_request_cb (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
-  if (priv->force_closing)
-    return GDK_EVENT_PROPAGATE;
+  if (priv->force_closing || adw_dialog_close (self)) {
+    GtkAccessibleRole role =
+      gtk_accessible_get_accessible_role (GTK_ACCESSIBLE (priv->window));
 
-  if (adw_dialog_close (self))
+    g_object_set (self, "accessible-role", role, NULL);
+
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_LABEL, priv->title,
+                                    -1);
+
     return GDK_EVENT_PROPAGATE;
+  }
 
   return GDK_EVENT_STOP;
 }
@@ -581,6 +587,7 @@ present_as_window (AdwDialog *self,
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkWidget *titlebar;
+  GtkAccessibleRole role;
 
   if (priv->window) {
     gtk_window_present (GTK_WINDOW (priv->window));
@@ -615,6 +622,13 @@ present_as_window (AdwDialog *self,
   g_object_bind_property (self, "default-widget", priv->window, "default-widget", G_BINDING_SYNC_CREATE);
 
   g_signal_connect_swapped (priv->window, "close-request", G_CALLBACK (window_close_request_cb), self);
+
+  /* Transfer the accessible role onto the window */
+  role = gtk_accessible_get_accessible_role (GTK_ACCESSIBLE (self));
+  g_object_set (priv->window, "accessible-role", role, NULL);
+  g_object_set (self, "accessible-role", GTK_ACCESSIBLE_ROLE_GENERIC, NULL);
+
+  gtk_accessible_reset_property (GTK_ACCESSIBLE (self), GTK_ACCESSIBLE_PROPERTY_LABEL);
 
   gtk_window_present (GTK_WINDOW (priv->window));
 }
@@ -1182,6 +1196,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "dialog");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_DIALOG);
 }
 
 static void
@@ -1346,6 +1361,10 @@ adw_dialog_set_title (AdwDialog  *self,
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
+
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, priv->title,
+                                  -1);
 }
 
 /**
