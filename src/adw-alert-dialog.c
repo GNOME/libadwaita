@@ -907,7 +907,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, message_area);
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, response_area);
 
-  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_DIALOG);
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_ALERT_DIALOG);
 
   g_type_ensure (ADW_TYPE_GIZMO);
 }
