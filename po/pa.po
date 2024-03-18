@@ -1,0 +1,378 @@
+# Punjabi translation for libadwaita.
+# Copyright (C) 2024 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# SPDX-FileCopyrightText: 2024 A S Alam <amanpreet.alam@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2024-03-18 11:30+0000\n"
+"PO-Revision-Date: 2024-03-18 08:02-0500\n"
+"Last-Translator: A S Alam <aalam@punlinux.org>\n"
+"Language-Team: Punjabi <punjab-translation@googlegroups.com>\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਵਰਜ਼ਨ 2 ਜਾਂ ਨਵਾਂ"
+
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਵਰਜ਼ਨ 3 ਜਾਂ ਨਵਾਂ"
+
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU ਲੈਸਰ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਵਰਜ਼ਨ 2.1 ਜਾਂ ਨਵਾਂ"
+
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU ਲੈਸਰ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਵਰਜ਼ਨ 3 ਜਾਂ ਨਵਾਂ"
+
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-ਕਲਾਜ਼ ਲਸੰਸ"
+
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+msgid "The MIT License (MIT)"
+msgstr "MIT ਲਸੰਸ (MIT)"
+
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+msgid "Artistic License 2.0"
+msgstr "ਆਰਟੈਸਟਿਕ ਲਸੰਸ 2.0"
+
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਸਿਰਫ਼ ਵਰਜ਼ਨ 2 ਹੀ"
+
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਸਿਰਫ਼ ਵਰਜ਼ਨ 3 ਹੀ"
+
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU ਲੈਸਰ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਸਿਰਫ਼ ਵਰਜ਼ਨ 2.1 ਹੀ"
+
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU ਲੈਸਰ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਸਿਰਫ਼ ਵਰਜ਼ਨ 3 ਹੀ"
+
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "ਗਨੂ ਅਫੇਰੋ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਵਰਜ਼ਨ 3 ਜਾਂ ਨਵਾਂ"
+
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU ਅਫੇਰੋ ਜਰਨਲ ਪਬਲਿਕ ਲਸੰਸ, ਸਿਰਫ਼ ਵਰਜ਼ਨ 3 ਹੀ"
+
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-ਕਲਾਜ਼ ਲਸੰਸ"
+
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+msgid "Apache License, Version 2.0"
+msgstr "ਅਪਾਚੇ ਲਸੰਸ, ਵਰਜ਼ਨ 2.0"
+
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+msgid "Mozilla Public License 2.0"
+msgstr "ਮੌਜ਼ੀਲਾ ਪਬਲਿਕ ਲਸੰਸ 2.0"
+
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
+msgid "BSD Zero-Clause License"
+msgstr "BSD ਜ਼ੀਰੋ-ਕਲਾਜ਼ ਲਸੰਸ"
+
+#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+msgid "Code by"
+msgstr "ਕੋਡ ਲਿਖਿਆ"
+
+#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+msgid "Design by"
+msgstr "ਡਿਜ਼ਾਇਨ ਬਣਾਏ"
+
+#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+msgid "Artwork by"
+msgstr "ਕਲਾਕਾਰੀ"
+
+#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+msgid "Documentation by"
+msgstr "ਦਸਤਾਵੇਜ਼ ਤਿਆਰਕਰਤਾ"
+
+#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+msgid "Translated by"
+msgstr "ਉਲੱਥਾ ਕਰਤਾ"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"ਇਹ ਐਪਲੀਕੇਸ਼ਨ ਦੀ ਬਿਲਕੁਲ ਕੋਈ ਵੀ ਵਾਰੰਟੀ ਨਹੀਂ ਹੈ। ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ <a href=\"%s\">"
+"%s</a> ਵੇਖੋ।"
+
+#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+msgid "This Application"
+msgstr "ਇਹ ਐਪਲੀਕੇਸ਼ਨ"
+
+#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#, c-format
+msgid "Version %s"
+msgstr "ਵਰਜ਼ਨ %s"
+
+#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+msgid "Unable to parse release notes:"
+msgstr "ਰੀਲਿਜ਼ ਨੋਟਿਸ ਪਾਰਸ ਕਰਨ ਲਈ ਅਸਮਰੱਥ:"
+
+#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "ਲਾਈਨ: %d, ਅੱਖਰ: %d"
+
+#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+msgid "Copied to clipboard"
+msgstr "ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕੀਤਾ"
+
+#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+msgid "Unable to save debugging information"
+msgstr "ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਨੂੰ ਸੰਭਾਣ ਲਈ ਅਸਮਰੱਥ"
+
+#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+msgid "Close"
+msgstr "ਬੰਦ ਕਰੋ"
+
+#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+msgid "Save debugging information"
+msgstr "ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਨੂੰ ਸੰਭਾਲੋ"
+
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+msgid "About"
+msgstr "ਇਸ ਬਾਰੇ"
+
+#: src/adw-about-dialog.ui:89 src/adw-about-window.ui:92
+msgid "_What’s New"
+msgstr "ਨਵਾਂ ਕੀ ਹੈ(_W)"
+
+#: src/adw-about-dialog.ui:105 src/adw-about-window.ui:108
+msgid "_Details"
+msgstr "ਵੇਰਵੇ(_D)"
+
+#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:341
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
+msgid "_Website"
+msgstr "ਵੈੱਬਸਾਈਟ(_W)"
+
+#: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
+msgid "_Support Questions"
+msgstr "ਸਹਾਇਤਾ ਸਵਾਲ(_S)"
+
+#: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
+msgid "_Report an Issue"
+msgstr "ਮਸਲੇ ਬਾਰੇ ਰਿਪੋਰਟ ਕਰੋ(_R)"
+
+#: src/adw-about-dialog.ui:178 src/adw-about-window.ui:181
+msgid "_Troubleshooting"
+msgstr "ਸਮੱਸਿਆ ਨਿਪਟਾਰਾ(_T)"
+
+#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
+msgid "_Credits"
+msgstr "ਮਾਣ(_C)"
+
+#: src/adw-about-dialog.ui:214 src/adw-about-window.ui:217
+msgid "_Legal"
+msgstr "ਕਨੂੰਨ(_L)"
+
+#: src/adw-about-dialog.ui:230 src/adw-about-window.ui:233
+msgid "_Acknowledgements"
+msgstr "ਧੰਨਵਾਦ(_A)"
+
+#: src/adw-about-dialog.ui:260 src/adw-about-window.ui:263
+msgid "What’s New"
+msgstr "ਨਵਾਂ ਕੀ ਹੈ"
+
+#: src/adw-about-dialog.ui:303 src/adw-about-window.ui:306
+msgid "Details"
+msgstr "ਵੇਰਵੇ"
+
+#: src/adw-about-dialog.ui:369 src/adw-about-window.ui:372
+msgid "Troubleshooting"
+msgstr "ਸਮੱਸਿਆ-ਨਿਪਟਾਰਾ"
+
+#: src/adw-about-dialog.ui:392 src/adw-about-window.ui:395
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"ਸਮੱਸਿਆ ਦੇ ਹੱਲ਼ ਵਾਸਤੇ ਸਹਾਇਤਾ ਲਈ ਤੁਸੀਂ ਆਪਣੀ ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਨੂੰ ਵੇਖ ਸਕਦੇ ਹੋ। ਜਦੋਂ"
+" ਤੁਸੀਂ ਮਸਲੇ ਬਾਰੇ ਰਿਪੋਰਟ ਭੇਜਦੇ ਹੋ ਤਾਂ ਇਹ ਜਾਣਕਾਰੀ ਡਿਵੈਲਪਰ ਨੂੰ ਭੇਜਣ ਨਾਲ ਤੁਹਾਨੂੰ"
+" ਦਰਪੇਸ਼ ਸਮੱਸਿਆ ਬਾਰੇ ਪੜਤਾਲ ਕਰਨ ਲਈ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।"
+
+#: src/adw-about-dialog.ui:403 src/adw-about-window.ui:406
+msgid "_Debugging Information"
+msgstr "ਡੀਬਿੱਗ ਕਰਨ ਦੀ ਜਾਣਕਾਰੀ(_D)"
+
+#: src/adw-about-dialog.ui:430 src/adw-about-window.ui:433
+msgid "Debugging Information"
+msgstr "ਡੀਬੱਗ ਜਾਣਕਾਰੀ"
+
+#: src/adw-about-dialog.ui:475 src/adw-about-window.ui:478
+msgid "_Copy Text"
+msgstr "ਲਿਖਤ ਨੂੰ ਕਾਪੀ ਕਰੋ(_C)"
+
+#: src/adw-about-dialog.ui:483 src/adw-about-window.ui:486
+msgid "_Save As…"
+msgstr "…ਵਜੋਂ ਸੰਭਾਲੋ(_S)"
+
+#: src/adw-about-dialog.ui:496 src/adw-about-window.ui:499
+msgid "Credits"
+msgstr "ਮਾਣ"
+
+#: src/adw-about-dialog.ui:527 src/adw-about-window.ui:530
+msgid "Legal"
+msgstr "ਕਨੂੰਨੀ"
+
+#: src/adw-about-dialog.ui:559 src/adw-about-window.ui:562
+msgid "Acknowledgements"
+msgstr "ਧੰਨਵਾਦ"
+
+#: src/adw-back-button.c:347 src/adw-back-button.c:445
+#: src/adw-back-button.c:555
+msgid "Back"
+msgstr "ਪਿੱਛੇ"
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "ਖੋਜੋ"
+
+#: src/adw-entry-row.ui:97
+msgid "Apply"
+msgstr "ਲਾਗੂ ਕਰੋ"
+
+#: src/adw-inspector-page.c:75
+msgid "No Preference"
+msgstr "ਕੋਈ ਪਸੰਦ ਨਹੀਂ"
+
+#: src/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "ਗੂੜ੍ਹਾ ਪਸੰਦ"
+
+#: src/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "ਹਲਕਾ ਪਸੰਦ"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:97
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "ਸਿਸਟਮ ਦੀ ਦਿੱਖ"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"ਇਸ ਐਪਲੀਕੇਸ਼ਨ ਲਈ ਸੈਟਿੰਗਾਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰੋ। ਇਹਨਾਂ ਨੂੰ ਇੰਸਪੈਕਟਰ ਦੇ ਬੰਦ ਹੋਣ ਉਪਰੰਤ"
+" ਮੁੜ-ਸੈੱਟ ਕੀਤਾ ਜਾਵੇਗਾ।"
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "ਸਿਸਟਮ ਵਲੋਂ ਸਹਾਇਕ ਰੰਗ ਸਕੀਮਾਂ"
+
+#: src/adw-inspector-page.ui:20
+msgid "Preferred Color Scheme"
+msgstr "ਪਸੰਦੀਦਾ ਰੰਗ ਸਕੀਮ"
+
+#: src/adw-inspector-page.ui:37
+msgid "High Contrast"
+msgstr "ਵੱਧ ਕਨਟਰਾਸਟ"
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "ਪਾਸਵਰਡ ਨੂੰ ਲੁਕਾਓ"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "ਪਾਸਵਰਡ ਨੂੰ ਵੇਖਾਓ"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "ਕੈਪਸ ਲਾਕ ਚਾਲੂ ਹੈ"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "ਪਾਸਵਰਡ ਨੂੰ ਵੇਖਾਓ(_S)"
+
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+msgid "Untitled page"
+msgstr "ਬਿਨਾਂ ਨਾਂ ਦਾ ਸਫ਼ਾ"
+
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "ਪਸੰਦਾਂ"
+
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "ਖੋਜ ਦੀਆਂ ਪਸੰਦਾਂ"
+
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+msgid "No Results Found"
+msgstr "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਲੱਭੇ"
+
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
+#: src/adw-tab-overview.ui:111
+msgid "Try a different search."
+msgstr "ਵੱਖਰੀ ਖੋਜ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "ਹੋਰ ਚੋਣਾਂ"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "ਖੁੱਲ੍ਹੀਆਂ ਟੈਬਾਂ ਨੂੰ ਵੇਖੋ"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:928
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u ਟੈਬ"
+msgstr[1] "%u ਟੈਬਾਂ"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "ਟੈਬਾਂ ਨੂੰ ਲੱਭੋ"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "ਟੈਬਾਂ ਨੂੰ ਲੱਭੋ"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "ਕੋਈ ਖੁੱਲ੍ਹੀ ਟੈਬ ਨਹੀਂ ਹੈ"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "ਕੋਈ ਟੈਬ ਨਹੀਂ ਲੱਭੀ"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "ਨਵੀਂ ਟੈਬ(_T)"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+msgid "Close Tab"
+msgstr "ਟੈਬ ਨੂੰ ਬੰਦ ਕਰੋ"
+
