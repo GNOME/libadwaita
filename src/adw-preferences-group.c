@@ -248,6 +248,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   object_class->dispose = adw_preferences_group_dispose;
 
   widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
