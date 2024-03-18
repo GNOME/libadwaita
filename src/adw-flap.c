@@ -1254,6 +1254,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   object_class->set_property = adw_flap_set_property;
   object_class->dispose = adw_flap_dispose;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_flap_measure;
   widget_class->size_allocate = adw_flap_size_allocate;
   widget_class->snapshot = adw_flap_snapshot;

@@ -260,6 +260,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   object_class->dispose = adw_view_switcher_button_dispose;
   object_class->finalize = adw_view_switcher_button_finalize;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_view_switcher_button_measure;
   widget_class->size_allocate = adw_view_switcher_button_size_allocate;
 

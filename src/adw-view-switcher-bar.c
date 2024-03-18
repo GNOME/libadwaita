@@ -234,6 +234,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   object_class->set_property = adw_view_switcher_bar_set_property;
   object_class->dispose = adw_view_switcher_bar_dispose;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->realize = adw_view_switcher_bar_realize;
   widget_class->unrealize = adw_view_switcher_bar_unrealize;
 

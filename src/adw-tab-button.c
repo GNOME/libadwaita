@@ -283,6 +283,8 @@ adw_tab_button_class_init (AdwTabButtonClass *klass)
   object_class->get_property = adw_tab_button_get_property;
   object_class->set_property = adw_tab_button_set_property;
 
+  widget_class->focus = adw_widget_focus_child;
+
   /**
    * AdwTabButton:view: (attributes org.gtk.Property.get=adw_tab_button_get_view org.gtk.Property.set=adw_tab_button_set_view)
    *

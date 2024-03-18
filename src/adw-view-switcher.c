@@ -389,6 +389,8 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   object_class->dispose = adw_view_switcher_dispose;
   object_class->finalize = adw_view_switcher_finalize;
 
+  widget_class->focus = adw_widget_focus_child;
+
   /**
    * AdwViewSwitcher:policy: (attributes org.gtk.Property.get=adw_view_switcher_get_policy org.gtk.Property.set=adw_view_switcher_set_policy)
    *

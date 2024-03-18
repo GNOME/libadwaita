@@ -349,6 +349,7 @@ adw_banner_class_init (AdwBannerClass *klass)
   object_class->get_property = adw_banner_get_property;
   object_class->set_property = adw_banner_set_property;
   object_class->dispose = adw_banner_dispose;
+  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwBanner:title: (attributes org.gtk.Property.get=adw_banner_get_title org.gtk.Property.set=adw_banner_set_title)

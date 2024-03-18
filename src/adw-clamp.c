@@ -169,6 +169,7 @@ adw_clamp_class_init (AdwClampClass *klass)
   object_class->dispose = adw_clamp_dispose;
 
   widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

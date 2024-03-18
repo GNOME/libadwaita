@@ -493,6 +493,7 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
   object_class->set_property = adw_toast_overlay_set_property;
 
   widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->measure = adw_toast_overlay_measure;
   widget_class->size_allocate = adw_toast_overlay_size_allocate;

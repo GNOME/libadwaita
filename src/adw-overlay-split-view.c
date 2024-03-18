@@ -855,6 +855,7 @@ adw_overlay_split_view_class_init (AdwOverlaySplitViewClass *klass)
   object_class->set_property = adw_overlay_split_view_set_property;
   object_class->dispose = adw_overlay_split_view_dispose;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->snapshot = adw_overlay_split_view_snapshot;
   widget_class->direction_changed = adw_overlay_split_view_direction_changed;
   widget_class->compute_expand = adw_widget_compute_expand;

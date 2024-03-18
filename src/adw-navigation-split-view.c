@@ -757,6 +757,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
   object_class->get_property = adw_navigation_split_view_get_property;
   object_class->set_property = adw_navigation_split_view_set_property;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->root = adw_navigation_split_view_root;
   widget_class->unroot = adw_navigation_split_view_unroot;
 

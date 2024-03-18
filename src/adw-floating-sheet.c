@@ -226,6 +226,7 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   object_class->set_property = adw_floating_sheet_set_property;
 
   widget_class->contains = adw_widget_contains_passthrough;
+  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_floating_sheet_measure;
   widget_class->size_allocate = adw_floating_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
