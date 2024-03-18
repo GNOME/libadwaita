@@ -588,6 +588,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   object_class->set_property = adw_preferences_window_set_property;
   object_class->dispose = adw_preferences_window_dispose;
 
+  widget_class->focus = adw_widget_focus_child;
+
   /**
    * AdwPreferencesWindow:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
    *

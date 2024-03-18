@@ -880,6 +880,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
   object_class->dispose = adw_message_dialog_dispose;
   object_class->finalize = adw_message_dialog_finalize;
 
+  widget_class->focus = adw_widget_focus_child;
   widget_class->map = adw_message_dialog_map;
   widget_class->measure = adw_message_dialog_measure;
 

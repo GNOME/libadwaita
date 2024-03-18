@@ -115,6 +115,8 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   object_class->set_property = adw_preferences_row_set_property;
   object_class->finalize = adw_preferences_row_finalize;
 
+  widget_class->focus = adw_widget_focus_child;
+
   /**
    * AdwPreferencesRow:title: (attributes org.gtk.Property.get=adw_preferences_row_get_title org.gtk.Property.set=adw_preferences_row_set_title)
    *
