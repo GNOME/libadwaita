@@ -132,7 +132,6 @@ adw_password_entry_row_class_init (AdwPasswordEntryRowClass *klass)
 
   object_class->dispose = adw_password_entry_row_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->realize = adw_password_entry_row_realize;
 }
 

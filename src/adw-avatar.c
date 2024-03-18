@@ -374,7 +374,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   object_class->finalize = adw_avatar_finalize;
   object_class->set_property = adw_avatar_set_property;
   object_class->get_property = adw_avatar_get_property;
-  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwAvatar:icon-name: (attributes org.gtk.Property.get=adw_avatar_get_icon_name org.gtk.Property.set=adw_avatar_set_icon_name)

@@ -2410,7 +2410,6 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   object_class->get_property = adw_tab_view_get_property;
   object_class->set_property = adw_tab_view_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_tab_view_measure;
   widget_class->size_allocate = adw_tab_view_size_allocate;
   widget_class->snapshot = adw_tab_view_snapshot;

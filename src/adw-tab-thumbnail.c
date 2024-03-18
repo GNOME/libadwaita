@@ -488,7 +488,6 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
   object_class->get_property = adw_tab_thumbnail_get_property;
   object_class->set_property = adw_tab_thumbnail_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->map = adw_tab_thumbnail_map;
   widget_class->unmap = adw_tab_thumbnail_unmap;
 

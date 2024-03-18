@@ -704,7 +704,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
   object_class->get_property = adw_header_bar_get_property;
   object_class->set_property = adw_header_bar_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->root = adw_header_bar_root;
   widget_class->unroot = adw_header_bar_unroot;
   widget_class->compute_expand = adw_widget_compute_expand_horizontal_only;

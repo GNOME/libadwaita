@@ -112,8 +112,6 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
   object_class->set_property = adw_window_title_set_property;
   object_class->dispose = adw_window_title_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
-
   /**
    * AdwWindowTitle:title: (attributes org.gtk.Property.get=adw_window_title_get_title org.gtk.Property.set=adw_window_title_set_title)
    *

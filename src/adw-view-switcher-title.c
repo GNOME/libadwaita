@@ -279,7 +279,6 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   object_class->get_property = adw_view_switcher_title_get_property;
   object_class->set_property = adw_view_switcher_title_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->realize = adw_view_switcher_title_realize;
   widget_class->unrealize = adw_view_switcher_title_unrealize;
 

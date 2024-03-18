@@ -527,7 +527,6 @@ adw_back_button_class_init (AdwBackButtonClass *klass)
 
   object_class->dispose = adw_back_button_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->root = adw_back_button_root;
   widget_class->unroot = adw_back_button_unroot;
 

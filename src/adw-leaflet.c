@@ -2175,7 +2175,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   object_class->dispose = adw_leaflet_dispose;
   object_class->finalize = adw_leaflet_finalize;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_leaflet_measure;
   widget_class->size_allocate = adw_leaflet_size_allocate;
   widget_class->snapshot = adw_leaflet_snapshot;

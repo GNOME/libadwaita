@@ -1709,7 +1709,6 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   object_class->get_property = adw_navigation_view_get_property;
   object_class->set_property = adw_navigation_view_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_navigation_view_measure;
   widget_class->size_allocate = adw_navigation_view_size_allocate;
   widget_class->snapshot = adw_navigation_view_snapshot;

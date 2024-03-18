@@ -229,8 +229,6 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
   object_class->get_property = adw_toast_widget_get_property;
   object_class->set_property = adw_toast_widget_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
-
   props[PROP_TOAST] =
     g_param_spec_object ("toast", NULL, NULL,
                          ADW_TYPE_TOAST,

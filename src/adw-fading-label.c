@@ -226,7 +226,6 @@ adw_fading_label_class_init (AdwFadingLabelClass *klass)
   object_class->set_property = adw_fading_label_set_property;
   object_class->dispose = adw_fading_label_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_fading_label_measure;
   widget_class->size_allocate = adw_fading_label_size_allocate;
   widget_class->snapshot = adw_fading_label_snapshot;

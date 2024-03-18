@@ -186,7 +186,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   object_class->finalize = adw_status_page_finalize;
 
   widget_class->compute_expand = adw_widget_compute_expand;
-  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwStatusPage:icon-name: (attributes org.gtk.Property.get=adw_status_page_get_icon_name org.gtk.Property.set=adw_status_page_set_icon_name)

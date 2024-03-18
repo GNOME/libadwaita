@@ -125,8 +125,6 @@ adw_switch_row_class_init (AdwSwitchRowClass *klass)
   object_class->set_property = adw_switch_row_set_property;
   object_class->dispose = adw_switch_row_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
-
   /**
    * AdwSwitchRow:active: (attributes org.gtk.Property.get=adw_switch_row_get_active org.gtk.Property.set=adw_switch_row_set_active)
    *

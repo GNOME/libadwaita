@@ -216,7 +216,6 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
   object_class->get_property = adw_button_content_get_property;
   object_class->set_property = adw_button_content_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->root = adw_button_content_root;
   widget_class->unroot = adw_button_content_unroot;
 

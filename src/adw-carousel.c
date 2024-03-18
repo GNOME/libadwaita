@@ -876,7 +876,6 @@ adw_carousel_class_init (AdwCarouselClass *klass)
   object_class->get_property = adw_carousel_get_property;
   object_class->set_property = adw_carousel_set_property;
 
-  widget_class->focus = adw_widget_focus_child;
   widget_class->measure = adw_carousel_measure;
   widget_class->size_allocate = adw_carousel_size_allocate;
   widget_class->direction_changed = adw_carousel_direction_changed;
