@@ -105,7 +105,6 @@ adw_bin_class_init (AdwBinClass *klass)
   object_class->set_property = adw_bin_set_property;
 
   widget_class->compute_expand = adw_widget_compute_expand;
-  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwBin:child: (attributes org.gtk.Property.get=adw_bin_get_child org.gtk.Property.set=adw_bin_set_child)

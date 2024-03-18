@@ -204,8 +204,6 @@ adw_window_class_init (AdwWindowClass *klass)
 
   object_class->get_property = adw_window_get_property;
   object_class->set_property = adw_window_set_property;
-
-  widget_class->focus = adw_widget_focus_child;
   widget_class->size_allocate = adw_window_size_allocate;
 
   /**

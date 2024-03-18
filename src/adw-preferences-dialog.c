@@ -539,8 +539,6 @@ adw_preferences_dialog_class_init (AdwPreferencesDialogClass *klass)
   object_class->set_property = adw_preferences_dialog_set_property;
   object_class->dispose = adw_preferences_dialog_dispose;
 
-  widget_class->focus = adw_widget_focus_child;
-
   /**
    * AdwPreferencesDialog:visible-page: (attributes org.gtk.Property.get=adw_preferences_dialog_get_visible_page org.gtk.Property.set=adw_preferences_dialog_set_visible_page)
    *
