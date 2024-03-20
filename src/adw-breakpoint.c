@@ -1526,7 +1526,7 @@ adw_breakpoint_set_condition (AdwBreakpoint          *self,
  * @self: a breakpoint
  * @object: the target object
  * @property: the target property
- * @value: the value to set
+ * @value: (nullable): the value to set
  *
  * Adds a setter to @self.
  *
