@@ -236,7 +236,7 @@ update_custom_image_snapshot (AdwAvatar *self)
     scaled_height = size;
     scaled_width = (float) width * scaled_height / (float) height;
   } else if (width < height) {
-    scaled_width = self->size;
+    scaled_width = size;
     scaled_height = (float) height * scaled_width / (float) width;
   } else {
     scaled_width = scaled_height = size;
