@@ -4,6 +4,7 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="AdwPreferencesPage" id="widget">
     <property name="width-request">400</property>
+    <property name="description">Page description.</property>
     <style>
       <class name="docs-background"/>
     </style>
