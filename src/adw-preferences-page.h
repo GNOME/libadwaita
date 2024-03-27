@@ -73,6 +73,11 @@ gboolean adw_preferences_page_get_use_underline (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
                                                  gboolean            use_underline);
+ADW_AVAILABLE_IN_1_6
+gboolean adw_preferences_page_get_description_centered (AdwPreferencesPage *self);
+ADW_AVAILABLE_IN_1_6
+void     adw_preferences_page_set_description_centered (AdwPreferencesPage *self,
+                                                        gboolean            centered);
 
 ADW_AVAILABLE_IN_1_3
 void adw_preferences_page_scroll_to_top (AdwPreferencesPage *self);

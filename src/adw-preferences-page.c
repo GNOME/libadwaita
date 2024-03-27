@@ -63,6 +63,7 @@ enum {
   PROP_DESCRIPTION,
   PROP_NAME,
   PROP_USE_UNDERLINE,
+  PROP_DESCRIPTION_CENTERED,
   LAST_PROP,
 };
 
@@ -100,6 +101,9 @@ adw_preferences_page_get_property (GObject    *object,
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, adw_preferences_page_get_use_underline (self));
     break;
+  case PROP_DESCRIPTION_CENTERED:
+    g_value_set_boolean (value, adw_preferences_page_get_description_centered (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -128,6 +132,9 @@ adw_preferences_page_set_property (GObject      *object,
     break;
   case PROP_USE_UNDERLINE:
     adw_preferences_page_set_use_underline (self, g_value_get_boolean (value));
+    break;
+  case PROP_DESCRIPTION_CENTERED:
+    adw_preferences_page_set_description_centered (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -218,6 +225,18 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwPreferencesPage:description-centered: (attributes org.gtk.Property.get=adw_preferences_page_get_description_centered org.gtk.Property.set=adw_preferences_page_set_description_centered)
+   *
+   * Whether the description should be centered.
+   *
+   * Since: 1.6
+   */
+  props[PROP_DESCRIPTION_CENTERED] =
+    g_param_spec_boolean ("description-centered", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -551,6 +570,63 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
   priv->use_underline = use_underline;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
+}
+
+/*
+ * adw_preferences_page_set_description_centered: (attributes org.gtk.Method.set_property=description-centered)
+ * @self: a preferences page
+ *
+ * Gets whether the description is centered.
+ *
+ * Returns: whether the description is centered.
+ *
+ * Since: 1.6
+ */
+gboolean
+adw_preferences_page_get_description_centered (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), FALSE);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return gtk_label_get_justify (priv->description) == GTK_JUSTIFY_CENTER;
+}
+
+/**
+ * adw_preferences_page_set_description_centered: (attributes org.gtk.Method.set_property=description-centered)
+ * @self: a preferences page
+ * @centered: If the description should be centered
+ *
+ * Sets whether the description should be centered.
+ *
+ * Since: 1.6
+ */
+void
+adw_preferences_page_set_description_centered (AdwPreferencesPage *self,
+                                               gboolean            centered)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  centered = !!centered;
+
+  if (adw_preferences_page_get_description_centered (self) == centered)
+    return;
+
+  if (centered) {
+    gtk_label_set_justify (priv->description, GTK_JUSTIFY_CENTER);
+    gtk_label_set_xalign (priv->description, 0.5);
+  } else {
+    gtk_label_set_justify (priv->description, GTK_JUSTIFY_LEFT);
+    gtk_label_set_xalign (priv->description, 0);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION_CENTERED]);
 }
 
 static GListModel *
