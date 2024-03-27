@@ -14,15 +14,26 @@
 /**
  * AdwPreferencesPage:
  *
- * A page from [class@PreferencesDialog].
+ * A page of preferences groups.
  *
  * <picture>
  *   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="preferences-page.png" alt="preferences-page">
  * </picture>
  *
- * The `AdwPreferencesPage` widget gathers preferences groups into a single page
- * of a preferences window.
+ * The `AdwPreferencesPage` widget gathers [class@PreferencesGroup] into a
+ * single page. When used in a [class@PreferencesDialog], the
+ * [property@PreferencesPage:title] and [property@PreferencesPage:icon-name]
+ * properties will be used to generate tabs for navigation.
+ *
+ * An `AdwPreferencesPage` presents its contents in a scrollable clamped list
+ * of [class@PreferencesGroup]s. To summarize its contents, a page may also
+ * use the [property@PreferencesPage:description] property.
+ *
+ * ## AdwPreferencesPage as GtkBuildable
+ *
+ * `AdwPreferencesPage` only supports adding [class@PreferencesGroup]s as
+ * children.
  *
  * ## CSS nodes
  *
