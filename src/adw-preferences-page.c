@@ -35,10 +35,6 @@
  * `AdwPreferencesPage` only supports adding [class@PreferencesGroup]s as
  * children.
  *
- * ## CSS nodes
- *
- * `AdwPreferencesPage` has a single CSS node with name `preferencespage`.
- *
  * ## Accessibility
  *
  * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
