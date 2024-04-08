@@ -1,96 +1,100 @@
-# Kabyle translation for libpanel.
-# Copyright (C) 2024 libpanel's COPYRIGHT HOLDER
-# This file is distributed under the same license as the libpanel package.
-# Rachida SACI <rgebbid@gmail.com>, 2024.
+# Kabyle translation for libadwaita.
+# Copyright (C) 2024 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # ButterflyOfFire <ButterflyOfFire@protonmail.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libpanel main\n"
+"Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-30 21:26+0000\n"
-"PO-Revision-Date: 2024-03-30 22:35+0100\n"
-"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"POT-Creation-Date: 2024-03-11 16:57+0000\n"
+"PO-Revision-Date: 2024-04-07 18:01+0200\n"
+"Last-Translator: sa\n"
 "Language-Team: Kabyle <>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 41.0\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-DL-Team: kab\n"
 "X-DL-Module: libadwaita\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
-"Plural-Forms: nplurals=2; plural=n>1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
-msgstr ""
+msgstr "Turagt tazayazt tamatut GNU, lqem wis 2 neɣ tamaynut ugar"
 
 #: src/adw-about-dialog.c:208 src/adw-about-window.c:207
 msgid "GNU General Public License, version 3 or later"
-msgstr ""
+msgstr "Turagt tazayazt tamatut GNU, lqem wis 3 neɣ tamaynut ugar"
 
 #: src/adw-about-dialog.c:209 src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr ""
+"Turagt tazayazt tamatut yesεan tilas GNU Lisser, lqem wis 2.1 neɣ tamaynut "
+"ugar"
 
 #: src/adw-about-dialog.c:210 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr ""
+"Turagt tazayazt tamatut yesεan tilas GNU, lqem wis 3 neɣ tamaynut ugar"
 
 #: src/adw-about-dialog.c:211 src/adw-about-window.c:210
 msgid "BSD 2-Clause License"
-msgstr ""
+msgstr "Turagt BSD-Clause"
 
 #: src/adw-about-dialog.c:212 src/adw-about-window.c:211
 msgid "The MIT License (MIT)"
-msgstr "Turagt n MIT (MIT)"
+msgstr "Turagt MIT (MIT)"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:212
 msgid "Artistic License 2.0"
-msgstr ""
+msgstr "Turagt n tẓuri 2.0"
 
 #: src/adw-about-dialog.c:214 src/adw-about-window.c:213
 msgid "GNU General Public License, version 2 only"
-msgstr ""
+msgstr "Turagt tazayazt tamatut GNU, lqem wis 2 kan"
 
 #: src/adw-about-dialog.c:215 src/adw-about-window.c:214
 msgid "GNU General Public License, version 3 only"
-msgstr ""
+msgstr "Turagt tazayazt tamatut GNU, lqem wis 3 kan"
 
 #: src/adw-about-dialog.c:216 src/adw-about-window.c:215
 msgid "GNU Lesser General Public License, version 2.1 only"
-msgstr ""
+msgstr "Turagt tazayazt tamatut yesεan tilas GNU, lqem wis 2.1 kan"
 
 #: src/adw-about-dialog.c:217 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 only"
-msgstr ""
+msgstr "Turagt tazayazt tamatut yesεan tilas GNU, lqem wis 3 kan"
 
 #: src/adw-about-dialog.c:218 src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr ""
+"Turagt tazayazt tamatut yesεan GNU Affero, lqem wis 3 neɣ amaynut ugar"
 
 #: src/adw-about-dialog.c:219 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 only"
-msgstr ""
+msgstr "Turagt tazayazt tamatut yesεan GNU Affero, lqem wis 3 kan"
 
 #: src/adw-about-dialog.c:220 src/adw-about-window.c:219
 msgid "BSD 3-Clause License"
-msgstr ""
+msgstr "Turagt BSD 3-Clause"
 
 #: src/adw-about-dialog.c:221 src/adw-about-window.c:220
 msgid "Apache License, Version 2.0"
-msgstr ""
+msgstr "Turagt Apache, lqem 2.0"
 
 #: src/adw-about-dialog.c:222 src/adw-about-window.c:221
 msgid "Mozilla Public License 2.0"
-msgstr ""
+msgstr "Turagt tazayazt n Mozella 2.0"
 
 #: src/adw-about-dialog.c:223 src/adw-about-window.c:222
 msgid "BSD Zero-Clause License"
-msgstr ""
+msgstr "Turagt BSD Zero-Clause"
 
 #: src/adw-about-dialog.c:560 src/adw-about-window.c:558
 msgid "Code by"
@@ -98,11 +102,11 @@ msgstr "Tangalt s ɣur"
 
 #: src/adw-about-dialog.c:561 src/adw-about-window.c:559
 msgid "Design by"
-msgstr ""
+msgstr "Yettufeṣṣel s"
 
 #: src/adw-about-dialog.c:562 src/adw-about-window.c:560
 msgid "Artwork by"
-msgstr ""
+msgstr "Amahil n tẓuri sɣur"
 
 #: src/adw-about-dialog.c:563 src/adw-about-window.c:561
 msgid "Documentation by"
@@ -121,6 +125,8 @@ msgid ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 msgstr ""
+"Asnas-a ur tt-id-yeḍfir ara akk uḍman. Wali deg <a href=\"%s\">%s</a>i "
+"telqayt."
 
 #: src/adw-about-dialog.c:671 src/adw-about-window.c:669
 msgid "This Application"
@@ -133,7 +139,7 @@ msgstr "Lqem %s"
 
 #: src/adw-about-dialog.c:999 src/adw-about-window.c:997
 msgid "Unable to parse release notes:"
-msgstr ""
+msgstr "D awezɣi ad ttwaselḍent tezmilin n lqem:"
 
 #: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
 #, c-format
@@ -142,20 +148,19 @@ msgstr "Izirig: %d, asekkil: %d"
 
 #: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
 msgid "Copied to clipboard"
-msgstr "Yettwanɣel ɣef afus"
+msgstr "Nɣel ɣer tecfawt"
 
 #: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
 msgid "Unable to save debugging information"
-msgstr ""
+msgstr "D awezɣi usekles n telɣut n tseɣtayt"
 
 #: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
-#| msgid "Close Frame"
 msgid "Close"
 msgstr "Mdel"
 
 #: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
 msgid "Save debugging information"
-msgstr ""
+msgstr "Sekles talɣut n tseɣtayt"
 
 #: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
 msgid "About"
@@ -176,7 +181,7 @@ msgstr "Asmel _Web"
 
 #: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
 msgid "_Support Questions"
-msgstr ""
+msgstr "Iseteqsiyen n tallalt (_S)"
 
 #: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
 msgid "_Report an Issue"
@@ -184,7 +189,7 @@ msgstr "Azen aneqqis n wugu_r"
 
 #: src/adw-about-dialog.ui:178 src/adw-about-window.ui:181
 msgid "_Troubleshooting"
-msgstr "Aɣmis n usellek (_T)"
+msgstr "Asellek (_T)"
 
 #: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
 msgid "_Credits"
@@ -196,7 +201,7 @@ msgstr "Usḍif (_L)"
 
 #: src/adw-about-dialog.ui:230 src/adw-about-window.ui:233
 msgid "_Acknowledgements"
-msgstr ""
+msgstr "_Asnemmer"
 
 #: src/adw-about-dialog.ui:260 src/adw-about-window.ui:263
 msgid "What’s New"
@@ -208,7 +213,7 @@ msgstr "Talqayt"
 
 #: src/adw-about-dialog.ui:369 src/adw-about-window.ui:372
 msgid "Troubleshooting"
-msgstr "Aɣmis n usellek"
+msgstr "Diagnostic"
 
 #: src/adw-about-dialog.ui:392 src/adw-about-window.ui:395
 msgid ""
@@ -216,14 +221,17 @@ msgid ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
+"I wakken ad ak-nsellek, tzemreḍ ad tessekneḍ talɣut-ik n tseɣtayt. Amuddu n "
+"telɣut-a i yineflayen yezmer ad yall ad nemnined uguren i d-tettmagareḍ mi "
+"ara d-temmleḍ ugur."
 
 #: src/adw-about-dialog.ui:403 src/adw-about-window.ui:406
 msgid "_Debugging Information"
-msgstr ""
+msgstr "Talɣut n tseɣtayt (_D)"
 
 #: src/adw-about-dialog.ui:430 src/adw-about-window.ui:433
 msgid "Debugging Information"
-msgstr ""
+msgstr "Talɣut n tseɣtayt"
 
 #: src/adw-about-dialog.ui:475 src/adw-about-window.ui:478
 msgid "_Copy Text"
@@ -243,12 +251,12 @@ msgstr "Usḍif"
 
 #: src/adw-about-dialog.ui:559 src/adw-about-window.ui:562
 msgid "Acknowledgements"
-msgstr ""
+msgstr "Asnemmer"
 
 #: src/adw-back-button.c:347 src/adw-back-button.c:445
 #: src/adw-back-button.c:555
 msgid "Back"
-msgstr "Uɣal"
+msgstr "Tuɣalin"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
 #: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
@@ -262,7 +270,7 @@ msgstr "Snes"
 
 #: src/adw-inspector-page.c:75
 msgid "No Preference"
-msgstr ""
+msgstr "Ulac ismenyifen"
 
 #: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
@@ -285,19 +293,19 @@ msgstr "Timeẓri n unagraw"
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
-msgstr ""
+msgstr "Semselsi iɣewwaren n usnas-a. Ad ttuwennzen akken ara yemdel umaswaḍ."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
-msgstr ""
+msgstr "Anagraw yessefrak izenziɣen n yini"
 
 #: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
-msgstr ""
+msgstr "Azenziɣ n yiniten i tḥemmleḍ"
 
 #: src/adw-inspector-page.ui:37
 msgid "High Contrast"
-msgstr ""
+msgstr "Amyeẓli afellay"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -309,7 +317,7 @@ msgstr "Sken-d awal n uɛeddi"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
-msgstr ""
+msgstr "Isekkilen imeqqranen remden"
 
 #: src/adw-password-entry-row.c:176
 msgid "_Show Password"
@@ -321,20 +329,20 @@ msgstr "Asebter war isem"
 
 #: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
 msgid "Preferences"
-msgstr "Imenyafen"
+msgstr "Ismenyafen"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Imenyafen n unadi"
+msgstr "Ismenyifen n unadi"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
-msgstr "Ulac igmad i yettwafen"
+msgstr "Ulac igmaḍ"
 
 #: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
 #: src/adw-tab-overview.ui:111
 msgid "Try a different search."
-msgstr "Ɛreḍ anadi-nniḍen."
+msgstr "Ɛreḍ anadi niḍen."
 
 #: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
@@ -342,119 +350,36 @@ msgstr "Ugar n tfernunin"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
-msgstr ""
+msgstr "Sken accaren i yeldin"
 
 #. Translators: Tab overview title, %u is the number of open tabs
 #: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u n yiccer"
+msgstr[1] "%u n yaccaren"
 
 #: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
-msgstr ""
+msgstr "Accaren n unadi"
 
 #: src/adw-tab-overview.ui:51
 msgid "Search tabs"
-msgstr ""
+msgstr "Nadi accaren"
 
 #: src/adw-tab-overview.ui:97
-#| msgid "Open Pages"
 msgid "No Open Tabs"
-msgstr ""
+msgstr "Ulac iccer i yeldin"
 
 #: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
-msgstr ""
+msgstr "Ulac iccer yettwafen"
 
 #: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Iccer amaynu_t"
 
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
-#| msgid "Close Frame"
 msgid "Close Tab"
 msgstr "Mdel iccer"
-
-#~ msgid "Frame"
-#~ msgstr "Akatar"
-
-#~ msgid "Move Page _Left"
-#~ msgstr "Senkez asebter ɣer uzelmeḍ (_L)"
-
-#~ msgid "Move Page _Right"
-#~ msgstr "Senkez asebter ɣer yeffus (_R)"
-
-#~ msgid "Move Page _Up"
-#~ msgstr "Senkez asebter d asawen (_U)"
-
-#~ msgid "Move Page _Down"
-#~ msgstr "Senkez asebter d akessar (_D)"
-
-#~ msgid "Close All Pages"
-#~ msgstr "Mdel akk isebtar"
-
-#~ msgid "Restore panel to previous location"
-#~ msgstr "Err agalis ɣer wadig yezrin"
-
-#~ msgid "(new)"
-#~ msgstr "(amaynut)"
-
-#~ msgid "Save or Discard Draft?"
-#~ msgstr "Sekles neɣ Sefsex arewway?"
-
-#~ msgid "_Discard"
-#~ msgstr "Sefsex (_D)"
-
-#, c-format
-#~ msgid "“%s” contains unsaved changes. Changes can be saved or discarded."
-#~ msgstr ""
-#~ "\"%s\" deg-s isenfal i yettwaseklasen. Isenfal zemren ad ttwaskelsen neɣ "
-#~ "ad ttwasefsaxen."
-
-#~ msgid "Save or Discard Changes?"
-#~ msgstr "Sekles neɣ Sefsex isenfal?"
-
-#~ msgid "_Save"
-#~ msgstr "_Sekles"
-
-#~ msgid ""
-#~ "Open documents contain unsaved changes. Changes can be saved or discarded."
-#~ msgstr ""
-#~ "Isemliyen yeldin deg-sen isenfal ur yetwaseklasen ara. Isenfal zemren ad "
-#~ "ttwaskelsen neɣ ad ttwasfesxen."
-
-#~ msgid "Only _Save Selected"
-#~ msgstr "Sekles tafrayt kan (_S)"
-
-#~ msgid "Save All"
-#~ msgstr "Sekles kkullec"
-
-#~ msgid "Discard All"
-#~ msgstr "Sefsex kullec"
-
-#~ msgid "_Cancel"
-#~ msgstr "Sefsex (_C)"
-
-#~ msgid "Follow system style"
-#~ msgstr "Ḍfer aɣanib n unagraw"
-
-#~ msgid "Light style"
-#~ msgstr "Aɣanib aceεlal"
-
-#~ msgid "Dark style"
-#~ msgstr "Aɣanib aberkan"
-
-#~ msgid "Toggle visibility of left panel"
-#~ msgstr "Ldi/Mdel abani n ugalis ɣer uzelmaḍ"
-
-#~ msgid "Toggle visibility of right panel"
-#~ msgstr "Ldi/Mdel abani n ugalis ɣer uyeffus"
-
-#~ msgid "Toggle visibility of top panel"
-#~ msgstr "Ldi/Mdel abani n ugalis d asawen"
-
-#~ msgid "Toggle visibility of bottom panel"
-#~ msgstr "Ldi/Mdel abani n ugalis d akessar"
