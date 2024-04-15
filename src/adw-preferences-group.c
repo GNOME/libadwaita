@@ -508,7 +508,7 @@ adw_preferences_group_set_description (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_header_suffix:
+ * adw_preferences_group_get_header_suffix: (attributes org.gtk.Method.get_property=header-suffix)
  * @self: a `AdwPreferencesGroup`
  *
  * Gets the suffix for @self's header.
@@ -530,7 +530,7 @@ adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_header_suffix:
+ * adw_preferences_group_set_header_suffix: (attributes org.gtk.Method.set_property=header-suffix)
  * @self: a `AdwPreferencesGroup`
  * @suffix: (nullable): the suffix to set
  *
@@ -568,6 +568,8 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
     gtk_box_append (priv->header_box, priv->header_suffix);
 
   update_header_visibility (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HEADER_SUFFIX]);
 }
 
 /**
