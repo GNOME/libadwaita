@@ -347,6 +347,16 @@ a [boxed list](boxed-lists.html). The list box should have
 [property@Gtk.ListBox:selection-mode] set to `GTK_SELECTION_NONE`.
 
 <picture>
+  <source srcset="boxed-lists-separate-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="boxed-lists-separate.png" alt="boxed-lists-separate">
+</picture>
+
+The `.boxed-list-separate` style class is similar to `.boxed-list`, but presents
+each row as a separate card instead of the whole list being a single card with
+separators. The list box should have [property@Gtk.ListBox:selection-mode] set
+to `GTK_SELECTION_NONE`.
+
+<picture>
   <source srcset="cards-dark.png" media="(prefers-color-scheme: dark)">
   <img src="cards.png" alt="cards">
 </picture>

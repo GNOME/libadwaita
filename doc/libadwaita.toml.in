@@ -120,6 +120,8 @@ content_images = [
   "images/bin-dark.png",
   "images/boxed-lists.png",
   "images/boxed-lists-dark.png",
+  "images/boxed-lists-separate.png",
+  "images/boxed-lists-separate-dark.png",
   "images/breakpoint-bin.png",
   "images/breakpoint-bin-dark.png",
   "images/button-content.png",

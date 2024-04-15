@@ -1,4 +1,5 @@
 $row_transition: background-color 200ms $ease-out-quad,
+                 background-image 200ms $ease-out-quad,
                  border-radius 200ms $ease-out-quad;
 
 listview,
@@ -175,11 +176,6 @@ row {
  ******************************/
 
 row.entry {
-  &:not(:selected).activatable.focused:hover,
-  &:not(:selected).activatable.focused:active {
-    background-color: transparent;
-  }
-
   &:disabled {
     text {
       opacity: $disabled_opacity;
@@ -214,11 +210,6 @@ row.entry {
 }
 
 row.spin {
-  &:not(:selected).activatable.focused:hover,
-  &:not(:selected).activatable.focused:active {
-    background-color: transparent;
-  }
-
   spinbutton {
     background: none;
     border-spacing: 6px;
@@ -452,6 +443,79 @@ list.boxed-list {
         border-bottom-left-radius: $card_radius;
         border-bottom-right-radius: $card_radius;
         border-bottom-width: 0;
+      }
+    }
+  }
+}
+
+list.boxed-list-separate {
+  background: none;
+  color: $card_fg_color;
+
+  > row {
+    @extend %card;
+
+    border: none;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include focus-ring($offset: -1px, $transition: $row_transition);
+
+    .osd &:focus:focus-visible {
+      outline-color: $osd_focus_color;
+    }
+
+    &:not(.expander) {
+      &:not(:selected).activatable {
+        &:hover {
+          background-color: $card_bg_color;
+          background-image: image(gtkalpha(currentColor, .03));
+        }
+
+        &:active {
+          background-color: $card_bg_color;
+          background-image: image(gtkalpha(currentColor, .08));
+        }
+
+        &.has-open-popup {
+          background-color: $card_bg_color;
+          background-image: image(gtkalpha(currentColor, .03));
+        }
+      }
+    }
+
+    &.entry, &.spin {
+      &:not(:selected).activatable.focused:hover,
+      &:not(:selected).activatable.focused:active {
+        background-color: $card_bg_color;
+        background-image: none;
+      }
+
+      @each $e_type, $e_color in (error,   $error_color),
+                                 (warning, $warning_color),
+                                 (success, $success_color) {
+        &.#{$e_type} {
+          color: $e_color;
+        }
+      }
+    }
+
+    &.expander {
+      row.header {
+        @extend %boxed_list_row;
+        border-top-left-radius: $card_radius;
+        border-top-right-radius: $card_radius;
+      }
+
+      &:not(:checked) row.header,
+      &.expander:checked list.nested,
+      &.expander:checked list.nested > row:last-child {
+        border-bottom-left-radius: $card_radius;
+        border-bottom-right-radius: $card_radius;
+        border-bottom: none;
       }
     }
   }
