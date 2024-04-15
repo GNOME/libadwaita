@@ -108,8 +108,15 @@ Slug: widget-gallery
 
 [<picture>
   <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="spin-row.png" alt="switch-row">
+  <img src="spin-row.png" alt="spin-row">
 </picture>](class.SpinRow.html)
+
+## Button Row
+
+[<picture>
+  <source srcset="button-rows-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="button-rows.png" alt="button-rows">
+</picture>](class.ButtonRow.html)
 
 # Preferences
 

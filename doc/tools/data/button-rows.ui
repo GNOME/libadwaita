@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkListBox" id="widget">
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <property name="margin-start">6</property>
+    <property name="margin-end">6</property>
+    <property name="selection-mode">none</property>
+    <property name="width-request">400</property>
+    <style>
+      <class name="boxed-list-separate"/>
+    </style>
+    <child>
+      <object class="AdwButtonRow">
+        <property name="title">Add Input Source</property>
+        <property name="start-icon-name">list-add-symbolic</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwButtonRow">
+        <property name="title">Add Calendar</property>
+        <property name="end-icon-name">go-next-symbolic</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="AdwButtonRow">
+        <property name="title">Delete Event</property>
+        <style>
+          <class name="destructive-action"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

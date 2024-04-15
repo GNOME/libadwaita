@@ -143,6 +143,16 @@ properties:
   <img src="property-row.png" alt="property-row">
 </picture>
 
+## Button Rows
+
+[class@ButtonRow] is a list row that acts as a button. It can be useful for
+presenting actions at the end of a boxed list.
+
+<picture>
+  <source srcset="button-rows-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="button-rows.png" alt="button-rows">
+</picture>
+
 ## Preferences Group
 
 [class@PreferencesGroup] provides a boxed list along with a title and a

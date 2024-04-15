@@ -126,6 +126,8 @@ content_images = [
   "images/breakpoint-bin-dark.png",
   "images/button-content.png",
   "images/button-content-dark.png",
+  "images/button-rows.png",
+  "images/button-rows-dark.png",
   "images/buttons-circular.png",
   "images/buttons-circular-dark.png",
   "images/buttons-destructive-action.png",

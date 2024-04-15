@@ -24,7 +24,8 @@ action dialog.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
+Can also be used with [class@Gtk.MenuButton], [class@SplitButton] or
+[class@ButtonRow].
 
 ## Destructive Action
 
@@ -39,7 +40,8 @@ using a button. This style acts as a warning to the user.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
+Can also be used with [class@Gtk.MenuButton], [class@SplitButton] or
+[class@ButtonRow].
 
 ## Flat
 

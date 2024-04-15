@@ -408,6 +408,31 @@ row.expander {
   }
 }
 
+/***************
+ * AdwButtonRow *
+ ***************/
+
+row.button {
+  > box {
+    margin-left: 12px;
+    margin-right: 12px;
+    border-spacing: 6px;
+    min-height: 50px;
+  }
+
+  .title {
+    @extend .heading;
+  }
+
+  &.suggested-action {
+    color: $accent_color;
+  }
+
+  &.destructive-action {
+    color: $destructive_color;
+  }
+}
+
 /*****************
  * Boxed Lists *
  *****************/

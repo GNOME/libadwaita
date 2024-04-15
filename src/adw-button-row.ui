@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwButtonRow" parent="AdwPreferencesRow">
+    <property name="activatable">True</property>
+    <accessibility>
+      <relation name="labelled-by">title</relation>
+    </accessibility>
+    <style>
+      <class name="button"/>
+    </style>
+    <property name="child">
+      <object class="GtkBox" id="contents">
+        <property name="halign">center</property>
+        <child>
+          <object class="GtkImage" id="start_image">
+            <property name="icon-name" bind-source="AdwButtonRow" bind-property="start-icon-name" bind-flags="sync-create"/>
+            <binding name="visible">
+              <closure function="string_is_not_empty" type="gboolean">
+                <lookup name="icon-name">start_image</lookup>
+              </closure>
+            </binding>
+            <property name="valign">center</property>
+            <style>
+              <class name="icon"/>
+              <class name="start"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title">
+            <binding name="visible">
+              <closure function="string_is_not_empty" type="gboolean">
+                <lookup name="label">title</lookup>
+              </closure>
+            </binding>
+            <property name="label" bind-source="AdwButtonRow" bind-property="title" bind-flags="sync-create"/>
+            <property name="ellipsize">end</property>
+            <property name="mnemonic-widget">AdwButtonRow</property>
+            <property name="use-underline" bind-source="AdwButtonRow" bind-property="use-underline" bind-flags="sync-create"/>
+            <property name="xalign">0.5</property>
+            <property name="justify">center</property>
+            <property name="use-markup" bind-source="AdwButtonRow" bind-property="use-markup" bind-flags="sync-create"/>
+            <style>
+              <class name="title"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="end_image">
+            <property name="icon-name" bind-source="AdwButtonRow" bind-property="end-icon-name" bind-flags="sync-create"/>
+            <binding name="visible">
+              <closure function="string_is_not_empty" type="gboolean">
+                <lookup name="icon-name">end_image</lookup>
+              </closure>
+            </binding>
+            <property name="valign">center</property>
+            <style>
+              <class name="icon"/>
+              <class name="end"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

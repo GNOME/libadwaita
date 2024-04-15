@@ -45,6 +45,7 @@ test_names = [
   'test-breakpoint',
   'test-breakpoint-bin',
   'test-button-content',
+  'test-button-row',
   'test-carousel',
   'test-carousel-indicator-dots',
   'test-carousel-indicator-lines',

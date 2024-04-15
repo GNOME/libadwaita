@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #include "adw-breakpoint.h"
 #include "adw-breakpoint-bin.h"
 #include "adw-button-content.h"
+#include "adw-button-row.h"
 #include "adw-carousel.h"
 #include "adw-carousel-indicator-dots.h"
 #include "adw-carousel-indicator-lines.h"

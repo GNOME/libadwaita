@@ -106,7 +106,7 @@ widgets such as [class@Gtk.Label].
 ## Destructive Colors
 
 The destructive color indicates a dangerous action, such as deleting a file.
-It's used by [class@Gtk.Button] with the
+It's used by [class@Gtk.Button] and [class@ButtonRow] with the
 [`.destructive-action`](style-classes.html#destructive-action) style class.
 
 <table>
