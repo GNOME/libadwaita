@@ -6,7 +6,6 @@
 
 #include <adwaita.h>
 
-
 static void
 test_adw_preferences_group_add_remove (void)
 {
@@ -33,7 +32,6 @@ test_adw_preferences_group_add_remove (void)
   g_assert_finalize_object (group);
 }
 
-
 static void
 test_adw_preferences_group_title (void)
 {
@@ -51,7 +49,6 @@ test_adw_preferences_group_title (void)
 
   g_assert_finalize_object (group);
 }
-
 
 static void
 test_adw_preferences_group_description (void)
@@ -71,6 +68,20 @@ test_adw_preferences_group_description (void)
   g_assert_finalize_object (group);
 }
 
+static void
+test_adw_preferences_group_separate_rows (void)
+{
+  AdwPreferencesGroup *group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
+
+  g_assert_nonnull (group);
+
+  g_assert_false (adw_preferences_group_get_separate_rows (group));
+
+  adw_preferences_group_set_separate_rows (group, TRUE);
+  g_assert_true (adw_preferences_group_get_separate_rows (group));
+
+  g_assert_finalize_object (group);
+}
 
 int
 main (int   argc,
@@ -82,6 +93,7 @@ main (int   argc,
   g_test_add_func("/Adwaita/PreferencesGroup/add_remove", test_adw_preferences_group_add_remove);
   g_test_add_func("/Adwaita/PreferencesGroup/title", test_adw_preferences_group_title);
   g_test_add_func("/Adwaita/PreferencesGroup/description", test_adw_preferences_group_description);
+  g_test_add_func("/Adwaita/PreferencesGroup/separate_rows", test_adw_preferences_group_separate_rows);
 
   return g_test_run();
 }

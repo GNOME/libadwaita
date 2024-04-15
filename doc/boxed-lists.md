@@ -149,6 +149,9 @@ properties:
 description. It's mainly meant to be used as a child of [class@PreferencesPage],
 but can also be used separately.
 
+The [property@PreferencesGroup:separate-rows] property can be used to separate
+rows in its boxed list.
+
 <picture>
   <source srcset="preferences-group-dark.png" media="(prefers-color-scheme: dark)">
   <img src="preferences-group.png" alt="preferences-group">
