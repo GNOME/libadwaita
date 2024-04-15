@@ -68,16 +68,13 @@
                 <child>
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Entry Rows</property>
+                    <property name="separate-rows">True</property>
                     <child>
                       <object class="AdwEntryRow">
                         <property name="title" translatable="yes">Entry Row</property>
                         <property name="use_underline">True</property>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="AdwPreferencesGroup">
                     <child>
                       <object class="AdwEntryRow">
                         <property name="title" translatable="yes">Entry With Confirmation</property>
