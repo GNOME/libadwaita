@@ -3,6 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <template class="AdwButtonRow" parent="AdwPreferencesRow">
     <property name="activatable">True</property>
+    <property name="accessible-role">button</property>
     <accessibility>
       <relation name="labelled-by">title</relation>
     </accessibility>
