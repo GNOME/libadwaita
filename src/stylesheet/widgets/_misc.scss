@@ -85,7 +85,11 @@ video {
     min-height: 64px;
     border-radius: 32px;
   }
-  background: black;
+  graphicsoffload > picture {
+    // Background has to be on this widget to make offloading work
+    // See https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/1087
+    background: black;
+  }
 }
 
 /******************
