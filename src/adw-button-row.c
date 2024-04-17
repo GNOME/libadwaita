@@ -45,15 +45,17 @@
  * Since: 1.6
  */
 
-typedef struct
+struct _AdwButtonRow
 {
+  AdwPreferencesRow parent_instance;
+
   char *start_icon_name;
   char *end_icon_name;
 
   GtkWidget *previous_parent;
-} AdwButtonRowPrivate;
+};
 
-G_DEFINE_TYPE_WITH_PRIVATE (AdwButtonRow, adw_button_row, ADW_TYPE_PREFERENCES_ROW)
+G_DEFINE_FINAL_TYPE (AdwButtonRow, adw_button_row, ADW_TYPE_PREFERENCES_ROW)
 
 enum {
   PROP_0,
@@ -84,24 +86,23 @@ row_activated_cb (AdwButtonRow  *self,
 {
   /* No need to use GTK_LIST_BOX_ROW() for a pointer comparison. */
   if ((GtkListBoxRow *) self == row)
-    adw_button_row_activate (self);
+    g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
 }
 
 static void
 parent_cb (AdwButtonRow *self)
 {
-  AdwButtonRowPrivate *priv = adw_button_row_get_instance_private (self);
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (self));
 
-  if (priv->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
-    priv->previous_parent = NULL;
+  if (self->previous_parent != NULL) {
+    g_signal_handlers_disconnect_by_func (self->previous_parent, G_CALLBACK (row_activated_cb), self);
+    self->previous_parent = NULL;
   }
 
   if (parent == NULL || !GTK_IS_LIST_BOX (parent))
     return;
 
-  priv->previous_parent = parent;
+  self->previous_parent = parent;
   g_signal_connect_swapped (parent, "row-activated", G_CALLBACK (row_activated_cb), self);
 }
 
@@ -149,11 +150,10 @@ static void
 adw_button_row_dispose (GObject *object)
 {
   AdwButtonRow *self = ADW_BUTTON_ROW (object);
-  AdwButtonRowPrivate *priv = adw_button_row_get_instance_private (self);
 
-  if (priv->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
-    priv->previous_parent = NULL;
+  if (self->previous_parent != NULL) {
+    g_signal_handlers_disconnect_by_func (self->previous_parent, G_CALLBACK (row_activated_cb), self);
+    self->previous_parent = NULL;
   }
 
   G_OBJECT_CLASS (adw_button_row_parent_class)->dispose (object);
@@ -163,18 +163,11 @@ static void
 adw_button_row_finalize (GObject *object)
 {
   AdwButtonRow *self = ADW_BUTTON_ROW (object);
-  AdwButtonRowPrivate *priv = adw_button_row_get_instance_private (self);
 
-  g_free (priv->start_icon_name);
-  g_free (priv->end_icon_name);
+  g_free (self->start_icon_name);
+  g_free (self->end_icon_name);
 
   G_OBJECT_CLASS (adw_button_row_parent_class)->finalize (object);
-}
-
-static void
-adw_button_row_activate_real (AdwButtonRow *self)
-{
-  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
 }
 
 static void
@@ -187,8 +180,6 @@ adw_button_row_class_init (AdwButtonRowClass *klass)
   object_class->set_property = adw_button_row_set_property;
   object_class->dispose = adw_button_row_dispose;
   object_class->finalize = adw_button_row_finalize;
-
-  klass->activate = adw_button_row_activate_real;
 
   /**
    * AdwButtonRow:start-icon-name: (attributes org.gtk.Property.get=adw_button_row_get_start_icon_name org.gtk.Property.set=adw_button_row_set_start_icon_name)
@@ -244,10 +235,8 @@ adw_button_row_class_init (AdwButtonRowClass *klass)
 static void
 adw_button_row_init (AdwButtonRow *self)
 {
-  AdwButtonRowPrivate *priv = adw_button_row_get_instance_private (self);
-
-  priv->start_icon_name = g_strdup ("");
-  priv->end_icon_name = g_strdup ("");
+  self->start_icon_name = g_strdup ("");
+  self->end_icon_name = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -282,13 +271,9 @@ adw_button_row_new (void)
 const char *
 adw_button_row_get_start_icon_name (AdwButtonRow *self)
 {
-  AdwButtonRowPrivate *priv;
-
   g_return_val_if_fail (ADW_IS_BUTTON_ROW (self), NULL);
 
-  priv = adw_button_row_get_instance_private (self);
-
-  return priv->start_icon_name;
+  return self->start_icon_name;
 }
 
 /**
@@ -304,13 +289,9 @@ void
 adw_button_row_set_start_icon_name (AdwButtonRow *self,
                                     const char   *icon_name)
 {
-  AdwButtonRowPrivate *priv;
-
   g_return_if_fail (ADW_IS_BUTTON_ROW (self));
 
-  priv = adw_button_row_get_instance_private (self);
-
-  if (!g_set_str (&priv->start_icon_name, icon_name))
+  if (!g_set_str (&self->start_icon_name, icon_name))
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_START_ICON_NAME]);
@@ -329,13 +310,9 @@ adw_button_row_set_start_icon_name (AdwButtonRow *self,
 const char *
 adw_button_row_get_end_icon_name (AdwButtonRow *self)
 {
-  AdwButtonRowPrivate *priv;
-
   g_return_val_if_fail (ADW_IS_BUTTON_ROW (self), NULL);
 
-  priv = adw_button_row_get_instance_private (self);
-
-  return priv->end_icon_name;
+  return self->end_icon_name;
 }
 
 /**
@@ -351,30 +328,10 @@ void
 adw_button_row_set_end_icon_name (AdwButtonRow *self,
                                   const char   *icon_name)
 {
-  AdwButtonRowPrivate *priv;
-
   g_return_if_fail (ADW_IS_BUTTON_ROW (self));
 
-  priv = adw_button_row_get_instance_private (self);
-
-  if (!g_set_str (&priv->end_icon_name, icon_name))
+  if (!g_set_str (&self->end_icon_name, icon_name))
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_END_ICON_NAME]);
-}
-
-/**
- * adw_button_row_activate:
- * @self: a button row
- *
- * Activates @self.
- *
- * Since: 1.6
- */
-void
-adw_button_row_activate (AdwButtonRow *self)
-{
-  g_return_if_fail (ADW_IS_BUTTON_ROW (self));
-
-  ADW_BUTTON_ROW_GET_CLASS (self)->activate (self);
 }
