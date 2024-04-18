@@ -103,6 +103,7 @@ enum {
   PROP_ENABLE_EMOJI_COMPLETION,
   PROP_ACTIVATES_DEFAULT,
   PROP_TEXT_LENGTH,
+  PROP_MAX_LENGTH,
   PROP_LAST_PROP,
 };
 
@@ -387,6 +388,9 @@ adw_entry_row_get_property (GObject     *object,
   case PROP_TEXT_LENGTH:
     g_value_set_uint (value, adw_entry_row_get_text_length (self));
     break;
+  case PROP_MAX_LENGTH:
+    g_value_set_int (value, adw_entry_row_get_max_length (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -429,6 +433,9 @@ adw_entry_row_set_property (GObject       *object,
     break;
   case PROP_ACTIVATES_DEFAULT:
     adw_entry_row_set_activates_default (self, g_value_get_boolean (value));
+    break;
+  case PROP_MAX_LENGTH:
+    adw_entry_row_set_max_length (self, g_value_get_int (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -566,6 +573,19 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
     g_param_spec_uint ("text-length", NULL, NULL,
                        0, G_MAXUINT16, 0,
                        G_PARAM_READABLE);
+
+  /**
+   * AdwEntryRow:max-length: (attributes org.gtk.Property.get=adw_entry_row_get_max_length org.gtkProperty.set=adw_entry_row_set_max_length)
+   *
+   * Maximum number of characters for the entry.
+   *
+   * Since: 1.6
+   */
+  props[PROP_MAX_LENGTH] =
+    g_param_spec_int ("max-length", NULL, NULL,
+                      0, GTK_ENTRY_BUFFER_MAX_SIZE,
+                      0,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
@@ -1198,6 +1218,53 @@ adw_entry_row_get_text_length (AdwEntryRow *self)
   priv = adw_entry_row_get_instance_private (self);
 
   return gtk_text_get_text_length (GTK_TEXT (priv->text));
+}
+
+/**
+ * adw_entry_row_set_max_length:
+ * @self: an entry row
+ * @max_length: maximum length of the entry
+ *
+ * Sets the maximum length of the entry.
+ *
+ * Since: 1.6
+ */
+void
+adw_entry_row_set_max_length (AdwEntryRow *self,
+                              int          max_length)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  if (adw_entry_row_get_max_length (self) == max_length)
+    return;
+
+  gtk_text_set_max_length (GTK_TEXT (priv->text), max_length);
+}
+
+/**
+ * adw_entry_row_get_max_length:
+ * @self: an entry row
+ *
+ * Retrieves the maximum length of the entry.
+ *
+ * Returns: The maximum length of the entry.
+ *
+ * Since: 1.6
+ */
+int
+adw_entry_row_get_max_length (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), 0);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_max_length (GTK_TEXT (priv->text));
 }
 
 /**
