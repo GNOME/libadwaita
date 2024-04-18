@@ -108,7 +108,7 @@
                 <property name="can-focus">False</property>
                 <property name="icon-name">edit-find-symbolic</property>
                 <property name="title" translatable="yes">No Tabs Found</property>
-                <property name="description" translatable="yes">Try a different search.</property>
+                <property name="description" translatable="yes">Try a different search</property>
                 <layout>
                   <property name="measure">True</property>
                   <property name="clip-overlay">True</property>
