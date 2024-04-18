@@ -583,6 +583,12 @@ instead, which is useful for displaying read-only properties, as follows:
 
 Since: 1.4
 
+The `.monospace` style class with `.property` only makes the subtitle monospace,
+but not the title or any extra widgets. To make everything in the row monospace,
+apply `.monospace` to the [class@Gtk.ListBox] around the row.
+
+Since: 1.6
+
 # Deprecated Style Classes
 
 The following style classes are deprecated and remain there for compatibility.
