@@ -8,18 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-04 19:31+0000\n"
-"PO-Revision-Date: 2024-03-04 22:48+0100\n"
-"Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
+"POT-Creation-Date: 2024-04-18 12:45+0000\n"
+"PO-Revision-Date: 2024-04-19 23:47+0200\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -115,8 +115,8 @@ msgstr "Prevod:"
 #: src/adw-about-dialog.c:593 src/adw-about-window.c:591
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
 "Ta program je objavljen brez vsakršnega jamstva. Več podrobnosti je "
 "zapisanih v datoteki <a href=\"%s\">%s</a>"
@@ -333,8 +333,11 @@ msgstr "Možnosti iskanja"
 msgid "No Results Found"
 msgstr "Ni najdenih zadetkov."
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "Poskusite z drugačnim iskalnim nizom"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
@@ -379,306 +382,3 @@ msgstr "Nov _zavihek"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
 msgid "Close Tab"
 msgstr "Zapri zavihek"
-
-#~ msgid "Search…"
-#~ msgstr "Poišči …"
-
-#~ msgid "Hide Text"
-#~ msgstr "Skrij besedilo"
-
-#~ msgid "Show Text"
-#~ msgstr "Pokaži besedilo"
-
-#~ msgid "_Show Text"
-#~ msgstr "Pokaži _besedilo"
-
-#~ msgid "_Save"
-#~ msgstr "_Shrani"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Prekliči"
-
-#~ msgid "Insert placeholder to %s"
-#~ msgstr "Vstavi vsebnik za %s"
-
-#~ msgid "Remove placeholder from %s"
-#~ msgstr "Odstrani vsebnik iz %s"
-
-#~ msgid "This property does not apply when a custom title is set"
-#~ msgstr ""
-#~ "Lastnosti ni mogoče uporabiti sočasno z uporabo nastavitve naslova po meri"
-
-#~ msgid ""
-#~ "The decoration layout does not apply to header bars which do no show "
-#~ "window controls"
-#~ msgstr ""
-#~ "Razporeditev okrasov se ne uveljavi za vrstice naslovov, ki so brez "
-#~ "gumbov okna."
-
-#~ msgid "Add page to %s"
-#~ msgstr "Dodaj stran k %s"
-
-#~ msgid "Search bar is already full"
-#~ msgstr "Iskalna vrstica je že polna"
-
-#~ msgid "Only objects of type %s can be added to objects of type %s."
-#~ msgstr "Le predmete vrste %s je mogoče dodati k predmetom vrste %s."
-
-#~ msgid "Icon name"
-#~ msgstr "Ime ikone"
-
-#~ msgid "Subtitle"
-#~ msgstr "Podnaslov"
-
-#~ msgid "Use underline"
-#~ msgstr "Uporabi podčrtaj"
-
-#~ msgid ""
-#~ "If set, an underline in the text indicates the next character should be "
-#~ "used for the mnemonic accelerator key"
-#~ msgstr ""
-#~ "Izbrana možnost omogoča, da podčrtaj v besedilu označuje črko, ki je "
-#~ "uporabljena kot menijska bližnjica"
-
-#~ msgid "Number of pages"
-#~ msgstr "Število strani"
-
-#~ msgid "Position"
-#~ msgstr "Položaj"
-
-#~ msgid "Spacing"
-#~ msgstr "Razmik"
-
-#~ msgid "Allow mouse drag"
-#~ msgstr "Dovoli vlečenje z miško"
-
-#~ msgid "Whether to allow dragging with mouse pointer"
-#~ msgstr "Ali naj bo dovoljeno vlečenje s kazalnikom miške"
-
-#~ msgid "Maximum size"
-#~ msgstr "Največja velikost"
-
-#~ msgid "The maximum size allocated to the child"
-#~ msgstr "Največja velikost dodeljena podrejenemu predmetu"
-
-#~ msgid "Use subtitle"
-#~ msgstr "Uporabi posnaslov"
-
-#~ msgid "Set the current value as the subtitle"
-#~ msgstr "Nastavi trenutno vrednost kot podnaslov"
-
-#~ msgid "Horizontally homogeneous"
-#~ msgstr "Vodoravno prilagajanje"
-
-#~ msgid "Horizontally homogeneous sizing"
-#~ msgstr "Homogeno vodoravno prilagajanje velikosti"
-
-#~ msgid "Vertically homogeneous"
-#~ msgstr "Navpično prilagajanje"
-
-#~ msgid "Vertically homogeneous sizing"
-#~ msgstr "Homogeno navpično prilagajanje velikosti"
-
-#~ msgid "Visible child"
-#~ msgstr "Vidni podrejeni predmet"
-
-#~ msgid "Name of visible child"
-#~ msgstr "Ime vidnega podrejenega predmeta"
-
-#~ msgid "Transition type"
-#~ msgstr "Vrsta prehoda"
-
-#~ msgid "Transition duration"
-#~ msgstr "Trajanje prehoda"
-
-#~ msgid "Transition running"
-#~ msgstr "Prehod se odvija"
-
-#~ msgid "Whether or not the transition is currently running"
-#~ msgstr "Ali se prehod trenutno izvaja"
-
-#~ msgid "Interpolate size"
-#~ msgstr "Interpoliraj velikost"
-
-#~ msgid ""
-#~ "Whether or not the size should smoothly change when changing between "
-#~ "differently sized children"
-#~ msgstr ""
-#~ "Ali naj se velikost gladko spremeni med spreminjanjem različno velikih "
-#~ "podrejenih predmetov"
-
-#~ msgid "Name"
-#~ msgstr "Ime"
-
-#~ msgid "The name of the child page"
-#~ msgstr "Ime gradnika podrejene strani"
-
-#~ msgid "Expanded"
-#~ msgstr "Razširjeno"
-
-#~ msgid "Enable expansion"
-#~ msgstr "Omogoči razširjanje"
-
-#~ msgid "Whether the expansion is enabled"
-#~ msgstr "Ali naj bo razširjanje omogočeno"
-
-#~ msgid "Minimize"
-#~ msgstr "Skrči"
-
-#~ msgid "Restore"
-#~ msgstr "Obnovi"
-
-#~ msgid "Maximize"
-#~ msgstr "Razpni"
-
-#~ msgid "Pack type"
-#~ msgstr "Vrsta zlaganja"
-
-#~ msgid ""
-#~ "A GtkPackType indicating whether the child is packed with reference to "
-#~ "the start or end of the parent"
-#~ msgstr ""
-#~ "Vrsta GtkPackType, ki pove, ali naj bo podrejeni predmet zložen s sklicem "
-#~ "na začetek ali na konec nadrejenega predmeta"
-
-#~ msgid "The index of the child in the parent"
-#~ msgstr "Indeks podrejenega predmeta v nadrejenem predmetu"
-
-#~ msgid "Title"
-#~ msgstr "Naziv"
-
-#~ msgid "The title to display"
-#~ msgstr "Naslov za prikaz"
-
-#~ msgid "The subtitle to display"
-#~ msgstr "Podnaslov za prikaz"
-
-#~ msgid "Custom Title"
-#~ msgstr "Naslov po meri"
-
-#~ msgid "Custom title widget to display"
-#~ msgstr "Gradnik naziva okna po meri za prikaz"
-
-#~ msgid "The amount of space between children"
-#~ msgstr "Prostor med podrejenimi predmeti"
-
-#~ msgid "Show decorations"
-#~ msgstr "Pokaži okraske"
-
-#~ msgid "Whether to show window decorations"
-#~ msgstr "Ali naj bodo okraski okna prikazani"
-
-#~ msgid "Decoration Layout"
-#~ msgstr "Postavitev okraskov"
-
-#~ msgid "The layout for window decorations"
-#~ msgstr "Postavitev okenskih okraskov"
-
-#~ msgid "Decoration Layout Set"
-#~ msgstr "Določitev postavitve okraskov"
-
-#~ msgid "Whether the decoration-layout property has been set"
-#~ msgstr "Ali je določena lastnost decoration-layout (za postavitev okraskov)"
-
-#~ msgid "Has Subtitle"
-#~ msgstr "Ima podnaslov"
-
-#~ msgid "Whether to reserve space for a subtitle"
-#~ msgstr "Ali naj bo prihranjen prostor za podnaslov"
-
-#~ msgid "The animation duration, in milliseconds"
-#~ msgstr "Trajanje animacije v milisekundah"
-
-#~ msgid "Symbols"
-#~ msgstr "Simboli"
-
-#~ msgid "Row spacing"
-#~ msgstr "Prostor med vrsticami"
-
-#~ msgid "The amount of space between two consecutive rows"
-#~ msgstr "Prostora med zaporednima vrsticama"
-
-#~ msgid "Column spacing"
-#~ msgstr "Prostor med stolpci"
-
-#~ msgid "The amount of space between two consecutive columns"
-#~ msgstr "Prostor med zaporednima stolpcema"
-
-#~ msgid "Entry"
-#~ msgstr "Vnos"
-
-#~ msgid "Description"
-#~ msgstr "Opis"
-
-#~ msgid "Search Mode Enabled"
-#~ msgstr "Omogočen iskalni način"
-
-#~ msgid "Whether the search mode is on and the search bar shown"
-#~ msgstr "Ali naj bo omogočen iskalni način in prikazana iskalna vrstica"
-
-#~ msgid "Show Close Button"
-#~ msgstr "Pokaži gumb za zapiranje"
-
-#~ msgid "Whether to show the close button in the toolbar"
-#~ msgstr "Ali naj se pokaže gumb za zapiranje v orodni vrstici"
-
-#~ msgid "Widget"
-#~ msgstr "Gradnik"
-
-#~ msgid "Homogeneous"
-#~ msgstr "Homogeno"
-
-#~ msgid "Homogeneous sizing"
-#~ msgstr "Homogeno prilagajanje velikosti"
-
-#~ msgid "The type of animation used to transition"
-#~ msgstr "Vrsta animacije, uporabljene za prehode"
-
-#~ msgid "X align"
-#~ msgstr "Poravnava X"
-
-#~ msgid "Y align"
-#~ msgstr "Poravnava Y"
-
-#~ msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-#~ msgstr "Navpična poravnava, od 0 (zgoraj) do 1 (spodaj)"
-
-#~ msgid "Enabled"
-#~ msgstr "Omogočeno"
-
-#~ msgid "Orientation"
-#~ msgstr "Usmerjenost"
-
-#~ msgid "Selection mode"
-#~ msgstr "Način izbire"
-
-#~ msgctxt "HdyValueObjectClass"
-#~ msgid "Value"
-#~ msgstr "Vrednost"
-
-#~ msgid "Policy"
-#~ msgstr "Pravila"
-
-#~ msgid "Stack"
-#~ msgstr "Sklad"
-
-#~ msgid "Reveal"
-#~ msgstr "Razkrij"
-
-#~ msgid "Icon Name"
-#~ msgstr "Ime ikone"
-
-#~ msgid "Icon Size"
-#~ msgstr "Velikost ikone"
-
-#~ msgid "Symbolic size to use for named icon"
-#~ msgstr "Simbolna velikost, ki naj bo uporabljena za imenovano ikono"
-
-#~ msgid "Move"
-#~ msgstr "Premakni"
-
-#~ msgid "Resize"
-#~ msgstr "Spremeni velikost"
-
-#~ msgid "Always on Top"
-#~ msgstr "Vedno na vrhu"
