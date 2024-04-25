@@ -247,7 +247,7 @@ update_swipe_tracker (AdwOverlaySplitView *self)
 static void
 update_shield (AdwOverlaySplitView *self)
 {
-  gtk_widget_set_visible (self->shield,
+  gtk_widget_set_child_visible (self->shield,
                           self->collapsed && self->show_progress > 0);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
@@ -302,11 +302,17 @@ set_show_sidebar (AdwOverlaySplitView *self,
 
   self->show_sidebar = show_sidebar;
 
+  if (show_sidebar)
+    gtk_widget_set_child_visible (self->sidebar_bin, TRUE);
+
   if (animate) {
     if (!self->swipe_active)
       animate_sidebar (self, show_sidebar ? 1 : 0, velocity);
   } else {
     set_show_progress (show_sidebar ? 1 : 0, self);
+
+    if (!show_sidebar)
+      gtk_widget_set_child_visible (self->sidebar_bin, FALSE);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_SIDEBAR]);
@@ -347,6 +353,7 @@ begin_swipe_cb (AdwSwipeTracker     *tracker,
     return;
 
   adw_animation_pause (self->animation);
+  gtk_widget_set_child_visible (self->sidebar_bin, TRUE);
 
   self->swipe_detected = FALSE;
   self->swipe_active = TRUE;
@@ -698,6 +705,13 @@ update_collapsed (AdwOverlaySplitView *self)
     gtk_widget_add_css_class (self->sidebar_bin, "sidebar-pane");
     gtk_widget_remove_css_class (self->sidebar_bin, "background");
   }
+}
+
+static void
+animation_done_cb (AdwOverlaySplitView *self)
+{
+  if (self->show_progress < 0.5)
+    gtk_widget_set_child_visible (self->sidebar_bin, FALSE);
 }
 
 static void
@@ -1114,6 +1128,9 @@ adw_overlay_split_view_init (AdwOverlaySplitView *self)
   self->animation =
     adw_spring_animation_new (GTK_WIDGET (self), 0, 0,
                              adw_spring_params_new (1, 0.5, 500), target);
+
+  g_signal_connect_swapped (self->animation, "done",
+                            G_CALLBACK (animation_done_cb), self);
 
   update_shield (self);
   update_collapsed (self);
