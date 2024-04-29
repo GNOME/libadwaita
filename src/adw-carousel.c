@@ -1265,7 +1265,7 @@ adw_carousel_reorder (AdwCarousel *self,
                       GtkWidget   *child,
                       int          position)
 {
-  ChildInfo *info, *next_info;
+  ChildInfo *info, *next_info = NULL;
   GList *link, *next_link;
   int old_position, n_pages;
   double closest_point, old_point, new_point;
