@@ -85,15 +85,15 @@ void     adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
                                                   gboolean        show_enable_switch);
 
 ADW_AVAILABLE_IN_1_3
-gboolean adw_expander_row_get_title_lines (AdwExpanderRow *self);
+int  adw_expander_row_get_title_lines (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_1_3
-void     adw_expander_row_set_title_lines (AdwExpanderRow *self,
-                                           int             title_lines);
+void adw_expander_row_set_title_lines (AdwExpanderRow *self,
+                                       int             title_lines);
 
 ADW_AVAILABLE_IN_1_3
-gboolean adw_expander_row_get_subtitle_lines (AdwExpanderRow *self);
+int  adw_expander_row_get_subtitle_lines (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_1_3
-void     adw_expander_row_set_subtitle_lines (AdwExpanderRow *self,
-                                              int             subtitle_lines);
+void adw_expander_row_set_subtitle_lines (AdwExpanderRow *self,
+                                          int             subtitle_lines);
 
 G_END_DECLS
