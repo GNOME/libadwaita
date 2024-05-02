@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-02-26 19:00+0000\n"
-"PO-Revision-Date: 2024-02-27 22:14+0100\n"
+"POT-Creation-Date: 2024-04-18 12:45+0000\n"
+"PO-Revision-Date: 2024-05-01 22:06+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
 "ca/)\n"
@@ -337,8 +337,11 @@ msgstr "Cerca les preferències"
 msgid "No Results Found"
 msgstr "No s'ha trobat cap resultat"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "Proveu una cerca diferent"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
 
