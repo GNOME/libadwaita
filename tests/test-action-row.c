@@ -63,18 +63,29 @@ test_adw_action_row_title_lines (void)
 
   g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_title_lines: assertion 'title_lines >= 0' failed");
-  adw_action_row_set_title_lines (row, -1);
-  g_test_assert_expected_messages ();
-
-  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
-
   adw_action_row_set_title_lines (row, 1);
   g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
 
   g_assert_finalize_object (row);
 }
 
+static void
+test_adw_action_row_title_lines_invalid (void)
+{
+  if (g_test_subprocess ()) {
+    AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+
+    adw_action_row_set_title_lines (row, -1);
+
+    g_assert_finalize_object (row);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*adw_action_row_set_title_lines: assertion 'title_lines >= 0' failed*");
+}
 
 static void
 test_adw_action_row_subtitle_lines (void)
@@ -84,16 +95,28 @@ test_adw_action_row_subtitle_lines (void)
 
   g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed");
-  adw_action_row_set_subtitle_lines (row, -1);
-  g_test_assert_expected_messages ();
-
-  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
-
   adw_action_row_set_subtitle_lines (row, 1);
   g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
 
   g_assert_finalize_object (row);
+}
+
+static void
+test_adw_action_row_subtitle_lines_invalid (void)
+{
+  if (g_test_subprocess ()) {
+    AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+
+    adw_action_row_set_subtitle_lines (row, -1);
+
+    g_assert_finalize_object (row);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*adw_action_row_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed*");
 }
 
 static void
@@ -141,7 +164,9 @@ main (int   argc,
   g_test_add_func("/Adwaita/ActionRow/add_remove", test_adw_action_row_add_remove);
   g_test_add_func("/Adwaita/ActionRow/subtitle", test_adw_action_row_subtitle);
   g_test_add_func("/Adwaita/ActionRow/title_lines", test_adw_action_row_title_lines);
+  g_test_add_func("/Adwaita/ActionRow/title_lines_invalid", test_adw_action_row_title_lines_invalid);
   g_test_add_func("/Adwaita/ActionRow/subtitle_lines", test_adw_action_row_subtitle_lines);
+  g_test_add_func("/Adwaita/ActionRow/subtitle_lines_invalid", test_adw_action_row_subtitle_lines_invalid);
   g_test_add_func("/Adwaita/ActionRow/subtitle_selectable", test_adw_action_row_subtitle_selectable);
   g_test_add_func("/Adwaita/ActionRow/activate", test_adw_action_row_activate);
 
