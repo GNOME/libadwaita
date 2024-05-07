@@ -47,13 +47,11 @@ test_adw_navigation_view_add_remove (void)
   AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
   AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
   AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
-  AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2 again", "page-2"));
   int notified = 0, pushed = 0, popped = 0;
 
   g_assert_nonnull (view);
   g_assert_nonnull (page_1);
   g_assert_nonnull (page_2);
-  g_assert_nonnull (page_3);
 
   g_signal_connect_swapped (view, "pushed", G_CALLBACK (increment), &pushed);
   g_signal_connect_swapped (view, "popped", G_CALLBACK (increment), &popped);
@@ -67,10 +65,6 @@ test_adw_navigation_view_add_remove (void)
 
   adw_navigation_view_add (view, page_1);
   adw_navigation_view_add (view, page_2);
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*Duplicate page tag*");
-  adw_navigation_view_add (view, page_3);
-  g_test_assert_expected_messages ();
 
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
   check_navigation_stack (view, 1, "page-1");
@@ -96,7 +90,32 @@ test_adw_navigation_view_add_remove (void)
   g_assert_finalize_object (view);
   g_assert_finalize_object (page_1);
   g_assert_finalize_object (page_2);
-  g_assert_finalize_object (page_3);
+}
+
+static void
+test_adw_navigation_view_add_duplicate (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+    AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
+    AdwNavigationPage *page_3 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2 again", "page-2"));
+
+    adw_navigation_view_add (view, page_1);
+    adw_navigation_view_add (view, page_2);
+    adw_navigation_view_add (view, page_3);
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+    g_assert_finalize_object (page_2);
+    g_assert_finalize_object (page_3);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*Duplicate page tag*");
 }
 
 static void
@@ -144,13 +163,6 @@ test_adw_navigation_view_push_pop (void)
   g_assert_cmpint (pushed, ==, 2);
   g_assert_cmpint (notified, ==, 2);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in navigation stack*");
-  adw_navigation_view_push (view, page_2);
-  g_test_assert_expected_messages ();
-  check_navigation_stack (view, 2, "page-1", "page-2");
-  g_assert_cmpint (pushed, ==, 2);
-  g_assert_cmpint (notified, ==, 2);
-
   adw_navigation_view_add (view, page_3);
   adw_navigation_view_push (view, page_3);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
@@ -166,15 +178,6 @@ test_adw_navigation_view_push_pop (void)
   g_assert_cmpint (notified, ==, 3);
 
   adw_navigation_view_push (view, page_4);
-  g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
-  check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
-  g_assert_cmpint (pushed, ==, 4);
-  g_assert_cmpint (popped, ==, 0);
-  g_assert_cmpint (notified, ==, 4);
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*Duplicate page tag*");
-  adw_navigation_view_push (view, page_5);
-  g_test_assert_expected_messages ();
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (pushed, ==, 4);
@@ -221,6 +224,53 @@ test_adw_navigation_view_push_pop (void)
 }
 
 static void
+test_adw_navigation_view_push_duplicate (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+    AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
+
+    adw_navigation_view_push (view, page_1);
+    adw_navigation_view_push (view, page_2);
+    adw_navigation_view_push (view, page_2);
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+    g_assert_finalize_object (page_2);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already in navigation stack*");
+}
+
+static void
+test_adw_navigation_view_push_duplicate_tag (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+    AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Also Page 1", "page-1"));
+
+    adw_navigation_view_push (view, page_1);
+    adw_navigation_view_push (view, page_2);
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+    g_assert_finalize_object (page_2);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*Duplicate page tag*");
+}
+
+static void
 test_adw_navigation_view_push_pop_by_tag (void)
 {
   AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
@@ -250,18 +300,6 @@ test_adw_navigation_view_push_pop_by_tag (void)
   g_assert_cmpint (popped, ==, 0);
   g_assert_cmpint (notified, ==, 1);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*with the tag*");
-  adw_navigation_view_push_by_tag (view, "page-0");
-  g_test_assert_expected_messages ();
-  g_assert_cmpint (pushed, ==, 1);
-  g_assert_cmpint (notified, ==, 1);
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in navigation stack*");
-  adw_navigation_view_push_by_tag (view, "page-1");
-  g_test_assert_expected_messages ();
-  g_assert_cmpint (pushed, ==, 1);
-  g_assert_cmpint (notified, ==, 1);
-
   adw_navigation_view_push_by_tag (view, "page-2");
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_2);
   check_navigation_stack (view, 2, "page-1", "page-2");
@@ -281,11 +319,6 @@ test_adw_navigation_view_push_pop_by_tag (void)
   g_assert_cmpint (notified, ==, 4);
 
   g_assert_cmpint (popped, ==, 0);
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*with the tag*");
-  g_assert_false (adw_navigation_view_pop_to_tag (view, "page-5"));
-  g_test_assert_expected_messages ();
-  g_assert_cmpint (notified, ==, 4);
 
   g_assert_false (adw_navigation_view_pop_to_tag (view, "page-4"));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
@@ -310,6 +343,68 @@ test_adw_navigation_view_push_pop_by_tag (void)
   g_assert_finalize_object (page_2);
   g_assert_finalize_object (page_3);
   g_assert_finalize_object (page_4);
+}
+
+static void
+test_adw_navigation_view_push_unknown_tag (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+
+    adw_navigation_view_push_by_tag (view, "page-0");
+
+    g_assert_finalize_object (view);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*with the tag*");
+}
+
+static void
+test_adw_navigation_view_push_duplicate_by_tag (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+
+    adw_navigation_view_add (view, page_1);
+
+    adw_navigation_view_push_by_tag (view, "page-1");
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already in navigation stack*");
+}
+
+static void
+test_adw_navigation_view_pop_to_unknown_tag (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+
+    adw_navigation_view_add (view, page_1);
+
+    adw_navigation_view_pop_to_tag (view, "page-2");
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*with the tag*");
 }
 
 static void
@@ -342,12 +437,6 @@ test_adw_navigation_view_pop_to_page (void)
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (notified, ==, 4);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*not in the navigation stack*");
-  g_assert_false (adw_navigation_view_pop_to_page (view, page_5));
-  g_test_assert_expected_messages ();
-  g_assert_cmpint (popped, ==, 0);
-  g_assert_cmpint (notified, ==, 4);
-
   g_assert_false (adw_navigation_view_pop_to_page (view, page_4));
   g_assert_cmpint (popped, ==, 0);
   g_assert_cmpint (notified, ==, 4);
@@ -373,6 +462,30 @@ test_adw_navigation_view_pop_to_page (void)
   g_assert_finalize_object (page_3);
   g_assert_finalize_object (page_4);
   g_assert_finalize_object (page_5);
+}
+
+static void
+test_adw_navigation_view_pop_to_unknown_page (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+    AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
+
+    adw_navigation_view_add (view, page_1);
+
+    adw_navigation_view_pop_to_page (view, page_2);
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+    g_assert_finalize_object (page_2);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*not in the navigation stack*");
 }
 
 static void
@@ -427,16 +540,6 @@ test_adw_navigation_view_replace (void)
   g_assert_cmpint (replaced, ==, 4);
   g_assert_cmpint (notified, ==, 2);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in navigation stack*");
-  adw_navigation_view_replace (view, (AdwNavigationPage *[2]) {
-    page_1,
-    page_1,
-  }, 2);
-  g_test_assert_expected_messages ();
-  g_assert_true (adw_navigation_view_find_page (view, "page-1") == page_1);
-  g_assert_null (adw_navigation_view_find_page (view, "page-2"));
-  g_assert_cmpint (replaced, ==, 5);
-  g_assert_cmpint (notified, ==, 3);
 
   adw_navigation_view_replace (view, (AdwNavigationPage *[2]) {
     page_1,
@@ -444,8 +547,8 @@ test_adw_navigation_view_replace (void)
   }, 2);
   g_assert_true (adw_navigation_view_find_page (view, "page-1") == page_1);
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
-  g_assert_cmpint (replaced, ==, 6);
-  g_assert_cmpint (notified, ==, 4);
+  g_assert_cmpint (replaced, ==, 5);
+  g_assert_cmpint (notified, ==, 2);
 
   adw_navigation_view_add (view, page_2);
   adw_navigation_view_add (view, page_3);
@@ -457,16 +560,16 @@ test_adw_navigation_view_replace (void)
   g_assert_null (adw_navigation_view_find_page (view, "page-1"));
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
   g_assert_true (adw_navigation_view_find_page (view, "page-3") == page_3);
-  g_assert_cmpint (replaced, ==, 7);
-  g_assert_cmpint (notified, ==, 5);
+  g_assert_cmpint (replaced, ==, 6);
+  g_assert_cmpint (notified, ==, 3);
 
   adw_navigation_view_remove (view, page_3);
 
   adw_navigation_view_replace_with_tags (view, NULL, 0);
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
   g_assert_null (adw_navigation_view_find_page (view, "page-3"));
-  g_assert_cmpint (replaced, ==, 8);
-  g_assert_cmpint (notified, ==, 6);
+  g_assert_cmpint (replaced, ==, 7);
+  g_assert_cmpint (notified, ==, 4);
 
   g_assert_cmpint (pushed, ==, 0);
   g_assert_cmpint (popped, ==, 0);
@@ -475,6 +578,31 @@ test_adw_navigation_view_replace (void)
   g_assert_finalize_object (page_1);
   g_assert_finalize_object (page_2);
   g_assert_finalize_object (page_3);
+}
+
+static void
+test_adw_navigation_view_replace_with_duplicate (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+
+    adw_navigation_view_add (view, page_1);
+
+    adw_navigation_view_replace (view, (AdwNavigationPage *[2]) {
+      page_1,
+      page_1,
+    }, 2);
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already in navigation stack*");
 }
 
 static void
@@ -519,12 +647,6 @@ test_adw_navigation_view_find_page (void)
   g_assert_true (adw_navigation_view_find_page (view, "page-1") == page_1);
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*Duplicate page tag*");
-  adw_navigation_page_set_tag (page_1, "page-2");
-  g_test_assert_expected_messages ();
-  g_assert_true (adw_navigation_view_find_page (view, "page-1") == page_1);
-  g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
-
   adw_navigation_page_set_tag (page_1, "page-3");
   g_assert_null (adw_navigation_view_find_page (view, "page-1"));
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
@@ -540,6 +662,31 @@ test_adw_navigation_view_find_page (void)
   g_assert_finalize_object (view);
   g_assert_finalize_object (page_1);
   g_assert_finalize_object (page_2);
+}
+
+static void
+test_adw_navigation_view_retag_duplicate (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationView *view = g_object_ref_sink (ADW_NAVIGATION_VIEW (adw_navigation_view_new ()));
+    AdwNavigationPage *page_1 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 1", "page-1"));
+    AdwNavigationPage *page_2 = g_object_ref_sink (adw_navigation_page_new_with_tag (gtk_button_new (), "Page 2", "page-2"));
+
+    adw_navigation_view_add (view, page_1);
+    adw_navigation_view_add (view, page_2);
+
+    adw_navigation_page_set_tag (page_1, "page-2");
+
+    g_assert_finalize_object (view);
+    g_assert_finalize_object (page_1);
+    g_assert_finalize_object (page_2);
+
+    return;
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*Duplicate page tag*");
 }
 
 static void
@@ -793,12 +940,21 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func ("/Adwaita/NavigationView/add_remove", test_adw_navigation_view_add_remove);
+  g_test_add_func ("/Adwaita/NavigationView/add_duplicate", test_adw_navigation_view_add_duplicate);
   g_test_add_func ("/Adwaita/NavigationView/push_pop", test_adw_navigation_view_push_pop);
+  g_test_add_func ("/Adwaita/NavigationView/push_duplicate", test_adw_navigation_view_push_duplicate);
+  g_test_add_func ("/Adwaita/NavigationView/push_duplicate_tag", test_adw_navigation_view_push_duplicate_tag);
   g_test_add_func ("/Adwaita/NavigationView/push_pop_by_tag", test_adw_navigation_view_push_pop_by_tag);
+  g_test_add_func ("/Adwaita/NavigationView/push_unknown_tag", test_adw_navigation_view_push_unknown_tag);
+  g_test_add_func ("/Adwaita/NavigationView/push_duplicate_by_tag", test_adw_navigation_view_push_duplicate_by_tag);
+  g_test_add_func ("/Adwaita/NavigationView/pop_to_unknown_tag", test_adw_navigation_view_pop_to_unknown_tag);
   g_test_add_func ("/Adwaita/NavigationView/pop_to_page", test_adw_navigation_view_pop_to_page);
+  g_test_add_func ("/Adwaita/NavigationView/pop_to_unknown_page", test_adw_navigation_view_pop_to_unknown_page);
   g_test_add_func ("/Adwaita/NavigationView/replace", test_adw_navigation_view_replace);
+  g_test_add_func ("/Adwaita/NavigationView/replace_with_duplicate", test_adw_navigation_view_replace_with_duplicate);
   g_test_add_func ("/Adwaita/NavigationView/previous_page", test_adw_navigation_view_previous_page);
   g_test_add_func ("/Adwaita/NavigationView/find_page", test_adw_navigation_view_find_page);
+  g_test_add_func ("/Adwaita/NavigationView/retag_duplicate", test_adw_navigation_view_retag_duplicate);
   g_test_add_func ("/Adwaita/NavigationView/animate_transitions", test_adw_navigation_view_animate_transitions);
   g_test_add_func ("/Adwaita/NavigationView/pop_on_escape", test_adw_navigation_view_pop_on_escape);
   g_test_add_func ("/Adwaita/NavigationPage/child", test_adw_navigation_page_child);
