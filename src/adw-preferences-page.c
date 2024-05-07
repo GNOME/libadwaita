@@ -573,7 +573,7 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
 }
 
 /*
- * adw_preferences_page_set_description_centered: (attributes org.gtk.Method.set_property=description-centered)
+ * adw_preferences_page_get_description_centered: (attributes org.gtk.Method.get_property=description-centered)
  * @self: a preferences page
  *
  * Gets whether the description is centered.
