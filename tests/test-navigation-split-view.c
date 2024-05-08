@@ -416,23 +416,67 @@ test_adw_navigation_split_view_page_tags (void)
 
   adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already has the same tag*");
-  adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "sidebar"));
-  g_test_assert_expected_messages ();
-
   adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already has the same tag*");
-  adw_navigation_page_set_tag (adw_navigation_split_view_get_sidebar (split_view), "content");
-  g_test_assert_expected_messages ();
 
   adw_navigation_page_set_tag (adw_navigation_split_view_get_sidebar (split_view), "sidebar");
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already has the same tag*");
-  adw_navigation_page_set_tag (adw_navigation_split_view_get_content (split_view), "sidebar");
-  g_test_assert_expected_messages ();
-
   g_assert_finalize_object (split_view);
+}
+
+static void
+test_adw_navigation_split_view_duplicate_tag (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "sidebar"));
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already has the same tag*");
+}
+
+static void
+test_adw_navigation_split_view_retag_sidebar (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
+
+    adw_navigation_page_set_tag (adw_navigation_split_view_get_sidebar (split_view), "content");
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already has the same tag*");
+}
+
+static void
+test_adw_navigation_split_view_retag_content (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
+
+    adw_navigation_page_set_tag (adw_navigation_split_view_get_content (split_view), "sidebar");
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already has the same tag*");
 }
 
 static void
@@ -451,14 +495,6 @@ test_adw_navigation_split_view_actions (void)
   g_assert_false (adw_navigation_split_view_get_show_content (split_view));
   g_assert_cmpint (notified, ==, 0);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in the navigation stack*");
-  gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "sidebar");
-  g_test_assert_expected_messages ();
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*No page with the tag*");
-  gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "something");
-  g_test_assert_expected_messages ();
-
   gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "content");
 
   g_assert_true (adw_navigation_split_view_get_show_content (split_view));
@@ -469,10 +505,6 @@ test_adw_navigation_split_view_actions (void)
 
   g_assert_true (adw_navigation_split_view_get_show_content (split_view));
   g_assert_cmpint (notified, ==, 1);
-
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in the navigation stack*");
-  gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "sidebar");
-  g_test_assert_expected_messages ();
 
   gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.pop", NULL);
 
@@ -480,6 +512,66 @@ test_adw_navigation_split_view_actions (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (split_view);
+}
+
+static void
+test_adw_navigation_split_view_push_exiting (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
+
+    gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "sidebar");
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already in the navigation stack*");
+}
+
+static void
+test_adw_navigation_split_view_push_invalid (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
+
+    gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "something");
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*No page with the tag*");
+}
+
+static void
+test_adw_navigation_split_view_push_duplicate (void)
+{
+  if (g_test_subprocess ()) {
+    AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+
+    adw_navigation_split_view_set_sidebar (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Sidebar", "sidebar"));
+    adw_navigation_split_view_set_content (split_view, adw_navigation_page_new_with_tag (gtk_button_new (), "Content", "content"));
+
+    gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "content");
+    gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "content");
+
+    gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "sidebar");
+
+    g_assert_finalize_object (split_view);
+  }
+
+  g_test_trap_subprocess (NULL, 0, 0);
+  g_test_trap_assert_failed ();
+  g_test_trap_assert_stderr ("*already in the navigation stack*");
 }
 
 int
@@ -498,7 +590,13 @@ main (int   argc,
   g_test_add_func ("/Adwaita/NavigationSplitView/sidebar_width_fraction", test_adw_navigation_split_view_sidebar_width_fraction);
   g_test_add_func ("/Adwaita/NavigationSplitView/sidebar_width_unit", test_adw_navigation_split_view_sidebar_width_unit);
   g_test_add_func ("/Adwaita/NavigationSplitView/page_tags", test_adw_navigation_split_view_page_tags);
+  g_test_add_func ("/Adwaita/NavigationSplitView/duplicate_tag", test_adw_navigation_split_view_duplicate_tag);
+  g_test_add_func ("/Adwaita/NavigationSplitView/retag_sidebar", test_adw_navigation_split_view_retag_sidebar);
+  g_test_add_func ("/Adwaita/NavigationSplitView/retag_content", test_adw_navigation_split_view_retag_content);
   g_test_add_func ("/Adwaita/NavigationSplitView/actions", test_adw_navigation_split_view_actions);
+  g_test_add_func ("/Adwaita/NavigationSplitView/push_exiting", test_adw_navigation_split_view_push_exiting);
+  g_test_add_func ("/Adwaita/NavigationSplitView/push_invalid", test_adw_navigation_split_view_push_invalid);
+  g_test_add_func ("/Adwaita/NavigationSplitView/push_duplicate", test_adw_navigation_split_view_push_duplicate);
 
   return g_test_run ();
 }
