@@ -19,10 +19,6 @@ test_env = [
   'GTK_A11Y=none',
 ]
 
-test_cflags = [
-  '-DADW_LOG_DOMAIN="Adwaita"',
-]
-
 test_link_args = []
 use_pie = false
 
@@ -95,7 +91,6 @@ foreach test_name : test_names
   ]
 
   t = executable(test_name, test_sources,
-                       c_args: test_cflags,
                     link_args: test_link_args,
                  dependencies: libadwaita_deps + [libadwaita_dep],
                           pie: use_pie,

@@ -309,6 +309,7 @@ libadwaita_public_deps = [
 
 libadwaita_c_args = [
   '-DG_LOG_DOMAIN="Adwaita"',
+  '-DG_LOG_USE_STRUCTURED',
 ]
 
 config_h = configuration_data()
