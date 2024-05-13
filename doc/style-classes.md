@@ -300,7 +300,8 @@ Class             | Color
 
 They can be applied to any widget.
 
-The `.error`, `.warning` and `.success` style classes can be applied to
+The `.error`, `.warning`, `.success` style classes also change the widget's
+accent color to the respective color. They can also be applied to
 [class@Gtk.Entry]. In that case, they can be used to indicate input validation
 state.
 
