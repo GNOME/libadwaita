@@ -90,14 +90,18 @@ entry {
   > progress {
     margin-bottom: 3px;
 
-    > trough > progress {
-      background-color: transparent;
-      background-image: none;
-      border-radius: 0;
-      border-width: 0 0 2px;
-      border-color: $accent_bg_color;
-      border-style: solid;
-      box-shadow: none;
+    > trough {
+      min-height: 2px;
+
+      > progress {
+        background-color: transparent;
+        background-image: none;
+        border-radius: 0;
+        border-width: 0 0 2px;
+        border-color: $accent_bg_color;
+        border-style: solid;
+        box-shadow: none;
+      }
     }
   }
 
