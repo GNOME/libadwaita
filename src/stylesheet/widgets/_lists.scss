@@ -165,14 +165,6 @@ row {
       opacity: 1;
     }
   }
-
-  &.property.monospace {
-    font-family: inherit;
-
-    & > box.header > box.title > .subtitle {
-      font-family: monospace;
-    }
-  }
 }
 
 /******************************
@@ -405,6 +397,10 @@ row.button {
     margin-right: 12px;
     border-spacing: 6px;
     min-height: 42px;
+
+    > .icon:disabled {
+      filter: opacity($disabled_opacity);
+    }
   }
 
   .title {
