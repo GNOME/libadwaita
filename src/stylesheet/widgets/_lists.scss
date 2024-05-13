@@ -470,6 +470,11 @@ list.boxed-list-separate {
   > row {
     @extend %card;
 
+    &:selected {
+      background-color: var(--card-bg-color);
+      background-color: $view_selected_color;
+    }
+
     border: none;
     margin-bottom: 12px;
 
