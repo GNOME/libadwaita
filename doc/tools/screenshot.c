@@ -237,7 +237,7 @@ draw_paintable (ScreenshotData *data)
                                         data);
 
   /* Handle the case where something immediately invalidates allocation. */
-  g_timeout_add_once (50, (GSourceOnceFunc) draw_paintable_cb, data);
+  g_timeout_add_once (100, (GSourceOnceFunc) draw_paintable_cb, data);
 }
 
 static GtkCssProvider *
