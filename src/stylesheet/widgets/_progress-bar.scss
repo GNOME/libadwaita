@@ -60,8 +60,6 @@ progressbar {
     // Thin progress bar with no trough, usually goes under the header bar
     min-width: 2px;
     min-height: 2px;
-    background-color: transparent;
-    color: inherit;
 
     > trough {
       border-style: none;
@@ -73,7 +71,6 @@ progressbar {
         border-style: none;
         border-radius: 0;
       }
-
     }
 
     &.horizontal {
@@ -86,8 +83,4 @@ progressbar {
   }
 
   > trough.empty > progress { all: unset; } // makes the progress indicator disappear, when the fraction is 0
-
-  .osd & > trough > progress {
-    background-color: $osd_fill_bg_color;
-  }
 }

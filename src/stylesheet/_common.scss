@@ -31,7 +31,11 @@ dnd {
 }
 
 %osd,
-.osd {
+.osd:not(progressbar) {
+  --accent-color: #{$osd_accent_color};
+  --accent-bg-color: #{$osd_accent_bg_color};
+  --accent-fg-color: #{$osd_accent_fg_color};
+
   color: $osd_fg_color;
   border: none;
   background-color: $osd_bg_color;

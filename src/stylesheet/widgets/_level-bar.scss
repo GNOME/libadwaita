@@ -91,10 +91,4 @@ levelbar {
       }
     }
   }
-
-  .osd & > trough > block {
-    &.high, &:not(.empty) {
-      background-color: $osd_fill_bg_color;
-    }
-  }
 }

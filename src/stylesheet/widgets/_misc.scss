@@ -187,7 +187,7 @@ statuspage {
 
     .osd &, &.osd {
       background-color: gtkalpha(currentColor, .1);
-      color: inherit;
+      color: $osd_fg_color;
 
       @if $contrast == 'high' {
         box-shadow: 0 0 0 1px $border_color;
@@ -198,12 +198,6 @@ statuspage {
   }
 
   @include focus-ring($offset: -1px);
-
-  .osd &, &.osd {
-    &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
-  }
 
   &.activatable {
     transition: $focus_transition, $button_transition;

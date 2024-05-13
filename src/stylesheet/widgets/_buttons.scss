@@ -18,10 +18,6 @@ button {
 
     @include focus-ring($transition: $button_transition);
 
-    .osd &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
-
     @at-root %button_basic_raised, & {
       background-color: $button_color;
 
@@ -147,20 +143,12 @@ button {
     &:drop(active) {
       @extend %button_basic_drop_active;
     }
-
-    .osd &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
   }
 
   @at-root %opaque_button {
     box-shadow: none;
 
     @include focus-ring($outer: true, $offset: 1px, $transition: $button_transition);
-
-    .osd &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
 
     &:hover {
       background-image: image(gtkalpha(currentColor, .1));
@@ -213,10 +201,6 @@ button {
   &.flat {
     background: transparent;
     @include focus-ring($transition: $button_transition);
-
-    .osd &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
 
     box-shadow: none;
 

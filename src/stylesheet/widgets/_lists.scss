@@ -39,10 +39,6 @@ row {
   @include focus-ring();
 
   .osd & {
-    &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
-
     &.activatable {
       &:hover { background-color: $hover_color; }
 
@@ -315,10 +311,6 @@ row.combo {
 %boxed_list_row {
   @include focus-ring($offset: -1px, $transition: $row_transition);
 
-  .osd &:focus:focus-visible {
-    outline-color: $osd_focus_color;
-  }
-
   border-bottom: 1px solid if($contrast == 'high', $border_color, var(--card-shade-color));
 
   &:not(:selected).activatable {
@@ -478,10 +470,6 @@ list.boxed-list-separate {
     }
 
     @include focus-ring($offset: -1px, $transition: $row_transition);
-
-    .osd &:focus:focus-visible {
-      outline-color: $osd_focus_color;
-    }
 
     &:not(.expander) {
       &:not(:selected).activatable {
