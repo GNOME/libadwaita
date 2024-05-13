@@ -18,16 +18,14 @@ label {
   color: var(--accent-color);
 }
 
-.success {
-  color: var(--success-color);
-}
+@each $e_type in error, warning, success {
+  .#{$e_type} {
+    color: var(--accent-color);
 
-.warning {
-  color: var(--warning-color);
-}
-
-.error {
-  color: var(--error-color);
+    --accent-bg-color: var(--#{$e_type}-bg-color);
+    --accent-fg-color: var(--#{$e_type}-fg-color);
+    --accent-color: var(--#{$e_type}-color);
+  }
 }
 
 /**********************

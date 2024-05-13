@@ -253,25 +253,12 @@ row.spin {
     background-color: transparent;
   }
 
-  @each $e_type, $e_color, $e_bg_color, $e_fg_color in (error,   var(--error-color),   var(--error-bg-color),   var(--error-fg-color)),
-                                                       (warning, var(--warning-color), var(--warning-bg-color), var(--warning-fg-color)),
-                                                       (success, var(--success-color), var(--success-bg-color), var(--success-fg-color)) {
+  @each $e_type in error, warning, success {
     &.#{$e_type} {
-      @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity), $transition: $row_transition);
-
-      text {
-        > selection:focus-within { background-color: gtkalpha($e_color, .2); }
-
-        > cursor-handle > contents { background-color: currentColor; }
-      }
+      color: var(--accent-color);
 
       .dim-label, .subtitle {
         opacity: 1;
-      }
-
-      .suggested-action {
-        background-color: $e_bg_color;
-        color: $e_fg_color;
       }
     }
   }
@@ -520,14 +507,6 @@ list.boxed-list-separate {
       &:not(:selected).activatable.focused:active {
         background-color: var(--card-bg-color);
         background-image: none;
-      }
-
-      @each $e_type, $e_color in (error,   var(--error-color)),
-                                 (warning, var(--warning-color)),
-                                 (success, var(--success-color)) {
-        &.#{$e_type} {
-          color: $e_color;
-        }
       }
     }
 

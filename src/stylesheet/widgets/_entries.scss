@@ -43,25 +43,6 @@ entry {
 
     &:disabled { filter: opacity($disabled_opacity); }
 
-    // entry error and warning style
-    @each $e_type, $e_color in (error,   var(--error-color)),
-                               (warning, var(--warning-color)),
-                               (success, var(--success-color)) {
-      &.#{$e_type} {
-        @include focus-ring($focus-state: ':focus-within', $fc: gtkalpha(currentColor, $focus_border_opacity));
-
-        > text {
-          > selection:focus-within { background-color: gtkalpha($e_color, .2); }
-
-          > cursor-handle > contents { background-color: currentColor; }
-        }
-
-        > progress > trough > progress {
-          border-color: currentColor;
-        }
-      }
-    }
-
     > image { // icons inside the entry
       opacity: if($contrast == 'high', .85, .7);
 
