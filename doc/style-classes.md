@@ -97,13 +97,13 @@ class with the following CSS:
 
 ```css
 #custom-suggested-action-button {
-  background-color: @accent_bg_color;
-  color: @accent_fg_color;
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
 }
 
 #custom-destructive-action-button {
-  background-color: @destructive_bg_color;
-  color: @destructive_fg_color;
+  background-color: var(--destructive-bg-color);
+  color: var(--destructive-fg-color);
 }
 ```
 
@@ -326,10 +326,10 @@ The following style classes change widget colors:
 
 Class             | Color
 ----------------- | -------------------------------------------
-<tt>.accent</tt>  | [accent color](named-colors.html#accent-colors)
-<tt>.success</tt> | [success color](named-colors.html#success-colors)
-<tt>.warning</tt> | [warning color](named-colors.html#warning-colors)
-<tt>.error</tt>   | [error color](named-colors.html#error-colors)
+<tt>.accent</tt>  | [accent color](css-variables.html#accent-colors)
+<tt>.success</tt> | [success color](css-variables.html#success-colors)
+<tt>.warning</tt> | [warning color](css-variables.html#warning-colors)
+<tt>.error</tt>   | [error color](css-variables.html#error-colors)
 
 They can be applied to any widget.
 
@@ -470,7 +470,7 @@ attached to the top of the window.
 </picture>
 
 The `.background` style class can be used with any widget to give it the default
-[window](named-colors.html#window-colors) background and foreground colors.
+[window](css-variables.html#window-colors) background and foreground colors.
 
 This can be useful when a widget needs an opaque background.
 
@@ -478,8 +478,8 @@ It's equivalent to using the following CSS:
 
 ```css
 .background {
-  background-color: @window_bg_color;
-  color: @window_fg_color;
+  background-color: var(--window-bg-color);
+  color: var(--window-fg-color);
 }
 ```
 
@@ -491,14 +491,14 @@ It's equivalent to using the following CSS:
 </picture>
 
 The `.view` style class can be used with any widget to give it the default
-[view](named-colors.html#window-colors) background and foreground colors.
+[view](css-variables.html#window-colors) background and foreground colors.
 
 It's equivalent to using the following CSS:
 
 ```css
 .view {
-  background-color: @view_bg_color;
-  color: @view_fg_color;
+  background-color: var(--view-bg-color);
+  color: var(--view-fg-color);
 }
 ```
 
@@ -516,7 +516,7 @@ It's equivalent to using the following CSS:
 
 ```css
 .frame {
-  border: 1px solid @borders;
+  border: 1px solid var(--borders);
 }
 ```
 

@@ -3,8 +3,8 @@
 import re
 
 SCSS = '../../src/stylesheet/_palette.scss'
-LIGHT = set(['light_1', 'light_2'])
-DARK = set(['dark_4', 'dark_5'])
+LIGHT = set(['light-1', 'light-2'])
+DARK = set(['dark-4', 'dark-5'])
 
 colors = []
 regex = re.compile('^\$(\w+)_([1-5]):\s*(#\w+);$')
@@ -30,7 +30,7 @@ print('    <th>Value</th>')
 print('  </tr>')
 
 for name, level, color in colors:
-    variable = '{}_{}'.format(name, level)
+    variable = '--{}-{}'.format(name, level)
 
     classes = ''
     if variable in LIGHT:
@@ -40,8 +40,9 @@ for name, level, color in colors:
 
     print('  <tr>')
     print('    <td><div class="color-pill{}" style="background-color: {}"/></td>'.format(classes, color))
-    print('    <td><tt>&#64;{}</tt></td>'.format(variable)) # &#64; is @
+    print('    <td><tt>{}</tt></td>'.format(variable))
     print('    <td><tt>{}</tt></td>'.format(color))
     print('  </tr>')
 
 print('</table>')
+

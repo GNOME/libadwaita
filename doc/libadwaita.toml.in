@@ -45,7 +45,7 @@ content_files = [
   "adaptive-layouts.md",
 
   "styles-and-appearance.md",
-  "named-colors.md",
+  "css-variables.md",
   "style-classes.md",
 
   "migrating-libhandy-1-4-to-libadwaita.md",

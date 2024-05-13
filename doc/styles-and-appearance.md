@@ -73,7 +73,7 @@ All standard GTK and Libadwaita widgets automatically support both styles.
 Applications that use custom drawing or styles may need to ensure the UI
 remains legible in both appearances:
 
-* When possible, use [named colors](named-colors.html) instead of hardcoded
+* When possible, use [CSS variables](css-variables.html) instead of hardcoded
   colors. For custom drawing, use [method@Gtk.StyleContext.get_color] to get the
   current text color for your widget, or [method@Gtk.StyleContext.lookup_color]
   to look up other colors.
@@ -99,7 +99,7 @@ it manually.
 * Use style classes such as [`.dim-label`](style-classes.html#dim-label) instead
   of changing widget opacity manually.
 
-* Use the [<code>&#64;borders</code>](named-colors.html#helper-colors) color for
+* Use the [<code>&#64;borders</code>](css-variables.html#helper-colors) color for
   borders instead of hardcoded colors.
 
 * The [property@StyleManager:high-contrast] property can be used to check the
@@ -127,4 +127,4 @@ Styles are stacked on top of each other: when using dark appearance, both
 ## See Also
 
 - [Style Classes](style-classes.html)
-- [Named Colors](named-colors.html)
+- [CSS Variables]css-variables.htmll)

@@ -386,9 +386,9 @@ The `hdy_ease_out_cubic()` function has been removed. Instead,
 ## Adapt to Stylesheet Changes
 
 If you were using
-[<code>&#64;theme_selected_bg_color</code>](named-colors.html#compatibility-colors)
+[<code>&#64;theme_selected_bg_color</code>](css-variables.html#compatibility-colors)
 as a text color, use
-[<code>&#64;accent_color</code>](named-colors.html#accent-colors) instead to
+[<code>&#64;accent_color</code>](css-variables.html#accent-colors) instead to
 make sure the text is readable. You can also use the
 [`.accent`](style-classes.html#colors) style class to apply the correct color.
 
