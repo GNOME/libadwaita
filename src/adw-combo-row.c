@@ -145,6 +145,20 @@ selection_changed (AdwComboRow *self)
 
   selected = gtk_single_selection_get_selected (GTK_SINGLE_SELECTION (priv->selection));
 
+  /* reset the filter so positions are 1-1 */
+  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
+  if (GTK_IS_STRING_FILTER (filter))
+    gtk_string_filter_set_search (GTK_STRING_FILTER (filter), "");
+  gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (priv->popup_selection), selected);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED]);
+}
+
+static void
+selection_item_changed (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
   if (priv->use_subtitle) {
     if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
       GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
@@ -159,13 +173,6 @@ selection_changed (AdwComboRow *self)
     }
   }
 
-  /* reset the filter so positions are 1-1 */
-  filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
-  if (GTK_IS_STRING_FILTER (filter))
-    gtk_string_filter_set_search (GTK_STRING_FILTER (filter), "");
-  gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (priv->popup_selection), selected);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_ITEM]);
 }
 
@@ -506,6 +513,7 @@ adw_combo_row_dispose (GObject *object)
 
   if (priv->selection) {
     g_signal_handlers_disconnect_by_func (priv->selection, selection_changed, self);
+    g_signal_handlers_disconnect_by_func (priv->selection, selection_item_changed, self);
     g_signal_handlers_disconnect_by_func (priv->selection, model_changed, self);
   }
 
@@ -866,6 +874,7 @@ adw_combo_row_set_model (AdwComboRow *self,
 
     if (priv->selection) {
       g_signal_handlers_disconnect_by_func (priv->selection, selection_changed, self);
+      g_signal_handlers_disconnect_by_func (priv->selection, selection_item_changed, self);
       g_signal_handlers_disconnect_by_func (priv->selection, model_changed, self);
     }
 
@@ -900,9 +909,11 @@ adw_combo_row_set_model (AdwComboRow *self,
     g_object_unref (selection);
 
     g_signal_connect_swapped (priv->selection, "notify::selected", G_CALLBACK (selection_changed), self);
+    g_signal_connect_swapped (priv->selection, "notify::selected-item", G_CALLBACK (selection_item_changed), self);
     g_signal_connect_swapped (priv->selection, "items-changed", G_CALLBACK (model_changed), self);
 
     selection_changed (self);
+    selection_item_changed (self);
     model_changed (self);
   }
 
