@@ -1964,14 +1964,15 @@ adw_about_window_new (void)
  *
  * * [property@AboutWindow:application-icon] is set from the `<id>`
  * * [property@AboutWindow:application-name] is set from the `<name>`
- * * [property@AboutWindow:developer-name] is set from the `<developer_name>`
+ * * [property@AboutWindow:developer-name] is set from the `<name>` within
+ *      `<developer>`
  * * [property@AboutWindow:version] is set from the version of the latest release
  * * [property@AboutWindow:website] is set from the `<url type="homepage">`
  * * [property@AboutWindow:support-url] is set from the `<url type="help">`
  * * [property@AboutWindow:issue-url] is set from the `<url type="bugtracker">`
- * * [property@AboutWindow:license-type] is set from the `<project_license>`
- *   If the license type retrieved from AppStream is not listed in
- *   [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+ * * [property@AboutWindow:license-type] is set from the `<project_license>`.
+ *     If the license type retrieved from AppStream is not listed in
+ *     [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
  *
  * If @release_notes_version is not `NULL`,
  * [property@AboutWindow:release-notes-version] is set to match it, while
