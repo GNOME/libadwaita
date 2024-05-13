@@ -58,6 +58,12 @@ ADW_AVAILABLE_IN_ALL
 void                adw_combo_row_set_factory (AdwComboRow        *self,
                                                GtkListItemFactory *factory);
 
+ADW_AVAILABLE_IN_1_6
+GtkListItemFactory *adw_combo_row_get_header_factory (AdwComboRow        *self);
+ADW_AVAILABLE_IN_1_6
+void                adw_combo_row_set_header_factory (AdwComboRow        *self,
+                                                      GtkListItemFactory *factory);
+
 ADW_AVAILABLE_IN_ALL
 GtkListItemFactory *adw_combo_row_get_list_factory (AdwComboRow        *self);
 ADW_AVAILABLE_IN_ALL

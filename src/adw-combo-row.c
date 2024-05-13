@@ -82,6 +82,7 @@ typedef struct
   gboolean uses_default_factory;
   GtkListItemFactory *factory;
   GtkListItemFactory *list_factory;
+  GtkListItemFactory *header_factory;
   GListModel *model;
   GListModel *filter_model;
   GtkSelectionModel *selection;
@@ -99,6 +100,7 @@ enum {
   PROP_SELECTED_ITEM,
   PROP_MODEL,
   PROP_FACTORY,
+  PROP_HEADER_FACTORY,
   PROP_LIST_FACTORY,
   PROP_EXPRESSION,
   PROP_USE_SUBTITLE,
@@ -407,6 +409,9 @@ adw_combo_row_get_property (GObject    *object,
   case PROP_FACTORY:
     g_value_set_object (value, adw_combo_row_get_factory (self));
     break;
+  case PROP_HEADER_FACTORY:
+    g_value_set_object (value, adw_combo_row_get_header_factory (self));
+    break;
   case PROP_LIST_FACTORY:
     g_value_set_object (value, adw_combo_row_get_list_factory (self));
     break;
@@ -445,6 +450,9 @@ adw_combo_row_set_property (GObject      *object,
   case PROP_LIST_FACTORY:
     adw_combo_row_set_list_factory (self, g_value_get_object (value));
     break;
+  case PROP_HEADER_FACTORY:
+    adw_combo_row_set_header_factory (self, g_value_get_object (value));
+    break;
   case PROP_EXPRESSION:
     adw_combo_row_set_expression (self, gtk_value_get_expression (value));
     break;
@@ -479,6 +487,7 @@ adw_combo_row_dispose (GObject *object)
   g_clear_object (&priv->current_selection);
   g_clear_object (&priv->factory);
   g_clear_object (&priv->list_factory);
+  g_clear_object (&priv->header_factory);
   g_clear_object (&priv->filter_model);
 
   g_clear_object (&priv->model);
@@ -572,6 +581,18 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_FACTORY] =
     g_param_spec_object ("factory", NULL, NULL,
+                         GTK_TYPE_LIST_ITEM_FACTORY,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwComboRow:header-factory: (attributes org.gtk.Property.get=adw_combo_row_get_header_factory org.gtk.Property.set=adw_combo_row_set_header_factory)
+   *
+   * The factory for creating header widgets for the popup.
+   *
+   * Since: 1.6
+   */
+  props[PROP_HEADER_FACTORY] =
+    g_param_spec_object ("header-factory", NULL, NULL,
                          GTK_TYPE_LIST_ITEM_FACTORY,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -881,6 +902,56 @@ adw_combo_row_set_factory (AdwComboRow        *self,
   g_return_if_fail (factory == NULL || GTK_LIST_ITEM_FACTORY (factory));
 
   set_factory (self, factory, FALSE);
+}
+
+/**
+ * adw_combo_row_get_header_factory: (attributes org.gtk.Method.get_property=header-factory)
+ * @self: a combo row
+ *
+ * Gets the factory that's currently used to create header widgets for the popup.
+ *
+ * Returns: (nullable) (transfer none): The factory in use
+ *
+ * Since: 1.6
+ */
+GtkListItemFactory *
+adw_combo_row_get_header_factory (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_COMBO_ROW (self), NULL);
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  return priv->header_factory;
+}
+
+/**
+ * adw_combo_row_set_header_factory: (attributes org.gtk.Method.set_property=header-factory)
+ * @self: a combo row
+ * @factory: (nullable) (transfer none): the factory to use
+ *
+ * Sets the factory to use for creating header widgets for the popup.
+ *
+ * Since: 1.6
+ */
+void
+adw_combo_row_set_header_factory (AdwComboRow        *self,
+                                  GtkListItemFactory *factory)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_COMBO_ROW (self));
+  g_return_if_fail (factory == NULL || GTK_LIST_ITEM_FACTORY (factory));
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  if (!g_set_object (&priv->header_factory, factory))
+    return;
+
+  gtk_list_view_set_header_factory (GTK_LIST_VIEW (priv->list), priv->header_factory);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HEADER_FACTORY]);
 }
 
 /**
