@@ -26,8 +26,8 @@ entry {
       }
 
       > block-cursor {
-        color: $view_bg_color;
-        background-color: $view_fg_color;
+        color: var(--view-bg-color);
+        background-color: var(--view-fg-color);
       }
     }
 
@@ -44,9 +44,9 @@ entry {
     &:disabled { filter: opacity($disabled_opacity); }
 
     // entry error and warning style
-    @each $e_type, $e_color in (error,   $error_color),
-                               (warning, $warning_color),
-                               (success, $success_color) {
+    @each $e_type, $e_color in (error,   var(--error-color)),
+                               (warning, var(--warning-color)),
+                               (success, var(--success-color)) {
       &.#{$e_type} {
         @include focus-ring($focus-state: ':focus-within', $fc: gtkalpha(currentColor, $focus_border_opacity));
 
@@ -95,7 +95,7 @@ entry {
       background-image: none;
       border-radius: 0;
       border-width: 0 0 2px;
-      border-color: $accent_bg_color;
+      border-color: var(--accent-bg-color);
       border-style: solid;
       box-shadow: none;
     }

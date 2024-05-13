@@ -1,13 +1,13 @@
 tabbar {
   .box {
-    background-color: $headerbar_bg_color;
-    color: $headerbar_fg_color;
-    box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color);
+    background-color: var(--headerbar-bg-color);
+    color: var(--headerbar-fg-color);
+    box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color));
     padding: 1px;
     padding-top: 0;
 
     &:backdrop {
-      background-color: $headerbar_backdrop_color;
+      background-color: var(--headerbar-backdrop-color);
       transition: background-color $backdrop_transition;
 
       > scrolledwindow,
@@ -43,7 +43,7 @@ tabbar {
       min-width: 2px;
       border-radius: 2px;
       margin: 3px 6px;
-      background: if($contrast == 'high', $accent_color, gtkalpha($accent_color, 0.5));
+      background: if($contrast == 'high', var(--accent-color), gtkalpha(var(--accent-color), 0.5));
     }
   }
 
@@ -128,9 +128,9 @@ tabbar {
 }
 
 dnd tab {
-  background-color: $headerbar_bg_color;
+  background-color: var(--headerbar-bg-color);
   background-image: image($selected_active_color);
-  color: $headerbar_fg_color;
+  color: var(--headerbar-fg-color);
 
   box-shadow: 0 0 0 1px transparentize(black, 0.97),
               0 1px 3px 1px transparentize(black, .93),
@@ -162,7 +162,7 @@ dnd {
     indicator {
       min-height: 2px;
       border-radius: 2px;
-      background: if($contrast == 'high', $accent_color, gtkalpha($accent_color, 0.5));
+      background: if($contrast == 'high', var(--accent-color), gtkalpha(var(--accent-color), 0.5));
       transform: translateY(4px);
     }
   }
@@ -191,12 +191,12 @@ tabthumbnail {
     &:dir(rtl) { transform: translate(-8px, -8px); }
 
     > widget {
-      background: $accent_color;
+      background: var(--accent-color);
       min-width: 12px;
       min-height: 12px;
       border-radius: 8px;
       margin: 3px;
-      box-shadow: 0 1px 2px gtkalpha($accent_color, .4);
+      box-shadow: 0 1px 2px gtkalpha(var(--accent-color), .4);
     }
   }
 
@@ -218,8 +218,8 @@ tabthumbnail {
   }
 
   &.pinned .card {
-    background-color: $thumbnail_bg_color;
-    color: $thumbnail_fg_color;
+    background-color: var(--thumbnail-bg-color);
+    color: var(--thumbnail-fg-color);
 
     @if $contrast == 'high' {
       outline: 1px solid $window_outline_color;
@@ -239,7 +239,7 @@ tabthumbnail {
 
   button.circular {
     margin: 6px;
-    background-color: gtkalpha($thumbnail_bg_color, .75);
+    background-color: gtkalpha(var(--thumbnail-bg-color), .75);
     min-width: 24px;
     min-height: 24px;
 
@@ -248,11 +248,11 @@ tabthumbnail {
     }
 
     &:hover {
-      background-color: gtkalpha(gtkmix($thumbnail_bg_color, currentColor, 90%), .75);
+      background-color: gtkalpha(gtkmix(var(--thumbnail-bg-color), currentColor, 90%), .75);
     }
 
     &:active {
-      background-color: gtkalpha(gtkmix($thumbnail_bg_color, currentColor, 80%), .75);
+      background-color: gtkalpha(gtkmix(var(--thumbnail-bg-color), currentColor, 80%), .75);
     }
   }
 }

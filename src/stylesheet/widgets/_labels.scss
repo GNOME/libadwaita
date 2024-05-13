@@ -15,19 +15,19 @@ label {
 }
 
 .accent {
-  color: $accent_color;
+  color: var(--accent-color);
 }
 
 .success {
-  color: $success_color;
+  color: var(--success-color);
 }
 
 .warning {
-  color: $warning_color;
+  color: var(--warning-color);
 }
 
 .error {
-  color: $error_color;
+  color: var(--error-color);
 }
 
 /**********************
@@ -87,6 +87,6 @@ label {
  *******************/
 
 editablelabel > stack > text {
-  color: $view_fg_color;
-  background-color: $view_bg_color;
+  color: var(--view-fg-color);
+  background-color: var(--view-bg-color);
 }

@@ -97,7 +97,7 @@ indicatorbin {
   }
 
   &.needs-attention > indicator {
-    background: $accent_color;
+    background: var(--accent-color);
   }
 
   &.badge {
@@ -115,9 +115,9 @@ indicatorbin {
     }
 
     &.needs-attention > indicator {
-      background: $accent_bg_color;
+      background: var(--accent-bg-color);
 
-      > label { color: $accent_fg_color; }
+      > label { color: var(--accent-fg-color); }
     }
   }
 }

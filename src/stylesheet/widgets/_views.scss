@@ -1,11 +1,11 @@
 .view,
 %view {
-  color: $view_fg_color;
-  background-color: $view_bg_color;
+  color: var(--view-fg-color);
+  background-color: var(--view-bg-color);
 
   &:disabled {
     color: gtkalpha(currentColor, .5);
-    background-color: gtkmix($window_bg_color, $view_bg_color, 60%);
+    background-color: gtkmix(var(--window-bg-color), var(--view-bg-color), 60%);
   }
 
   &:selected {
@@ -27,7 +27,7 @@ textview {
   }
 
   > border {
-    background-color: gtkmix($window_bg_color, $view_bg_color, 50%);
+    background-color: gtkmix(var(--window-bg-color), var(--view-bg-color), 50%);
   }
 
   &:drop(active) {
@@ -36,8 +36,8 @@ textview {
 }
 
 rubberband {
-  border: 1px solid $accent_color;
-  background-color: gtkalpha($accent_color, 0.2);
+  border: 1px solid var(--accent-color);
+  background-color: gtkalpha(var(--accent-color), 0.2);
 }
 
 flowbox > flowboxchild,

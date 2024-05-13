@@ -1,8 +1,8 @@
 headerbar {
   min-height: 47px;
-  background-color: $headerbar_bg_color;
-  color: $headerbar_fg_color;
-  box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color),
+  background-color: var(--headerbar-bg-color);
+  color: var(--headerbar-fg-color);
+  box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color)),
               inset  1px 0 $headerbar_border_color,
               inset -1px 0 $headerbar_border_color;
 
@@ -33,7 +33,7 @@ headerbar {
   }
 
   &:backdrop {
-    background-color: $headerbar_backdrop_color;
+    background-color: var(--headerbar-backdrop-color);
     transition: background-color $backdrop_transition;
 
     > windowhandle {
@@ -67,8 +67,8 @@ headerbar {
 
 window > {
   .titlebar:not(.flat) {
-    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
-                0 2px 4px gtkalpha($headerbar_shade_color, .5);
+    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
+                0 2px 4px gtkalpha(var(--headerbar-shade-color), .5);
   }
 
   .titlebar headerbar:not(.flat) {
@@ -228,3 +228,4 @@ window.devel {
     background-repeat: unset;
   }
 }
+

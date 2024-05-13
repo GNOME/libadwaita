@@ -7,7 +7,7 @@ cursor-handle {
     min-height: 20px;
     border-radius: 50%;
 
-    background-color: $accent_bg_color;
+    background-color: var(--accent-bg-color);
   }
 
   &.top > contents {
@@ -26,5 +26,5 @@ cursor-handle {
 }
 
 magnifier {
-  background-color: $view_bg_color;
+  background-color: var(--view-bg-color);
 }

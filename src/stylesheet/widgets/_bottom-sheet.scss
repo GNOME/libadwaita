@@ -1,7 +1,7 @@
 
 bottom-sheet {
   > dimming {
-    background-color: gtkalpha($shade_color, 2);
+    background-color: gtkalpha(var(--shade-color), 2);
   }
 
   > sheet {

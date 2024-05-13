@@ -14,12 +14,12 @@ $window_radius: $button_radius + 6;
 $popover_radius: $window_radius;
 
 .background {
-  color: $window_fg_color;
-  background-color: $window_bg_color;
+  color: var(--window-fg-color);
+  background-color: var(--window-bg-color);
 }
 
 dnd {
-  color: $window_fg_color;
+  color: var(--window-fg-color);
 }
 
 .normal-icons {
@@ -41,11 +41,11 @@ dnd {
 /* Text selection */
 
 selection {
-  background-color: gtkalpha($view_fg_color, 0.1);
+  background-color: gtkalpha(var(--view-fg-color), 0.1);
   color: transparent;
 
   &:focus-within {
-    background-color: gtkalpha($accent_bg_color, 0.3);
+    background-color: gtkalpha(var(--accent-bg-color), 0.3);
   }
 }
 
@@ -84,8 +84,8 @@ expander-widget {
 }
 
 @keyframes needs_attention {
-  from { background-image: radial-gradient(farthest-side, $accent_color 0%, transparent 0%); }
-  to { background-image: radial-gradient(farthest-side, $accent_color 95%, transparent); }
+  from { background-image: radial-gradient(farthest-side, var(--accent-color) 0%, transparent 0%); }
+  to { background-image: radial-gradient(farthest-side, var(--accent-color) 95%, transparent); }
 }
 
 %needs_attention {
@@ -93,7 +93,7 @@ expander-widget {
   // simulates the shadow labels and icons normally have in buttons.
   animation: needs_attention 150ms ease-in;
 
-  background-image: radial-gradient(farthest-side, $accent_color 96%, transparent);
+  background-image: radial-gradient(farthest-side, var(--accent-color) 96%, transparent);
   background-size: 6px 6px;
   background-repeat: no-repeat;
 

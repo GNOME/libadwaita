@@ -1,5 +1,5 @@
 calendar {
-  color: $view_fg_color;
+  color: var(--view-fg-color);
   background-clip: padding-box;
   border: 1px solid $border_color;
   font-feature-settings: "tnum";
@@ -35,14 +35,14 @@ calendar {
 
         &:checked {
           border-radius: $button_radius;
-          background-color: gtkalpha($accent_bg_color, 0.3);
+          background-color: gtkalpha(var(--accent-bg-color), 0.3);
         }
 
         &:selected {
           border-radius: $button_radius;
 
-          background-color: $accent_bg_color;
-          color: $accent_fg_color;
+          background-color: var(--accent-bg-color);
+          color: var(--accent-fg-color);
         }
       }
 

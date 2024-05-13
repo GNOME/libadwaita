@@ -52,8 +52,8 @@ columnview {
   button.dnd,
   header.button.dnd { // for treeview-like derive widgets
     &:active, &:selected, &:hover, & {
-      color: $accent_fg_color;
-      background-color: $accent_bg_color;
+      color: var(--accent-fg-color);
+      background-color: var(--accent-bg-color);
       transition: none;
     }
   }
@@ -99,7 +99,7 @@ columnview {
     padding-bottom: 2px;
   }
 
-  @include undershoot(top, $shade_color, true);
+  @include undershoot(top, var(--shade-color), true);
 }
 
 columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {
@@ -107,7 +107,7 @@ columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {
 }
 
 columnview row:not(:selected) cell editablelabel.editing:focus-within {
-  outline: 2px solid $accent_color;
+  outline: 2px solid var(--accent-color);
 }
 
 treeexpander {

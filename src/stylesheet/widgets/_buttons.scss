@@ -5,7 +5,7 @@ $button_checked_color: gtkalpha(currentColor, .3);
 $button_checked_hover_color: gtkalpha(currentColor, .35);
 $button_checked_active_color: gtkalpha(currentColor, .4);
 
-$opaque_button_default_bg: gtkmix($window_bg_color, $window_fg_color, 85%);
+$opaque_button_default_bg: gtkmix(var(--window-bg-color), var(--window-fg-color), 85%);
 
 %button,
 button {
@@ -189,26 +189,26 @@ button {
     @extend %opaque_button;
 
     background-color: $opaque_button_default_bg;
-    color: $window_fg_color;
+    color: var(--window-fg-color);
   }
 
   &.destructive-action {
     @extend %opaque_button;
 
-    color: $destructive_fg_color;
+    color: var(--destructive-fg-color);
 
     &, &:checked {
-      background-color: $destructive_bg_color;
+      background-color: var(--destructive-bg-color);
     }
   }
 
   &.suggested-action {
     @extend %opaque_button;
 
-    color: $accent_fg_color;
+    color: var(--accent-fg-color);
 
     &, &:checked {
-      background-color: $accent_bg_color;
+      background-color: var(--accent-bg-color);
     }
   }
 
@@ -311,7 +311,7 @@ button {
   }
 
   &.card {
-    background-color: $card_bg_color;
+    background-color: var(--card-bg-color);
     background-clip: padding-box;
     font-weight: inherit;
     padding: 0;
@@ -328,7 +328,7 @@ button {
     }
 
     &:checked {
-      background-color: $card_bg_color;
+      background-color: var(--card-bg-color);
       background-image: image($view_selected_color);
 
       &:hover { background-image: image($view_selected_hover_color); }
@@ -369,7 +369,7 @@ button.color {
     }
 
     &.light > overlay {
-      border-color: gtkalpha($view_fg_color, 0.1);
+      border-color: gtkalpha(var(--view-fg-color), 0.1);
     }
   }
 }
@@ -387,18 +387,18 @@ menubutton {
   &.pill > button { @extend %pill_button; }
 
   &.suggested-action {
-    background-color: $accent_bg_color;
-    color: $accent_fg_color;
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
   }
 
   &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
+    background-color: var(--destructive-bg-color);
+    color: var(--destructive-fg-color);
   }
 
   &.opaque {
     background-color: $opaque_button_default_bg;
-    color: $window_fg_color;
+    color: var(--window-fg-color);
   }
 
   &.suggested-action,
@@ -552,18 +552,18 @@ splitbutton {
   }
 
   &.suggested-action {
-    background-color: $accent_bg_color;
-    color: $accent_fg_color;
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
   }
 
   &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
+    background-color: var(--destructive-bg-color);
+    color: var(--destructive-fg-color);
   }
 
   &.opaque {
     background-color: $opaque_button_default_bg;
-    color: $window_fg_color;
+    color: var(--window-fg-color);
   }
 
   &.suggested-action,

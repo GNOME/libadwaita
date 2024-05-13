@@ -58,9 +58,9 @@ scrollbar {
 
       > slider {
         @if $contrast == 'high' {
-          outline: 1px solid $scrollbar_outline_color;
+          outline: 1px solid var(--scrollbar-outline-color);
         } @else {
-          outline: 1px solid gtkalpha($scrollbar_outline_color, .6);
+          outline: 1px solid gtkalpha(var(--scrollbar-outline-color), .6);
         }
 
         .osd & {
@@ -80,9 +80,9 @@ scrollbar {
       min-height: 3px;
 
       @if $contrast == 'high' {
-        outline-color: gtkalpha($scrollbar_outline_color, .6);
+        outline-color: gtkalpha(var(--scrollbar-outline-color), .6);
       } @else {
-        outline-color: gtkalpha($scrollbar_outline_color, .35);
+        outline-color: gtkalpha(var(--scrollbar-outline-color), .35);
       }
 
       .osd & {
@@ -138,7 +138,7 @@ scrollbar {
 
   > range.fine-tune > trough > slider {
     &, &:hover, &:active {
-      background-color: if($contrast == 'high', $accent_color, gtkalpha($accent_color, .6));
+      background-color: if($contrast == 'high', var(--accent-color), gtkalpha(var(--accent-color), .6));
     }
   }
 }

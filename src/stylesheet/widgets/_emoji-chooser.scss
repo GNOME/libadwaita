@@ -47,8 +47,8 @@ popover.emoji-picker scrolledwindow.view {
   background: none;
   color: inherit;
 
-  @include undershoot(top, $popover_shade_color);
-  @include undershoot(bottom, $popover_shade_color);
+  @include undershoot(top, var(--popover-shade-color));
+  @include undershoot(bottom, var(--popover-shade-color));
 }
 
 // Emoji completion popover
@@ -74,7 +74,7 @@ emoji-completion-row {
   &:focus,
   &:hover {
     background-color: $selected_color;
-    color: $popover_fg_color;
+    color: var(--popover-fg-color);
   }
 
   &:active {

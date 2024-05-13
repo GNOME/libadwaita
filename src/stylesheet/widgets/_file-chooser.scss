@@ -38,7 +38,7 @@ placessidebar {
       background-clip: content-box;
     }
 
-    &.sidebar-new-bookmark-row { color: $accent_color; }
+    &.sidebar-new-bookmark-row { color: var(--accent-color); }
 
     &:drop(active):not(:disabled) {
       color: $drop_target_color;
@@ -116,7 +116,7 @@ filechooser {
   }
 
   gridview {
-    @include undershoot(top, $shade_color, true);
+    @include undershoot(top, var(--shade-color), true);
     padding: 15px;
 
     > child {
@@ -140,8 +140,8 @@ filechooser {
 
   // Style the outer action bar with a toolbar view-like shadow
   > box > actionbar {
-    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
-                0 -2px 4px gtkalpha($headerbar_shade_color, .5);
+    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
+                0 -2px 4px gtkalpha(var(--headerbar-shade-color), .5);
 
     > revealer > box {
       box-shadow: none;
@@ -151,14 +151,14 @@ filechooser {
 
   // Style the remote search action bar like a banner
   scrolledwindow + actionbar > revealer > box {
-    background-color: gtkmix($accent_bg_color, $view_bg_color, 30%);
-    color: $window_fg_color;
+    background-color: gtkmix(var(--accent-bg-color), var(--view-bg-color), 30%);
+    color: var(--window-fg-color);
     box-shadow: none;
     padding-top: 6px;
     font-weight: bold;
 
     &:backdrop {
-      background-color: gtkmix($accent_bg_color, $view_bg_color, 15%);
+      background-color: gtkmix(var(--accent-bg-color), var(--view-bg-color), 15%);
     }
   }
 
@@ -172,24 +172,24 @@ filechooser {
 
     // Make the Connect to Server action bar flat
     > actionbar > revealer > box {
-      background: $view_bg_color;
-      color: $view_fg_color;
+      background: var(--view-bg-color);
+      color: var(--view-fg-color);
       box-shadow: none;
       padding-top: 6px;
 
       &:backdrop {
-        background: $view_bg_color;
+        background: var(--view-bg-color);
         transition: none;
       }
     }
   }
 
   placessidebar {
-    background-color: $sidebar_bg_color;
-    color: $sidebar_fg_color;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-fg-color);
 
     &:backdrop {
-      background-color: $sidebar_backdrop_color;
+      background-color: var(--sidebar-backdrop-color);
       transition: background-color $backdrop_transition;
     }
   }
@@ -197,22 +197,22 @@ filechooser {
   // The separator is a part of GtkPaned, so it needs to be styled separately
   paned.horizontal > separator {
     &:dir(ltr) {
-      box-shadow: inset 1px 0 $sidebar_bg_color,
-                  inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+      box-shadow: inset 1px 0 var(--sidebar-bg-color),
+                  inset 1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
 
       &:backdrop {
-        box-shadow: inset 1px 0 $sidebar_backdrop_color,
-                    inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+        box-shadow: inset 1px 0 var(--sidebar-backdrop-color),
+                    inset 1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
       }
     }
 
     &:dir(rtl) {
-      box-shadow: inset -1px 0 $sidebar_bg_color,
-                  inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+      box-shadow: inset -1px 0 var(--sidebar-bg-color),
+                  inset -1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
 
       &:backdrop {
-        box-shadow: inset -1px 0 $sidebar_backdrop_color,
-                    inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+        box-shadow: inset -1px 0 var(--sidebar-backdrop-color),
+                    inset -1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
       }
     }
 

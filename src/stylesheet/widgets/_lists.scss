@@ -4,8 +4,8 @@ $row_transition: background-color 200ms $ease-out-quad,
 
 listview,
 list {
-  color: $view_fg_color;
-  background-color: $view_bg_color;
+  color: var(--view-fg-color);
+  background-color: var(--view-bg-color);
   background-clip: padding-box;
   border-color: $border_color;
 
@@ -253,9 +253,9 @@ row.spin {
     background-color: transparent;
   }
 
-  @each $e_type, $e_color, $e_bg_color, $e_fg_color in (error,   $error_color,   $error_bg_color,   $error_fg_color),
-                                                       (warning, $warning_color, $warning_bg_color, $warning_fg_color),
-                                                       (success, $success_color, $success_bg_color, $success_fg_color) {
+  @each $e_type, $e_color, $e_bg_color, $e_fg_color in (error,   var(--error-color),   var(--error-bg-color),   var(--error-fg-color)),
+                                                       (warning, var(--warning-color), var(--warning-bg-color), var(--warning-fg-color)),
+                                                       (success, var(--success-color), var(--success-bg-color), var(--success-fg-color)) {
     &.#{$e_type} {
       @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity), $transition: $row_transition);
 
@@ -305,7 +305,7 @@ row.combo {
       margin: 6px;
 
       + scrolledwindow {
-        @include undershoot(top, $popover_shade_color);
+        @include undershoot(top, var(--popover-shade-color));
       }
     }
   }
@@ -332,7 +332,7 @@ row.combo {
     outline-color: $osd_focus_color;
   }
 
-  border-bottom: 1px solid if($contrast == 'high', $border_color, $card_shade_color);
+  border-bottom: 1px solid if($contrast == 'high', $border_color, var(--card-shade-color));
 
   &:not(:selected).activatable {
     &:hover {
@@ -361,7 +361,7 @@ row.expander {
   }
 
   list.nested {
-    background-color: gtkalpha($card_shade_color, .5);
+    background-color: gtkalpha(var(--card-shade-color), .5);
     color: inherit;
   }
 
@@ -395,7 +395,7 @@ row.expander {
     opacity: 1;
 
     &:not(:disabled) {
-      color: $accent_color;
+      color: var(--accent-color);
     }
   }
 
@@ -425,11 +425,11 @@ row.button {
   }
 
   &.suggested-action {
-    color: $accent_color;
+    color: var(--accent-color);
   }
 
   &.destructive-action {
-    color: $destructive_color;
+    color: var(--destructive-color);
   }
 }
 
@@ -475,7 +475,7 @@ list.boxed-list {
 
 list.boxed-list-separate {
   background: none;
-  color: $card_fg_color;
+  color: var(--card-fg-color);
 
   > row {
     @extend %card;
@@ -496,17 +496,17 @@ list.boxed-list-separate {
     &:not(.expander) {
       &:not(:selected).activatable {
         &:hover {
-          background-color: $card_bg_color;
+          background-color: var(--card-bg-color);
           background-image: image(gtkalpha(currentColor, .03));
         }
 
         &:active {
-          background-color: $card_bg_color;
+          background-color: var(--card-bg-color);
           background-image: image(gtkalpha(currentColor, .08));
         }
 
         &.has-open-popup {
-          background-color: $card_bg_color;
+          background-color: var(--card-bg-color);
           background-image: image(gtkalpha(currentColor, .03));
         }
       }
@@ -515,13 +515,13 @@ list.boxed-list-separate {
     &.entry, &.spin {
       &:not(:selected).activatable.focused:hover,
       &:not(:selected).activatable.focused:active {
-        background-color: $card_bg_color;
+        background-color: var(--card-bg-color);
         background-image: none;
       }
 
-      @each $e_type, $e_color in (error,   $error_color),
-                                 (warning, $warning_color),
-                                 (success, $success_color) {
+      @each $e_type, $e_color in (error,   var(--error-color)),
+                                 (warning, var(--warning-color)),
+                                 (success, var(--success-color)) {
         &.#{$e_type} {
           color: $e_color;
         }

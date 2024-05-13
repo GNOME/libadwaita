@@ -50,22 +50,22 @@ window.appchooser {
 window.assistant {
   .sidebar {
     padding: $menu-margin;
-    background-color: $sidebar_bg_color;
-    color: $sidebar_fg_color;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-fg-color);
 
     &:not(separator) {
       &:dir(ltr) {
         border-right: none;
-        box-shadow: inset -1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+        box-shadow: inset -1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
       }
 
       &:dir(rtl) {
-        box-shadow: inset 1px 0 if($contrast == 'high', $border_color, $sidebar_border_color);
+        box-shadow: inset 1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
       }
     }
 
     &:backdrop {
-      background-color: $sidebar_backdrop_color;
+      background-color: var(--sidebar-backdrop-color);
       transition: background-color $backdrop_transition;
     }
 
@@ -135,7 +135,7 @@ infobar {
     padding: 6px;
     padding-bottom: 7px;
     border-spacing: 6px;
-    box-shadow: inset 0 -1px if($contrast == 'high', $border_color, $shade_color);
+    box-shadow: inset 0 -1px if($contrast == 'high', $border_color, var(--shade-color));
 
     > box {
       border-spacing: 6px;
@@ -150,13 +150,13 @@ infobar {
     background-image: image(gtkalpha(currentColor, .1));
   }
 
-  @each $i_type, $i_color in (info, $accent_bg_color),
-                             (question, $accent_bg_color),
-                             (warning, $warning_bg_color),
-                             (error, $error_bg_color) {
+  @each $i_type, $i_color in (info, var(--accent-bg-color)),
+                             (question, var(--accent-bg-color)),
+                             (warning, var(--warning-bg-color)),
+                             (error, var(--error-bg-color)) {
     &.#{$i_type} > revealer > box {
-      background-color: gtkmix($i_color, $window_bg_color, 30%);
-      color: $window_fg_color;
+      background-color: gtkmix($i_color, var(--window-bg-color), 30%);
+      color: var(--window-fg-color);
     }
   }
 
@@ -182,8 +182,8 @@ statusbar {
  ***************/
 
 // To be used for opaque elements overlaid atop the selected row
-$treeview_selection_opaque: gtkmix(currentColor, $view_bg_color, 10%);
-$treeview_borders_opaque: gtkmix(currentColor, $view_bg_color, if($contrast == 'high', 40%, 20%));
+$treeview_selection_opaque: gtkmix(currentColor, var(--view-bg-color), 10%);
+$treeview_borders_opaque: gtkmix(currentColor, var(--view-bg-color), if($contrast == 'high', 40%, 20%));
 
 treeview.view {
   @extend columnview;
@@ -237,8 +237,8 @@ treeview.view {
 
   &.progressbar { // progress bar in treeviews
     &, &:selected {
-      background-color: $accent_bg_color;
-      color: $accent_fg_color;
+      background-color: var(--accent-bg-color);
+      color: var(--accent-fg-color);
     }
 
     box-shadow: none;
@@ -272,7 +272,7 @@ treeview.navigation-sidebar {
 treeview entry {
   &:focus-within {
     &:dir(rtl), &:dir(ltr) { // specificity bump hack
-      background-color: $view_bg_color;
+      background-color: var(--view-bg-color);
       transition-property: color, background;
     }
   }
@@ -280,9 +280,9 @@ treeview entry {
   &.flat, & {
     border-radius: 0;
     background-image: none;
-    background-color: $view_bg_color;
+    background-color: var(--view-bg-color);
 
-    &:focus-within { border-color: $accent_color; }
+    &:focus-within { border-color: var(--accent-color); }
   }
 }
 

@@ -9,7 +9,7 @@
 
 window.print {
   drawing {
-    color: $window_fg_color;
+    color: var(--window-fg-color);
     background: none;
     border: none;
     padding: 0;
@@ -70,7 +70,7 @@ window.colorchooser {
 
 floating-sheet {
   > dimming {
-    background-color: gtkalpha($shade_color, 2);
+    background-color: gtkalpha(var(--shade-color), 2);
   }
 
   > sheet {
@@ -103,8 +103,8 @@ dialog-host > dialog.background {
   background: none;
 
   sheet {
-    background-color: $window_bg_color;
-    color: $window_fg_color;
+    background-color: var(--window-bg-color);
+    color: var(--window-fg-color);
   }
 }
 

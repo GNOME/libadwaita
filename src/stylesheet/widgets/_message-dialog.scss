@@ -50,11 +50,11 @@ window.dialog.message {
         }
 
         &.suggested-action {
-          color: $accent_color;
+          color: var(--accent-color);
         }
 
         &.destructive-action {
-          color: $destructive_color;
+          color: var(--destructive-color);
         }
       }
     }
@@ -68,8 +68,8 @@ window.dialog.message {
 window.messagedialog,
 dialog-host > dialog.alert sheet,
 window.dialog-window.alert {
-  background-color: $dialog_bg_color;
-  color: $dialog_fg_color;
+  background-color: var(--dialog-bg-color);
+  color: var(--dialog-fg-color);
 }
 
 window.messagedialog {
@@ -109,11 +109,11 @@ dialog.alert {
     }
 
     &.suggested {
-      color: $accent_color;
+      color: var(--accent-color);
     }
 
     &.destructive {
-      color: $destructive_color;
+      color: var(--destructive-color);
     }
   }
 

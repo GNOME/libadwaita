@@ -23,7 +23,7 @@
   }
 }
 
-@mixin undershoot($p, $c: $shade_color, $neighbor: false) {
+@mixin undershoot($p, $c: var(--shade-color), $neighbor: false) {
 //
 // undershoot
 //

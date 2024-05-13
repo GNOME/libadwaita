@@ -99,12 +99,12 @@ searchbar {
   > revealer > box {
     padding: 6px 6px 7px 6px;
 
-    background-color: $headerbar_bg_color;
-    color: $headerbar_fg_color;
-    box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color);
+    background-color: var(--headerbar-bg-color);
+    color: var(--headerbar-fg-color);
+    box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color));
 
     &:backdrop {
-      background-color: $headerbar_backdrop_color;
+      background-color: var(--headerbar-backdrop-color);
       transition: background-color $backdrop_transition;
 
       > * {
@@ -170,9 +170,9 @@ searchbar {
  ****************/
 
 actionbar > revealer > box {
-  background-color: $headerbar_bg_color;
-  color: $headerbar_fg_color;
-  box-shadow: inset 0 1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color);
+  background-color: var(--headerbar-bg-color);
+  color: var(--headerbar-fg-color);
+  box-shadow: inset 0 1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color));
   padding: 7px 6px 6px 6px;
 
   @extend %toolbar;
@@ -182,7 +182,7 @@ actionbar > revealer > box {
   }
 
   &:backdrop {
-    background-color: $headerbar_backdrop_color;
+    background-color: var(--headerbar-backdrop-color);
     transition: background-color $backdrop_transition;
 
     > * {
@@ -219,12 +219,12 @@ actionbar > revealer > box {
  *************/
 banner > revealer > widget {
   /* There are 2 more instances in _sidebars.css, keep in sync with that */
-  background-color: gtkmix($accent_bg_color, $window_bg_color, 30%);
-  color: $window_fg_color;
+  background-color: gtkmix(var(--accent-bg-color), var(--window-bg-color), 30%);
+  color: var(--window-fg-color);
   padding: 6px;
 
   &:backdrop {
-    background-color: gtkmix($accent_bg_color, $window_bg_color, 15%);
+    background-color: gtkmix(var(--accent-bg-color), var(--window-bg-color), 15%);
     transition: background-color $backdrop_transition;
 
     > label, > button {
@@ -261,11 +261,11 @@ toolbarview {
     }
 
     &.raised {
-      background-color: $headerbar_bg_color;
-      color: $headerbar_fg_color;
+      background-color: var(--headerbar-bg-color);
+      color: var(--headerbar-fg-color);
 
       &:backdrop {
-        background-color: $headerbar_backdrop_color;
+        background-color: var(--headerbar-backdrop-color);
         transition: background-color $backdrop_transition;
       }
     }
@@ -277,20 +277,20 @@ toolbarview {
   }
 
   > .top-bar.raised {
-    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
-                0 2px 4px gtkalpha($headerbar_shade_color, .5);
+    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
+                0 2px 4px gtkalpha(var(--headerbar-shade-color), .5);
 
     &.border {
-      box-shadow: 0 1px if($contrast == 'high', $border_color, $headerbar_darker_shade_color);
+      box-shadow: 0 1px if($contrast == 'high', $border_color, var(--headerbar-darker-shade-color));
     }
   }
 
   > .bottom-bar.raised {
-    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
-                0 -2px 4px gtkalpha($headerbar_shade_color, .5);
+    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
+                0 -2px 4px gtkalpha(var(--headerbar-shade-color), .5);
 
     &.border {
-      box-shadow: 0 -1px if($contrast == 'high', $border_color, $headerbar_darker_shade_color);
+      box-shadow: 0 -1px if($contrast == 'high', $border_color, var(--headerbar-darker-shade-color));
     }
   }
 
@@ -308,3 +308,4 @@ toolbarview {
     background-repeat: unset;
   }
 }
+

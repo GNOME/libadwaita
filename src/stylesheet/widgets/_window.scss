@@ -63,12 +63,12 @@ window {
     padding: 5px;
     border-radius: 0;
     box-shadow: inset 0 0 0 5px $border_color,
-                inset 0 0 0 4px $headerbar_bg_color,
+                inset 0 0 0 4px var(--headerbar-bg-color),
                 inset 0 0 0 1px $border_color;
 
     &:backdrop {
       box-shadow: inset 0 0 0 5px $border_color,
-                  inset 0 0 0 4px $headerbar_backdrop_color,
+                  inset 0 0 0 4px var(--headerbar-backdrop-color),
                   inset 0 0 0 1px $border_color;
     }
   }

@@ -107,7 +107,7 @@ dialog.about {
 
     .app-version {
       padding: 3px 18px;
-      color: $accent_color;
+      color: var(--accent-color);
       border-radius: 999px;
       margin-top: 3px;
     }
@@ -178,8 +178,8 @@ statuspage {
 
 .card {
   @at-root %card, & {
-    background-color: $card_bg_color;
-    color: $card_fg_color;
+    background-color: var(--card-bg-color);
+    color: var(--card-fg-color);
     border-radius: $card_radius;
     box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, transparentize(black, 0.97)),
                 0 1px 3px 1px transparentize(black, .93),
@@ -224,5 +224,5 @@ flap,
 leaflet,
 navigation-view,
 overlay-split-view {
-  @include transition-shadows($shade_color);
+  @include transition-shadows(var(--shade-color));
 }
