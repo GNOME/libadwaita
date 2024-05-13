@@ -132,3 +132,7 @@ $strong_disabled_opacity: 0.3;
   $trough_active_color: gtkalpha(currentColor, .5);
   $window_outline_color: transparentize(white, .7);
 }
+
+:root {
+  --border-color: #{$border_color};
+}
