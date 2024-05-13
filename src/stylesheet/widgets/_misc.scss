@@ -218,5 +218,5 @@ flap,
 leaflet,
 navigation-view,
 overlay-split-view {
-  @include transition-shadows(var(--shade-color));
+  @include transition-shadows();
 }

@@ -99,7 +99,7 @@ columnview {
     padding-bottom: 2px;
   }
 
-  @include undershoot(top, var(--shade-color), true);
+  @include undershoot(top, true);
 }
 
 columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {

@@ -31,7 +31,7 @@ dropdown {
       padding: 6px;
 
       + scrolledwindow {
-        @include undershoot(top, var(--popover-shade-color));
+        @include undershoot(top);
       }
     }
   }

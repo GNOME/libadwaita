@@ -46,38 +46,5 @@ popover {
     }
   }
 
-  toolbarview.undershoot-top scrolledwindow {
-    @include undershoot(top, var(--popover-shade-color));
-  }
-
-  toolbarview.undershoot-bottom scrolledwindow {
-    @include undershoot(bottom, var(--popover-shade-color));
-  }
-
-  scrolledwindow {
-    &.undershoot-top {
-      @include undershoot(top, var(--popover-shade-color));
-    }
-
-    &.undershoot-bottom {
-      @include undershoot(bottom, var(--popover-shade-color))
-    }
-
-    &.undershoot-start {
-      &:dir(ltr) { @include undershoot(left, var(--popover-shade-color)); }
-      &:dir(rtl) { @include undershoot(right, var(--popover-shade-color)); }
-    }
-
-    &.undershoot-end {
-      &:dir(ltr) { @include undershoot(right, var(--popover-shade-color)); }
-      &:dir(rtl) { @include undershoot(left, var(--popover-shade-color)); }
-    }
-  }
-
-  flap,
-  leaflet,
-  navigation-view,
-  overlay-split-view {
-    @include transition-shadows(var(--popover-shade-color));
-  }
+  --shade-color: var(--popover-shade-color);
 }

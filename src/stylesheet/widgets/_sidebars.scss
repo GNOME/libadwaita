@@ -7,40 +7,7 @@
     transition: background-color $backdrop_transition;
   }
 
-  toolbarview.undershoot-top scrolledwindow {
-    @include undershoot(top, var(--sidebar-shade-color));
-  }
-
-  toolbarview.undershoot-bottom scrolledwindow {
-    @include undershoot(bottom, var(--sidebar-shade-color));
-  }
-
-  scrolledwindow {
-    &.undershoot-top {
-      @include undershoot(top, var(--sidebar-shade-color));
-    }
-
-    &.undershoot-bottom {
-      @include undershoot(bottom, var(--sidebar-shade-color))
-    }
-
-    &.undershoot-start {
-      &:dir(ltr) { @include undershoot(left, var(--sidebar-shade-color)); }
-      &:dir(rtl) { @include undershoot(right, var(--sidebar-shade-color)); }
-    }
-
-    &.undershoot-end {
-      &:dir(ltr) { @include undershoot(right, var(--sidebar-shade-color)); }
-      &:dir(rtl) { @include undershoot(left, var(--sidebar-shade-color)); }
-    }
-  }
-
-  flap,
-  leaflet,
-  navigation-view,
-  overlay-split-view {
-    @include transition-shadows(var(--sidebar-shade-color));
-  }
+  --shade-color: var(--sidebar-shade-color);
 
   banner > revealer > widget {
     background-color: gtkmix(var(--accent-bg-color), var(--sidebar-bg-color), 30%);
@@ -75,40 +42,7 @@
     transition: background-color $backdrop_transition;
   }
 
-  toolbarview.undershoot-top scrolledwindow {
-    @include undershoot(top, var(--secondary-sidebar-shade-color));
-  }
-
-  toolbarview.undershoot-bottom scrolledwindow {
-    @include undershoot(bottom, var(--secondary-sidebar-shade-color));
-  }
-
-  scrolledwindow {
-    &.undershoot-top {
-      @include undershoot(top, var(--secondary-sidebar-shade-color));
-    }
-
-    &.undershoot-bottom {
-      @include undershoot(bottom, var(--secondary-sidebar-shade-color))
-    }
-
-    &.undershoot-start {
-      &:dir(ltr) { @include undershoot(left, var(--secondary-sidebar-shade-color)); }
-      &:dir(rtl) { @include undershoot(right, var(--secondary-sidebar-shade-color)); }
-    }
-
-    &.undershoot-end {
-      &:dir(ltr) { @include undershoot(right, var(--secondary-sidebar-shade-color)); }
-      &:dir(rtl) { @include undershoot(left, var(--secondary-sidebar-shade-color)); }
-    }
-  }
-
-  flap,
-  leaflet,
-  navigation-view,
-  overlay-split-view {
-    @include transition-shadows(var(--secondary-sidebar-shade-color));
-  }
+  --shade-color: var(--secondary-sidebar-shade-color);
 
   banner > revealer > widget {
     background-color: gtkmix(var(--accent-bg-color), var(--secondary-sidebar-bg-color), 30%);

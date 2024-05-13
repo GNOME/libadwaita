@@ -116,7 +116,7 @@ filechooser {
   }
 
   gridview {
-    @include undershoot(top, var(--shade-color), true);
+    @include undershoot(top, true);
     padding: 15px;
 
     > child {

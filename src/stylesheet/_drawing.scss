@@ -23,12 +23,11 @@
   }
 }
 
-@mixin undershoot($p, $c: var(--shade-color), $neighbor: false) {
+@mixin undershoot($p, $neighbor: false) {
 //
 // undershoot
 //
 // $p: position
-// $c: shade color
 // $neighbor: use ~ instead of >
 //
 // possible $p values:
@@ -56,8 +55,8 @@
   }
 
   #{$_selector} undershoot.#{$p} {
-    box-shadow: inset $_border_pos if($contrast == 'high', $border_color, gtkalpha($c, .75));
-    background: linear-gradient(to $_direction, gtkalpha($c, .75), transparent 4px);
+    box-shadow: inset $_border_pos if($contrast == 'high', $border_color, gtkalpha(var(--shade-color), .75));
+    background: linear-gradient(to $_direction, gtkalpha(var(--shade-color), .75), transparent 4px);
   }
 }
 
@@ -101,21 +100,21 @@
   box-shadow: none;              //
 }
 
-@mixin background-shadow($direction, $color) {
+@mixin background-shadow($direction) {
   background-image:
     linear-gradient($direction,
-                    gtkalpha($color, 0.7),
-                    gtkalpha($color, 0.14) 40px,
-                    gtkalpha($color, 0) 56px),
+                    gtkalpha(var(--shade-color), 0.7),
+                    gtkalpha(var(--shade-color), 0.14) 40px,
+                    gtkalpha(var(--shade-color), 0) 56px),
     linear-gradient($direction,
-                    gtkalpha($color, 0.4),
-                    gtkalpha($color, 0.14) 7px,
-                    gtkalpha($color, 0) 24px);
+                    gtkalpha(var(--shade-color), 0.4),
+                    gtkalpha(var(--shade-color), 0.14) 7px,
+                    gtkalpha(var(--shade-color), 0) 24px);
 }
 
-@mixin transition-shadows($color) {
+@mixin transition-shadows() {
   > dimming {
-    background: $color;
+    background: var(--shade-color);
   }
 
   @if $contrast == 'high' {
@@ -130,9 +129,9 @@
     min-width: 56px;
     min-height: 56px;
 
-    &.left  { @include background-shadow(to right,  $color); }
-    &.right { @include background-shadow(to left,   $color); }
-    &.up    { @include background-shadow(to bottom, $color); }
-    &.down  { @include background-shadow(to top,    $color); }
+    &.left  { @include background-shadow(to right); }
+    &.right { @include background-shadow(to left); }
+    &.up    { @include background-shadow(to bottom); }
+    &.down  { @include background-shadow(to top); }
   }
 }
