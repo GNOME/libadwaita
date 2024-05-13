@@ -90,6 +90,7 @@ typedef struct
   GtkSelectionModel *current_selection;
 
   GtkExpression *expression;
+  GtkStringFilterMatchMode search_match_mode;
 } AdwComboRowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwComboRow, adw_combo_row, ADW_TYPE_ACTION_ROW)
@@ -105,6 +106,7 @@ enum {
   PROP_EXPRESSION,
   PROP_USE_SUBTITLE,
   PROP_ENABLE_SEARCH,
+  PROP_SEARCH_MATCH_MODE,
   LAST_PROP,
 };
 
@@ -210,16 +212,19 @@ static void
 update_filter (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
-  
-  if (priv->filter_model) {
-      GtkFilter *filter;
 
-      if (priv->expression) 
-        filter = GTK_FILTER (gtk_string_filter_new (gtk_expression_ref (priv->expression)));
-      else 
-        filter = GTK_FILTER (gtk_every_filter_new ());
-      gtk_filter_list_model_set_filter (GTK_FILTER_LIST_MODEL (priv->filter_model), filter);
-      g_object_unref (filter);
+  if (priv->filter_model) {
+    GtkFilter *filter;
+
+    if (priv->expression) {
+      filter = GTK_FILTER (gtk_string_filter_new (gtk_expression_ref (priv->expression)));
+      gtk_string_filter_set_match_mode (GTK_STRING_FILTER (filter), priv->search_match_mode);
+    } else {
+      filter = GTK_FILTER (gtk_every_filter_new ());
+    }
+
+    gtk_filter_list_model_set_filter (GTK_FILTER_LIST_MODEL (priv->filter_model), filter);
+    g_object_unref (filter);
   }
 }
 
@@ -424,6 +429,9 @@ adw_combo_row_get_property (GObject    *object,
   case PROP_ENABLE_SEARCH:
     g_value_set_boolean (value, adw_combo_row_get_enable_search (self));
     break;
+  case PROP_SEARCH_MATCH_MODE:
+    g_value_set_enum (value, adw_combo_row_get_search_match_mode (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -461,6 +469,9 @@ adw_combo_row_set_property (GObject      *object,
     break;
   case PROP_ENABLE_SEARCH:
     adw_combo_row_set_enable_search (self, g_value_get_boolean (value));
+    break;
+  case PROP_SEARCH_MATCH_MODE:
+    adw_combo_row_set_search_match_mode (self, g_value_get_enum (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -660,6 +671,19 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwComboRow:search-match-mode: (attributes org.gtk.Property.get=adw_combo_row_get_search_match_mode org.gtk.Property.set=adw_combo_row_set_search_match_mode)
+   *
+   * The match mode for the search filter.
+   *
+   * Since: 1.6
+   */
+  props[PROP_SEARCH_MATCH_MODE] =
+    g_param_spec_enum  ("search-match-mode", NULL, NULL,
+                        GTK_TYPE_STRING_FILTER_MATCH_MODE,
+                        GTK_STRING_FILTER_MATCH_MODE_PREFIX,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -680,6 +704,10 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
 static void
 adw_combo_row_init (AdwComboRow *self)
 {
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
+  priv->search_match_mode = GTK_STRING_FILTER_MATCH_MODE_PREFIX;
+
   gtk_widget_init_template (GTK_WIDGET (self));
 
   adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (self), FALSE);
@@ -1189,4 +1217,55 @@ adw_combo_row_set_enable_search (AdwComboRow *self,
   gtk_widget_set_visible (GTK_WIDGET (priv->search_entry), enable_search);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_SUBTITLE]);
+}
+
+/**
+ * adw_combo_row_get_search_match_mode: (attributes org.gtk.Method.get_property=search-match-mode)
+ * @self: a combo row
+ *
+ * Returns the match mode that the search filter is using.
+ *
+ * Returns: the match mode of the search filter
+ *
+ * Since: 1.6
+ */
+GtkStringFilterMatchMode
+adw_combo_row_get_search_match_mode (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_COMBO_ROW (self), GTK_STRING_FILTER_MATCH_MODE_PREFIX);
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  return priv->search_match_mode;
+}
+
+/**
+ * adw_combo_row_set_search_match_mode: (attributes org.gtk.Method.set_property=search-match-mode)
+ * @self: a combo row
+ * @search_match_mode: the new match mode
+ *
+ * Sets the match mode for the search filter.
+ *
+ * Since: 1.6
+ */
+void
+adw_combo_row_set_search_match_mode (AdwComboRow *self,
+                                     GtkStringFilterMatchMode search_match_mode)
+{
+  AdwComboRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_COMBO_ROW (self));
+
+  priv = adw_combo_row_get_instance_private (self);
+
+  if (priv->search_match_mode == search_match_mode)
+    return;
+
+  priv->search_match_mode = search_match_mode;
+
+  update_filter (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEARCH_MATCH_MODE]);
 }

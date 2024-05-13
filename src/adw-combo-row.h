@@ -88,4 +88,10 @@ ADW_AVAILABLE_IN_1_4
 void     adw_combo_row_set_enable_search (AdwComboRow *self,
                                           gboolean     enable_search);
 
+ADW_AVAILABLE_IN_1_6
+void                     adw_combo_row_set_search_match_mode (AdwComboRow              *self,
+                                                              GtkStringFilterMatchMode  search_match_mode);
+ADW_AVAILABLE_IN_1_6
+GtkStringFilterMatchMode adw_combo_row_get_search_match_mode (AdwComboRow              *self);
+
 G_END_DECLS
