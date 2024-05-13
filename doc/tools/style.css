@@ -4,13 +4,13 @@
 }
 
 #opaque-button-1 {
-  color: @success_fg_color;
-  background-color: @success_bg_color;
+  color: var(--success-fg-color);
+  background-color: var(--success-bg-color);
 }
 
 #opaque-button-2 {
-  color: @warning_fg_color;
-  background-color: @warning_bg_color;
+  color: var(--warning-fg-color);
+  background-color: var(--warning-bg-color);
 }
 
 #vscroll {
@@ -24,5 +24,5 @@
 }
 
 .overview-tab-page {
-  background: linear-gradient(to bottom right, @blue_1 25%, @green_1);
+  background: linear-gradient(to bottom right, var(--blue-1) 25%, var(--green-1));
 }
