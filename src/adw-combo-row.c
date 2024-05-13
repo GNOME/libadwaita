@@ -308,19 +308,32 @@ selected_item_changed (AdwComboRow *self,
 }
 
 static void
+root_changed (GtkWidget   *box,
+              GParamSpec  *pspec,
+              AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+  GtkWidget *icon;
+
+  icon = gtk_widget_get_last_child (box);
+
+  if (gtk_widget_get_ancestor (box, GTK_TYPE_POPOVER) == GTK_WIDGET (priv->popover))
+    gtk_widget_set_visible (icon, TRUE);
+  else
+    gtk_widget_set_visible (icon, FALSE);
+}
+
+static void
 bind_item (GtkSignalListItemFactory *factory,
            GtkListItem              *list_item,
            AdwComboRow              *self)
 {
-  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
   gpointer item;
   GtkWidget *box;
-  GtkWidget *icon;
   char *repr;
 
   item = gtk_list_item_get_item (list_item);
   box = gtk_list_item_get_child (list_item);
-  icon = gtk_widget_get_last_child (box);
 
   repr = get_item_representation (self, item);
 
@@ -332,14 +345,13 @@ bind_item (GtkSignalListItemFactory *factory,
     g_critical ("Either AdwComboRow:factory or AdwComboRow:expression must be set");
   }
 
-  if (gtk_widget_get_ancestor (box, GTK_TYPE_POPOVER) == GTK_WIDGET (priv->popover)) {
-    gtk_widget_set_visible (icon, TRUE);
-    g_signal_connect (self, "notify::selected-item",
-                      G_CALLBACK (selected_item_changed), list_item);
-    selected_item_changed (self, NULL, list_item);
-  } else {
-    gtk_widget_set_visible (icon, FALSE);
-  }
+  g_signal_connect (self, "notify::selected-item",
+                    G_CALLBACK (selected_item_changed), list_item);
+  selected_item_changed (self, NULL, list_item);
+
+  g_signal_connect (box, "notify::root",
+                    G_CALLBACK (root_changed), self);
+  root_changed (box, NULL, self);
 
   g_clear_pointer (&repr, g_free);
 }
@@ -349,7 +361,12 @@ unbind_item (GtkSignalListItemFactory *factory,
              GtkListItem              *list_item,
              AdwComboRow              *self)
 {
+  GtkWidget *box;
+
+  box = gtk_list_item_get_child (list_item);
+
   g_signal_handlers_disconnect_by_func (self, selected_item_changed, list_item);
+  g_signal_handlers_disconnect_by_func (box, root_changed, self);
 }
 
 static void
