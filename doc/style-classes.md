@@ -78,39 +78,6 @@ It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
-## Opaque
-
-<picture>
-  <source srcset="buttons-opaque-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="buttons-opaque.png" alt="buttons-opaque">
-</picture>
-
-The `.opaque` style class gives the button an opaque background. It's intended
-to be used together with custom styles that override `background-color` and
-`color`, to create buttons with an appearance similar to
-[`.suggested-action`](#suggested-action) and
-[`.destructive-action`](#destructive-action), but with custom colors.
-
-For example, `.suggested-action` and `.destructive-action` are equivalent to
-using the `.opaque` style
-class with the following CSS:
-
-```css
-#custom-suggested-action-button {
-  background-color: var(--accent-bg-color);
-  color: var(--accent-fg-color);
-}
-
-#custom-destructive-action-button {
-  background-color: var(--destructive-bg-color);
-  color: var(--destructive-fg-color);
-}
-```
-
-It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
-
-Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
-
 ## Circular
 
 <picture>
@@ -674,7 +641,7 @@ The [`.title-1`](#typography-styles) style class should be used instead.
 
 Deprecated since: 1.2
 
-# Flat Header Bar
+## Flat Header Bar
 
 <picture>
   <source srcset="flat-header-bar-dark.png" media="(prefers-color-scheme: dark)">
@@ -687,3 +654,49 @@ The `.flat` style class can be used with an [class@HeaderBar] or
 Use [class@ToolbarView] instead.
 
 Deprecated since: 1.4
+
+## `.opaque`
+
+<picture>
+  <source srcset="buttons-opaque-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="buttons-opaque.png" alt="buttons-opaque">
+</picture>
+
+The `.opaque` style class gives the button an opaque background. It's intended
+to be used together with custom styles that override `background-color` and
+`color`, to create buttons with an appearance similar to
+[`.suggested-action`](#suggested-action) and
+[`.destructive-action`](#destructive-action), but with custom colors.
+
+For example, `.suggested-action` and `.destructive-action` are equivalent to
+using the `.opaque` style
+class with the following CSS:
+
+```css
+#custom-suggested-action-button {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+}
+
+#custom-destructive-action-button {
+  background-color: var(--destructive-bg-color);
+  color: var(--destructive-fg-color);
+}
+```
+
+It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
+
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
+
+Use [`.suggested-action`](#suggested-action) instead, and override the accent
+color, for example:
+
+```css
+#custom-destructive-action-button {
+  --accent-bg-color: var(--destructive-bg-color);
+  --accent-fg-color: var(--destructive-fg-color);
+  --accent-color: var(--destructive-color);
+}
+```
+
+Deprecated since: 1.6

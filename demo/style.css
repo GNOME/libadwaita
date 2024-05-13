@@ -19,25 +19,25 @@ stacksidebar {
 }
 
 #custom-button-1 {
-  color: var(--red-3);
+  color: var(--accent-color);
   --accent-color: var(--red-3);
 }
 
 #custom-button-2 {
-  color: var(--purple-3);
+  color: var(--accent-color);
   --accent-color: var(--purple-3);
 }
 
 #custom-button-3 {
-  color: white;
-  background-color: var(--green-5);
-  --accent-color: var(--green-5);
+  --accent-bg-color: var(--green-5);
+  --accent-fg-color: white;
+  --accent-color: #1b8553;
 }
 
 #custom-button-4 {
-  color: white;
-  background-color: var(--orange-4);
-  --accent-color: var(--orange-4);
+  --accent-bg-color: var(--orange-4);
+  --accent-fg-color: white;
+  --accent-color: var(--orange-5);
 }
 
 #animation-sample {

@@ -8,6 +8,18 @@
   --accent-color: var(--purple-1);
 }
 
+#custom-button-3 {
+  --accent-bg-color: var(--green-5);
+  --accent-fg-color: white;
+  --accent-color: var(--green-1);
+}
+
+#custom-button-4 {
+  --accent-bg-color: var(--orange-5);
+  --accent-fg-color: white;
+  --accent-color: var(--orange-1);
+}
+
 .tab-page-color-1 {
   background: shade(var(--blue-5), 0.7);
 }
