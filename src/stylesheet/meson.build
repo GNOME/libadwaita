@@ -20,6 +20,7 @@ if not fs.exists('base.css')
       '_defaults.scss',
       '_drawing.scss',
       '_functions.scss',
+      '_palette.scss',
       '_widgets.scss',
 
       'widgets/_avatar.scss',
