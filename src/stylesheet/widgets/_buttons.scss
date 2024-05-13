@@ -192,17 +192,8 @@ button {
     color: var(--window-fg-color);
   }
 
+  &.suggested-action,
   &.destructive-action {
-    @extend %opaque_button;
-
-    color: var(--destructive-fg-color);
-
-    &, &:checked {
-      background-color: var(--destructive-bg-color);
-    }
-  }
-
-  &.suggested-action {
     @extend %opaque_button;
 
     color: var(--accent-fg-color);
@@ -210,6 +201,12 @@ button {
     &, &:checked {
       background-color: var(--accent-bg-color);
     }
+  }
+
+  &.destructive-action {
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
+    --accent-color: var(--destructive-color);
   }
 
   @at-root %button_basic_flat,
@@ -386,14 +383,16 @@ menubutton {
   &.flat > button { @extend %button_basic_flat; }
   &.pill > button { @extend %pill_button; }
 
-  &.suggested-action {
+  &.suggested-action,
+  &.destructive-action {
     background-color: var(--accent-bg-color);
     color: var(--accent-fg-color);
   }
 
   &.destructive-action {
-    background-color: var(--destructive-bg-color);
-    color: var(--destructive-fg-color);
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
+    --accent-color: var(--destructive-color);
   }
 
   &.opaque {
@@ -551,14 +550,16 @@ splitbutton {
     }
   }
 
-  &.suggested-action {
+  &.suggested-action,
+  &.destructive-action {
     background-color: var(--accent-bg-color);
     color: var(--accent-fg-color);
   }
 
   &.destructive-action {
-    background-color: var(--destructive-bg-color);
-    color: var(--destructive-fg-color);
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
+    --accent-color: var(--destructive-color);
   }
 
   &.opaque {

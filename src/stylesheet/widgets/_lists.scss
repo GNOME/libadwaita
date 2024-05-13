@@ -424,12 +424,15 @@ row.button {
     @extend .heading;
   }
 
-  &.suggested-action {
+  &.suggested-action,
+  &.destructive-action {
     color: var(--accent-color);
   }
 
   &.destructive-action {
-    color: var(--destructive-color);
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
+    --accent-color: var(--destructive-color);
   }
 }
 

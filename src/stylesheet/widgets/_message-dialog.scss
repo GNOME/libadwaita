@@ -49,12 +49,15 @@ window.dialog.message {
           border-bottom-right-radius: $window_radius+1;
         }
 
-        &.suggested-action {
+        &.suggested-action,
+        &.destructive-action {
           color: var(--accent-color);
         }
 
         &.destructive-action {
-          color: var(--destructive-color);
+          --accent-bg-color: var(--destructive-bg-color);
+          --accent-fg-color: var(--destructive-fg-color);
+          --accent-color: var(--destructive-color);
         }
       }
     }
@@ -108,12 +111,14 @@ dialog.alert {
       }
     }
 
-    &.suggested {
+    &.suggested, &.destructive {
       color: var(--accent-color);
     }
 
     &.destructive {
-      color: var(--destructive-color);
+      --accent-bg-color: var(--destructive-bg-color);
+      --accent-fg-color: var(--destructive-fg-color);
+      --accent-color: var(--destructive-color);
     }
   }
 
