@@ -1,37 +1,39 @@
 #custom-button-1 {
-  color: @red_1;
+  color: var(--red-1);
+  --accent-color: var(--red-1);
 }
 
 #custom-button-2 {
-  color: @purple_1;
+  color: var(--purple-1);
+  --accent-color: var(--purple-1);
 }
 
 .tab-page-color-1 {
-  background: shade(@blue_5, 0.7);
+  background: shade(var(--blue-5), 0.7);
 }
 
 .tab-page-color-2 {
-  background: shade(@green_5, 0.6);
+  background: shade(var(--green-5), 0.6);
 }
 
 .tab-page-color-3 {
-  background: shade(@yellow_5, 0.5);
+  background: shade(var(--yellow-5), 0.5);
 }
 
 .tab-page-color-4 {
-  background: shade(@orange_5, 0.6);
+  background: shade(var(--orange-5), 0.6);
 }
 
 .tab-page-color-5 {
-  background: shade(@red_5, 0.7);
+  background: shade(var(--red-5), 0.7);
 }
 
 .tab-page-color-6 {
-  background: shade(@purple_5, 0.7);
+  background: shade(var(--purple-5), 0.7);
 }
 
 .tab-page-color-7 {
-  background: shade(@brown_5, 0.7);
+  background: shade(var(--brown-5), 0.7);
 }
 
 .tab-page-color-8 {

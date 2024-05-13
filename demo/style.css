@@ -19,56 +19,60 @@ stacksidebar {
 }
 
 #custom-button-1 {
-  color: @red_3;
+  color: var(--red-3);
+  --accent-color: var(--red-3);
 }
 
 #custom-button-2 {
-  color: @purple_3;
+  color: var(--purple-3);
+  --accent-color: var(--purple-3);
 }
 
 #custom-button-3 {
   color: white;
-  background-color: @green_5;
+  background-color: var(--green-5);
+  --accent-color: var(--green-5);
 }
 
 #custom-button-4 {
   color: white;
-  background-color: @orange_4;
+  background-color: var(--orange-4);
+  --accent-color: var(--orange-4);
 }
 
 #animation-sample {
   min-width: 30px;
   min-height: 30px;
   border-radius: 24px;
-  background: linear-gradient(to bottom, @green_2, @green_5);
+  background: linear-gradient(to bottom, var(--green-2), var(--green-5));
 }
 
 .tab-page-color-1 {
-  background: shade(@blue_1, 1.2);
+  background: shade(var(--blue-1), 1.2);
 }
 
 .tab-page-color-2 {
-  background: shade(@green_1, 1.2);
+  background: shade(var(--green-1), 1.2);
 }
 
 .tab-page-color-3 {
-  background: shade(@yellow_1, 1.2);
+  background: shade(var(--yellow-1), 1.2);
 }
 
 .tab-page-color-4 {
-  background: shade(@orange_1, 1.2);
+  background: shade(var(--orange-1), 1.2);
 }
 
 .tab-page-color-5 {
-  background: shade(@red_1, 1.4);
+  background: shade(var(--red-1), 1.4);
 }
 
 .tab-page-color-6 {
-  background: shade(@purple_1, 1.3);
+  background: shade(var(--purple-1), 1.3);
 }
 
 .tab-page-color-7 {
-  background: shade(@brown_1, 1.3);
+  background: shade(var(--brown-1), 1.3);
 }
 
 .tab-page-color-8 {
