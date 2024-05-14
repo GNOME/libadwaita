@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwTabViewDemoPage" parent="AdwBin">
+    <style>
+      <class name="tab-page"/>
+    </style>
     <property name="child">
       <object class="GtkEntry" id="title_entry">
         <property name="halign">center</property>
