@@ -238,6 +238,8 @@ adw_application_window_init (AdwApplicationWindow *self)
   g_signal_connect_swapped (priv->dialog_host, "notify::visible-dialog",
                             G_CALLBACK (notify_visible_dialog_cb), self);
 
+  gtk_widget_set_size_request (GTK_WIDGET (self), 360, 200);
+
   gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (self), FALSE);
 }
 

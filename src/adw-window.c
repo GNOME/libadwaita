@@ -280,6 +280,8 @@ adw_window_init (AdwWindow *self)
                             G_CALLBACK (notify_current_breakpoint_cb), self);
   g_signal_connect_swapped (priv->dialog_host, "notify::visible-dialog",
                             G_CALLBACK (notify_visible_dialog_cb), self);
+
+  gtk_widget_set_size_request (GTK_WIDGET (self), 360, 200);
 }
 
 static void
