@@ -3,12 +3,16 @@
 static void
 activate_cb (GtkApplication *app)
 {
-  GtkWidget *window = gtk_application_window_new (app);
+  GtkWidget *window = adw_application_window_new (app);
+  GtkWidget *toolbar_view = adw_toolbar_view_new ();
+  GtkWidget *header_bar = adw_header_bar_new ();
   GtkWidget *label = gtk_label_new ("Hello World");
 
+  adw_toolbar_view_add_top_bar (ADW_TOOLBAR_VIEW (toolbar_view), header_bar);
+  adw_toolbar_view_set_content (ADW_TOOLBAR_VIEW (toolbar_view), label);
+
   gtk_window_set_title (GTK_WINDOW (window), "Hello");
-  gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
-  gtk_window_set_child (GTK_WINDOW (window), label);
+  adw_application_window_set_content (ADW_APPLICATION_WINDOW (window), toolbar_view);
   gtk_window_present (GTK_WINDOW (window));
 }
 
