@@ -103,8 +103,6 @@ switch between them depending on available width.
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 550sp</condition>
@@ -171,8 +169,6 @@ containing the sidebar as the root page and content as its subpage. Only
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 400sp</condition>
@@ -239,8 +235,6 @@ but can be used with split header bars as well.
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 400sp</condition>
@@ -308,8 +302,6 @@ within another `AdwNavigationSplitView`'s sidebar:
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 860sp</condition>
@@ -384,8 +376,6 @@ within an `AdwOverlaySplitView`'s content:
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 860sp</condition>
@@ -436,8 +426,6 @@ provide an adaptive tabbed interface.
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 500px</condition>
@@ -496,3 +484,4 @@ provide an adaptive tabbed interface.
   <source srcset="adaptive-tabs-narrow-2-dark.png" media="(prefers-color-scheme: dark)">
   <img src="adaptive-tabs-narrow-2.png" alt="adaptive-tabs-narrow-2">
 </picture>
+

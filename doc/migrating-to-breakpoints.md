@@ -421,8 +421,6 @@ Add a setter to your breakpoint, setting the
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 400sp</condition>
@@ -551,8 +549,6 @@ Add a setter to your breakpoint, setting the
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">200</property>
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 400sp</condition>
