@@ -108,7 +108,6 @@ browser_cb (void)
 
   window = adw_window_new ();
   gtk_window_set_title (GTK_WINDOW (window), "Browser");
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
   adw_window_set_content (ADW_WINDOW (window), view);
 

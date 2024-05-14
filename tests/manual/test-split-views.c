@@ -78,7 +78,6 @@ navigation_cb (void)
   gtk_window_set_title (GTK_WINDOW (window), "Navigation Sidebar");
   adw_window_set_content (ADW_WINDOW (window), view);
   adw_window_add_breakpoint (ADW_WINDOW (window), breakpoint);
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
 
   gtk_window_present (GTK_WINDOW (window));
@@ -133,7 +132,6 @@ overlay_cb (void)
   gtk_window_set_title (GTK_WINDOW (window), "Transient Sidebar");
   adw_window_set_content (ADW_WINDOW (window), view);
   adw_window_add_breakpoint (ADW_WINDOW (window), breakpoint);
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
 
   gtk_window_present (GTK_WINDOW (window));
@@ -172,7 +170,6 @@ triple_pane_mail_cb (void)
   window = adw_window_new ();
   gtk_window_set_title (GTK_WINDOW (window), "Mail");
   adw_window_set_content (ADW_WINDOW (window), outer_view);
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 1200, 600);
 
   breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse ("max-width: 860sp"));
@@ -243,7 +240,6 @@ triple_pane_feeds_cb (void)
   window = adw_window_new ();
   gtk_window_set_title (GTK_WINDOW (window), "Feeds");
   adw_window_set_content (ADW_WINDOW (window), outer_view);
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 1200, 600);
 
   breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse ("max-width: 860sp"));
@@ -312,7 +308,6 @@ complex_navigation_cb (void)
   gtk_window_set_title (GTK_WINDOW (window), "Navigation Sidebar");
   adw_window_set_content (ADW_WINDOW (window), view);
   adw_window_add_breakpoint (ADW_WINDOW (window), breakpoint);
-  gtk_widget_set_size_request (window, 360, 200);
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
 
   gtk_window_present (GTK_WINDOW (window));

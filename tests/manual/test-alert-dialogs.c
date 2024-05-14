@@ -250,7 +250,6 @@ main (int   argc,
   g_signal_connect_swapped (window, "destroy", G_CALLBACK (close_cb), &done);
   gtk_window_set_title (GTK_WINDOW (window), "Alert Dialogs");
   adw_window_set_content (ADW_WINDOW (window), create_content (window));
-  gtk_widget_set_size_request (window, 360, -1);
   gtk_window_present (GTK_WINDOW (window));
 
   while (!done)
