@@ -6,8 +6,6 @@
     <property name="title" translatable="yes">Tab View Demo</property>
     <property name="default-width">800</property>
     <property name="default-height">600</property>
-    <property name="width-request">360</property>
-    <property name="height-request">150</property>
     <property name="content">
       <object class="AdwTabOverview" id="tab_overview">
         <property name="view">view</property>
