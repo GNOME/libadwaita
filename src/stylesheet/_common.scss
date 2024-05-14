@@ -31,7 +31,7 @@ dnd {
 }
 
 %osd,
-.osd:not(progressbar) {
+.osd:not(progressbar):not(button) {
   --accent-color: #{$osd_accent_color};
   --accent-bg-color: #{$osd_accent_bg_color};
   --accent-fg-color: #{$osd_accent_fg_color};
