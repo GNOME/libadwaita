@@ -47,6 +47,12 @@ stacksidebar {
   background: linear-gradient(to bottom, var(--green-2), var(--green-5));
 }
 
+.tab-page {
+  --accent-bg-color: alpha(black, .6);
+  --accent-fg-color: white;
+  --accent-color: alpha(black, .75);
+}
+
 .tab-page-color-1 {
   background: shade(var(--blue-1), 1.2);
 }
