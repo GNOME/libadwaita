@@ -23,10 +23,6 @@ window.dialog.message {
   }
 
   &.csd {
-    // bigger radius for better antialiasing
-    border-bottom-left-radius: $dialog_radius + 1;
-    border-bottom-right-radius: $dialog_radius + 1;
-
     .dialog-action-area {
       border-top: 1px solid $border_color;
       margin: 0;
@@ -41,12 +37,12 @@ window.dialog.message {
         border-left: 1px solid $border_color;
 
         &:first-child {
-          border-bottom-left-radius: $dialog_radius + 1;
+          border-bottom-left-radius: $dialog_radius;
           border-left: none;
         }
 
         &:last-child {
-          border-bottom-right-radius: $dialog_radius + 1;
+          border-bottom-right-radius: $dialog_radius;
         }
 
         &.suggested-action,
@@ -83,7 +79,6 @@ window.messagedialog {
 
 dialog-host > dialog.alert.floating sheet,
 window.dialog-window.alert {
-  border-radius: $dialog_radius + 1;
   outline: none;
 }
 
@@ -156,19 +151,19 @@ dialog.alert.floating {
     &:not(.compact) > button {
       &:first-child:dir(ltr),
       &:last-child:dir(rtl) {
-        border-bottom-left-radius: $dialog_radius + 1;
+        border-bottom-left-radius: $dialog_radius;
       }
 
       &:last-child:dir(ltr),
       &:first-child:dir(rtl) {
-        border-bottom-right-radius: $dialog_radius + 1;
+        border-bottom-right-radius: $dialog_radius;
       }
     }
 
     &.compact > button {
       &:first-child {
-        border-bottom-left-radius: $dialog_radius + 1;
-        border-bottom-right-radius: $dialog_radius + 1;
+        border-bottom-left-radius: $dialog_radius;
+        border-bottom-right-radius: $dialog_radius;
       }
     }
   }
