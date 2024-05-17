@@ -80,6 +80,11 @@ window.messagedialog {
 dialog-host > dialog.alert.floating sheet,
 window.dialog-window.alert {
   outline: none;
+
+  .body-scrolled-window > viewport {
+    border-top-left-radius: $dialog_radius;
+    border-top-right-radius: $dialog_radius;
+  }
 }
 
 window.messagedialog,

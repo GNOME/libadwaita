@@ -405,3 +405,11 @@ adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self)
 
   return self->sheet_bin;
 }
+void
+adw_floating_sheet_set_sheet_overflow (AdwFloatingSheet *self,
+                                       GtkOverflow       overflow)
+{
+  g_return_if_fail (ADW_IS_FLOATING_SHEET (self));
+
+  gtk_widget_set_overflow (self->sheet_bin, overflow);
+}

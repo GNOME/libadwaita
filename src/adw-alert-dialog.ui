@@ -19,6 +19,9 @@
                     <property name="propagate-natural-width">True</property>
                     <property name="propagate-natural-height">True</property>
                     <property name="hscrollbar-policy">never</property>
+                    <style>
+                      <class name="body-scrolled-window"/>
+                    </style>
                     <property name="child">
                       <object class="GtkBox" id="message_area">
                         <property name="orientation">vertical</property>

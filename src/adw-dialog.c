@@ -140,6 +140,8 @@ typedef struct
 
   GtkWidget *window;
   gboolean force_closing;
+
+  GtkOverflow overflow;
 } AdwDialogPrivate;
 
 static void adw_dialog_buildable_init (GtkBuildableIface *iface);
@@ -459,6 +461,7 @@ update_presentation (AdwDialog *self)
     priv->bottom_sheet = ADW_BOTTOM_SHEET (adw_bottom_sheet_new ());
 
     adw_bottom_sheet_set_min_natural_width (priv->bottom_sheet, 360);
+    adw_bottom_sheet_set_sheet_overflow (priv->bottom_sheet, priv->overflow);
 
     if (!priv->first_map)
       adw_bottom_sheet_set_open (priv->bottom_sheet, TRUE);
@@ -486,6 +489,8 @@ update_presentation (AdwDialog *self)
     }
   } else {
     priv->floating_sheet = ADW_FLOATING_SHEET (adw_floating_sheet_new ());
+
+    adw_floating_sheet_set_sheet_overflow (priv->floating_sheet, priv->overflow);
 
     if (!priv->first_map)
       adw_floating_sheet_set_open (priv->floating_sheet, TRUE);
@@ -1258,8 +1263,10 @@ adw_dialog_init (AdwDialog *self)
   priv->content_height = -1;
   priv->follows_content_size = FALSE;
   priv->presentation_mode = ADW_DIALOG_AUTO;
+  priv->overflow = GTK_OVERFLOW_HIDDEN;
 
   priv->child_breakpoint_bin = adw_breakpoint_bin_new ();
+  gtk_widget_set_overflow (priv->child_breakpoint_bin, GTK_OVERFLOW_VISIBLE);
   adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),
                                          GTK_WIDGET (self));
   g_object_bind_property (self, "width-request",
@@ -2175,4 +2182,23 @@ adw_dialog_get_window (AdwDialog *self)
   priv = adw_dialog_get_instance_private (self);
 
   return priv->window;
+}
+
+void
+adw_dialog_set_overflow (AdwDialog   *self,
+                         GtkOverflow  overflow)
+{
+  AdwDialogPrivate *priv;
+
+  g_return_if_fail (ADW_IS_DIALOG (self));
+
+  priv = adw_dialog_get_instance_private (self);
+
+  priv->overflow = overflow;
+
+  if (priv->floating_sheet)
+    adw_floating_sheet_set_sheet_overflow (priv->floating_sheet, overflow);
+
+  if (priv->bottom_sheet)
+    adw_bottom_sheet_set_sheet_overflow (priv->bottom_sheet, overflow);
 }

@@ -937,6 +937,8 @@ adw_alert_dialog_init (AdwAlertDialog *self)
                             (AdwGizmoFocusFunc) adw_widget_focus_child);
   adw_gizmo_set_grab_focus_func (ADW_GIZMO (priv->response_area),
                             (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+
+  adw_dialog_set_overflow (ADW_DIALOG (self), GTK_OVERFLOW_VISIBLE);
 }
 
 /* Custom tag handling was copied and modified

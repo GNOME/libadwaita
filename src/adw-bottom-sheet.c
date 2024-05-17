@@ -976,3 +976,12 @@ adw_bottom_sheet_get_sheet_bin (AdwBottomSheet *self)
 
   return self->sheet_bin;
 }
+
+void
+adw_bottom_sheet_set_sheet_overflow (AdwBottomSheet *self,
+                                     GtkOverflow     overflow)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  gtk_widget_set_overflow (self->sheet_bin, overflow);
+}
