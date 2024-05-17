@@ -15,7 +15,7 @@
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkScrolledWindow">
+                  <object class="GtkScrolledWindow" id="scrolled_window">
                     <property name="propagate-natural-width">True</property>
                     <property name="propagate-natural-height">True</property>
                     <property name="hscrollbar-policy">never</property>
