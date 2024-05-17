@@ -200,10 +200,7 @@ adw_squeezer_page_finalize (GObject *object)
   AdwSqueezerPage *self = ADW_SQUEEZER_PAGE (object);
 
   g_clear_object (&self->widget);
-
-  if (self->last_focus)
-    g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
-                                  (gpointer *) &self->last_focus);
+  g_clear_weak_pointer (&self->last_focus);
 
   G_OBJECT_CLASS (adw_squeezer_page_parent_class)->finalize (object);
 }
@@ -477,12 +474,7 @@ set_visible_child (AdwSqueezer               *self,
       gtk_widget_is_ancestor (focus, self->visible_child->widget)) {
     contains_focus = TRUE;
 
-    if (self->visible_child->last_focus)
-      g_object_remove_weak_pointer (G_OBJECT (self->visible_child->last_focus),
-                                    (gpointer *)&self->visible_child->last_focus);
-    self->visible_child->last_focus = focus;
-    g_object_add_weak_pointer (G_OBJECT (self->visible_child->last_focus),
-                               (gpointer *)&self->visible_child->last_focus);
+    g_set_weak_pointer (&self->visible_child->last_focus, focus);
   }
 
   if (self->transition_running)
@@ -1011,9 +1003,7 @@ adw_squeezer_finalize (GObject *object)
 {
   AdwSqueezer *self = ADW_SQUEEZER (object);
 
-  if (self->pages)
-    g_object_remove_weak_pointer (G_OBJECT (self->pages),
-                                  (gpointer *) &self->pages);
+  g_clear_weak_pointer (&self->pages);
 
   G_OBJECT_CLASS (adw_squeezer_parent_class)->finalize (object);
 }
@@ -1879,8 +1869,8 @@ adw_squeezer_get_pages (AdwSqueezer *self)
   if (self->pages)
     return g_object_ref (self->pages);
 
-  self->pages = GTK_SELECTION_MODEL (adw_squeezer_pages_new (self));
-  g_object_add_weak_pointer (G_OBJECT (self->pages), (gpointer *) &self->pages);
+  g_set_weak_pointer (&self->pages,
+                      GTK_SELECTION_MODEL (adw_squeezer_pages_new (self)));
 
   return self->pages;
 }

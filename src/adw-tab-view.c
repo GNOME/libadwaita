@@ -384,10 +384,7 @@ adw_tab_page_finalize (GObject *object)
   g_clear_object (&self->indicator_icon);
   g_clear_pointer (&self->indicator_tooltip, g_free);
   g_clear_pointer (&self->keyword, g_free);
-
-  if (self->last_focus)
-    g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
-                                  (gpointer *) &self->last_focus);
+  g_clear_weak_pointer (&self->last_focus);
 
   G_OBJECT_CLASS (adw_tab_page_parent_class)->finalize (object);
 }
@@ -1711,12 +1708,7 @@ set_selected_page (AdwTabView *self,
         gtk_widget_is_ancestor (focus, self->selected_page->bin)) {
       contains_focus = TRUE;
 
-      if (self->selected_page->last_focus)
-        g_object_remove_weak_pointer (G_OBJECT (self->selected_page->last_focus),
-                                      (gpointer *) &self->selected_page->last_focus);
-      self->selected_page->last_focus = focus;
-      g_object_add_weak_pointer (G_OBJECT (self->selected_page->last_focus),
-                                 (gpointer *) &self->selected_page->last_focus);
+      g_set_weak_pointer (&self->selected_page->last_focus, focus);
     }
 
     if (self->selected_page->bin)
@@ -2311,10 +2303,7 @@ adw_tab_view_finalize (GObject *object)
 {
   AdwTabView *self = (AdwTabView *) object;
 
-  if (self->pages)
-    g_object_remove_weak_pointer (G_OBJECT (self->pages),
-                                  (gpointer *) &self->pages);
-
+  g_clear_weak_pointer (&self->pages);
   g_clear_object (&self->default_icon);
   g_clear_object (&self->menu_model);
 
@@ -4675,9 +4664,7 @@ adw_tab_view_get_pages (AdwTabView *self)
   if (self->pages)
     return g_object_ref (self->pages);
 
-  self->pages = adw_tab_pages_new (self);
-  g_object_add_weak_pointer (G_OBJECT (self->pages),
-                             (gpointer *) &self->pages);
+  g_set_weak_pointer (&self->pages, adw_tab_pages_new (self));
 
   return self->pages;
 }
@@ -4768,4 +4755,5 @@ adw_tab_view_close_overview (AdwTabView *self)
 
   g_assert (self->overview_count >= 0);
 }
+
 

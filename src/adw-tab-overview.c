@@ -1021,10 +1021,7 @@ open_animation_done_cb (AdwTabOverview *self)
 
     if (self->last_focus) {
       gtk_widget_grab_focus (self->last_focus);
-
-      g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
-                                    (gpointer *) &self->last_focus);
-      self->last_focus = NULL;
+      g_clear_weak_pointer (&self->last_focus);
     }
   }
 
@@ -1364,11 +1361,7 @@ adw_tab_overview_dispose (GObject *object)
 {
   AdwTabOverview *self = ADW_TAB_OVERVIEW (object);
 
-  if (self->last_focus) {
-    g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
-                                  (gpointer *) &self->last_focus);
-    self->last_focus = NULL;
-  }
+  g_clear_weak_pointer (&self->last_focus);
 
   adw_tab_overview_set_view (self, NULL);
 
@@ -2129,16 +2122,8 @@ adw_tab_overview_set_open (AdwTabOverview *self,
     if (gtk_widget_get_root (GTK_WIDGET (self)))
       focus = gtk_root_get_focus (gtk_widget_get_root (GTK_WIDGET (self)));
 
-    if (focus && gtk_widget_is_ancestor (focus, self->child_bin)) {
-      if (self->last_focus)
-        g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
-                                      (gpointer *)& self->last_focus);
-
-      self->last_focus = focus;
-
-      g_object_add_weak_pointer (G_OBJECT (self->last_focus),
-                                 (gpointer *) &self->last_focus);
-    }
+    if (focus && gtk_widget_is_ancestor (focus, self->child_bin))
+      g_set_weak_pointer (&self->last_focus, focus);
 
     adw_tab_view_open_overview (self->view);
 

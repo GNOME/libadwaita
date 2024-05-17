@@ -500,7 +500,7 @@ update_presentation (AdwDialog *self)
 
   if (focus) {
     gtk_widget_grab_focus (focus);
-    g_object_remove_weak_pointer (G_OBJECT (focus), (gpointer *) &focus);
+    g_clear_weak_pointer (&focus);
   }
 
   g_object_unref (priv->child_breakpoint_bin);
