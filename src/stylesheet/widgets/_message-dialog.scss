@@ -69,12 +69,11 @@ dialog-host > dialog.alert sheet,
 window.dialog-window.alert {
   background-color: var(--dialog-bg-color);
   color: var(--dialog-fg-color);
+  --adw-button-outer-margin: 0;
 }
 
-window.messagedialog {
-  @if $contrast != 'high' {
-    outline: none;
-  }
+dialog-host > dialog.alert.floating sheet {
+  --adw-button-outer-margin: -1px;
 }
 
 dialog-host > dialog.alert.floating sheet,
@@ -123,28 +122,30 @@ dialog.alert {
   }
 
  .response-area {
+    > button {
+      margin: -1px;
+    }
+
     &:not(.compact) > button {
-      margin-top: -1px;
-      margin-right: -1px;
-      margin-left: -1px;
+      margin-bottom: var(--adw-button-outer-margin);
 
       &:first-child:dir(ltr),
       &:last-child:dir(rtl) {
-        margin-left: 0;
+        margin-left: var(--adw-button-outer-margin);
       }
 
       &:last-child:dir(ltr),
       &:first-child:dir(rtl) {
-        margin-right: 0;
+        margin-right: var(--adw-button-outer-margin);
       }
     }
 
     &.compact > button {
-      margin-top: -1px;
-      margin-bottom: -1px;
+      margin-left: var(--adw-button-outer-margin);
+      margin-right: var(--adw-button-outer-margin);
 
       &:first-child {
-        margin-bottom: 0;
+        margin-bottom: var(--adw-button-outer-margin);
       }
     }
   }
