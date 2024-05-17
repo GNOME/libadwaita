@@ -740,9 +740,9 @@ The following colors are derived from the current foreground color
 (`currentColor`) and change between regular and high contrast modes. They should
 be used to support the high contrast mode automatically.
 
-Name               | Regular                            | High contrast
------------------- | ---------------------------------- | ---------------------------------
-<tt>--borders</tt> | <tt>alpha(currentColor, 0.15)</tt> | <tt>alpha(currentColor, 0.5)</tt>
+Name                    | Regular                            | High contrast
+----------------------- | ---------------------------------- | ---------------------------------
+<tt>--border-color</tt> | <tt>alpha(currentColor, 0.15)</tt> | <tt>alpha(currentColor, 0.5)</tt>
 
 # Palette Colors
 
@@ -1010,4 +1010,5 @@ Name                                            | Value
 <tt>&#64;theme_unfocused_selected_bg_color</tt> | [<tt>&#64;accent_bg_color</tt>](#accent-colors)
 <tt>&#64;theme_unfocused_selected_fg_color</tt> | [<tt>&#64;accent_fg_color</tt>](#accent-colors)
 <tt>&#64;unfocused_insensitive_color</tt>       | <tt>&#64;insensitive_bg_color</tt>
-<tt>&#64;unfocused_borders</tt>                 | [<tt>&#64;borders</tt>](#helper-colors)
+<tt>&#64;borders</tt>                           | <tt>alpha(currentColor, 0.15)</tt>
+<tt>&#64;unfocused_borders</tt>                 | <tt>&#64;borders</tt>
