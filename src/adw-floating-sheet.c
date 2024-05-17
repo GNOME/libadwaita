@@ -230,6 +230,8 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   widget_class->size_allocate = adw_floating_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_widget_grab_focus_child;
 
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -288,7 +290,8 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   self->sheet_bin = adw_gizmo_new_with_role ("sheet", GTK_ACCESSIBLE_ROLE_GENERIC,
                                              NULL, NULL, NULL, NULL,
                                              (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                             (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+                                             (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child_or_self);
+  gtk_widget_set_focusable (self->sheet_bin, TRUE);
   gtk_widget_set_opacity (self->sheet_bin, 0);
   gtk_widget_set_layout_manager (self->sheet_bin, gtk_bin_layout_new ());
   gtk_widget_add_css_class (self->sheet_bin, "background");
@@ -393,4 +396,12 @@ adw_floating_sheet_set_open (AdwFloatingSheet *self,
   adw_animation_play (self->open_animation);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_OPEN]);
+}
+
+GtkWidget *
+adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_FLOATING_SHEET (self), NULL);
+
+  return self->sheet_bin;
 }

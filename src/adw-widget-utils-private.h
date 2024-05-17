@@ -38,8 +38,9 @@ G_STMT_START { \
 gboolean adw_widget_focus_child (GtkWidget        *widget,
                                  GtkDirectionType  direction);
 
-gboolean adw_widget_grab_focus_self  (GtkWidget *widget);
-gboolean adw_widget_grab_focus_child (GtkWidget *widget);
+gboolean adw_widget_grab_focus_self          (GtkWidget *widget);
+gboolean adw_widget_grab_focus_child         (GtkWidget *widget);
+gboolean adw_widget_grab_focus_child_or_self (GtkWidget *widget);
 
 void adw_widget_compute_expand (GtkWidget *widget,
                                 gboolean  *hexpand_p,
