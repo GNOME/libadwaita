@@ -5,8 +5,8 @@ bottom-sheet {
   }
 
   > sheet {
-    border-top-left-radius: $window_radius;
-    border-top-right-radius: $window_radius;
+    border-top-left-radius: $dialog_radius;
+    border-top-right-radius: $dialog_radius;
     box-shadow: 0 2px 8px 2px transparentize(black, 0.93),
                 0 3px 20px 10px transparentize(black, 0.95),
                 0 6px 32px 16px transparentize(black, 0.98),
@@ -21,8 +21,8 @@ bottom-sheet {
     }
 
     > outline {
-      border-top-left-radius: $window_radius;
-      border-top-right-radius: $window_radius;
+      border-top-left-radius: $dialog_radius;
+      border-top-right-radius: $dialog_radius;
       box-shadow: inset 1px 0 $window_outline_color,
                   inset -1px 0 $window_outline_color,
                   inset 0 1px $window_outline_color;

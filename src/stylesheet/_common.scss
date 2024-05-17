@@ -10,8 +10,12 @@ $card_radius: $button_radius + 6;
 $menu_radius: 6px;
 $menu_margin: 6px; //margin around menuitems & sidebar items
 $menu_padding: 12px; //inner menuitem padding
-$window_radius: $button_radius + 6;
-$popover_radius: $window_radius;
+$popover_radius: $button_radius + 6;
+$dialog_radius: $button_radius + 6;
+
+:root {
+  --window-radius: #{$button_radius + 6};
+}
 
 .background {
   color: var(--window-fg-color);

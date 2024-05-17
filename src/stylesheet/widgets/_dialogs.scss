@@ -74,7 +74,7 @@ floating-sheet {
   }
 
   > sheet {
-    border-radius: $window_radius;
+    border-radius: $dialog_radius;
     box-shadow: 0 2px 8px 2px transparentize(black, 0.93),
                 0 3px 20px 10px transparentize(black, 0.95),
                 0 6px 32px 16px transparentize(black, 0.98),

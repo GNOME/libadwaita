@@ -6,7 +6,7 @@ window {
                 0 6px 32px 16px transparentize(black, 0.96),
                 0 0 0 1px transparentize(black, if($contrast == 'high', .2, .95));
     margin: 0px;
-    border-radius: $window_radius;
+    border-radius: var(--window-radius);
 
     outline: 1px solid $window_outline_color;
     outline-offset: -1px;
@@ -37,7 +37,7 @@ window {
     &.tiled-left,
     &.tiled-right,
     &.tiled-bottom {
-      border-radius: 0;
+      --window-radius: 0;
       outline: none;
 
       box-shadow: 0 0 0 1px $border_color,
@@ -51,7 +51,7 @@ window {
 
     &.maximized,
     &.fullscreen {
-      border-radius: 0;
+      --window-radius: 0;
       outline: none;
       box-shadow: none;
       transition: none;
@@ -61,7 +61,7 @@ window {
   &.solid-csd {
     margin: 0;
     padding: 5px;
-    border-radius: 0;
+    --window-radius: 0;
     box-shadow: inset 0 0 0 5px $border_color,
                 inset 0 0 0 4px var(--headerbar-bg-color),
                 inset 0 0 0 1px $border_color;

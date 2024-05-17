@@ -734,15 +734,29 @@ ensure that overlay scrollbars are visible regardless of the content color. It
 should always be the opposite of the scrollbar color - light with a dark
 scrollbar and dark with a light scrollbar.
 
-# Helper Colors
+# Helpers
 
-The following colors are derived from the current foreground color
-(`currentColor`) and change between regular and high contrast modes. They should
-be used to support the high contrast mode automatically.
+These variables are provided for convenience and should not be overridden.
+
+## Border Color
 
 Name                    | Regular                            | High contrast
 ----------------------- | ---------------------------------- | ---------------------------------
 <tt>--border-color</tt> | <tt>alpha(currentColor, 0.15)</tt> | <tt>alpha(currentColor, 0.5)</tt>
+
+Border color is derived from the current foreground color (`currentColor`) and
+changes between regular and high contrast modes. It should be used to support
+the high contrast mode automatically.
+
+## Window Radius
+
+Name                     | Value
+------------------------ | -----
+<tt>--window-radius</tt> | 12px
+
+Matches the current window radius, whether it's floating or maximized. Can be
+used for e.g. rounding focus rings next to the edge of the window while
+automatically accounting for maximized, fullscreen etc modes.
 
 # Palette Colors
 
