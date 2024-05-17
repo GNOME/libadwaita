@@ -32,4 +32,5 @@ gboolean adw_floating_sheet_get_open (AdwFloatingSheet *self);
 void     adw_floating_sheet_set_open (AdwFloatingSheet *self,
                                       gboolean          open);
 
+GtkWidget *adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self);
 G_END_DECLS

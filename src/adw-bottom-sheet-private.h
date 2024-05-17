@@ -55,4 +55,6 @@ void     adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
 void adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
                                              int             min_natural_width);
 
+GtkWidget *adw_bottom_sheet_get_sheet_bin (AdwBottomSheet *self);
+
 G_END_DECLS

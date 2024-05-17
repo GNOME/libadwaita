@@ -314,9 +314,16 @@ window_notify_focus_cb (AdwDialog  *self,
                         GParamSpec *pspec,
                         GtkRoot    *root)
 {
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkWidget *focus = gtk_root_get_focus (root);
 
   if (focus && !gtk_widget_is_ancestor (focus, GTK_WIDGET (self)))
+    focus = NULL;
+
+  if (priv->floating_sheet && focus == adw_floating_sheet_get_sheet_bin (priv->floating_sheet))
+    focus = NULL;
+
+  if (priv->bottom_sheet && focus == adw_bottom_sheet_get_sheet_bin (priv->bottom_sheet))
     focus = NULL;
 
   set_focus (self, focus);
@@ -595,6 +602,7 @@ present_as_window (AdwDialog *self,
   }
 
   gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
+  gtk_widget_set_focusable (GTK_WIDGET (self), TRUE);
 
   priv->window = gtk_window_new ();
   gtk_window_set_resizable (GTK_WINDOW (priv->window), FALSE);
@@ -729,6 +737,34 @@ open_inspector_cb (AdwDialog *self,
   return ret;
 }
 
+static gboolean
+ensure_focus (AdwDialog *self)
+{
+  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+  GtkWidget *focus;
+
+  if (!root)
+    return FALSE;
+
+  focus = gtk_root_get_focus (root);
+
+  if (focus)
+    return FALSE;
+
+  /* No focusable widgets, focus something intermediate instead */
+  if (priv->floating_sheet)
+    return gtk_widget_grab_focus (GTK_WIDGET (priv->floating_sheet));
+
+  if (priv->bottom_sheet)
+    return gtk_widget_grab_focus (GTK_WIDGET (priv->bottom_sheet));
+
+  if (priv->window)
+    return adw_widget_grab_focus_self (GTK_WIDGET (self));
+
+  return TRUE;
+}
+
 static void
 adw_dialog_root (GtkWidget *widget)
 {
@@ -786,6 +822,16 @@ adw_dialog_map (GtkWidget *widget)
 }
 
 static gboolean
+adw_dialog_focus (GtkWidget        *widget,
+                  GtkDirectionType  direction)
+{
+  if (adw_widget_focus_child (widget, direction))
+    return TRUE;
+
+  return ensure_focus (ADW_DIALOG (widget));
+}
+
+static gboolean
 adw_dialog_grab_focus (GtkWidget *widget)
 {
   AdwDialog *self = ADW_DIALOG (widget);
@@ -796,7 +842,8 @@ adw_dialog_grab_focus (GtkWidget *widget)
 
   GTK_WIDGET_GET_CLASS (widget)->move_focus (GTK_WIDGET (widget),
                                              GTK_DIR_TAB_FORWARD);
-  return TRUE;
+
+  return ensure_focus (ADW_DIALOG (widget));
 }
 
 static void
@@ -958,7 +1005,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
   widget_class->root = adw_dialog_root;
   widget_class->unroot = adw_dialog_unroot;
   widget_class->map = adw_dialog_map;
-  widget_class->focus = adw_widget_focus_child;
+  widget_class->focus = adw_dialog_focus;
   widget_class->grab_focus = adw_dialog_grab_focus;
   widget_class->contains = adw_widget_contains_passthrough;
   widget_class->compute_expand = adw_widget_compute_expand;

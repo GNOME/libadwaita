@@ -480,6 +480,15 @@ adw_widget_grab_focus_child (GtkWidget *widget)
   return FALSE;
 }
 
+gboolean
+adw_widget_grab_focus_child_or_self (GtkWidget *widget)
+{
+  if (adw_widget_grab_focus_child (widget))
+    return TRUE;
+
+  return adw_widget_grab_focus_self (widget);
+}
+
 void
 adw_widget_compute_expand (GtkWidget *widget,
                            gboolean  *hexpand_p,
