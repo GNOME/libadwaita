@@ -189,6 +189,7 @@ typedef struct
 {
   GtkWidget *contents;
   GtkWidget *window_handle;
+  GtkWidget *scrolled_window;
   GtkWidget *heading_label;
   GtkWidget *body_label;
   GtkBox *message_area;
@@ -341,7 +342,7 @@ adw_alert_dialog_map (GtkWidget *widget)
 {
   AdwAlertDialog *self = ADW_ALERT_DIALOG (widget);
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
-  GtkWidget *focus, *default_widget;
+  GtkWidget *focus;
   GtkWidget *window;
 
   GTK_WIDGET_CLASS (adw_alert_dialog_parent_class)->map (widget);
@@ -351,43 +352,34 @@ adw_alert_dialog_map (GtkWidget *widget)
   if (window)
     gtk_widget_add_css_class (window, "alert");
 
-  /* The rest of the function was copied from gtkdialog.c */
   focus = adw_dialog_get_focus (ADW_DIALOG (self));
   if (!focus) {
-    GtkWidget *extra_child = adw_alert_dialog_get_extra_child (self);
-    GtkWidget *first_focus = NULL;
+    GtkWidget *default_widget;
     GList *l;
 
-    if (extra_child) {
-      do {
-        g_signal_emit_by_name (extra_child, "move-focus", GTK_DIR_TAB_FORWARD);
+    if (adw_widget_grab_focus_child (priv->scrolled_window)) {
+      focus = adw_dialog_get_focus (ADW_DIALOG (self));
 
-        focus = adw_dialog_get_focus (ADW_DIALOG (self));
+      if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
+        gtk_label_select_region (GTK_LABEL (focus), 0, 0);
 
-        if (GTK_IS_LABEL (focus) &&
-            !gtk_label_get_current_uri (GTK_LABEL (focus)))
-          gtk_label_select_region (GTK_LABEL (focus), 0, 0);
-
-        if (first_focus == NULL)
-          first_focus = focus;
-        else if (first_focus == focus)
-          break;
-
-        if (!GTK_IS_LABEL (focus))
-          break;
-      } while (TRUE);
+      return;
     }
 
     default_widget = adw_dialog_get_default_widget (ADW_DIALOG (self));
-    for (l = priv->responses; l; l = l->next) {
+    if (default_widget) {
+      gtk_widget_grab_focus (default_widget);
+      return;
+    }
+
+    for (l = g_list_last (priv->responses); l; l = l->prev) {
       ResponseInfo *response = l->data;
 
-      if ((focus == NULL || response->button == focus) &&
-           response->button != default_widget &&
-           default_widget) {
-        gtk_widget_grab_focus (default_widget);
-        break;
-      }
+      if (!response->enabled)
+        continue;
+
+      gtk_widget_grab_focus (response->button);
+      return;
     }
   }
 }
@@ -902,6 +894,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
 
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, contents);
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, window_handle);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, scrolled_window);
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, heading_label);
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, body_label);
   gtk_widget_class_bind_template_child_private (widget_class, AdwAlertDialog, message_area);
