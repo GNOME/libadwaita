@@ -418,13 +418,7 @@ adw_navigation_page_dispose (GObject *object)
   AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
 
   g_clear_pointer (&priv->child, gtk_widget_unparent);
-
-  if (priv->child_view) {
-    g_object_remove_weak_pointer (G_OBJECT (priv->child_view),
-                                  (gpointer *) &priv->child_view);
-
-    priv->child_view = NULL;
-  }
+  g_clear_weak_pointer (&priv->child_view);
 
   G_OBJECT_CLASS (adw_navigation_page_parent_class)->dispose (object);
 }
@@ -437,10 +431,7 @@ adw_navigation_page_finalize (GObject *object)
 
   g_free (priv->title);
   g_free (priv->tag);
-
-  if (priv->last_focus)
-    g_object_remove_weak_pointer (G_OBJECT (priv->last_focus),
-                                  (gpointer *) &priv->last_focus);
+  g_clear_weak_pointer (&priv->last_focus);
 
   G_OBJECT_CLASS (adw_navigation_page_parent_class)->finalize (object);
 }
@@ -746,12 +737,7 @@ switch_page (AdwNavigationView *self,
 
     contains_focus = TRUE;
 
-    if (priv->last_focus)
-      g_object_remove_weak_pointer (G_OBJECT (priv->last_focus),
-                                    (gpointer *)&priv->last_focus);
-    priv->last_focus = focus;
-    g_object_add_weak_pointer (G_OBJECT (priv->last_focus),
-                               (gpointer *)&priv->last_focus);
+    g_set_weak_pointer (&priv->last_focus, focus);
   }
 
   if (!prev_page)
@@ -1357,20 +1343,7 @@ set_child_view (AdwNavigationPage *self,
 {
   AdwNavigationPagePrivate *priv = adw_navigation_page_get_instance_private (self);
 
-  if (view == priv->child_view)
-    return;
-
-  if (priv->child_view) {
-    g_object_remove_weak_pointer (G_OBJECT (priv->child_view),
-                                  (gpointer *) &priv->child_view);
-  }
-
-  priv->child_view = view;
-
-  if (priv->child_view) {
-    g_object_add_weak_pointer (G_OBJECT (priv->child_view),
-                               (gpointer *) &priv->child_view);
-  }
+  g_set_weak_pointer (&priv->child_view, view);
 }
 
 static void
@@ -1632,9 +1605,7 @@ adw_navigation_view_finalize (GObject *object)
 {
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (object);
 
-  if (self->navigation_stack_model)
-    g_object_remove_weak_pointer (G_OBJECT (self->navigation_stack_model),
-                                  (gpointer *) &self->navigation_stack_model);
+  g_clear_weak_pointer (&self->navigation_stack_model);
 
   G_OBJECT_CLASS (adw_navigation_view_parent_class)->finalize (object);
 }
@@ -3094,9 +3065,8 @@ adw_navigation_view_get_navigation_stack (AdwNavigationView *self)
   if (self->navigation_stack_model)
     return g_object_ref (self->navigation_stack_model);
 
-  self->navigation_stack_model = adw_navigation_view_model_new (self);
-  g_object_add_weak_pointer (G_OBJECT (self->navigation_stack_model),
-                             (gpointer *) &self->navigation_stack_model);
+  g_set_weak_pointer (&self->navigation_stack_model,
+                      adw_navigation_view_model_new (self));
 
   return self->navigation_stack_model;
 }

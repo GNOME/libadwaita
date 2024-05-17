@@ -567,7 +567,7 @@ update_collapsed (AdwNavigationSplitView *self)
     if (should_focus)
       gtk_widget_grab_focus (focus);
 
-    g_object_remove_weak_pointer (G_OBJECT (focus), (gpointer *) &focus);
+    g_clear_weak_pointer (&focus);
   }
 }
 
