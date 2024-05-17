@@ -1711,9 +1711,10 @@ set_selected_page (AdwTabView *self,
       g_set_weak_pointer (&self->selected_page->last_focus, focus);
     }
 
-    if (self->selected_page->bin)
+    if (self->selected_page->bin && selected_page) {
       gtk_widget_set_child_visible (self->selected_page->bin,
                                     page_should_be_visible (self, self->selected_page));
+    }
 
     set_page_selected (self->selected_page, FALSE);
   }
