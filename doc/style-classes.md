@@ -351,9 +351,10 @@ states automatically, without needing the `.activatable` class.
 </picture>
 
 The `.navigation-sidebar` style class can be applied to a [class@Gtk.ListBox]
-or [class@Gtk.ListView] to make it look like a sidebar: it makes the
-items rounded and padded, makes selected items use a neutral color instead of
-accent, and removes the default list background.
+or [class@Gtk.ListView], as well as [class@Gtk.FlowBox] and
+[class@Gtk.GridView], to make it look like a sidebar: it makes the items rounded
+and padded, makes selected items use neutral color instead of accent, and
+removes the default list background.
 
 # App Icons
 
