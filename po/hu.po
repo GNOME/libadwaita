@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-08 16:57+0000\n"
-"PO-Revision-Date: 2024-03-09 17:48+0100\n"
+"POT-Creation-Date: 2024-04-18 12:45+0000\n"
+"PO-Revision-Date: 2024-05-19 12:04+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 45.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -333,8 +333,12 @@ msgstr "Beállítások keresése"
 msgid "No Results Found"
 msgstr "Nincs találat"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+#| msgid "Try a different search."
+msgid "Try a different search"
+msgstr "Próbáljon egy másik keresést"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Próbáljon másfajta keresést."
 
