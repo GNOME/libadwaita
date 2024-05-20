@@ -26,6 +26,17 @@ textview {
     background-color: transparent;
   }
 
+  &.inline {
+    background-color: transparent;
+
+    // GtkSourceView has its own color schemes, so we want to keep text color
+    &:not(.sourceview) {
+      &, > text {
+        color: inherit;
+      }
+    }
+  }
+
   > border {
     background-color: gtkmix(var(--window-bg-color), var(--view-bg-color), 50%);
   }

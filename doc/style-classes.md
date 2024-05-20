@@ -522,7 +522,7 @@ appearance.
 
 This style class is typically used to indicate unstable or nightly applications.
 
-# Inline Tab Bars & Search Bars
+# Inline
 
 <picture>
   <source srcset="search-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
@@ -534,10 +534,21 @@ This style class is typically used to indicate unstable or nightly applications.
   <img src="tab-bar-inline.png" alt="tab-bar-inline">
 </picture>
 
-By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of an
-[class@HeaderBar] or [class@Gtk.HeaderBar] and are intended to be used directly
-attached to one. With the `.inline` style class they have neutral backgrounds
-and can be used in different contexts instead.
+The `.inline` style class can be used with [class@Gtk.SearchBar], [class@TabBar]
+or [class@Gtk.TextView].
+
+By default `GtkSearchBar` and `AdwTabBar` look like a part of an `AdwHeaderBar`
+and are intended to be used directly attached to one. With the `.inline` style
+class they have neutral backgrounds and can be used in different contexts
+instead.
+
+When used with `GtkTextView`, it allows it to e.g. be put into a card while
+following its styles.
+
+::: note
+    When used with `GtkSourceView`, it only changes its background color, but
+    not text color, so the application is responsible for changing its style
+    scheme appropriately.
 
 # Undershoot Indicators
 
