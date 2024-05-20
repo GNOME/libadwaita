@@ -11,7 +11,7 @@ This guide only focuses on on Libhandy and Libadwaita, and is designed to be
 used together with the [GTK 3 to 4 migration guide](https://docs.gtk.org/gtk4/migrating-3to4.html).
 
 If you notice that some differences between Libhandy and Libadwaita are missing
-in this guide, [please report them](https://gitlab.gnome.org/GNOME/libadwaita/-/issues/new).
+in this guide, [please report them](https://gitlab.gnome.org/GNOME/libadwaita/-/issues/).
 
 # Preparation in Libhandy 1.4
 

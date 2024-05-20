@@ -174,7 +174,7 @@
  *                          "application-icon", "org.example.App",
  *                          "version", "1.2.3",
  *                          "copyright", "© 2022 Angela Avery",
- *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/new",
+ *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
  *                          "license-type", GTK_LICENSE_GPL_3_0,
  *                          "developers", developers,
  *                          "designers", designers,
