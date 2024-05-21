@@ -319,3 +319,22 @@ content_images = [
   "libadwaita.svg",
 ]
 
+[[object]]
+name = "DEPRECATED_FOR"
+hidden = true
+
+[[object]]
+pattern = "DEPRECATED_IN_*"
+hidden = true
+
+[[object]]
+pattern = "DEPRECATED_TYPE_IN_*"
+hidden = true
+
+[[object]]
+name = "UNAVAILABLE"
+hidden = true
+
+[[object]]
+name = "ENCODE_VERSION"
+hidden = true
