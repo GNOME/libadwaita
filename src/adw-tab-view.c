@@ -2634,6 +2634,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    *
    * A typical reason to connect to this signal is to show a confirmation dialog
    * for closing a tab.
+   *
+   * The signal handler should return `GDK_EVENT_STOP` to stop propagation or
+   * `GDK_EVENT_CONTINUE` to invoke the default handler.
+   *
+   * Returns: whether propagation should be stopped
    */
   signals[SIGNAL_CLOSE_PAGE] =
     g_signal_new ("close-page",
