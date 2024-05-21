@@ -572,7 +572,7 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
-/*
+/**
  * adw_preferences_page_get_description_centered: (attributes org.gtk.Method.get_property=description-centered)
  * @self: a preferences page
  *
