@@ -1515,6 +1515,8 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
  *
  * Gets the switch threshold policy for @self.
  *
+ * Returns: the fold threshold policy
+ *
  * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 AdwFoldThresholdPolicy
