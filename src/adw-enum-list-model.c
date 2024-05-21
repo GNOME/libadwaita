@@ -356,6 +356,8 @@ adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
  * Finds the position of a given enum value in @self.
  *
  * If the value is not found, `GTK_INVALID_LIST_POSITION` is returned.
+ *
+ * Returns: the position of the value
  */
 guint
 adw_enum_list_model_find_position (AdwEnumListModel *self,
