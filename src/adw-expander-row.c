@@ -468,7 +468,7 @@ adw_expander_row_add_row (AdwExpanderRow *self,
 /**
  * adw_expander_row_remove:
  * @self: an expander row
- * @widget: the child to be removed
+ * @child: the child to be removed
  *
  * Removes a child from @self.
  */
