@@ -124,6 +124,12 @@ open_animation_done_cb (AdwBottomSheet *self)
 }
 
 static void
+sheet_close_cb (AdwBottomSheet *self)
+{
+  adw_bottom_sheet_set_open (self, FALSE);
+}
+
+static void
 measure_sheet (GtkWidget      *widget,
                GtkOrientation  orientation,
                int             for_size,
@@ -462,6 +468,9 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
   g_signal_set_va_marshaller (signals[SIGNAL_CLOSED],
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__VOIDv);
+
+  gtk_widget_class_install_action (widget_class, "sheet.close", NULL,
+                                   (GtkWidgetActionActivateFunc) sheet_close_cb);
 
   gtk_widget_class_set_css_name (widget_class, "bottom-sheet");
 }
