@@ -53,6 +53,10 @@ struct _AdwBottomSheet
   gboolean swipe_active;
 
   int min_natural_width;
+
+  GFunc closing_callback;
+  GFunc closed_callback;
+  gpointer user_data;
 };
 
 static void adw_bottom_sheet_buildable_init (GtkBuildableIface *iface);
@@ -77,14 +81,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-enum {
-  SIGNAL_CLOSING,
-  SIGNAL_CLOSED,
-  SIGNAL_LAST_SIGNAL,
-};
-
-static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
 released_cb (GtkGestureClick *gesture,
@@ -119,7 +115,8 @@ open_animation_done_cb (AdwBottomSheet *self)
     gtk_widget_set_child_visible (self->dimming, FALSE);
     gtk_widget_set_child_visible (self->sheet_bin, FALSE);
 
-    g_signal_emit (self, signals[SIGNAL_CLOSED], 0);
+    if (self->closed_callback)
+      self->closed_callback (self, self->user_data);
   }
 }
 
@@ -442,32 +439,6 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
-
-  signals[SIGNAL_CLOSING] =
-    g_signal_new ("closing",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL,
-                  adw_marshal_VOID__VOID,
-                  G_TYPE_NONE,
-                  0);
-  g_signal_set_va_marshaller (signals[SIGNAL_CLOSING],
-                              G_TYPE_FROM_CLASS (klass),
-                              adw_marshal_VOID__VOIDv);
-
-  signals[SIGNAL_CLOSED] =
-    g_signal_new ("closed",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL,
-                  adw_marshal_VOID__VOID,
-                  G_TYPE_NONE,
-                  0);
-  g_signal_set_va_marshaller (signals[SIGNAL_CLOSED],
-                              G_TYPE_FROM_CLASS (klass),
-                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_install_action (widget_class, "sheet.close", NULL,
                                    (GtkWidgetActionActivateFunc) sheet_close_cb);
@@ -849,7 +820,8 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
   gtk_widget_set_can_target (self->dimming, open);
 
   if (!open) {
-    g_signal_emit (self, signals[SIGNAL_CLOSING], 0);
+    if (self->closing_callback)
+      self->closing_callback (self, self->user_data);
 
     if (self->open != open)
       return;
@@ -993,4 +965,17 @@ adw_bottom_sheet_set_sheet_overflow (AdwBottomSheet *self,
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
 
   gtk_widget_set_overflow (self->sheet_bin, overflow);
+}
+
+void
+adw_bottom_sheet_set_callbacks (AdwBottomSheet *self,
+                                GFunc           closing_callback,
+                                GFunc           closed_callback,
+                                gpointer        user_data)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  self->closing_callback = closing_callback;
+  self->closed_callback = closed_callback;
+  self->user_data = user_data;
 }

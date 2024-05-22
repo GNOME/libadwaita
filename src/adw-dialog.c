@@ -204,7 +204,8 @@ map_tick_cb (AdwDialog *self)
 }
 
 static void
-sheet_closing_cb (AdwDialog *self)
+sheet_closing_cb (GtkWidget *sheet,
+                  AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
@@ -215,7 +216,8 @@ sheet_closing_cb (AdwDialog *self)
 }
 
 static void
-sheet_closed_cb (AdwDialog *self)
+sheet_closed_cb (GtkWidget *sheet,
+                 AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
@@ -472,10 +474,10 @@ update_presentation (AdwDialog *self)
     adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin),
                                   GTK_WIDGET (priv->bottom_sheet));
 
-    g_signal_connect_swapped (priv->bottom_sheet, "closing",
-                              G_CALLBACK (sheet_closing_cb), self);
-    g_signal_connect_swapped (priv->bottom_sheet, "closed",
-                              G_CALLBACK (sheet_closed_cb), self);
+    adw_bottom_sheet_set_callbacks (priv->bottom_sheet,
+                                    (GFunc) sheet_closing_cb,
+                                    (GFunc) sheet_closed_cb,
+                                    self);
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "bottom-sheet");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
@@ -499,10 +501,10 @@ update_presentation (AdwDialog *self)
     adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin),
                                   GTK_WIDGET (priv->floating_sheet));
 
-    g_signal_connect_swapped (priv->floating_sheet, "closing",
-                              G_CALLBACK (sheet_closing_cb), self);
-    g_signal_connect_swapped (priv->floating_sheet, "closed",
-                              G_CALLBACK (sheet_closed_cb), self);
+    adw_floating_sheet_set_callbacks (priv->floating_sheet,
+                                      (GFunc) sheet_closing_cb,
+                                      (GFunc) sheet_closed_cb,
+                                      self);
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "bottom-sheet");

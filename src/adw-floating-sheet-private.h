@@ -37,4 +37,9 @@ GtkWidget *adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self);
 void adw_floating_sheet_set_sheet_overflow (AdwFloatingSheet *self,
                                             GtkOverflow       overflow);
 
+void adw_floating_sheet_set_callbacks (AdwFloatingSheet *self,
+                                       GFunc             closing_callback,
+                                       GFunc             closed_callback,
+                                       gpointer          user_data);
+
 G_END_DECLS
