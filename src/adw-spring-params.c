@@ -137,7 +137,7 @@ adw_spring_params_new_full (double damping,
  *
  * Increases the reference count of @self.
  *
- * Return: (transfer full): @self
+ * Returns: (transfer full): @self
  */
 AdwSpringParams *
 adw_spring_params_ref (AdwSpringParams *self)
