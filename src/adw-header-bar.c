@@ -178,7 +178,7 @@ struct _AdwHeaderBar {
 
   GtkWidget *title_navigation_page;
   GtkWidget *dialog;
-  GtkWidget *sheet;
+  gboolean is_within_sheet;
 
   GSList *split_views;
 };
@@ -245,7 +245,7 @@ create_start_controls (AdwHeaderBar *self)
 {
   GtkWidget *controls;
 
-  if (self->sheet)
+  if (self->is_within_sheet)
     controls = adw_sheet_controls_new (GTK_PACK_START);
   else
     controls = gtk_window_controls_new (GTK_PACK_START);
@@ -267,7 +267,7 @@ create_end_controls (AdwHeaderBar *self)
 {
   GtkWidget *controls;
 
-  if (self->sheet)
+  if (self->is_within_sheet)
     controls = adw_sheet_controls_new (GTK_PACK_END);
   else
     controls = gtk_window_controls_new (GTK_PACK_END);
@@ -446,7 +446,7 @@ static void
 adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
-  GtkWidget *parent;
+  GtkWidget *parent, *sheet;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
@@ -455,9 +455,23 @@ adw_header_bar_root (GtkWidget *widget)
 
   self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
 
-  self->sheet = adw_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET, TRUE, FALSE);
-  if (!self->sheet)
-    self->sheet = adw_widget_get_ancestor (widget, ADW_TYPE_FLOATING_SHEET, TRUE, FALSE);
+  sheet = adw_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET, TRUE, FALSE);
+
+  if (sheet) {
+    GtkWidget *bin = adw_bottom_sheet_get_sheet_bin (ADW_BOTTOM_SHEET (sheet));
+
+    if (bin && gtk_widget_is_ancestor (widget, bin))
+      self->is_within_sheet = TRUE;
+  } else {
+    sheet = adw_widget_get_ancestor (widget, ADW_TYPE_FLOATING_SHEET, TRUE, FALSE);
+
+    if (sheet) {
+      GtkWidget *bin = adw_floating_sheet_get_sheet_bin (ADW_FLOATING_SHEET (sheet));
+
+      if (bin && gtk_widget_is_ancestor (widget, bin))
+        self->is_within_sheet = TRUE;
+    }
+  }
 
   if (self->title_navigation_page) {
     g_signal_connect_swapped (self->title_navigation_page, "notify::title",
@@ -550,7 +564,7 @@ adw_header_bar_unroot (GtkWidget *widget)
 
   self->title_navigation_page = NULL;
   self->dialog = NULL;
-  self->sheet = NULL;
+  self->is_within_sheet = FALSE;
 
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
