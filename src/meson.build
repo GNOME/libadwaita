@@ -263,6 +263,7 @@ libadwaita_private_sources += files([
   'adw-settings-impl.c',
   'adw-settings-impl-gsettings.c',
   'adw-settings-impl-legacy.c',
+  'adw-sheet-controls.c',
   'adw-shadow-helper.c',
   'adw-tab.c',
   'adw-tab-box.c',
