@@ -35,6 +35,8 @@ adwaita_demo_sources = [
   'pages/carousel/adw-demo-page-carousel.c',
   'pages/clamp/adw-demo-page-clamp.c',
   'pages/lists/adw-demo-page-lists.c',
+  'pages/multi-layout/adw-demo-page-multi-layout.c',
+  'pages/multi-layout/adw-multi-layout-demo-dialog.c',
   'pages/navigation-view/adw-demo-page-navigation-view.c',
   'pages/navigation-view/adw-navigation-view-demo-dialog.c',
   'pages/split-views/adw-demo-page-split-views.c',

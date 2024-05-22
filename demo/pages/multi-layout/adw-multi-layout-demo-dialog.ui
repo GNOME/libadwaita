@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwMultiLayoutDemoDialog" parent="AdwDialog">
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
+    <property name="content-width">800</property>
+    <property name="content-height">600</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 500sp</condition>
+        <setter object="view" property="layout-name">narrow</setter>
+      </object>
+    </child>
+    <property name="child">
+      <object class="AdwMultiLayoutView" id="view">
+        <child>
+          <object class="AdwLayout">
+            <property name="name">wide</property>
+            <property name="content">
+              <object class="AdwOverlaySplitView">
+                <property name="sidebar">
+                  <object class="AdwToolbarView">
+                    <child type="top">
+                      <object class="AdwHeaderBar">
+                        <property name="show-title">False</property>
+                      </object>
+                    </child>
+                    <property name="content">
+                      <object class="AdwLayoutSlot">
+                        <property name="id">sidebar</property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+                <property name="content">
+                  <object class="AdwToolbarView">
+                    <child type="top">
+                      <object class="AdwHeaderBar">
+                        <property name="show-title">False</property>
+                      </object>
+                    </child>
+                    <property name="content">
+                      <object class="AdwLayoutSlot">
+                        <property name="id">content</property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwLayout">
+            <property name="name">narrow</property>
+            <property name="content">
+              <object class="AdwToolbarView">
+                <property name="bottom-bar-style">raised</property>
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-title">False</property>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">content</property>
+                  </object>
+                </property>
+                <child type="bottom">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">sidebar</property>
+                    <property name="height-request">100</property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child type="sidebar">
+          <object class="GtkLabel">
+            <property name="label">Sidebar</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </child>
+        <child type="content">
+          <object class="GtkLabel">
+            <property name="label">Content</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

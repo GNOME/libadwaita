@@ -84,3 +84,8 @@ stacksidebar {
 .tab-page-color-8 {
   background: white;
 }
+
+.fab {
+  margin: 18px;
+  padding: 6px;
+}

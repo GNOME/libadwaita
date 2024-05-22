@@ -58,6 +58,7 @@ test_names = [
   'test-header-bar',
   'test-leaflet',
   'test-message-dialog',
+  'test-multi-layout-view',
   'test-navigation-split-view',
   'test-navigation-view',
   'test-overlay-split-view',
