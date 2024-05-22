@@ -1806,7 +1806,7 @@ adw_view_stack_get_child_by_name (AdwViewStack *self,
  * adw_view_stack_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
  * @self: a view stack
  *
- * Gets the currently visible child of @self, .
+ * Gets the currently visible child of @self.
  *
  * Returns: (transfer none) (nullable): the visible child
  */
