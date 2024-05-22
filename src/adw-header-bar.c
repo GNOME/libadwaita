@@ -25,12 +25,15 @@
 
 #include "adw-back-button-private.h"
 #include "adw-bin.h"
+#include "adw-bottom-sheet-private.h"
 #include "adw-dialog.h"
 #include "adw-enums.h"
+#include "adw-floating-sheet-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
 #include "adw-overlay-split-view.h"
+#include "adw-sheet-controls-private.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -158,8 +161,8 @@ struct _AdwHeaderBar {
   GtkWidget *title_label;
   GtkWidget *title_widget;
 
-  GtkWidget *start_window_controls;
-  GtkWidget *end_window_controls;
+  GtkWidget *start_controls;
+  GtkWidget *end_controls;
   GtkWidget *back_button;
 
   char *decoration_layout;
@@ -175,6 +178,7 @@ struct _AdwHeaderBar {
 
   GtkWidget *title_navigation_page;
   GtkWidget *dialog;
+  GtkWidget *sheet;
 
   GSList *split_views;
 };
@@ -223,56 +227,28 @@ update_decoration_layout (AdwHeaderBar *self,
                           gboolean      start,
                           gboolean      end)
 {
-  const char *decoration_layout;
-
-  if (self->dialog) {
-    gboolean prefer_start = FALSE;
-
-    if (self->decoration_layout) {
-      prefer_start = adw_decoration_layout_prefers_start (self->decoration_layout);
-    } else {
-      GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self));
-      char *global_layout;
-
-      g_object_get (settings, "gtk-decoration-layout", &global_layout, NULL);
-
-      prefer_start = adw_decoration_layout_prefers_start (global_layout);
-
-      g_free (global_layout);
-    }
-
-    if (prefer_start)
-      decoration_layout = "close:";
-    else
-      decoration_layout = ":close";
-  } else {
-    decoration_layout = self->decoration_layout;
+  if (start && self->start_controls) {
+    g_object_set (self->start_controls,
+                  "decoration-layout", self->decoration_layout,
+                  NULL);
   }
 
-  if (start && self->start_window_controls) {
-    gtk_window_controls_set_decoration_layout (GTK_WINDOW_CONTROLS (self->start_window_controls),
-                                               decoration_layout);
-  }
-
-  if (end && self->end_window_controls) {
-    gtk_window_controls_set_decoration_layout (GTK_WINDOW_CONTROLS (self->end_window_controls),
-                                               decoration_layout);
+  if (end && self->end_controls) {
+    g_object_set (self->end_controls,
+                  "decoration-layout", self->decoration_layout,
+                  NULL);
   }
 }
 
 static void
-notify_decoration_layout_cb (AdwHeaderBar *self)
+create_start_controls (AdwHeaderBar *self)
 {
-  if (self->decoration_layout)
-    return;
+  GtkWidget *controls;
 
-  update_decoration_layout (self, TRUE, TRUE);
-}
-
-static void
-create_start_window_controls (AdwHeaderBar *self)
-{
-  GtkWidget *controls = gtk_window_controls_new (GTK_PACK_START);
+  if (self->sheet)
+    controls = adw_sheet_controls_new (GTK_PACK_START);
+  else
+    controls = gtk_window_controls_new (GTK_PACK_START);
 
   g_object_bind_property (controls, "empty",
                           controls, "visible",
@@ -281,15 +257,20 @@ create_start_window_controls (AdwHeaderBar *self)
                             G_CALLBACK (update_box_visibility),
                             self->start_box);
   gtk_box_prepend (GTK_BOX (self->start_box), controls);
-  self->start_window_controls = controls;
+  self->start_controls = controls;
 
   update_decoration_layout (self, TRUE, FALSE);
 }
 
 static void
-create_end_window_controls (AdwHeaderBar *self)
+create_end_controls (AdwHeaderBar *self)
 {
-  GtkWidget *controls = gtk_window_controls_new (GTK_PACK_END);
+  GtkWidget *controls;
+
+  if (self->sheet)
+    controls = adw_sheet_controls_new (GTK_PACK_END);
+  else
+    controls = gtk_window_controls_new (GTK_PACK_END);
 
   g_object_bind_property (controls, "empty",
                           controls, "visible",
@@ -298,7 +279,7 @@ create_end_window_controls (AdwHeaderBar *self)
                             G_CALLBACK (update_box_visibility),
                             self->end_box);
   gtk_box_append (GTK_BOX (self->end_box), controls);
-  self->end_window_controls = controls;
+  self->end_controls = controls;
 
   update_decoration_layout (self, FALSE, TRUE);
 }
@@ -310,7 +291,7 @@ create_back_button (AdwHeaderBar *self)
 
   gtk_box_insert_child_after (GTK_BOX (self->start_box),
                               button,
-                              self->start_window_controls);
+                              self->start_controls);
   g_signal_connect_swapped (button, "notify::visible",
                             G_CALLBACK (update_box_visibility),
                             self->start_box);
@@ -347,14 +328,14 @@ update_start_title_buttons (AdwHeaderBar *self)
     }
   }
 
-  if ((self->start_window_controls != NULL) == show)
+  if ((self->start_controls != NULL) == show)
     return;
 
   if (show) {
-    create_start_window_controls (self);
-  } else if (self->start_box && self->start_window_controls) {
-    gtk_box_remove (GTK_BOX (self->start_box), self->start_window_controls);
-    self->start_window_controls = NULL;
+    create_start_controls (self);
+  } else if (self->start_box && self->start_controls) {
+    gtk_box_remove (GTK_BOX (self->start_box), self->start_controls);
+    self->start_controls = NULL;
   }
 
   update_box_visibility (self->start_box);
@@ -389,14 +370,14 @@ update_end_title_buttons (AdwHeaderBar *self)
     }
   }
 
-  if ((self->end_window_controls != NULL) == show)
+  if ((self->end_controls != NULL) == show)
     return;
 
   if (show) {
-    create_end_window_controls (self);
-  } else if (self->end_box && self->end_window_controls) {
-    gtk_box_remove (GTK_BOX (self->end_box), self->end_window_controls);
-    self->end_window_controls = NULL;
+    create_end_controls (self);
+  } else if (self->end_box && self->end_controls) {
+    gtk_box_remove (GTK_BOX (self->end_box), self->end_controls);
+    self->end_controls = NULL;
   }
 
   update_box_visibility (self->end_box);
@@ -465,7 +446,6 @@ static void
 adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
-  GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self));
   GtkWidget *parent;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
@@ -474,6 +454,10 @@ adw_header_bar_root (GtkWidget *widget)
     adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
+
+  self->sheet = adw_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET, TRUE, FALSE);
+  if (!self->sheet)
+    self->sheet = adw_widget_get_ancestor (widget, ADW_TYPE_FLOATING_SHEET, TRUE, FALSE);
 
   if (self->title_navigation_page) {
     g_signal_connect_swapped (self->title_navigation_page, "notify::title",
@@ -542,11 +526,6 @@ adw_header_bar_root (GtkWidget *widget)
     parent = gtk_widget_get_parent (parent);
   }
 
-  if (self->dialog) {
-    g_signal_connect_swapped (settings, "notify::gtk-decoration-layout",
-                              G_CALLBACK (notify_decoration_layout_cb), self);
-  }
-
   update_title (self);
   update_title_buttons (self);
   update_decoration_layout (self, TRUE, TRUE);
@@ -556,11 +535,7 @@ static void
 adw_header_bar_unroot (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
-  GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self));
   GSList *l;
-
-  if (self->dialog)
-    g_signal_handlers_disconnect_by_func (settings, notify_decoration_layout_cb, self);
 
   if (self->title_navigation_page) {
     g_signal_handlers_disconnect_by_func (self->title_navigation_page,
@@ -575,6 +550,7 @@ adw_header_bar_unroot (GtkWidget *widget)
 
   self->title_navigation_page = NULL;
   self->dialog = NULL;
+  self->sheet = NULL;
 
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
@@ -877,8 +853,6 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
   construct_title_label (self);
-  create_start_window_controls (self);
-  create_end_window_controls (self);
   create_back_button (self);
 }
 
