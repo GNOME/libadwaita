@@ -2105,19 +2105,22 @@ adw_dialog_set_shadowed (AdwDialog *self,
 
   shadowed = !!shadowed;
 
-  if (shadowed)
-    g_set_weak_pointer (&priv->last_focus, priv->focus_widget);
+  if (shadowed) {
+    GtkWidget *focus = priv->focus_widget;
+
+    while (focus && !gtk_widget_get_mapped (focus))
+      focus = gtk_widget_get_parent (focus);
+
+    if (focus && gtk_widget_is_ancestor (focus, priv->child_breakpoint_bin))
+      g_set_weak_pointer (&priv->last_focus, focus);
+  }
 
   gtk_widget_set_can_focus (priv->bin, !shadowed);
   gtk_widget_set_can_target (priv->bin, !shadowed);
 
   if (!shadowed) {
-    if (priv->last_focus) {
-      GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
-
-      if (root)
-        gtk_root_set_focus (root, priv->last_focus);
-    }
+    if (priv->last_focus)
+      gtk_widget_grab_focus (priv->last_focus);
 
     g_clear_weak_pointer (&priv->last_focus);
   }
