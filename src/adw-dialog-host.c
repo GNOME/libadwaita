@@ -545,10 +545,8 @@ adw_dialog_host_present_dialog (AdwDialogHost *self,
   if (self->dialogs->len == 0) {
     GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW (root));
 
-    while (focus && !(gtk_widget_get_mapped (focus) &&
-                      gtk_widget_get_focusable (focus))) {
+    while (focus && !gtk_widget_get_mapped (focus))
       focus = gtk_widget_get_parent (focus);
-    }
 
     if (focus && gtk_widget_is_ancestor (focus, self->bin))
       g_set_weak_pointer (&self->last_focus, focus);
@@ -628,3 +626,4 @@ adw_dialog_host_get_from_proxy (GtkWidget *widget)
 
   return NULL;
 }
+
