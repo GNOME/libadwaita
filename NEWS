@@ -1,4 +1,45 @@
 =============
+Version 1.4.5
+=============
+
+- AdwAboutWindow
+  - Fix an outdated appstream reference in docs
+- AdwActionRow
+  - Mention .property in docs
+- AdwAvatar
+  - Fix portrait avatars on hidpi
+- AdwBin
+  - Fix a potential focus issue
+- AdwBreakpoint
+  - Fix add_setter() annotations
+- Translation updates
+  - Brazilian Portuguese
+- AdwCarousel
+  - Fix a build warning
+- AdwComboRow
+  - Fix initial checkmark
+- AdwExpanderRow
+  - Fix get_title_lines() and get_subtitle_lines() return types
+  - Fix remove() docs
+- AdwOverlaySplitView
+  - Unmap sidebar when it's hidden
+- AdwPreferencesGroup
+  - Fix a potential focus issue
+  - Fix :header-group annotations and notifications
+- AdwPreferencesPage
+  - Fix a potential focus issue
+- AdwTabView
+  - Document :close-page return value
+  - Fix a leak when closing the last page
+- AdwViewStack
+  - Fix a typo in docs
+- Stylesheet
+  - Fix entry progress bars
+- Add missing return annotations
+- Translation updates
+  - Brazilian Portuguese
+
+=============
 Version 1.4.4
 =============
 
