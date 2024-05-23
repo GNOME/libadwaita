@@ -1,4 +1,58 @@
 =============
+Version 1.5.1
+=============
+
+- AdwAboutDialog/Window
+  - Fix an outdated appstream reference in docs
+- AdwActionRow
+  - Mention .property in docs
+- AdwAlertDialog
+  - Fix the accessible role
+  - Fix initial focus
+- AdwAvatar
+  - Fix portrait avatars on hidpi
+- AdwBin
+  - Fix a potential focus issue
+- AdwBreakpoint
+  - Fix add_setter() annotations
+- AdwCarousel
+  - Fix a build warning
+- AdwComboRow
+  - Fix initial checkmark
+  - Handle model changes properly
+- AdwDialog
+  - Fix accessibility warnings
+  - Make shortcuts work when there are no focusable widgets
+  - Correctly restore focus when opening a dialog from a menu
+  - Fix GtkWindow:deletable=false hiding close buttons in dialogs
+- AdwExpanderRow
+  - Fix get_title_lines() and get_subtitle_lines() return types
+  - Fix remove() docs
+- AdwOverlaySplitView
+  - Unmap sidebar when it's hidden
+- AdwPreferencesGroup
+  - Fix a potential focus issue
+  - Fix :header-group annotations and notifications
+- AdwPreferencesPage
+  - Fix a potential focus issue
+- AdwTabView
+  - Document :close-page return value
+  - Fix a leak when closing the last page
+- AdwViewStack
+  - Fix a typo in docs
+- Docs
+  - Update screenshots
+- Stylesheet
+  - Fix entry progress bars
+- Add missing return annotations
+- Translation updates
+  - Brazilian Portuguese
+  - Hindi
+  - Kabyle
+  - Portuguese
+  - Slovak
+
+=============
 Version 1.5.0
 =============
 
