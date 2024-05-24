@@ -53,4 +53,16 @@ custom_target('libadwaita-doc',
   install_dir: docs_dir,
 )
 
+test('Validate docs',
+  gidocgen,
+  args: [
+    'check',
+    '--config', libadwaita_toml,
+    '--add-include-path=@0@'.format(meson.current_build_dir() / '../src'),
+    libadwaita_gir[0],
+  ],
+  depends: libadwaita_gir[0],
+  suite: ['doc'],
+)
+
 endif
