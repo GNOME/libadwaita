@@ -10,7 +10,8 @@ desktop_file = i18n.merge_file(
 desktop_utils = find_program('desktop-file-validate', required: false)
 if desktop_utils.found()
   test('Validate desktop file', desktop_utils,
-    args: [desktop_file]
+    args: [desktop_file],
+    suite: ['demo'],
   )
 endif
 
@@ -49,7 +50,8 @@ appstream_file = i18n.merge_file(
 appstreamcli = find_program('appstreamcli', required: false)
 if appstreamcli.found()
   test('Validate appstream file', appstreamcli,
-    args: ['validate', '--no-net', '--explain', appstream_file]
+    args: ['validate', '--no-net', '--explain', appstream_file],
+    suite: ['demo'],
   )
 endif
 
