@@ -1,13 +1,13 @@
 #include "adw-demo-window.h"
 
 #include "pages/about/adw-demo-page-about.h"
+#include "pages/alerts/adw-demo-page-alerts.h"
 #include "pages/animations/adw-demo-page-animations.h"
 #include "pages/avatar/adw-demo-page-avatar.h"
 #include "pages/banners/adw-demo-page-banners.h"
 #include "pages/buttons/adw-demo-page-buttons.h"
 #include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
-#include "pages/dialogs/adw-demo-page-dialogs.h"
 #include "pages/lists/adw-demo-page-lists.h"
 #include "pages/navigation-view/adw-demo-page-navigation-view.h"
 #include "pages/split-views/adw-demo-page-split-views.h"
@@ -103,13 +103,13 @@ adw_demo_window_init (AdwDemoWindow *self)
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ABOUT);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_ALERTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ANIMATIONS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_BANNERS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_AVATAR);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_BUTTONS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
-  g_type_ensure (ADW_TYPE_DEMO_PAGE_DIALOGS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_NAVIGATION_VIEW);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_SPLIT_VIEWS);

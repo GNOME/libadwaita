@@ -44,13 +44,13 @@
   </gresource>
   <gresource prefix="/org/gnome/Adwaita1/Demo/ui">
     <file preprocess="xml-stripblanks">pages/about/adw-demo-page-about.ui</file>
+    <file preprocess="xml-stripblanks">pages/alerts/adw-demo-page-alerts.ui</file>
     <file preprocess="xml-stripblanks">pages/animations/adw-demo-page-animations.ui</file>
     <file preprocess="xml-stripblanks">pages/avatar/adw-demo-page-avatar.ui</file>
     <file preprocess="xml-stripblanks">pages/banners/adw-demo-page-banners.ui</file>
     <file preprocess="xml-stripblanks">pages/buttons/adw-demo-page-buttons.ui</file>
     <file preprocess="xml-stripblanks">pages/carousel/adw-demo-page-carousel.ui</file>
     <file preprocess="xml-stripblanks">pages/clamp/adw-demo-page-clamp.ui</file>
-    <file preprocess="xml-stripblanks">pages/dialogs/adw-demo-page-dialogs.ui</file>
     <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-demo-page-navigation-view.ui</file>
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-navigation-view-demo-dialog.ui</file>

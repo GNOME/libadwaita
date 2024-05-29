@@ -1,15 +1,15 @@
-#include "adw-demo-page-dialogs.h"
+#include "adw-demo-page-alerts.h"
 
 #include <glib/gi18n.h>
 
-struct _AdwDemoPageDialogs
+struct _AdwDemoPageAlerts
 {
   AdwBin parent_instance;
 
   AdwToast *last_toast;
 };
 
-G_DEFINE_FINAL_TYPE (AdwDemoPageDialogs, adw_demo_page_dialogs, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageAlerts, adw_demo_page_alerts, ADW_TYPE_BIN)
 
 enum {
   SIGNAL_ADD_TOAST,
@@ -19,17 +19,17 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
-toast_dismissed_cb (AdwToast           *toast,
-                    AdwDemoPageDialogs *self)
+toast_dismissed_cb (AdwToast          *toast,
+                    AdwDemoPageAlerts *self)
 {
   if (toast == self->last_toast)
     self->last_toast = NULL;
 }
 
 static void
-alert_cb (AdwAlertDialog     *dialog,
-          GAsyncResult       *result,
-          AdwDemoPageDialogs *self)
+alert_cb (AdwAlertDialog    *dialog,
+          GAsyncResult      *result,
+          AdwDemoPageAlerts *self)
 {
   const char *response = adw_alert_dialog_choose_finish (dialog, result);
   AdwToast *toast = adw_toast_new_format (_("Dialog response: %s"), response);
@@ -43,7 +43,7 @@ alert_cb (AdwAlertDialog     *dialog,
 }
 
 static void
-demo_alert_dialog_cb (AdwDemoPageDialogs *self)
+demo_alert_dialog_cb (AdwDemoPageAlerts *self)
 {
   AdwDialog *dialog;
 
@@ -71,7 +71,7 @@ demo_alert_dialog_cb (AdwDemoPageDialogs *self)
 }
 
 static void
-adw_demo_page_dialogs_class_init (AdwDemoPageDialogsClass *klass)
+adw_demo_page_alerts_class_init (AdwDemoPageAlertsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
@@ -84,13 +84,13 @@ adw_demo_page_dialogs_class_init (AdwDemoPageDialogsClass *klass)
                   G_TYPE_NONE, 1,
                   ADW_TYPE_TOAST);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/dialogs/adw-demo-page-dialogs.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/alerts/adw-demo-page-alerts.ui");
 
   gtk_widget_class_install_action (widget_class, "demo.alert-dialog", NULL, (GtkWidgetActionActivateFunc) demo_alert_dialog_cb);
 }
 
 static void
-adw_demo_page_dialogs_init (AdwDemoPageDialogs *self)
+adw_demo_page_alerts_init (AdwDemoPageAlerts *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
 }

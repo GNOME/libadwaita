@@ -2,12 +2,12 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="AdwDemoPageDialogs" parent="AdwBin">
+  <template class="AdwDemoPageAlerts" parent="AdwBin">
     <property name="child">
       <object class="AdwStatusPage">
         <property name="icon-name">widget-dialog-symbolic</property>
-        <property name="title" translatable="yes">Dialogs</property>
-        <property name="description" translatable="yes">Adaptive dialog widgets.</property>
+        <property name="title" translatable="yes">Alert Dialog</property>
+        <property name="description" translatable="yes">Adaptive alert dialog.</property>
         <property name="child">
           <object class="GtkButton">
             <property name="label" translatable="yes">Alert Dialog</property>
