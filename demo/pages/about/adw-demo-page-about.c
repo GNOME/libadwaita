@@ -50,7 +50,7 @@ demo_run_cb (AdwDemoPageAbout *self)
                   "version", "1.2.3",
                   "release-notes-version", "1.2.0",
                   "release-notes", release_notes,
-                  "comments", _("Typeset is an app that doesn’t exist and is used as an example content for this about window."),
+                  "comments", _("Typeset is an app that doesn’t exist and is used as an example content for this about dialog."),
                   "website", "https://example.org",
                   "issue-url", "https://example.org",
                   "support-url", "https://example.org",

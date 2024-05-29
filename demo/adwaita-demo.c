@@ -5,7 +5,7 @@
 #include <adwaita.h>
 
 #include "adw-demo-debug-info.h"
-#include "adw-demo-preferences-window.h"
+#include "adw-demo-preferences-dialog.h"
 #include "adw-demo-window.h"
 
 static void
@@ -23,7 +23,7 @@ show_preferences (GSimpleAction *action,
 {
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
-  AdwDemoPreferencesWindow *preferences = adw_demo_preferences_window_new ();
+  AdwDemoPreferencesDialog *preferences = adw_demo_preferences_dialog_new ();
 
   adw_dialog_present (ADW_DIALOG (preferences), GTK_WIDGET (window));
 }

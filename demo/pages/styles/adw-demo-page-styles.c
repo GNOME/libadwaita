@@ -2,7 +2,7 @@
 
 #include <glib/gi18n.h>
 
-#include "adw-style-demo-window.h"
+#include "adw-style-demo-dialog.h"
 
 struct _AdwDemoPageStyles
 {
@@ -14,9 +14,9 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageStyles, adw_demo_page_styles, ADW_TYPE_BIN)
 static void
 demo_run_cb (AdwDemoPageStyles *self)
 {
-  AdwStyleDemoWindow *window = adw_style_demo_window_new ();
+  AdwStyleDemoDialog *dialog = adw_style_demo_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
 }
 
 static void

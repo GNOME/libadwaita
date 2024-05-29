@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="AdwDemoPreferencesWindow" parent="AdwPreferencesDialog">
+  <template class="AdwDemoPreferencesDialog" parent="AdwPreferencesDialog">
     <property name="content-height">1000</property>
     <property name="search-enabled">True</property>
     <child>
@@ -96,7 +96,7 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="description" translatable="yes">Preferences windows can have subpages.</property>
+            <property name="description" translatable="yes">Preferences dialogs can have subpages.</property>
             <property name="title" translatable="yes">Subpages</property>
             <child>
               <object class="AdwActionRow">

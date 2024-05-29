@@ -2,8 +2,8 @@
 
 #include <glib/gi18n.h>
 
-#include "adw-navigation-split-view-demo-window.h"
-#include "adw-overlay-split-view-demo-window.h"
+#include "adw-navigation-split-view-demo-dialog.h"
+#include "adw-overlay-split-view-demo-dialog.h"
 
 struct _AdwDemoPageSplitViews
 {
@@ -15,17 +15,17 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageSplitViews, adw_demo_page_split_views, ADW_TYPE_
 static void
 demo_run_navigation_cb (AdwDemoPageSplitViews *self)
 {
-  AdwNavigationSplitViewDemoWindow *window = adw_navigation_split_view_demo_window_new ();
+  AdwNavigationSplitViewDemoDialog *dialog = adw_navigation_split_view_demo_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
 }
 
 static void
 demo_run_overlay_cb (AdwDemoPageSplitViews *self)
 {
-  AdwOverlaySplitViewDemoWindow *window = adw_overlay_split_view_demo_window_new ();
+  AdwOverlaySplitViewDemoDialog *dialog = adw_overlay_split_view_demo_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
 }
 
 static void

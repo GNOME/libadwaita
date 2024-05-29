@@ -2,7 +2,7 @@
 
 #include <glib/gi18n.h>
 
-#include "adw-navigation-view-demo-window.h"
+#include "adw-navigation-view-demo-dialog.h"
 
 struct _AdwDemoPageNavigationView
 {
@@ -14,9 +14,9 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageNavigationView, adw_demo_page_navigation_view, A
 static void
 demo_run_cb (AdwDemoPageNavigationView *self)
 {
-  AdwNavigationViewDemoWindow *window = adw_navigation_view_demo_window_new ();
+  AdwNavigationViewDemoDialog *dialog = adw_navigation_view_demo_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
 }
 
 static void

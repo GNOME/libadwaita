@@ -53,20 +53,20 @@
     <file preprocess="xml-stripblanks">pages/dialogs/adw-demo-page-dialogs.ui</file>
     <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-demo-page-navigation-view.ui</file>
-    <file preprocess="xml-stripblanks">pages/navigation-view/adw-navigation-view-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/navigation-view/adw-navigation-view-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/split-views/adw-demo-page-split-views.ui</file>
-    <file preprocess="xml-stripblanks">pages/split-views/adw-navigation-split-view-demo-window.ui</file>
-    <file preprocess="xml-stripblanks">pages/split-views/adw-overlay-split-view-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/split-views/adw-navigation-split-view-demo-dialog.ui</file>
+    <file preprocess="xml-stripblanks">pages/split-views/adw-overlay-split-view-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-demo-page-styles.ui</file>
-    <file preprocess="xml-stripblanks">pages/styles/adw-style-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/styles/adw-style-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-demo-page-tab-view.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-page.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/toasts/adw-demo-page-toasts.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-demo-page-view-switcher.ui</file>
-    <file preprocess="xml-stripblanks">pages/view-switcher/adw-view-switcher-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/view-switcher/adw-view-switcher-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/welcome/adw-demo-page-welcome.ui</file>
-    <file preprocess="xml-stripblanks">adw-demo-preferences-window.ui</file>
+    <file preprocess="xml-stripblanks">adw-demo-preferences-dialog.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-window.ui</file>
   </gresource>
 </gresources>

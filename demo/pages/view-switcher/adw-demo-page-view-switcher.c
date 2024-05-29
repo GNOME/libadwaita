@@ -2,7 +2,7 @@
 
 #include <glib/gi18n.h>
 
-#include "adw-view-switcher-demo-window.h"
+#include "adw-view-switcher-demo-dialog.h"
 
 struct _AdwDemoPageViewSwitcher
 {
@@ -14,9 +14,9 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageViewSwitcher, adw_demo_page_view_switcher, ADW_T
 static void
 demo_run_cb (AdwDemoPageViewSwitcher *self)
 {
-  AdwViewSwitcherDemoWindow *window = adw_view_switcher_demo_window_new ();
+  AdwViewSwitcherDemoDialog *dialog = adw_view_switcher_demo_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (window), GTK_WIDGET (self));
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
 }
 
 static void
