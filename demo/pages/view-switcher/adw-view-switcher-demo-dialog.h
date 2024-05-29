@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwViewSwitcherDemoDialog, adw_view_switcher_demo_dialog, ADW, VIEW_SWITCHER_DEMO_DIALOG, AdwDialog)
 
-AdwViewSwitcherDemoDialog *adw_view_switcher_demo_dialog_new (void);
+AdwDialog *adw_view_switcher_demo_dialog_new (void);
 
 G_END_DECLS

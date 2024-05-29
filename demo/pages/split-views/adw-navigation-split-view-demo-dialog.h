@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwNavigationSplitViewDemoDialog, adw_navigation_split_view_demo_dialog, ADW, NAVIGATION_SPLIT_VIEW_DEMO_DIALOG, AdwDialog)
 
-AdwNavigationSplitViewDemoDialog *adw_navigation_split_view_demo_dialog_new (void);
+AdwDialog *adw_navigation_split_view_demo_dialog_new (void);
 
 G_END_DECLS

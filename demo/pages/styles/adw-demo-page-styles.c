@@ -14,9 +14,7 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageStyles, adw_demo_page_styles, ADW_TYPE_BIN)
 static void
 demo_run_cb (AdwDemoPageStyles *self)
 {
-  AdwStyleDemoDialog *dialog = adw_style_demo_dialog_new ();
-
-  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
+  adw_dialog_present (adw_style_demo_dialog_new (), GTK_WIDGET (self));
 }
 
 static void

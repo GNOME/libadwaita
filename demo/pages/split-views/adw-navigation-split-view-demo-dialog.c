@@ -23,7 +23,7 @@ adw_navigation_split_view_demo_dialog_init (AdwNavigationSplitViewDemoDialog *se
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
-AdwNavigationSplitViewDemoDialog *
+AdwDialog *
 adw_navigation_split_view_demo_dialog_new (void)
 {
   return g_object_new (ADW_TYPE_NAVIGATION_SPLIT_VIEW_DEMO_DIALOG, NULL);

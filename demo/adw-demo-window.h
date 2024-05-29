@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwDemoWindow, adw_demo_window, ADW, DEMO_WINDOW, AdwApplicationWindow)
 
-AdwDemoWindow *adw_demo_window_new (GtkApplication *application);
+GtkWindow *adw_demo_window_new (GtkApplication *application);
 
 G_END_DECLS

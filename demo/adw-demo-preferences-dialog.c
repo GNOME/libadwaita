@@ -10,12 +10,6 @@ struct _AdwDemoPreferencesDialog
 
 G_DEFINE_FINAL_TYPE (AdwDemoPreferencesDialog, adw_demo_preferences_dialog, ADW_TYPE_PREFERENCES_DIALOG)
 
-AdwDemoPreferencesDialog *
-adw_demo_preferences_dialog_new (void)
-{
-  return g_object_new (ADW_TYPE_DEMO_PREFERENCES_DIALOG, NULL);
-}
-
 static void
 subpage1_activated_cb (AdwDemoPreferencesDialog *self)
 {
@@ -54,4 +48,10 @@ static void
 adw_demo_preferences_dialog_init (AdwDemoPreferencesDialog *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+}
+
+AdwDialog *
+adw_demo_preferences_dialog_new (void)
+{
+  return g_object_new (ADW_TYPE_DEMO_PREFERENCES_DIALOG, NULL);
 }

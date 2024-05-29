@@ -15,17 +15,13 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageSplitViews, adw_demo_page_split_views, ADW_TYPE_
 static void
 demo_run_navigation_cb (AdwDemoPageSplitViews *self)
 {
-  AdwNavigationSplitViewDemoDialog *dialog = adw_navigation_split_view_demo_dialog_new ();
-
-  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
+  adw_dialog_present (adw_navigation_split_view_demo_dialog_new (), GTK_WIDGET (self));
 }
 
 static void
 demo_run_overlay_cb (AdwDemoPageSplitViews *self)
 {
-  AdwOverlaySplitViewDemoDialog *dialog = adw_overlay_split_view_demo_dialog_new ();
-
-  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
+  adw_dialog_present (adw_overlay_split_view_demo_dialog_new (), GTK_WIDGET (self));
 }
 
 static void

@@ -38,7 +38,7 @@ adw_overlay_split_view_demo_dialog_init (AdwOverlaySplitViewDemoDialog *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
-AdwOverlaySplitViewDemoDialog *
+AdwDialog *
 adw_overlay_split_view_demo_dialog_new (void)
 {
   return g_object_new (ADW_TYPE_OVERLAY_SPLIT_VIEW_DEMO_DIALOG, NULL);

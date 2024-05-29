@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwDemoPreferencesDialog, adw_demo_preferences_dialog, ADW, DEMO_PREFERENCES_DIALOG, AdwPreferencesDialog)
 
-AdwDemoPreferencesDialog *adw_demo_preferences_dialog_new (void);
+AdwDialog *adw_demo_preferences_dialog_new (void);
 
 G_END_DECLS

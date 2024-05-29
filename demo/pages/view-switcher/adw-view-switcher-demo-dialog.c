@@ -23,7 +23,7 @@ adw_view_switcher_demo_dialog_init (AdwViewSwitcherDemoDialog *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
-AdwViewSwitcherDemoDialog *
+AdwDialog *
 adw_view_switcher_demo_dialog_new (void)
 {
   return g_object_new (ADW_TYPE_VIEW_SWITCHER_DEMO_DIALOG, NULL);

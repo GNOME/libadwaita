@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwOverlaySplitViewDemoDialog, adw_overlay_split_view_demo_dialog, ADW, OVERLAY_SPLIT_VIEW_DEMO_DIALOG, AdwDialog)
 
-AdwOverlaySplitViewDemoDialog *adw_overlay_split_view_demo_dialog_new (void);
+AdwDialog *adw_overlay_split_view_demo_dialog_new (void);
 
 G_END_DECLS

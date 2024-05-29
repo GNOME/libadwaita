@@ -178,7 +178,7 @@ adw_style_demo_dialog_init (AdwStyleDemoDialog *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
-AdwStyleDemoDialog *
+AdwDialog *
 adw_style_demo_dialog_new (void)
 {
   return g_object_new (ADW_TYPE_STYLE_DEMO_DIALOG, NULL);

@@ -23,7 +23,7 @@ adw_navigation_view_demo_dialog_init (AdwNavigationViewDemoDialog *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
-AdwNavigationViewDemoDialog *
+AdwDialog *
 adw_navigation_view_demo_dialog_new (void)
 {
   return g_object_new (ADW_TYPE_NAVIGATION_VIEW_DEMO_DIALOG, NULL);

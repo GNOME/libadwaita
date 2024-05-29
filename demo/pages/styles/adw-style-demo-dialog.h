@@ -8,6 +8,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwStyleDemoDialog, adw_style_demo_dialog, ADW, STYLE_DEMO_DIALOG, AdwDialog)
 
-AdwStyleDemoDialog *adw_style_demo_dialog_new (void);
+AdwDialog *adw_style_demo_dialog_new (void);
 
 G_END_DECLS

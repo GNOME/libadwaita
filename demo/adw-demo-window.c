@@ -134,7 +134,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   notify_visible_child_cb (self);
 }
 
-AdwDemoWindow *
+GtkWindow *
 adw_demo_window_new (GtkApplication *application)
 {
   return g_object_new (ADW_TYPE_DEMO_WINDOW, "application", application, NULL);

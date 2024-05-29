@@ -14,9 +14,7 @@ G_DEFINE_FINAL_TYPE (AdwDemoPageNavigationView, adw_demo_page_navigation_view, A
 static void
 demo_run_cb (AdwDemoPageNavigationView *self)
 {
-  AdwNavigationViewDemoDialog *dialog = adw_navigation_view_demo_dialog_new ();
-
-  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (self));
+  adw_dialog_present (adw_navigation_view_demo_dialog_new (), GTK_WIDGET (self));
 }
 
 static void

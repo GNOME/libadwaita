@@ -23,9 +23,8 @@ show_preferences (GSimpleAction *action,
 {
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
-  AdwDemoPreferencesDialog *preferences = adw_demo_preferences_dialog_new ();
 
-  adw_dialog_present (ADW_DIALOG (preferences), GTK_WIDGET (window));
+  adw_dialog_present (adw_demo_preferences_dialog_new (), GTK_WIDGET (window));
 }
 
 static void
@@ -82,11 +81,7 @@ show_about (GSimpleAction *action,
 static void
 show_window (GtkApplication *app)
 {
-  AdwDemoWindow *window;
-
-  window = adw_demo_window_new (app);
-
-  gtk_window_present (GTK_WINDOW (window));
+  gtk_window_present (adw_demo_window_new (app));
 }
 
 int
