@@ -72,8 +72,7 @@
  * ## Async API
  *
  * `AdwMessageDialog` can also be used via the [method@MessageDialog.choose]
- * method. This API follows the GIO async pattern, and the result can be
- * obtained by calling [method@MessageDialog.choose_finish], for example:
+ * method. This API follows the GIO async pattern, for example:
  *
  * ```c
  * static void
@@ -2405,10 +2404,7 @@ choose_cancelled_cb (GCancellable *cancellable,
  * @user_data: (closure callback): data to pass to @callback
  *
  * This function shows @self to the user.
- *
- * The @callback will be called when the alert is dismissed. It should call
- * [method@MessageDialog.choose_finish] to obtain the result.
- *
+ **
  * Since: 1.3
  */
 void

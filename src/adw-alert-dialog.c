@@ -77,8 +77,7 @@
  * ## Async API
  *
  * `AdwAlertDialog` can also be used via the [method@AlertDialog.choose] method.
- * This API follows the GIO async pattern, and the result can be obtained by
- * calling [method@AlertDialog.choose_finish], for example:
+ * This API follows the GIO async pattern, for example:
  *
  * ```c
  * static void
@@ -2251,9 +2250,6 @@ choose_cancelled_cb (GCancellable *cancellable,
  * @user_data: (closure callback): data to pass to @callback
  *
  * This function shows @self to the user.
- *
- * The @callback will be called when the alert is dismissed. It should call
- * [method@AlertDialog.choose_finish] to obtain the result.
  *
  * If the window is an [class@Window] or [class@ApplicationWindow], the dialog
  * will be shown within it. Otherwise, it will be a separate window.
