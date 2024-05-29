@@ -29,9 +29,9 @@ subpage2_activated_cb (AdwDemoPreferencesDialog *self)
 }
 
 static void
-toast_show_cb (AdwPreferencesDialog *dialog)
+toast_show_cb (AdwPreferencesDialog *self)
 {
-  adw_preferences_dialog_add_toast (dialog, adw_toast_new ("Example Toast"));
+  adw_preferences_dialog_add_toast (self, adw_toast_new ("Example Toast"));
 }
 
 static void

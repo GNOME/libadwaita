@@ -25,29 +25,19 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
-status_page_cb (GtkWidget  *sender,
-                const char *name,
-                GVariant   *param)
+status_page_cb (AdwStyleDemoDialog *self)
 {
-  AdwStyleDemoDialog *self = ADW_STYLE_DEMO_DIALOG (sender);
-
   adw_dialog_present (self->status_page_dialog, GTK_WIDGET (self));
 }
 
 static void
-sidebar_cb (GtkWidget  *sender,
-            const char *name,
-            GVariant   *param)
+sidebar_cb (AdwStyleDemoDialog *self)
 {
-  AdwStyleDemoDialog *self = ADW_STYLE_DEMO_DIALOG (sender);
-
   adw_dialog_present (self->sidebar_dialog, GTK_WIDGET (self));
 }
 
 static void
-dummy_cb (GtkWidget  *sender,
-          const char *name,
-          GVariant   *param)
+dummy_cb (AdwStyleDemoDialog *self)
 {
 }
 
@@ -177,9 +167,9 @@ adw_style_demo_dialog_class_init (AdwStyleDemoDialogClass *klass)
 
   gtk_widget_class_install_property_action (widget_class, "style.devel", "devel");
   gtk_widget_class_install_property_action (widget_class, "style.progress", "progress");
-  gtk_widget_class_install_action (widget_class, "style.status-page", NULL, status_page_cb);
-  gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, sidebar_cb);
-  gtk_widget_class_install_action (widget_class, "style.dummy", NULL, dummy_cb);
+  gtk_widget_class_install_action (widget_class, "style.status-page", NULL, (GtkWidgetActionActivateFunc) status_page_cb);
+  gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, (GtkWidgetActionActivateFunc) sidebar_cb);
+  gtk_widget_class_install_action (widget_class, "style.dummy", NULL, (GtkWidgetActionActivateFunc) dummy_cb);
 }
 
 static void
