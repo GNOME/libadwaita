@@ -165,6 +165,14 @@ row {
       opacity: 1;
     }
   }
+
+  &.property.monospace {
+    font-family: inherit;
+
+    & > box.header > box.title > .subtitle {
+      font-family: monospace;
+    }
+  }
 }
 
 /******************************
