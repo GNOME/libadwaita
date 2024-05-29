@@ -1,7 +1,5 @@
 #include "adw-demo-page-clamp.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwDemoPageClamp
 {
   AdwBin parent_instance;

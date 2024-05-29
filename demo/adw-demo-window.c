@@ -1,7 +1,5 @@
 #include "adw-demo-window.h"
 
-#include <glib/gi18n.h>
-
 #include "pages/about/adw-demo-page-about.h"
 #include "pages/animations/adw-demo-page-animations.h"
 #include "pages/avatar/adw-demo-page-avatar.h"

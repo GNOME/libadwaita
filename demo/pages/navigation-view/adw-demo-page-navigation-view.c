@@ -1,7 +1,5 @@
 #include "adw-demo-page-navigation-view.h"
 
-#include <glib/gi18n.h>
-
 #include "adw-navigation-view-demo-dialog.h"
 
 struct _AdwDemoPageNavigationView

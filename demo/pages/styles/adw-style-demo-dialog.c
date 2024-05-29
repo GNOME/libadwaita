@@ -1,7 +1,5 @@
 #include "adw-style-demo-dialog.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwStyleDemoDialog
 {
   AdwDialog parent_instance;

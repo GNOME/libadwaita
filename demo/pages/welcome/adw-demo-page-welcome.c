@@ -1,7 +1,5 @@
 #include "adw-demo-page-welcome.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwDemoPageWelcome
 {
   AdwBin parent_instance;

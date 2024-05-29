@@ -1,7 +1,5 @@
 #include "adw-demo-page-lists.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwDemoPageLists
 {
   AdwBin parent_instance;

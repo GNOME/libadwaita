@@ -1,7 +1,5 @@
 #include "adw-demo-page-buttons.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwDemoPageButtons
 {
   AdwBin parent_instance;

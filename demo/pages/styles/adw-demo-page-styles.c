@@ -1,7 +1,5 @@
 #include "adw-demo-page-styles.h"
 
-#include <glib/gi18n.h>
-
 #include "adw-style-demo-dialog.h"
 
 struct _AdwDemoPageStyles

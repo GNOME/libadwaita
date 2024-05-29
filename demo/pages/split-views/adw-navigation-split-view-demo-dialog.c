@@ -1,7 +1,5 @@
 #include "adw-navigation-split-view-demo-dialog.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwNavigationSplitViewDemoDialog
 {
   AdwDialog parent_instance;

@@ -1,7 +1,5 @@
 #include "adw-view-switcher-demo-dialog.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwViewSwitcherDemoDialog
 {
   AdwDialog parent_instance;

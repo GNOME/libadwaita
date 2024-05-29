@@ -1,7 +1,5 @@
 #include "adw-overlay-split-view-demo-dialog.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwOverlaySplitViewDemoDialog
 {
   AdwDialog parent_instance;

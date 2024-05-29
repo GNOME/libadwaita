@@ -1,7 +1,5 @@
 #include "adw-demo-page-tab-view.h"
 
-#include <glib/gi18n.h>
-
 #include "adw-tab-view-demo-window.h"
 
 struct _AdwDemoPageTabView

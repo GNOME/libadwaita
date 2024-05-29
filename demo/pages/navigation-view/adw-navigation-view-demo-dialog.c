@@ -1,7 +1,5 @@
 #include "adw-navigation-view-demo-dialog.h"
 
-#include <glib/gi18n.h>
-
 struct _AdwNavigationViewDemoDialog
 {
   AdwDialog parent_instance;

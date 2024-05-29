@@ -1,7 +1,5 @@
 #include "adw-demo-page-view-switcher.h"
 
-#include <glib/gi18n.h>
-
 #include "adw-view-switcher-demo-dialog.h"
 
 struct _AdwDemoPageViewSwitcher

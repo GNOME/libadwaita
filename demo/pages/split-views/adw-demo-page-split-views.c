@@ -1,7 +1,5 @@
 #include "adw-demo-page-split-views.h"
 
-#include <glib/gi18n.h>
-
 #include "adw-navigation-split-view-demo-dialog.h"
 #include "adw-overlay-split-view-demo-dialog.h"
 
