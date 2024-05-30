@@ -835,6 +835,8 @@ adw_tab_page_init (AdwTabPage *self)
   self->thumbnail_xalign = 0;
   self->thumbnail_yalign = 0;
   self->bin = g_object_ref_sink (adw_bin_new ());
+  gtk_accessible_set_accessible_parent (GTK_ACCESSIBLE (self->bin),
+                                        GTK_ACCESSIBLE (self), NULL);
 }
 
 static GtkATContext *
