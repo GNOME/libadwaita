@@ -1,10 +1,10 @@
 window {
   &.csd {
     box-shadow: 0 1px 3px 3px transparent,
-                0 2px 8px 2px transparentize(black, 0.87),
-                0 3px 20px 10px transparentize(black, 0.91),
-                0 6px 32px 16px transparentize(black, 0.96),
-                0 0 0 1px transparentize(black, if($contrast == 'high', .2, .95));
+                0 2px 8px 2px RGB(0 0 0 / 13%),
+                0 3px 20px 10px RGB(0 0 0 / 9%),
+                0 6px 32px 16px RGB(0 0 0 / 4%),
+                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, .5%)});
     margin: 0px;
     border-radius: var(--window-radius);
 
@@ -16,20 +16,20 @@ window {
       // change when we go to backdrop, to prevent jumping windows.
       // The biggest shadow should be in the same order then in the active state
       // or the jumping will happen during the transition.
-      box-shadow: 0 1px 3px 3px transparentize(black, 0.91),
-                  0 2px 14px 5px transparentize(black, 0.95),
-                  0 4px 28px 12px transparentize(black, 0.97),
+      box-shadow: 0 1px 3px 3px RGB(0 0 0 / 9%),
+                  0 2px 14px 5px RGB(0 0 0 / 5%),
+                  0 4px 28px 12px RGB(0 0 0 / 3%),
                   0 6px 32px 16px transparent,
-                  0 0 0 1px transparentize(black, if($contrast == 'high', .2, .98));
+                  0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 2%)});
       transition: box-shadow $backdrop_transition;
     }
 
     &.dialog.message,
     &.messagedialog {
-      box-shadow: 0 2px 8px 2px transparentize(black, 0.93),
-                  0 3px 20px 10px transparentize(black, 0.95),
-                  0 6px 32px 16px transparentize(black, 0.98),
-                  0 0 0 1px transparentize(black, if($contrast == 'high', .2, .95));
+      box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
+                  0 3px 20px 10px RGB(0 0 0 / 5%),
+                  0 6px 32px 16px RGB(0 0 0 / 2%),
+                  0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
     }
 
     &.tiled,
@@ -76,6 +76,6 @@ window {
   // server-side decorations as used by mutter
   &.ssd {
     // just doing borders, wm draws actual shadows
-    box-shadow: 0 0 0 1px transparentize(black, if($contrast == 'high', .2, .95));
+    box-shadow: 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
   }
 }

@@ -98,21 +98,20 @@ $fill_text_color: var(--accent-fg-color);
 $slider_color: gtkmix(white, var(--view-bg-color), 80%);
 $slider_hover_color: white;
 
-$osd_fg_color: transparentize(white, .1);
+$osd_fg_color: RGB(255 255 255 / 90%);
 $osd_text_color: white;
-$osd_bg_color: transparentize(black, 0.3);
-$osd_accent_bg_color: transparentize(white, .25);
-$osd_accent_fg_color: transparentize(black, .25);
+$osd_bg_color: RGB(0 0 0 / 75%);
+$osd_accent_bg_color: RGB(255 255 255 / 75%);
+$osd_accent_fg_color: RGB(0 0 0 / 75%);
 $osd_accent_color: white;
 $osd_link_color: gtkmix(var(--accent-bg-color), $osd_text_color, 50%);
 $osd_link_visited_color: gtkmix(var(--accent-bg-color), $osd_text_color, 75%);
 
-$tooltip_border_color: transparentize(white, 0.9);
-$shadow_color: transparentize(black, 0.9);
+$tooltip_border_color: RGB(255 255 255 / 10%);
 
 $drop_target_color: var(--accent-bg-color);
 
-$window_outline_color: transparentize(white, .93);
+$window_outline_color: RGB(255 255 255 / 7%);
 
 //special cased widget colors
 $focus_border_color:  gtkalpha(var(--accent-color), $focus_border_opacity);
@@ -130,7 +129,7 @@ $strong_disabled_opacity: 0.3;
   $trough_color: gtkalpha(currentColor, .3);
   $trough_hover_color: gtkalpha(currentColor, .4);
   $trough_active_color: gtkalpha(currentColor, .5);
-  $window_outline_color: transparentize(white, .7);
+  $window_outline_color: RGB(255 255 255 / 30%);
 }
 
 :root {

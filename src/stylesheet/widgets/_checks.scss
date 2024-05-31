@@ -50,7 +50,7 @@ radio {
     box-shadow: none;
 
     &:hover { background-image: image(gtkalpha(currentColor, .1)); }
-    &:active { background-image: image(transparentize(black, .8)); }
+    &:active { background-image: image(RGB(0 0 0 / 20%)); }
   }
 
   &:disabled {

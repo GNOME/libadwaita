@@ -63,7 +63,7 @@ colorswatch {
   }
 
   &.light > overlay {
-    color: transparentize(black, .25);
+    color: RGB(0 0 0 / 75%);
 
     @if $contrast != 'high' {
       box-shadow: inset 0 0 0 1px gtkalpha(var(--view-fg-color), 0.1);

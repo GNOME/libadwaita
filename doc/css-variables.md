@@ -11,15 +11,15 @@ Slug: css-variables
 }
 
 .color-pill.light {
-    border-color: rgba(0, 0, 0, .1);
+    border-color: rgb(0 0 0 / 10%);
 }
 
 .color-pill.dark {
-    border-color: rgba(255, 255, 255, .2);
+    border-color: rgb(255 255 255 / 20%);
 }
 
 .color-pill.light.dark {
-    border-color: rgba(200, 200, 200, .35);
+    border-color: rgb(200 200 200 / 35%);
 }
 </style>
 
@@ -207,10 +207,10 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
   </tr>
   <tr>
     <td><tt>--warning-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
   </tr>
 </table>
 
@@ -271,8 +271,8 @@ These colors are used on [class@Gtk.Window], as well as with the
   </tr>
   <tr>
     <td><tt>--window-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -300,8 +300,8 @@ well as with the [`.view`](style-classes.html#view) style class.
   </tr>
   <tr>
     <td><tt>--view-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -340,15 +340,15 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
   <tr>
     <td><tt>--headerbar-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
   <tr>
     <td><tt>--headerbar-border-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -361,17 +361,17 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
   <tr>
     <td><tt>--headerbar-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.12)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.12)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 12%)"/></td>
+    <td><tt>rgb(0 0 0 / 12%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 36%)"/></td>
+    <td><tt>rgb(0 0 0 / 36%)</tt></td>
   </tr>
   <tr>
     <td><tt>--headerbar-darker-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.12)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.12)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.9)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.9)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 12%)"/></td>
+    <td><tt>rgb(0 0 0 / 12%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 90%)"/></td>
+    <td><tt>rgb(0 0 0 / 90%)</tt></td>
   </tr>
 </table>
 
@@ -421,8 +421,8 @@ sides of a window. They are used by [class@NavigationSplitView] and
   </tr>
   <tr>
     <td><tt>--sidebar-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -435,17 +435,17 @@ sides of a window. They are used by [class@NavigationSplitView] and
   </tr>
   <tr>
     <td><tt>--sidebar-border-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 36%)"/></td>
+    <td><tt>rgb(0 0 0 / 36%)</tt></td>
   </tr>
   <tr>
     <td><tt>--sidebar-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 25%)"/></td>
+    <td><tt>rgb(0 0 0 / 25%)</tt></td>
   </tr>
 </table>
 
@@ -500,8 +500,8 @@ nesting two split views within one another.
   </tr>
   <tr>
     <td><tt>--secondary-sidebar-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -514,17 +514,17 @@ nesting two split views within one another.
   </tr>
   <tr>
     <td><tt>--secondary-sidebar-border-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 36%)"/></td>
+    <td><tt>rgb(0 0 0 / 36%)</tt></td>
   </tr>
   <tr>
     <td><tt>--secondary-sidebar-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 25%)"/></td>
+    <td><tt>rgb(0 0 0 / 25%)</tt></td>
   </tr>
 </table>
 
@@ -572,22 +572,22 @@ These colors are used for
     <td><tt>--card-bg-color</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
-    <td><div class="color-pill light dark" style="background-color: rgba(255, 255, 255, 0.08)"/></td>
-    <td><tt>rgba(255, 255, 255, 0.08)</tt></td>
+    <td><div class="color-pill light dark" style="background-color: rgb(255 255 255 / 8%)"/></td>
+    <td><tt>rgb(255 255 255 / 8%)</tt></td>
   </tr>
   <tr>
     <td><tt>--card-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
   <tr>
     <td><tt>--card-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 36%)"/></td>
+    <td><tt>rgb(0 0 0 / 36%)</tt></td>
   </tr>
 </table>
 
@@ -617,8 +617,8 @@ These colors are used for [class@TabOverview] thumbnails.
   </tr>
   <tr>
     <td><tt>--thumbnail-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -647,8 +647,8 @@ These colors are used for [class@AlertDialog].
   </tr>
   <tr>
     <td><tt>--dialog-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
@@ -677,17 +677,17 @@ These colors are used for [class@Gtk.Popover].
   </tr>
   <tr>
     <td><tt>--popover-fg-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
   <tr>
     <td><tt>--popover-shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 25%)"/></td>
+    <td><tt>rgb(0 0 0 / 25%)</tt></td>
   </tr>
 </table>
 
@@ -710,17 +710,17 @@ This color is only available since 1.4.
   </tr>
   <tr>
     <td><tt>--shade-color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.25)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.25)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 7%)"/></td>
+    <td><tt>rgb(0 0 0 / 7%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 25%)"/></td>
+    <td><tt>rgb(0 0 0 / 25%)</tt></td>
   </tr>
   <tr>
     <td><tt>--scrollbar-outline-color</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.5)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.5)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 50%)"/></td>
+    <td><tt>rgb(0 0 0 / 50%)</tt></td>
   </tr>
 </table>
 

@@ -7,10 +7,10 @@ bottom-sheet {
   > sheet {
     border-top-left-radius: $dialog_radius;
     border-top-right-radius: $dialog_radius;
-    box-shadow: 0 2px 8px 2px transparentize(black, 0.93),
-                0 3px 20px 10px transparentize(black, 0.95),
-                0 6px 32px 16px transparentize(black, 0.98),
-                0 0 0 1px transparentize(black, if($contrast == 'high', .2, .95));
+    box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
+                0 3px 20px 10px RGB(0 0 0 / 5%),
+                0 6px 32px 16px RGB(0 0 0 / 2%),
+                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
 
     > drag-handle {
       background-color: gtkalpha(currentColor, .25);

@@ -1,4 +1,4 @@
-$_slider_border_color: transparentize(black, if($contrast == 'high', .65, .9));
+$_slider_border_color: RGB(0 0 0 / #{if($contrast == 'high', 35%, 10%)});
 
 %scale_trough {
   border-radius: 99px;
@@ -40,7 +40,7 @@ scale {
 
     > slider {
       background-color: $slider_color;
-      box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px transparentize(black, .8);
+      box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px RGB(0 0 0 / 20%);
 
       border-radius: 100%;
 
@@ -70,7 +70,7 @@ scale {
 
     > trough > slider {
       box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px transparent;
-      outline-color: transparentize(black, if($contrast == 'high', .5, .8));
+      outline-color: RGB(0 0 0 / #{if($contrast == 'high', 50%, 20%)});
     }
   }
 
@@ -104,7 +104,7 @@ scale {
 
       // Adjust box-shadow for the 45deg rotation, for 0px 2px we ideally want
       // 1/√2px 1/√2px, round that to 1px 1px
-      box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px transparentize(black, .8);
+      box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px RGB(0 0 0 / 20%);
 
       &:disabled {
         box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px transparent;
@@ -206,7 +206,7 @@ scale {
 
       > slider {
         margin: 0;
-        background-color: transparentize(white, .2);
+        background-color: RGB(255 255 255 / 80%);
       }
     }
 
@@ -219,3 +219,4 @@ scale {
     }
   }
 }
+

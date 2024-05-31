@@ -21,9 +21,9 @@
 }
 
 .tab-page {
-  --accent-bg-color: alpha(white, .6);
-  --accent-fg-color: alpha(black, .8);
-  --accent-color: alpha(white, .75);
+  --accent-bg-color: rgb(255 255 255 / 60%);
+  --accent-fg-color: rgb(0 0 0 / 80%);
+  --accent-color: rgb(255 255 255 / 75%);
 }
 
 .tab-page-color-1 {

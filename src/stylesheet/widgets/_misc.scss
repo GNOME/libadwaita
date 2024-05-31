@@ -42,8 +42,7 @@ separator {
   border-spacing: 10px;
   border-radius: 0 0 $card_radius $card_radius;
   background-color: $osd_bg_color;
-  background-image: linear-gradient(to bottom, transparentize(black, 0.8),
-                                               transparent 2px);
+  background-image: linear-gradient(to bottom, RGB(0 0 0 / 20%), transparent 2px);
   background-clip: padding-box;
 
   border { border: none; }
@@ -181,9 +180,9 @@ statuspage {
     background-color: var(--card-bg-color);
     color: var(--card-fg-color);
     border-radius: $card_radius;
-    box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, transparentize(black, 0.97)),
-                0 1px 3px 1px transparentize(black, .93),
-                0 2px 6px 2px transparentize(black, .97);
+    box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, RGB(0 0 0 / 3%)),
+                0 1px 3px 1px RGB(0 0 0 / 7%),
+                0 2px 6px 2px RGB(0 0 0 / 3%);
 
     .osd &, &.osd {
       background-color: gtkalpha(currentColor, .1);

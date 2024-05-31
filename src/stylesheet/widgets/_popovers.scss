@@ -15,9 +15,9 @@ popover {
     background-color: var(--popover-bg-color);
     color: var(--popover-fg-color);
     background-clip: padding-box;
-    border: 1px solid if($contrast == 'high', $border_color, transparentize(black, .86));
-    box-shadow: 0 1px 5px 1px transparentize(black, .91),
-                0 2px 14px 3px transparentize(black, .95);
+    border: 1px solid if($contrast == 'high', $border_color, RGB(0 0 0 / 14%));
+    box-shadow: 0 1px 5px 1px RGB(0 0 0 / 9%),
+                0 2px 14px 3px RGB(0 0 0 / 5%);
   }
 
   > contents {
@@ -41,7 +41,7 @@ popover {
     > contents {
       @extend %osd;
 
-      border: 1px solid transparentize(white, 0.9);
+      border: 1px solid RGB(255 255 255 / 10%);
       box-shadow: none;
     }
   }
