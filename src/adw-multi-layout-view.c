@@ -50,12 +50,12 @@
  *       <property name="content">
  *         <object class="GtkBox">
  *           <child>
- *             <object class="AdwAdaptiveSlot">
+ *             <object class="AdwLayoutSlot">
  *               <property name="id">child1</property>
  *             </object>
  *           </child>
  *           <child>
- *             <object class="AdwAdaptiveSlot">
+ *             <object class="AdwLayoutSlot">
  *               <property name="id">child2</property>
  *             </object>
  *           </child>
@@ -70,12 +70,12 @@
  *         <object class="GtkOverlay">
  *           <property name="orientation">horizontal</property>
  *           <property name="child">
- *             <object class="AdwAdaptiveSlot">
+ *             <object class="AdwLayoutSlot">
  *               <property name="id">child1</property>
  *             </object>
  *           </property>
  *           <child type="overlay">
- *             <object class="AdwAdaptiveSlot">
+ *             <object class="AdwLayoutSlot">
  *               <property name="id">child2</property>
  *             </object>
  *           </child>
