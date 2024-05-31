@@ -11,25 +11,25 @@
 // The main accent color and the matching text value
 @define-color accent_bg_color @blue_3;
 @define-color accent_fg_color white;
-@define-color accent_color #{if($variant == 'dark', #78aeed, "@blue_4")};
+@define-color accent_color #{if($variant == 'light', "@blue_4", #78aeed)};
 
 // destructive-action buttons
-@define-color destructive_bg_color #{if($variant == 'dark', "@red_4", "@red_3")};
+@define-color destructive_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color destructive_fg_color white;
-@define-color destructive_color #{if($variant == 'dark', #ff7b63, "@red_4")};
+@define-color destructive_color #{if($variant == 'light', "@red_4", #ff7b63)};
 
 // Levelbars, entries, labels and infobars. These don't need text colors
-@define-color success_bg_color #{if($variant == 'dark', "@green_5", "@green_4")};
+@define-color success_bg_color #{if($variant == 'light', "@green_4", "@green_5")};
 @define-color success_fg_color white;
-@define-color success_color #{if($variant == 'dark', "@green_1", "#1b8553")};
+@define-color success_color #{if($variant == 'light', "#1b8553", "@green_1")};
 
-@define-color warning_bg_color #{if($variant == 'dark', #cd9309, "@yellow_5")};
+@define-color warning_bg_color #{if($variant == 'light', "@yellow_5", #cd9309)};
 @define-color warning_fg_color RGB(0 0 0 / 80%);
-@define-color warning_color #{if($variant == 'dark', "@yellow_2", #9c6e03)};
+@define-color warning_color #{if($variant == 'light', #9c6e03, "@yellow_2")};
 
-@define-color error_bg_color #{if($variant == 'dark', "@red_4", "@red_3")};
+@define-color error_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color error_fg_color white;
-@define-color error_color #{if($variant == 'dark', #ff7b63, "@red_4")};
+@define-color error_color #{if($variant == 'light', "@red_4", #ff7b63)};
 
 // Window
 @define-color window_bg_color #{if($variant == 'light', #fafafa, #242424)};
