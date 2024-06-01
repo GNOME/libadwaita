@@ -27,7 +27,6 @@ struct _AdwTabThumbnail
   GtkPicture *picture;
   GtkWidget *icon_stack;
   GtkImage *icon;
-  GtkSpinner *spinner;
   GtkImage *indicator_icon;
   GtkWidget *indicator_btn;
   GtkWidget *close_btn;
@@ -92,16 +91,6 @@ update_tooltip (AdwTabThumbnail *self)
 }
 
 static void
-update_spinner (AdwTabThumbnail *self)
-{
-  gboolean loading = self->page && adw_tab_page_get_loading (self->page);
-  gboolean mapped = gtk_widget_get_mapped (GTK_WIDGET (self));
-
-  /* Don't use CPU when not needed */
-  gtk_spinner_set_spinning (self->spinner, loading && mapped);
-}
-
-static void
 update_icon (AdwTabThumbnail *self)
 {
   GIcon *gicon = adw_tab_page_get_icon (self->page);
@@ -118,7 +107,6 @@ static void
 update_loading (AdwTabThumbnail *self)
 {
   update_icon (self);
-  update_spinner (self);
   set_style_class (GTK_WIDGET (self), "loading",
                    adw_tab_page_get_loading (self->page));
 }
@@ -256,26 +244,6 @@ fade_animation_value_cb (double           value,
 
   gtk_widget_set_opacity (self->indicator_btn, value);
   gtk_widget_set_opacity (self->needs_attention_revealer, value);
-}
-
-static void
-adw_tab_thumbnail_map (GtkWidget *widget)
-{
-  AdwTabThumbnail *self = ADW_TAB_THUMBNAIL (widget);
-
-  GTK_WIDGET_CLASS (adw_tab_thumbnail_parent_class)->map (widget);
-
-  update_spinner (self);
-}
-
-static void
-adw_tab_thumbnail_unmap (GtkWidget *widget)
-{
-  AdwTabThumbnail *self = ADW_TAB_THUMBNAIL (widget);
-
-  GTK_WIDGET_CLASS (adw_tab_thumbnail_parent_class)->unmap (widget);
-
-  update_spinner (self);
 }
 
 static void
@@ -488,9 +456,6 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
   object_class->get_property = adw_tab_thumbnail_get_property;
   object_class->set_property = adw_tab_thumbnail_set_property;
 
-  widget_class->map = adw_tab_thumbnail_map;
-  widget_class->unmap = adw_tab_thumbnail_unmap;
-
   props[PROP_VIEW] =
     g_param_spec_object ("view", NULL, NULL,
                          ADW_TYPE_TAB_VIEW,
@@ -544,7 +509,6 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, picture);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, icon_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, icon);
-  gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, spinner);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, indicator_icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, indicator_btn);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, close_btn);
@@ -626,7 +590,6 @@ adw_tab_thumbnail_set_page (AdwTabThumbnail *self,
     gtk_picture_set_paintable (GTK_PICTURE (self->picture), paintable);
 
     update_tooltip (self);
-    update_spinner (self);
     update_icon (self);
     update_indicator (self);
     update_loading (self);

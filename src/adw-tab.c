@@ -33,7 +33,6 @@ struct _AdwTab
   GtkWidget *title;
   GtkWidget *icon_stack;
   GtkImage *icon;
-  GtkSpinner *spinner;
   GtkImage *indicator_icon;
   GtkWidget *indicator_btn;
   GtkWidget *close_btn;
@@ -170,16 +169,6 @@ update_title (AdwTab *self)
 }
 
 static void
-update_spinner (AdwTab *self)
-{
-  gboolean loading = self->page && adw_tab_page_get_loading (self->page);
-  gboolean mapped = gtk_widget_get_mapped (GTK_WIDGET (self));
-
-  /* Don't use CPU when not needed */
-  gtk_spinner_set_spinning (self->spinner, loading && mapped);
-}
-
-static void
 update_icons (AdwTab *self)
 {
   GIcon *gicon = adw_tab_page_get_icon (self->page);
@@ -226,7 +215,6 @@ static void
 update_loading (AdwTab *self)
 {
   update_icons (self);
-  update_spinner (self);
   set_style_class (GTK_WIDGET (self), "loading",
                    adw_tab_page_get_loading (self->page));
 }
@@ -568,26 +556,6 @@ adw_tab_size_allocate (GtkWidget *widget,
 }
 
 static void
-adw_tab_map (GtkWidget *widget)
-{
-  AdwTab *self = ADW_TAB (widget);
-
-  GTK_WIDGET_CLASS (adw_tab_parent_class)->map (widget);
-
-  update_spinner (self);
-}
-
-static void
-adw_tab_unmap (GtkWidget *widget)
-{
-  AdwTab *self = ADW_TAB (widget);
-
-  GTK_WIDGET_CLASS (adw_tab_parent_class)->unmap (widget);
-
-  update_spinner (self);
-}
-
-static void
 adw_tab_snapshot (GtkWidget   *widget,
                   GtkSnapshot *snapshot)
 {
@@ -761,8 +729,6 @@ adw_tab_class_init (AdwTabClass *klass)
 
   widget_class->measure = adw_tab_measure;
   widget_class->size_allocate = adw_tab_size_allocate;
-  widget_class->map = adw_tab_map;
-  widget_class->unmap = adw_tab_unmap;
   widget_class->snapshot = adw_tab_snapshot;
   widget_class->direction_changed = adw_tab_direction_changed;
 
@@ -821,7 +787,6 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTab, title);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, icon_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, icon);
-  gtk_widget_class_bind_template_child (widget_class, AdwTab, spinner);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_btn);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, close_btn);
@@ -925,7 +890,6 @@ adw_tab_set_page (AdwTab     *self,
     update_state (self);
     update_title (self);
     update_tooltip (self);
-    update_spinner (self);
     update_icons (self);
     update_indicator (self);
     update_needs_attention (self);
