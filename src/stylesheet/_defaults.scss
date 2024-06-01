@@ -61,7 +61,7 @@
 @define-color secondary_sidebar_border_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 36%))};
 
 // Cards, boxed lists
-@define-color card_bg_color #{if($variant == 'light', #ffffff, RGB(0 0 0 / 8%))};
+@define-color card_bg_color #{if($variant == 'light', #ffffff, RGB(255 255 255 / 8%))};
 @define-color card_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
 @define-color card_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 36%))};
 
