@@ -121,7 +121,7 @@ update_window_buttons (AdwSheetControls *self)
   gtk_accessible_update_property (GTK_ACCESSIBLE (button),
                                   GTK_ACCESSIBLE_PROPERTY_LABEL, _("Close"),
                                   GTK_ACCESSIBLE_PROPERTY_DESCRIPTION,
-                                    _("Close the window"),
+                                    _("Close"),
                                   -1);
 
   gtk_widget_set_parent (button, widget);
