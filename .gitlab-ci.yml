@@ -65,6 +65,12 @@ abi-check:
   script:
     - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
 
+potfiles:
+  image: fedora
+  stage: build
+  script:
+    - .gitlab-ci/check-potfiles.sh
+
 refresh-doc:
   image: fedora
   stage: publish
