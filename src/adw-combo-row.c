@@ -1184,7 +1184,7 @@ adw_combo_row_set_use_subtitle (AdwComboRow *self,
 }
 
 /**
- * adw_combo_row_get_enable_search: (attributes org.gtk.Method.set_property=enable-search)
+ * adw_combo_row_get_enable_search: (attributes org.gtk.Method.get_property=enable-search)
  * @self: a combo row
  *
  * Gets whether search is enabled.

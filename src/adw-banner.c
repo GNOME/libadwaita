@@ -680,7 +680,7 @@ adw_banner_get_revealed (AdwBanner *self)
 }
 
 /**
- * adw_banner_set_revealed: (attributes org.gtk.Method.get_property=revealed)
+ * adw_banner_set_revealed: (attributes org.gtk.Method.set_property=revealed)
  * @self: a banner
  * @revealed: whether a banner should be revealed
  *

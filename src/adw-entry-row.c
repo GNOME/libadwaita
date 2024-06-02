@@ -1076,7 +1076,7 @@ adw_entry_row_get_enable_emoji_completion (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_enable_emoji_completion: (attributes org.gtk.Method.get_property=enable-emoji-completion)
+ * adw_entry_row_set_enable_emoji_completion: (attributes org.gtk.Method.set_property=enable-emoji-completion)
  * @self: an entry row
  * @enable_emoji_completion: Whether emoji completion should be enabled or not
  *
