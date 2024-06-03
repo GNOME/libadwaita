@@ -201,7 +201,7 @@ adw_layout_new (GtkWidget *content)
 }
 
 /**
- * adw_layout_get_content: (attributes org.gtk.Method.get_property=content)
+ * adw_layout_get_content:
  * @self: a layout
  *
  * Gets the content widget.
@@ -219,7 +219,7 @@ adw_layout_get_content (AdwLayout *self)
 }
 
 /**
- * adw_layout_get_name: (attributes org.gtk.Method.get_property=name)
+ * adw_layout_get_name:
  * @self: a layout
  *
  * Gets the name of the layout.
@@ -237,7 +237,7 @@ adw_layout_get_name (AdwLayout *self)
 }
 
 /**
- * adw_layout_set_name: (attributes org.gtk.Method.set_property=name)
+ * adw_layout_set_name:
  * @self: a layout
  * @name: (nullable): the layout name
  *

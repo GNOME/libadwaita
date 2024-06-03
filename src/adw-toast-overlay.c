@@ -561,7 +561,7 @@ adw_toast_overlay_new (void)
 }
 
 /**
- * adw_toast_overlay_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_toast_overlay_get_child:
  * @self: a toast overlay
  *
  * Gets the child widget of @self.
@@ -577,7 +577,7 @@ adw_toast_overlay_get_child (AdwToastOverlay *self)
 }
 
 /**
- * adw_toast_overlay_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_toast_overlay_set_child:
  * @self: a toast overlay
  * @child: (nullable): the child widget
  *

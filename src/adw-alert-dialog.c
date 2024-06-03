@@ -1211,7 +1211,7 @@ adw_alert_dialog_new (const char *heading,
 }
 
 /**
- * adw_alert_dialog_get_heading: (attributes org.gtk.Method.get_property=heading)
+ * adw_alert_dialog_get_heading:
  * @self: an alert dialog
  *
  * Gets the heading of @self.
@@ -1233,7 +1233,7 @@ adw_alert_dialog_get_heading (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_heading: (attributes org.gtk.Method.set_property=heading)
+ * adw_alert_dialog_set_heading:
  * @self: an alert dialog
  * @heading: (nullable): the heading of @self
  *
@@ -1269,7 +1269,7 @@ adw_alert_dialog_set_heading (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_heading_use_markup: (attributes org.gtk.Method.get_property=heading-use-markup)
+ * adw_alert_dialog_get_heading_use_markup:
  * @self: an alert dialog
  *
  * Gets whether the heading of @self includes Pango markup.
@@ -1291,7 +1291,7 @@ adw_alert_dialog_get_heading_use_markup (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_heading_use_markup: (attributes org.gtk.Method.set_property=heading-use-markup)
+ * adw_alert_dialog_set_heading_use_markup:
  * @self: an alert dialog
  * @use_markup: whether to use markup for heading
  *
@@ -1419,7 +1419,7 @@ adw_alert_dialog_format_heading_markup (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_body: (attributes org.gtk.Method.get_property=body)
+ * adw_alert_dialog_get_body:
  * @self: an alert dialog
  *
  * Gets the body text of @self.
@@ -1441,7 +1441,7 @@ adw_alert_dialog_get_body (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_body: (attributes org.gtk.Method.set_property=body)
+ * adw_alert_dialog_set_body:
  * @self: an alert dialog
  * @body: the body of @self
  *
@@ -1475,7 +1475,7 @@ adw_alert_dialog_set_body (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_body_use_markup: (attributes org.gtk.Method.get_property=body-use-markup)
+ * adw_alert_dialog_get_body_use_markup:
  * @self: an alert dialog
  *
  * Gets whether the body text of @self includes Pango markup.
@@ -1497,7 +1497,7 @@ adw_alert_dialog_get_body_use_markup (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_body_use_markup: (attributes org.gtk.Method.set_property=body-use-markup)
+ * adw_alert_dialog_set_body_use_markup:
  * @self: an alert dialog
  * @use_markup: whether to use markup for body text
  *
@@ -1622,7 +1622,7 @@ adw_alert_dialog_format_body_markup (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_extra_child: (attributes org.gtk.Method.get_property=extra-child)
+ * adw_alert_dialog_get_extra_child:
  * @self: an alert dialog
  *
  * Gets the child widget of @self.
@@ -1644,7 +1644,7 @@ adw_alert_dialog_get_extra_child (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_extra_child: (attributes org.gtk.Method.set_property=extra-child)
+ * adw_alert_dialog_set_extra_child:
  * @self: an alert dialog
  * @child: (nullable): the child widget
  *
@@ -2068,7 +2068,7 @@ adw_alert_dialog_set_response_enabled (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_default_response: (attributes org.gtk.Method.get_property=default-response)
+ * adw_alert_dialog_get_default_response:
  * @self: an alert dialog
  *
  * Gets the ID of the default response of @self.
@@ -2093,7 +2093,7 @@ adw_alert_dialog_get_default_response (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_default_response: (attributes org.gtk.Method.set_property=default-response)
+ * adw_alert_dialog_set_default_response:
  * @self: an alert dialog
  * @response: (nullable): the default response ID
  *
@@ -2133,7 +2133,7 @@ adw_alert_dialog_set_default_response (AdwAlertDialog *self,
 }
 
 /**
- * adw_alert_dialog_get_close_response: (attributes org.gtk.Method.get_property=close-response)
+ * adw_alert_dialog_get_close_response:
  * @self: an alert dialog
  *
  * Gets the ID of the close response of @self.
@@ -2155,7 +2155,7 @@ adw_alert_dialog_get_close_response (AdwAlertDialog *self)
 }
 
 /**
- * adw_alert_dialog_set_close_response: (attributes org.gtk.Method.set_property=close-response)
+ * adw_alert_dialog_set_close_response:
  * @self: an alert dialog
  * @response: the close response ID
  *

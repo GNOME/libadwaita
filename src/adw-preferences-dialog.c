@@ -839,7 +839,7 @@ adw_preferences_dialog_set_visible_page_name (AdwPreferencesDialog *self,
 }
 
 /**
- * adw_preferences_dialog_get_search_enabled: (attributes org.gtk.Method.get_property=search-enabled)
+ * adw_preferences_dialog_get_search_enabled:
  * @self: a preferences dialog
  *
  * Gets whether search is enabled for @self.
@@ -861,7 +861,7 @@ adw_preferences_dialog_get_search_enabled (AdwPreferencesDialog *self)
 }
 
 /**
- * adw_preferences_dialog_set_search_enabled: (attributes org.gtk.Method.set_property=search-enabled)
+ * adw_preferences_dialog_set_search_enabled:
  * @self: a preferences dialog
  * @search_enabled: whether search is enabled
  *

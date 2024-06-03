@@ -364,7 +364,7 @@ adw_clamp_scrollable_new (void)
 }
 
 /**
- * adw_clamp_scrollable_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_clamp_scrollable_get_child:
  * @self: a clamp scrollable
  *
  * Gets the child widget of @self.
@@ -380,7 +380,7 @@ adw_clamp_scrollable_get_child (AdwClampScrollable *self)
 }
 
 /**
- * adw_clamp_scrollable_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_clamp_scrollable_set_child:
  * @self: a clamp scrollable
  * @child: (nullable): the child widget
  *
@@ -435,7 +435,7 @@ adw_clamp_scrollable_set_child (AdwClampScrollable *self,
 }
 
 /**
- * adw_clamp_scrollable_get_maximum_size: (attributes org.gtk.Method.get_property=maximum-size)
+ * adw_clamp_scrollable_get_maximum_size:
  * @self: a clamp scrollable
  *
  * Gets the maximum size allocated to the child.
@@ -455,7 +455,7 @@ adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
 }
 
 /**
- * adw_clamp_scrollable_set_maximum_size: (attributes org.gtk.Method.set_property=maximum-size)
+ * adw_clamp_scrollable_set_maximum_size:
  * @self: a clamp scrollable
  * @maximum_size: the maximum size
  *
@@ -482,7 +482,7 @@ adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
 }
 
 /**
- * adw_clamp_scrollable_get_tightening_threshold: (attributes org.gtk.Method.get_property=tightening-threshold)
+ * adw_clamp_scrollable_get_tightening_threshold:
  * @self: a clamp scrollable
  *
  * Gets the size above which the child is clamped.
@@ -502,7 +502,7 @@ adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
 }
 
 /**
- * adw_clamp_scrollable_set_tightening_threshold: (attributes org.gtk.Method.set_property=tightening-threshold)
+ * adw_clamp_scrollable_set_tightening_threshold:
  * @self: a clamp scrollable
  * @tightening_threshold: the tightening threshold
  *
@@ -540,7 +540,7 @@ adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,
 }
 
 /**
- * adw_clamp_scrollable_get_unit: (attributes org.gtk.Method.get_property=unit)
+ * adw_clamp_scrollable_get_unit:
  * @self: a clamp scrollable
  *
  * Gets the length unit for maximum size and tightening threshold.
@@ -562,7 +562,7 @@ adw_clamp_scrollable_get_unit (AdwClampScrollable *self)
 }
 
 /**
- * adw_clamp_scrollable_set_unit: (attributes org.gtk.Method.set_property=unit)
+ * adw_clamp_scrollable_set_unit:
  * @self: a clamp
  * @unit: the length unit
  *

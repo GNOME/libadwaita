@@ -443,7 +443,7 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_preferences_group_get_title:
  * @self: a preferences group
  *
  * Gets the title of @self.
@@ -463,7 +463,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_preferences_group_set_title:
  * @self: a preferences group
  * @title: the title
  *
@@ -490,7 +490,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_description: (attributes org.gtk.Method.get_property=description)
+ * adw_preferences_group_get_description:
  * @self: a preferences group
  *
  * Gets the description of @self.
@@ -510,7 +510,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_description: (attributes org.gtk.Method.set_property=description)
+ * adw_preferences_group_set_description:
  * @self: a preferences group
  * @description: (nullable): the description
  *
@@ -537,7 +537,7 @@ adw_preferences_group_set_description (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_header_suffix: (attributes org.gtk.Method.get_property=header-suffix)
+ * adw_preferences_group_get_header_suffix:
  * @self: a `AdwPreferencesGroup`
  *
  * Gets the suffix for @self's header.
@@ -559,7 +559,7 @@ adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_header_suffix: (attributes org.gtk.Method.set_property=header-suffix)
+ * adw_preferences_group_set_header_suffix:
  * @self: a `AdwPreferencesGroup`
  * @suffix: (nullable): the suffix to set
  *
@@ -602,7 +602,7 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_separate_rows: (attributes org.gtk.Method.get_property=separate-rows)
+ * adw_preferences_group_get_separate_rows:
  * @self: a `AdwPreferencesGroup`
  *
  * Gets whether @self's rows are separated.
@@ -624,7 +624,7 @@ adw_preferences_group_get_separate_rows (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_separate_rows: (attributes org.gtk.Method.set_property=separate-rows)
+ * adw_preferences_group_set_separate_rows:
  * @self: a `AdwPreferencesGroup`
  * @separate_rows: whether to separate rows
  *

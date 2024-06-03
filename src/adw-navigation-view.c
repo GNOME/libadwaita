@@ -2068,7 +2068,7 @@ adw_navigation_page_new_with_tag (GtkWidget  *child,
 }
 
 /**
- * adw_navigation_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_navigation_page_get_child:
  * @self: a navigation page
  *
  * Gets the child widget of @self.
@@ -2090,7 +2090,7 @@ adw_navigation_page_get_child (AdwNavigationPage *self)
 }
 
 /**
- * adw_navigation_page_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_navigation_page_set_child:
  * @self: a navigation page
  * @child: (nullable): the child widget
  *
@@ -2131,7 +2131,7 @@ adw_navigation_page_set_child (AdwNavigationPage *self,
 }
 
 /**
- * adw_navigation_page_get_tag: (attributes org.gtk.Method.get_property=tag)
+ * adw_navigation_page_get_tag:
  * @self: a navigation page
  *
  * Gets the tag of @self.
@@ -2153,7 +2153,7 @@ adw_navigation_page_get_tag (AdwNavigationPage *self)
 }
 
 /**
- * adw_navigation_page_set_tag: (attributes org.gtk.Method.set_property=tag)
+ * adw_navigation_page_set_tag:
  * @self: a navigation page
  * @tag: (nullable): the page tag
  *
@@ -2209,7 +2209,7 @@ adw_navigation_page_set_tag (AdwNavigationPage *self,
 }
 
 /**
- * adw_navigation_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_navigation_page_get_title:
  * @self: a navigation page
  *
  * Gets the title of @self.
@@ -2231,7 +2231,7 @@ adw_navigation_page_get_title (AdwNavigationPage *self)
 }
 
 /**
- * adw_navigation_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_navigation_page_set_title:
  * @self: a navigation page
  * @title: the title
  *
@@ -2264,7 +2264,7 @@ adw_navigation_page_set_title (AdwNavigationPage *self,
 }
 
 /**
- * adw_navigation_page_get_can_pop: (attributes org.gtk.Method.get_property=can-pop)
+ * adw_navigation_page_get_can_pop:
  * @self: a navigation page
  *
  * Gets whether @self can be popped from navigation stack.
@@ -2286,7 +2286,7 @@ adw_navigation_page_get_can_pop (AdwNavigationPage *self)
 }
 
 /**
- * adw_navigation_page_set_can_pop: (attributes org.gtk.Method.set_property=can-pop)
+ * adw_navigation_page_set_can_pop:
  * @self: a navigation page
  * @can_pop: whether the page can be popped from navigation stack
  *
@@ -2884,7 +2884,7 @@ adw_navigation_view_replace_with_tags (AdwNavigationView  *self,
 }
 
 /**
- * adw_navigation_view_get_visible_page: (attributes org.gtk.Method.get_property=visible-page)
+ * adw_navigation_view_get_visible_page:
  * @self: a navigation view
  *
  * Gets the currently visible page in @self.
@@ -2953,7 +2953,7 @@ adw_navigation_view_get_previous_page (AdwNavigationView *self,
 }
 
 /**
- * adw_navigation_view_get_animate_transitions: (attributes org.gtk.Method.get_property=animate-transitions)
+ * adw_navigation_view_get_animate_transitions:
  * @self: a navigation view
  *
  * Gets whether @self animates page transitions.
@@ -2971,7 +2971,7 @@ adw_navigation_view_get_animate_transitions (AdwNavigationView *self)
 }
 
 /**
- * adw_navigation_view_set_animate_transitions: (attributes org.gtk.Method.set_property=animate-transitions)
+ * adw_navigation_view_set_animate_transitions:
  * @self: a navigation view
  * @animate_transitions: whether to animate page transitions
  *
@@ -2998,7 +2998,7 @@ adw_navigation_view_set_animate_transitions (AdwNavigationView *self,
 }
 
 /**
- * adw_navigation_view_get_pop_on_escape: (attributes org.gtk.Method.get_property=pop-on-escape)
+ * adw_navigation_view_get_pop_on_escape:
  * @self: a navigation view
  *
  * Gets whether pressing Escape pops the current page on @self.
@@ -3016,7 +3016,7 @@ adw_navigation_view_get_pop_on_escape (AdwNavigationView *self)
 }
 
 /**
- * adw_navigation_view_set_pop_on_escape: (attributes org.gtk.Method.set_property=pop-on-escape)
+ * adw_navigation_view_set_pop_on_escape:
  * @self: a navigation view
  * @pop_on_escape: whether to pop the current page when pressing Escape
  *
@@ -3044,7 +3044,7 @@ adw_navigation_view_set_pop_on_escape (AdwNavigationView *self,
 }
 
 /**
- * adw_navigation_view_get_navigation_stack: (attributes org.gtk.Method.get_property=navigation-stack)
+ * adw_navigation_view_get_navigation_stack:
  * @self: a navigation view
  *
  * Returns a [iface@Gio.ListModel] that contains the pages in navigation stack.

@@ -503,7 +503,7 @@ adw_expander_row_remove (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * adw_expander_row_get_subtitle:
  * @self: an expander row
  *
  * Gets the subtitle for @self.
@@ -523,7 +523,7 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * adw_expander_row_set_subtitle:
  * @self: an expander row
  * @subtitle: the subtitle
  *
@@ -546,7 +546,7 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_expander_row_get_icon_name:
  * @self: an expander row
  *
  * Gets the icon name for @self.
@@ -568,7 +568,7 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_expander_row_set_icon_name:
  * @self: an expander row
  * @icon_name: (nullable): the icon name
  *
@@ -590,7 +590,7 @@ adw_expander_row_set_icon_name (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_expanded: (attributes org.gtk.Method.get_property=expanded)
+ * adw_expander_row_get_expanded:
  * @self: an expander row
  *
  * Gets whether @self is expanded.
@@ -610,7 +610,7 @@ adw_expander_row_get_expanded (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_expanded: (attributes org.gtk.Method.set_property=expanded)
+ * adw_expander_row_set_expanded:
  * @self: an expander row
  * @expanded: whether to expand the row
  *
@@ -646,7 +646,7 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_enable_expansion: (attributes org.gtk.Method.get_property=enable-expansion)
+ * adw_expander_row_get_enable_expansion:
  * @self: an expander row
  *
  * Gets whether the expansion of @self is enabled.
@@ -666,7 +666,7 @@ adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_enable_expansion: (attributes org.gtk.Method.set_property=enable-expansion)
+ * adw_expander_row_set_enable_expansion:
  * @self: an expander row
  * @enable_expansion: whether to enable the expansion
  *
@@ -695,7 +695,7 @@ adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_show_enable_switch: (attributes org.gtk.Method.get_property=show-enable-switch)
+ * adw_expander_row_get_show_enable_switch:
  * @self: an expander row
  *
  * Gets whether the switch enabling the expansion of @self is visible.
@@ -715,7 +715,7 @@ adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_show_enable_switch: (attributes org.gtk.Method.set_property=show-enable-switch)
+ * adw_expander_row_set_show_enable_switch:
  * @self: an expander row
  * @show_enable_switch: whether to show the switch enabling the expansion
  *
@@ -742,7 +742,7 @@ adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_title_lines: (attributes org.gtk.Method.get_property=title-lines)
+ * adw_expander_row_get_title_lines:
  * @self: an expander row
  *
  * Gets the number of lines at the end of which the title label will be
@@ -766,7 +766,7 @@ adw_expander_row_get_title_lines (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_title_lines: (attributes org.gtk.Method.set_property=title-lines)
+ * adw_expander_row_set_title_lines:
  * @self: an expander row
  * @title_lines: the number of lines at the end of which the title label will be ellipsized
  *
@@ -791,7 +791,7 @@ adw_expander_row_set_title_lines (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_subtitle_lines: (attributes org.gtk.Method.get_property=subtitle-lines)
+ * adw_expander_row_get_subtitle_lines:
  * @self: an expander row
  *
  * Gets the number of lines at the end of which the subtitle label will be
@@ -815,7 +815,7 @@ adw_expander_row_get_subtitle_lines (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_subtitle_lines: (attributes org.gtk.Method.set_property=subtitle-lines)
+ * adw_expander_row_set_subtitle_lines:
  * @self: an expander row
  * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
  *

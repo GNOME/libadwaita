@@ -180,7 +180,7 @@ adw_switch_row_new (void)
 }
 
 /**
- * adw_switch_row_get_active: (attributes org.gtk.Method.get_property=active)
+ * adw_switch_row_get_active:
  * @self: a switch row
  *
  * Gets whether @self is in its "on" or "off" position.
@@ -198,7 +198,7 @@ adw_switch_row_get_active (AdwSwitchRow *self)
 }
 
 /**
- * adw_switch_row_set_active: (attributes org.gtk.Method.set_property=active)
+ * adw_switch_row_set_active:
  * @self: a switch row
  * @is_active: whether @self should be active
  *

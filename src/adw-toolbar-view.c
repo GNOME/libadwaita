@@ -772,7 +772,7 @@ adw_toolbar_view_new (void)
 }
 
 /**
- * adw_toolbar_view_get_content: (attributes org.gtk.Method.get_property=content)
+ * adw_toolbar_view_get_content:
  * @self: a toolbar view
  *
  * Gets the content widget for @self.
@@ -790,7 +790,7 @@ adw_toolbar_view_get_content (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_content: (attributes org.gtk.Method.set_property=content)
+ * adw_toolbar_view_set_content:
  * @self: a toolbar view
  * @content: (nullable): the content widget
  *
@@ -913,7 +913,7 @@ adw_toolbar_view_remove (AdwToolbarView *self,
 }
 
 /**
- * adw_toolbar_view_get_top_bar_style: (attributes org.gtk.Method.get_property=top-bar-style)
+ * adw_toolbar_view_get_top_bar_style:
  * @self: a toolbar view
  *
  * Gets appearance of the top bars for @self.
@@ -931,7 +931,7 @@ adw_toolbar_view_get_top_bar_style (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_top_bar_style: (attributes org.gtk.Method.set_property=top-bar-style)
+ * adw_toolbar_view_set_top_bar_style:
  * @self: a toolbar view
  * @style: top bar style
  *
@@ -999,7 +999,7 @@ adw_toolbar_view_set_top_bar_style (AdwToolbarView  *self,
 }
 
 /**
- * adw_toolbar_view_get_bottom_bar_style: (attributes org.gtk.Method.get_property=bottom-bar-style)
+ * adw_toolbar_view_get_bottom_bar_style:
  * @self: a toolbar view
  *
  * Gets appearance of the botom bars for @self.
@@ -1017,7 +1017,7 @@ adw_toolbar_view_get_bottom_bar_style (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_bottom_bar_style: (attributes org.gtk.Method.set_property=bottom-bar-style)
+ * adw_toolbar_view_set_bottom_bar_style:
  * @self: a toolbar view
  * @style: bottom bar style
  *
@@ -1085,7 +1085,7 @@ adw_toolbar_view_set_bottom_bar_style (AdwToolbarView  *self,
 }
 
 /**
- * adw_toolbar_view_get_reveal_top_bars: (attributes org.gtk.Method.get_property=reveal-top-bars)
+ * adw_toolbar_view_get_reveal_top_bars:
  * @self: a toolbar view
  *
  * Gets whether top bars are revealed for @self.
@@ -1103,7 +1103,7 @@ adw_toolbar_view_get_reveal_top_bars (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_reveal_top_bars: (attributes org.gtk.Method.set_property=reveal-top-bars)
+ * adw_toolbar_view_set_reveal_top_bars:
  * @self: a toolbar view
  * @reveal: whether to reveal top bars
  *
@@ -1136,7 +1136,7 @@ adw_toolbar_view_set_reveal_top_bars (AdwToolbarView *self,
 }
 
 /**
- * adw_toolbar_view_get_reveal_bottom_bars: (attributes org.gtk.Method.get_property=reveal-bottom-bars)
+ * adw_toolbar_view_get_reveal_bottom_bars:
  * @self: a toolbar view
  *
  * Gets whether bottom bars are revealed for @self.
@@ -1154,7 +1154,7 @@ adw_toolbar_view_get_reveal_bottom_bars (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_reveal_bottom_bars: (attributes org.gtk.Method.set_property=reveal-bottom-bars)
+ * adw_toolbar_view_set_reveal_bottom_bars:
  * @self: a toolbar view
  * @reveal: whether to reveal bottom bars
  *
@@ -1187,7 +1187,7 @@ adw_toolbar_view_set_reveal_bottom_bars (AdwToolbarView *self,
 }
 
 /**
- * adw_toolbar_view_get_extend_content_to_top_edge: (attributes org.gtk.Method.get_property=extend-content-to-top-edge)
+ * adw_toolbar_view_get_extend_content_to_top_edge:
  * @self: a toolbar view
  *
  * Gets whether the content widget can extend behind top bars.
@@ -1205,7 +1205,7 @@ adw_toolbar_view_get_extend_content_to_top_edge (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_extend_content_to_top_edge: (attributes org.gtk.Method.set_property=extend-content-to-top-edge)
+ * adw_toolbar_view_set_extend_content_to_top_edge:
  * @self: a toolbar view
  * @extend: whether content extends behind top bars
  *
@@ -1239,7 +1239,7 @@ adw_toolbar_view_set_extend_content_to_top_edge (AdwToolbarView *self,
 }
 
 /**
- * adw_toolbar_view_get_extend_content_to_bottom_edge: (attributes org.gtk.Method.get_property=extend-content-to-bottom-edge)
+ * adw_toolbar_view_get_extend_content_to_bottom_edge:
  * @self: a toolbar view
  *
  * Gets whether the content widget can extend behind bottom bars.
@@ -1257,7 +1257,7 @@ adw_toolbar_view_get_extend_content_to_bottom_edge (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_set_extend_content_to_bottom_edge: (attributes org.gtk.Method.set_property=extend-content-to-bottom-edge)
+ * adw_toolbar_view_set_extend_content_to_bottom_edge:
  * @self: a toolbar view
  * @extend: whether content extends behind bottom bars
  *
@@ -1291,7 +1291,7 @@ adw_toolbar_view_set_extend_content_to_bottom_edge (AdwToolbarView *self,
 }
 
 /**
- * adw_toolbar_view_get_top_bar_height: (attributes org.gtk.Method.get_property=top-bar-height)
+ * adw_toolbar_view_get_top_bar_height:
  * @self: a toolbar view
  *
  * Gets the current top bar height for @self.
@@ -1314,7 +1314,7 @@ adw_toolbar_view_get_top_bar_height (AdwToolbarView *self)
 }
 
 /**
- * adw_toolbar_view_get_bottom_bar_height: (attributes org.gtk.Method.get_property=bottom-bar-height)
+ * adw_toolbar_view_get_bottom_bar_height:
  * @self: a toolbar view
  *
  * Gets the current bottom bar height for @self.

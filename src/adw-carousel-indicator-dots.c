@@ -375,7 +375,7 @@ adw_carousel_indicator_dots_new (void)
 }
 
 /**
- * adw_carousel_indicator_dots_get_carousel: (attributes org.gtk.Method.get_property=carousel)
+ * adw_carousel_indicator_dots_get_carousel:
  * @self: an indicator
  *
  * Gets the displayed carousel.
@@ -391,7 +391,7 @@ adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self)
 }
 
 /**
- * adw_carousel_indicator_dots_set_carousel: (attributes org.gtk.Method.set_property=carousel)
+ * adw_carousel_indicator_dots_set_carousel:
  * @self: an indicator
  * @carousel: (nullable): a carousel
  *

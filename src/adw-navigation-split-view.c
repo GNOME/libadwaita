@@ -960,7 +960,7 @@ adw_navigation_split_view_new (void)
 }
 
 /**
- * adw_navigation_split_view_get_sidebar: (attributes org.gtk.Method.get_property=sidebar)
+ * adw_navigation_split_view_get_sidebar:
  * @self: a navigation split view
  *
  * Gets the sidebar widget for @self.
@@ -978,7 +978,7 @@ adw_navigation_split_view_get_sidebar (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_sidebar: (attributes org.gtk.Method.set_property=sidebar)
+ * adw_navigation_split_view_set_sidebar:
  * @self: a navigation split view
  * @sidebar: (nullable): the sidebar widget
  *
@@ -1053,7 +1053,7 @@ adw_navigation_split_view_set_sidebar (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_content: (attributes org.gtk.Method.get_property=content)
+ * adw_navigation_split_view_get_content:
  * @self: a navigation split view
  *
  * Sets the content widget for @self.
@@ -1071,7 +1071,7 @@ adw_navigation_split_view_get_content (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_content: (attributes org.gtk.Method.set_property=content)
+ * adw_navigation_split_view_set_content:
  * @self: a navigation split view
  * @content: (nullable): the content widget
  *
@@ -1146,7 +1146,7 @@ adw_navigation_split_view_set_content (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_collapsed: (attributes org.gtk.Method.get_property=collapsed)
+ * adw_navigation_split_view_get_collapsed:
  * @self: a navigation split view
  *
  * Gets whether @self is collapsed.
@@ -1164,7 +1164,7 @@ adw_navigation_split_view_get_collapsed (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_collapsed: (attributes org.gtk.Method.set_property=collapsed)
+ * adw_navigation_split_view_set_collapsed:
  * @self: a navigation split view
  * @collapsed: whether @self is collapsed
  *
@@ -1198,7 +1198,7 @@ adw_navigation_split_view_set_collapsed (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_show_content: (attributes org.gtk.Method.get_property=show-content)
+ * adw_navigation_split_view_get_show_content:
  * @self: a navigation split view
  *
  * Gets which page is visible when @self is collapsed.
@@ -1216,7 +1216,7 @@ adw_navigation_split_view_get_show_content (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_show_content: (attributes org.gtk.Method.set_property=show-content)
+ * adw_navigation_split_view_set_show_content:
  * @self: a navigation split view
  * @show_content: whether to show content when collapsed
  *
@@ -1261,7 +1261,7 @@ adw_navigation_split_view_set_show_content (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_min_sidebar_width: (attributes org.gtk.Method.get_property=min-sidebar-width)
+ * adw_navigation_split_view_get_min_sidebar_width:
  * @self: a navigation split view
  *
  * Gets the minimum sidebar width for @self.
@@ -1279,7 +1279,7 @@ adw_navigation_split_view_get_min_sidebar_width (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_min_sidebar_width: (attributes org.gtk.Method.set_property=min-sidebar-width)
+ * adw_navigation_split_view_set_min_sidebar_width:
  * @self: a navigation split view
  * @width: the minimum width
  *
@@ -1311,7 +1311,7 @@ adw_navigation_split_view_set_min_sidebar_width (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_max_sidebar_width: (attributes org.gtk.Method.get_property=max-sidebar-width)
+ * adw_navigation_split_view_get_max_sidebar_width:
  * @self: a navigation split view
  *
  * Gets the maximum sidebar width for @self.
@@ -1329,7 +1329,7 @@ adw_navigation_split_view_get_max_sidebar_width (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_max_sidebar_width: (attributes org.gtk.Method.set_property=max-sidebar-width)
+ * adw_navigation_split_view_set_max_sidebar_width:
  * @self: a navigation split view
  * @width: the maximum width
  *
@@ -1361,7 +1361,7 @@ adw_navigation_split_view_set_max_sidebar_width (AdwNavigationSplitView *self,
 }
 
 /**
- * adw_navigation_split_view_get_sidebar_width_fraction: (attributes org.gtk.Method.get_property=sidebar-width-fraction)
+ * adw_navigation_split_view_get_sidebar_width_fraction:
  * @self: a navigation split view
  *
  * Gets the preferred sidebar width fraction for @self.
@@ -1379,7 +1379,7 @@ adw_navigation_split_view_get_sidebar_width_fraction (AdwNavigationSplitView *se
 }
 
 /**
- * adw_navigation_split_view_set_sidebar_width_fraction: (attributes org.gtk.Method.set_property=sidebar-width-fraction)
+ * adw_navigation_split_view_set_sidebar_width_fraction:
  * @self: a navigation split view
  * @fraction: the preferred width fraction
  *
@@ -1412,7 +1412,7 @@ adw_navigation_split_view_set_sidebar_width_fraction (AdwNavigationSplitView *se
 }
 
 /**
- * adw_navigation_split_view_get_sidebar_width_unit: (attributes org.gtk.Method.get_property=sidebar-width-unit)
+ * adw_navigation_split_view_get_sidebar_width_unit:
  * @self: a navigation split view
  *
  * Gets the length unit for minimum and maximum sidebar widths.
@@ -1430,7 +1430,7 @@ adw_navigation_split_view_get_sidebar_width_unit (AdwNavigationSplitView *self)
 }
 
 /**
- * adw_navigation_split_view_set_sidebar_width_unit: (attributes org.gtk.Method.set_property=sidebar-width-unit)
+ * adw_navigation_split_view_set_sidebar_width_unit:
  * @self: a navigation split view
  * @unit: the length unit
  *

@@ -523,7 +523,7 @@ adw_action_row_remove (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * adw_action_row_get_subtitle:
  * @self: an action row
  *
  * Gets the subtitle for @self.
@@ -543,7 +543,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * adw_action_row_set_subtitle:
  * @self: an action row
  * @subtitle: the subtitle
  *
@@ -571,7 +571,7 @@ adw_action_row_set_subtitle (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_action_row_get_icon_name:
  * @self: an action row
  *
  * Gets the icon name for @self.
@@ -593,7 +593,7 @@ adw_action_row_get_icon_name (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_action_row_set_icon_name:
  * @self: an action row
  * @icon_name: (nullable): the icon name
  *
@@ -622,7 +622,7 @@ adw_action_row_set_icon_name (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_activatable_widget: (attributes org.gtk.Method.get_property=activatable-widget)
+ * adw_action_row_get_activatable_widget:
  * @self: an action row
  *
  * Gets the widget activated when @self is activated.
@@ -655,7 +655,7 @@ activatable_widget_weak_notify (gpointer  data,
 }
 
 /**
- * adw_action_row_set_activatable_widget: (attributes org.gtk.Method.set_property=activatable-widget)
+ * adw_action_row_set_activatable_widget:
  * @self: an action row
  * @widget: (nullable): the target widget
  *
@@ -717,7 +717,7 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_title_lines: (attributes org.gtk.Method.get_property=title-lines)
+ * adw_action_row_get_title_lines:
  * @self: an action row
  *
  * Gets the number of lines at the end of which the title label will be
@@ -739,7 +739,7 @@ adw_action_row_get_title_lines (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_title_lines: (attributes org.gtk.Method.set_property=title-lines)
+ * adw_action_row_set_title_lines:
  * @self: an action row
  * @title_lines: the number of lines at the end of which the title label will be ellipsized
  *
@@ -771,7 +771,7 @@ adw_action_row_set_title_lines (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_subtitle_lines: (attributes org.gtk.Method.get_property=subtitle-lines)
+ * adw_action_row_get_subtitle_lines:
  * @self: an action row
  *
  * Gets the number of lines at the end of which the subtitle label will be
@@ -793,7 +793,7 @@ adw_action_row_get_subtitle_lines (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_subtitle_lines: (attributes org.gtk.Method.set_property=subtitle-lines)
+ * adw_action_row_set_subtitle_lines:
  * @self: an action row
  * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
  *
@@ -825,7 +825,7 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_subtitle_selectable: (attributes org.gtk.Method.get_property=subtitle-selectable)
+ * adw_action_row_get_subtitle_selectable:
  * @self: a `AdwActionRow`
  *
  * Gets whether the user can copy the subtitle from the label
@@ -845,7 +845,7 @@ adw_action_row_get_subtitle_selectable (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_subtitle_selectable: (attributes org.gtk.Method.set_property=subtitle-selectable)
+ * adw_action_row_set_subtitle_selectable:
  * @self: a `AdwActionRow`
  * @subtitle_selectable: `TRUE` if the user can copy the subtitle from the label
  *

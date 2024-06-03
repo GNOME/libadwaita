@@ -623,7 +623,7 @@ adw_spin_row_configure (AdwSpinRow    *self,
 }
 
 /**
- * adw_spin_row_get_adjustment: (attributes org.gtk.Method.get_property=adjustment)
+ * adw_spin_row_get_adjustment:
  * @self: a spin row
  *
  * Gets the adjustment that holds the value for the spin row.
@@ -643,7 +643,7 @@ adw_spin_row_get_adjustment (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_adjustment: (attributes org.gtk.Method.set_property=adjustment)
+ * adw_spin_row_set_adjustment:
  * @self: a spin row
  * @adjustment: (nullable): an adjustment
  *
@@ -667,7 +667,7 @@ adw_spin_row_set_adjustment (AdwSpinRow    *self,
 }
 
 /**
- * adw_spin_row_get_climb_rate: (attributes org.gtk.Method.get_property=climb-rate)
+ * adw_spin_row_get_climb_rate:
  * @self: a spin row
  *
  * Gets the acceleration rate when you hold down a button or key.
@@ -685,7 +685,7 @@ adw_spin_row_get_climb_rate (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_climb_rate: (attributes org.gtk.Method.set_property=climb-rate)
+ * adw_spin_row_set_climb_rate:
  * @self: a spin row
  * @climb_rate: the acceleration rate when you hold down a button or key
  *
@@ -709,7 +709,7 @@ adw_spin_row_set_climb_rate (AdwSpinRow *self,
 }
 
 /**
- * adw_spin_row_get_digits: (attributes org.gtk.Method.get_property=digits)
+ * adw_spin_row_get_digits:
  * @self: a spin row
  *
  * Gets the number of decimal places to display.
@@ -727,7 +727,7 @@ adw_spin_row_get_digits (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_digits: (attributes org.gtk.Method.set_property=digits)
+ * adw_spin_row_set_digits:
  * @self: a spin row
  * @digits: the number of decimal places to display
  *
@@ -750,7 +750,7 @@ adw_spin_row_set_digits (AdwSpinRow *self,
 }
 
 /**
- * adw_spin_row_get_numeric: (attributes org.gtk.Method.get_property=numeric)
+ * adw_spin_row_get_numeric:
  * @self: a spin row
  *
  * Gets whether non-numeric characters should be ignored.
@@ -768,7 +768,7 @@ adw_spin_row_get_numeric (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_numeric: (attributes org.gtk.Method.set_property=numeric)
+ * adw_spin_row_set_numeric:
  * @self: a spin row
  * @numeric: whether non-numeric characters should be ignored
  *
@@ -793,7 +793,7 @@ adw_spin_row_set_numeric (AdwSpinRow *self,
 }
 
 /**
- * adw_spin_row_get_snap_to_ticks: (attributes org.gtk.Method.get_property=snap-to-ticks)
+ * adw_spin_row_get_snap_to_ticks:
  * @self: a spin row
  *
  * Gets whether invalid values are snapped to nearest step increment.
@@ -811,7 +811,7 @@ adw_spin_row_get_snap_to_ticks (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_snap_to_ticks: (attributes org.gtk.Method.set_property=snap-to-ticks)
+ * adw_spin_row_set_snap_to_ticks:
  * @self: a spin row
  * @snap_to_ticks: whether invalid values are snapped to the nearest step increment
  *
@@ -836,7 +836,7 @@ adw_spin_row_set_snap_to_ticks (AdwSpinRow *self,
 }
 
 /**
- * adw_spin_row_get_update_policy: (attributes org.gtk.Method.get_property=update-policy)
+ * adw_spin_row_get_update_policy:
  * @self: a spin row
  *
  * Gets the policy for updating the spin row.
@@ -854,7 +854,7 @@ adw_spin_row_get_update_policy (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_update_policy: (attributes org.gtk.Method.set_property=update-policy)
+ * adw_spin_row_set_update_policy:
  * @self: a spin row
  * @policy: the policy for updating the spin row
  *
@@ -879,7 +879,7 @@ adw_spin_row_set_update_policy (AdwSpinRow                *self,
 }
 
 /**
- * adw_spin_row_get_value: (attributes org.gtk.Method.get_property=value)
+ * adw_spin_row_get_value:
  * @self: a spin row
  *
  * Gets the current value.
@@ -897,7 +897,7 @@ adw_spin_row_get_value (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_value: (attributes org.gtk.Method.set_property=value)
+ * adw_spin_row_set_value:
  * @self: a spin row
  * @value: a new value
  *
@@ -918,7 +918,7 @@ adw_spin_row_set_value (AdwSpinRow *self,
 }
 
 /**
- * adw_spin_row_get_wrap: (attributes org.gtk.Method.get_property=wrap)
+ * adw_spin_row_get_wrap:
  * @self: a spin row
  *
  * Gets whether the spin row should wrap upon reaching its limits.
@@ -936,7 +936,7 @@ adw_spin_row_get_wrap (AdwSpinRow *self)
 }
 
 /**
- * adw_spin_row_set_wrap: (attributes org.gtk.Method.set_property=wrap)
+ * adw_spin_row_set_wrap:
  * @self: a spin row
  * @wrap: whether the spin row should wrap upon reaching its limits
  *

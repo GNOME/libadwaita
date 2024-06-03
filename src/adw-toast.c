@@ -537,7 +537,7 @@ adw_toast_new_format (const char *format,
 }
 
 /**
- * adw_toast_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_toast_get_title:
  * @self: a toast
  *
  * Gets the title that will be displayed on the toast.
@@ -559,7 +559,7 @@ adw_toast_get_title (AdwToast *self)
 }
 
 /**
- * adw_toast_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_toast_set_title:
  * @self: a toast
  * @title: a title
  *
@@ -593,7 +593,7 @@ adw_toast_set_title (AdwToast   *self,
 }
 
 /**
- * adw_toast_get_button_label: (attributes org.gtk.Method.get_property=button-label)
+ * adw_toast_get_button_label:
  * @self: a toast
  *
  * Gets the label to show on the button.
@@ -609,7 +609,7 @@ adw_toast_get_button_label (AdwToast *self)
 }
 
 /**
- * adw_toast_set_button_label: (attributes org.gtk.Method.set_property=button-label)
+ * adw_toast_set_button_label:
  * @self: a toast
  * @button_label: (nullable): a button label
  *
@@ -634,7 +634,7 @@ adw_toast_set_button_label (AdwToast   *self,
 }
 
 /**
- * adw_toast_get_action_name: (attributes org.gtk.Method.get_property=action-name)
+ * adw_toast_get_action_name:
  * @self: a toast
  *
  * Gets the name of the associated action.
@@ -650,7 +650,7 @@ adw_toast_get_action_name (AdwToast *self)
 }
 
 /**
- * adw_toast_set_action_name: (attributes org.gtk.Method.set_property=action-name)
+ * adw_toast_set_action_name:
  * @self: a toast
  * @action_name: (nullable): the action name
  *
@@ -788,7 +788,7 @@ adw_toast_set_detailed_action_name (AdwToast   *self,
 }
 
 /**
- * adw_toast_get_priority: (attributes org.gtk.Method.get_property=priority)
+ * adw_toast_get_priority:
  * @self: a toast
  *
  * Gets priority for @self.
@@ -804,7 +804,7 @@ adw_toast_get_priority (AdwToast *self)
 }
 
 /**
- * adw_toast_set_priority: (attributes org.gtk.Method.set_property=priority)
+ * adw_toast_set_priority:
  * @self: a toast
  * @priority: the priority
  *
@@ -835,7 +835,7 @@ adw_toast_set_priority (AdwToast         *self,
 }
 
 /**
- * adw_toast_get_timeout: (attributes org.gtk.Method.get_property=timeout)
+ * adw_toast_get_timeout:
  * @self: a toast
  *
  * Gets timeout for @self.
@@ -851,7 +851,7 @@ adw_toast_get_timeout (AdwToast *self)
 }
 
 /**
- * adw_toast_set_timeout: (attributes org.gtk.Method.set_property=timeout)
+ * adw_toast_set_timeout:
  * @self: a toast
  * @timeout: the timeout
  *
@@ -878,7 +878,7 @@ adw_toast_set_timeout (AdwToast *self,
 }
 
 /**
- * adw_toast_get_custom_title: (attributes org.gtk.Method.get_property=custom-title)
+ * adw_toast_get_custom_title:
  * @self: a toast
  *
  * Gets the custom title widget of @self.
@@ -896,7 +896,7 @@ adw_toast_get_custom_title (AdwToast *self)
 }
 
 /**
- * adw_toast_set_custom_title: (attributes org.gtk.Method.set_property=custom-title)
+ * adw_toast_set_custom_title:
  * @self: a toast
  * @widget: (nullable): the custom title widget
  *
@@ -972,7 +972,7 @@ adw_toast_set_overlay (AdwToast        *self,
 }
 
 /**
- * adw_toast_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
+ * adw_toast_get_use_markup:
  * @self: a toast
  *
  * Gets whether to use Pango markup for the toast title.
@@ -990,7 +990,7 @@ adw_toast_get_use_markup (AdwToast *self)
 }
 
 /**
- * adw_toast_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
+ * adw_toast_set_use_markup:
  * @self: a toast
  * @use_markup: whether to use markup
  *

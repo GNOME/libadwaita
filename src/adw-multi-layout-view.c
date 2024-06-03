@@ -405,7 +405,7 @@ adw_multi_layout_view_new (void)
 }
 
 /**
- * adw_multi_layout_view_get_layout: (attributes org.gtk.Method.get_property=layout)
+ * adw_multi_layout_view_get_layout:
  * @self: a multi-layout view
  *
  * Gets the currently used layout of @self.
@@ -423,7 +423,7 @@ adw_multi_layout_view_get_layout (AdwMultiLayoutView *self)
 }
 
 /**
- * adw_multi_layout_view_set_layout: (attributes org.gtk.Method.set_property=layout)
+ * adw_multi_layout_view_set_layout:
  * @self: a multi-layout view
  * @layout: a layout in @self
  *
@@ -442,7 +442,7 @@ adw_multi_layout_view_set_layout (AdwMultiLayoutView *self,
 }
 
 /**
- * adw_multi_layout_view_get_layout_name: (attributes org.gtk.Method.get_property=layout-name)
+ * adw_multi_layout_view_get_layout_name:
  * @self: a multi-layout view
  *
  * Returns the name of the currently used layout of @self.
@@ -463,7 +463,7 @@ adw_multi_layout_view_get_layout_name (AdwMultiLayoutView *self)
 }
 
 /**
- * adw_multi_layout_view_set_layout_name: (attributes org.gtk.Method.set_property=layout-name)
+ * adw_multi_layout_view_set_layout_name:
  * @self: a multi-layout view
  * @name: the name of the layout
  *

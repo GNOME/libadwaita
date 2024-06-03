@@ -259,7 +259,7 @@ adw_button_row_new (void)
 }
 
 /**
- * adw_button_row_get_start_icon_name: (attributes org.gtk.Method.get_property=start-icon-name)
+ * adw_button_row_get_start_icon_name:
  * @self: a button row
  *
  * Gets the start icon name for @self.
@@ -277,7 +277,7 @@ adw_button_row_get_start_icon_name (AdwButtonRow *self)
 }
 
 /**
- * adw_button_row_set_start_icon_name: (attributes org.gtk.Method.set_property=start-icon-name)
+ * adw_button_row_set_start_icon_name:
  * @self: a button row
  * @icon_name: (nullable): the start icon name
  *
@@ -298,7 +298,7 @@ adw_button_row_set_start_icon_name (AdwButtonRow *self,
 }
 
 /**
- * adw_button_row_get_end_icon_name: (attributes org.gtk.Method.get_property=end-icon-name)
+ * adw_button_row_get_end_icon_name:
  * @self: a button row
  *
  * Gets the end icon name for @self.
@@ -316,7 +316,7 @@ adw_button_row_get_end_icon_name (AdwButtonRow *self)
 }
 
 /**
- * adw_button_row_set_end_icon_name: (attributes org.gtk.Method.set_property=end-icon-name)
+ * adw_button_row_set_end_icon_name:
  * @self: a button row
  * @icon_name: (nullable): the end icon name
  *

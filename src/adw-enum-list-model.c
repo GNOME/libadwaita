@@ -146,7 +146,7 @@ adw_enum_list_item_new (GEnumValue *enum_value)
 }
 
 /**
- * adw_enum_list_item_get_value: (attributes org.gtk.Method.get_property=value)
+ * adw_enum_list_item_get_value:
  *
  * Gets the enum value.
  *
@@ -161,7 +161,7 @@ adw_enum_list_item_get_value (AdwEnumListItem *self)
 }
 
 /**
- * adw_enum_list_item_get_name: (attributes org.gtk.Method.get_property=name)
+ * adw_enum_list_item_get_name:
  *
  * Gets the enum value name.
  *
@@ -176,7 +176,7 @@ adw_enum_list_item_get_name (AdwEnumListItem *self)
 }
 
 /**
- * adw_enum_list_item_get_nick: (attributes org.gtk.Method.get_property=nick)
+ * adw_enum_list_item_get_nick:
  *
  * Gets the enum value nick.
  *
@@ -335,7 +335,7 @@ adw_enum_list_model_new (GType enum_type)
 }
 
 /**
- * adw_enum_list_model_get_enum_type: (attributes org.gtk.Method.get_property=enum-type)
+ * adw_enum_list_model_get_enum_type:
  *
  * Gets the type of the enum represented by @self.
  *

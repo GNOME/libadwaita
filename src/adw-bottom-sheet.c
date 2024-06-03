@@ -711,7 +711,7 @@ adw_bottom_sheet_new (void)
 }
 
 /**
- * adw_bottom_sheet_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_bottom_sheet_get_child:
  * @self: a bottom sheet
  *
  * Gets the child widget of @self.
@@ -729,7 +729,7 @@ adw_bottom_sheet_get_child (AdwBottomSheet *self)
 }
 
 /**
- * adw_bottom_sheet_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_bottom_sheet_set_child:
  * @self: a bottom sheet
  * @child: (nullable): the child widget
  *

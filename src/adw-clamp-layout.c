@@ -443,7 +443,7 @@ adw_clamp_layout_new (void)
 }
 
 /**
- * adw_clamp_layout_get_maximum_size: (attributes org.gtk.Method.get_property=maximum-size)
+ * adw_clamp_layout_get_maximum_size:
  * @self: a clamp layout
  *
  * Gets the maximum size allocated to the children.
@@ -459,7 +459,7 @@ adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
 }
 
 /**
- * adw_clamp_layout_set_maximum_size: (attributes org.gtk.Method.set_property=maximum-size)
+ * adw_clamp_layout_set_maximum_size:
  * @self: a clamp layout
  * @maximum_size: the maximum size
  *
@@ -484,7 +484,7 @@ adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
 }
 
 /**
- * adw_clamp_layout_get_tightening_threshold: (attributes org.gtk.Method.get_property=tightening-threshold)
+ * adw_clamp_layout_get_tightening_threshold:
  * @self: a clamp layout
  *
  * Gets the size above which the children are clamped.
@@ -500,7 +500,7 @@ adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
 }
 
 /**
- * adw_clamp_layout_set_tightening_threshold: (attributes org.gtk.Method.set_property=tightening-threshold)
+ * adw_clamp_layout_set_tightening_threshold:
  * @self: a clamp layout
  * @tightening_threshold: the tightening threshold
  *
@@ -536,7 +536,7 @@ adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
 }
 
 /**
- * adw_clamp_layout_get_unit: (attributes org.gtk.Method.get_property=unit)
+ * adw_clamp_layout_get_unit:
  * @self: a clamp layout
  *
  * Gets the length unit for maximum size and tightening threshold.
@@ -554,7 +554,7 @@ adw_clamp_layout_get_unit (AdwClampLayout *self)
 }
 
 /**
- * adw_clamp_layout_set_unit: (attributes org.gtk.Method.set_property=unit)
+ * adw_clamp_layout_set_unit:
  * @self: a clamp layout
  * @unit: the length unit
  *

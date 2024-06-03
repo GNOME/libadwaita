@@ -1804,7 +1804,7 @@ adw_flap_new (void)
 }
 
 /**
- * adw_flap_get_content: (attributes org.gtk.Method.get_property=content)
+ * adw_flap_get_content:
  * @self: a flap
  *
  * Gets the content widget for @self.
@@ -1822,7 +1822,7 @@ adw_flap_get_content (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_content: (attributes org.gtk.Method.set_property=content)
+ * adw_flap_set_content:
  * @self: a flap
  * @content: (nullable): the content widget
  *
@@ -1859,7 +1859,7 @@ adw_flap_set_content (AdwFlap   *self,
 }
 
 /**
- * adw_flap_get_flap: (attributes org.gtk.Method.get_property=flap)
+ * adw_flap_get_flap:
  * @self: a flap
  *
  * Gets the flap widget for @self.
@@ -1877,7 +1877,7 @@ adw_flap_get_flap (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_flap: (attributes org.gtk.Method.set_property=flap)
+ * adw_flap_set_flap:
  * @self: a flap
  * @flap: (nullable): the flap widget
  *
@@ -1915,7 +1915,7 @@ adw_flap_set_flap (AdwFlap   *self,
 }
 
 /**
- * adw_flap_get_separator: (attributes org.gtk.Method.get_property=separator)
+ * adw_flap_get_separator:
  * @self: a flap
  *
  * Gets the separator widget for @self.
@@ -1933,7 +1933,7 @@ adw_flap_get_separator (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_separator: (attributes org.gtk.Method.set_property=separator)
+ * adw_flap_set_separator:
  * @self: a flap
  * @separator: (nullable): the separator widget
  *
@@ -1972,7 +1972,7 @@ adw_flap_set_separator (AdwFlap   *self,
 }
 
 /**
- * adw_flap_get_flap_position: (attributes org.gtk.Method.get_property=flap-position)
+ * adw_flap_get_flap_position:
  * @self: a flap
  *
  * Gets the flap position for @self.
@@ -1990,7 +1990,7 @@ adw_flap_get_flap_position (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_flap_position: (attributes org.gtk.Method.set_property=flap-position)
+ * adw_flap_set_flap_position:
  * @self: a flap
  * @position: the new value
  *
@@ -2020,7 +2020,7 @@ adw_flap_set_flap_position (AdwFlap     *self,
 }
 
 /**
- * adw_flap_get_reveal_flap: (attributes org.gtk.Method.get_property=reveal-flap)
+ * adw_flap_get_reveal_flap:
  * @self: a flap
  *
  * Gets whether the flap widget is revealed for @self.
@@ -2038,7 +2038,7 @@ adw_flap_get_reveal_flap (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_reveal_flap: (attributes org.gtk.Method.set_property=reveal-flap)
+ * adw_flap_set_reveal_flap:
  * @self: a flap
  * @reveal_flap: whether to reveal the flap widget
  *
@@ -2056,7 +2056,7 @@ adw_flap_set_reveal_flap (AdwFlap  *self,
 }
 
 /**
- * adw_flap_get_reveal_params: (attributes org.gtk.Method.get_property=reveal-params)
+ * adw_flap_get_reveal_params:
  * @self: a flap
  *
  * Gets the reveal animation spring parameters for @self.
@@ -2074,7 +2074,7 @@ adw_flap_get_reveal_params (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_reveal_params: (attributes org.gtk.Method.set_property=reveal-params)
+ * adw_flap_set_reveal_params:
  * @self: a flap
  * @params: the new parameters
  *
@@ -2105,7 +2105,7 @@ adw_flap_set_reveal_params (AdwFlap         *self,
 }
 
 /**
- * adw_flap_get_reveal_progress: (attributes org.gtk.Method.get_property=reveal-progress)
+ * adw_flap_get_reveal_progress:
  * @self: a flap
  *
  * Gets the current reveal progress for @self.
@@ -2127,7 +2127,7 @@ adw_flap_get_reveal_progress (AdwFlap *self)
 }
 
 /**
- * adw_flap_get_fold_policy: (attributes org.gtk.Method.get_property=fold-policy)
+ * adw_flap_get_fold_policy:
  * @self: a flap
  *
  * Gets the fold policy for @self.
@@ -2145,7 +2145,7 @@ adw_flap_get_fold_policy (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_fold_policy: (attributes org.gtk.Method.set_property=fold-policy)
+ * adw_flap_set_fold_policy:
  * @self: a flap
  * @policy: the fold policy
  *
@@ -2186,7 +2186,7 @@ adw_flap_set_fold_policy (AdwFlap           *self,
 }
 
 /**
- * adw_flap_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * adw_flap_get_fold_threshold_policy:
  * @self: a flap
  *
  * Gets the fold threshold policy for @self.
@@ -2204,7 +2204,7 @@ adw_flap_get_fold_threshold_policy (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * adw_flap_set_fold_threshold_policy:
  * @self: a flap
  * @policy: the policy to use
  *
@@ -2237,7 +2237,7 @@ adw_flap_set_fold_threshold_policy (AdwFlap                *self,
 }
 
 /**
- * adw_flap_get_fold_duration: (attributes org.gtk.Method.get_property=fold-duration)
+ * adw_flap_get_fold_duration:
  * @self: a flap
  *
  * Gets the fold transition animation duration for @self, in milliseconds.
@@ -2255,7 +2255,7 @@ adw_flap_get_fold_duration (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_fold_duration: (attributes org.gtk.Method.set_property=fold-duration)
+ * adw_flap_set_fold_duration:
  * @self: a flap
  * @duration: the new duration, in milliseconds
  *
@@ -2278,7 +2278,7 @@ adw_flap_set_fold_duration (AdwFlap *self,
 }
 
 /**
- * adw_flap_get_folded: (attributes org.gtk.Method.get_property=folded)
+ * adw_flap_get_folded:
  * @self: a flap
  *
  * Gets whether @self is currently folded.
@@ -2298,7 +2298,7 @@ adw_flap_get_folded (AdwFlap *self)
 }
 
 /**
- * adw_flap_get_locked: (attributes org.gtk.Method.get_property=locked)
+ * adw_flap_get_locked:
  * @self: a flap
  *
  * Gets whether @self is locked.
@@ -2316,7 +2316,7 @@ adw_flap_get_locked (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_locked: (attributes org.gtk.Method.set_property=locked)
+ * adw_flap_set_locked:
  * @self: a flap
  * @locked: the new value
  *
@@ -2345,7 +2345,7 @@ adw_flap_set_locked (AdwFlap  *self,
 }
 
 /**
- * adw_flap_get_transition_type: (attributes org.gtk.Method.get_property=transition-type)
+ * adw_flap_get_transition_type:
  * @self: a flap
  *
  * Gets the type of animation used for reveal and fold transitions in @self.
@@ -2363,7 +2363,7 @@ adw_flap_get_transition_type (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_transition_type: (attributes org.gtk.Method.set_property=transition-type)
+ * adw_flap_set_transition_type:
  * @self: a flap
  * @transition_type: the new transition type
  *
@@ -2397,7 +2397,7 @@ adw_flap_set_transition_type (AdwFlap               *self,
 }
 
 /**
- * adw_flap_get_modal: (attributes org.gtk.Method.get_property=modal)
+ * adw_flap_get_modal:
  * @self: a flap
  *
  * Gets whether @self is modal.
@@ -2415,7 +2415,7 @@ adw_flap_get_modal (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_modal: (attributes org.gtk.Method.set_property=modal)
+ * adw_flap_set_modal:
  * @self: a flap
  * @modal: whether @self is modal
  *
@@ -2449,7 +2449,7 @@ adw_flap_set_modal (AdwFlap  *self,
 }
 
 /**
- * adw_flap_get_swipe_to_open: (attributes org.gtk.Method.get_property=swipe-to-open)
+ * adw_flap_get_swipe_to_open:
  * @self: a flap
  *
  * Gets whether @self can be opened with a swipe gesture.
@@ -2467,7 +2467,7 @@ adw_flap_get_swipe_to_open (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_swipe_to_open: (attributes org.gtk.Method.set_property=swipe-to-open)
+ * adw_flap_set_swipe_to_open:
  * @self: a flap
  * @swipe_to_open: whether @self can be opened with a swipe gesture
  *
@@ -2497,7 +2497,7 @@ adw_flap_set_swipe_to_open (AdwFlap  *self,
 }
 
 /**
- * adw_flap_get_swipe_to_close: (attributes org.gtk.Method.get_property=swipe-to-close)
+ * adw_flap_get_swipe_to_close:
  * @self: a flap
  *
  * Gets whether @self can be closed with a swipe gesture.
@@ -2515,7 +2515,7 @@ adw_flap_get_swipe_to_close (AdwFlap *self)
 }
 
 /**
- * adw_flap_set_swipe_to_close: (attributes org.gtk.Method.set_property=swipe-to-close)
+ * adw_flap_set_swipe_to_close:
  * @self: a flap
  * @swipe_to_close: whether @self can be closed with a swipe gesture
  *

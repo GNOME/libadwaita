@@ -271,7 +271,7 @@ adw_application_new (const char        *application_id,
 }
 
 /**
- * adw_application_get_style_manager: (attributes org.gtk.Method.get_property=style-manager)
+ * adw_application_get_style_manager:
  * @self: an application
  *
  * Gets the style manager for @self.

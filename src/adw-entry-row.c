@@ -834,7 +834,7 @@ adw_entry_row_remove (AdwEntryRow *self,
 }
 
 /**
- * adw_entry_row_get_show_apply_button: (attributes org.gtk.Method.get_property=show-apply-button)
+ * adw_entry_row_get_show_apply_button:
  * @self: an entry row
  *
  * Gets whether @self can show the apply button.
@@ -856,7 +856,7 @@ adw_entry_row_get_show_apply_button (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_show_apply_button: (attributes org.gtk.Method.set_property=show-apply-button)
+ * adw_entry_row_set_show_apply_button:
  * @self: an entry row
  * @show_apply_button: whether to show the apply button
  *
@@ -898,7 +898,7 @@ adw_entry_row_set_show_apply_button (AdwEntryRow *self,
 }
 
 /**
- * adw_entry_row_get_input_hints: (attributes org.gtk.Method.get_property=input-hints)
+ * adw_entry_row_get_input_hints:
  * @self: an entry row
  *
  * Gets the additional input hints of @self.
@@ -920,7 +920,7 @@ adw_entry_row_get_input_hints (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_input_hints: (attributes org.gtk.Method.set_property=input-hints)
+ * adw_entry_row_set_input_hints:
  * @self: an entry row
  * @hints: the hints
  *
@@ -951,7 +951,7 @@ adw_entry_row_set_input_hints (AdwEntryRow   *self,
 }
 
 /**
- * adw_entry_row_get_input_purpose: (attributes org.gtk.Method.get_property=input-purpose)
+ * adw_entry_row_get_input_purpose:
  * @self: an entry row
  *
  * Gets the input purpose of @self.
@@ -973,7 +973,7 @@ adw_entry_row_get_input_purpose (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_input_purpose: (attributes org.gtk.Method.set_property=input-purpose)
+ * adw_entry_row_set_input_purpose:
  * @self: an entry row
  * @purpose: the purpose
  *
@@ -1002,7 +1002,7 @@ adw_entry_row_set_input_purpose (AdwEntryRow     *self,
 }
 
 /**
- * adw_entry_row_get_attributes: (attributes org.gtk.Method.get_property=attributes)
+ * adw_entry_row_get_attributes:
  * @self: an entry row
  *
  * Gets Pango attributes applied to the text of the embedded entry.
@@ -1024,7 +1024,7 @@ adw_entry_row_get_attributes (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_attributes: (attributes org.gtk.Method.set_property=attributes)
+ * adw_entry_row_set_attributes:
  * @self: an entry row
  * @attributes: (nullable): a list of attributes
  *
@@ -1054,7 +1054,7 @@ adw_entry_row_set_attributes (AdwEntryRow   *self,
 }
 
 /**
- * adw_entry_row_get_enable_emoji_completion: (attributes org.gtk.Method.get_property=enable-emoji-completion)
+ * adw_entry_row_get_enable_emoji_completion:
  * @self: an entry row
  *
  * Gets whether to suggest emoji replacements on @self.
@@ -1076,7 +1076,7 @@ adw_entry_row_get_enable_emoji_completion (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_enable_emoji_completion: (attributes org.gtk.Method.set_property=enable-emoji-completion)
+ * adw_entry_row_set_enable_emoji_completion:
  * @self: an entry row
  * @enable_emoji_completion: Whether emoji completion should be enabled or not
  *
@@ -1107,7 +1107,7 @@ adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
 }
 
 /**
- * adw_entry_row_get_activates_default: (attributes org.gtk.Method.get_property=activates-default)
+ * adw_entry_row_get_activates_default:
  * @self: an entry row
  *
  * Gets whether activating the embedded entry can activate the default widget.
@@ -1129,7 +1129,7 @@ adw_entry_row_get_activates_default (AdwEntryRow *self)
 }
 
 /**
- * adw_entry_row_set_activates_default: (attributes org.gtk.Method.set_property=activates-default)
+ * adw_entry_row_set_activates_default:
  * @self: an entry row
  * @activates: whether to activate the default widget
  *

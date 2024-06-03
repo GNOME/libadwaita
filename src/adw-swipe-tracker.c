@@ -1400,7 +1400,7 @@ adw_swipe_tracker_new (AdwSwipeable *swipeable)
 }
 
 /**
- * adw_swipe_tracker_get_swipeable: (attributes org.gtk.Method.get_property=swipeable)
+ * adw_swipe_tracker_get_swipeable:
  * @self: a swipe tracker
  *
  * Get the widget @self is attached to.
@@ -1416,7 +1416,7 @@ adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_get_enabled: (attributes org.gtk.Method.get_property=enabled)
+ * adw_swipe_tracker_get_enabled:
  * @self: a swipe tracker
  *
  * Gets whether @self is enabled.
@@ -1432,7 +1432,7 @@ adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_enabled: (attributes org.gtk.Method.set_property=enabled)
+ * adw_swipe_tracker_set_enabled:
  * @self: a swipe tracker
  * @enabled: whether @self is enabled
  *
@@ -1463,7 +1463,7 @@ adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_reversed: (attributes org.gtk.Method.get_property=reversed)
+ * adw_swipe_tracker_get_reversed:
  * @self: a swipe tracker
  *
  * Gets whether @self is reversing the swipe direction.
@@ -1479,7 +1479,7 @@ adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_reversed: (attributes org.gtk.Method.set_property=reversed)
+ * adw_swipe_tracker_set_reversed:
  * @self: a swipe tracker
  * @reversed: whether to reverse the swipe direction
  *
@@ -1504,7 +1504,7 @@ adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_allow_mouse_drag: (attributes org.gtk.Method.get_property=allow-mouse-drag)
+ * adw_swipe_tracker_get_allow_mouse_drag:
  * @self: a swipe tracker
  *
  * Gets whether @self can be dragged with mouse pointer.
@@ -1520,7 +1520,7 @@ adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_allow_mouse_drag: (attributes org.gtk.Method.set_property=allow-mouse-drag)
+ * adw_swipe_tracker_set_allow_mouse_drag:
  * @self: a swipe tracker
  * @allow_mouse_drag: whether to allow mouse dragging
  *
@@ -1545,7 +1545,7 @@ adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_allow_long_swipes: (attributes org.gtk.Method.get_property=allow-long-swipes)
+ * adw_swipe_tracker_get_allow_long_swipes:
  * @self: a swipe tracker
  *
  * Gets whether to allow swiping for more than one snap point at a time.
@@ -1561,7 +1561,7 @@ adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_allow_long_swipes: (attributes org.gtk.Method.set_property=allow-long-swipes)
+ * adw_swipe_tracker_set_allow_long_swipes:
  * @self: a swipe tracker
  * @allow_long_swipes: whether to allow long swipes
  *
@@ -1587,7 +1587,7 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_lower_overshoot: (attributes org.gtk.Method.get_property=lower-overshoot)
+ * adw_swipe_tracker_get_lower_overshoot:
  * @self: a swipe tracker
  *
  * Gets whether to allow swiping past the first available snap point.
@@ -1605,7 +1605,7 @@ adw_swipe_tracker_get_lower_overshoot (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_lower_overshoot: (attributes org.gtk.Method.set_property=lower-overshoot)
+ * adw_swipe_tracker_set_lower_overshoot:
  * @self: a swipe tracker
  * @overshoot: whether to allow swiping past the first available snap point
  *
@@ -1630,7 +1630,7 @@ adw_swipe_tracker_set_lower_overshoot (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_upper_overshoot: (attributes org.gtk.Method.get_property=upper-overshoot)
+ * adw_swipe_tracker_get_upper_overshoot:
  * @self: a swipe tracker
  *
  * Gets whether to allow swiping past the last available snap point.
@@ -1648,7 +1648,7 @@ adw_swipe_tracker_get_upper_overshoot (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_upper_overshoot: (attributes org.gtk.Method.set_property=upper-overshoot)
+ * adw_swipe_tracker_set_upper_overshoot:
  * @self: a swipe tracker
  * @overshoot: whether to allow swiping past the last available snap point
  *
@@ -1673,7 +1673,7 @@ adw_swipe_tracker_set_upper_overshoot (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_allow_window_handle: (attributes org.gtk.Method.get_property=allow-window-handle)
+ * adw_swipe_tracker_get_allow_window_handle:
  * @self: a swipe tracker
  *
  * Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
@@ -1691,7 +1691,7 @@ adw_swipe_tracker_get_allow_window_handle (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_allow_window_handle: (attributes org.gtk.Method.set_property=allow-window-handle)
+ * adw_swipe_tracker_set_allow_window_handle:
  * @self: a swipe tracker
  * @allow_window_handle: whether to allow swiping from window handles
  *

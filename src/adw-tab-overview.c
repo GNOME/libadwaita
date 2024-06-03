@@ -1904,7 +1904,7 @@ adw_tab_overview_new (void)
 }
 
 /**
- * adw_tab_overview_get_view: (attributes org.gtk.Method.get_property=view)
+ * adw_tab_overview_get_view:
  * @self: a tab overview
  *
  * Gets the tab view @self controls.
@@ -1922,7 +1922,7 @@ adw_tab_overview_get_view (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_view: (attributes org.gtk.Method.set_property=view)
+ * adw_tab_overview_set_view:
  * @self: a tab overview
  * @view: (nullable): a tab view
  *
@@ -2000,7 +2000,7 @@ adw_tab_overview_set_view (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_tab_overview_get_child:
  * @self: a `AdwTabOveview`
  *
  * Gets the child widget of @self.
@@ -2018,7 +2018,7 @@ adw_tab_overview_get_child (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_tab_overview_set_child:
  * @self: a tab overview
  * @child: (nullable): the child widget
  *
@@ -2045,7 +2045,7 @@ adw_tab_overview_set_child (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_open: (attributes org.gtk.Method.get_property=open)
+ * adw_tab_overview_get_open:
  * @self: a tab overview
  *
  * Gets whether @self is open.
@@ -2063,7 +2063,7 @@ adw_tab_overview_get_open (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_open: (attributes org.gtk.Method.set_property=open)
+ * adw_tab_overview_set_open:
  * @self: a tab overview
  * @open: whether the overview is open
  *
@@ -2153,7 +2153,7 @@ adw_tab_overview_set_open (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_inverted: (attributes org.gtk.Method.get_property=inverted)
+ * adw_tab_overview_get_inverted:
  * @self: a tab overview
  *
  * Gets whether thumbnails use inverted layout.
@@ -2171,7 +2171,7 @@ adw_tab_overview_get_inverted (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_inverted: (attributes org.gtk.Method.set_property=inverted)
+ * adw_tab_overview_set_inverted:
  * @self: a tab overview
  * @inverted: whether thumbnails use inverted layout
  *
@@ -2200,7 +2200,7 @@ adw_tab_overview_set_inverted (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_enable_search: (attributes org.gtk.Method.get_property=enable-search)
+ * adw_tab_overview_get_enable_search:
  * @self: a tab overview
  *
  * Gets whether search in tabs is enabled for @self.
@@ -2218,7 +2218,7 @@ adw_tab_overview_get_enable_search (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_enable_search: (attributes org.gtk.Method.set_property=enable-search)
+ * adw_tab_overview_set_enable_search:
  * @self: a tab overview
  * @enable_search: whether to enable search
  *
@@ -2260,7 +2260,7 @@ adw_tab_overview_set_enable_search (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_search_active: (attributes org.gtk.Method.get_property=search-active)
+ * adw_tab_overview_get_search_active:
  * @self: a tab overview
  *
  * Gets whether search is currently active for @self.
@@ -2280,7 +2280,7 @@ adw_tab_overview_get_search_active (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_get_enable_new_tab: (attributes org.gtk.Method.get_property=enable-new-tab)
+ * adw_tab_overview_get_enable_new_tab:
  * @self: a tab overview
  *
  * Gets whether to new tab button is enabled for @self.
@@ -2298,7 +2298,7 @@ adw_tab_overview_get_enable_new_tab (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_enable_new_tab: (attributes org.gtk.Method.set_property=enable-new-tab)
+ * adw_tab_overview_set_enable_new_tab:
  * @self: a tab overview
  * @enable_new_tab: whether to enable new tab button
  *
@@ -2327,7 +2327,7 @@ adw_tab_overview_set_enable_new_tab (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_secondary_menu: (attributes org.gtk.Method.get_property=secondary-menu)
+ * adw_tab_overview_get_secondary_menu:
  * @self: a tab overview
  *
  * Gets the secondary menu model for @self.
@@ -2345,7 +2345,7 @@ adw_tab_overview_get_secondary_menu (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_secondary_menu: (attributes org.gtk.Method.set_property=secondary-menu)
+ * adw_tab_overview_set_secondary_menu:
  * @self: a tab overview
  * @secondary_menu: (nullable): a menu model
  *
@@ -2374,7 +2374,7 @@ adw_tab_overview_set_secondary_menu (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_show_start_title_buttons: (attributes org.gtk.Method.get_property=show-start-title-buttons)
+ * adw_tab_overview_get_show_start_title_buttons:
  * @self: a tab overview
  *
  * Gets whether start title buttons are shown in @self's header bar.
@@ -2392,7 +2392,7 @@ adw_tab_overview_get_show_start_title_buttons (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_show_start_title_buttons: (attributes org.gtk.Method.set_property=show-start-title-buttons)
+ * adw_tab_overview_set_show_start_title_buttons:
  * @self: a tab overview
  * @show_start_title_buttons: whether to show start title buttons
  *
@@ -2422,7 +2422,7 @@ adw_tab_overview_set_show_start_title_buttons (AdwTabOverview *self,
 }
 
 /**
- * adw_tab_overview_get_show_end_title_buttons: (attributes org.gtk.Method.get_property=show-end-title-buttons)
+ * adw_tab_overview_get_show_end_title_buttons:
  * @self: a tab overview
  *
  * Gets whether end title buttons are shown in @self's header bar.
@@ -2440,7 +2440,7 @@ adw_tab_overview_get_show_end_title_buttons (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_show_end_title_buttons: (attributes org.gtk.Method.set_property=show-end-title-buttons)
+ * adw_tab_overview_set_show_end_title_buttons:
  * @self: a tab overview
  * @show_end_title_buttons: whether to show end title buttons
  *
@@ -2540,7 +2540,7 @@ adw_tab_overview_get_extra_drag_preferred_action (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_get_extra_drag_preload: (attributes org.gtk.Method.get_property=extra-drag-preload)
+ * adw_tab_overview_get_extra_drag_preload:
  * @self: a tab overview
  *
  * Gets whether drop data should be preloaded on hover.
@@ -2558,7 +2558,7 @@ adw_tab_overview_get_extra_drag_preload (AdwTabOverview *self)
 }
 
 /**
- * adw_tab_overview_set_extra_drag_preload: (attributes org.gtk.Method.set_property=extra-drag-preload)
+ * adw_tab_overview_set_extra_drag_preload:
  * @self: a tab overview
  * @preload: whether to preload drop data
  *

@@ -617,7 +617,7 @@ adw_split_button_new (void)
 }
 
 /**
- * adw_split_button_get_label: (attributes org.gtk.Method.get_property=label)
+ * adw_split_button_get_label:
  * @self: a split button
  *
  * Gets the label for @self.
@@ -633,7 +633,7 @@ adw_split_button_get_label (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_label: (attributes org.gtk.Method.set_property=label)
+ * adw_split_button_set_label:
  * @self: a split button
  * @label: the label to set
  *
@@ -666,7 +666,7 @@ adw_split_button_set_label (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * adw_split_button_get_use_underline:
  * @self: a split button
  *
  * Gets whether an underline in the text indicates a mnemonic.
@@ -682,7 +682,7 @@ adw_split_button_get_use_underline (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * adw_split_button_set_use_underline:
  * @self: a split button
  * @use_underline: whether an underline in the text indicates a mnemonic
  *
@@ -705,7 +705,7 @@ adw_split_button_set_use_underline (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_split_button_get_icon_name:
  * @self: a split button
  *
  * Gets the name of the icon used to automatically populate the button.
@@ -721,7 +721,7 @@ adw_split_button_get_icon_name (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_split_button_set_icon_name:
  * @self: a split button
  * @icon_name: the icon name to set
  *
@@ -755,7 +755,7 @@ adw_split_button_set_icon_name (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_split_button_get_child:
  * @self: a split button
  *
  * Gets the child widget.
@@ -771,7 +771,7 @@ adw_split_button_get_child (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_split_button_set_child:
  * @self: a split button
  * @child: (nullable): the new child widget
  *
@@ -808,7 +808,7 @@ adw_split_button_set_child (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_can_shrink: (attributes org.gtk.Method.get_property=can-shrink)
+ * adw_split_button_get_can_shrink:
  * @self: a split button
  *
  * gets whether the button can be smaller than the natural size of its contents.
@@ -826,7 +826,7 @@ adw_split_button_get_can_shrink (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_can_shrink: (attributes org.gtk.Method.set_property=can-shrink)
+ * adw_split_button_set_can_shrink:
  * @self: a split button
  * @can_shrink: whether the button can shrink
  *
@@ -856,7 +856,7 @@ adw_split_button_set_can_shrink (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_menu_model: (attributes org.gtk.Method.get_property=menu-model)
+ * adw_split_button_get_menu_model:
  * @self: a split button
  *
  * Gets the menu model from which the popup will be created.
@@ -872,7 +872,7 @@ adw_split_button_get_menu_model (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_menu_model: (attributes org.gtk.Method.set_property=menu-model)
+ * adw_split_button_set_menu_model:
  * @self: a split button
  * @menu_model: (nullable): the menu model
  *
@@ -900,7 +900,7 @@ adw_split_button_set_menu_model (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_popover: (attributes org.gtk.Method.get_property=popover)
+ * adw_split_button_get_popover:
  * @self: a split button
  *
  * Gets the popover that will be popped up when the dropdown is clicked.
@@ -916,7 +916,7 @@ adw_split_button_get_popover (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_popover: (attributes org.gtk.Method.set_property=popover)
+ * adw_split_button_set_popover:
  * @self: a split button
  * @popover: (nullable): the popover
  *
@@ -940,7 +940,7 @@ adw_split_button_set_popover (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_direction: (attributes org.gtk.Method.get_property=direction)
+ * adw_split_button_get_direction:
  * @self: a split button
  *
  * Gets the direction in which the popup will be popped up.
@@ -956,7 +956,7 @@ adw_split_button_get_direction (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_direction: (attributes org.gtk.Method.set_property=direction)
+ * adw_split_button_set_direction:
  * @self: a split button
  * @direction: the direction
  *
@@ -984,7 +984,7 @@ adw_split_button_set_direction (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_dropdown_tooltip: (attributes org.gtk.Method.get_property=dropdown-tooltip)
+ * adw_split_button_get_dropdown_tooltip:
  * @self: a split button
  *
  * Gets the tooltip of the dropdown button of @self.
@@ -1005,7 +1005,7 @@ adw_split_button_get_dropdown_tooltip (AdwSplitButton *self)
 }
 
 /**
- * adw_split_button_set_dropdown_tooltip: (attributes org.gtk.Method.set_property=dropdown-tooltip)
+ * adw_split_button_set_dropdown_tooltip:
  * @self: a split button
  * @tooltip: the dropdown tooltip of @self
  *

@@ -344,7 +344,7 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 }
 
 /**
- * adw_preferences_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_preferences_page_get_icon_name:
  * @self: a preferences page
  *
  * Gets the icon name for @self.
@@ -364,7 +364,7 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_preferences_page_set_icon_name:
  * @self: a preferences page
  * @icon_name: (nullable): the icon name
  *
@@ -387,7 +387,7 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_preferences_page_get_title:
  * @self: a preferences page
  *
  * Gets the title of @self.
@@ -407,7 +407,7 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_preferences_page_set_title:
  * @self: a preferences page
  * @title: the title
  *
@@ -430,7 +430,7 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_description: (attributes org.gtk.Method.get_property=description)
+ * adw_preferences_page_get_description:
  * @self: a preferences page
  *
  * Gets the description of @self.
@@ -452,7 +452,7 @@ adw_preferences_page_get_description (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_description: (attributes org.gtk.Method.set_property=description)
+ * adw_preferences_page_set_description:
  * @self: a preferences page
  * @description: the description
  *
@@ -483,7 +483,7 @@ adw_preferences_page_set_description (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_name: (attributes org.gtk.Method.get_property=name)
+ * adw_preferences_page_get_name:
  * @self: a preferences page
  *
  * Gets the name of @self.
@@ -503,7 +503,7 @@ adw_preferences_page_get_name (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_name: (attributes org.gtk.Method.set_property=name)
+ * adw_preferences_page_set_name:
  * @self: a preferences page
  * @name: (nullable): the name
  *
@@ -526,7 +526,7 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * adw_preferences_page_get_use_underline:
  * @self: a preferences page
  *
  * Gets whether an embedded underline in the title indicates a mnemonic.
@@ -546,7 +546,7 @@ adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * adw_preferences_page_set_use_underline:
  * @self: a preferences page
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
@@ -573,7 +573,7 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_description_centered: (attributes org.gtk.Method.get_property=description-centered)
+ * adw_preferences_page_get_description_centered:
  * @self: a preferences page
  *
  * Gets whether the description is centered.
@@ -595,7 +595,7 @@ adw_preferences_page_get_description_centered (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_description_centered: (attributes org.gtk.Method.set_property=description-centered)
+ * adw_preferences_page_set_description_centered:
  * @self: a preferences page
  * @centered: If the description should be centered
  *

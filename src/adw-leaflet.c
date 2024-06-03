@@ -2663,7 +2663,7 @@ adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
 }
 
 /**
- * adw_leaflet_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_leaflet_page_get_child:
  * @self: a leaflet page
  *
  * Gets the leaflet child to which @self belongs.
@@ -2681,7 +2681,7 @@ adw_leaflet_page_get_child (AdwLeafletPage *self)
 }
 
 /**
- * adw_leaflet_page_get_name: (attributes org.gtk.Method.get_property=name)
+ * adw_leaflet_page_get_name:
  * @self: a leaflet page
  *
  * Gets the name of @self.
@@ -2699,7 +2699,7 @@ adw_leaflet_page_get_name (AdwLeafletPage *self)
 }
 
 /**
- * adw_leaflet_page_set_name: (attributes org.gtk.Method.set_property=name)
+ * adw_leaflet_page_set_name:
  * @self: a leaflet page
  * @name: (nullable): the new value to set
  *
@@ -2746,7 +2746,7 @@ adw_leaflet_page_set_name (AdwLeafletPage *self,
 }
 
 /**
- * adw_leaflet_page_get_navigatable: (attributes org.gtk.Method.get_property=navigatable)
+ * adw_leaflet_page_get_navigatable:
  * @self: a leaflet page
  *
  * Gets whether the child can be navigated to when folded.
@@ -2764,7 +2764,7 @@ adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
 }
 
 /**
- * adw_leaflet_page_set_navigatable: (attributes org.gtk.Method.set_property=navigatable)
+ * adw_leaflet_page_set_navigatable:
  * @self: a leaflet page
  * @navigatable: whether @self can be navigated to when folded
  *
@@ -3030,7 +3030,7 @@ adw_leaflet_get_page (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_set_can_unfold: (attributes org.gtk.Method.set_property=can-unfold)
+ * adw_leaflet_set_can_unfold:
  * @self: a leaflet
  * @can_unfold: whether @self can unfold
  *
@@ -3057,7 +3057,7 @@ adw_leaflet_set_can_unfold (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_can_unfold: (attributes org.gtk.Method.get_property=can-unfold)
+ * adw_leaflet_get_can_unfold:
  * @self: a leaflet
  *
  * Gets whether @self can unfold.
@@ -3075,7 +3075,7 @@ adw_leaflet_get_can_unfold (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_get_folded: (attributes org.gtk.Method.get_property=folded)
+ * adw_leaflet_get_folded:
  * @self: a leaflet
  *
  * Gets whether @self is folded.
@@ -3097,7 +3097,7 @@ adw_leaflet_get_folded (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * adw_leaflet_get_fold_threshold_policy:
  * @self: a leaflet
  *
  * Gets the fold threshold policy for @self.
@@ -3116,7 +3116,7 @@ adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
 
 
 /**
- * adw_leaflet_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * adw_leaflet_set_fold_threshold_policy:
  * @self: a leaflet
  * @policy: the policy to use
  *
@@ -3149,7 +3149,7 @@ adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
 }
 
 /**
- * adw_leaflet_get_homogeneous: (attributes org.gtk.Method.get_property=homogeneous)
+ * adw_leaflet_get_homogeneous:
  * @self: a leaflet
  *
  * Gets whether @self is homogeneous.
@@ -3167,7 +3167,7 @@ adw_leaflet_get_homogeneous (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_homogeneous: (attributes org.gtk.Method.set_property=homogeneous)
+ * adw_leaflet_set_homogeneous:
  * @self: a leaflet
  * @homogeneous: whether to make @self homogeneous
  *
@@ -3197,7 +3197,7 @@ adw_leaflet_set_homogeneous (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
+ * adw_leaflet_get_visible_child:
  * @self: a leaflet
  *
  * Gets the widget currently visible when the leaflet is folded.
@@ -3218,7 +3218,7 @@ adw_leaflet_get_visible_child (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_visible_child: (attributes org.gtk.Method.set_property=visible-child)
+ * adw_leaflet_set_visible_child:
  * @self: a leaflet
  * @visible_child: the new child
  *
@@ -3251,7 +3251,7 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_visible_child_name: (attributes org.gtk.Method.get_property=visible-child-name)
+ * adw_leaflet_get_visible_child_name:
  * @self: a leaflet
  *
  * Gets the name of the currently visible child widget.
@@ -3272,7 +3272,7 @@ adw_leaflet_get_visible_child_name (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_visible_child_name: (attributes org.gtk.Method.set_property=visible-child-name)
+ * adw_leaflet_set_visible_child_name:
  * @self: a leaflet
  * @name: the name of a child
  *
@@ -3301,7 +3301,7 @@ adw_leaflet_set_visible_child_name (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_transition_type: (attributes org.gtk.Method.get_property=transition-type)
+ * adw_leaflet_get_transition_type:
  * @self: a leaflet
  *
  * Gets the type of animation used for transitions between modes and children.
@@ -3319,7 +3319,7 @@ adw_leaflet_get_transition_type (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_transition_type: (attributes org.gtk.Method.set_property=transition-type)
+ * adw_leaflet_set_transition_type:
  * @self: a leaflet
  * @transition: the new transition type
  *
@@ -3359,7 +3359,7 @@ adw_leaflet_set_transition_type (AdwLeaflet               *self,
 }
 
 /**
- * adw_leaflet_get_mode_transition_duration: (attributes org.gtk.Method.get_property=mode-transition-duration)
+ * adw_leaflet_get_mode_transition_duration:
  * @self: a leaflet
  *
  * Gets the mode transition animation duration for @self.
@@ -3377,7 +3377,7 @@ adw_leaflet_get_mode_transition_duration (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_mode_transition_duration: (attributes org.gtk.Method.set_property=mode-transition-duration)
+ * adw_leaflet_set_mode_transition_duration:
  * @self: a leaflet
  * @duration: the new duration, in milliseconds
  *
@@ -3404,7 +3404,7 @@ adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_child_transition_params: (attributes org.gtk.Method.get_property=child-transition-params)
+ * adw_leaflet_get_child_transition_params:
  * @self: a leaflet
  *
  * Gets the child transition spring parameters for @self.
@@ -3422,7 +3422,7 @@ adw_leaflet_get_child_transition_params (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_child_transition_params: (attributes org.gtk.Method.set_property=child-transition-params)
+ * adw_leaflet_set_child_transition_params:
  * @self: a leaflet
  * @params: the new parameters
  *
@@ -3453,7 +3453,7 @@ adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
 }
 
 /**
- * adw_leaflet_get_child_transition_running: (attributes org.gtk.Method.get_property=child-transition-running)
+ * adw_leaflet_get_child_transition_running:
  * @self: a leaflet
  *
  * Gets whether a child transition is currently running for @self.
@@ -3471,7 +3471,7 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
+ * adw_leaflet_get_can_navigate_back:
  * @self: a leaflet
  *
  * Gets whether gestures and shortcuts for navigating backward are enabled.
@@ -3489,7 +3489,7 @@ adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_can_navigate_back: (attributes org.gtk.Method.set_property=can-navigate-back)
+ * adw_leaflet_set_can_navigate_back:
  * @self: a leaflet
  * @can_navigate_back: the new value
  *
@@ -3531,7 +3531,7 @@ adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_can_navigate_forward: (attributes org.gtk.Method.get_property=can-navigate-forward)
+ * adw_leaflet_get_can_navigate_forward:
  * @self: a leaflet
  *
  * Gets whether gestures and shortcuts for navigating forward are enabled.
@@ -3549,7 +3549,7 @@ adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_can_navigate_forward: (attributes org.gtk.Method.set_property=can-navigate-forward)
+ * adw_leaflet_set_can_navigate_forward:
  * @self: a leaflet
  * @can_navigate_forward: the new value
  *
@@ -3688,7 +3688,7 @@ adw_leaflet_get_child_by_name (AdwLeaflet  *self,
 }
 
 /**
- * adw_leaflet_get_pages: (attributes org.gtk.Method.get_property=pages)
+ * adw_leaflet_get_pages:
  * @self: a leaflet
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of the leaflet.

@@ -2127,7 +2127,7 @@ adw_about_window_new_from_appdata (const char *resource_path,
 }
 
 /**
- * adw_about_window_get_application_icon: (attributes org.gtk.Method.get_property=application-icon)
+ * adw_about_window_get_application_icon:
  * @self: an about window
  *
  * Gets the name of the application icon for @self.
@@ -2145,7 +2145,7 @@ adw_about_window_get_application_icon (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_application_icon: (attributes org.gtk.Method.set_property=application-icon)
+ * adw_about_window_set_application_icon:
  * @self: an about window
  * @application_icon: the application icon name
  *
@@ -2172,7 +2172,7 @@ adw_about_window_set_application_icon (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_application_name: (attributes org.gtk.Method.get_property=application-name)
+ * adw_about_window_get_application_name:
  * @self: an about window
  *
  * Gets the application name for @self.
@@ -2190,7 +2190,7 @@ adw_about_window_get_application_name (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_application_name: (attributes org.gtk.Method.set_property=application-name)
+ * adw_about_window_set_application_name:
  * @self: an about window
  * @application_name: the application name
  *
@@ -2217,7 +2217,7 @@ adw_about_window_set_application_name (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_developer_name: (attributes org.gtk.Method.get_property=developer-name)
+ * adw_about_window_get_developer_name:
  * @self: an about window
  *
  * Gets the developer name for @self.
@@ -2235,7 +2235,7 @@ adw_about_window_get_developer_name (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_developer_name: (attributes org.gtk.Method.set_property=developer-name)
+ * adw_about_window_set_developer_name:
  * @self: an about window
  * @developer_name: the developer name
  *
@@ -2267,7 +2267,7 @@ adw_about_window_set_developer_name (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_version: (attributes org.gtk.Method.get_property=version)
+ * adw_about_window_get_version:
  * @self: an about window
  *
  * Gets the version for @self.
@@ -2285,7 +2285,7 @@ adw_about_window_get_version (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_version: (attributes org.gtk.Method.set_property=version)
+ * adw_about_window_set_version:
  * @self: an about window
  * @version: the version
  *
@@ -2314,7 +2314,7 @@ adw_about_window_set_version (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_release_notes_version: (attributes org.gtk.Method.get_property=release-notes-version)
+ * adw_about_window_get_release_notes_version:
  * @self: an about window
  *
  * Gets the version described by the application's release notes.
@@ -2332,7 +2332,7 @@ adw_about_window_get_release_notes_version (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_release_notes_version: (attributes org.gtk.Method.set_property=release-notes-version)
+ * adw_about_window_set_release_notes_version:
  * @self: an about window
  * @version: the release notes version
  *
@@ -2368,7 +2368,7 @@ adw_about_window_set_release_notes_version (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_release_notes: (attributes org.gtk.Method.get_property=release-notes)
+ * adw_about_window_get_release_notes:
  * @self: an about window
  *
  * Gets the release notes for @self.
@@ -2386,7 +2386,7 @@ adw_about_window_get_release_notes (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_release_notes: (attributes org.gtk.Method.set_property=release-notes)
+ * adw_about_window_set_release_notes:
  * @self: an about window
  * @release_notes: the release notes
  *
@@ -2434,7 +2434,7 @@ adw_about_window_set_release_notes (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_comments: (attributes org.gtk.Method.get_property=comments)
+ * adw_about_window_get_comments:
  * @self: an about window
  *
  * Gets the comments about the application.
@@ -2452,7 +2452,7 @@ adw_about_window_get_comments (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_comments: (attributes org.gtk.Method.set_property=comments)
+ * adw_about_window_set_comments:
  * @self: an about window
  * @comments: the comments
  *
@@ -2481,7 +2481,7 @@ adw_about_window_set_comments (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_website: (attributes org.gtk.Method.get_property=website)
+ * adw_about_window_get_website:
  * @self: an about window
  *
  * Gets the application website URL for @self.
@@ -2499,7 +2499,7 @@ adw_about_window_get_website (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_website: (attributes org.gtk.Method.set_property=website)
+ * adw_about_window_set_website:
  * @self: an about window
  * @website: the website URL
  *
@@ -2528,7 +2528,7 @@ adw_about_window_set_website (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_support_url: (attributes org.gtk.Method.get_property=support-url)
+ * adw_about_window_get_support_url:
  * @self: an about window
  *
  * Gets the URL of the support page for @self.
@@ -2546,7 +2546,7 @@ adw_about_window_get_support_url (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_support_url: (attributes org.gtk.Method.set_property=support-url)
+ * adw_about_window_set_support_url:
  * @self: an about window
  * @support_url: the support page URL
  *
@@ -2572,7 +2572,7 @@ adw_about_window_set_support_url (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_issue_url: (attributes org.gtk.Method.get_property=issue-url)
+ * adw_about_window_get_issue_url:
  * @self: an about window
  *
  * Gets the issue tracker URL for @self.
@@ -2590,7 +2590,7 @@ adw_about_window_get_issue_url (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_issue_url: (attributes org.gtk.Method.set_property=issue-url)
+ * adw_about_window_set_issue_url:
  * @self: an about window
  * @issue_url: the issue tracker URL
  *
@@ -2667,7 +2667,7 @@ adw_about_window_add_link (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_debug_info: (attributes org.gtk.Method.get_property=debug-info)
+ * adw_about_window_get_debug_info:
  * @self: an about window
  *
  * Gets the debug information for @self.
@@ -2685,7 +2685,7 @@ adw_about_window_get_debug_info (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_debug_info: (attributes org.gtk.Method.set_property=debug-info)
+ * adw_about_window_set_debug_info:
  * @self: an about window
  * @debug_info: the debug information
  *
@@ -2719,7 +2719,7 @@ adw_about_window_set_debug_info (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_debug_info_filename: (attributes org.gtk.Method.get_property=debug-info-filename)
+ * adw_about_window_get_debug_info_filename:
  * @self: an about window
  *
  * Gets the debug information filename for @self.
@@ -2737,7 +2737,7 @@ adw_about_window_get_debug_info_filename (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_debug_info_filename: (attributes org.gtk.Method.set_property=debug-info)
+ * adw_about_window_set_debug_info_filename:
  * @self: an about window
  * @filename: the debug info filename
  *
@@ -2764,7 +2764,7 @@ adw_about_window_set_debug_info_filename (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_developers: (attributes org.gtk.Method.get_property=developers)
+ * adw_about_window_get_developers:
  * @self: an about window
  *
  * Gets the list of developers of the application.
@@ -2782,7 +2782,7 @@ adw_about_window_get_developers (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_developers: (attributes org.gtk.Method.set_property=developers)
+ * adw_about_window_set_developers:
  * @self: an about window
  * @developers: (nullable) (transfer none) (array zero-terminated=1): the list of developers
  *
@@ -2822,7 +2822,7 @@ adw_about_window_set_developers (AdwAboutWindow  *self,
 }
 
 /**
- * adw_about_window_get_designers: (attributes org.gtk.Method.get_property=designers)
+ * adw_about_window_get_designers:
  * @self: an about window
  *
  * Gets the list of designers of the application.
@@ -2840,7 +2840,7 @@ adw_about_window_get_designers (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_designers: (attributes org.gtk.Method.set_property=designers)
+ * adw_about_window_set_designers:
  * @self: an about window
  * @designers: (nullable) (transfer none) (array zero-terminated=1): the list of designers
  *
@@ -2880,7 +2880,7 @@ adw_about_window_set_designers (AdwAboutWindow  *self,
 }
 
 /**
- * adw_about_window_get_artists: (attributes org.gtk.Method.get_property=artists)
+ * adw_about_window_get_artists:
  * @self: an about window
  *
  * Gets the list of artists of the application.
@@ -2898,7 +2898,7 @@ adw_about_window_get_artists (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_artists: (attributes org.gtk.Method.set_property=artists)
+ * adw_about_window_set_artists:
  * @self: an about window
  * @artists: (nullable) (transfer none) (array zero-terminated=1): the list of artists
  *
@@ -2938,7 +2938,7 @@ adw_about_window_set_artists (AdwAboutWindow  *self,
 }
 
 /**
- * adw_about_window_get_documenters: (attributes org.gtk.Method.get_property=documenters)
+ * adw_about_window_get_documenters:
  * @self: an about window
  *
  * Gets the list of documenters of the application.
@@ -2956,7 +2956,7 @@ adw_about_window_get_documenters (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_documenters: (attributes org.gtk.Method.set_property=documenters)
+ * adw_about_window_set_documenters:
  * @self: an about window
  * @documenters: (nullable) (transfer none) (array zero-terminated=1): the list of documenters
  *
@@ -2996,7 +2996,7 @@ adw_about_window_set_documenters (AdwAboutWindow  *self,
 }
 
 /**
- * adw_about_window_get_translator_credits: (attributes org.gtk.Method.get_property=translator-credits)
+ * adw_about_window_get_translator_credits:
  * @self: an about window
  *
  * Gets the translator credits string.
@@ -3014,7 +3014,7 @@ adw_about_window_get_translator_credits (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_translator_credits: (attributes org.gtk.Method.set_property=translator-credits)
+ * adw_about_window_set_translator_credits:
  * @self: an about window
  * @translator_credits: the translator credits
  *
@@ -3139,7 +3139,7 @@ adw_about_window_add_acknowledgement_section (AdwAboutWindow  *self,
 }
 
 /**
- * adw_about_window_get_copyright: (attributes org.gtk.Method.get_property=copyright)
+ * adw_about_window_get_copyright:
  * @self: an about window
  *
  * Gets the copyright information for @self.
@@ -3157,7 +3157,7 @@ adw_about_window_get_copyright (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_copyright: (attributes org.gtk.Method.set_property=copyright)
+ * adw_about_window_set_copyright:
  * @self: an about window
  * @copyright: the copyright information
  *
@@ -3190,7 +3190,7 @@ adw_about_window_set_copyright (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_license_type: (attributes org.gtk.Method.get_property=license-type)
+ * adw_about_window_get_license_type:
  * @self: an about window
  *
  * Gets the license type for @self.
@@ -3208,7 +3208,7 @@ adw_about_window_get_license_type (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_license_type: (attributes org.gtk.Method.set_property=license-type)
+ * adw_about_window_set_license_type:
  * @self: an about window
  * @license_type: the license type
  *
@@ -3254,7 +3254,7 @@ adw_about_window_set_license_type (AdwAboutWindow *self,
 }
 
 /**
- * adw_about_window_get_license: (attributes org.gtk.Method.get_property=license)
+ * adw_about_window_get_license:
  * @self: an about window
  *
  * Gets the license for @self.
@@ -3272,7 +3272,7 @@ adw_about_window_get_license (AdwAboutWindow *self)
 }
 
 /**
- * adw_about_window_set_license: (attributes org.gtk.Method.set_property=license)
+ * adw_about_window_set_license:
  * @self: an about window
  * @license: the license
  *

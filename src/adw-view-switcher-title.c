@@ -400,7 +400,7 @@ adw_view_switcher_title_new (void)
 }
 
 /**
- * adw_view_switcher_title_get_stack: (attributes org.gtk.Method.get_property=stack)
+ * adw_view_switcher_title_get_stack:
  * @self: a view switcher title
  *
  * Gets the stack controlled by @self.
@@ -418,7 +418,7 @@ adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_stack: (attributes org.gtk.Method.set_property=stack)
+ * adw_view_switcher_title_set_stack:
  * @self: a view switcher title
  * @stack: (nullable): a stack
  *
@@ -460,7 +460,7 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_view_switcher_title_get_title:
  * @self: a view switcher title
  *
  * Gets the title of @self.
@@ -478,7 +478,7 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_view_switcher_title_set_title:
  * @self: a view switcher title
  * @title: a title
  *
@@ -504,7 +504,7 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * adw_view_switcher_title_get_subtitle:
  * @self: a view switcher title
  *
  * Gets the subtitle of @self.
@@ -522,7 +522,7 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * adw_view_switcher_title_set_subtitle:
  * @self: a view switcher title
  * @subtitle: a subtitle
  *
@@ -547,7 +547,7 @@ adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_view_switcher_enabled: (attributes org.gtk.Method.get_property=view-switcher-enabled)
+ * adw_view_switcher_title_get_view_switcher_enabled:
  * @self: a view switcher title
  *
  * Gets whether @self's view switcher is enabled.
@@ -565,7 +565,7 @@ adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_view_switcher_enabled: (attributes org.gtk.Method.set_property=view-switcher-enabled)
+ * adw_view_switcher_title_set_view_switcher_enabled:
  * @self: a view switcher title
  * @enabled: whether the view switcher is enabled
  *
@@ -598,7 +598,7 @@ adw_view_switcher_title_set_view_switcher_enabled (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_title_visible: (attributes org.gtk.Method.get_property=title-visible)
+ * adw_view_switcher_title_get_title_visible:
  * @self: a view switcher title
  *
  * Gets whether the title of @self is currently visible.

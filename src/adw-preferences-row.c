@@ -193,7 +193,7 @@ adw_preferences_row_new (void)
 }
 
 /**
- * adw_preferences_row_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_preferences_row_get_title:
  * @self: a preferences row
  *
  * Gets the title of the preference represented by @self.
@@ -213,7 +213,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_preferences_row_set_title:
  * @self: a preferences row
  * @title: the title
  *
@@ -239,7 +239,7 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
 }
 
 /**
- * adw_preferences_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * adw_preferences_row_get_use_underline:
  * @self: a preferences row
  *
  * Gets whether an embedded underline in the title indicates a mnemonic.
@@ -259,7 +259,7 @@ adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * adw_preferences_row_set_use_underline:
  * @self: a preferences row
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
@@ -286,7 +286,7 @@ adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
 }
 
 /**
- * adw_preferences_row_get_title_selectable: (attributes org.gtk.Method.get_property=title-selectable)
+ * adw_preferences_row_get_title_selectable:
  * @self: a `AdwPreferencesRow`
  *
  * Gets whether the user can copy the title from the label
@@ -306,7 +306,7 @@ adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_title_selectable: (attributes org.gtk.Method.set_property=title-selectable)
+ * adw_preferences_row_set_title_selectable:
  * @self: a `AdwPreferencesRow`
  * @title_selectable: `TRUE` if the user can copy the title from the label
  *
@@ -335,7 +335,7 @@ adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
 }
 
 /**
- * adw_preferences_row_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
+ * adw_preferences_row_get_use_markup:
  * @self: a preferences row
  *
  * Gets whether to use Pango markup for the title label.
@@ -357,7 +357,7 @@ adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
+ * adw_preferences_row_set_use_markup:
  * @self: a preferences row
  * @use_markup: whether to use markup
  *

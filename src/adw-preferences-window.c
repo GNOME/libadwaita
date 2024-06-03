@@ -897,7 +897,7 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_get_search_enabled: (attributes org.gtk.Method.get_property=search-enabled)
+ * adw_preferences_window_get_search_enabled:
  * @self: a preferences window
  *
  * Gets whether search is enabled for @self.
@@ -917,7 +917,7 @@ adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self)
 }
 
 /**
- * adw_preferences_window_set_search_enabled: (attributes org.gtk.Method.set_property=search-enabled)
+ * adw_preferences_window_set_search_enabled:
  * @self: a preferences window
  * @search_enabled: whether search is enabled
  *
@@ -951,7 +951,7 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_set_can_navigate_back: (attributes org.gtk.Method.set_property=can-navigate-back)
+ * adw_preferences_window_set_can_navigate_back:
  * @self: a preferences window
  * @can_navigate_back: the new value
  *
@@ -993,7 +993,7 @@ adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
+ * adw_preferences_window_get_can_navigate_back:
  * @self: a preferences window
  *
  * Gets whether gestures and shortcuts for closing subpages are enabled.

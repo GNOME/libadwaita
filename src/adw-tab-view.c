@@ -2806,7 +2806,7 @@ adw_tab_view_accessible_init (GtkAccessibleInterface *iface)
 }
 
 /**
- * adw_tab_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_tab_page_get_child:
  * @self: a tab page
  *
  * Gets the child of @self.
@@ -2822,7 +2822,7 @@ adw_tab_page_get_child (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_parent: (attributes org.gtk.Method.get_property=parent)
+ * adw_tab_page_get_parent:
  * @self: a tab page
  *
  * Gets the parent page of @self.
@@ -2840,7 +2840,7 @@ adw_tab_page_get_parent (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_selected: (attributes org.gtk.Method.get_property=selected)
+ * adw_tab_page_get_selected:
  * @self: a tab page
  *
  * Gets whether @self is selected.
@@ -2856,7 +2856,7 @@ adw_tab_page_get_selected (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_pinned: (attributes org.gtk.Method.get_property=pinned)
+ * adw_tab_page_get_pinned:
  * @self: a tab page
  *
  * Gets whether @self is pinned.
@@ -2874,7 +2874,7 @@ adw_tab_page_get_pinned (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_tab_page_get_title:
  * @self: a tab page
  *
  * Gets the title of @self.
@@ -2890,7 +2890,7 @@ adw_tab_page_get_title (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_tab_page_set_title:
  * @self: a tab page
  * @title: the title of @self
  *
@@ -2920,7 +2920,7 @@ adw_tab_page_set_title (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_tooltip: (attributes org.gtk.Method.get_property=tooltip)
+ * adw_tab_page_get_tooltip:
  * @self: a tab page
  *
  * Gets the tooltip of @self.
@@ -2936,7 +2936,7 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_tooltip: (attributes org.gtk.Method.set_property=tooltip)
+ * adw_tab_page_set_tooltip:
  * @self: a tab page
  * @tooltip: the tooltip of @self
  *
@@ -2960,7 +2960,7 @@ adw_tab_page_set_tooltip (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_icon: (attributes org.gtk.Method.get_property=icon)
+ * adw_tab_page_get_icon:
  * @self: a tab page
  *
  * Gets the icon of @self.
@@ -2976,7 +2976,7 @@ adw_tab_page_get_icon (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_icon: (attributes org.gtk.Method.set_property=icon)
+ * adw_tab_page_set_icon:
  * @self: a tab page
  * @icon: (nullable): the icon of @self
  *
@@ -3002,7 +3002,7 @@ adw_tab_page_set_icon (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_loading: (attributes org.gtk.Method.get_property=loading)
+ * adw_tab_page_get_loading:
  * @self: a tab page
  *
  * Gets whether @self is loading.
@@ -3018,7 +3018,7 @@ adw_tab_page_get_loading (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_loading: (attributes org.gtk.Method.set_property=loading)
+ * adw_tab_page_set_loading:
  * @self: a tab page
  * @loading: whether @self is loading
  *
@@ -3047,7 +3047,7 @@ adw_tab_page_set_loading (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_indicator_icon: (attributes org.gtk.Method.get_property=indicator-icon)
+ * adw_tab_page_get_indicator_icon:
  * @self: a tab page
  *
  * Gets the indicator icon of @self.
@@ -3063,7 +3063,7 @@ adw_tab_page_get_indicator_icon (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_indicator_icon: (attributes org.gtk.Method.set_property=indicator-icon)
+ * adw_tab_page_set_indicator_icon:
  * @self: a tab page
  * @indicator_icon: (nullable): the indicator icon of @self
  *
@@ -3099,7 +3099,7 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_indicator_tooltip: (attributes org.gtk.Method.get_property=indicator-tooltip)
+ * adw_tab_page_get_indicator_tooltip:
  * @self: a tab page
  *
  * Gets the tooltip of the indicator icon of @self.
@@ -3117,7 +3117,7 @@ adw_tab_page_get_indicator_tooltip (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_indicator_tooltip: (attributes org.gtk.Method.set_property=indicator-tooltip)
+ * adw_tab_page_set_indicator_tooltip:
  * @self: a tab page
  * @tooltip: the indicator tooltip of @self
  *
@@ -3143,7 +3143,7 @@ adw_tab_page_set_indicator_tooltip (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_indicator_activatable: (attributes org.gtk.Method.get_property=indicator-activatable)
+ * adw_tab_page_get_indicator_activatable:
  * @self: a tab page
  *
  *
@@ -3160,7 +3160,7 @@ adw_tab_page_get_indicator_activatable (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_indicator_activatable: (attributes org.gtk.Method.set_property=indicator-activatable)
+ * adw_tab_page_set_indicator_activatable:
  * @self: a tab page
  * @activatable: whether the indicator is activatable
  *
@@ -3188,7 +3188,7 @@ adw_tab_page_set_indicator_activatable (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
+ * adw_tab_page_get_needs_attention:
  * @self: a tab page
  *
  * Gets whether @self needs attention.
@@ -3204,7 +3204,7 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
+ * adw_tab_page_set_needs_attention:
  * @self: a tab page
  * @needs_attention: whether @self needs attention
  *
@@ -3237,7 +3237,7 @@ adw_tab_page_set_needs_attention (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_keyword: (attributes org.gtk.Method.get_property=keyword)
+ * adw_tab_page_get_keyword:
  * @self: a tab page
  *
  * Gets the search keyword of @self.
@@ -3255,7 +3255,7 @@ adw_tab_page_get_keyword (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_keyword: (attributes org.gtk.Method.set_property=keyword)
+ * adw_tab_page_set_keyword:
  * @self: a tab page
  * @keyword: the search keyword
  *
@@ -3281,7 +3281,7 @@ adw_tab_page_set_keyword (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_thumbnail_xalign: (attributes org.gtk.Method.get_property=thumbnail-xalign)
+ * adw_tab_page_get_thumbnail_xalign:
  * @self: a tab page
  *
  * Gets the horizontal alignment of the thumbnail for @self.
@@ -3299,7 +3299,7 @@ adw_tab_page_get_thumbnail_xalign (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_thumbnail_xalign: (attributes org.gtk.Method.set_property=thumbnail-xalign)
+ * adw_tab_page_set_thumbnail_xalign:
  * @self: a tab page
  * @xalign: the new value
  *
@@ -3333,7 +3333,7 @@ adw_tab_page_set_thumbnail_xalign (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_thumbnail_yalign: (attributes org.gtk.Method.get_property=thumbnail-yalign)
+ * adw_tab_page_get_thumbnail_yalign:
  * @self: a tab overview
  *
  * Gets the vertical alignment of the thumbnail for @self.
@@ -3351,7 +3351,7 @@ adw_tab_page_get_thumbnail_yalign (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_thumbnail_yalign: (attributes org.gtk.Method.set_property=thumbnail-yalign)
+ * adw_tab_page_set_thumbnail_yalign:
  * @self: a tab page
  * @yalign: the new value
  *
@@ -3385,7 +3385,7 @@ adw_tab_page_set_thumbnail_yalign (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_live_thumbnail: (attributes org.gtk.Method.get_property=live-thumbnail)
+ * adw_tab_page_get_live_thumbnail:
  * @self: a tab overview
  *
  * Gets whether to live thumbnail is enabled @self.
@@ -3403,7 +3403,7 @@ adw_tab_page_get_live_thumbnail (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_live_thumbnail: (attributes org.gtk.Method.set_property=live-thumbnail)
+ * adw_tab_page_set_live_thumbnail:
  * @self: a tab page
  * @live_thumbnail: whether to enable live thumbnail
  *
@@ -3491,7 +3491,7 @@ adw_tab_view_new (void)
 }
 
 /**
- * adw_tab_view_get_n_pages: (attributes org.gtk.Method.get_property=n-pages)
+ * adw_tab_view_get_n_pages:
  * @self: a tab view
  *
  * Gets the number of pages in @self.
@@ -3507,7 +3507,7 @@ adw_tab_view_get_n_pages (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_n_pinned_pages: (attributes org.gtk.Method.get_property=n-pinned-pages)
+ * adw_tab_view_get_n_pinned_pages:
  * @self: a tab view
  *
  * Gets the number of pinned pages in @self.
@@ -3525,7 +3525,7 @@ adw_tab_view_get_n_pinned_pages (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_is_transferring_page: (attributes org.gtk.Method.get_property=is-transferring-page)
+ * adw_tab_view_get_is_transferring_page:
  * @self: a tab view
  *
  * Whether a page is being transferred.
@@ -3547,7 +3547,7 @@ adw_tab_view_get_is_transferring_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_selected_page: (attributes org.gtk.Method.get_property=selected-page)
+ * adw_tab_view_get_selected_page:
  * @self: a tab view
  *
  * Gets the currently selected page in @self.
@@ -3563,7 +3563,7 @@ adw_tab_view_get_selected_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_selected_page: (attributes org.gtk.Method.set_property=selected-page)
+ * adw_tab_view_set_selected_page:
  * @self: a tab view
  * @selected_page: a page in @self
  *
@@ -3710,7 +3710,7 @@ adw_tab_view_select_last_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_default_icon: (attributes org.gtk.Method.get_property=default-icon)
+ * adw_tab_view_get_default_icon:
  * @self: a tab view
  *
  * Gets the default icon of @self.
@@ -3726,7 +3726,7 @@ adw_tab_view_get_default_icon (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_default_icon: (attributes org.gtk.Method.set_property=default-icon)
+ * adw_tab_view_set_default_icon:
  * @self: a tab view
  * @default_icon: the default icon
  *
@@ -3767,7 +3767,7 @@ adw_tab_view_set_default_icon (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_menu_model: (attributes org.gtk.Method.get_property=menu-model)
+ * adw_tab_view_get_menu_model:
  * @self: a tab view
  *
  * Gets the tab context menu model for @self.
@@ -3783,7 +3783,7 @@ adw_tab_view_get_menu_model (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_menu_model: (attributes org.gtk.Method.set_property=menu-model)
+ * adw_tab_view_set_menu_model:
  * @self: a tab view
  * @menu_model: (nullable): a menu model
  *
@@ -3809,7 +3809,7 @@ adw_tab_view_set_menu_model (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_shortcuts: (attributes org.gtk.Method.get_property=shortcuts)
+ * adw_tab_view_get_shortcuts:
  * @self: a tab view
  *
  * Gets the enabled shortcuts for @self.
@@ -3827,7 +3827,7 @@ adw_tab_view_get_shortcuts (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_shortcuts: (attributes org.gtk.Method.set_property=shortcuts)
+ * adw_tab_view_set_shortcuts:
  * @self: a tab view
  * @shortcuts: the new shortcuts
  *
@@ -4653,7 +4653,7 @@ adw_tab_view_transfer_page (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_pages: (attributes org.gtk.Method.get_property=pages)
+ * adw_tab_view_get_pages:
  * @self: a tab view
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of @self.

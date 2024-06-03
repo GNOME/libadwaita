@@ -161,7 +161,7 @@ adw_bin_new (void)
 }
 
 /**
- * adw_bin_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_bin_get_child:
  * @self: a bin
  *
  * Gets the child widget of @self.
@@ -181,7 +181,7 @@ adw_bin_get_child (AdwBin *self)
 }
 
 /**
- * adw_bin_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_bin_set_child:
  * @self: a bin
  * @child: (nullable): the child widget
  *

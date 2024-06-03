@@ -318,7 +318,7 @@ adw_button_content_new (void)
 }
 
 /**
- * adw_button_content_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_button_content_get_icon_name:
  * @self: a button content
  *
  * Gets the name of the displayed icon.
@@ -334,7 +334,7 @@ adw_button_content_get_icon_name (AdwButtonContent *self)
 }
 
 /**
- * adw_button_content_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_button_content_set_icon_name:
  * @self: a button content
  * @icon_name: the new icon name
  *
@@ -361,7 +361,7 @@ adw_button_content_set_icon_name (AdwButtonContent *self,
 }
 
 /**
- * adw_button_content_get_label: (attributes org.gtk.Method.get_property=label)
+ * adw_button_content_get_label:
  * @self: a button content
  *
  * Gets the displayed label.
@@ -377,7 +377,7 @@ adw_button_content_get_label (AdwButtonContent *self)
 }
 
 /**
- * adw_button_content_set_label: (attributes org.gtk.Method.set_property=label)
+ * adw_button_content_set_label:
  * @self: a button content
  * @label: the new label
  *
@@ -402,7 +402,7 @@ adw_button_content_set_label (AdwButtonContent *self,
 }
 
 /**
- * adw_button_content_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * adw_button_content_get_use_underline:
  * @self: a button content
  *
  * Gets whether an underline in the text indicates a mnemonic.
@@ -418,7 +418,7 @@ adw_button_content_get_use_underline (AdwButtonContent *self)
 }
 
 /**
- * adw_button_content_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * adw_button_content_set_use_underline:
  * @self: a button content
  * @use_underline: whether an underline in the text indicates a mnemonic
  *
@@ -445,7 +445,7 @@ adw_button_content_set_use_underline (AdwButtonContent *self,
 }
 
 /**
- * adw_button_content_get_can_shrink: (attributes org.gtk.Method.get_property=can-shrink)
+ * adw_button_content_get_can_shrink:
  * @self: a button content
  *
  * gets whether the button can be smaller than the natural size of its contents.
@@ -463,7 +463,7 @@ adw_button_content_get_can_shrink (AdwButtonContent *self)
 }
 
 /**
- * adw_button_content_set_can_shrink: (attributes org.gtk.Method.set_property=can-shrink)
+ * adw_button_content_set_can_shrink:
  * @self: a button content
  * @can_shrink: whether the button can shrink
  *

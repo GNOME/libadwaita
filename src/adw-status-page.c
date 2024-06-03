@@ -305,7 +305,7 @@ adw_status_page_new (void)
 }
 
 /**
- * adw_status_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * adw_status_page_get_icon_name:
  * @self: a status page
  *
  * Gets the icon name for @self.
@@ -321,7 +321,7 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * adw_status_page_set_icon_name:
  * @self: a status page
  * @icon_name: (nullable): the icon name
  *
@@ -353,7 +353,7 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_paintable: (attributes org.gtk.Method.get_property=paintable)
+ * adw_status_page_get_paintable:
  * @self: a status page
  *
  * Gets the paintable for @self.
@@ -369,7 +369,7 @@ adw_status_page_get_paintable (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_paintable: (attributes org.gtk.Method.set_property=paintable)
+ * adw_status_page_set_paintable:
  * @self: a status page
  * @paintable: (nullable): the paintable
  *
@@ -402,7 +402,7 @@ adw_status_page_set_paintable (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_status_page_get_title:
  * @self: a status page
  *
  * Gets the title for @self.
@@ -418,7 +418,7 @@ adw_status_page_get_title (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_status_page_set_title:
  * @self: a status page
  * @title: the title
  *
@@ -441,7 +441,7 @@ adw_status_page_set_title (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_description: (attributes org.gtk.Method.get_property=description)
+ * adw_status_page_get_description:
  * @self: a status page
  *
  * Gets the description markup for @self.
@@ -457,7 +457,7 @@ adw_status_page_get_description (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_description: (attributes org.gtk.Method.set_property=description)
+ * adw_status_page_set_description:
  * @self: a status page
  * @description: (nullable): the description
  *
@@ -480,7 +480,7 @@ adw_status_page_set_description (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_status_page_get_child:
  * @self: a status page
  *
  * Gets the child widget of @self.
@@ -496,7 +496,7 @@ adw_status_page_get_child (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_status_page_set_child:
  * @self: a status page
  * @child: (nullable): the child widget
  *

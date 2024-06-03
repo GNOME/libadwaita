@@ -401,7 +401,7 @@ adw_property_animation_target_new_for_pspec (GObject    *object,
 }
 
 /**
- * adw_property_animation_target_get_object: (attributes org.gtk.Method.get_property=object)
+ * adw_property_animation_target_get_object:
  * @self: a property animation target
  *
  * Gets the object animated by @self.
@@ -423,7 +423,7 @@ adw_property_animation_target_get_object (AdwPropertyAnimationTarget *self)
 }
 
 /**
- * adw_property_animation_target_get_pspec: (attributes org.gtk.Method.get_property=pspec)
+ * adw_property_animation_target_get_pspec:
  * @self: a property animation target
  *
  * Gets the `GParamSpec` of the property animated by @self.

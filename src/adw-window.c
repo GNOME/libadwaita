@@ -323,7 +323,7 @@ adw_window_new (void)
 }
 
 /**
- * adw_window_set_content: (attributes org.gtk.Method.set_property=content)
+ * adw_window_set_content:
  * @self: a window
  * @content: (nullable): the content widget
  *
@@ -354,7 +354,7 @@ adw_window_set_content (AdwWindow *self,
 }
 
 /**
- * adw_window_get_content: (attributes org.gtk.Method.get_property=content)
+ * adw_window_get_content:
  * @self: a window
  *
  * Gets the content widget of @self.
@@ -399,7 +399,7 @@ adw_window_add_breakpoint (AdwWindow     *self,
 }
 
 /**
- * adw_window_get_current_breakpoint: (attributes org.gtk.Method.get_property=current-breakpoint)
+ * adw_window_get_current_breakpoint:
  * @self: a window
  *
  * Gets the current breakpoint.
@@ -421,7 +421,7 @@ adw_window_get_current_breakpoint (AdwWindow *self)
 }
 
 /**
- * adw_window_get_dialogs: (attributes org.gtk.Method.get_property=dialogs)
+ * adw_window_get_dialogs:
  * @self: a window
  *
  * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
@@ -445,7 +445,7 @@ adw_window_get_dialogs (AdwWindow *self)
 }
 
 /**
- * adw_window_get_visible_dialog: (attributes org.gtk.Method.get_property=visible-dialog)
+ * adw_window_get_visible_dialog:
  * @self: a window
  *
  * Returns the currently visible dialog in @self, if there's one.

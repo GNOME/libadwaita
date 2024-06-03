@@ -1318,7 +1318,7 @@ adw_dialog_new (void)
 }
 
 /**
- * adw_dialog_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_dialog_get_child:
  * @self: a dialog
  *
  * Gets the child widget of @self.
@@ -1340,7 +1340,7 @@ adw_dialog_get_child (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_dialog_set_child:
  * @self: a dialog
  * @child: (nullable): the child widget
  *
@@ -1373,7 +1373,7 @@ adw_dialog_set_child (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_title: (attributes org.gtk.Method.get_property=title)
+ * adw_dialog_get_title:
  * @self: a dialog
  *
  * Gets the title of @self.
@@ -1395,7 +1395,7 @@ adw_dialog_get_title (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_title: (attributes org.gtk.Method.set_property=title)
+ * adw_dialog_set_title:
  * @self: a dialog
  * @title: (transfer none): the new title
  *
@@ -1424,7 +1424,7 @@ adw_dialog_set_title (AdwDialog  *self,
 }
 
 /**
- * adw_dialog_get_can_close: (attributes org.gtk.Method.get_property=can-close)
+ * adw_dialog_get_can_close:
  * @self: a dialog
  *
  * Gets whether @self can be closed.
@@ -1446,7 +1446,7 @@ adw_dialog_get_can_close (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_can_close: (attributes org.gtk.Method.set_property=can-close)
+ * adw_dialog_set_can_close:
  * @self: a dialog
  * @can_close: whether to allow closing
  *
@@ -1483,7 +1483,7 @@ adw_dialog_set_can_close (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_content_width: (attributes org.gtk.Method.get_property=content-width)
+ * adw_dialog_get_content_width:
  * @self: a dialog
  *
  * Gets the width of the dialog's contents.
@@ -1505,7 +1505,7 @@ adw_dialog_get_content_width (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_content_width: (attributes org.gtk.Method.set_property=content-width)
+ * adw_dialog_set_content_width:
  * @self: a dialog
  * @content_width: the content width
  *
@@ -1533,7 +1533,7 @@ adw_dialog_set_content_width (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_content_height: (attributes org.gtk.Method.get_property=content-height)
+ * adw_dialog_get_content_height:
  * @self: a dialog
  *
  * Gets the height of the dialog's contents.
@@ -1555,7 +1555,7 @@ adw_dialog_get_content_height (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_content_height: (attributes org.gtk.Method.set_property=content-height)
+ * adw_dialog_set_content_height:
  * @self: a dialog
  * @content_height: the content height
  *
@@ -1583,7 +1583,7 @@ adw_dialog_set_content_height (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_follows_content_size: (attributes org.gtk.Method.get_property=follows-content-size)
+ * adw_dialog_get_follows_content_size:
  * @self: a dialog
  *
  * Gets whether to size content of @self automatically.
@@ -1605,7 +1605,7 @@ adw_dialog_get_follows_content_size (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_follows_content_size: (attributes org.gtk.Method.set_property=follows-content-size)
+ * adw_dialog_set_follows_content_size:
  * @self: a dialog
  * @follows_content_size: whether to size content automatically
  *
@@ -1642,7 +1642,7 @@ adw_dialog_set_follows_content_size (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_presentation_mode: (attributes org.gtk.Method.get_property=presentation-mode)
+ * adw_dialog_get_presentation_mode:
  * @self: a dialog
  *
  * Gets presentation mode for @self.
@@ -1664,7 +1664,7 @@ adw_dialog_get_presentation_mode (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_presentation_mode: (attributes org.gtk.Method.set_property=presentation-mode)
+ * adw_dialog_set_presentation_mode:
  * @self: a dialog
  * @presentation_mode: the new presentation mode
  *
@@ -1777,7 +1777,7 @@ adw_dialog_set_focus (AdwDialog *self,
 }
 
 /**
- * adw_dialog_get_default_widget: (attributes org.gtk.Method.get_property=default-widget)
+ * adw_dialog_get_default_widget:
  * @self: a dialog
  *
  * Gets the default widget for @self.
@@ -1799,7 +1799,7 @@ adw_dialog_get_default_widget (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_default_widget: (attributes org.gtk.Method.set_property=default-widget)
+ * adw_dialog_set_default_widget:
  * @self: a dialog
  * @default_widget: (nullable) (transfer none): the default widget
  *
@@ -1955,7 +1955,7 @@ adw_dialog_add_breakpoint (AdwDialog     *self,
 }
 
 /**
- * adw_dialog_get_current_breakpoint: (attributes org.gtk.Method.get_property=current-breakpoint)
+ * adw_dialog_get_current_breakpoint:
  * @self: a dialog
  *
  * Gets the current breakpoint.

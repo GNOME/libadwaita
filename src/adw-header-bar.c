@@ -992,7 +992,7 @@ adw_header_bar_remove (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_title_widget: (attributes org.gtk.Method.get_property=title-widget)
+ * adw_header_bar_get_title_widget:
  * @self: a header bar
  *
  * Gets the title widget widget of @self.
@@ -1008,7 +1008,7 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_title_widget: (attributes org.gtk.Method.set_property=title-widget)
+ * adw_header_bar_set_title_widget:
  * @self: a header bar
  * @title_widget: (nullable): a widget to use for a title
  *
@@ -1058,7 +1058,7 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_show_start_title_buttons: (attributes org.gtk.Method.get_property=show-start-title-buttons)
+ * adw_header_bar_get_show_start_title_buttons:
  * @self: a header bar
  *
  * Gets whether to show title buttons at the start of @self.
@@ -1074,7 +1074,7 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_start_title_buttons: (attributes org.gtk.Method.set_property=show-start-title-buttons)
+ * adw_header_bar_set_show_start_title_buttons:
  * @self: a header bar
  * @setting: `TRUE` to show standard title buttons
  *
@@ -1106,7 +1106,7 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_show_end_title_buttons: (attributes org.gtk.Method.get_property=show-end-title-buttons)
+ * adw_header_bar_get_show_end_title_buttons:
  * @self: a header bar
  *
  * Gets whether to show title buttons at the end of @self.
@@ -1122,7 +1122,7 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_end_title_buttons: (attributes org.gtk.Method.set_property=show-end-title-buttons)
+ * adw_header_bar_set_show_end_title_buttons:
  * @self: a header bar
  * @setting: `TRUE` to show standard title buttons
  *
@@ -1154,7 +1154,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_show_back_button: (attributes org.gtk.Method.get_property=show-back-button)
+ * adw_header_bar_get_show_back_button:
  * @self: a header bar
  *
  * Gets whether @self can show the back button.
@@ -1172,7 +1172,7 @@ adw_header_bar_get_show_back_button (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_back_button: (attributes org.gtk.Method.set_property=show-back-button)
+ * adw_header_bar_set_show_back_button:
  * @self: a header bar
  * @show_back_button: whether to show the back button
  *
@@ -1211,7 +1211,7 @@ adw_header_bar_set_show_back_button (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_decoration_layout: (attributes org.gtk.Method.get_property=decoration-layout)
+ * adw_header_bar_get_decoration_layout:
  * @self: a header bar
  *
  * Gets the decoration layout for @self.
@@ -1227,7 +1227,7 @@ adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_decoration_layout: (attributes org.gtk.Method.set_property=decoration-layout)
+ * adw_header_bar_set_decoration_layout:
  * @self: a header bar
  * @layout: (nullable): a decoration layout
  *
@@ -1259,7 +1259,7 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_centering_policy: (attributes org.gtk.Method.get_property=centering-policy)
+ * adw_header_bar_get_centering_policy:
  * @self: a header bar
  *
  * Gets the policy for aligning the center widget.
@@ -1275,7 +1275,7 @@ adw_header_bar_get_centering_policy (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_centering_policy: (attributes org.gtk.Method.set_property=centering-policy)
+ * adw_header_bar_set_centering_policy:
  * @self: a header bar
  * @centering_policy: the centering policy
  *
@@ -1304,7 +1304,7 @@ adw_header_bar_set_centering_policy (AdwHeaderBar       *self,
 }
 
 /**
- * adw_header_bar_get_show_title: (attributes org.gtk.Method.get_property=show-title)
+ * adw_header_bar_get_show_title:
  * @self: a header bar
  *
  * Gets whether the title widget should be shown.
@@ -1322,7 +1322,7 @@ adw_header_bar_get_show_title (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_title: (attributes org.gtk.Method.set_property=show-title)
+ * adw_header_bar_set_show_title:
  * @self: a header bar
  * @show_title: whether the title widget is visible
  *

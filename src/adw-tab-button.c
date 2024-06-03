@@ -445,7 +445,7 @@ adw_tab_button_new (void)
 }
 
 /**
- * adw_tab_button_get_view: (attributes org.gtk.Method.get_property=view)
+ * adw_tab_button_get_view:
  * @self: a tab button
  *
  * Gets the tab view @self displays.
@@ -463,7 +463,7 @@ adw_tab_button_get_view (AdwTabButton *self)
 }
 
 /**
- * adw_tab_button_set_view: (attributes org.gtk.Method.set_property=view)
+ * adw_tab_button_set_view:
  * @self: a tab button
  * @view: (nullable): a tab view
  *

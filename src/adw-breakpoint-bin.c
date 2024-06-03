@@ -659,7 +659,7 @@ adw_breakpoint_bin_new (void)
 }
 
 /**
- * adw_breakpoint_bin_get_child: (attributes org.gtk.Method.get_property=child)
+ * adw_breakpoint_bin_get_child:
  * @self: a breakpoint bin
  *
  * Gets the child widget of @self.
@@ -681,7 +681,7 @@ adw_breakpoint_bin_get_child (AdwBreakpointBin *self)
 }
 
 /**
- * adw_breakpoint_bin_set_child: (attributes org.gtk.Method.set_property=child)
+ * adw_breakpoint_bin_set_child:
  * @self: a breakpoint bin
  * @child: (nullable): the child widget
  *
@@ -777,7 +777,7 @@ adw_breakpoint_bin_remove_breakpoint (AdwBreakpointBin *self,
 }
 
 /**
- * adw_breakpoint_bin_get_current_breakpoint: (attributes org.gtk.Method.get_property=current-breakpoint)
+ * adw_breakpoint_bin_get_current_breakpoint:
  * @self: a breakpoint bin
  *
  * Gets the current breakpoint.

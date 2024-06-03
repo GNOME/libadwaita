@@ -1344,7 +1344,7 @@ adw_message_dialog_new (GtkWindow  *parent,
 }
 
 /**
- * adw_message_dialog_get_heading: (attributes org.gtk.Method.get_property=heading)
+ * adw_message_dialog_get_heading:
  * @self: a message dialog
  *
  * Gets the heading of @self.
@@ -1366,7 +1366,7 @@ adw_message_dialog_get_heading (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_heading: (attributes org.gtk.Method.set_property=heading)
+ * adw_message_dialog_set_heading:
  * @self: a message dialog
  * @heading: (nullable): the heading of @self
  *
@@ -1402,7 +1402,7 @@ adw_message_dialog_set_heading (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_heading_use_markup: (attributes org.gtk.Method.get_property=heading-use-markup)
+ * adw_message_dialog_get_heading_use_markup:
  * @self: a message dialog
  *
  * Gets whether the heading of @self includes Pango markup.
@@ -1424,7 +1424,7 @@ adw_message_dialog_get_heading_use_markup (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_heading_use_markup: (attributes org.gtk.Method.set_property=heading-use-markup)
+ * adw_message_dialog_set_heading_use_markup:
  * @self: a message dialog
  * @use_markup: whether to use markup for heading
  *
@@ -1552,7 +1552,7 @@ adw_message_dialog_format_heading_markup (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_body: (attributes org.gtk.Method.get_property=body)
+ * adw_message_dialog_get_body:
  * @self: a message dialog
  *
  * Gets the body text of @self.
@@ -1574,7 +1574,7 @@ adw_message_dialog_get_body (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_body: (attributes org.gtk.Method.set_property=body)
+ * adw_message_dialog_set_body:
  * @self: a message dialog
  * @body: the body of @self
  *
@@ -1608,7 +1608,7 @@ adw_message_dialog_set_body (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_body_use_markup: (attributes org.gtk.Method.get_property=body-use-markup)
+ * adw_message_dialog_get_body_use_markup:
  * @self: a message dialog
  *
  * Gets whether the body text of @self includes Pango markup.
@@ -1630,7 +1630,7 @@ adw_message_dialog_get_body_use_markup (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_body_use_markup: (attributes org.gtk.Method.set_property=body-use-markup)
+ * adw_message_dialog_set_body_use_markup:
  * @self: a message dialog
  * @use_markup: whether to use markup for body text
  *
@@ -1755,7 +1755,7 @@ adw_message_dialog_format_body_markup (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_extra_child: (attributes org.gtk.Method.get_property=extra-child)
+ * adw_message_dialog_get_extra_child:
  * @self: a message dialog
  *
  * Gets the child widget of @self.
@@ -1777,7 +1777,7 @@ adw_message_dialog_get_extra_child (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_extra_child: (attributes org.gtk.Method.set_property=extra-child)
+ * adw_message_dialog_set_extra_child:
  * @self: a message dialog
  * @child: (nullable): the child widget
  *
@@ -2201,7 +2201,7 @@ adw_message_dialog_set_response_enabled (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_default_response: (attributes org.gtk.Method.get_property=default-response)
+ * adw_message_dialog_get_default_response:
  * @self: a message dialog
  *
  * Gets the ID of the default response of @self.
@@ -2226,7 +2226,7 @@ adw_message_dialog_get_default_response (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_default_response: (attributes org.gtk.Method.set_property=default-response)
+ * adw_message_dialog_set_default_response:
  * @self: a message dialog
  * @response: (nullable): the default response ID
  *
@@ -2266,7 +2266,7 @@ adw_message_dialog_set_default_response (AdwMessageDialog *self,
 }
 
 /**
- * adw_message_dialog_get_close_response: (attributes org.gtk.Method.get_property=close-response)
+ * adw_message_dialog_get_close_response:
  * @self: a message dialog
  *
  * Gets the ID of the close response of @self.
@@ -2288,7 +2288,7 @@ adw_message_dialog_get_close_response (AdwMessageDialog *self)
 }
 
 /**
- * adw_message_dialog_set_close_response: (attributes org.gtk.Method.set_property=close-response)
+ * adw_message_dialog_set_close_response:
  * @self: a message dialog
  * @response: the close response ID
  *

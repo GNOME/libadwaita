@@ -746,7 +746,7 @@ adw_tab_bar_new (void)
 }
 
 /**
- * adw_tab_bar_get_view: (attributes org.gtk.Method.get_property=view)
+ * adw_tab_bar_get_view:
  * @self: a tab bar
  *
  * Gets the tab view @self controls.
@@ -762,7 +762,7 @@ adw_tab_bar_get_view (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_view: (attributes org.gtk.Method.set_property=view)
+ * adw_tab_bar_set_view:
  * @self: a tab bar
  * @view: (nullable): a tab view
  *
@@ -838,7 +838,7 @@ adw_tab_bar_set_view (AdwTabBar  *self,
 }
 
 /**
- * adw_tab_bar_get_start_action_widget: (attributes org.gtk.Method.get_property=start-action-widget)
+ * adw_tab_bar_get_start_action_widget:
  * @self: a tab bar
  *
  * Gets the widget shown before the tabs.
@@ -854,7 +854,7 @@ adw_tab_bar_get_start_action_widget (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_start_action_widget: (attributes org.gtk.Method.set_property=start-action-widget)
+ * adw_tab_bar_set_start_action_widget:
  * @self: a tab bar
  * @widget: (transfer none) (nullable): the widget to show before the tabs
  *
@@ -881,7 +881,7 @@ adw_tab_bar_set_start_action_widget (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_end_action_widget: (attributes org.gtk.Method.get_property=end-action-widget)
+ * adw_tab_bar_get_end_action_widget:
  * @self: a tab bar
  *
  * Gets the widget shown after the tabs.
@@ -897,7 +897,7 @@ adw_tab_bar_get_end_action_widget (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_end_action_widget: (attributes org.gtk.Method.set_property=end-action-widget)
+ * adw_tab_bar_set_end_action_widget:
  * @self: a tab bar
  * @widget: (transfer none) (nullable): the widget to show after the tabs
  *
@@ -924,7 +924,7 @@ adw_tab_bar_set_end_action_widget (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_autohide: (attributes org.gtk.Method.get_property=autohide)
+ * adw_tab_bar_get_autohide:
  * @self: a tab bar
  *
  * Gets whether the tabs automatically hide.
@@ -940,7 +940,7 @@ adw_tab_bar_get_autohide (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_autohide: (attributes org.gtk.Method.set_property=autohide)
+ * adw_tab_bar_set_autohide:
  * @self: a tab bar
  * @autohide: whether the tabs automatically hide
  *
@@ -970,7 +970,7 @@ adw_tab_bar_set_autohide (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_tabs_revealed: (attributes org.gtk.Method.get_property=tabs-revealed)
+ * adw_tab_bar_get_tabs_revealed:
  * @self: a tab bar
  *
  * Gets whether the tabs are currently revealed.
@@ -988,7 +988,7 @@ adw_tab_bar_get_tabs_revealed (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_get_expand_tabs: (attributes org.gtk.Method.get_property=expand-tabs)
+ * adw_tab_bar_get_expand_tabs:
  * @self: a tab bar
  *
  * Gets whether tabs expand to full width.
@@ -1004,7 +1004,7 @@ adw_tab_bar_get_expand_tabs (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_expand_tabs: (attributes org.gtk.Method.set_property=expand-tabs)
+ * adw_tab_bar_set_expand_tabs:
  * @self: a tab bar
  * @expand_tabs: whether to expand tabs
  *
@@ -1030,7 +1030,7 @@ adw_tab_bar_set_expand_tabs (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_inverted: (attributes org.gtk.Method.get_property=inverted)
+ * adw_tab_bar_get_inverted:
  * @self: a tab bar
  *
  * Gets whether tabs use inverted layout.
@@ -1046,7 +1046,7 @@ adw_tab_bar_get_inverted (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_inverted: (attributes org.gtk.Method.set_property=inverted)
+ * adw_tab_bar_set_inverted:
  * @self: a tab bar
  * @inverted: whether tabs use inverted layout
  *
@@ -1167,7 +1167,7 @@ adw_tab_bar_set_extra_drag_preload (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_is_overflowing: (attributes org.gtk.Method.get_property=is-overflowing)
+ * adw_tab_bar_get_is_overflowing:
  * @self: a tab bar
  *
  * Gets whether @self is overflowing.
