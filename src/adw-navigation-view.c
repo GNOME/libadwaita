@@ -503,7 +503,7 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwNavigationPage:child: (attributes org.gtk.Property.get=adw_navigation_page_get_child org.gtk.Property.set=adw_navigation_page_set_child)
+   * AdwNavigationPage:child:
    *
    * The child widget.
    *
@@ -515,7 +515,7 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationPage:tag: (attributes org.gtk.Property.get=adw_navigation_page_get_tag org.gtk.Property.set=adw_navigation_page_set_tag)
+   * AdwNavigationPage:tag:
    *
    * The page tag.
    *
@@ -536,7 +536,7 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationPage:title: (attributes org.gtk.Property.get=adw_navigation_page_get_title org.gtk.Property.set=adw_navigation_page_set_title)
+   * AdwNavigationPage:title:
    *
    * The page title.
    *
@@ -551,7 +551,7 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationPage:can-pop: (attributes org.gtk.Property.get=adw_navigation_page_get_can_pop org.gtk.Property.set=adw_navigation_page_set_can_pop)
+   * AdwNavigationPage:can-pop:
    *
    * Whether the page can be popped from navigation stack.
    *
@@ -1690,7 +1690,7 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwNavigationView:visible-page: (attributes org.gtk.Property.get=adw_navigation_view_get_visible_page)
+   * AdwNavigationView:visible-page:
    *
    * The currently visible page.
    *
@@ -1702,7 +1702,7 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwNavigationView:animate-transitions: (attributes org.gtk.Property.get=adw_navigation_view_get_animate_transitions org.gtk.Property.set=adw_navigation_view_set_animate_transitions)
+   * AdwNavigationView:animate-transitions:
    *
    * Whether to animate page transitions.
    *
@@ -1716,7 +1716,7 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationView:pop-on-escape: (attributes org.gtk.Property.get=adw_navigation_view_get_pop_on_escape org.gtk.Property.set=adw_navigation_view_set_pop_on_escape)
+   * AdwNavigationView:pop-on-escape:
    *
    * Whether pressing Escape pops the current page.
    *
@@ -1731,7 +1731,7 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationView:navigation-stack: (attributes org.gtk.Property.get=adw_navigation_view_get_navigation_stack)
+   * AdwNavigationView:navigation-stack:
    *
    * A list model that contains the pages in navigation stack.
    *

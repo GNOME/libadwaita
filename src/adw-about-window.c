@@ -1372,7 +1372,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   object_class->set_property = adw_about_window_set_property;
 
   /**
-   * AdwAboutWindow:application-icon: (attributes org.gtk.Property.get=adw_about_window_get_application_icon org.gtk.Property.set=adw_about_window_set_application_icon)
+   * AdwAboutWindow:application-icon:
    *
    * The name of the application icon.
    *
@@ -1386,7 +1386,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:application-name: (attributes org.gtk.Property.get=adw_about_window_get_application_name org.gtk.Property.set=adw_about_window_set_application_name)
+   * AdwAboutWindow:application-name:
    *
    * The name of the application.
    *
@@ -1400,7 +1400,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:developer-name: (attributes org.gtk.Property.get=adw_about_window_get_developer_name org.gtk.Property.set=adw_about_window_set_developer_name)
+   * AdwAboutWindow:developer-name:
    *
    * The developer name.
    *
@@ -1421,7 +1421,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:version: (attributes org.gtk.Property.get=adw_about_window_get_version org.gtk.Property.set=adw_about_window_set_version)
+   * AdwAboutWindow:version:
    *
    * The version of the application.
    *
@@ -1438,7 +1438,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:release-notes-version: (attributes org.gtk.Property.get=adw_about_window_get_release_notes_version org.gtk.Property.set=adw_about_window_set_release_notes_version)
+   * AdwAboutWindow:release-notes-version:
    *
    * The version described by the application's release notes.
    *
@@ -1461,7 +1461,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:release-notes: (attributes org.gtk.Property.get=adw_about_window_get_release_notes org.gtk.Property.set=adw_about_window_set_release_notes)
+   * AdwAboutWindow:release-notes:
    *
    * The release notes of the application.
    *
@@ -1496,7 +1496,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:comments: (attributes org.gtk.Property.get=adw_about_window_get_comments org.gtk.Property.set=adw_about_window_set_comments)
+   * AdwAboutWindow:comments:
    *
    * The comments about the application.
    *
@@ -1513,7 +1513,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:website: (attributes org.gtk.Property.get=adw_about_window_get_website org.gtk.Property.set=adw_about_window_set_website)
+   * AdwAboutWindow:website:
    *
    * The URL of the application's website.
    *
@@ -1530,7 +1530,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:support-url: (attributes org.gtk.Property.get=adw_about_window_get_support_url org.gtk.Property.set=adw_about_window_set_support_url)
+   * AdwAboutWindow:support-url:
    *
    * The URL of the application's support page.
    *
@@ -1544,7 +1544,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:issue-url: (attributes org.gtk.Property.get=adw_about_window_get_issue_url org.gtk.Property.set=adw_about_window_set_issue_url)
+   * AdwAboutWindow:issue-url:
    *
    * The URL for the application's issue tracker.
    *
@@ -1558,7 +1558,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:debug-info: (attributes org.gtk.Property.get=adw_about_window_get_debug_info org.gtk.Property.set=adw_about_window_set_debug_info)
+   * AdwAboutWindow:debug-info:
    *
    * The debug information.
    *
@@ -1580,7 +1580,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:debug-info-filename: (attributes org.gtk.Property.get=adw_about_window_get_debug_info_filename org.gtk.Property.set=adw_about_window_set_debug_info_filename)
+   * AdwAboutWindow:debug-info-filename:
    *
    * The debug information filename.
    *
@@ -1597,7 +1597,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:developers: (attributes org.gtk.Property.get=adw_about_window_get_developers org.gtk.Property.set=adw_about_window_set_developers)
+   * AdwAboutWindow:developers:
    *
    * The list of developers of the application.
    *
@@ -1623,7 +1623,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:designers: (attributes org.gtk.Property.get=adw_about_window_get_designers org.gtk.Property.set=adw_about_window_set_designers)
+   * AdwAboutWindow:designers:
    *
    * The list of designers of the application.
    *
@@ -1649,7 +1649,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:artists: (attributes org.gtk.Property.get=adw_about_window_get_artists org.gtk.Property.set=adw_about_window_set_artists)
+   * AdwAboutWindow:artists:
    *
    * The list of artists of the application.
    *
@@ -1675,7 +1675,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:documenters: (attributes org.gtk.Property.get=adw_about_window_get_documenters org.gtk.Property.set=adw_about_window_set_documenters)
+   * AdwAboutWindow:documenters:
    *
    * The list of documenters of the application.
    *
@@ -1701,7 +1701,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:translator-credits: (attributes org.gtk.Property.get=adw_about_window_get_translator_credits org.gtk.Property.set=adw_about_window_set_translator_credits)
+   * AdwAboutWindow:translator-credits:
    *
    * The translator credits string.
    *
@@ -1730,7 +1730,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:copyright: (attributes org.gtk.Property.get=adw_about_window_get_copyright org.gtk.Property.set=adw_about_window_set_copyright)
+   * AdwAboutWindow:copyright:
    *
    * The copyright information.
    *
@@ -1751,7 +1751,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:license-type: (attributes org.gtk.Property.get=adw_about_window_get_license_type org.gtk.Property.set=adw_about_window_set_license_type)
+   * AdwAboutWindow:license-type:
    *
    * The license type.
    *
@@ -1781,7 +1781,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutWindow:license: (attributes org.gtk.Property.get=adw_about_window_get_license org.gtk.Property.set=adw_about_window_set_license)
+   * AdwAboutWindow:license:
    *
    * The license text.
    *

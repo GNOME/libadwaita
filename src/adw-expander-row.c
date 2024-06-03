@@ -188,7 +188,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
   widget_class->grab_focus = adw_widget_grab_focus_child;
 
   /**
-   * AdwExpanderRow:subtitle: (attributes org.gtk.Property.get=adw_expander_row_get_subtitle org.gtk.Property.set=adw_expander_row_set_subtitle)
+   * AdwExpanderRow:subtitle:
    *
    * The subtitle for this row.
    *
@@ -201,7 +201,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:icon-name: (attributes org.gtk.Property.get=adw_expander_row_get_icon_name org.gtk.Property.set=adw_expander_row_set_icon_name)
+   * AdwExpanderRow:icon-name:
    *
    * The icon name for this row.
    *
@@ -213,7 +213,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:expanded: (attributes org.gtk.Property.get=adw_expander_row_get_expanded org.gtk.Property.set=adw_expander_row_set_expanded)
+   * AdwExpanderRow:expanded:
    *
    * Whether the row is expanded.
    */
@@ -223,7 +223,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:enable-expansion: (attributes org.gtk.Property.get=adw_expander_row_get_enable_expansion org.gtk.Property.set=adw_expander_row_set_enable_expansion)
+   * AdwExpanderRow:enable-expansion:
    *
    * Whether expansion is enabled.
    */
@@ -233,7 +233,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:show-enable-switch: (attributes org.gtk.Property.get=adw_expander_row_get_show_enable_switch org.gtk.Property.set=adw_expander_row_set_show_enable_switch)
+   * AdwExpanderRow:show-enable-switch:
    *
    * Whether the switch enabling the expansion is visible.
    */
@@ -243,7 +243,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:title-lines: (attributes org.gtk.Property.get=adw_expander_row_get_title_lines org.gtk.Property.set=adw_expander_row_set_title_lines)
+   * AdwExpanderRow:title-lines:
    *
    * The number of lines at the end of which the title label will be ellipsized.
    *
@@ -258,7 +258,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:subtitle-lines: (attributes org.gtk.Property.get=adw_expander_row_get_subtitle_lines org.gtk.Property.set=adw_expander_row_set_subtitle_lines)
+   * AdwExpanderRow:subtitle-lines:
    *
    * The number of lines at the end of which the subtitle label will be
    * ellipsized.

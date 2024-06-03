@@ -699,7 +699,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
   widget_class->compute_expand = adw_widget_compute_expand_horizontal_only;
 
   /**
-   * AdwHeaderBar:title-widget: (attributes org.gtk.Property.get=adw_header_bar_get_title_widget org.gtk.Property.set=adw_header_bar_set_title_widget)
+   * AdwHeaderBar:title-widget:
    *
    * The title widget to display.
    *
@@ -724,7 +724,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:show-start-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_start_title_buttons org.gtk.Property.set=adw_header_bar_set_show_start_title_buttons)
+   * AdwHeaderBar:show-start-title-buttons:
    *
    * Whether to show title buttons at the start of the header bar.
    *
@@ -741,7 +741,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:show-end-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_end_title_buttons org.gtk.Property.set=adw_header_bar_set_show_end_title_buttons)
+   * AdwHeaderBar:show-end-title-buttons:
    *
    * Whether to show title buttons at the end of the header bar.
    *
@@ -758,7 +758,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:show-back-button: (attributes org.gtk.Property.get=adw_header_bar_get_show_back_button org.gtk.Property.set=adw_header_bar_set_show_back_button)
+   * AdwHeaderBar:show-back-button:
    *
    * Whether the header bar can show the back button.
    *
@@ -773,7 +773,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:decoration-layout: (attributes org.gtk.Property.get=adw_header_bar_get_decoration_layout org.gtk.Property.set=adw_header_bar_set_decoration_layout)
+   * AdwHeaderBar:decoration-layout:
    *
    * The decoration layout for buttons.
    *
@@ -794,7 +794,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:centering-policy: (attributes org.gtk.Property.get=adw_header_bar_get_centering_policy org.gtk.Property.set=adw_header_bar_set_centering_policy)
+   * AdwHeaderBar:centering-policy:
    *
    * The policy for aligning the center widget.
    */
@@ -805,7 +805,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:show-title: (attributes org.gtk.Property.get=adw_header_bar_get_show_title org.gtk.Property.set=adw_header_bar_set_show_title)
+   * AdwHeaderBar:show-title:
    *
    * Whether the title widget should be shown.
    *

@@ -575,7 +575,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   row_class->activate = adw_combo_row_activate;
 
   /**
-   * AdwComboRow:selected: (attributes org.gtk.Property.get=adw_combo_row_get_selected org.gtk.Property.set=adw_combo_row_set_selected)
+   * AdwComboRow:selected:
    *
    * The position of the selected item.
    *
@@ -588,7 +588,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:selected-item: (attributes org.gtk.Property.get=adw_combo_row_get_selected_item)
+   * AdwComboRow:selected-item:
    *
    * The selected item.
    */
@@ -598,7 +598,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
+   * AdwComboRow:model:
    *
    * The model that provides the displayed items.
    */
@@ -608,7 +608,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:factory: (attributes org.gtk.Property.get=adw_combo_row_get_factory org.gtk.Property.set=adw_combo_row_set_factory)
+   * AdwComboRow:factory:
    *
    * Factory for populating list items.
    *
@@ -621,7 +621,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:header-factory: (attributes org.gtk.Property.get=adw_combo_row_get_header_factory org.gtk.Property.set=adw_combo_row_set_header_factory)
+   * AdwComboRow:header-factory:
    *
    * The factory for creating header widgets for the popup.
    *
@@ -633,7 +633,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:list-factory: (attributes org.gtk.Property.get=adw_combo_row_get_list_factory org.gtk.Property.set=adw_combo_row_set_list_factory)
+   * AdwComboRow:list-factory:
    *
    * The factory for populating list items in the popup.
    *
@@ -645,7 +645,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:expression: (type GtkExpression) (attributes org.gtk.Property.get=adw_combo_row_get_expression org.gtk.Property.set=adw_combo_row_set_expression)
+   * AdwComboRow:expression: (type GtkExpression)
    *
    * An expression used to obtain strings from items.
    *
@@ -662,7 +662,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:use-subtitle: (attributes org.gtk.Property.get=adw_combo_row_get_use_subtitle org.gtk.Property.set=adw_combo_row_set_use_subtitle)
+   * AdwComboRow:use-subtitle:
    *
    * Whether to use the current value as the subtitle.
    *
@@ -680,7 +680,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:enable-search: (attributes org.gtk.Property.get=adw_combo_row_get_enable_search org.gtk.Property.set=adw_combo_row_set_enable_search)
+   * AdwComboRow:enable-search:
    *
    * Whether to show a search entry in the popup.
    *
@@ -697,7 +697,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:search-match-mode: (attributes org.gtk.Property.get=adw_combo_row_get_search_match_mode org.gtk.Property.set=adw_combo_row_set_search_match_mode)
+   * AdwComboRow:search-match-mode:
    *
    * The match mode for the search filter.
    *

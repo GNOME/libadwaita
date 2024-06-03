@@ -376,7 +376,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   object_class->get_property = adw_avatar_get_property;
 
   /**
-   * AdwAvatar:icon-name: (attributes org.gtk.Property.get=adw_avatar_get_icon_name org.gtk.Property.set=adw_avatar_set_icon_name)
+   * AdwAvatar:icon-name:
    *
    * The name of an icon to use as a fallback.
    *
@@ -388,7 +388,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:text: (attributes org.gtk.Property.get=adw_avatar_get_text org.gtk.Property.set=adw_avatar_set_text)
+   * AdwAvatar:text:
    *
    * Sets the text used to generate the fallback initials and color.
    *
@@ -401,7 +401,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:show-initials: (attributes org.gtk.Property.get=adw_avatar_get_show_initials org.gtk.Property.set=adw_avatar_set_show_initials)
+   * AdwAvatar:show-initials:
    *
    * Whether initials are used instead of an icon on the fallback avatar.
    *
@@ -413,7 +413,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:custom-image: (attributes org.gtk.Property.get=adw_avatar_get_custom_image org.gtk.Property.set=adw_avatar_set_custom_image)
+   * AdwAvatar:custom-image:
    *
    * A custom image paintable.
    *
@@ -425,7 +425,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
+   * AdwAvatar:size:
    *
    * The size of the avatar.
    */

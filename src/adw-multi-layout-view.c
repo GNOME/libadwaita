@@ -326,7 +326,7 @@ adw_multi_layout_view_class_init (AdwMultiLayoutViewClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwMultiLayoutView:layout: (attributes org.gtk.Property.get=adw_multi_layout_view_get_layout org.gtk.Property.set=adw_multi_layout_view_set_layout)
+   * AdwMultiLayoutView:layout:
    *
    * The currently used layout.
    *
@@ -338,7 +338,7 @@ adw_multi_layout_view_class_init (AdwMultiLayoutViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMultiLayoutView:layout-name: (attributes org.gtk.Property.get=adw_multi_layout_view_get_layout_name org.gtk.Property.set=adw_multi_layout_view_set_layout_name)
+   * AdwMultiLayoutView:layout-name:
    *
    * The name of the currently used layout.
    *

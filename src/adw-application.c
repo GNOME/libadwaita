@@ -225,7 +225,7 @@ adw_application_class_init (AdwApplicationClass *klass)
   application_class->startup = adw_application_startup;
 
   /**
-   * AdwApplication:style-manager: (attributes org.gtk.Property.get=adw_application_get_style_manager)
+   * AdwApplication:style-manager:
    *
    * The style manager for this application.
    *

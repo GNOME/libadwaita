@@ -498,7 +498,7 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
   widget_class->size_allocate = adw_toast_overlay_size_allocate;
 
   /**
-   * AdwToastOverlay:child: (attributes org.gtk.Property.get=adw_toast_overlay_get_child org.gtk.Property.set=adw_toast_overlay_set_child)
+   * AdwToastOverlay:child:
    *
    * The child widget.
    */

@@ -1110,7 +1110,7 @@ adw_breakpoint_class_init (AdwBreakpointClass *klass)
   object_class->set_property = adw_breakpoint_set_property;
 
   /**
-   * AdwBreakpoint:condition: (attributes org.gtk.Property.get=adw_breakpoint_get_condition org.gtk.Property.set=adw_breakpoint_set_condition)
+   * AdwBreakpoint:condition:
    *
    * The breakpoint's condition.
    *

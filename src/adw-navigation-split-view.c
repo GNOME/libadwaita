@@ -761,7 +761,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
   widget_class->unroot = adw_navigation_split_view_unroot;
 
   /**
-   * AdwNavigationSplitView:sidebar: (attributes org.gtk.Property.get=adw_navigation_split_view_get_sidebar org.gtk.Property.set=adw_navigation_split_view_set_sidebar)
+   * AdwNavigationSplitView:sidebar:
    *
    * The sidebar widget.
    *
@@ -773,7 +773,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:content: (attributes org.gtk.Property.get=adw_navigation_split_view_get_content org.gtk.Property.set=adw_navigation_split_view_set_content)
+   * AdwNavigationSplitView:content:
    *
    * The content widget.
    *
@@ -785,7 +785,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:collapsed: (attributes org.gtk.Property.get=adw_navigation_split_view_get_collapsed org.gtk.Property.set=adw_navigation_split_view_set_collapsed)
+   * AdwNavigationSplitView:collapsed:
    *
    * Whether the split view is collapsed.
    *
@@ -803,7 +803,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:show-content: (attributes org.gtk.Property.get=adw_navigation_split_view_get_show_content org.gtk.Property.set=adw_navigation_split_view_set_show_content)
+   * AdwNavigationSplitView:show-content:
    *
    * Determines the visible page when collapsed.
    *
@@ -822,7 +822,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:min-sidebar-width: (attributes org.gtk.Property.get=adw_navigation_split_view_get_min_sidebar_width org.gtk.Property.set=adw_navigation_split_view_set_min_sidebar_width)
+   * AdwNavigationSplitView:min-sidebar-width:
    *
    * The minimum sidebar width.
    *
@@ -840,7 +840,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:max-sidebar-width: (attributes org.gtk.Property.get=adw_navigation_split_view_get_max_sidebar_width org.gtk.Property.set=adw_navigation_split_view_set_max_sidebar_width)
+   * AdwNavigationSplitView:max-sidebar-width:
    *
    * The maximum sidebar width.
    *
@@ -858,7 +858,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:sidebar-width-fraction: (attributes org.gtk.Property.get=adw_navigation_split_view_get_sidebar_width_fraction org.gtk.Property.set=adw_navigation_split_view_set_sidebar_width_fraction)
+   * AdwNavigationSplitView:sidebar-width-fraction:
    *
    * The preferred sidebar width as a fraction of the total width.
    *
@@ -877,7 +877,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwNavigationSplitView:sidebar-width-unit: (attributes org.gtk.Property.get=adw_navigation_split_view_get_sidebar_width_unit org.gtk.Property.set=adw_navigation_split_view_set_sidebar_width_unit)
+   * AdwNavigationSplitView:sidebar-width-unit:
    *
    * The length unit for minimum and maximum sidebar widths.
    *

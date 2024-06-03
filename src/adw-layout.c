@@ -131,7 +131,7 @@ adw_layout_class_init (AdwLayoutClass *klass)
   object_class->set_property = adw_layout_set_property;
 
   /**
-   * AdwLayout:content: (attributes org.gtk.Property.get=adw_layout_get_content)
+   * AdwLayout:content:
    *
    * The content widget.
    *
@@ -143,7 +143,7 @@ adw_layout_class_init (AdwLayoutClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwLayout:name: (attributes org.gtk.Property.get=adw_layout_get_name org.gtk.Property.set=adw_layout_set_name)
+   * AdwLayout:name:
    *
    * The name of the layout.
    *

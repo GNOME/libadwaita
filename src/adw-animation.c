@@ -350,7 +350,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
   klass->calculate_value = adw_animation_calculate_value;
 
   /**
-   * AdwAnimation:widget: (attributes org.gtk.Property.get=adw_animation_get_widget)
+   * AdwAnimation:widget:
    *
    * The animation widget.
    *
@@ -367,7 +367,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target org.gtk.Property.set=adw_animation_set_target)
+   * AdwAnimation:target:
    *
    * The target to animate.
    */
@@ -377,7 +377,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAnimation:value: (attributes org.gtk.Property.get=adw_animation_get_value)
+   * AdwAnimation:value:
    *
    * The current value of the animation.
    */
@@ -389,7 +389,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwAnimation:state: (attributes org.gtk.Property.get=adw_animation_get_state)
+   * AdwAnimation:state:
    *
    * The animation state.
    *
@@ -403,7 +403,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwAnimation:follow-enable-animations-setting: (attributes org.gtk.Property.get=adw_animation_get_follow_enable_animations_setting org.gtk.Property.set=adw_animation_set_follow_enable_animations_setting)
+   * AdwAnimation:follow-enable-animations-setting:
    *
    * Whether to skip the animation when animations are globally disabled.
    *

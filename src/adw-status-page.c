@@ -188,7 +188,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwStatusPage:icon-name: (attributes org.gtk.Property.get=adw_status_page_get_icon_name org.gtk.Property.set=adw_status_page_set_icon_name)
+   * AdwStatusPage:icon-name:
    *
    * The name of the icon to be used.
    *
@@ -200,7 +200,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:paintable: (attributes org.gtk.Property.get=adw_status_page_get_paintable org.gtk.Property.set=adw_status_page_set_paintable)
+   * AdwStatusPage:paintable:
    *
    * The paintable to be used.
    *
@@ -212,7 +212,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
+   * AdwStatusPage:title:
    *
    * The title to be displayed below the icon.
    * 
@@ -224,7 +224,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:description: (attributes org.gtk.Property.get=adw_status_page_get_description org.gtk.Property.set=adw_status_page_set_description)
+   * AdwStatusPage:description:
    *
    * The description markup to be displayed below the title.
    */
@@ -234,7 +234,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:child: (attributes org.gtk.Property.get=adw_status_page_get_child org.gtk.Property.set=adw_status_page_set_child)
+   * AdwStatusPage:child:
    *
    * The child widget.
    */

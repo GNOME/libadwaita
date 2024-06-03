@@ -1018,7 +1018,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwDialog:child: (attributes org.gtk.Property.get=adw_dialog_get_child org.gtk.Property.set=adw_dialog_set_child)
+   * AdwDialog:child:
    *
    * The child widget of the `AdwDialog`.
    *
@@ -1030,7 +1030,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:title: (attributes org.gtk.Property.get=adw_dialog_get_title org.gtk.Property.set=adw_dialog_set_title)
+   * AdwDialog:title:
    *
    * The title of the dialog.
    *
@@ -1042,7 +1042,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:can-close: (attributes org.gtk.Property.get=adw_dialog_get_can_close org.gtk.Property.set=adw_dialog_set_can_close)
+   * AdwDialog:can-close:
    *
    * Whether the dialog can be closed.
    *
@@ -1059,7 +1059,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:content-width: (attributes org.gtk.Property.get=adw_dialog_get_content_width org.gtk.Property.set=adw_dialog_set_content_width)
+   * AdwDialog:content-width:
    *
    * The width of the dialog's contents.
    *
@@ -1075,7 +1075,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:content-height: (attributes org.gtk.Property.get=adw_dialog_get_content_height org.gtk.Property.set=adw_dialog_set_content_height)
+   * AdwDialog:content-height:
    *
    * The height of the dialog's contents.
    *
@@ -1091,7 +1091,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:follows-content-size: (attributes org.gtk.Property.get=adw_dialog_get_follows_content_size org.gtk.Property.set=adw_dialog_set_follows_content_size)
+   * AdwDialog:follows-content-size:
    *
    * Whether to size content automatically.
    *
@@ -1109,7 +1109,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:presentation-mode: (attributes org.gtk.Property.get=adw_dialog_get_presentation_mode org.gtk.Property.set=adw_dialog_set_presentation_mode)
+   * AdwDialog:presentation-mode:
    *
    * The dialog's presentation mode.
    *
@@ -1144,7 +1144,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:default-widget: (attributes org.gtk.Property.get=adw_dialog_get_default_widget org.gtk.Property.set=adw_dialog_set_default_widget)
+   * AdwDialog:default-widget:
    *
    * The default widget.
    *
@@ -1158,7 +1158,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:current-breakpoint: (attributes org.gtk.Property.get=adw_dialog_get_current_breakpoint)
+   * AdwDialog:current-breakpoint:
    *
    * The current breakpoint.
    *

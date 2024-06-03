@@ -303,7 +303,7 @@ adw_toast_class_init (AdwToastClass *klass)
   object_class->set_property = adw_toast_set_property;
 
   /**
-   * AdwToast:title: (attributes org.gtk.Property.get=adw_toast_get_title org.gtk.Property.set=adw_toast_set_title)
+   * AdwToast:title:
    *
    * The title of the toast.
    *
@@ -319,7 +319,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:button-label: (attributes org.gtk.Property.get=adw_toast_get_button_label org.gtk.Property.set=adw_toast_set_button_label)
+   * AdwToast:button-label:
    *
    * The label to show on the button.
    *
@@ -335,7 +335,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:action-name: (attributes org.gtk.Property.get=adw_toast_get_action_name org.gtk.Property.set=adw_toast_set_action_name)
+   * AdwToast:action-name:
    *
    * The name of the associated action.
    *
@@ -360,7 +360,7 @@ adw_toast_class_init (AdwToastClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:priority: (attributes org.gtk.Property.get=adw_toast_get_priority org.gtk.Property.set=adw_toast_set_priority)
+   * AdwToast:priority:
    *
    * The priority of the toast.
    *
@@ -379,7 +379,7 @@ adw_toast_class_init (AdwToastClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:timeout: (attributes org.gtk.Property.get=adw_toast_get_timeout org.gtk.Property.set=adw_toast_set_timeout)
+   * AdwToast:timeout:
    *
    * The timeout of the toast, in seconds.
    *
@@ -395,7 +395,7 @@ adw_toast_class_init (AdwToastClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:custom-title: (attributes org.gtk.Property.get=adw_toast_get_custom_title org.gtk.Property.set=adw_toast_set_custom_title)
+   * AdwToast:custom-title:
    *
    * The custom title widget.
    *
@@ -412,7 +412,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:use-markup: (attributes org.gtk.Property.get=adw_toast_get_use_markup org.gtk.Property.set=adw_toast_set_use_markup)
+   * AdwToast:use-markup:
    *
    * Whether to use Pango markup for the toast title.
    *

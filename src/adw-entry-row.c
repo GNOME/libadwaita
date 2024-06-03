@@ -470,7 +470,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   widget_class->grab_focus = adw_entry_row_grab_focus;
 
   /**
-   * AdwEntryRow:show-apply-button: (attributes org.gtk.Property.get=adw_entry_row_get_show_apply_button org.gtk.Property.set=adw_entry_row_set_show_apply_button)
+   * AdwEntryRow:show-apply-button:
    *
    * Whether to show the apply button.
    *
@@ -490,7 +490,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:input-hints: (attributes org.gtk.Property.get=adw_entry_row_get_input_hints org.gtk.Property.set=adw_entry_row_set_input_hints)
+   * AdwEntryRow:input-hints:
    *
    * Additional input hints for the entry row.
    *
@@ -507,7 +507,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:input-purpose: (attributes org.gtk.Property.get=adw_entry_row_get_input_purpose org.gtk.Property.set=adw_entry_row_set_input_purpose)
+   * AdwEntryRow:input-purpose:
    *
    * The input purpose of the entry row.
    *
@@ -522,7 +522,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:attributes: (attributes org.gtk.Property.get=adw_entry_row_get_attributes org.gtk.Property.set=adw_entry_row_set_attributes)
+   * AdwEntryRow:attributes:
    *
    * A list of Pango attributes to apply to the text of the embedded entry.
    *
@@ -537,7 +537,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:enable-emoji-completion: (attributes org.gtk.Property.get=adw_entry_row_get_enable_emoji_completion org.gtk.Property.set=adw_entry_row_set_enable_emoji_completion)
+   * AdwEntryRow:enable-emoji-completion:
    *
    * Whether to suggest emoji replacements on the entry row.
    *
@@ -551,7 +551,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:activates-default: (attributes org.gtk.Property.get=adw_entry_row_get_activates_default org.gtk.Property.set=adw_entry_row_set_activates_default)
+   * AdwEntryRow:activates-default:
    *
    * Whether activating the embedded entry can activate the default widget.
    *
@@ -563,7 +563,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwEntryRow:text-length: (attributes org.gtk.Property.get=adw_entry_row_get_text_length)
+   * AdwEntryRow:text-length:
    *
    * The length of the text in the entry row.
    *
@@ -575,7 +575,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                        G_PARAM_READABLE);
 
   /**
-   * AdwEntryRow:max-length: (attributes org.gtk.Property.get=adw_entry_row_get_max_length org.gtkProperty.set=adw_entry_row_set_max_length)
+   * AdwEntryRow:max-length:
    *
    * Maximum number of characters for the entry.
    *

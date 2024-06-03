@@ -589,7 +589,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   object_class->dispose = adw_preferences_window_dispose;
 
   /**
-   * AdwPreferencesWindow:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
+   * AdwPreferencesWindow:visible-page:
    *
    * The currently visible page.
    */
@@ -599,7 +599,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesWindow:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Property.set=adw_preferences_window_set_visible_page_name)
+   * AdwPreferencesWindow:visible-page-name:
    *
    * The name of the currently visible page.
    *
@@ -611,7 +611,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesWindow:search-enabled: (attributes org.gtk.Property.get=adw_preferences_window_get_search_enabled org.gtk.Property.set=adw_preferences_window_set_search_enabled)
+   * AdwPreferencesWindow:search-enabled:
    *
    * Whether search is enabled.
    */
@@ -621,7 +621,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesWindow:can-navigate-back: (attributes org.gtk.Property.get=adw_preferences_window_get_can_navigate_back org.gtk.Property.set=adw_preferences_window_set_can_navigate_back)
+   * AdwPreferencesWindow:can-navigate-back:
    *
    * Whether gestures and shortcuts for closing subpages are enabled.
    *

@@ -98,7 +98,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
   object_class->get_property = adw_enum_list_item_get_property;
 
   /**
-   * AdwEnumListItem:value: (attributes org.gtk.Property.get=adw_enum_list_item_get_value)
+   * AdwEnumListItem:value:
    *
    * The enum value.
    */
@@ -108,7 +108,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwEnumListItem:name: (attributes org.gtk.Property.get=adw_enum_list_item_get_name)
+   * AdwEnumListItem:name:
    *
    * The enum value name.
    */
@@ -118,7 +118,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwEnumListItem:nick: (attributes org.gtk.Property.get=adw_enum_list_item_get_nick)
+   * AdwEnumListItem:nick:
    *
    * The enum value nick.
    */
@@ -267,7 +267,7 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
   object_class->set_property = adw_enum_list_model_set_property;
 
   /**
-   * AdwEnumListModel:enum-type: (attributes org.gtk.Property.get=adw_enum_list_model_get_enum_type)
+   * AdwEnumListModel:enum-type:
    *
    * The type of the enum represented by the model.
    */

@@ -305,7 +305,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
   object_class->set_property = adw_view_stack_page_set_property;
 
   /**
-   * AdwViewStackPage:child: (attributes org.gtk.Property.get=adw_view_stack_page_get_child)
+   * AdwViewStackPage:child:
    *
    * The stack child to which the page belongs.
    */
@@ -315,7 +315,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewStackPage:name: (attributes org.gtk.Property.get=adw_view_stack_page_get_name org.gtk.Property.set=adw_view_stack_page_set_name)
+   * AdwViewStackPage:name:
    *
    * The name of the child page.
    */
@@ -325,7 +325,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:title: (attributes org.gtk.Property.get=adw_view_stack_page_get_title org.gtk.Property.set=adw_view_stack_page_set_title)
+   * AdwViewStackPage:title:
    *
    * The title of the child page.
    */
@@ -335,7 +335,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:use-underline: (attributes org.gtk.Property.get=adw_view_stack_page_get_use_underline org.gtk.Property.set=adw_view_stack_page_set_use_underline)
+   * AdwViewStackPage:use-underline:
    *
    * Whether an embedded underline in the title indicates a mnemonic.
    */
@@ -345,7 +345,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:icon-name: (attributes org.gtk.Property.get=adw_view_stack_page_get_icon_name org.gtk.Property.set=adw_view_stack_page_set_icon_name)
+   * AdwViewStackPage:icon-name:
    *
    * The icon name of the child page.
    */
@@ -355,7 +355,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:needs-attention: (attributes org.gtk.Property.get=adw_view_stack_page_get_needs_attention org.gtk.Property.set=adw_view_stack_page_set_needs_attention)
+   * AdwViewStackPage:needs-attention:
    *
    * Whether the page requires the user attention.
    *
@@ -367,7 +367,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:badge-number: (attributes org.gtk.Property.get=adw_view_stack_page_get_badge_number org.gtk.Property.set=adw_view_stack_page_set_badge_number)
+   * AdwViewStackPage:badge-number:
    *
    * The badge number for this page.
    *
@@ -382,7 +382,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStackPage:visible: (attributes org.gtk.Property.get=adw_view_stack_page_get_visible org.gtk.Property.set=adw_view_stack_page_set_visible)
+   * AdwViewStackPage:visible:
    *
    * Whether this page is visible.
    *
@@ -685,7 +685,7 @@ adw_view_stack_pages_class_init (AdwViewStackPagesClass *class)
   object_class->set_property = adw_view_stack_pages_set_property;
 
   /**
-   * AdwViewStackPages:selected-page: (attributes org.gtk.Property.get=adw_view_stack_pages_get_selected_page org.gtk.Property.set=adw_view_stack_pages_set_selected_page)
+   * AdwViewStackPages:selected-page:
    *
    * The selected [class@ViewStackPage] within the [class@ViewStackPages].
    *
@@ -1169,7 +1169,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwViewStack:hhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_hhomogeneous org.gtk.Property.set=adw_view_stack_set_hhomogeneous)
+   * AdwViewStack:hhomogeneous:
    *
    * Whether the stack is horizontally homogeneous.
    *
@@ -1185,7 +1185,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:vhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_vhomogeneous org.gtk.Property.set=adw_view_stack_set_vhomogeneous)
+   * AdwViewStack:vhomogeneous:
    *
    * Whether the stack is vertically homogeneous.
    *
@@ -1201,7 +1201,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:visible-child: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child org.gtk.Property.set=adw_view_stack_set_visible_child)
+   * AdwViewStack:visible-child:
    *
    * The widget currently visible in the stack.
    */
@@ -1211,7 +1211,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:visible-child-name: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child_name org.gtk.Property.set=adw_view_stack_set_visible_child_name)
+   * AdwViewStack:visible-child-name:
    *
    * The name of the widget currently visible in the stack.
    *
@@ -1223,7 +1223,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:pages: (attributes org.gtk.Property.get=adw_view_stack_get_pages)
+   * AdwViewStack:pages:
    *
    * A selection model with the stack's pages.
    *

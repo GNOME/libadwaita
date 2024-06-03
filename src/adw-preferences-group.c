@@ -263,7 +263,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   widget_class->focus = adw_widget_focus_child;
 
   /**
-   * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
+   * AdwPreferencesGroup:title:
    *
    * The title for this group of preferences.
    */
@@ -273,7 +273,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)
+   * AdwPreferencesGroup:description:
    *
    * The description for this group of preferences.
    */
@@ -283,7 +283,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesGroup:header-suffix: (attributes org.gtk.Property.get=adw_preferences_group_get_header_suffix org.gtk.Property.set=adw_preferences_group_set_header_suffix)
+   * AdwPreferencesGroup:header-suffix:
    *
    * The header suffix widget.
    *
@@ -300,7 +300,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesGroup:separate-rows: (attributes org.gtk.Property.get=adw_preferences_group_get_separate_rows org.gtk.Property.set=adw_preferences_group_set_separate_rows)
+   * AdwPreferencesGroup:separate-rows:
    *
    * Whether to separate rows.
    *

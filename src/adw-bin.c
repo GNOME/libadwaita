@@ -108,7 +108,7 @@ adw_bin_class_init (AdwBinClass *klass)
   widget_class->focus = adw_widget_focus_child;
 
   /**
-   * AdwBin:child: (attributes org.gtk.Property.get=adw_bin_get_child org.gtk.Property.set=adw_bin_set_child)
+   * AdwBin:child:
    *
    * The child widget of the `AdwBin`.
    */

@@ -175,7 +175,7 @@ adw_clamp_class_init (AdwClampClass *klass)
                                     "orientation");
 
   /**
-   * AdwClamp:child: (attributes org.gtk.Property.get=adw_clamp_get_child org.gtk.Property.set=adw_clamp_set_child)
+   * AdwClamp:child:
    *
    * The child widget of the `AdwClamp`.
    */
@@ -185,7 +185,7 @@ adw_clamp_class_init (AdwClampClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClamp:maximum-size: (attributes org.gtk.Property.get=adw_clamp_get_maximum_size org.gtk.Property.set=adw_clamp_set_maximum_size)
+   * AdwClamp:maximum-size:
    *
    * The maximum size allocated to the child.
    *
@@ -197,7 +197,7 @@ adw_clamp_class_init (AdwClampClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClamp:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_get_tightening_threshold org.gtk.Property.set=adw_clamp_set_tightening_threshold)
+   * AdwClamp:tightening-threshold:
    *
    * The size above which the child is clamped.
    *
@@ -220,7 +220,7 @@ adw_clamp_class_init (AdwClampClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClamp:unit: (attributes org.gtk.Property.get=adw_clamp_get_unit org.gtk.Property.set=adw_clamp_set_unit)
+   * AdwClamp:unit:
    *
    * The length unit for maximum size and tightening threshold.
    *

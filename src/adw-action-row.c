@@ -281,7 +281,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   klass->activate = adw_action_row_activate_real;
 
   /**
-   * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)
+   * AdwActionRow:subtitle:
    *
    * The subtitle for this row.
    *
@@ -294,7 +294,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:icon-name: (attributes org.gtk.Property.get=adw_action_row_get_icon_name org.gtk.Property.set=adw_action_row_set_icon_name)
+   * AdwActionRow:icon-name:
    *
    * The icon name for this row.
    *
@@ -306,7 +306,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwActionRow:activatable-widget: (attributes org.gtk.Property.get=adw_action_row_get_activatable_widget org.gtk.Property.set=adw_action_row_set_activatable_widget)
+   * AdwActionRow:activatable-widget:
    *
    * The widget to activate when the row is activated.
    *
@@ -324,7 +324,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:title-lines: (attributes org.gtk.Property.get=adw_action_row_get_title_lines org.gtk.Property.set=adw_action_row_set_title_lines)
+   * AdwActionRow:title-lines:
    *
    * The number of lines at the end of which the title label will be ellipsized.
    *
@@ -337,7 +337,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:subtitle-lines: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_lines org.gtk.Property.set=adw_action_row_set_subtitle_lines)
+   * AdwActionRow:subtitle-lines:
    *
    * The number of lines at the end of which the subtitle label will be
    * ellipsized.
@@ -351,7 +351,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:subtitle-selectable: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_selectable org.gtk.Property.set=adw_action_row_set_subtitle_selectable)
+   * AdwActionRow:subtitle-selectable:
    *
    * Whether the user can copy the subtitle from the label.
    *

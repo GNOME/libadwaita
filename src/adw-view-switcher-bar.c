@@ -236,7 +236,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   widget_class->unrealize = adw_view_switcher_bar_unrealize;
 
   /**
-   * AdwViewSwitcherBar:stack: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_stack org.gtk.Property.set=adw_view_switcher_bar_set_stack)
+   * AdwViewSwitcherBar:stack:
    *
    * The stack the view switcher controls.
    */
@@ -246,7 +246,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewSwitcherBar:reveal: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_reveal org.gtk.Property.set=adw_view_switcher_bar_set_reveal)
+   * AdwViewSwitcherBar:reveal:
    *
    * Whether the bar should be revealed or hidden.
    */

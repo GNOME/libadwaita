@@ -113,7 +113,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
   object_class->dispose = adw_window_title_dispose;
 
   /**
-   * AdwWindowTitle:title: (attributes org.gtk.Property.get=adw_window_title_get_title org.gtk.Property.set=adw_window_title_set_title)
+   * AdwWindowTitle:title:
    *
    * The title to display.
    *
@@ -126,7 +126,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwWindowTitle:subtitle: (attributes org.gtk.Property.get=adw_window_title_get_subtitle org.gtk.Property.set=adw_window_title_set_subtitle)
+   * AdwWindowTitle:subtitle:
    *
    * The subtitle to display.
    *

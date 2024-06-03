@@ -493,7 +493,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwToolbarView:content: (attributes org.gtk.Property.get=adw_toolbar_view_get_content org.gtk.Property.set=adw_toolbar_view_set_content)
+   * AdwToolbarView:content:
    *
    * The content widget.
    *
@@ -505,7 +505,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:top-bar-style: (attributes org.gtk.Property.get=adw_toolbar_view_get_top_bar_style org.gtk.Property.set=adw_toolbar_view_set_top_bar_style)
+   * AdwToolbarView:top-bar-style:
    *
    * Appearance of the top bars.
    *
@@ -541,7 +541,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:bottom-bar-style: (attributes org.gtk.Property.get=adw_toolbar_view_get_bottom_bar_style org.gtk.Property.set=adw_toolbar_view_set_bottom_bar_style)
+   * AdwToolbarView:bottom-bar-style:
    *
    * Appearance of the bottom bars.
    *
@@ -577,7 +577,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:reveal-top-bars: (attributes org.gtk.Property.get=adw_toolbar_view_get_reveal_top_bars org.gtk.Property.set=adw_toolbar_view_get_reveal_top_bars)
+   * AdwToolbarView:reveal-top-bars:
    *
    * Whether top bars are revealed.
    *
@@ -597,7 +597,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:reveal-bottom-bars: (attributes org.gtk.Property.get=adw_toolbar_view_get_reveal_bottom_bars org.gtk.Property.set=adw_toolbar_view_get_reveal_bottom_bars)
+   * AdwToolbarView:reveal-bottom-bars:
    *
    * Whether bottom bars are visible.
    *
@@ -617,7 +617,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:extend-content-to-top-edge: (attributes org.gtk.Property.get=adw_toolbar_view_get_extend_content_to_top_edge org.gtk.Property.set=adw_toolbar_view_set_extend_content_to_top_edge)
+   * AdwToolbarView:extend-content-to-top-edge:
    *
    * Whether the content widget can extend behind top bars.
    *
@@ -634,7 +634,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:extend-content-to-bottom-edge: (attributes org.gtk.Property.get=adw_toolbar_view_get_extend_content_to_bottom_edge org.gtk.Property.set=adw_toolbar_view_set_extend_content_to_bottom_edge)
+   * AdwToolbarView:extend-content-to-bottom-edge:
    *
    * Whether the content widget can extend behind bottom bars.
    *
@@ -652,7 +652,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToolbarView:top-bar-height: (attributes org.gtk.Property.get=adw_toolbar_view_get_top_bar_height)
+   * AdwToolbarView:top-bar-height:
    *
    * The current top bar height.
    *
@@ -669,7 +669,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwToolbarView:bottom-bar-height: (attributes org.gtk.Property.get=adw_toolbar_view_get_bottom_bar_height)
+   * AdwToolbarView:bottom-bar-height:
    *
    * The current bottom bar height.
    *

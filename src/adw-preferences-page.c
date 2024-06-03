@@ -177,7 +177,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   widget_class->focus = adw_widget_focus_child;
 
   /**
-   * AdwPreferencesPage:icon-name: (attributes org.gtk.Property.get=adw_preferences_page_get_icon_name org.gtk.Property.set=adw_preferences_page_set_icon_name)
+   * AdwPreferencesPage:icon-name:
    *
    * The icon name for this page.
    */
@@ -187,7 +187,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:title: (attributes org.gtk.Property.get=adw_preferences_page_get_title org.gtk.Property.set=adw_preferences_page_set_title)
+   * AdwPreferencesPage:title:
    *
    * The title for this page.
    */
@@ -197,7 +197,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:description: (attributes org.gtk.Property.get=adw_preferences_page_get_description org.gtk.Property.set=adw_preferences_page_set_description)
+   * AdwPreferencesPage:description:
    *
    * The description to be displayed at the top of the page.
    * 
@@ -209,7 +209,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:name: (attributes org.gtk.Property.get=adw_preferences_page_get_name org.gtk.Property.set=adw_preferences_page_set_name)
+   * AdwPreferencesPage:name:
    *
    * The name of this page.
    */
@@ -219,7 +219,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:use-underline: (attributes org.gtk.Property.get=adw_preferences_page_get_use_underline org.gtk.Property.set=adw_preferences_page_set_use_underline)
+   * AdwPreferencesPage:use-underline:
    *
    * Whether an embedded underline in the title indicates a mnemonic.
    */
@@ -229,7 +229,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:description-centered: (attributes org.gtk.Property.get=adw_preferences_page_get_description_centered org.gtk.Property.set=adw_preferences_page_set_description_centered)
+   * AdwPreferencesPage:description-centered:
    *
    * Whether the description should be centered.
    *

@@ -126,7 +126,7 @@ adw_switch_row_class_init (AdwSwitchRowClass *klass)
   object_class->dispose = adw_switch_row_dispose;
 
   /**
-   * AdwSwitchRow:active: (attributes org.gtk.Property.get=adw_switch_row_get_active org.gtk.Property.set=adw_switch_row_set_active)
+   * AdwSwitchRow:active:
    *
    * Whether the switch row is in the "on" or "off" position.
    *

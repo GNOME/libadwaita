@@ -283,7 +283,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   widget_class->unrealize = adw_view_switcher_title_unrealize;
 
   /**
-   * AdwViewSwitcherTitle:stack: (attributes org.gtk.Property.get=adw_view_switcher_title_get_stack org.gtk.Property.set=adw_view_switcher_title_set_stack)
+   * AdwViewSwitcherTitle:stack:
    *
    * The stack the view switcher controls.
    *
@@ -295,7 +295,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwViewSwitcherTitle:title: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title org.gtk.Property.set=adw_view_switcher_title_set_title)
+   * AdwViewSwitcherTitle:title:
    *
    * The title to display.
    *
@@ -310,7 +310,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwViewSwitcherTitle:subtitle: (attributes org.gtk.Property.get=adw_view_switcher_title_get_subtitle org.gtk.Property.set=adw_view_switcher_title_set_subtitle)
+   * AdwViewSwitcherTitle:subtitle:
    *
    * The subtitle to display.
    *
@@ -324,7 +324,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwViewSwitcherTitle:view-switcher-enabled: (attributes org.gtk.Property.get=adw_view_switcher_title_get_view_switcher_enabled org.gtk.Property.set=adw_view_switcher_title_set_view_switcher_enabled)
+   * AdwViewSwitcherTitle:view-switcher-enabled:
    *
    * Whether the view switcher is enabled.
    *
@@ -343,7 +343,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwViewSwitcherTitle:title-visible: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title_visible)
+   * AdwViewSwitcherTitle:title-visible:
    *
    * Whether the title is currently visible.
    *

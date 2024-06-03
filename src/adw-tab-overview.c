@@ -1529,7 +1529,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
   widget_class->focus = adw_tab_overview_focus;
 
   /**
-   * AdwTabOverview:view: (attributes org.gtk.Property.get=adw_tab_overview_get_view org.gtk.Property.set=adw_tab_overview_set_view)
+   * AdwTabOverview:view:
    *
    * The tab view the overview controls.
    *
@@ -1543,7 +1543,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:child: (attributes org.gtk.Property.get=adw_tab_overview_get_child org.gtk.Property.set=adw_tab_overview_set_child)
+   * AdwTabOverview:child:
    *
    * The child widget.
    *
@@ -1555,7 +1555,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:open: (attributes org.gtk.Property.get=adw_tab_overview_get_open org.gtk.Property.set=adw_tab_overview_set_open)
+   * AdwTabOverview:open:
    *
    * Whether the overview is open.
    *
@@ -1567,7 +1567,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:inverted: (attributes org.gtk.Property.get=adw_tab_overview_get_inverted org.gtk.Property.set=adw_tab_overview_set_inverted)
+   * AdwTabOverview:inverted:
    *
    * Whether thumbnails use inverted layout.
    *
@@ -1582,7 +1582,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:enable-search: (attributes org.gtk.Property.get=adw_tab_overview_get_enable_search org.gtk.Property.set=adw_tab_overview_set_enable_search)
+   * AdwTabOverview:enable-search:
    *
    * Whether to enable search in tabs.
    *
@@ -1603,7 +1603,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:search-active: (attributes org.gtk.Property.get=adw_tab_overview_get_search_active)
+   * AdwTabOverview:search-active:
    *
    * Whether search is currently active.
    *
@@ -1617,7 +1617,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabOverview:enable-new-tab: (attributes org.gtk.Property.get=adw_tab_overview_get_enable_new_tab org.gtk.Property.set=adw_tab_overview_set_enable_new_tab)
+   * AdwTabOverview:enable-new-tab:
    *
    * Whether to enable new tab button.
    *
@@ -1631,7 +1631,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:secondary-menu: (attributes org.gtk.Property.get=adw_tab_overview_get_secondary_menu org.gtk.Property.set=adw_tab_overview_set_secondary_menu)
+   * AdwTabOverview:secondary-menu:
    *
    * The secondary menu model.
    *
@@ -1645,7 +1645,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:show-start-title-buttons: (attributes org.gtk.Property.get=adw_tab_overview_get_show_start_title_buttons org.gtk.Property.set=adw_tab_overview_set_show_start_title_buttons)
+   * AdwTabOverview:show-start-title-buttons:
    *
    * Whether to show start title buttons in the overview's header bar.
    *
@@ -1659,7 +1659,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:show-end-title-buttons: (attributes org.gtk.Property.get=adw_tab_overview_get_show_end_title_buttons org.gtk.Property.set=adw_tab_overview_set_show_end_title_buttons)
+   * AdwTabOverview:show-end-title-buttons:
    *
    * Whether to show end title buttons in the overview's header bar.
    *
@@ -1673,7 +1673,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:extra-drag-preferred-action: (attributes org.gtk.Property.get=adw_tab_overview_get_extra_drag_preferred_action)
+   * AdwTabOverview:extra-drag-preferred-action:
    *
    * The unique action on the `current-drop` of the
    * [signal@TabOverview::extra-drag-drop].
@@ -1690,7 +1690,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabOverview:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_overview_get_extra_drag_preload org.gtk.Property.set=adw_tab_overview_set_extra_drag_preload)
+   * AdwTabOverview:extra-drag-preload:
    *
    * Whether the drop data should be preloaded on hover.
    *

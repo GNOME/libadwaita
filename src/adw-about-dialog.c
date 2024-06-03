@@ -1374,7 +1374,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   object_class->set_property = adw_about_dialog_set_property;
 
   /**
-   * AdwAboutDialog:application-icon: (attributes org.gtk.Property.get=adw_about_dialog_get_application_icon org.gtk.Property.set=adw_about_dialog_set_application_icon)
+   * AdwAboutDialog:application-icon:
    *
    * The name of the application icon.
    *
@@ -1388,7 +1388,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:application-name: (attributes org.gtk.Property.get=adw_about_dialog_get_application_name org.gtk.Property.set=adw_about_dialog_set_application_name)
+   * AdwAboutDialog:application-name:
    *
    * The name of the application.
    *
@@ -1402,7 +1402,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:developer-name: (attributes org.gtk.Property.get=adw_about_dialog_get_developer_name org.gtk.Property.set=adw_about_dialog_set_developer_name)
+   * AdwAboutDialog:developer-name:
    *
    * The developer name.
    *
@@ -1423,7 +1423,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:version: (attributes org.gtk.Property.get=adw_about_dialog_get_version org.gtk.Property.set=adw_about_dialog_set_version)
+   * AdwAboutDialog:version:
    *
    * The version of the application.
    *
@@ -1440,7 +1440,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:release-notes-version: (attributes org.gtk.Property.get=adw_about_dialog_get_release_notes_version org.gtk.Property.set=adw_about_dialog_set_release_notes_version)
+   * AdwAboutDialog:release-notes-version:
    *
    * The version described by the application's release notes.
    *
@@ -1463,7 +1463,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:release-notes: (attributes org.gtk.Property.get=adw_about_dialog_get_release_notes org.gtk.Property.set=adw_about_dialog_set_release_notes)
+   * AdwAboutDialog:release-notes:
    *
    * The release notes of the application.
    *
@@ -1498,7 +1498,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:comments: (attributes org.gtk.Property.get=adw_about_dialog_get_comments org.gtk.Property.set=adw_about_dialog_set_comments)
+   * AdwAboutDialog:comments:
    *
    * The comments about the application.
    *
@@ -1515,7 +1515,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:website: (attributes org.gtk.Property.get=adw_about_dialog_get_website org.gtk.Property.set=adw_about_dialog_set_website)
+   * AdwAboutDialog:website:
    *
    * The URL of the application's website.
    *
@@ -1532,7 +1532,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:support-url: (attributes org.gtk.Property.get=adw_about_dialog_get_support_url org.gtk.Property.set=adw_about_dialog_set_support_url)
+   * AdwAboutDialog:support-url:
    *
    * The URL of the application's support page.
    *
@@ -1546,7 +1546,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:issue-url: (attributes org.gtk.Property.get=adw_about_dialog_get_issue_url org.gtk.Property.set=adw_about_dialog_set_issue_url)
+   * AdwAboutDialog:issue-url:
    *
    * The URL for the application's issue tracker.
    *
@@ -1560,7 +1560,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:debug-info: (attributes org.gtk.Property.get=adw_about_dialog_get_debug_info org.gtk.Property.set=adw_about_dialog_set_debug_info)
+   * AdwAboutDialog:debug-info:
    *
    * The debug information.
    *
@@ -1582,7 +1582,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:debug-info-filename: (attributes org.gtk.Property.get=adw_about_dialog_get_debug_info_filename org.gtk.Property.set=adw_about_dialog_set_debug_info_filename)
+   * AdwAboutDialog:debug-info-filename:
    *
    * The debug information filename.
    *
@@ -1599,7 +1599,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:developers: (attributes org.gtk.Property.get=adw_about_dialog_get_developers org.gtk.Property.set=adw_about_dialog_set_developers)
+   * AdwAboutDialog:developers:
    *
    * The list of developers of the application.
    *
@@ -1625,7 +1625,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:designers: (attributes org.gtk.Property.get=adw_about_dialog_get_designers org.gtk.Property.set=adw_about_dialog_set_designers)
+   * AdwAboutDialog:designers:
    *
    * The list of designers of the application.
    *
@@ -1651,7 +1651,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:artists: (attributes org.gtk.Property.get=adw_about_dialog_get_artists org.gtk.Property.set=adw_about_dialog_set_artists)
+   * AdwAboutDialog:artists:
    *
    * The list of artists of the application.
    *
@@ -1677,7 +1677,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:documenters: (attributes org.gtk.Property.get=adw_about_dialog_get_documenters org.gtk.Property.set=adw_about_dialog_set_documenters)
+   * AdwAboutDialog:documenters:
    *
    * The list of documenters of the application.
    *
@@ -1703,7 +1703,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:translator-credits: (attributes org.gtk.Property.get=adw_about_dialog_get_translator_credits org.gtk.Property.set=adw_about_dialog_set_translator_credits)
+   * AdwAboutDialog:translator-credits:
    *
    * The translator credits string.
    *
@@ -1732,7 +1732,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:copyright: (attributes org.gtk.Property.get=adw_about_dialog_get_copyright org.gtk.Property.set=adw_about_dialog_set_copyright)
+   * AdwAboutDialog:copyright:
    *
    * The copyright information.
    *
@@ -1753,7 +1753,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:license-type: (attributes org.gtk.Property.get=adw_about_dialog_get_license_type org.gtk.Property.set=adw_about_dialog_set_license_type)
+   * AdwAboutDialog:license-type:
    *
    * The license type.
    *
@@ -1783,7 +1783,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAboutDialog:license: (attributes org.gtk.Property.get=adw_about_dialog_get_license org.gtk.Property.set=adw_about_dialog_set_license)
+   * AdwAboutDialog:license:
    *
    * The license text.
    *

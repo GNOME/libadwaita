@@ -317,7 +317,7 @@ adw_carousel_indicator_lines_class_init (AdwCarouselIndicatorLinesClass *klass)
   widget_class->snapshot = adw_carousel_indicator_lines_snapshot;
 
   /**
-   * AdwCarouselIndicatorLines:carousel: (attributes org.gtk.Property.get=adw_carousel_indicator_lines_get_carousel org.gtk.Property.set=adw_carousel_indicator_lines_set_carousel)
+   * AdwCarouselIndicatorLines:carousel:
    *
    * The displayed carousel.
    */

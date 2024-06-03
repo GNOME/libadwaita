@@ -289,7 +289,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwSplitButton:label: (attributes org.gtk.Property.get=adw_split_button_get_label org.gtk.Property.set=adw_split_button_set_label)
+   * AdwSplitButton:label:
    *
    * The label for the button.
    *
@@ -302,7 +302,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:use-underline: (attributes org.gtk.Property.get=adw_split_button_get_use_underline org.gtk.Property.set=adw_split_button_set_use_underline)
+   * AdwSplitButton:use-underline:
    *
    * Whether an underline in the text indicates a mnemonic.
    *
@@ -314,7 +314,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:icon-name: (attributes org.gtk.Property.get=adw_split_button_get_icon_name org.gtk.Property.set=adw_split_button_set_icon_name)
+   * AdwSplitButton:icon-name:
    *
    * The name of the icon used to automatically populate the button.
    *
@@ -327,7 +327,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:child: (attributes org.gtk.Property.get=adw_split_button_get_child org.gtk.Property.set=adw_split_button_set_child)
+   * AdwSplitButton:child:
    *
    * The child widget.
    *
@@ -340,7 +340,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:can-shrink: (attributes org.gtk.Property.get=adw_split_button_get_can_shrink org.gtk.Property.set=adw_split_button_set_can_shrink)
+   * AdwSplitButton:can-shrink:
    *
    * Whether the button can be smaller than the natural size of its contents.
    *
@@ -357,7 +357,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:menu-model: (attributes org.gtk.Property.get=adw_split_button_get_menu_model org.gtk.Property.set=adw_split_button_set_menu_model)
+   * AdwSplitButton:menu-model:
    *
    * The `GMenuModel` from which the popup will be created.
    *
@@ -376,7 +376,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:popover: (attributes org.gtk.Property.get=adw_split_button_get_popover org.gtk.Property.set=adw_split_button_set_popover)
+   * AdwSplitButton:popover:
    *
    * The `GtkPopover` that will be popped up when the dropdown is clicked.
    *
@@ -391,7 +391,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:direction: (attributes org.gtk.Property.get=adw_split_button_get_direction org.gtk.Property.set=adw_split_button_set_direction)
+   * AdwSplitButton:direction:
    *
    * The direction in which the popup will be popped up.
    *
@@ -409,7 +409,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSplitButton:dropdown-tooltip: (attributes org.gtk.Property.get=adw_split_button_get_dropdown_tooltip org.gtk.Property.set=adw_split_button_set_dropdown_tooltip)
+   * AdwSplitButton:dropdown-tooltip:
    *
    * The tooltip of the dropdown button.
    *

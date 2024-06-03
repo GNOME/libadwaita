@@ -755,7 +755,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
   dialog_class->closed = adw_alert_dialog_closed;
 
   /**
-   * AdwAlertDialog:heading: (attributes org.gtk.Property.get=adw_alert_dialog_get_heading org.gtk.Property.set=adw_alert_dialog_set_heading)
+   * AdwAlertDialog:heading:
    *
    * The heading of the dialog.
    *
@@ -767,7 +767,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:heading-use-markup: (attributes org.gtk.Property.get=adw_alert_dialog_get_heading_use_markup org.gtk.Property.set=adw_alert_dialog_set_heading_use_markup)
+   * AdwAlertDialog:heading-use-markup:
    *
    * Whether the heading includes Pango markup.
    *
@@ -781,7 +781,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:body: (attributes org.gtk.Property.get=adw_alert_dialog_get_body org.gtk.Property.set=adw_alert_dialog_set_body)
+   * AdwAlertDialog:body:
    *
    * The body text of the dialog.
    *
@@ -793,7 +793,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:body-use-markup: (attributes org.gtk.Property.get=adw_alert_dialog_get_body_use_markup org.gtk.Property.set=adw_alert_dialog_set_body_use_markup)
+   * AdwAlertDialog:body-use-markup:
    *
    * Whether the body text includes Pango markup.
    *
@@ -807,7 +807,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:extra-child: (attributes org.gtk.Property.get=adw_alert_dialog_get_extra_child org.gtk.Property.set=adw_alert_dialog_set_extra_child)
+   * AdwAlertDialog:extra-child:
    *
    * The child widget.
    *
@@ -821,7 +821,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:default-response: (attributes org.gtk.Property.get=adw_alert_dialog_get_default_response org.gtk.Property.set=adw_alert_dialog_set_default_response)
+   * AdwAlertDialog:default-response:
    *
    * The response ID of the default response.
    *
@@ -838,7 +838,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAlertDialog:close-response: (attributes org.gtk.Property.get=adw_alert_dialog_get_close_response org.gtk.Property.set=adw_alert_dialog_set_close_response)
+   * AdwAlertDialog:close-response:
    *
    * The ID of the close response.
    *

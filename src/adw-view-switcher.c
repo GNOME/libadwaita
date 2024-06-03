@@ -388,7 +388,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   object_class->finalize = adw_view_switcher_finalize;
 
   /**
-   * AdwViewSwitcher:policy: (attributes org.gtk.Property.get=adw_view_switcher_get_policy org.gtk.Property.set=adw_view_switcher_set_policy)
+   * AdwViewSwitcher:policy:
    *
    * The policy to determine which mode to use.
    */
@@ -399,7 +399,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewSwitcher:stack: (attributes org.gtk.Property.get=adw_view_switcher_get_stack org.gtk.Property.set=adw_view_switcher_set_stack)
+   * AdwViewSwitcher:stack:
    *
    * The stack the view switcher controls.
    */

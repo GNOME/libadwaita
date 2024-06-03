@@ -182,7 +182,7 @@ adw_button_row_class_init (AdwButtonRowClass *klass)
   object_class->finalize = adw_button_row_finalize;
 
   /**
-   * AdwButtonRow:start-icon-name: (attributes org.gtk.Property.get=adw_button_row_get_start_icon_name org.gtk.Property.set=adw_button_row_set_start_icon_name)
+   * AdwButtonRow:start-icon-name:
    *
    * The icon name to show before the title.
    *
@@ -194,7 +194,7 @@ adw_button_row_class_init (AdwButtonRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwButtonRow:end-icon-name: (attributes org.gtk.Property.get=adw_button_row_get_end_icon_name org.gtk.Property.set=adw_button_row_set_end_icon_name)
+   * AdwButtonRow:end-icon-name:
    *
    * The icon name to show after the title.
    *

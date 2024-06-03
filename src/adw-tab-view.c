@@ -556,7 +556,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
   object_class->set_property = adw_tab_page_set_property;
 
   /**
-   * AdwTabPage:child: (attributes org.gtk.Property.get=adw_tab_page_get_child)
+   * AdwTabPage:child:
    *
    * The child of the page.
    */
@@ -566,7 +566,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabPage:parent: (attributes org.gtk.Property.get=adw_tab_page_get_parent)
+   * AdwTabPage:parent:
    *
    * The parent page of the page.
    *
@@ -578,7 +578,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:selected: (attributes org.gtk.Property.get=adw_tab_page_get_selected)
+   * AdwTabPage:selected:
    *
    * Whether the page is selected.
    */
@@ -588,7 +588,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabPage:pinned: (attributes org.gtk.Property.get=adw_tab_page_get_pinned)
+   * AdwTabPage:pinned:
    *
    * Whether the page is pinned.
    *
@@ -600,7 +600,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabPage:title: (attributes org.gtk.Property.get=adw_tab_page_get_title org.gtk.Property.set=adw_tab_page_set_title)
+   * AdwTabPage:title:
    *
    * The title of the page.
    *
@@ -617,7 +617,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:tooltip: (attributes org.gtk.Property.get=adw_tab_page_get_tooltip org.gtk.Property.set=adw_tab_page_set_tooltip)
+   * AdwTabPage:tooltip:
    *
    * The tooltip of the page.
    *
@@ -632,7 +632,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:icon: (attributes org.gtk.Property.get=adw_tab_page_get_icon org.gtk.Property.set=adw_tab_page_set_icon)
+   * AdwTabPage:icon:
    *
    * The icon of the page.
    *
@@ -648,7 +648,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:loading: (attributes org.gtk.Property.get=adw_tab_page_get_loading org.gtk.Property.set=adw_tab_page_set_loading)
+   * AdwTabPage:loading:
    *
    * Whether the page is loading.
    *
@@ -664,7 +664,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:indicator-icon: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_icon org.gtk.Property.set=adw_tab_page_set_indicator_icon)
+   * AdwTabPage:indicator-icon:
    *
    * An indicator icon for the page.
    *
@@ -690,7 +690,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:indicator-tooltip: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_tooltip org.gtk.Property.set=adw_tab_page_set_indicator_tooltip)
+   * AdwTabPage:indicator-tooltip:
    *
    * The tooltip of the indicator icon.
    *
@@ -706,7 +706,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:indicator-activatable: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_activatable org.gtk.Property.set=adw_tab_page_set_indicator_activatable)
+   * AdwTabPage:indicator-activatable:
    *
    * Whether the indicator icon is activatable.
    *
@@ -721,7 +721,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:needs-attention: (attributes org.gtk.Property.get=adw_tab_page_get_needs_attention org.gtk.Property.set=adw_tab_page_set_needs_attention)
+   * AdwTabPage:needs-attention:
    *
    * Whether the page needs attention.
    *
@@ -741,7 +741,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:keyword: (attributes org.gtk.Property.get=adw_tab_page_get_keyword org.gtk.Property.set=adw_tab_page_set_keyword)
+   * AdwTabPage:keyword:
    *
    * The search keyboard of the page.
    *
@@ -758,7 +758,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:thumbnail-xalign: (attributes org.gtk.Property.get=adw_tab_page_get_thumbnail_xalign org.gtk.Property.set=adw_tab_page_set_thumbnail_xalign)
+   * AdwTabPage:thumbnail-xalign:
    *
    * The horizontal alignment of the page thumbnail.
    *
@@ -780,7 +780,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:thumbnail-yalign: (attributes org.gtk.Property.get=adw_tab_page_get_thumbnail_yalign org.gtk.Property.set=adw_tab_page_set_thumbnail_yalign)
+   * AdwTabPage:thumbnail-yalign:
    *
    * The vertical alignment of the page thumbnail.
    *
@@ -802,7 +802,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:live-thumbnail: (attributes org.gtk.Property.get=adw_tab_page_get_live_thumbnail org.gtk.Property.set=adw_tab_page_set_live_thumbnail)
+   * AdwTabPage:live-thumbnail:
    *
    * Whether to enable live thumbnail for this page.
    *
@@ -2410,7 +2410,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwTabView:n-pages: (attributes org.gtk.Property.get=adw_tab_view_get_n_pages)
+   * AdwTabView:n-pages:
    *
    * The number of pages in the tab view.
    */
@@ -2420,7 +2420,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabView:n-pinned-pages: (attributes org.gtk.Property.get=adw_tab_view_get_n_pinned_pages)
+   * AdwTabView:n-pinned-pages:
    *
    * The number of pinned pages in the tab view.
    *
@@ -2432,7 +2432,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabView:is-transferring-page: (attributes org.gtk.Property.get=adw_tab_view_get_is_transferring_page)
+   * AdwTabView:is-transferring-page:
    *
    * Whether a page is being transferred.
    *
@@ -2448,7 +2448,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabView:selected-page: (attributes org.gtk.Property.get=adw_tab_view_get_selected_page org.gtk.Property.set=adw_tab_view_set_selected_page)
+   * AdwTabView:selected-page:
    *
    * The currently selected page.
    */
@@ -2458,7 +2458,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:default-icon: (attributes org.gtk.Property.get=adw_tab_view_get_default_icon org.gtk.Property.set=adw_tab_view_set_default_icon)
+   * AdwTabView:default-icon:
    *
    * Default page icon.
    *
@@ -2481,7 +2481,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:menu-model: (attributes org.gtk.Property.get=adw_tab_view_get_menu_model org.gtk.Property.set=adw_tab_view_set_menu_model)
+   * AdwTabView:menu-model:
    *
    * Tab context menu model.
    *
@@ -2495,7 +2495,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:shortcuts: (attributes org.gtk.Property.get=adw_tab_view_get_shortcuts org.gtk.Property.set=adw_tab_view_set_shortcuts)
+   * AdwTabView:shortcuts:
    *
    * The enabled shortcuts.
    *
@@ -2514,7 +2514,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:pages: (attributes org.gtk.Property.get=adw_tab_view_get_pages)
+   * AdwTabView:pages:
    *
    * A selection model with the tab view's pages.
    *

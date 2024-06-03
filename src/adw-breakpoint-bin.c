@@ -579,7 +579,7 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
   widget_class->grab_focus = adw_breakpoint_bin_grab_focus;
 
   /**
-   * AdwBreakpointBin:child: (attributes org.gtk.Property.get=adw_breakpoint_bin_get_child org.gtk.Property.set=adw_breakpoint_bin_set_child)
+   * AdwBreakpointBin:child:
    *
    * The child widget.
    *
@@ -591,7 +591,7 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwBreakpointBin:current-breakpoint: (attributes org.gtk.Property.get=adw_breakpoint_bin_get_current_breakpoint)
+   * AdwBreakpointBin:current-breakpoint:
    *
    * The current breakpoint.
    *

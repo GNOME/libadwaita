@@ -374,7 +374,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
   object_class->set_property = adw_style_manager_set_property;
 
   /**
-   * AdwStyleManager:display: (attributes org.gtk.Property.get=adw_style_manager_get_display)
+   * AdwStyleManager:display:
    *
    * The display the style manager is associated with.
    *
@@ -387,7 +387,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwStyleManager:color-scheme: (attributes org.gtk.Property.get=adw_style_manager_get_color_scheme org.gtk.Property.set=adw_style_manager_set_color_scheme)
+   * AdwStyleManager:color-scheme:
    *
    * The requested application color scheme.
    *
@@ -428,7 +428,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStyleManager:system-supports-color-schemes: (attributes org.gtk.Property.get=adw_style_manager_get_system_supports_color_schemes)
+   * AdwStyleManager:system-supports-color-schemes:
    *
    * Whether the system supports color schemes.
    *
@@ -444,7 +444,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwStyleManager:dark: (attributes org.gtk.Property.get=adw_style_manager_get_dark)
+   * AdwStyleManager:dark:
    *
    * Whether the application is using dark appearance.
    *
@@ -457,7 +457,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwStyleManager:high-contrast: (attributes org.gtk.Property.get=adw_style_manager_get_high_contrast)
+   * AdwStyleManager:high-contrast:
    *
    * Whether the application is using high contrast appearance.
    *

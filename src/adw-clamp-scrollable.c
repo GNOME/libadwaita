@@ -260,7 +260,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                                     "vscroll-policy");
 
   /**
-   * AdwClampScrollable:child: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_child org.gtk.Property.set=adw_clamp_scrollable_set_child)
+   * AdwClampScrollable:child:
    *
    * The child widget of the `AdwClampScrollable`.
    */
@@ -270,7 +270,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClampScrollable:maximum-size: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_maximum_size org.gtk.Property.set=adw_clamp_scrollable_set_maximum_size)
+   * AdwClampScrollable:maximum-size:
    *
    * The maximum size allocated to the child.
    *
@@ -282,7 +282,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClampScrollable:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_tightening_threshold org.gtk.Property.set=adw_clamp_scrollable_set_tightening_threshold)
+   * AdwClampScrollable:tightening-threshold:
    *
    * The size above which the child is clamped.
    *
@@ -305,7 +305,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClampScrollable:unit: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_unit org.gtk.Property.set=adw_clamp_scrollable_set_unit)
+   * AdwClampScrollable:unit:
    *
    * The length unit for maximum size and tightening threshold.
    *

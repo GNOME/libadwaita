@@ -368,7 +368,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                                     "orientation");
 
   /**
-   * AdwClampLayout:maximum-size: (attributes org.gtk.Property.get=adw_clamp_layout_get_maximum_size org.gtk.Property.set=adw_clamp_layout_set_maximum_size)
+   * AdwClampLayout:maximum-size:
    *
    * The maximum size to allocate to the children.
    *
@@ -381,7 +381,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClampLayout:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_layout_get_tightening_threshold org.gtk.Property.set=adw_clamp_layout_set_tightening_threshold)
+   * AdwClampLayout:tightening-threshold:
    *
    * The size above which the children are clamped.
    *
@@ -404,7 +404,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwClampLayout:unit: (attributes org.gtk.Property.get=adw_clamp_layout_get_unit org.gtk.Property.set=adw_clamp_layout_set_unit)
+   * AdwClampLayout:unit:
    *
    * The length unit for maximum size and tightening threshold.
    *

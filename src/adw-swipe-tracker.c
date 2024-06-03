@@ -1177,7 +1177,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
   object_class->set_property = adw_swipe_tracker_set_property;
 
   /**
-   * AdwSwipeTracker:swipeable: (attributes org.gtk.Property.get=adw_swipe_tracker_get_swipeable)
+   * AdwSwipeTracker:swipeable:
    *
    * The widget the swipe tracker is attached to.
    */
@@ -1187,7 +1187,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwSwipeTracker:enabled: (attributes org.gtk.Property.get=adw_swipe_tracker_get_enabled org.gtk.Property.set=adw_swipe_tracker_set_enabled)
+   * AdwSwipeTracker:enabled:
    *
    * Whether the swipe tracker is enabled.
    *
@@ -1200,7 +1200,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:reversed: (attributes org.gtk.Property.get=adw_swipe_tracker_get_reversed org.gtk.Property.set=adw_swipe_tracker_set_reversed)
+   * AdwSwipeTracker:reversed:
    *
    * Whether to reverse the swipe direction.
    *
@@ -1213,7 +1213,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:allow-mouse-drag: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_mouse_drag org.gtk.Property.set=adw_swipe_tracker_set_allow_mouse_drag)
+   * AdwSwipeTracker:allow-mouse-drag:
    *
    * Whether to allow dragging with mouse pointer.
    */
@@ -1223,7 +1223,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:allow-long-swipes: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_long_swipes org.gtk.Property.set=adw_swipe_tracker_set_allow_long_swipes)
+   * AdwSwipeTracker:allow-long-swipes:
    *
    * Whether to allow swiping for more than one snap point at a time.
    *
@@ -1236,7 +1236,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:lower-overshoot: (attributes org.gtk.Property.get=adw_swipe_tracker_get_lower_overshoot org.gtk.Property.set=adw_swipe_tracker_set_lower_overshoot)
+   * AdwSwipeTracker:lower-overshoot:
    *
    * Whether to allow swiping past the first available snap point.
    *
@@ -1248,7 +1248,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:upper-overshoot: (attributes org.gtk.Property.get=adw_swipe_tracker_get_upper_overshoot org.gtk.Property.set=adw_swipe_tracker_set_upper_overshoot)
+   * AdwSwipeTracker:upper-overshoot:
    *
    * Whether to allow swiping past the last available snap point.
    *
@@ -1260,7 +1260,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:allow-window-handle: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_window_handle org.gtk.Property.set=adw_swipe_tracker_set_allow_window_handle)
+   * AdwSwipeTracker:allow-window-handle:
    *
    * Whether to allow touchscreen swiping from `GtkWindowHandle`.
    *

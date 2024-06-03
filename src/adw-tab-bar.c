@@ -449,7 +449,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwTabBar:view: (attributes org.gtk.Property.get=adw_tab_bar_get_view org.gtk.Property.set=adw_tab_bar_set_view)
+   * AdwTabBar:view:
    *
    * The tab view the tab bar controls.
    */
@@ -459,7 +459,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:start-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_start_action_widget org.gtk.Property.set=adw_tab_bar_set_start_action_widget)
+   * AdwTabBar:start-action-widget:
    *
    * The widget shown before the tabs.
    */
@@ -469,7 +469,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:end-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_end_action_widget org.gtk.Property.set=adw_tab_bar_set_end_action_widget)
+   * AdwTabBar:end-action-widget:
    *
    * The widget shown after the tabs.
    */
@@ -479,7 +479,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:autohide: (attributes org.gtk.Property.get=adw_tab_bar_get_autohide org.gtk.Property.set=adw_tab_bar_set_autohide)
+   * AdwTabBar:autohide:
    *
    * Whether the tabs automatically hide.
    *
@@ -494,7 +494,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:tabs-revealed: (attributes org.gtk.Property.get=adw_tab_bar_get_tabs_revealed)
+   * AdwTabBar:tabs-revealed:
    *
    * Whether the tabs are currently revealed.
    *
@@ -506,7 +506,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabBar:expand-tabs: (attributes org.gtk.Property.get=adw_tab_bar_get_expand_tabs org.gtk.Property.set=adw_tab_bar_set_expand_tabs)
+   * AdwTabBar:expand-tabs:
    *
    * Whether tabs expand to full width.
    *
@@ -519,7 +519,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:inverted: (attributes org.gtk.Property.get=adw_tab_bar_get_inverted org.gtk.Property.set=adw_tab_bar_set_inverted)
+   * AdwTabBar:inverted:
    *
    * Whether tabs use inverted layout.
    *
@@ -532,7 +532,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:is-overflowing: (attributes org.gtk.Property.get=adw_tab_bar_get_is_overflowing)
+   * AdwTabBar:is-overflowing:
    *
    * Whether the tab bar is overflowing.
    *
@@ -544,7 +544,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwTabBar:extra-drag-preferred-action: (attributes org.gtk.Property.get=adw_tab_bar_get_extra_drag_preferred_action)
+   * AdwTabBar:extra-drag-preferred-action:
    *
    * The unique action on the `current-drop` of the
    * [signal@TabBar::extra-drag-drop].
@@ -561,7 +561,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_bar_get_extra_drag_preload org.gtk.Property.set=adw_tab_bar_set_extra_drag_preload)
+   * AdwTabBar:extra-drag-preload:
    *
    * Whether the drop data should be preloaded on hover.
    *

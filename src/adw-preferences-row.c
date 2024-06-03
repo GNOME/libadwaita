@@ -116,7 +116,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   object_class->finalize = adw_preferences_row_finalize;
 
   /**
-   * AdwPreferencesRow:title: (attributes org.gtk.Property.get=adw_preferences_row_get_title org.gtk.Property.set=adw_preferences_row_set_title)
+   * AdwPreferencesRow:title:
    *
    * The title of the preference represented by this row.
    *
@@ -129,7 +129,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesRow:use-underline: (attributes org.gtk.Property.get=adw_preferences_row_get_use_underline org.gtk.Property.set=adw_preferences_row_set_use_underline)
+   * AdwPreferencesRow:use-underline:
    *
    * Whether an embedded underline in the title indicates a mnemonic.
    */
@@ -139,7 +139,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesRow:title-selectable: (attributes org.gtk.Property.get=adw_preferences_row_get_title_selectable org.gtk.Property.set=adw_preferences_row_set_title_selectable)
+   * AdwPreferencesRow:title-selectable:
    *
    * Whether the user can copy the title from the label.
    *
@@ -153,7 +153,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesRow:use-markup: (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
+   * AdwPreferencesRow:use-markup:
    *
    * Whether to use Pango markup for the title label.
    *

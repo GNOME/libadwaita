@@ -308,7 +308,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
   target_class->set_value = adw_property_animation_target_set_value;
 
   /**
-   * AdwPropertyAnimationTarget:object: (attributes org.gtk.Property.get=adw_property_animation_target_get_object)
+   * AdwPropertyAnimationTarget:object:
    *
    * The object whose property will be animated.
    *
@@ -324,7 +324,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwPropertyAnimationTarget:pspec: (attributes org.gtk.Property.get=adw_property_animation_target_get_pspec)
+   * AdwPropertyAnimationTarget:pspec:
    *
    * The `GParamSpec` of the property to be animated.
    *

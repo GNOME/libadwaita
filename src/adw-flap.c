@@ -1262,7 +1262,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwFlap:content: (attributes org.gtk.Property.get=adw_flap_get_content org.gtk.Property.set=adw_flap_set_content)
+   * AdwFlap:content:
    *
    * The content widget.
    *
@@ -1276,7 +1276,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:flap: (attributes org.gtk.Property.get=adw_flap_get_flap org.gtk.Property.set=adw_flap_set_flap)
+   * AdwFlap:flap:
    *
    * The flap widget.
    *
@@ -1290,7 +1290,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:separator: (attributes org.gtk.Property.get=adw_flap_get_separator org.gtk.Property.set=adw_flap_set_separator)
+   * AdwFlap:separator:
    *
    * The separator widget.
    *
@@ -1306,7 +1306,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:flap-position: (attributes org.gtk.Property.get=adw_flap_get_flap_position org.gtk.Property.set=adw_flap_set_flap_position)
+   * AdwFlap:flap-position:
    *
    * The flap position.
    *
@@ -1322,7 +1322,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:reveal-flap: (attributes org.gtk.Property.get=adw_flap_get_reveal_flap org.gtk.Property.set=adw_flap_set_reveal_flap)
+   * AdwFlap:reveal-flap:
    *
    * Whether the flap widget is revealed.
    *
@@ -1334,7 +1334,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:reveal-params: (attributes org.gtk.Property.get=adw_flap_get_reveal_params org.gtk.Property.set=adw_flap_set_reveal_params)
+   * AdwFlap:reveal-params:
    *
    * The reveal animation spring parameters.
    *
@@ -1352,7 +1352,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:reveal-progress: (attributes org.gtk.Property.get=adw_flap_get_reveal_progress)
+   * AdwFlap:reveal-progress:
    *
    * The current reveal transition progress.
    *
@@ -1368,7 +1368,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:fold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_policy org.gtk.Property.set=adw_flap_set_fold_policy)
+   * AdwFlap:fold-policy:
    *
    * The fold policy for the flap.
    *
@@ -1381,7 +1381,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:fold-threshold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_threshold_policy org.gtk.Property.set=adw_flap_set_fold_threshold_policy)
+   * AdwFlap:fold-threshold-policy:
    *
    * Determines when the flap will fold.
    *
@@ -1401,7 +1401,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:fold-duration: (attributes org.gtk.Property.get=adw_flap_get_fold_duration org.gtk.Property.set=adw_flap_set_fold_duration)
+   * AdwFlap:fold-duration:
    *
    * The fold transition animation duration, in milliseconds.
    *
@@ -1414,7 +1414,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:folded: (attributes org.gtk.Property.get=adw_flap_get_folded)
+   * AdwFlap:folded:
    *
    * Whether the flap is currently folded.
    *
@@ -1428,7 +1428,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:locked: (attributes org.gtk.Property.get=adw_flap_get_locked org.gtk.Property.set=adw_flap_set_locked)
+   * AdwFlap:locked:
    *
    * Whether the flap is locked.
    *
@@ -1444,7 +1444,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:transition-type: (attributes org.gtk.Property.get=adw_flap_get_transition_type org.gtk.Property.set=adw_flap_set_transition_type)
+   * AdwFlap:transition-type:
    *
    * the type of animation used for reveal and fold transitions.
    *
@@ -1462,7 +1462,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:modal: (attributes org.gtk.Property.get=adw_flap_get_modal org.gtk.Property.set=adw_flap_set_modal)
+   * AdwFlap:modal:
    *
    * Whether the flap is modal.
    *
@@ -1478,7 +1478,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:swipe-to-open: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_open org.gtk.Property.set=adw_flap_set_swipe_to_open)
+   * AdwFlap:swipe-to-open:
    *
    * Whether the flap can be opened with a swipe gesture.
    *
@@ -1493,7 +1493,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   /**
-   * AdwFlap:swipe-to-close: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_close org.gtk.Property.set=adw_flap_set_swipe_to_close)
+   * AdwFlap:swipe-to-close:
    *
    * Whether the flap can be closed with a swipe gesture.
    *

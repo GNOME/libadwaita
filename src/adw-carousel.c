@@ -883,7 +883,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwCarousel:n-pages: (attributes org.gtk.Property.get=adw_carousel_get_n_pages)
+   * AdwCarousel:n-pages:
    *
    * The number of pages in a `AdwCarousel`.
    */
@@ -895,7 +895,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwCarousel:position: (attributes org.gtk.Property.get=adw_carousel_get_position)
+   * AdwCarousel:position:
    *
    * Current scrolling position, unitless.
    *
@@ -909,7 +909,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwCarousel:interactive: (attributes org.gtk.Property.get=adw_carousel_get_interactive org.gtk.Property.set=adw_carousel_set_interactive)
+   * AdwCarousel:interactive:
    *
    * Whether the carousel can be navigated.
    *
@@ -922,7 +922,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:spacing: (attributes org.gtk.Property.get=adw_carousel_get_spacing org.gtk.Property.set=adw_carousel_set_spacing)
+   * AdwCarousel:spacing:
    *
    * Spacing between pages in pixels.
    */
@@ -934,7 +934,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:scroll-params: (attributes org.gtk.Property.get=adw_carousel_get_scroll_params org.gtk.Property.set=adw_carousel_set_scroll_params)
+   * AdwCarousel:scroll-params:
    *
    * Scroll animation spring parameters.
    *
@@ -950,7 +950,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:allow-mouse-drag: (attributes org.gtk.Property.get=adw_carousel_get_allow_mouse_drag org.gtk.Property.set=adw_carousel_set_allow_mouse_drag)
+   * AdwCarousel:allow-mouse-drag:
    *
    * Sets whether the `AdwCarousel` can be dragged with mouse pointer.
    *
@@ -962,7 +962,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:allow-scroll-wheel: (attributes org.gtk.Property.get=adw_carousel_get_allow_scroll_wheel org.gtk.Property.set=adw_carousel_set_allow_scroll_wheel)
+   * AdwCarousel:allow-scroll-wheel:
    *
    * Whether the widget will respond to scroll wheel events.
    *
@@ -974,7 +974,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:allow-long-swipes: (attributes org.gtk.Property.get=adw_carousel_get_allow_long_swipes org.gtk.Property.set=adw_carousel_set_allow_long_swipes)
+   * AdwCarousel:allow-long-swipes:
    *
    * Whether to allow swiping for more than one page at a time.
    *

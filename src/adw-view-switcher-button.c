@@ -272,7 +272,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                                     "orientation");
 
   /**
-   * AdwViewSwitcherButton:icon-name: (attributes org.gtk.Property.get=adw_view_switcher_button_get_icon_name org.gtk.Property.set=adw_view_switcher_button_set_icon_name)
+   * AdwViewSwitcherButton:icon-name:
    *
    * The icon name representing the view, or `NULL` for no icon.
    */
@@ -282,7 +282,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewSwitcherButton:needs-attention: (attributes org.gtk.Property.get=adw_view_switcher_button_get_needs_attention org.gtk.Property.set=adw_view_switcher_button_set_needs_attention)
+   * AdwViewSwitcherButton:needs-attention:
    *
    * Sets a flag specifying whether the view requires the user attention.
    *

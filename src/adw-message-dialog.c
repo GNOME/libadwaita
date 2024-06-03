@@ -885,7 +885,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
   window_class->close_request = adw_message_dialog_close_request;
 
   /**
-   * AdwMessageDialog:heading: (attributes org.gtk.Property.get=adw_message_dialog_get_heading org.gtk.Property.set=adw_message_dialog_set_heading)
+   * AdwMessageDialog:heading:
    *
    * The heading of the dialog.
    *
@@ -897,7 +897,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:heading-use-markup: (attributes org.gtk.Property.get=adw_message_dialog_get_heading_use_markup org.gtk.Property.set=adw_message_dialog_set_heading_use_markup)
+   * AdwMessageDialog:heading-use-markup:
    *
    * Whether the heading includes Pango markup.
    *
@@ -911,7 +911,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:body: (attributes org.gtk.Property.get=adw_message_dialog_get_body org.gtk.Property.set=adw_message_dialog_set_body)
+   * AdwMessageDialog:body:
    *
    * The body text of the dialog.
    *
@@ -923,7 +923,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:body-use-markup: (attributes org.gtk.Property.get=adw_message_dialog_get_body_use_markup org.gtk.Property.set=adw_message_dialog_set_body_use_markup)
+   * AdwMessageDialog:body-use-markup:
    *
    * Whether the body text includes Pango markup.
    *
@@ -937,7 +937,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:extra-child: (attributes org.gtk.Property.get=adw_message_dialog_get_extra_child org.gtk.Property.set=adw_message_dialog_set_extra_child)
+   * AdwMessageDialog:extra-child:
    *
    * The child widget.
    *
@@ -951,7 +951,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:default-response: (attributes org.gtk.Property.get=adw_message_dialog_get_default_response org.gtk.Property.set=adw_message_dialog_set_default_response)
+   * AdwMessageDialog:default-response:
    *
    * The response ID of the default response.
    *
@@ -968,7 +968,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwMessageDialog:close-response: (attributes org.gtk.Property.get=adw_message_dialog_get_close_response org.gtk.Property.set=adw_message_dialog_set_close_response)
+   * AdwMessageDialog:close-response:
    *
    * The ID of the close response.
    *

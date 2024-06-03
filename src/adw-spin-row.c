@@ -262,7 +262,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
   widget_class->grab_focus = adw_spin_row_grab_focus;
 
   /**
-   * AdwSpinRow:adjustment: (attributes org.gtk.Property.get=adw_spin_row_get_adjustment org.gtk.Property.set=adw_spin_row_set_adjustment)
+   * AdwSpinRow:adjustment:
    *
    * The adjustment that holds the value of the spin row.
    *
@@ -274,7 +274,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:climb-rate: (attributes org.gtk.Property.get=adw_spin_row_get_climb_rate org.gtk.Property.set=adw_spin_row_set_climb_rate)
+   * AdwSpinRow:climb-rate:
    *
    * The acceleration rate when you hold down a button or key.
    *
@@ -286,7 +286,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:digits: (attributes org.gtk.Property.get=adw_spin_row_get_digits org.gtk.Property.set=adw_spin_row_set_digits)
+   * AdwSpinRow:digits:
    *
    * The number of decimal places to display.
    *
@@ -298,7 +298,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:numeric: (attributes org.gtk.Property.get=adw_spin_row_get_numeric org.gtk.Property.set=adw_spin_row_set_numeric)
+   * AdwSpinRow:numeric:
    *
    * Whether non-numeric characters should be ignored.
    *
@@ -310,7 +310,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:snap-to-ticks: (attributes org.gtk.Property.get=adw_spin_row_get_snap_to_ticks org.gtk.Property.set=adw_spin_row_set_snap_to_ticks)
+   * AdwSpinRow:snap-to-ticks:
    *
    * Whether invalid values are snapped to the nearest step increment.
    *
@@ -322,7 +322,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:update-policy: (attributes org.gtk.Property.get=adw_spin_row_get_update_policy org.gtk.Property.set=adw_spin_row_set_update_policy)
+   * AdwSpinRow:update-policy:
    *
    * The policy for updating the spin row.
    *
@@ -337,7 +337,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:value: (attributes org.gtk.Property.get=adw_spin_row_get_value org.gtk.Property.set=adw_spin_row_set_value)
+   * AdwSpinRow:value:
    *
    * The current value.
    *
@@ -349,7 +349,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSpinRow:wrap: (attributes org.gtk.Property.get=adw_spin_row_get_wrap org.gtk.Property.set=adw_spin_row_set_wrap)
+   * AdwSpinRow:wrap:
    *
    * Whether the spin row should wrap upon reaching its limits.
    *

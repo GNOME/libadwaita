@@ -164,7 +164,7 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
   widget_class->size_allocate = adw_application_window_size_allocate;
 
   /**
-   * AdwApplicationWindow:content: (attributes org.gtk.Property.get=adw_application_window_get_content org.gtk.Property.set=adw_application_window_set_content)
+   * AdwApplicationWindow:content:
    *
    * The content widget.
    *
@@ -176,7 +176,7 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwApplicationWindow:current-breakpoint: (attributes org.gtk.Property.get=adw_application_window_get_current_breakpoint)
+   * AdwApplicationWindow:current-breakpoint:
    *
    * The current breakpoint.
    *
@@ -188,7 +188,7 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwApplicationWindow:dialogs: (attributes org.gtk.Property.get=adw_application_window_get_dialogs)
+   * AdwApplicationWindow:dialogs:
    *
    * The open dialogs.
    *
@@ -200,7 +200,7 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwApplicationWindow:visible-dialog: (attributes org.gtk.Property.get=adw_application_window_get_visible_dialog)
+   * AdwApplicationWindow:visible-dialog:
    *
    * The currently visible dialog
    *
