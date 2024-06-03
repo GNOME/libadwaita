@@ -27,4 +27,7 @@ G_DECLARE_FINAL_TYPE (AdwLayoutSlot, adw_layout_slot, ADW, LAYOUT_SLOT, GtkWidge
 ADW_AVAILABLE_IN_1_6
 GtkWidget *adw_layout_slot_new (const char *id);
 
+ADW_AVAILABLE_IN_1_6
+const char *adw_layout_slot_get_slot_id (AdwLayoutSlot *self);
+
 G_END_DECLS

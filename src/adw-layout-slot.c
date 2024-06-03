@@ -86,7 +86,7 @@ adw_layout_slot_get_property (GObject    *object,
 
   switch (prop_id) {
   case PROP_ID:
-    g_value_set_string (value, self->id);
+    g_value_set_string (value, adw_layout_slot_get_slot_id (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -128,7 +128,7 @@ adw_layout_slot_class_init (AdwLayoutSlotClass *klass)
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
 
   /**
-   * AdwLayoutSlot:id:
+   * AdwLayoutSlot:id: (getter get_slot_id)
    *
    * The slot ID.
    *
@@ -165,4 +165,22 @@ adw_layout_slot_new (const char *id)
   g_return_val_if_fail (id != NULL, NULL);
 
   return g_object_new (ADW_TYPE_LAYOUT_SLOT, "id", id, NULL);
+}
+
+/**
+ * adw_layout_slot_get_slot_id: (get-property id)
+ * @self: a layout slot
+ *
+ * Gets the slot id of @self.
+ *
+ * Returns: the slot ID
+ *
+ * Since: 1.6
+ */
+const char *
+adw_layout_slot_get_slot_id (AdwLayoutSlot *self)
+{
+  g_return_val_if_fail (ADW_IS_LAYOUT_SLOT (self), NULL);
+
+  return self->id;
 }
