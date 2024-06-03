@@ -1132,7 +1132,7 @@ adw_dialog_class_init (AdwDialogClass *klass)
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwDialog:focus-widget: (attributes org.gtk.Property.get=adw_dialog_get_focus org.gtk.Property.set=adw_dialog_set_focus)
+   * AdwDialog:focus-widget: (getter get_focus) (setter set_focus):
    *
    * The focus widget.
    *
@@ -1705,7 +1705,7 @@ adw_dialog_set_presentation_mode (AdwDialog                 *self,
 }
 
 /**
- * adw_dialog_get_focus: (attributes org.gtk.Method.get_property=focus-widget)
+ * adw_dialog_get_focus: (get-property focus-widget)
  * @self: a dialog
  *
  * Gets the focus widget for @self.
@@ -1727,7 +1727,7 @@ adw_dialog_get_focus (AdwDialog *self)
 }
 
 /**
- * adw_dialog_set_focus: (attributes org.gtk.Method.set_property=focus-widget)
+ * adw_dialog_set_focus: (set-property focus-widget)
  * @self: a dialog
  * @focus: (nullable) (transfer none): the focus widget
  *

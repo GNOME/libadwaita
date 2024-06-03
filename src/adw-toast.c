@@ -349,7 +349,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwToast:action-target: (attributes org.gtk.Property.get=adw_toast_get_action_target_value org.gtk.Property.set=adw_toast_set_action_target_value)
+   * AdwToast:action-target: (getter get_action_target_value) (setter set_action_target_value)
    *
    * The parameter for action invocations.
    */
@@ -673,7 +673,7 @@ adw_toast_set_action_name (AdwToast   *self,
 }
 
 /**
- * adw_toast_get_action_target_value: (attributes org.gtk.Method.get_property=action-target)
+ * adw_toast_get_action_target_value: (get-property action-target)
  * @self: a toast
  *
  * Gets the parameter for action invocations.
@@ -689,7 +689,7 @@ adw_toast_get_action_target_value (AdwToast *self)
 }
 
 /**
- * adw_toast_set_action_target_value: (attributes org.gtk.Method.set_property=action-target)
+ * adw_toast_set_action_target_value: (set-property action-target)
  * @self: a toast
  * @action_target: (nullable): the action target
  *
