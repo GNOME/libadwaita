@@ -463,7 +463,7 @@ adw_multi_layout_view_get_layout_name (AdwMultiLayoutView *self)
 }
 
 /**
- * adw_multi_layout_view_set_layout_name: (attributes org.gtk.Method.get_property=layout-name)
+ * adw_multi_layout_view_set_layout_name: (attributes org.gtk.Method.set_property=layout-name)
  * @self: a multi-layout view
  * @name: the name of the layout
  *
