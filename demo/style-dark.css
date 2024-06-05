@@ -24,34 +24,7 @@
   --accent-bg-color: rgb(255 255 255 / 60%);
   --accent-fg-color: rgb(0 0 0 / 80%);
   --accent-color: rgb(255 255 255 / 75%);
-}
-
-.tab-page-color-1 {
-  background: shade(var(--blue-5), 0.7);
-}
-
-.tab-page-color-2 {
-  background: shade(var(--green-5), 0.6);
-}
-
-.tab-page-color-3 {
-  background: shade(var(--yellow-5), 0.5);
-}
-
-.tab-page-color-4 {
-  background: shade(var(--orange-5), 0.6);
-}
-
-.tab-page-color-5 {
-  background: shade(var(--red-5), 0.7);
-}
-
-.tab-page-color-6 {
-  background: shade(var(--purple-5), 0.7);
-}
-
-.tab-page-color-7 {
-  background: shade(var(--brown-5), 0.7);
+  background: hsl(from var(--hue) h s 20%);
 }
 
 .tab-page-color-8 {

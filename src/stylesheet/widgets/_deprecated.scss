@@ -143,11 +143,11 @@ infobar {
   }
 
   &.action:hover > revealer > box {
-    background-image: image(gtkalpha(currentColor, .05));
+    background-image: image(color-mix(in srgb, currentColor 5%, transparent));
   }
 
   &.action:active > revealer > box {
-    background-image: image(gtkalpha(currentColor, .1));
+    background-image: image(color-mix(in srgb, currentColor 10%, transparent));
   }
 
   @each $i_type, $i_color in (info, var(--accent-bg-color)),
@@ -155,7 +155,7 @@ infobar {
                              (warning, var(--warning-bg-color)),
                              (error, var(--error-bg-color)) {
     &.#{$i_type} > revealer > box {
-      background-color: gtkmix($i_color, var(--window-bg-color), 30%);
+      background-color: color-mix(in srgb, $i_color 30%, var(--window-bg-color));
       color: var(--window-fg-color);
     }
   }
@@ -182,8 +182,8 @@ statusbar {
  ***************/
 
 // To be used for opaque elements overlaid atop the selected row
-$treeview_selection_opaque: gtkmix(currentColor, var(--view-bg-color), 10%);
-$treeview_borders_opaque: gtkmix(currentColor, var(--view-bg-color), if($contrast == 'high', 40%, 20%));
+$treeview_selection_opaque: color-mix(in srgb, currentColor 10%, var(--view-bg-color));
+$treeview_borders_opaque: color-mix(in srgb, currentColor if($contrast == 'high', 40%, 20%), var(--view-bg-color));
 
 treeview.view {
   @extend columnview;
@@ -210,13 +210,13 @@ treeview.view {
 
     &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
 
-    color: gtkalpha(currentColor, .7);
+    color: color-mix(in srgb, currentColor 70%, transparent);
 
     &:hover, &:active { color: currentColor; }
 
     &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
 
-    &:disabled { color: gtkalpha(currentColor, $disabled_opacity); }
+    &:disabled { color: color-mix(in srgb, currentColor $disabled_opacity, transparent); }
   }
 
   > dndtarget:drop(active) {
@@ -245,7 +245,7 @@ treeview.view {
   }
 
   &.trough { // progress bar trough in treeviews
-    background-color: gtkalpha(currentColor, 0.1);
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
   }
 
   ~ undershoot.top {

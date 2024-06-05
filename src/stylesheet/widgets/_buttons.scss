@@ -1,11 +1,11 @@
-$button_color: gtkalpha(currentColor, .1);
-$button_hover_color: gtkalpha(currentColor, .15);
-$button_active_color: gtkalpha(currentColor, .3);
-$button_checked_color: gtkalpha(currentColor, .3);
-$button_checked_hover_color: gtkalpha(currentColor, .35);
-$button_checked_active_color: gtkalpha(currentColor, .4);
+$button_color: color-mix(in srgb, currentColor 10%, transparent);
+$button_hover_color: color-mix(in srgb, currentColor 15%, transparent);
+$button_active_color: color-mix(in srgb, currentColor 30%, transparent);
+$button_checked_color: color-mix(in srgb, currentColor 30%, transparent);
+$button_checked_hover_color: color-mix(in srgb, currentColor 35%, transparent);
+$button_checked_active_color: color-mix(in srgb, currentColor 40%, transparent);
 
-$opaque_button_default_bg: gtkmix(var(--window-bg-color), var(--window-fg-color), 85%);
+$opaque_button_default_bg: color-mix(in srgb, var(--window-bg-color) 85%, var(--window-fg-color));
 
 %button,
 button {
@@ -117,25 +117,25 @@ button {
 
     &:hover {
       color: white;
-      background-color: gtkalpha(gtkmix(black, currentColor, 85%), .65);
+      background-color: color-mix(in srgb, black calc(0.85 * 65%), currentColor calc(0.15 * 65%));
     }
 
     &.keyboard-activating,
     &:active {
       color: white;
-      background-color: gtkalpha(gtkmix(black, currentColor, 75%), .65);
+      background-color: color-mix(in srgb, black calc(0.75 * 65%), currentColor calc(0.25 * 65%));
     }
 
     &:checked {
-      background-color: gtkalpha(gtkmix(black, currentColor, 80%), .65);
+      background-color: color-mix(in srgb, black calc(0.8 * 65%), currentColor calc(0.2 * 65%));
 
       &:hover {
-        background-color: gtkalpha(gtkmix(black, currentColor, 75%), .65);
+        background-color: color-mix(in srgb, black calc(0.75 * 65%), currentColor calc(0.25 * 65%));
       }
 
       &.keyboard-activating,
       &:active {
-        background-color: gtkalpha(gtkmix(black, currentColor, 65%), .65);
+        background-color: color-mix(in srgb, black calc(0.65 * 65%), currentColor calc(0.35 * 65%));
       }
     }
 
@@ -151,7 +151,7 @@ button {
     @include focus-ring($outer: true, $offset: 1px, $transition: $button_transition);
 
     &:hover {
-      background-image: image(gtkalpha(currentColor, .1));
+      background-image: image(color-mix(in srgb, currentColor 10%, transparent));
     }
 
     &.keyboard-activating,
@@ -320,7 +320,7 @@ button {
       &.has-open-popup { background-image: image($view_selected_hover_color); }
 
       .osd & {
-        background-color: gtkalpha(currentColor, .1);
+        background-color: color-mix(in srgb, currentColor 10%, transparent);
       }
     }
 
@@ -350,7 +350,7 @@ button.color {
     }
 
     &.light > overlay {
-      border-color: gtkalpha(var(--view-fg-color), 0.1);
+      border-color: color-mix(in srgb, var(--view-fg-color) 10%, transparent);
     }
   }
 }
@@ -497,7 +497,7 @@ splitbutton {
   @at-root %flat_split_button,
   &.flat {
     > separator {
-      background: gtkalpha(currentColor, $dimmer_opacity);
+      background: color-mix(in srgb, currentColor $dimmer_opacity, transparent);
     }
 
     &:hover,
@@ -563,7 +563,7 @@ splitbutton {
       }
     }
 
-    $_separator_color: gtkalpha(currentColor, $dimmer_opacity);
+    $_separator_color: color-mix(in srgb, currentColor $dimmer_opacity, transparent);
     > menubutton > button {
       &:dir(ltr) { box-shadow: inset 1px 0 $_separator_color; }
       &:dir(rtl) { box-shadow: inset -1px 0 $_separator_color; }

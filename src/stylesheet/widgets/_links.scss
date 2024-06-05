@@ -9,14 +9,14 @@ button.link {
   }
 
   &:hover {
-    color: gtkshade($link_color, 1.1);
+    color: HSL(from $link_color h calc(s * 1.1) calc(l * 1.1));
   }
 
   &:active {
     color: $link_color;
   }
 
-  &:disabled { color: gtkalpha(currentColor, $disabled_opacity); }
+  &:disabled { color: color-mix(in srgb, currentColor $disabled_opacity, transparent); }
 
   .osd & {
     color: $osd_link_color;
@@ -47,3 +47,4 @@ button.link {
     text-decoration: underline;
   }
 }
+

@@ -213,12 +213,12 @@ actionbar > revealer > box {
  *************/
 banner > revealer > widget {
   /* There are 2 more instances in _sidebars.css, keep in sync with that */
-  background-color: gtkmix(var(--accent-bg-color), var(--window-bg-color), 30%);
+  background-color: color-mix(in srgb, var(--accent-bg-color) 30%, var(--window-bg-color));
   color: var(--window-fg-color);
   padding: 6px;
 
   &:backdrop {
-    background-color: gtkmix(var(--accent-bg-color), var(--window-bg-color), 15%);
+    background-color: color-mix(in srgb, var(--accent-bg-color) 15%, var(--window-bg-color));
     transition: background-color $backdrop_transition;
 
     > label, > button {
@@ -271,8 +271,8 @@ toolbarview {
   }
 
   > .top-bar.raised {
-    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
-                0 2px 4px gtkalpha(var(--headerbar-shade-color), .5);
+    box-shadow: 0 1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent)),
+                0 2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
 
     &.border {
       box-shadow: 0 1px if($contrast == 'high', $border_color, var(--headerbar-darker-shade-color));
@@ -280,8 +280,8 @@ toolbarview {
   }
 
   > .bottom-bar.raised {
-    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
-                0 -2px 4px gtkalpha(var(--headerbar-shade-color), .5);
+    box-shadow: 0 -1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent)),
+                0 -2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
 
     &.border {
       box-shadow: 0 -1px if($contrast == 'high', $border_color, var(--headerbar-darker-shade-color));

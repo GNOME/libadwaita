@@ -140,7 +140,7 @@ statuspage {
       > .icon {
         -gtk-icon-size: 128px;
 
-        color: gtkalpha(currentColor, $dim_label_opacity);
+        color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
 
         &:disabled {
           opacity: $disabled_opacity;
@@ -185,7 +185,7 @@ statuspage {
                 0 2px 6px 2px RGB(0 0 0 / 3%);
 
     .osd &, &.osd {
-      background-color: gtkalpha(currentColor, .1);
+      background-color: color-mix(in srgb, currentColor 10%, transparent);
       color: $osd_fg_color;
 
       @if $contrast == 'high' {
@@ -202,11 +202,11 @@ statuspage {
     transition: $focus_transition, $button_transition;
 
     &:hover {
-      background-image: image(gtkalpha(currentColor, .03));
+      background-image: image(color-mix(in srgb, currentColor 3%, transparent));
     }
 
     &:active {
-      background-image: image(gtkalpha(currentColor, .08));
+      background-image: image(color-mix(in srgb, currentColor 8%, transparent));
     }
   }
 }

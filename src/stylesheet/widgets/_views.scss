@@ -4,8 +4,8 @@
   background-color: var(--view-bg-color);
 
   &:disabled {
-    color: gtkalpha(currentColor, .5);
-    background-color: gtkmix(var(--window-bg-color), var(--view-bg-color), 60%);
+    color: color-mix(in srgb, currentColor 5%, transparent);
+    background-color: color-mix(in srgb, var(--window-bg-color) 60%, var(--view-bg-color));
   }
 
   &:selected {
@@ -38,7 +38,7 @@ textview {
   }
 
   > border {
-    background-color: gtkmix(var(--window-bg-color), var(--view-bg-color), 50%);
+    background-color: color-mix(in srgb, var(--window-bg-color), var(--view-bg-color) 50%);
   }
 
   &:drop(active) {
@@ -48,7 +48,7 @@ textview {
 
 rubberband {
   border: 1px solid var(--accent-color);
-  background-color: gtkalpha(var(--accent-color), 0.2);
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
 }
 
 flowbox > flowboxchild,
@@ -84,3 +84,4 @@ gridview > child.activatable {
     }
   }
 }
+

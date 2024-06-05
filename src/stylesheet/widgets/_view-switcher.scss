@@ -88,7 +88,7 @@ indicatorbin {
 
   > indicator {
     margin: 1px;
-    background: gtkalpha(currentColor, .4);
+    background: color-mix(in srgb, currentColor 40%, transparent);
   }
 
   > mask {

@@ -19,7 +19,6 @@ if not fs.exists('base.css')
       '_compat-colors.scss',
       '_defaults.scss',
       '_drawing.scss',
-      '_functions.scss',
       '_palette.scss',
       '_widgets.scss',
 

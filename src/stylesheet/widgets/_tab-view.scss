@@ -43,7 +43,7 @@ tabbar {
       min-width: 2px;
       border-radius: 2px;
       margin: 3px 6px;
-      background: if($contrast == 'high', var(--accent-color), gtkalpha(var(--accent-color), 0.5));
+      background: if($contrast == 'high', var(--accent-color), color-mix(in srgb, var(--accent-color) 50%, transparent));
     }
   }
 
@@ -162,7 +162,7 @@ dnd {
     indicator {
       min-height: 2px;
       border-radius: 2px;
-      background: if($contrast == 'high', var(--accent-color), gtkalpha(var(--accent-color), 0.5));
+      background: if($contrast == 'high', var(--accent-color), color-mix(in srgb, var(--accent-color) 50%, transparent));
       transform: translateY(4px);
     }
   }
@@ -180,8 +180,8 @@ tabthumbnail {
   }
 
   &:drop(active) {
-    box-shadow: inset 0 0 0 2px gtkalpha($drop_target_color, .4);
-    background-color: gtkalpha($drop_target_color, .1);
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, $drop_target_color 40%, transparent);
+    background-color: color-mix(in srgb, $drop_target_color 10%, transparent);
   }
 
   transition: box-shadow 200ms $ease-out-quad, background-color $ease-out-quad;
@@ -196,7 +196,7 @@ tabthumbnail {
       min-height: 12px;
       border-radius: 8px;
       margin: 3px;
-      box-shadow: 0 1px 2px gtkalpha(var(--accent-color), .4);
+      box-shadow: 0 1px 2px color-mix(in srgb, var(--accent-color) 40%, transparent);
     }
   }
 
@@ -239,7 +239,7 @@ tabthumbnail {
 
   button.circular {
     margin: 6px;
-    background-color: gtkalpha(var(--thumbnail-bg-color), .75);
+    background-color: color-mix(in srgb, var(--thumbnail-bg-color) 75%, transparent);
     min-width: 24px;
     min-height: 24px;
 
@@ -248,11 +248,11 @@ tabthumbnail {
     }
 
     &:hover {
-      background-color: gtkalpha(gtkmix(var(--thumbnail-bg-color), currentColor, 90%), .75);
+      background-color: color-mix(in srgb, var(--thumbnail-bg-color) calc(0.9 * 75%), currentColor calc(0.1 * 75%));
     }
 
     &:active {
-      background-color: gtkalpha(gtkmix(var(--thumbnail-bg-color), currentColor, 80%), .75);
+      background-color: color-mix(in srgb, var(--thumbnail-bg-color) calc(0.8 * 75%), currentColor calc(0.2 * 75%));
     }
   }
 }

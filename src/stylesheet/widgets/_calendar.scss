@@ -35,7 +35,7 @@ calendar {
 
         &:checked {
           border-radius: $button_radius;
-          background-color: gtkalpha(var(--accent-bg-color), 0.3);
+          background-color: color-mix(in srgb, var(--accent-bg-color) 30%, transparent);
         }
 
         &:selected {
@@ -47,7 +47,7 @@ calendar {
       }
 
       &.day-number.other-month {
-        color: gtkalpha(currentColor, 0.3);
+        color: color-mix(in srgb, currentColor 30%, transparent);
       }
     }
   }

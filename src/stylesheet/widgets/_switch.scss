@@ -35,7 +35,7 @@ switch {
     color: $fill_text_color;
     background-color: $fill_color;
 
-    &:hover { background-image: image(gtkalpha(currentColor, .1)); }
+    &:hover { background-image: image(color-mix(in srgb, currentColor 10%, transparent)); }
     &:active { background-image: image(RGB(0 0 0 / 20%)); }
 
     > slider {

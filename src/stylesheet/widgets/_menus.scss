@@ -74,7 +74,7 @@ popover.menu {
   }
 
   accelerator {
-    color: gtkalpha(currentColor, $dim_label_opacity);
+    color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
 
     &:dir(ltr) { margin-left: $menu_padding; }
     &:dir(rtl) { margin-right: $menu_padding; }
@@ -110,7 +110,7 @@ popover.menu {
   //only menu radios have a border
   radio {
     padding: 1px;
-    border: 1px solid gtkalpha(currentColor, $dimmer_opacity);
+    border: 1px solid color-mix(in srgb, currentColor $dimmer_opacity, transparent);
   }
 
   check,

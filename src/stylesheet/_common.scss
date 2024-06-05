@@ -49,11 +49,11 @@ dnd {
 /* Text selection */
 
 selection {
-  background-color: gtkalpha(var(--view-fg-color), 0.1);
+  background-color: color-mix(in srgb, var(--view-fg-color) 10%, transparent);
   color: transparent;
 
   &:focus-within {
-    background-color: gtkalpha(var(--accent-bg-color), 0.3);
+    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, transparent);
   }
 }
 

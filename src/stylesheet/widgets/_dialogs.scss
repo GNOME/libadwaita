@@ -70,7 +70,7 @@ window.colorchooser {
 
 floating-sheet {
   > dimming {
-    background-color: gtkalpha(var(--shade-color), 2);
+    background-color: RGB(from var(--shade-color) r g b / calc(alpha * 2));
   }
 
   > sheet {

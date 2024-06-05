@@ -56,7 +56,7 @@ scale {
       background-color: $trough_hover_color;
 
       > highlight {
-        background-image: image(gtkalpha(currentColor, .1));
+        background-image: image(color-mix(in srgb, currentColor 10%, transparent));
       }
 
       > slider {
@@ -114,7 +114,7 @@ scale {
 
   &.horizontal {
     > marks {
-      color: gtkalpha(currentColor, $dim_label_opacity);
+      color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
       &.top    { margin-bottom: $_marks_distance; }
       &.bottom { margin-top: $_marks_distance; }
 
@@ -158,7 +158,7 @@ scale {
 
   &.vertical {
     > marks {
-      color: gtkalpha(currentColor, $dim_label_opacity);
+      color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
       &.top    { margin-right: $_marks_distance; }
       &.bottom { margin-left: $_marks_distance; }
 

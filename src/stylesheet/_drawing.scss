@@ -55,8 +55,10 @@
   }
 
   #{$_selector} undershoot.#{$p} {
-    box-shadow: inset $_border_pos if($contrast == 'high', $border_color, gtkalpha(var(--shade-color), .75));
-    background: linear-gradient(to $_direction, gtkalpha(var(--shade-color), .75), transparent 4px);
+    box-shadow: inset $_border_pos if($contrast == 'high', $border_color, color-mix(in srgb, var(--shade-color) 75%, transparent));
+    background: linear-gradient(to $_direction,
+                                color-mix(in srgb, var(--shade-color) 75%, transparent),
+                                transparent 4px);
   }
 }
 
@@ -82,12 +84,12 @@
   }
 
   $_small_gradient: radial-gradient(farthest-side at $p,
-                                    gtkalpha(currentColor, 0.12) 85%,
-                                    gtkalpha(currentColor, 0));
+                                    color-mix(in srgb, currentColor 12%, transparent) 85%,
+                                    RGB(from currentColor r g b / 0));
 
   $_big_gradient: radial-gradient(farthest-side at $p,
-                                  gtkalpha(currentColor, 0.05),
-                                  gtkalpha(currentColor, 0));
+                                  color-mix(in srgb, currentColor 5%, transparent),
+                                  RGB(from currentColor r g b / 0));
 
   background-image: $_small_gradient, $_big_gradient;
   background-size: $_small_gradient_size, $_big_gradient_size;
@@ -103,13 +105,13 @@
 @mixin background-shadow($direction) {
   background-image:
     linear-gradient($direction,
-                    gtkalpha(var(--shade-color), 0.7),
-                    gtkalpha(var(--shade-color), 0.14) 40px,
-                    gtkalpha(var(--shade-color), 0) 56px),
+                    color-mix(in srgb, var(--shade-color) 70%, transparent),
+                    color-mix(in srgb, var(--shade-color) 14%, transparent) 40px,
+                    RGB(from var(--shade-color) r g b / 0) 56px),
     linear-gradient($direction,
-                    gtkalpha(var(--shade-color), 0.4),
-                    gtkalpha(var(--shade-color), 0.14) 7px,
-                    gtkalpha(var(--shade-color), 0) 24px);
+                    color-mix(in srgb, var(--shade-color) 40%, transparent),
+                    color-mix(in srgb, var(--shade-color) 14%, transparent) 7px,
+                    RGB(from var(--shade-color) r g b / 0) 24px);
 }
 
 @mixin transition-shadows() {

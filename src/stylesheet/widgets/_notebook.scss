@@ -142,7 +142,7 @@ notebook {
 
       // colors the button like the label, overridden otherwise
       button.flat {
-        color: gtkalpha(currentColor, 0.3);
+        color: color-mix(in srgb, currentColor 30%, transparent);
         &:hover, &:active { color: currentColor; }
 
         padding: 0;

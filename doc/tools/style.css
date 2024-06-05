@@ -1,5 +1,5 @@
 .docs-background {
-  background: alpha(currentColor, .05);
+  background: color-mix(in srgb, currentColor 5%, transparent);
   border-radius: 12px;
 }
 

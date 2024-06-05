@@ -323,15 +323,15 @@ row.combo {
 
   &:not(:selected).activatable {
     &:hover {
-      background-color: gtkalpha(currentColor, .03);
+      background-color: color-mix(in srgb, currentColor 3%, transparent);
     }
 
     &:active {
-      background-color: gtkalpha(currentColor, .08);
+      background-color: color-mix(in srgb, currentColor 8%, transparent);
     }
 
     &.has-open-popup {
-      background-color: gtkalpha(currentColor, .03);
+      background-color: color-mix(in srgb, currentColor 3%, transparent);
     }
   }
 }
@@ -348,7 +348,7 @@ row.expander {
   }
 
   list.nested {
-    background-color: gtkalpha(var(--card-shade-color), .5);
+    background-color: color-mix(in srgb, var(--card-shade-color) 50%, transparent);
     color: inherit;
   }
 
@@ -492,17 +492,17 @@ list.boxed-list-separate {
       &:not(:selected).activatable {
         &:hover {
           background-color: var(--card-bg-color);
-          background-image: image(gtkalpha(currentColor, .03));
+          background-image: image(color-mix(in srgb, currentColor 3%, transparent));
         }
 
         &:active {
           background-color: var(--card-bg-color);
-          background-image: image(gtkalpha(currentColor, .08));
+          background-image: image(color-mix(in srgb, currentColor 8%, transparent));
         }
 
         &.has-open-popup {
           background-color: var(--card-bg-color);
-          background-image: image(gtkalpha(currentColor, .03));
+          background-image: image(color-mix(in srgb, currentColor 3%, transparent));
         }
       }
     }

@@ -10,11 +10,11 @@
   --shade-color: var(--sidebar-shade-color);
 
   banner > revealer > widget {
-    background-color: gtkmix(var(--accent-bg-color), var(--sidebar-bg-color), 30%);
+    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, var(--sidebar-bg-color));
     color: var(--sidebar-fg-color);
 
     &:backdrop {
-      background-color: gtkmix(var(--accent-bg-color), var(--sidebar-backdrop-color), 15%);
+      background-color: color-mix(in srgb, var(--accent-bg-color) 15%, var(--sidebar-bg-color));
     }
   }
 
@@ -45,11 +45,11 @@
   --shade-color: var(--secondary-sidebar-shade-color);
 
   banner > revealer > widget {
-    background-color: gtkmix(var(--accent-bg-color), var(--secondary-sidebar-bg-color), 30%);
+    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, var(--secondary-sidebar-bg-color));
     color: var(--secondary-sidebar-fg-color);
 
     &:backdrop {
-      background-color: gtkmix(var(--accent-bg-color), var(--secondary-sidebar-backdrop-color), 15%);
+      background-color: color-mix(in srgb, var(--accent-bg-color) 15%, var(--secondary-sidebar-bg-color));
     }
   }
 

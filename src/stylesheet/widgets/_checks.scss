@@ -27,7 +27,7 @@ radio {
   &:not(:checked):not(:indeterminate) {
     &:hover {
       @if $contrast == 'high' {
-        box-shadow: inset 0 0 0 2px gtkalpha(currentColor, .6);
+        box-shadow: inset 0 0 0 2px color-mix(in srgb, currentColor 60%, transparent);
       } @else {
         box-shadow: inset 0 0 0 2px $trough_hover_color;
       }
@@ -35,7 +35,7 @@ radio {
 
     &:active {
       @if $contrast == 'high' {
-        background-color: gtkalpha(currentColor, .6);
+        background-color: color-mix(in srgb, currentColor 60%, transparent);
       } @else {
         background-color: $trough_active_color;
       }
@@ -49,7 +49,7 @@ radio {
     color: $fill_text_color;
     box-shadow: none;
 
-    &:hover { background-image: image(gtkalpha(currentColor, .1)); }
+    &:hover { background-image: image(color-mix(in srgb, currentColor 10%, transparent)); }
     &:active { background-image: image(RGB(0 0 0 / 20%)); }
   }
 

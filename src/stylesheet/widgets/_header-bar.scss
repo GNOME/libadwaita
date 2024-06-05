@@ -67,8 +67,8 @@ headerbar {
 
 window > {
   .titlebar:not(.flat) {
-    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha(var(--headerbar-shade-color), .5)),
-                0 2px 4px gtkalpha(var(--headerbar-shade-color), .5);
+    box-shadow: 0 1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent)),
+                0 2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
   }
 
   .titlebar headerbar:not(.flat) {

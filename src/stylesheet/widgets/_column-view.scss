@@ -21,14 +21,14 @@ columnview {
     }
 
     > box {
-      color: gtkalpha(currentColor, if($contrast == 'high', .6, .4));
+      color: color-mix(in srgb, currentColor if($contrast == 'high', 60%, 40%), transparent);
       font-weight: 700;
       font-size: 9pt;
       border-spacing: 6px;
     }
 
     &:hover > box {
-      color: gtkalpha(currentColor, if($contrast == 'high', .9, .7));
+      color: color-mix(in srgb, currentColor if($contrast == 'high', 90%, 70%), transparent);
       box-shadow: none;
     }
 

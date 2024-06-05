@@ -1,7 +1,6 @@
-
 bottom-sheet {
   > dimming {
-    background-color: gtkalpha(var(--shade-color), 2);
+    background-color: RGB(from var(--shade-color) r g b / calc(alpha * 2));
   }
 
   > sheet {
@@ -13,7 +12,7 @@ bottom-sheet {
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
 
     > drag-handle {
-      background-color: gtkalpha(currentColor, .25);
+      background-color: color-mix(in srgb, currentColor 25%, transparent);
       min-width: 60px;
       min-height: 4px;
       margin: 6px;
