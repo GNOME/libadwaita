@@ -1,5 +1,4 @@
 $border_opacity: if($contrast == 'high', 50%, 15%);
-$thin_border_opacity: if($contrast == 'high', 25%, 5%);
 $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
 // Colors from _defaults.scss
@@ -71,7 +70,6 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 // Other colors
 
 $border_color: color-mix(in srgb, currentColor $border_opacity, transparent);
-$thin_border_color: color-mix(in srgb, currentColor $thin_border_opacity, transparent);
 $headerbar_border_color: color-mix(in srgb, var(--headerbar-border-color) $border_opacity, transparent);
 $link_color: var(--accent-color);
 $link_visited_color: color-mix(in srgb, var(--accent-color) 80%, var(--view-fg-color));
