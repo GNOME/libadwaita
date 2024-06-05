@@ -99,13 +99,12 @@ $slider_color: color-mix(in srgb, white 80%, var(--view-bg-color));
 $slider_hover_color: white;
 
 $osd_fg_color: RGB(255 255 255 / 90%);
-$osd_text_color: white;
 $osd_bg_color: RGB(0 0 0 / 75%);
 $osd_accent_bg_color: RGB(255 255 255 / 75%);
 $osd_accent_fg_color: RGB(0 0 0 / 75%);
 $osd_accent_color: white;
-$osd_link_color: color-mix(in srgb, var(--accent-bg-color) 50%, $osd_text_color);
-$osd_link_visited_color: color-mix(in srgb, var(--accent-bg-color) 75%, $osd_text_color);
+$osd_link_color: color-mix(in srgb, var(--accent-bg-color) 50%, white);
+$osd_link_visited_color: color-mix(in srgb, var(--accent-bg-color) 75%, white);
 
 $tooltip_border_color: RGB(255 255 255 / 10%);
 
