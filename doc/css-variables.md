@@ -375,28 +375,26 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
 </table>
 
-<code>--headerbar-border-color</code> has the same default value as
-<code>--headerbar-fg-color</code>, but doesn't change along with it. This can
-be useful if a light window has a dark header bar with light text; in this case
-it may be desirable to keep the border dark. This variable is only used for
-vertical borders - for example, separators between the 2 header bars in a split
-header bar layout.
+`--headerbar-border-color` has the same default value as `--headerbar-fg-color`,
+but doesn't change along with it. This can be useful if a light window has a
+dark header bar with light text; in this case it may be desirable to keep the
+border dark. This variable is only used for vertical borders - for example,
+separators between the 2 header bars in a split header bar layout.
 
-<code>--headerbar-backdrop-color</code> is used instead of
-<code>--headerbar-bg-color</code> when the window is not focused. By default
-it's an alias of [<code>--window-bg-color</code>](#window-colors) and changes
-together with it. When overriding header bar colors, make sure to set it to a
-value matching your <code>--headerbar-bg-color</code>.
+`--headerbar-backdrop-color` is used instead of `--headerbar-bg-color` when the
+window is not focused. By default it's an alias of
+[`--window-bg-color`](#window-colors) and changes together with it. When
+overriding header bar colors, make sure to set it to a value matching your
+`--headerbar-bg-color`.
 
-<code>--headerbar-shade-color</code> is used to provide a dark shadow or a
-border for header bars and similar widgets. This color should always be
-partially transparent black.
+`--headerbar-shade-color` is used to provide a dark shadow or a border for
+header bars and similar widgets. This color should always be partially
+transparent black.
 
-<code>--headerbar-darker-shade-color</code> is used for the
-`ADW_TOOLBAR_RAISED_BORDER` border. This color should always be
-partially transparent black, and is intended to be darker than both
-<code>--headerbar-bg-color</code> and
-<code>--headerbar-backdrop-color</code> on top of white color.
+`--headerbar-darker-shade-color` is used for the `ADW_TOOLBAR_RAISED_BORDER`
+border. This color should always be partially transparent black, and is intended
+to be darker than both `--headerbar-bg-color` and `--headerbar-backdrop-color`
+on top of white color.
 
 ## Sidebar Colors
 
@@ -449,27 +447,26 @@ sides of a window. They are used by [class@NavigationSplitView] and
   </tr>
 </table>
 
-<code>--sidebar-backdrop-color</code> is used instead of
-<code>--sidebar-bg-color</code> when the window is not focused. When
-overriding sidebar colors, make sure to set it to a value matching your
-<code>--sidebar-bg-color</code>.
+`--sidebar-backdrop-color` is used instead of `--sidebar-bg-color` when the
+window is not focused. When overriding sidebar colors, make sure to set it to a
+value matching your `--sidebar-bg-color`.
 
-<code>--sidebar-shade-color</code> is used to provide a dark border for
-sidebars, scroll undershoots within sidebars, as well as transitions in
-[class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
-[class@Flap]. This color should always be partially transparent black, with the
-opacity tuned to be well visible on top of <code>--sidebar-bg-color</code>.
-
-<code>--sidebar-border-color</code> is used to provide a dark border for
-sidebars. This color should always be partially transparent black, with the
-opacity tuned to be well visible on top of <code>--sidebar-bg-color</code>
-next to <code>--window-bg-color</code> or <code>--view-bg-color</code>.
-
-<code>--sidebar-shade-color</code> is used to provide scroll undershoots
-within sidebars, as well as transitions in [class@NavigationView],
+`--sidebar-shade-color` is used to provide a dark border for sidebars, scroll
+undershoots within sidebars, as well as transitions in [class@NavigationView],
 [class@OverlaySplitView], [class@Leaflet] and [class@Flap]. This color should
 always be partially transparent black, with the opacity tuned to be well visible
-on top of <code>--sidebar-bg-color</code>.
+on top of `--sidebar-bg-color`.
+
+`--sidebar-border-color` is used to provide a dark border for sidebars. This
+color should always be partially transparent black, with the opacity tuned to be
+well visible on top of `--sidebar-bg-color` next to `--window-bg-color` or
+`--view-bg-color`.
+
+`--sidebar-shade-color`is used to provide scroll undershoots within sidebars, as
+well as transitions in [class@NavigationView], [class@OverlaySplitView],
+[class@Leaflet] and [class@Flap]. This color should always be partially
+transparent black, with the opacity tuned to be well visible on top of
+`--sidebar-bg-color`.
 
 Since: 1.4
 
@@ -528,30 +525,27 @@ nesting two split views within one another.
   </tr>
 </table>
 
-<code>--secondary-sidebar-backdrop-color</code> is used instead of
-<code>--secondary-sidebar-bg-color</code> when the window is not focused.
-When overriding secondary sidebar colors, make sure to set it to a value
-matching your <code>--secondary-sidebar-bg-color</code>.
+`--secondary-sidebar-backdrop-color` is used instead of
+`--secondary-sidebar-bg-color` when the window is not focused. When overriding
+secondary sidebar colors, make sure to set it to a value matching your
+`--secondary-sidebar-bg-color`.
 
-<code>--secondary-sidebar-border-color</code> is used to provide a dark
-border for secondary sidebars. This color should always be partially transparent black, with
-the opacity tuned to be well visible on top of
-<code>--secondary-sidebar-bg-color</code> next to
-<code>--sidebar-bg-color</code>.
+`--secondary-sidebar-border-color` is used to provide a dark border for
+secondary sidebars. This color should always be partially transparent black,
+with the opacity tuned to be well visible on top of
+`--secondary-sidebar-bg-color` next to `--sidebar-bg-color`.
 
-<code>--secondary-sidebar-shade-color</code> is used to provide scroll
-undershoots within secondary sidebars, as well as transitions in
-[class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
+`--secondary-sidebar-shade-color` is used to provide scroll undershoots within
+secondary sidebars, as well as transitions in [class@NavigationView],
+[class@OverlaySplitView], [class@Leaflet] and [class@Flap]. This color should
+always be partially transparent black, with the opacity tuned to be well visible
+on top of `--secondary-sidebar-bg-color`.
+
+`--secondary-sidebar-shade-color` is used to provide a dark border for secondary
+sidebars, scroll undershoots within secondary sidebars, as well as transitions
+in [class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
 [class@Flap]. This color should always be partially transparent black, with the
-opacity tuned to be well visible on top of
-<code>--secondary-sidebar-bg-color</code>.
-
-<code>--secondary-sidebar-shade-color</code> is used to provide a dark border
-for secondary sidebars, scroll undershoots within secondary sidebars, as well as
-transitions in [class@NavigationView], [class@OverlaySplitView], [class@Leaflet]
-and [class@Flap]. This color should always be partially transparent black, with
-the opacity tuned to be well visible on top of
-<code>--secondary-sidebar-bg-color</code>.
+opacity tuned to be well visible on top of `--secondary-sidebar-bg-color`.
 
 Since: 1.4
 
@@ -591,10 +585,9 @@ These colors are used for
   </tr>
 </table>
 
-<code>--card-shade-color</code> is used to provide separators between
-boxed list rows and similar widgets. This color should always be partially
-transparent black, with the opacity tuned to be well visible on top of
-<code>--card-bg-color</code>.
+`--card-shade-color` is used to provide separators between boxed list rows and
+similar widgets. This color should always be partially transparent black, with
+the opacity tuned to be well visible on top of `--card-bg-color`.
 
 ## Thumbnail Colors
 
@@ -691,12 +684,11 @@ These colors are used for [class@Gtk.Popover].
   </tr>
 </table>
 
-<code>--popover-shade-color</code> is used for scroll undershoot styles
-within popovers, as well as transitions in [class@NavigationView],
-[class@OverlaySplitView], [class@Leaflet] and [class@Flap]. This color should
-always be partially transparent black, with the opacity tuned to be well visible
-on top of <code>--popover-bg-color</code>.
-This color is only available since 1.4.
+`--popover-shade-color` is used for scroll undershoot styles within popovers, as
+well as transitions in [class@NavigationView], [class@OverlaySplitView],
+[class@Leaflet] and [class@Flap]. This color should always be partially
+transparent black, with the opacity tuned to be well visible on top of
+`--popover-bg-color`. This color is only available since 1.4.
 
 ## Miscellaneous Colors
 
@@ -724,15 +716,14 @@ This color is only available since 1.4.
   </tr>
 </table>
 
-<code>--shade-color</code> is used for scroll undershoots, as well as
-transitions in [class@NavigationView], [class@OverlaySplitView], [class@Leaflet]
-and [class@Flap]. This color should always be partially transparent black, with
-the opacity tuned to be well visible on top of <code>--window-bg-color</code>.
+`--shade-color` is used for scroll undershoots, as well as transitions in
+[class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
+[class@Flap]. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of `--window-bg-color`.
 
-<code>--scrollbar-outline-color</code> is used by [class@Gtk.Scrollbar] to
-ensure that overlay scrollbars are visible regardless of the content color. It
-should always be the opposite of the scrollbar color - light with a dark
-scrollbar and dark with a light scrollbar.
+`--scrollbar-outline-color` is used by [class@Gtk.Scrollbar] to ensure that
+overlay scrollbars are visible regardless of the content color. It should always
+be the opposite of the scrollbar color - light with a dark scrollbar and dark
 
 # Helpers
 
