@@ -485,7 +485,7 @@ It's equivalent to using the following CSS:
 
 ```css
 .frame {
-  border: 1px solid var(--borders);
+  border: 1px solid var(--border-color);
 }
 ```
 
