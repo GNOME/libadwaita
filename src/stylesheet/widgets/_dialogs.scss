@@ -116,7 +116,7 @@ dialog-host > dialog.view {
   }
 }
 
-dialog-host > dialog.osd {
+dialog-host > dialog.osd:not(progressbar):not(button):not(menubutton):not(splitbutton) {
   background: none;
 
   sheet {
