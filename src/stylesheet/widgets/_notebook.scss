@@ -133,8 +133,8 @@ notebook {
       }
 
       &:disabled {
-        filter: opacity($disabled_opacity);
-
+        filter: Opacity(var(--disabled-opacity));
+a
         label, button {
           filter: none;
         }

@@ -14,7 +14,7 @@
 
 @define-color insensitive_base_color @view_bg_color;
 
-@define-color borders #{$border_color};
+@define-color borders color-mix(in srgb, currentColor #{$border_opacity}, transparent);
 
 @define-color theme_unfocused_bg_color @window_bg_color;
 @define-color theme_unfocused_fg_color @window_fg_color;

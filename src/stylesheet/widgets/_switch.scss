@@ -11,7 +11,7 @@ switch {
   @include focus-ring($offset: 1px, $outer: true);
 
   &:disabled {
-    filter: opacity($disabled_opacity);
+    filter: Opacity(var(--disabled-opacity));
   }
 
   > slider {

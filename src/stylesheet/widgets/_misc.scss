@@ -140,10 +140,10 @@ statuspage {
       > .icon {
         -gtk-icon-size: 128px;
 
-        color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
+        color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
 
         &:disabled {
-          opacity: $disabled_opacity;
+          opacity: var(--disabled-opacity);
         }
 
         &:not(:last-child) {

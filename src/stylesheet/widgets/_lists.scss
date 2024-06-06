@@ -124,7 +124,7 @@ row {
     min-height: 50px;
 
     > .icon:disabled {
-      filter: opacity($disabled_opacity);
+      filter: Opacity(var(--disabled-opacity));
     }
 
     > box.title {
@@ -182,7 +182,7 @@ row {
 row.entry {
   &:disabled {
     text {
-      opacity: $disabled_opacity;
+      opacity: var(--disabled-opacity);
     }
 
     .dim-label, .subtitle {
@@ -274,7 +274,7 @@ row.spin {
 
 row.combo {
   image.dropdown-arrow:disabled {
-    filter: opacity($disabled_opacity);
+    filter: Opacity(var(--disabled-opacity));
   }
 
   listview.inline {
@@ -373,7 +373,7 @@ row.expander {
     }
 
     &:disabled {
-      filter: opacity($disabled_opacity);
+      filter: Opacity(var(--disabled-opacity));
     }
   }
 
@@ -407,7 +407,7 @@ row.button {
     min-height: 42px;
 
     > .icon:disabled {
-      filter: opacity($disabled_opacity);
+      filter: Opacity(var(--disabled-opacity));
     }
   }
 

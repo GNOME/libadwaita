@@ -91,7 +91,7 @@ colorswatch {
   }
 
   &:disabled {
-    filter: opacity($disabled_opacity);
+    filter: Opacity(var(--disabled-opacity));
   }
 
   &#editor-color-sample {

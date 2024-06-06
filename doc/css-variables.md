@@ -736,13 +736,34 @@ scrollbar and dark with a light scrollbar.
 
 # Helpers
 
-These variables are provided for convenience and should not be overridden.
+These variables are provided for convenience (particularly, automatic high
+contrast mode support) and should not be overridden.
+
+## Opacity
+
+Name                        | Regular      | High contrast
+--------------------------- | ------------ | -------------
+<tt>--border-opacity</tt>   | <tt>15%</tt> | <tt>50%</tt>
+<tt>--dim-opacity</tt>      | <tt>55%</tt> | <tt>90%</tt>
+<tt>--disabled-opacity</tt> | <tt>50%</tt> | <tt>40%</tt>
+
+These variables represent the commonly used opacity values.
+
+`--border-opacity` is used for borders. (see [`--border-color`](#border-color)
+
+`--dim-opacity` is used for the [`.dim-label`](style-classes.html#dim-labels)
+style class and other similar contexts, like window and row subtitles.
+
+`--disabled-opacity` is used for disabled widgets.
+(see [property@Gtk.Widget:sensitive])
+
+These variables can be used to automatically support high contrast mode.
 
 ## Border Color
 
-Name                    | Regular                                                    | High contrast
------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------
-<tt>--border-color</tt> | <tt>color-mix(in srgb, currentColor 15%, transparent)</tt> | <tt>color-mix(in srgb, currentColor 50%, transparent)</tt>
+Name                    | Value
+----------------------- | ----------------------------------------------------------------------------
+<tt>--border-color</tt> | <tt>color-mix(in srgb, currentColor var(--border-opacity), transparent)</tt>
 
 Border color is derived from the current foreground color (`currentColor`) and
 changes between regular and high contrast modes. It should be used to support

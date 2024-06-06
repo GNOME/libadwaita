@@ -69,8 +69,8 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
 // Other colors
 
-$border_color: color-mix(in srgb, currentColor $border_opacity, transparent);
-$headerbar_border_color: color-mix(in srgb, var(--headerbar-border-color) $border_opacity, transparent);
+$border_color: color-mix(in srgb, currentColor var(--border-opacity), transparent);
+$headerbar_border_color: color-mix(in srgb, var(--headerbar-border-color) var(--border-opacity), transparent);
 $link_color: var(--accent-color);
 $link_visited_color: color-mix(in srgb, var(--accent-color) 80%, var(--view-fg-color));
 
@@ -131,4 +131,7 @@ $strong_disabled_opacity: 30%;
 
 :root {
   --border-color: #{$border_color};
+  --border-opacity: #{$border_opacity};
+  --dim-opacity: #{$dim_label_opacity};
+  --disabled-opacity: #{$disabled_opacity};
 }

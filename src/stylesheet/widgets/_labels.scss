@@ -6,12 +6,12 @@ label {
   }
 
   &:disabled {
-    filter: opacity($disabled_opacity);
+    filter: Opacity(var(--disabled-opacity));
   }
 }
 
 .dim-label {
-  opacity: $dim_label_opacity;
+  opacity: var(--dim-opacity);
 }
 
 .accent {

@@ -21,7 +21,7 @@ progressbar {
   }
 
   &:disabled {
-    filter: opacity($disabled_opacity);
+    filter: Opacity(var(--disabled-opacity));
   }
 
   > trough {

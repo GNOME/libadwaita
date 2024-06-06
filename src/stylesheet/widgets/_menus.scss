@@ -74,7 +74,7 @@ popover.menu {
   }
 
   accelerator {
-    color: color-mix(in srgb, currentColor $dim_label_opacity, transparent);
+    color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
 
     &:dir(ltr) { margin-left: $menu_padding; }
     &:dir(rtl) { margin-right: $menu_padding; }
@@ -161,7 +161,7 @@ popover.menu {
       &:hover { background: none; }
 
       &:disabled {
-        filter: opacity($disabled_opacity);
+        filter: Opacity(var(--disabled-opacity));
       }
 
       &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }

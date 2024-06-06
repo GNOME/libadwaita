@@ -37,7 +37,7 @@ entry {
       }
     }
 
-    &:disabled { filter: opacity($disabled_opacity); }
+    &:disabled { filter: Opacity(var(--disabled-opacity)); }
 
     > image { // icons inside the entry
       opacity: if($contrast == 'high', .85, .7);

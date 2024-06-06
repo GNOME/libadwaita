@@ -216,7 +216,7 @@ treeview.view {
 
     &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
 
-    &:disabled { color: color-mix(in srgb, currentColor $disabled_opacity, transparent); }
+    &:disabled { color: color-mix(in srgb, currentColor var(--disabled-opacity), transparent); }
   }
 
   > dndtarget:drop(active) {

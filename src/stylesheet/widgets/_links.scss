@@ -16,7 +16,7 @@ button.link {
     color: $link_color;
   }
 
-  &:disabled { color: color-mix(in srgb, currentColor $disabled_opacity, transparent); }
+  &:disabled { color: color-mix(in srgb, currentColor var(--disabled-opacity), transparent); }
 
   .osd & {
     color: $osd_link_color;
