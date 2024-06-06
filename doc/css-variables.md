@@ -65,6 +65,24 @@ Applications can override any of these colors by re-declaring them, for example:
 }
 ```
 
+Standalone colors can be derived background colors as follows:
+
+Light style:
+
+```css
+:root {
+  --accent-color: oklab(from var(--accent-bg-color) min(l, 0.5) a b);
+}
+```
+
+Dark style:
+
+```css
+:root {
+  --accent-color: oklab(from var(--accent-bg-color) max(l, 0.85) a b);
+}
+```
+
 ## Accent Colors
 
 The accent color is used across many different widgets, often to indicate that a
