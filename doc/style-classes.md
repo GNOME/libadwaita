@@ -217,8 +217,9 @@ similar widgets](#toolbars) to separate groups of widgets from each other.
 The `.dim-label` style class makes the widget it's applied to partially
 transparent.
 
-The level of transparency differs between regular and high contrast styles. As
-such, it's highly recommended to be used instead of changing opacity manually.
+The opacity changes between regular and high contrast styles and is represented
+by the [--dim-opacity](css-variables.html#opacity) variable. Use that variable
+if the style class cannot be used directly.
 
 # Typography Styles
 
