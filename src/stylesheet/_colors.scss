@@ -90,9 +90,6 @@ $trough_color: color-mix(in srgb, currentColor 15%, transparent);
 $trough_hover_color: color-mix(in srgb, currentColor 20%, transparent);
 $trough_active_color: color-mix(in srgb, currentColor 25%, transparent);
 
-$fill_color: var(--accent-bg-color);
-$fill_text_color: var(--accent-fg-color);
-
 $slider_color: color-mix(in srgb, white 80%, var(--view-bg-color));
 $slider_hover_color: white;
 

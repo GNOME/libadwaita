@@ -75,7 +75,7 @@ levelbar {
 
       &.high,
       &:not(.empty) {
-        background-color: $fill_color;
+        background-color: var(--accent-bg-color);
       }
 
       &.full {

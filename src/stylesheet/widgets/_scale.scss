@@ -11,8 +11,8 @@ $_slider_border_color: RGB(0 0 0 / #{if($contrast == 'high', 35%, 10%)});
 
 %scale_highlight {
   border-radius: 99px;
-  background-color: $fill_color;
-  color: $fill_text_color;
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
 }
 
 scale {

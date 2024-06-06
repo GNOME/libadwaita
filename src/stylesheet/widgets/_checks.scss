@@ -45,8 +45,8 @@ radio {
 
   &:checked,
   &:indeterminate {
-    background-color: $fill_color;
-    color: $fill_text_color;
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
     box-shadow: none;
 
     &:hover { background-image: image(color-mix(in srgb, currentColor 10%, transparent)); }

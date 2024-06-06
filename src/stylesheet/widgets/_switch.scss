@@ -32,8 +32,8 @@ switch {
   }
 
   &:checked {
-    color: $fill_text_color;
-    background-color: $fill_color;
+    color: var(--accent-fg-color);
+    background-color: var(--accent-bg-color);
 
     &:hover { background-image: image(color-mix(in srgb, currentColor 10%, transparent)); }
     &:active { background-image: image(RGB(0 0 0 / 20%)); }
