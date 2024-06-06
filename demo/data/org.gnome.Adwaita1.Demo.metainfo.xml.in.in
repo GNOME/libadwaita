@@ -11,6 +11,10 @@
   <name>Adwaita Demo</name>
   <summary>Tour of the features in Libadwaita</summary>
 
+  <categories>
+    <category>Development</category>
+  </categories>
+
   <description>
     <p>
       Adwaita Demo is a collection of examples that demonstrate Libadwaita
