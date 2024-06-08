@@ -18,26 +18,6 @@ stacksidebar {
   margin-bottom: 36px;
 }
 
-#custom-button-1 {
-  color: var(--accent-color);
-  --accent-color: var(--red-3);
-}
-
-#custom-button-2 {
-  color: var(--accent-color);
-  --accent-color: var(--purple-3);
-}
-
-#custom-button-3 {
-  --accent-bg-color: var(--green-5);
-  --accent-fg-color: white;
-}
-
-#custom-button-4 {
-  --accent-bg-color: var(--orange-4);
-  --accent-fg-color: white;
-}
-
 #animation-sample {
   min-width: 30px;
   min-height: 30px;

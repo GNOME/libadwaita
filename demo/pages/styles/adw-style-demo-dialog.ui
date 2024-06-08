@@ -95,60 +95,6 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             </child>
                           </object>
                         </child>
-                        <child>
-                          <object class="GtkBox" id="button_box_2">
-                            <property name="spacing">6</property>
-                            <property name="homogeneous">True</property>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="spacing">6</property>
-                                <property name="homogeneous">True</property>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Custom</property>
-                                    <property name="name">custom-button-1</property>
-                                    <property name="can-shrink">True</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Custom</property>
-                                    <property name="name">custom-button-2</property>
-                                    <property name="can-shrink">True</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="spacing">6</property>
-                                <property name="homogeneous">True</property>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Custom</property>
-                                    <property name="name">custom-button-3</property>
-                                    <property name="tooltip-text">suggested-action</property>
-                                    <property name="can-shrink">True</property>
-                                    <style>
-                                      <class name="suggested-action"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Custom</property>
-                                    <property name="name">custom-button-4</property>
-                                    <property name="tooltip-text">suggested-action</property>
-                                    <property name="can-shrink">True</property>
-                                    <style>
-                                      <class name="suggested-action"/>
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child>
