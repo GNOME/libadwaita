@@ -2404,7 +2404,7 @@ choose_cancelled_cb (GCancellable *cancellable,
  * @user_data: (closure callback): data to pass to @callback
  *
  * This function shows @self to the user.
- **
+ *
  * Since: 1.3
  */
 void
