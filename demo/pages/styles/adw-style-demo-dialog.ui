@@ -1021,7 +1021,6 @@ audio-volume-medium</property>
       <object class="AdwBreakpoint">
         <condition>max-width: 550sp</condition>
         <setter object="button_box_1" property="orientation">vertical</setter>
-        <setter object="button_box_2" property="orientation">vertical</setter>
         <setter object="entry_box_1" property="orientation">vertical</setter>
         <setter object="entry_box_2" property="orientation">vertical</setter>
         <setter object="label_box" property="orientation">vertical</setter>
@@ -1219,4 +1218,3 @@ audio-volume-medium</property>
     </section>
   </menu>
 </interface>
-
