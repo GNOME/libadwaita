@@ -11,25 +11,34 @@
 // The main accent color and the matching text value
 @define-color accent_bg_color @blue_3;
 @define-color accent_fg_color white;
-@define-color accent_color #{if($variant == 'light', "@blue_4", #78aeed)};
 
 // destructive-action buttons
 @define-color destructive_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color destructive_fg_color white;
-@define-color destructive_color #{if($variant == 'light', "@red_4", #ff7b63)};
 
 // Levelbars, entries, labels and infobars. These don't need text colors
 @define-color success_bg_color #{if($variant == 'light', "@green_4", "@green_5")};
 @define-color success_fg_color white;
-@define-color success_color #{if($variant == 'light', "#1b8553", "@green_1")};
 
 @define-color warning_bg_color #{if($variant == 'light', "@yellow_5", #cd9309)};
 @define-color warning_fg_color RGB(0 0 0 / 80%);
-@define-color warning_color #{if($variant == 'light', #9c6e03, "@yellow_2")};
 
 @define-color error_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color error_fg_color white;
-@define-color error_color #{if($variant == 'light', "@red_4", #ff7b63)};
+
+@if $variant == 'light' {
+  @define-color accent_color oklab(from @accent_bg_color min(l, 0.5) a b);
+  @define-color destructive_color oklab(from @destructive_bg_color min(l, 0.5) a b);
+  @define-color success_color oklab(from @successs_bg_color min(l, 0.5) a b);
+  @define-color warning_color oklab(from @warning_bg_color min(l, 0.5) a b);
+  @define-color error_color oklab(from @error_bg_color min(l, 0.5) a b);
+} @else {
+  @define-color accent_color oklab(from @accent_bg_color max(l, 0.85) a b);
+  @define-color destructive_color oklab(from @destructive_bg_color max(l, 0.85) a b);
+  @define-color success_color oklab(from @successs_bg_color max(l, 0.85) a b);
+  @define-color warning_color oklab(from @warning_bg_color max(l, 0.85) a b);
+  @define-color error_color oklab(from @error_bg_color max(l, 0.85) a b);
+}
 
 // Window
 @define-color window_bg_color #{if($variant == 'light', #fafafa, #242424)};
@@ -81,3 +90,19 @@
 // Miscellaneous
 @define-color shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
 @define-color scrollbar_outline_color #{if($variant == 'light', white, RGB(0 0 0 / 95%))};
+
+:root {
+  @if $variant == 'light' {
+    --accent-color: oklab(from var(--accent-bg-color) min(l, 0.5) a b);
+    --destructive-color: oklab(from var(--destructive-bg-color) min(l, 0.5) a b);
+    --success-color: oklab(from var(--success-bg-color) min(l, 0.5) a b);
+    --warning-color: oklab(from var(--warning-bg-color) min(l, 0.5) a b);
+    --error-color: oklab(from var(--error-bg-color) min(l, 0.5) a b);
+  } @else {
+    --accent-color: oklab(from var(--accent-bg-color) max(l, 0.85) a b);
+    --destructive-color: oklab(from var(--destructive-bg-color) max(l, 0.85) a b);
+    --success-color: oklab(from var(--success-bg-color) max(l, 0.85) a b);
+    --warning-color: oklab(from var(--warning-bg-color) max(l, 0.85) a b);
+    --error-color: oklab(from var(--error-bg-color) max(l, 0.85) a b);
+  }
+}
