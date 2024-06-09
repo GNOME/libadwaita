@@ -43,6 +43,16 @@ my-widget {
 }
 ```
 
+Applications can override these colors by re-declaring them, for example:
+
+```css
+:root {
+  --accent-bg-color: #e01b24;
+}
+```
+
+## Standalone colors
+
 Some colors also have standalone versions. They are similar to the background
 version, but provide better contrast when used as foreground colors on top of a
 neutral background - for example, colorful text in a window.
@@ -54,23 +64,17 @@ my-widget {
 ```
 
 Standalone colors are typically darker than the corresponding background color
-for the light style, and lighter than the background for the dark style.
+for the light style, and lighter than the background for the dark style. They
+are automatically derived from the background color, so it's not necesssary to
+override them manually when setting app-wide accent color.
 
-Applications can override any of these colors by re-declaring them, for example:
-
-```css
-:root {
-  --accent-color: #c01c28;
-  --accent-bg-color: #e01b24;
-}
-```
-
-Standalone colors can be derived background colors as follows:
+However, when overriding it for other widgets, it has to be overridden too, as
+follows:
 
 Light style:
 
 ```css
-:root {
+my-widget {
   --accent-color: oklab(from var(--accent-bg-color) min(l, 0.5) a b);
 }
 ```
@@ -78,7 +82,7 @@ Light style:
 Dark style:
 
 ```css
-:root {
+my-widget {
   --accent-color: oklab(from var(--accent-bg-color) max(l, 0.85) a b);
 }
 ```
@@ -92,6 +96,9 @@ large surfaces, or on too many items on the same view.
 The [`.accent`](style-classes.html#colors) style class allows to use it for
 widgets such as [class@Gtk.Label].
 
+The `--accent-color` color is derived from `--accent-bg-color` as detailed
+above.
+
 <table>
   <tr>
     <th>Name</th>
@@ -99,13 +106,6 @@ widgets such as [class@Gtk.Label].
     <th>Light</th>
     <th/>
     <th>Dark</th>
-  </tr>
-  <tr>
-    <td><tt>--accent-color</tt></td>
-    <td><div class="color-pill" style="background-color: #1c71d8"/></td>
-    <td><tt>#1c71d8</tt></td>
-    <td><div class="color-pill" style="background-color: #78aeed"/></td>
-    <td><tt>#78aeed</tt></td>
   </tr>
   <tr>
     <td><tt>--accent-bg-color</tt></td>
@@ -121,6 +121,13 @@ widgets such as [class@Gtk.Label].
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
+  <tr>
+    <td><tt>--accent-color</tt></td>
+    <td><div class="color-pill" style="background-color: #0461be"/></td>
+    <td><tt>#0461be</tt></td>
+    <td><div class="color-pill" style="background-color: #81d0ff"/></td>
+    <td><tt>#81d0ff</tt></td>
+  </tr>
 </table>
 
 ## Destructive Colors
@@ -129,6 +136,9 @@ The destructive color indicates a dangerous action, such as deleting a file.
 It's used by [class@Gtk.Button] and [class@ButtonRow] with the
 [`.destructive-action`](style-classes.html#destructive-action) style class.
 
+The `--destructive-color` color is derived from `--destructive-bg-color` as
+detailed above.
+
 <table>
   <tr>
     <th>Name</th>
@@ -136,13 +146,6 @@ It's used by [class@Gtk.Button] and [class@ButtonRow] with the
     <th>Light</th>
     <th/>
     <th>Dark</th>
-  </tr>
-  <tr>
-    <td><tt>--destructive-color</tt></td>
-    <td><div class="color-pill" style="background-color: #c01c28"/></td>
-    <td><tt>#c01c28</tt></td>
-    <td><div class="color-pill" style="background-color: #ff7b63"/></td>
-    <td><tt>#ff7b63</tt></td>
   </tr>
   <tr>
     <td><tt>--destructive-bg-color</tt></td>
@@ -158,12 +161,22 @@ It's used by [class@Gtk.Button] and [class@ButtonRow] with the
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
+  <tr>
+    <td><tt>--destructive-color</tt></td>
+    <td><div class="color-pill" style="background-color: #c30000"/></td>
+    <td><tt>#c30000</tt></td>
+    <td><div class="color-pill" style="background-color: #ff938c"/></td>
+    <td><tt>#ff938c</tt></td>
+  </tr>
 </table>
 
 ## Success Colors
 
 This color is used with the [`.success`](style-classes.html#colors) style class,
 or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
+
+The `--success-color` color is derived from `--success-bg-color` as detailed
+above.
 
 <table>
   <tr>
@@ -172,13 +185,6 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
     <th>Light</th>
     <th/>
     <th>Dark</th>
-  </tr>
-  <tr>
-    <td><tt>--success-color</tt></td>
-    <td><div class="color-pill" style="background-color: #1b8553"/></td>
-    <td><tt>#1b8553</tt></td>
-    <td><div class="color-pill" style="background-color: #8ff0a4"/></td>
-    <td><tt>#8ff0a4</tt></td>
   </tr>
   <tr>
     <td><tt>--success-bg-color</tt></td>
@@ -194,12 +200,22 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
+  <tr>
+    <td><tt>--success-color</tt></td>
+    <td><div class="color-pill" style="background-color: #007c3d"/></td>
+    <td><tt>#007c3d</tt></td>
+    <td><div class="color-pill" style="background-color: #78e9ab"/></td>
+    <td><tt>#78e9ab</tt></td>
+  </tr>
 </table>
 
 ## Warning Colors
 
 This color is used with the [`.warning`](style-classes.html#colors) style class,
 or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
+
+The `--warning-color` color is derived from `--warning-bg-color` as detailed
+above.
 
 <table>
   <tr>
@@ -208,13 +224,6 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
     <th>Light</th>
     <th/>
     <th>Dark</th>
-  </tr>
-  <tr>
-    <td><tt>--warning-color</tt></td>
-    <td><div class="color-pill" style="background-color: #9c6e03"/></td>
-    <td><tt>#9c6e03</tt></td>
-    <td><div class="color-pill" style="background-color: #f8e45c"/></td>
-    <td><tt>#f8e45c</tt></td>
   </tr>
   <tr>
     <td><tt>--warning-bg-color</tt></td>
@@ -230,11 +239,20 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
     <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
     <td><tt>rgb(0 0 0 / 80%)</tt></td>
   </tr>
+  <tr>
+    <td><tt>--warning-color</tt></td>
+    <td><div class="color-pill" style="background-color: #905400"/></td>
+    <td><tt>#905400</tt></td>
+    <td><div class="color-pill" style="background-color: #ffc252"/></td>
+    <td><tt>#ffc252</tt></td>
+  </tr>
 </table>
 
 ## Error Colors
 
 This color is used with the [`.error`](style-classes.html#colors) style class.
+
+The `--error-color` color is derived from `--error-bg-color` as detailed above.
 
 <table>
   <tr>
@@ -243,13 +261,6 @@ This color is used with the [`.error`](style-classes.html#colors) style class.
     <th>Light</th>
     <th/>
     <th>Dark</th>
-  </tr>
-  <tr>
-    <td><tt>--error-color</tt></td>
-    <td><div class="color-pill" style="background-color: #c01c28"/></td>
-    <td><tt>#c01c28</tt></td>
-    <td><div class="color-pill" style="background-color: #ff7b63"/></td>
-    <td><tt>#ff7b63</tt></td>
   </tr>
   <tr>
     <td><tt>--error-bg-color</tt></td>
@@ -264,6 +275,13 @@ This color is used with the [`.error`](style-classes.html#colors) style class.
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--error-color</tt></td>
+    <td><div class="color-pill" style="background-color: #c30000"/></td>
+    <td><tt>#c30000</tt></td>
+    <td><div class="color-pill" style="background-color: #ff938c"/></td>
+    <td><tt>#ff938c</tt></td>
   </tr>
 </table>
 
