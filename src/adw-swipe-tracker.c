@@ -589,9 +589,9 @@ drag_capture_begin_cb (AdwSwipeTracker *self,
   }
 
   widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
-                          start_x,
-                          start_y,
-                          GTK_PICK_DEFAULT);
+                            start_x,
+                            start_y,
+                            GTK_PICK_DEFAULT);
 
   if (should_force_drag (self, widget)) {
     self->is_window_handle = TRUE;
@@ -616,9 +616,12 @@ drag_begin_cb (AdwSwipeTracker *self,
   }
 
   widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
-                          start_x,
-                          start_y,
-                          GTK_PICK_DEFAULT);
+                            start_x,
+                            start_y,
+                            GTK_PICK_DEFAULT);
+
+  if (should_force_drag (self, widget))
+    return;
 
   self->is_window_handle = FALSE;
 
@@ -663,11 +666,12 @@ drag_update_cb (AdwSwipeTracker *self,
   append_to_history (self, delta, time);
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE) {
-    if (is_vertical == is_offset_vertical)
-      gesture_prepare (self, offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK);
-    else
+    if (is_vertical != is_offset_vertical) {
       gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
-    return;
+      return;
+    }
+
+    gesture_prepare (self, offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK);
   }
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_PENDING) {
