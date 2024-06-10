@@ -704,8 +704,10 @@ drag_update_cb (AdwSwipeTracker *self,
       direction = offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
 
       if (!is_in_swipe_area (self, start_x, start_y, direction, TRUE) &&
-          !is_in_swipe_area (self, start_x + offset_x, start_y + offset_y, direction, TRUE))
+          !is_in_swipe_area (self, start_x + offset_x, start_y + offset_y, direction, TRUE)) {
+        gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
         return;
+      }
 
       if (!self->ignore_direction && is_vertical != is_offset_vertical) {
         gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
