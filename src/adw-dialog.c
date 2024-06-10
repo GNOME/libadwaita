@@ -524,7 +524,6 @@ static void
 update_presentation_mode (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
-  gboolean had_breakpoint = (priv->portrait_breakpoint != NULL);
 
   if (priv->window)
     return;
@@ -558,7 +557,7 @@ update_presentation_mode (AdwDialog *self)
     g_assert_not_reached ();
   }
 
-  if (had_breakpoint != (priv->portrait_breakpoint != NULL))
+  if (priv->bin)
     update_presentation (self);
 }
 
