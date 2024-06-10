@@ -94,6 +94,7 @@ struct _AdwSwipeTracker
   GtkGesture *touch_gesture_capture;
 
   gboolean is_window_handle;
+  gboolean ignore_direction;
 };
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSwipeTracker, adw_swipe_tracker, G_TYPE_OBJECT,
@@ -666,7 +667,7 @@ drag_update_cb (AdwSwipeTracker *self,
   append_to_history (self, delta, time);
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE) {
-    if (is_vertical != is_offset_vertical) {
+    if (!self->ignore_direction && is_vertical != is_offset_vertical) {
       gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
       return;
     }
@@ -706,7 +707,7 @@ drag_update_cb (AdwSwipeTracker *self,
           !is_in_swipe_area (self, start_x + offset_x, start_y + offset_y, direction, TRUE))
         return;
 
-      if (is_vertical != is_offset_vertical) {
+      if (!self->ignore_direction && is_vertical != is_offset_vertical) {
         gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
         return;
       }
@@ -1760,3 +1761,11 @@ adw_swipe_tracker_reset (AdwSwipeTracker *self)
     gtk_event_controller_reset (self->scroll_controller);
 }
 
+void
+adw_swipe_tracker_set_ignore_direction (AdwSwipeTracker *self,
+                                        gboolean         ignore_direction)
+{
+  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
+
+  self->ignore_direction = TRUE;
+}

@@ -18,4 +18,7 @@ G_BEGIN_DECLS
 
 void adw_swipe_tracker_reset (AdwSwipeTracker *self);
 
+void adw_swipe_tracker_set_ignore_direction (AdwSwipeTracker *self,
+                                             gboolean         ignore_direction);
+
 G_END_DECLS
