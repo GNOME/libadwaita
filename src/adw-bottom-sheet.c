@@ -633,16 +633,33 @@ adw_bottom_sheet_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_bottom_sheet_buildable_add_child;
 }
 
+static int
+get_sheet_width (AdwBottomSheet *self)
+{
+  int sheet_width, sheet_min_width, width;
+
+  width = gtk_widget_get_width (GTK_WIDGET (self));
+
+  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
+                      &sheet_min_width, &sheet_width, NULL, NULL);
+
+  if (self->full_width)
+    return MAX (width, sheet_min_width);
+
+  return MAX (MIN (sheet_width, width), sheet_min_width);
+}
+
 static double
 adw_bottom_sheet_get_distance (AdwSwipeable *swipeable)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (swipeable);
-  int width, height, sheet_min_height, sheet_height;
+  int height, sheet_width, sheet_min_height, sheet_height;
 
-  width = gtk_widget_get_width (GTK_WIDGET (self));
   height = gtk_widget_get_height (GTK_WIDGET (self));
 
-  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, width,
+  sheet_width = get_sheet_width (self);
+
+  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
                       &sheet_min_height, &sheet_height, NULL, NULL);
 
   return MAX (MIN (sheet_height, height), sheet_min_height);
@@ -688,7 +705,9 @@ adw_bottom_sheet_get_swipe_area (AdwSwipeable           *swipeable,
                                  GdkRectangle           *rect)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (swipeable);
-  int width, height, sheet_min_height, sheet_height, sheet_y;
+  int width, height, sheet_width, sheet_min_height, sheet_height;
+  int sheet_x, sheet_y;
+  float align;
 
   if (!is_drag) {
     rect->x = 0;
@@ -699,20 +718,27 @@ adw_bottom_sheet_get_swipe_area (AdwSwipeable           *swipeable,
     return;
   }
 
+  sheet_width = get_sheet_width (self);
   width = gtk_widget_get_width (GTK_WIDGET (self));
   height = gtk_widget_get_height (GTK_WIDGET (self));
 
-  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, width,
+  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
                       &sheet_min_height, &sheet_height, NULL, NULL);
+
+  if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
+    align = 1 - self->align;
+  else
+    align = self->align;
+
+  sheet_x = round ((width - sheet_width) * align);
 
   sheet_height = MAX (MIN (sheet_height, height), sheet_min_height);
   sheet_y = height - round (sheet_height * self->progress);
-  sheet_height = MAX (sheet_height, height - sheet_y);
 
-  rect->x = 0;
+  rect->x = sheet_x;
   rect->y = sheet_y;
-  rect->width = width;
-  rect->height = sheet_height;
+  rect->width = sheet_width;
+  rect->height = height - sheet_y;
 }
 
 static void
