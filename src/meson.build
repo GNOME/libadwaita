@@ -108,6 +108,7 @@ src_headers = [
   'adw-avatar.h',
   'adw-banner.h',
   'adw-bin.h',
+  'adw-bottom-sheet.h',
   'adw-breakpoint.h',
   'adw-breakpoint-bin.h',
   'adw-button-content.h',
@@ -192,6 +193,7 @@ src_sources = [
   'adw-avatar.c',
   'adw-banner.c',
   'adw-bin.c',
+  'adw-bottom-sheet.c',
   'adw-breakpoint.c',
   'adw-breakpoint-bin.c',
   'adw-button-content.c',
@@ -259,7 +261,6 @@ src_sources = [
 libadwaita_private_sources += files([
   'adw-back-button.c',
   'adw-bidi.c',
-  'adw-bottom-sheet.c',
   'adw-dialog-host.c',
   'adw-fading-label.c',
   'adw-floating-sheet.c',
