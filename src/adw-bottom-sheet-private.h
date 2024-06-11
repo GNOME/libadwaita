@@ -40,6 +40,10 @@ float adw_bottom_sheet_get_align (AdwBottomSheet *self);
 void  adw_bottom_sheet_set_align (AdwBottomSheet *self,
                                   float           align);
 
+gboolean adw_bottom_sheet_get_full_width (AdwBottomSheet *self);
+void     adw_bottom_sheet_set_full_width (AdwBottomSheet *self,
+                                          gboolean        full_width);
+
 gboolean adw_bottom_sheet_get_show_drag_handle (AdwBottomSheet *self);
 void     adw_bottom_sheet_set_show_drag_handle (AdwBottomSheet *self,
                                                 gboolean        show_drag_handle);

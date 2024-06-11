@@ -468,6 +468,7 @@ update_presentation (AdwDialog *self)
     if (!priv->first_map)
       adw_bottom_sheet_set_open (priv->bottom_sheet, TRUE);
 
+    adw_bottom_sheet_set_full_width (priv->bottom_sheet, FALSE);
     adw_bottom_sheet_set_show_drag_handle (priv->bottom_sheet, FALSE);
     adw_bottom_sheet_set_sheet (priv->bottom_sheet, priv->child_breakpoint_bin);
     adw_bottom_sheet_set_can_close (priv->bottom_sheet, priv->can_close);

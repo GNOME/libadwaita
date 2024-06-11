@@ -44,6 +44,7 @@ struct _AdwBottomSheet
   AdwAnimation *open_animation;
   double progress;
   float align;
+  gboolean full_width;
 
   gboolean show_drag_handle;
   gboolean modal;
@@ -74,6 +75,7 @@ enum {
   PROP_SHEET,
   PROP_OPEN,
   PROP_ALIGN,
+  PROP_FULL_WIDTH,
   PROP_SHOW_DRAG_HANDLE,
   PROP_MODAL,
   PROP_CAN_CLOSE,
@@ -278,7 +280,17 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
 
-  sheet_width = MAX (MIN (sheet_width, width), sheet_min_width);
+  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
+    align = 1 - self->align;
+  else
+    align = self->align;
+
+  if (self->full_width)
+    sheet_width = MAX (width, sheet_min_width);
+  else
+    sheet_width = MAX (MIN (sheet_width, width), sheet_min_width);
+
+  sheet_x = round ((width - sheet_width) * align);
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
                       &sheet_min_height, &sheet_height, NULL, NULL);
@@ -292,13 +304,6 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
   sheet_y = height - round (sheet_height * self->progress);
   sheet_height = MAX (sheet_height, height - sheet_y);
-
-  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-    align = 1 - self->align;
-  else
-    align = self->align;
-
-  sheet_x = round ((width - sheet_width) * align);
 
   if (sheet_x == 0)
     gtk_widget_add_css_class (GTK_WIDGET (self->outline), "flush-left");
@@ -349,6 +354,9 @@ adw_bottom_sheet_get_property (GObject    *object,
   case PROP_ALIGN:
     g_value_set_float (value, adw_bottom_sheet_get_align (self));
     break;
+  case PROP_FULL_WIDTH:
+    g_value_set_boolean (value, adw_bottom_sheet_get_full_width (self));
+    break;
   case PROP_SHOW_DRAG_HANDLE:
     g_value_set_boolean (value, adw_bottom_sheet_get_show_drag_handle (self));
     break;
@@ -383,6 +391,9 @@ adw_bottom_sheet_set_property (GObject      *object,
     break;
   case PROP_ALIGN:
     adw_bottom_sheet_set_align (self, g_value_get_float (value));
+    break;
+  case PROP_FULL_WIDTH:
+    adw_bottom_sheet_set_full_width (self, g_value_get_boolean (value));
     break;
   case PROP_SHOW_DRAG_HANDLE:
     adw_bottom_sheet_set_show_drag_handle (self, g_value_get_boolean (value));
@@ -435,6 +446,11 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
     g_param_spec_float ("align", NULL, NULL,
                         0, 1, 0.5,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_FULL_WIDTH] =
+    g_param_spec_boolean ("full-width", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_SHOW_DRAG_HANDLE] =
     g_param_spec_boolean ("show-drag-handle", NULL, NULL,
@@ -527,6 +543,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   GtkEventController *gesture;
 
   self->align = 0.5;
+  self->full_width = TRUE;
   self->show_drag_handle = TRUE;
   self->modal = TRUE;
   self->can_close = TRUE;
@@ -875,6 +892,32 @@ adw_bottom_sheet_set_align (AdwBottomSheet *self,
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALIGN]);
+}
+
+gboolean
+adw_bottom_sheet_get_full_width (AdwBottomSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), FALSE);
+
+  return self->full_width;
+}
+
+void
+adw_bottom_sheet_set_full_width (AdwBottomSheet *self,
+                                 gboolean        full_width)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  full_width = !!full_width;
+
+  if (full_width == self->full_width)
+    return;
+
+  self->full_width = full_width;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FULL_WIDTH]);
 }
 
 gboolean
