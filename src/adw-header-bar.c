@@ -241,9 +241,20 @@ update_decoration_layout (AdwHeaderBar *self,
 }
 
 static void
-create_start_controls (AdwHeaderBar *self)
+recreate_start_controls (AdwHeaderBar *self)
 {
   GtkWidget *controls;
+
+  if (self->start_controls) {
+    if (self->is_within_sheet && ADW_IS_SHEET_CONTROLS (self->start_controls))
+      return;
+
+    if (!self->is_within_sheet && GTK_IS_WINDOW_CONTROLS (self->start_controls))
+      return;
+
+    gtk_box_remove (GTK_BOX (self->start_box), self->start_controls);
+    self->start_controls = NULL;
+  }
 
   if (self->is_within_sheet)
     controls = adw_sheet_controls_new (GTK_PACK_START);
@@ -263,9 +274,20 @@ create_start_controls (AdwHeaderBar *self)
 }
 
 static void
-create_end_controls (AdwHeaderBar *self)
+recreate_end_controls (AdwHeaderBar *self)
 {
   GtkWidget *controls;
+
+  if (self->end_controls) {
+    if (self->is_within_sheet && ADW_IS_SHEET_CONTROLS (self->end_controls))
+      return;
+
+    if (!self->is_within_sheet && GTK_IS_WINDOW_CONTROLS (self->end_controls))
+      return;
+
+    gtk_box_remove (GTK_BOX (self->end_box), self->end_controls);
+    self->end_controls = NULL;
+  }
 
   if (self->is_within_sheet)
     controls = adw_sheet_controls_new (GTK_PACK_END);
@@ -328,11 +350,8 @@ update_start_title_buttons (AdwHeaderBar *self)
     }
   }
 
-  if ((self->start_controls != NULL) == show)
-    return;
-
   if (show) {
-    create_start_controls (self);
+    recreate_start_controls (self);
   } else if (self->start_box && self->start_controls) {
     gtk_box_remove (GTK_BOX (self->start_box), self->start_controls);
     self->start_controls = NULL;
@@ -370,11 +389,8 @@ update_end_title_buttons (AdwHeaderBar *self)
     }
   }
 
-  if ((self->end_controls != NULL) == show)
-    return;
-
   if (show) {
-    create_end_controls (self);
+    recreate_end_controls (self);
   } else if (self->end_box && self->end_controls) {
     gtk_box_remove (GTK_BOX (self->end_box), self->end_controls);
     self->end_controls = NULL;
@@ -442,11 +458,38 @@ construct_title_label (AdwHeaderBar *self)
   update_title (self);
 }
 
+static gboolean
+is_within_sheet (GtkWidget *widget)
+{
+  GtkWidget *sheet, *bin, *parent;
+
+  sheet = adw_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET, TRUE, FALSE);
+
+  if (!sheet)
+    sheet = adw_widget_get_ancestor (widget, ADW_TYPE_FLOATING_SHEET, TRUE, FALSE);
+
+  if (ADW_IS_BOTTOM_SHEET (sheet))
+    bin = adw_bottom_sheet_get_sheet_bin (ADW_BOTTOM_SHEET (sheet));
+  else if (ADW_IS_FLOATING_SHEET (sheet))
+    bin = adw_floating_sheet_get_sheet_bin (ADW_FLOATING_SHEET (sheet));
+  else
+    return FALSE;
+
+  if (bin && (widget == bin || gtk_widget_is_ancestor (widget, bin)))
+    return TRUE;
+
+  parent = gtk_widget_get_parent (sheet);
+  if (parent)
+    return is_within_sheet (parent);
+
+  return FALSE;
+}
+
 static void
 adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
-  GtkWidget *parent, *sheet;
+  GtkWidget *parent;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
@@ -455,23 +498,7 @@ adw_header_bar_root (GtkWidget *widget)
 
   self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
 
-  sheet = adw_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET, TRUE, FALSE);
-
-  if (sheet) {
-    GtkWidget *bin = adw_bottom_sheet_get_sheet_bin (ADW_BOTTOM_SHEET (sheet));
-
-    if (bin && gtk_widget_is_ancestor (widget, bin))
-      self->is_within_sheet = TRUE;
-  } else {
-    sheet = adw_widget_get_ancestor (widget, ADW_TYPE_FLOATING_SHEET, TRUE, FALSE);
-
-    if (sheet) {
-      GtkWidget *bin = adw_floating_sheet_get_sheet_bin (ADW_FLOATING_SHEET (sheet));
-
-      if (bin && gtk_widget_is_ancestor (widget, bin))
-        self->is_within_sheet = TRUE;
-    }
-  }
+  self->is_within_sheet = is_within_sheet (widget);
 
   if (self->title_navigation_page) {
     g_signal_connect_swapped (self->title_navigation_page, "notify::title",
