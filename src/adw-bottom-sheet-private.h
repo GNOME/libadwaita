@@ -32,6 +32,10 @@ GtkWidget *adw_bottom_sheet_get_sheet (AdwBottomSheet *self);
 void       adw_bottom_sheet_set_sheet (AdwBottomSheet *self,
                                        GtkWidget      *sheet);
 
+GtkWidget *adw_bottom_sheet_get_bottom_bar (AdwBottomSheet *self);
+void       adw_bottom_sheet_set_bottom_bar (AdwBottomSheet *self,
+                                            GtkWidget      *bottom_bar);
+
 gboolean adw_bottom_sheet_get_open (AdwBottomSheet *self);
 void     adw_bottom_sheet_set_open (AdwBottomSheet *self,
                                     gboolean        open);

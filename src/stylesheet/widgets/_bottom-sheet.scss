@@ -4,14 +4,13 @@ bottom-sheet {
   }
 
   > sheet {
-    border-top-left-radius: $dialog_radius;
-    border-top-right-radius: $dialog_radius;
     box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
                 0 3px 20px 10px RGB(0 0 0 / 5%),
                 0 6px 32px 16px RGB(0 0 0 / 2%),
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+    transition: border-radius 100ms ease-out;
 
-    > drag-handle {
+    > stack > widget > drag-handle {
       background-color: color-mix(in srgb, currentColor 25%, transparent);
       min-width: 60px;
       min-height: 4px;
@@ -20,24 +19,97 @@ bottom-sheet {
     }
 
     > outline {
-      border-top-left-radius: $dialog_radius;
-      border-top-right-radius: $dialog_radius;
       box-shadow: inset 1px 0 $window_outline_color,
                   inset -1px 0 $window_outline_color,
                   inset 0 1px $window_outline_color;
+      transition: border-radius 100ms ease-out;
+    }
+
+    > stack > button {
+      @include focus-ring($outer: true, $offset: 0, $transition: $button_transition);
+
+      border-radius: 0;
+      padding: 0;
+      min-width: 0;
+      min-height: 0;
+      font-weight: inherit;
+      background: none;
+      box-shadow: none;
+
+      &:hover {
+        background: $view_hover_color;
+      }
+
+      &.keyboard-activating,
+      &:active {
+        background: $view_active_color;
+      }
+    }
+
+    &,
+    > outline,
+    > stack > widget,
+    > stack > button,
+    > stack > button > widget {
+      border-top-left-radius: $dialog_radius;
+      border-top-right-radius: $dialog_radius;
+    }
+
+    &.flush-left > outline {
+      box-shadow: inset -1px 0 $window_outline_color,
+                  inset 0 1px $window_outline_color;
+    }
+
+    &.flush-right > outline {
+      box-shadow: inset 1px 0 $window_outline_color,
+                  inset 0 1px $window_outline_color;
+    }
+
+    &.flush-left.flush-right > outline {
+      box-shadow: inset 0 1px $window_outline_color;
+    }
+
+    &.bottom-bar {
+      $border: color-mix(in srgb, var(--shade-color) 75%, transparent);
+
+      @if $contrast == 'high' {
+        $border: RGB(0 0 0 / 80%);
+      }
+
+      box-shadow: 0 0 0 1px $border,
+                  0 2px 8px 2px var(--shade-color),
+                  0 3px 20px 10px RGB(0 0 0 / 5%),
+                  0 6px 32px 16px RGB(0 0 0 / 2%);
 
       &.flush-left {
-        box-shadow: inset -1px 0 $window_outline_color,
-                    inset 0 1px $window_outline_color;
+        &,
+        > outline,
+        > stack > widget,
+        > stack > button,
+        > stack > button > widget {
+          border-top-left-radius: 0;
+        }
       }
 
       &.flush-right {
-        box-shadow: inset 1px 0 $window_outline_color,
-                    inset 0 1px $window_outline_color;
+        &,
+        > outline,
+        > stack > widget,
+        > stack > button,
+        > stack > button > widget {
+          border-top-right-radius: 0;
+        }
       }
 
-      &.flush-left.flush-right {
-        box-shadow: inset 0 1px $window_outline_color;
+      @if $contrast != 'high' {
+        &, &.flush-left, &.flush-right, &.flush-left.flush-right {
+          > outline,
+          > stack > widget,
+          > stack > button,
+          > stack > button > widget {
+            box-shadow: none;
+          }
+        }
       }
     }
   }
