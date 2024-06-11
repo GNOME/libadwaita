@@ -60,6 +60,9 @@ gboolean adw_bottom_sheet_get_can_close (AdwBottomSheet *self);
 void     adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
                                          gboolean        can_close);
 
+int adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self);
+int adw_bottom_sheet_get_bottom_bar_height (AdwBottomSheet *self);
+
 void adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
                                              int             min_natural_width);
 

@@ -63,6 +63,9 @@ struct _AdwBottomSheet
   AdwSwipeTracker *swipe_tracker;
   gboolean swipe_active;
 
+  int sheet_height;
+  int bottom_bar_height;
+
   GtkWidget *last_child_focus;
   GtkWidget *last_sheet_focus;
 
@@ -93,6 +96,8 @@ enum {
   PROP_SHOW_DRAG_HANDLE,
   PROP_MODAL,
   PROP_CAN_CLOSE,
+  PROP_SHEET_HEIGHT,
+  PROP_BOTTOM_BAR_HEIGHT,
   LAST_PROP
 };
 
@@ -209,6 +214,22 @@ static void
 bottom_bar_clicked_cb (AdwBottomSheet *self)
 {
   adw_bottom_sheet_set_open (self, TRUE);
+}
+
+static void
+set_heights (AdwBottomSheet *self,
+             int             sheet_height,
+             int             bottom_bar_height)
+{
+  if (self->sheet_height != sheet_height) {
+    self->sheet_height = sheet_height;
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHEET_HEIGHT]);
+  }
+
+  if (self->bottom_bar_height != bottom_bar_height) {
+    self->bottom_bar_height = bottom_bar_height;
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BOTTOM_BAR_HEIGHT]);
+  }
 }
 
 static void
@@ -393,6 +414,11 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
 
   sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
   sheet_y = height - round (adw_lerp (bottom_bar_height, sheet_height, self->progress));
+
+  set_heights (self,
+               MAX (MIN (sheet_height, height - sheet_y), bottom_bar_height),
+               bottom_bar_height);
+
   sheet_height = MAX (sheet_height, height - sheet_y);
 
   if (sheet_x == 0)
@@ -471,6 +497,12 @@ adw_bottom_sheet_get_property (GObject    *object,
     break;
   case PROP_CAN_CLOSE:
     g_value_set_boolean (value, adw_bottom_sheet_get_can_close (self));
+    break;
+  case PROP_SHEET_HEIGHT:
+    g_value_set_int (value, adw_bottom_sheet_get_sheet_height (self));
+    break;
+  case PROP_BOTTOM_BAR_HEIGHT:
+    g_value_set_int (value, adw_bottom_sheet_get_bottom_bar_height (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -580,6 +612,16 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
     g_param_spec_boolean ("can-close", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_SHEET_HEIGHT] =
+    g_param_spec_int ("sheet-height", NULL, NULL,
+                      0, G_MAXINT, 0,
+                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  props[PROP_BOTTOM_BAR_HEIGHT] =
+    g_param_spec_int ("bottom-bar-height", NULL, NULL,
+                      0, G_MAXINT, 0,
+                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -1339,6 +1381,22 @@ adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
   adw_swipe_tracker_set_enabled (self->swipe_tracker, can_close); // TODO handler bottom bar
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
+}
+
+int
+adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), 0);
+
+  return self->sheet_height;
+}
+
+int
+adw_bottom_sheet_get_bottom_bar_height (AdwBottomSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), 0);
+
+  return self->bottom_bar_height;
 }
 
 void
