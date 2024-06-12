@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">360</property>
+    <property name="default-height">400</property>
+    <property name="content">
+      <object class="AdwBottomSheet">
+        <property name="open">True</property>
+        <property name="child">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+              </object>
+            </child>
+          </object>
+        </property>
+        <property name="sheet">
+          <object class="AdwBin">
+            <property name="height-request">350</property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>

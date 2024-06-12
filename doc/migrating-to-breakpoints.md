@@ -600,6 +600,11 @@ visibility to the [property@Flap:folded] property anymore.
 While `AdwOverlaySplitView` doesn't require using [class@NavigationPage], it can
 still be used to provide header bar titles insead of using [class@WindowTitle].
 
+## Bottom Sheet
+
+A vertical `AdwFlap` can be used as a bottom sheet-like widget. It can be
+replaced with [class@BottomSheet].
+
 ## Fullscreen Header Bar
 
 A vertical `AdwFlap` can also be used to handle header bars in fullscreen,

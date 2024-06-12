@@ -78,6 +78,13 @@
  * `AdwHeaderBar` will automatically hide the title buttons other than at the
  * edges of the window.
  *
+ * ## Bottom Sheet Integration
+ *
+ * When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
+ * unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
+ * of [property@HeaderBar:show-title]. This only applies to the default title,
+ * titles set with [property@HeaderBar:title-widget] will still be shown.
+ *
  * ## Centering Policy
  *
  * [property@HeaderBar:centering-policy] allows to enforce strict centering of

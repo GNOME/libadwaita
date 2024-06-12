@@ -78,6 +78,10 @@
  * Use [method@Dialog.force_close] to close the dialog even when `can-close` is set to
  * `FALSE`.
  *
+ * `AdwDialog` is transient and doesn't integrate with the window below it, for
+ * example it's not possible to collapse it into a bottom bar. See
+ * [class@BottomSheet] for persistent and more tightly integrated bottom sheets.
+ *
  * ## Header Bar Integration
  *
  * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog

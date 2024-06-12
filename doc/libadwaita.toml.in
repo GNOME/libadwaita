@@ -118,6 +118,8 @@ content_images = [
   "images/banner-dark.png",
   "images/bin.png",
   "images/bin-dark.png",
+  "images/bottom-sheet.png",
+  "images/bottom-sheet-dark.png",
   "images/boxed-lists.png",
   "images/boxed-lists-dark.png",
   "images/boxed-lists-separate.png",

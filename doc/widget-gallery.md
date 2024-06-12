@@ -218,6 +218,13 @@ Slug: widget-gallery
   <img src="tab-button.png" alt="tab-button">
 </picture>](class.TabButton.html)
 
+## Bottom Sheet
+
+[<picture>
+  <source srcset="bottom-sheet-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="bottom-sheet.png" alt="bottom-sheet">
+</picture>](class.BottomSheet.html)
+
 # Helpers
 
 ## Breakpoint Bin

@@ -39,54 +39,54 @@
  *
  * It also supports setting children via `<child type="ID">`.
  *
- * Example of an `AdwMultiLayoutView` UI definition that can display two
- * children in either a box or an overlay:
+ * Example of an `AdwMultiLayoutView` UI definition that can display a secondary
+ * child as either a sidebar or a bottom sheet.
  *
  * ```xml
  * <object class="AdwMultiLayoutView">
  *   <child>
  *     <object class="AdwLayout">
- *       <property name="name">box</property>
+ *       <property name="name">sidebar</property>
  *       <property name="content">
- *         <object class="GtkBox">
- *           <child>
+ *         <object class="AdwOverlaySplitView">
+ *           <property name="sidebar">
  *             <object class="AdwLayoutSlot">
- *               <property name="id">child1</property>
+ *               <property name="id">secondary</property>
  *             </object>
- *           </child>
- *           <child>
+ *           </property>
+ *           <property name="content">
  *             <object class="AdwLayoutSlot">
- *               <property name="id">child2</property>
+ *               <property name="id">primary</property>
  *             </object>
- *           </child>
+ *           </property>
  *         </object>
  *       </property>
  *     </object>
  *   </child>
  *   <child>
  *     <object class="AdwLayout">
- *       <property name="name">overlay</property>
+ *       <property name="name">bottom-sheet</property>
  *       <property name="content">
- *         <object class="GtkOverlay">
- *           <property name="orientation">horizontal</property>
+ *         <object class="AdwBottomSheet">
+ *           <property name="open">True</property>
  *           <property name="child">
  *             <object class="AdwLayoutSlot">
- *               <property name="id">child1</property>
+ *               <property name="id">primary</property>
  *             </object>
  *           </property>
- *           <child type="overlay">
+ *           <property name="sheet">
  *             <object class="AdwLayoutSlot">
- *               <property name="id">child2</property>
+ *               <property name="id">secondary</property>
  *             </object>
- *           </child>
+ *           </property>
  *         </object>
  *       </property>
  *     </object>
  *   </child>
- *   <child type="child1">
+ *   <child type="primary">
  *     <!-- ... -->
  *   </child>
- *   <child type="child2">
+ *   <child type="secondary">
  *     <!-- ... -->
  *   </child>
  * </object>

@@ -28,6 +28,81 @@
 #define TOP_PADDING_TARGET_VALUE 120
 #define CHILD_SWITCH_THRESHOLD 0.15
 
+/**
+ * AdwBottomSheet:
+ *
+ * A bottom sheet with an optional bottom bar.
+ *
+ * <picture>
+ *   <source srcset="bottom-sheet-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="bottom-sheet.png" alt="bottom-sheet">
+ * </picture>
+ *
+ * `AdwBottomSheet` has three child widgets. [property@BottomSheet:child] is
+ * shown persistently. [property@BottomSheet:sheet] is displayed above it when
+ * it's open, and [property@BottomSheet:bottom-bar] is displayed when it's not.
+ *
+ * Bottom sheet and bottom bar are attached to the bottom edge of the widget.
+ * They take the full width by default, but can only take a portion of it if
+ * [property@BottomSheet:full-width] is set to `FALSE`. In this case,
+ * [property@BottomSheet:align] determines where along the bottom edge they are
+ * placed.
+ *
+ * `AdwBottomSheet` can be useful for applications such as music players, that
+ * want to have a persistent bottom bar that expands into a bottom sheet when
+ * clicked. It's meant for cases where a bottom sheet is tightly integrated into
+ * the UI. For more transient bottom sheets, see [class@Dialog].
+ *
+ * To open or close the bottom sheet, use the [property@BottomSheet:open]
+ * property.
+ *
+ * By default, the bottom sheet has an overlaid drag handle. It can be disabled
+ * by setting [property@BottomSheet:show-drag-handle] to `FALSE`. Note that the
+ * handle also controls whether the sheet can be dragged using a pointer.
+ *
+ * Bottom sheets are modal by default, meaning that [property@BottomSheet:child]
+ * is dimmed and cannot be accessed while the sheet is open. Set
+ * [property@BottomSheet:modal] to `FALSE` is this behavior is unwanted.
+ *
+ * To disable user interactions for opening or closing the bottom sheet (such as
+ * swipes or clicking the bottom bar or close button), set
+ * [property@BottomSheet:can-open] or [property@BottomSheet:can-close] to
+ * `FALSE`.
+ *
+ * In some cases, particularly when using a full-width bottom bar, it may be
+ * necessary to shift [property@BottomSheet:child] upwards. Use the
+ * [property@BottomSheet:bottom-bar-height] and
+ * [property@BottomSheet:sheet-height] for that.
+ *
+ * `AdwBottomSheet` is not adaptive, and for larger window sizes applications
+ * may want to replace it with another UI, such as a sidebar. This can be done
+ * using [class@MultiLayoutView].
+ *
+ * ## Sizing
+ *
+ * Unlike [class@Dialog] presented as a bottom sheet, `AdwBottomSheet` just
+ * follows the content's natural size, and it's up to the applications to make
+ * sure their content provides one. For example, when using
+ * [class@Gtk.ScrolledWindow], make sure to set
+ * [property@Gtk.ScrolledWindow:propagate-natural-height] to `TRUE`.
+ *
+ * ## Header Bar Integration
+ *
+ * When placed inside an `AdwBottomSheet`, [class@HeaderBar] will not show the
+ * title when [property@BottomSheet:show-drag-handle] is `TRUE`, regardless of
+ * [property@HeaderBar:show-title]. This only applies to the default title,
+ * titles set with [property@HeaderBar:title-widget] will still be shown.
+ *
+ * ## `AdwBottomSheet` as `GtkBuildable`:
+ *
+ * The `AdwBottomSheet` implementation of the [iface@Gtk.Buildable] interface
+ * supports setting the sheet widget by specifying “sheet” as the “type”
+ * attribute of a `<child>` element, and the bottom bar by specifying
+ * “bottom-bar”. Omitting the child type results in setting the main child.
+ *
+ * Since: 1.6
+ */
+
 struct _AdwBottomSheet
 {
   GtkWidget parent_instance;
@@ -592,61 +667,190 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
   widget_class->focus = adw_widget_focus_child;
   widget_class->grab_focus = adw_widget_grab_focus_child;
 
+  /**
+   * AdwBottomSheet:child:
+   *
+   * The main child widget.
+   *
+   * It's always shown, and the bottom sheet is overlaid over it.
+   *
+   * Since: 1.6
+   */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:sheet:
+   *
+   * The bottom sheet widget.
+   *
+   * Only shown when [property@BottomSheet:open] is `TRUE`.
+   *
+   * Since: 1.6
+   */
   props[PROP_SHEET] =
     g_param_spec_object ("sheet", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:bottom-bar:
+   *
+   * The bottom bar widget.
+   *
+   * Shown when [property@BottomSheet:open] is `FALSE`. When open, morphs into
+   * the [property@BottomSheet:sheet].
+   *
+   * Since: 1.6
+   */
   props[PROP_BOTTOM_BAR] =
     g_param_spec_object ("bottom-bar", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:open:
+   *
+   * Whether the bottom sheet is open.
+   *
+   * Since: 1.6
+   */
   props[PROP_OPEN] =
     g_param_spec_boolean ("open", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:align:
+   *
+   * Horizontal alignment of the bottom sheet.
+   *
+   * 0 means the bottom sheet is flush with the start edge, 1 means it's flush
+   * with the end edge. 0.5 means it's centered.
+   *
+   * Only used when [property@BottomSheet:full-width] is set to `FALSE`.
+   *
+   * Since: 1.6
+   */
   props[PROP_ALIGN] =
     g_param_spec_float ("align", NULL, NULL,
                         0, 1, 0.5,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:full-width:
+   *
+   * Whether the bottom sheet takes the full width.
+   *
+   * When full width, [property@BottomSheet:align] is ignored.
+   *
+   * Since: 1.6
+   */
   props[PROP_FULL_WIDTH] =
     g_param_spec_boolean ("full-width", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:show-drag-handle:
+   *
+   * Whether to overlay a drag handle in the bottom sheet.
+   *
+   * The handle will be overlaid over [property@BottomSheet:sheet].
+   *
+   * When the handle is shown, [class@HeaderBar] will hide its default title,
+   * and [class@ToolbarView] will reserve space if there are no top bars.
+   *
+   * Showing drag handle also allows to swipe the bottom sheet down (and to
+   * swipe the bottom bar up) with a pointer, instead of just touchscreen.
+   *
+   * Since: 1.6
+   */
   props[PROP_SHOW_DRAG_HANDLE] =
     g_param_spec_boolean ("show-drag-handle", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:modal:
+   *
+   * Whether the bottom sheet is modal.
+   *
+   * When modal, [property@BottomSheet:child] will be dimmed when the bottom
+   * sheet is open, and clicking it will close the bottom sheet. It also cannot
+   * be focused with keyboard.
+   *
+   * Otherwise, the child widget is accessible even when the bottom sheet is
+   * open.
+   *
+   * Since: 1.6
+   */
   props[PROP_MODAL] =
     g_param_spec_boolean ("modal", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:can-open:
+   *
+   * Whether the bottom sheet can be opened by user.
+   *
+   * It can be opened via clicking or swiping up from the bottom bar.
+   *
+   * Does nothing if [property@BottomSheet:bottom-bar] is not set.
+   *
+   * Bottom sheet can still be opened using [property@BottomSheet:open].
+   *
+   * Since: 1.6
+   */
   props[PROP_CAN_OPEN] =
     g_param_spec_boolean ("can-open", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:can-close:
+   *
+   * Whether the bottom sheet can be closed by user.
+   *
+   * It can be closed via the close button, swiping down, pressing
+   * <kbd>Escape</kbd> or clicking the child dimming (when modal).
+   *
+   * Bottom sheet can still be closed using [property@BottomSheet:open].
+   *
+   * Since: 1.6
+   */
   props[PROP_CAN_CLOSE] =
     g_param_spec_boolean ("can-close", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBottomSheet:sheet-height:
+   *
+   * The current bottom sheet height.
+   *
+   * It can be used to shift the child upwards when the bottom sheet is open.
+   *
+   * Since: 1.6
+   */
   props[PROP_SHEET_HEIGHT] =
     g_param_spec_int ("sheet-height", NULL, NULL,
                       0, G_MAXINT, 0,
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwBottomSheet:bottom-bar-height:
+   *
+   * The current bottom bar height.
+   *
+   * It can be used to shift the child upwards permanently to accommodate for
+   * the bottom bar.
+   *
+   * Since: 1.6
+   */
   props[PROP_BOTTOM_BAR_HEIGHT] =
     g_param_spec_int ("bottom-bar-height", NULL, NULL,
                       0, G_MAXINT, 0,
@@ -1034,7 +1238,7 @@ adw_bottom_sheet_swipeable_init (AdwSwipeableInterface *iface)
  *
  * Returns: the new created `AdwBottomSheet`
  *
- * Since: 1.5
+ * Since: 1.6
  */
 GtkWidget *
 adw_bottom_sheet_new (void)
@@ -1046,11 +1250,11 @@ adw_bottom_sheet_new (void)
  * adw_bottom_sheet_get_child:
  * @self: a bottom sheet
  *
- * Gets the child widget of @self.
+ * Gets the main child widget for @self.
  *
- * Returns: (nullable) (transfer none): the child widget of @self
+ * Returns: (nullable) (transfer none): the child widget
  *
- * Since: 1.5
+ * Since: 1.6
  */
 GtkWidget *
 adw_bottom_sheet_get_child (AdwBottomSheet *self)
@@ -1065,9 +1269,11 @@ adw_bottom_sheet_get_child (AdwBottomSheet *self)
  * @self: a bottom sheet
  * @child: (nullable): the child widget
  *
- * Sets the child widget of @self.
+ * Sets the main child widget for @self.
  *
- * Since: 1.5
+ * It's always shown, and the bottom sheet is overlaid over it.
+ *
+ * Since: 1.6
  */
 void
 adw_bottom_sheet_set_child (AdwBottomSheet *self,
@@ -1090,6 +1296,16 @@ adw_bottom_sheet_set_child (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
 }
 
+/**
+ * adw_bottom_sheet_get_sheet:
+ * @self: a bottom sheet
+ *
+ * Gets the bottom sheet widget for @self.
+ *
+ * Returns: (nullable) (transfer none): the sheet widget
+ *
+ * Since: 1.6
+ */
 GtkWidget *
 adw_bottom_sheet_get_sheet (AdwBottomSheet *self)
 {
@@ -1098,6 +1314,17 @@ adw_bottom_sheet_get_sheet (AdwBottomSheet *self)
   return self->sheet;
 }
 
+/**
+ * adw_bottom_sheet_set_sheet:
+ * @self: a bottom sheet
+ * @sheet: (nullable): the sheet widget
+ *
+ * Sets the bottom sheet widget for @self.
+ *
+ * Only shown when [property@BottomSheet:open] is `TRUE`.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_sheet (AdwBottomSheet *self,
                             GtkWidget      *sheet)
@@ -1126,9 +1353,9 @@ adw_bottom_sheet_set_sheet (AdwBottomSheet *self,
  * adw_bottom_sheet_get_bottom_bar:
  * @self: a bottom sheet
  *
- * Gets the bottom bar widget of @self.
+ * Gets the bottom bar widget for @self.
  *
- * Returns: (nullable) (transfer none): the bottom bar widget of @self
+ * Returns: (nullable) (transfer none): the bottom bar widget
  *
  * Since: 1.6
  */
@@ -1145,7 +1372,10 @@ adw_bottom_sheet_get_bottom_bar (AdwBottomSheet *self)
  * @self: a bottom sheet
  * @bottom_bar: (nullable): the bottom bar widget
  *
- * Sets the bottom bar widget of @self.
+ * Sets the bottom bar widget for @self.
+ *
+ * Shown when [property@BottomSheet:open] is `FALSE`. When open, morphs into
+ * the [property@BottomSheet:sheet].
  *
  * Since: 1.6
  */
@@ -1183,6 +1413,16 @@ adw_bottom_sheet_set_bottom_bar (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BOTTOM_BAR]);
 }
 
+/**
+ * adw_bottom_sheet_get_open:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom sheet is open.
+ *
+ * Returns: whether the sheet is open
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_open (AdwBottomSheet *self)
 {
@@ -1191,6 +1431,15 @@ adw_bottom_sheet_get_open (AdwBottomSheet *self)
   return self->open;
 }
 
+/**
+ * adw_bottom_sheet_set_open:
+ * @self: a bottom sheet
+ * @open: whether to open the sheet
+ *
+ * Sets whether the bottom sheet is open.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_open (AdwBottomSheet *self,
                            gboolean        open)
@@ -1294,6 +1543,16 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_OPEN]);
 }
 
+/**
+ * adw_bottom_sheet_get_align:
+ * @self: a bottom sheet
+ *
+ * Gets horizontal alignment of the bottom sheet.
+ *
+ * Returns: the horizontal alignment
+ *
+ * Since: 1.6
+ */
 float
 adw_bottom_sheet_get_align (AdwBottomSheet *self)
 {
@@ -1302,6 +1561,20 @@ adw_bottom_sheet_get_align (AdwBottomSheet *self)
   return self->align;
 }
 
+/**
+ * adw_bottom_sheet_set_align:
+ * @self: a bottom sheet
+ * @align: the new alignment
+ *
+ * Sets horizontal alignment of the bottom sheet.
+ *
+ * 0 means the bottom sheet is flush with the start edge, 1 means it's flush
+ * with the end edge. 0.5 means it's centered.
+ *
+ * Only used when [property@BottomSheet:full-width] is set to `FALSE`.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_align (AdwBottomSheet *self,
                             float           align)
@@ -1318,6 +1591,16 @@ adw_bottom_sheet_set_align (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALIGN]);
 }
 
+/**
+ * adw_bottom_sheet_get_full_width:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom sheet takes the full width.
+ *
+ * Returns: whether the sheet takes up the full width
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_full_width (AdwBottomSheet *self)
 {
@@ -1326,6 +1609,17 @@ adw_bottom_sheet_get_full_width (AdwBottomSheet *self)
   return self->full_width;
 }
 
+/**
+ * adw_bottom_sheet_set_full_width:
+ * @self: a bottom sheet
+ * @full_width: whether the sheet takes up the full width
+ *
+ * Sets whether the bottom sheet takes the full width.
+ *
+ * When full width, [property@BottomSheet:align] is ignored.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_full_width (AdwBottomSheet *self,
                                  gboolean        full_width)
@@ -1344,6 +1638,16 @@ adw_bottom_sheet_set_full_width (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FULL_WIDTH]);
 }
 
+/**
+ * adw_bottom_sheet_get_show_drag_handle:
+ * @self: a bottom sheet
+ *
+ * Gets whether to show a drag handle in the bottom sheet.
+ *
+ * Returns: whether to show the drag handle
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_show_drag_handle (AdwBottomSheet *self)
 {
@@ -1352,6 +1656,23 @@ adw_bottom_sheet_get_show_drag_handle (AdwBottomSheet *self)
   return self->show_drag_handle;
 }
 
+/**
+ * adw_bottom_sheet_set_show_drag_handle
+ * @self: a bottom sheet
+ * @show_drag_handle: whether to show the drag handle
+ *
+ * Sets whether to show a drag handle in the bottom sheet.
+ *
+ * The handle will be overlaid over [property@BottomSheet:sheet].
+ *
+ * When the handle is shown, [class@HeaderBar] will hide its default title, and
+ * [class@ToolbarView] will reserve space if there are no top bars.
+ *
+ * Showing drag handle also allows to swipe the bottom sheet down (and to swipe
+ * the bottom bar up) with a pointer, instead of just touchscreen.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_show_drag_handle (AdwBottomSheet *self,
                                        gboolean        show_drag_handle)
@@ -1377,6 +1698,16 @@ adw_bottom_sheet_set_show_drag_handle (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_DRAG_HANDLE]);
 }
 
+/**
+ * adw_bottom_sheet_get_modal:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom sheet is modal.
+ *
+ * Returns: whether the sheet is modal
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_modal (AdwBottomSheet *self)
 {
@@ -1385,6 +1716,21 @@ adw_bottom_sheet_get_modal (AdwBottomSheet *self)
   return self->modal;
 }
 
+/**
+ * adw_bottom_sheet_set_modal:
+ * @self: a bottom sheet
+ * @modal: whether the sheet is modal
+ *
+ * Sets whether the bottom sheet is modal.
+ *
+ * When modal, [property@BottomSheet:child] will be dimmed when the bottom sheet
+ * is open, and clicking it will close the bottom sheet. It also cannot be
+ * focused with keyboard.
+ *
+ * Otherwise, the child widget is accessible even when the bottom sheet is open.
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_modal (AdwBottomSheet *self,
                             gboolean        modal)
@@ -1404,6 +1750,16 @@ adw_bottom_sheet_set_modal (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MODAL]);
 }
 
+/**
+ * adw_bottom_sheet_get_can_open:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom sheet can be opened by user.
+ *
+ * Returns: whether the sheet can be opened by user.
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_can_open (AdwBottomSheet *self)
 {
@@ -1412,6 +1768,21 @@ adw_bottom_sheet_get_can_open (AdwBottomSheet *self)
   return self->can_open;
 }
 
+/**
+ * adw_bottom_sheet_set_can_open:
+ * @self: a bottom sheet
+ * @can_open: whether the sheet can be opened by user.
+ *
+ * Sets whether the bottom sheet can be opened by user.
+ *
+ * It can be opened via clicking or swiping up from the bottom bar.
+ *
+ * Does nothing if [property@BottomSheet:bottom-bar] is not set.
+ *
+ * Bottom sheet can still be opened using [property@BottomSheet:open].
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_can_open (AdwBottomSheet *self,
                                gboolean        can_open)
@@ -1435,6 +1806,16 @@ adw_bottom_sheet_set_can_open (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_OPEN]);
 }
 
+/**
+ * adw_bottom_sheet_get_can_close:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom sheet can be closed by user.
+ *
+ * Returns: whether the sheet can be closed by user
+ *
+ * Since: 1.6
+ */
 gboolean
 adw_bottom_sheet_get_can_close (AdwBottomSheet *self)
 {
@@ -1443,6 +1824,20 @@ adw_bottom_sheet_get_can_close (AdwBottomSheet *self)
   return self->can_close;
 }
 
+/**
+ * adw_bottom_sheet_set_can_close:
+ * @self: a bottom sheet
+ * @can_close: whether the sheet can be closed by user
+ *
+ * Sets whether the bottom sheet can be closed by user.
+ *
+ * It can be closed via the close button, swiping down, pressing
+ * <kbd>Escape</kbd> or clicking the child dimming (when modal).
+ *
+ * Bottom sheet can still be closed using [property@BottomSheet:open].
+ *
+ * Since: 1.6
+ */
 void
 adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
                                 gboolean        can_close)
@@ -1461,6 +1856,16 @@ adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
 }
 
+/**
+ * adw_bottom_sheet_get_sheet_height:
+ * @self: a bottom sheet
+ *
+ * Gets the current bottom sheet height.
+ *
+ * It can be used to shift the child upwards when the bottom sheet is open.
+ *
+ * Since: 1.6
+ */
 int
 adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self)
 {
@@ -1469,6 +1874,17 @@ adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self)
   return self->sheet_height;
 }
 
+/**
+ * adw_bottom_sheet_get_bottom_bar_height:
+ * @self: a bottom sheet
+ *
+ * Gets the current bottom bar height.
+ *
+ * It can be used to shift the child upwards permanently to accommodate for the
+ * bottom bar.
+ *
+ * Since: 1.6
+ */
 int
 adw_bottom_sheet_get_bottom_bar_height (AdwBottomSheet *self)
 {
