@@ -23,6 +23,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-about-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-banner-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-bottom-sheet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-dialog-symbolic.svg</file>
@@ -48,6 +49,7 @@
     <file preprocess="xml-stripblanks">pages/animations/adw-demo-page-animations.ui</file>
     <file preprocess="xml-stripblanks">pages/avatar/adw-demo-page-avatar.ui</file>
     <file preprocess="xml-stripblanks">pages/banners/adw-demo-page-banners.ui</file>
+    <file preprocess="xml-stripblanks">pages/bottom-sheets/adw-demo-page-bottom-sheets.ui</file>
     <file preprocess="xml-stripblanks">pages/buttons/adw-demo-page-buttons.ui</file>
     <file preprocess="xml-stripblanks">pages/carousel/adw-demo-page-carousel.ui</file>
     <file preprocess="xml-stripblanks">pages/clamp/adw-demo-page-clamp.ui</file>

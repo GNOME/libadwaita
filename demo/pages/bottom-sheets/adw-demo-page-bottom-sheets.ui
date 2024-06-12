@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageBottomSheets" parent="AdwBin">
+    <property name="child">
+      <object class="AdwBottomSheet" id="sheet">
+        <property name="child">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="icon-name">widget-bottom-sheet-symbolic</property>
+                <property name="title" translatable="yes">Bottom Sheet</property>
+                <property name="description" translatable="yes">A bottom sheet with an optional bottom bar.</property>
+                <property name="margin-bottom" bind-source="sheet" bind-property="bottom-bar-height"/>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="sheet">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar"/>
+            </child>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="icon-name">go-down-symbolic</property>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="bottom-bar">
+          <object class="GtkCenterBox">
+            <style>
+              <class name="toolbar"/>
+            </style>
+            <property name="height-request">46</property>
+            <property name="center-widget">
+              <object class="GtkLabel">
+                <property name="label">Pull Up Here</property>
+                <property name="ellipsize">end</property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>
