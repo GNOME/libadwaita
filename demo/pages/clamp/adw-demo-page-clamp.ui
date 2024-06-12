@@ -4,59 +4,68 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPageClamp" parent="AdwBin">
     <property name="child">
-      <object class="AdwStatusPage">
-        <property name="icon-name">widget-clamp-symbolic</property>
-        <property name="title" translatable="yes">Clamp</property>
-        <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
-        <property name="child">
-          <object class="AdwClamp">
-            <property name="maximum-size" bind-source="maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
-            <property name="tightening-threshold" bind-source="tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
-            <property name="unit" bind-source="unit_row" bind-property="selected" bind-flags="sync-create"/>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="icon-name">widget-clamp-symbolic</property>
+            <property name="title" translatable="yes">Clamp</property>
+            <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
             <property name="child">
-              <object class="AdwPreferencesGroup">
-                <child>
-                  <object class="AdwSpinRow">
-                    <property name="title" translatable="yes">Maximum Width</property>
-                    <property name="adjustment">
-                      <object class="GtkAdjustment" id="maximum_size_adjustment">
-                        <property name="lower">0</property>
-                        <property name="upper">10000</property>
-                        <property name="value">400</property>
-                        <property name="page-increment">100</property>
-                        <property name="step-increment">10</property>
+              <object class="AdwClamp">
+                <property name="maximum-size" bind-source="maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
+                <property name="tightening-threshold" bind-source="tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
+                <property name="unit" bind-source="unit_row" bind-property="selected" bind-flags="sync-create"/>
+                <property name="child">
+                  <object class="AdwPreferencesGroup">
+                    <child>
+                      <object class="AdwSpinRow">
+                        <property name="title" translatable="yes">Maximum Width</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="maximum_size_adjustment">
+                            <property name="lower">0</property>
+                            <property name="upper">10000</property>
+                            <property name="value">400</property>
+                            <property name="page-increment">100</property>
+                            <property name="step-increment">10</property>
+                          </object>
+                        </property>
                       </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="AdwSpinRow">
-                    <property name="title" translatable="yes">Tightening Threshold</property>
-                    <property name="adjustment">
-                      <object class="GtkAdjustment" id="tightening_threshold_adjustment">
-                        <property name="lower">0</property>
-                        <property name="upper">10000</property>
-                        <property name="value">300</property>
-                        <property name="page-increment">100</property>
-                        <property name="step-increment">10</property>
+                    </child>
+                    <child>
+                      <object class="AdwSpinRow">
+                        <property name="title" translatable="yes">Tightening Threshold</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="tightening_threshold_adjustment">
+                            <property name="lower">0</property>
+                            <property name="upper">10000</property>
+                            <property name="value">300</property>
+                            <property name="page-increment">100</property>
+                            <property name="step-increment">10</property>
+                          </object>
+                        </property>
                       </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="AdwComboRow" id="unit_row">
-                    <property name="title" translatable="yes">Unit</property>
-                    <property name="model">
-                      <object class="AdwEnumListModel">
-                        <property name="enum-type">AdwLengthUnit</property>
+                    </child>
+                    <child>
+                      <object class="AdwComboRow" id="unit_row">
+                        <property name="title" translatable="yes">Unit</property>
+                        <property name="model">
+                          <object class="AdwEnumListModel">
+                            <property name="enum-type">AdwLengthUnit</property>
+                          </object>
+                        </property>
+                        <property name="expression">
+                          <lookup type="AdwEnumListItem" name="nick"/>
+                        </property>
+                        <property name="selected">2</property>
                       </object>
-                    </property>
-                    <property name="expression">
-                      <lookup type="AdwEnumListItem" name="nick"/>
-                    </property>
-                    <property name="selected">2</property>
+                    </child>
                   </object>
-                </child>
+                </property>
               </object>
             </property>
           </object>

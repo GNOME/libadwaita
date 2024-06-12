@@ -4,64 +4,73 @@
   <requires lib="libadwaita" version="1.0" />
   <template class="AdwDemoPageBanners" parent="AdwBin">
     <property name="child">
-      <object class="GtkCenterBox">
-        <property name="vexpand">True</property>
-        <property name="orientation">vertical</property>
-        <child type="start">
-          <object class="AdwBanner" id="banner">
-            <property name="revealed" bind-source="show_banner_switch" bind-property="active" bind-flags="sync-create|bidirectional" />
-            <property name="title" bind-source="title_row" bind-property="text" bind-flags="sync-create" />
-            <property name="button-label" bind-source="button_label_row" bind-property="text" bind-flags="sync-create" />
-            <property name="action-name">demo.activate</property>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
           </object>
         </child>
-        <child type="center">
-          <object class="AdwStatusPage">
-            <property name="icon-name">widget-banner-symbolic</property>
-            <property name="title" translatable="yes">Banner</property>
-            <property name="description" translatable="yes">A bar with contextual information.</property>
-            <property name="child">
-              <object class="AdwClamp">
-                <property name="maximum-size">400</property>
-                <property name="tightening-threshold">300</property>
-                <child>
-                  <object class="AdwPreferencesGroup">
+        <property name="content">
+          <object class="GtkCenterBox">
+            <property name="vexpand">True</property>
+            <property name="orientation">vertical</property>
+            <child type="start">
+              <object class="AdwBanner" id="banner">
+                <property name="revealed" bind-source="show_banner_switch" bind-property="active" bind-flags="sync-create|bidirectional" />
+                <property name="title" bind-source="title_row" bind-property="text" bind-flags="sync-create" />
+                <property name="button-label" bind-source="button_label_row" bind-property="text" bind-flags="sync-create" />
+                <property name="action-name">demo.activate</property>
+              </object>
+            </child>
+            <child type="center">
+              <object class="AdwStatusPage">
+                <property name="icon-name">widget-banner-symbolic</property>
+                <property name="title" translatable="yes">Banner</property>
+                <property name="description" translatable="yes">A bar with contextual information.</property>
+                <property name="child">
+                  <object class="AdwClamp">
+                    <property name="maximum-size">400</property>
+                    <property name="tightening-threshold">300</property>
                     <child>
-                      <object class="AdwSwitchRow" id="show_banner_switch">
-                        <property name="title" translatable="yes">Show Banner</property>
-                        <property name="active">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwEntryRow" id="title_row">
-                        <property name="title" translatable="yes">Title</property>
-                        <property name="use_underline">True</property>
-                        <property name="text">Metered connection – updates paused</property>
-                        <property name="input-hints">spellcheck | word-completion | uppercase-sentences</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwEntryRow" id="button_label_row">
-                        <property name="title" translatable="yes">Button</property>
-                        <property name="use_underline">True</property>
-                        <property name="text">_Network Settings</property>
-                        <property name="input-hints">spellcheck | word-completion | uppercase-words</property>
-                        <property name="editable" bind-source="label_switch" bind-property="active" bind-flags="sync-create"/>
+                      <object class="AdwPreferencesGroup">
                         <child>
-                          <object class="GtkSwitch" id="label_switch">
-                            <property name="valign">center</property>
+                          <object class="AdwSwitchRow" id="show_banner_switch">
+                            <property name="title" translatable="yes">Show Banner</property>
                             <property name="active">True</property>
-                            <property name="action-name">demo.toggle-button</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwEntryRow" id="title_row">
+                            <property name="title" translatable="yes">Title</property>
+                            <property name="use_underline">True</property>
+                            <property name="text">Metered connection – updates paused</property>
+                            <property name="input-hints">spellcheck | word-completion | uppercase-sentences</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwEntryRow" id="button_label_row">
+                            <property name="title" translatable="yes">Button</property>
+                            <property name="use_underline">True</property>
+                            <property name="text">_Network Settings</property>
+                            <property name="input-hints">spellcheck | word-completion | uppercase-words</property>
+                            <property name="editable" bind-source="label_switch" bind-property="active" bind-flags="sync-create"/>
+                            <child>
+                              <object class="GtkSwitch" id="label_switch">
+                                <property name="valign">center</property>
+                                <property name="active">True</property>
+                                <property name="action-name">demo.toggle-button</property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
                     </child>
                   </object>
-                </child>
+                </property>
               </object>
-            </property>
+            </child>
           </object>
-        </child>
+        </property>
       </object>
     </property>
   </template>

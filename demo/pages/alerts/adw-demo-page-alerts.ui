@@ -4,18 +4,27 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPageAlerts" parent="AdwBin">
     <property name="child">
-      <object class="AdwStatusPage">
-        <property name="icon-name">widget-dialog-symbolic</property>
-        <property name="title" translatable="yes">Alert Dialog</property>
-        <property name="description" translatable="yes">Adaptive alert dialog.</property>
-        <property name="child">
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Alert Dialog</property>
-            <property name="halign">center</property>
-            <property name="action-name">demo.alert-dialog</property>
-            <style>
-              <class name="pill"/>
-            </style>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="icon-name">widget-dialog-symbolic</property>
+            <property name="title" translatable="yes">Alert Dialog</property>
+            <property name="description" translatable="yes">Adaptive alert dialog.</property>
+            <property name="child">
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Alert Dialog</property>
+                <property name="halign">center</property>
+                <property name="action-name">demo.alert-dialog</property>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </property>
           </object>
         </property>
       </object>

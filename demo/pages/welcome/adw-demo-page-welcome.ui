@@ -4,10 +4,19 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPageWelcome" parent="AdwBin">
     <property name="child">
-      <object class="AdwStatusPage">
-        <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
-        <property name="title" translatable="yes">Welcome to Adwaita Demo</property>
-        <property name="description" translatable="yes">This is a tour of the features the library has to offer.</property>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+            <property name="title" translatable="yes">Welcome to Adwaita Demo</property>
+            <property name="description" translatable="yes">This is a tour of the features the library has to offer.</property>
+          </object>
+        </property>
       </object>
     </property>
   </template>

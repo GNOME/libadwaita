@@ -4,35 +4,44 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPageSplitViews" parent="AdwBin">
     <property name="child">
-      <object class="AdwStatusPage">
-        <property name="icon-name">widget-split-views-symbolic</property>
-        <property name="title" translatable="yes">Split Views</property>
-        <property name="description" translatable="yes">Widgets that display sidebar and content.</property>
-        <property name="child">
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="spacing">18</property>
-            <property name="halign">center</property>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Navigation Split View</property>
-                <property name="action-name">demo.run-navigation</property>
-                <property name="can-shrink">True</property>
-                <style>
-                  <class name="pill"/>
-                </style>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="icon-name">widget-split-views-symbolic</property>
+            <property name="title" translatable="yes">Split Views</property>
+            <property name="description" translatable="yes">Widgets that display sidebar and content.</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">18</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Navigation Split View</property>
+                    <property name="action-name">demo.run-navigation</property>
+                    <property name="can-shrink">True</property>
+                    <style>
+                      <class name="pill"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Overlay Split View</property>
+                    <property name="action-name">demo.run-overlay</property>
+                    <property name="can-shrink">True</property>
+                    <style>
+                      <class name="pill"/>
+                    </style>
+                  </object>
+                </child>
               </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Overlay Split View</property>
-                <property name="action-name">demo.run-overlay</property>
-                <property name="can-shrink">True</property>
-                <style>
-                  <class name="pill"/>
-                </style>
-              </object>
-            </child>
+            </property>
           </object>
         </property>
       </object>
