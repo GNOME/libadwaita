@@ -585,13 +585,25 @@ adw_widget_get_ancestor (GtkWidget *widget,
                          gboolean   same_native,
                          gboolean   same_sheet)
 {
+  GtkWidget *prev_widget = NULL;
+
   while (widget && !g_type_is_a (G_OBJECT_TYPE (widget), widget_type)) {
     if (same_native && GTK_IS_NATIVE (widget))
       return NULL;
 
-    if (same_sheet && (ADW_IS_FLOATING_SHEET (widget) || ADW_IS_BOTTOM_SHEET (widget)))
-      return NULL;
+    if (same_sheet) {
+      if (ADW_IS_FLOATING_SHEET (widget)) {
+        if (prev_widget == adw_floating_sheet_get_sheet_bin (ADW_FLOATING_SHEET (widget)))
+          return NULL;
+      }
 
+      if (ADW_IS_BOTTOM_SHEET (widget)) {
+        if (prev_widget == adw_bottom_sheet_get_sheet_bin (ADW_BOTTOM_SHEET (widget)))
+          return NULL;
+      }
+    }
+
+    prev_widget = widget;
     widget = gtk_widget_get_parent (widget);
   }
 
