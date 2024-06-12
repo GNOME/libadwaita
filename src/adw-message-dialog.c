@@ -1918,10 +1918,10 @@ adw_message_dialog_add_responses (AdwMessageDialog *self,
 
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
 
-  va_start (args, first_id);
-
   if (!first_id)
     return;
+
+  va_start (args, first_id);
 
   id = first_id;
   label = va_arg (args, const char *);

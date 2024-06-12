@@ -1783,10 +1783,10 @@ adw_alert_dialog_add_responses (AdwAlertDialog *self,
 
   g_return_if_fail (ADW_IS_ALERT_DIALOG (self));
 
-  va_start (args, first_id);
-
   if (!first_id)
     return;
+
+  va_start (args, first_id);
 
   id = first_id;
   label = va_arg (args, const char *);
