@@ -75,6 +75,12 @@ void     adw_bottom_sheet_set_modal (AdwBottomSheet *self,
                                      gboolean        modal);
 
 ADW_AVAILABLE_IN_1_6
+gboolean adw_bottom_sheet_get_can_open (AdwBottomSheet *self);
+ADW_AVAILABLE_IN_1_6
+void     adw_bottom_sheet_set_can_open (AdwBottomSheet *self,
+                                        gboolean        can_open);
+
+ADW_AVAILABLE_IN_1_6
 gboolean adw_bottom_sheet_get_can_close (AdwBottomSheet *self);
 ADW_AVAILABLE_IN_1_6
 void     adw_bottom_sheet_set_can_close (AdwBottomSheet *self,

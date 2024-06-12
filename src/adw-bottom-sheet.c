@@ -58,6 +58,7 @@ struct _AdwBottomSheet
 
   gboolean show_drag_handle;
   gboolean modal;
+  gboolean can_open;
   gboolean can_close;
 
   AdwSwipeTracker *swipe_tracker;
@@ -95,6 +96,7 @@ enum {
   PROP_FULL_WIDTH,
   PROP_SHOW_DRAG_HANDLE,
   PROP_MODAL,
+  PROP_CAN_OPEN,
   PROP_CAN_CLOSE,
   PROP_SHEET_HEIGHT,
   PROP_BOTTOM_BAR_HEIGHT,
@@ -213,7 +215,8 @@ maybe_close_cb (GtkWidget      *widget,
 static void
 bottom_bar_clicked_cb (AdwBottomSheet *self)
 {
-  adw_bottom_sheet_set_open (self, TRUE);
+  if (self->can_open)
+    adw_bottom_sheet_set_open (self, TRUE);
 }
 
 static void
@@ -253,6 +256,21 @@ fix_button_click_propagation_phase (GtkWidget *widget)
   }
 
   g_object_unref (controllers);
+}
+
+static void
+update_swipe_tracker (AdwBottomSheet *self)
+{
+  adw_swipe_tracker_set_enabled (self->swipe_tracker,
+                                 (self->can_open && self->bottom_bar != NULL) ||
+                                  self->can_close);
+
+  adw_swipe_tracker_set_allow_mouse_drag (self->swipe_tracker,
+                                          self->show_drag_handle ||
+                                          self->bottom_bar != NULL);
+
+  adw_swipe_tracker_set_lower_overshoot (self->swipe_tracker,
+                                         self->bottom_bar != NULL);
 }
 
 static void
@@ -495,6 +513,9 @@ adw_bottom_sheet_get_property (GObject    *object,
   case PROP_MODAL:
     g_value_set_boolean (value, adw_bottom_sheet_get_modal (self));
     break;
+  case PROP_CAN_OPEN:
+    g_value_set_boolean (value, adw_bottom_sheet_get_can_open (self));
+    break;
   case PROP_CAN_CLOSE:
     g_value_set_boolean (value, adw_bottom_sheet_get_can_close (self));
     break;
@@ -541,6 +562,9 @@ adw_bottom_sheet_set_property (GObject      *object,
     break;
   case PROP_MODAL:
     adw_bottom_sheet_set_modal (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_OPEN:
+    adw_bottom_sheet_set_can_open (self, g_value_get_boolean (value));
     break;
   case PROP_CAN_CLOSE:
     adw_bottom_sheet_set_can_close (self, g_value_get_boolean (value));
@@ -608,6 +632,11 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  props[PROP_CAN_OPEN] =
+    g_param_spec_boolean ("can-open", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   props[PROP_CAN_CLOSE] =
     g_param_spec_boolean ("can-close", NULL, NULL,
                           TRUE,
@@ -638,6 +667,12 @@ prepare_cb (AdwSwipeTracker        *tracker,
 {
   if (adw_animation_get_state (self->open_animation) == ADW_ANIMATION_PLAYING &&
       adw_spring_animation_get_value_to (ADW_SPRING_ANIMATION (self->open_animation)) < 0.5)
+    return;
+
+  if (self->open && !self->can_close)
+    return;
+
+  if (!self->open && !self->can_open)
     return;
 
   self->swipe_active = TRUE;
@@ -708,6 +743,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->full_width = TRUE;
   self->show_drag_handle = TRUE;
   self->modal = TRUE;
+  self->can_open = TRUE;
   self->can_close = TRUE;
   self->showing_bottom_bar = TRUE;
 
@@ -1141,9 +1177,7 @@ adw_bottom_sheet_set_bottom_bar (AdwBottomSheet *self,
   if (G_APPROX_VALUE (self->progress, 0, DBL_EPSILON))
     gtk_widget_set_child_visible (self->sheet_bin, self->bottom_bar != NULL);
 
-  adw_swipe_tracker_set_lower_overshoot (self->swipe_tracker, bottom_bar != NULL);
-  adw_swipe_tracker_set_allow_mouse_drag (self->swipe_tracker,
-                                          self->show_drag_handle || bottom_bar != NULL);
+  update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BOTTOM_BAR]);
 }
@@ -1332,8 +1366,7 @@ adw_bottom_sheet_set_show_drag_handle (AdwBottomSheet *self,
 
   gtk_widget_set_visible (self->drag_handle, show_drag_handle);
 
-  adw_swipe_tracker_set_allow_mouse_drag (self->swipe_tracker,
-                                          show_drag_handle || self->bottom_bar != NULL);
+  update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_DRAG_HANDLE]);
 }
@@ -1366,6 +1399,37 @@ adw_bottom_sheet_set_modal (AdwBottomSheet *self,
 }
 
 gboolean
+adw_bottom_sheet_get_can_open (AdwBottomSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), FALSE);
+
+  return self->can_open;
+}
+
+void
+adw_bottom_sheet_set_can_open (AdwBottomSheet *self,
+                               gboolean        can_open)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  can_open = !!can_open;
+
+  if (self->can_open == can_open)
+    return;
+
+  self->can_open = can_open;
+
+  if (can_open)
+    gtk_widget_remove_css_class (self->bottom_bar_bin, "inert");
+  else
+    gtk_widget_add_css_class (self->bottom_bar_bin, "inert");
+
+  update_swipe_tracker (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_OPEN]);
+}
+
+gboolean
 adw_bottom_sheet_get_can_close (AdwBottomSheet *self)
 {
   g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), FALSE);
@@ -1386,7 +1450,7 @@ adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
 
   self->can_close = can_close;
 
-  adw_swipe_tracker_set_enabled (self->swipe_tracker, can_close); // TODO handler bottom bar
+  update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
 }

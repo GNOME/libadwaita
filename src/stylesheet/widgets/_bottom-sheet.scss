@@ -44,6 +44,12 @@ bottom-sheet {
       &:active {
         background: $view_active_color;
       }
+
+      &.inert {
+        &:hover, &:active, &.keyboard-activating {
+          background: none;
+        }
+      }
     }
 
     &,
