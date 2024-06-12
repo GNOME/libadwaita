@@ -1161,7 +1161,7 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
                            gboolean        open)
 {
   GtkRoot *root;
-  GtkWidget *focus;
+  GtkWidget *focus = NULL;
 
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
 
@@ -1195,49 +1195,57 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
     self->switch_child = TRUE;
 
   root = gtk_widget_get_root (GTK_WIDGET (self));
-  focus = gtk_root_get_focus (root);
 
-  if (open) {
-    if (focus && !gtk_widget_is_ancestor (focus, self->child_bin))
-      focus = NULL;
+  if (gtk_widget_get_mapped (GTK_WIDGET (self))) {
+    if (root)
+      focus = gtk_root_get_focus (root);
 
-    g_set_weak_pointer (&self->last_child_focus, focus);
-  } else {
-    if (focus && focus != self->sheet_bin && !gtk_widget_is_ancestor (focus, self->sheet_bin))
-      focus = NULL;
+    if (open) {
+      if (focus && !gtk_widget_is_ancestor (focus, self->child_bin))
+        focus = NULL;
 
-    g_set_weak_pointer (&self->last_sheet_focus, focus);
+      g_set_weak_pointer (&self->last_child_focus, focus);
+    } else {
+      if (focus && focus != self->sheet_bin && !gtk_widget_is_ancestor (focus, self->sheet_bin))
+        focus = NULL;
+
+      g_set_weak_pointer (&self->last_sheet_focus, focus);
+    }
   }
 
   if (self->modal)
     gtk_widget_set_can_focus (self->child_bin, !open);
 
-  if (open) {
-    if (root && self->last_sheet_focus) {
-      gtk_root_set_focus (root, self->last_sheet_focus);
-    } else {
-      GTK_WIDGET_GET_CLASS (self->sheet_bin)->move_focus (self->sheet_bin,
-                                                          GTK_DIR_TAB_FORWARD);
+  if (gtk_widget_get_mapped (GTK_WIDGET (self))) {
+    if (open) {
+      if (self->last_sheet_focus) {
+        gtk_widget_grab_focus (self->last_sheet_focus);
+      } else {
+        g_signal_emit_by_name (self->sheet_bin, "move-focus", GTK_DIR_TAB_FORWARD);
 
-      focus = gtk_root_get_focus (root);
-      if (!focus || !gtk_widget_is_ancestor (focus, self->sheet_bin))
-        gtk_widget_grab_focus (self->sheet_bin);
+        if (root)
+          focus = gtk_root_get_focus (root);
+
+        if (!focus || !gtk_widget_is_ancestor (focus, self->sheet_bin))
+          gtk_widget_grab_focus (self->sheet_bin);
+      }
+
+      g_clear_weak_pointer (&self->last_sheet_focus);
+    } else if (self->child) {
+      if (self->last_child_focus) {
+        gtk_widget_grab_focus (self->last_child_focus);
+      } else {
+        g_signal_emit_by_name (self->child_bin, "move-focus", GTK_DIR_TAB_FORWARD);
+
+        if (root)
+          focus = gtk_root_get_focus (root);
+
+        if (!focus || !gtk_widget_is_ancestor (focus, self->child_bin))
+          gtk_widget_grab_focus (self->child_bin);
+      }
+
+      g_clear_weak_pointer (&self->last_child_focus);
     }
-
-    g_clear_weak_pointer (&self->last_sheet_focus);
-  } else if (self->child) {
-    if (root && self->last_child_focus) {
-      gtk_root_set_focus (root, self->last_child_focus);
-    } else {
-      GTK_WIDGET_GET_CLASS (self->child_bin)->move_focus (self->child_bin,
-                                                          GTK_DIR_TAB_FORWARD);
-
-      focus = gtk_root_get_focus (root);
-      if (!focus || !gtk_widget_is_ancestor (focus, self->child_bin))
-        gtk_widget_grab_focus (self->child_bin);
-    }
-
-    g_clear_weak_pointer (&self->last_child_focus);
   }
 
   adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->open_animation),
