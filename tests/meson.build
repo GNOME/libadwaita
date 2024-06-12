@@ -42,6 +42,7 @@ test_names = [
   'test-avatar',
   'test-banner',
   'test-bin',
+  'test-bottom-sheet',
   'test-breakpoint',
   'test-breakpoint-bin',
   'test-button-content',
