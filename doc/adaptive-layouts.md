@@ -485,3 +485,82 @@ provide an adaptive tabbed interface.
   <img src="adaptive-tabs-narrow-2.png" alt="adaptive-tabs-narrow-2">
 </picture>
 
+# Multi-Layout View
+
+[class@MultiLayoutView] defines multiple layouts and allows switching between
+them. Each layout has slots inside it, and when switching layouts, children are
+inserted into slots with matching IDs. Breakpoints can be used for switching the
+layout depending on available size.
+
+For example, it can be used  to have a sidebar that transforms into a bottom
+sheet on narrow sizes, as follows:
+
+```xml
+<object class="AdwWindow">
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 400sp</condition>
+      <setter object="multi_layout_view" property="layout-name">bottom-sheet</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwMultiLayoutView" id="multi_layout_view">
+      <child>
+        <object class="AdwLayout">
+          <property name="name">sidebar</property>
+          <property name="content">
+            <object class="AdwOverlaySplitView">
+              <property name="sidebar-position">end</property>
+              <property name="sidebar">
+                <object class="AdwLayoutSlot">
+                  <property name="id">secondary</property>
+                </object>
+              </property>
+              <property name="content">
+                <object class="AdwLayoutSlot">
+                  <property name="id">primary</property>
+                </object>
+              </property>
+            </object>
+          </property>
+        </object>
+      </child>
+      <child>
+        <object class="AdwLayout">
+          <property name="name">bottom-sheet</property>
+          <property name="content">
+            <object class="AdwBottomSheet">
+              <property name="open">True</property>
+              <property name="child">
+                <object class="AdwLayoutSlot">
+                  <property name="id">primary</property>
+                </object>
+              </property>
+              <property name="sheet">
+                <object class="AdwLayoutSlot">
+                  <property name="id">secondary</property>
+                </object>
+              </property>
+            </object>
+          </property>
+        </object>
+      </child>
+      <child type="primary">
+        <!-- primary child -->
+      </child>
+      <child type="secondary">
+        <!-- secondary child -->
+      </child>
+    </object>
+  </property>
+</object>
+```
+
+<picture>
+  <source srcset="adaptive-multi-layout-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-multi-layout-wide.png" alt="adaptive-multi-layout-wide">
+</picture>
+<picture>
+  <source srcset="adaptive-multi-layout-narrow-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-multi-layout-narrow.png" alt="adaptive-multi-layout-narrow">
+</picture>

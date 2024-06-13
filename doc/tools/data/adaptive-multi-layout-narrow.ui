@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">360</property>
+    <property name="default-height">500</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="multi_layout_view" property="layout-name">bottom-sheet</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwMultiLayoutView" id="multi_layout_view">
+        <child>
+          <object class="AdwLayout">
+            <property name="name">sidebar</property>
+            <property name="content">
+              <object class="AdwOverlaySplitView">
+                <property name="sidebar-position">end</property>
+                <property name="sidebar">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">secondary</property>
+                  </object>
+                </property>
+                <property name="content">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">primary</property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwLayout">
+            <property name="name">bottom-sheet</property>
+            <property name="content">
+              <object class="AdwBottomSheet">
+                <property name="open">True</property>
+                <property name="child">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">primary</property>
+                  </object>
+                </property>
+                <property name="sheet">
+                  <object class="AdwLayoutSlot">
+                    <property name="id">secondary</property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child type="primary">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="title">Primary</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child type="secondary">
+          <object class="AdwToolbarView">
+            <property name="height-request">200</property>
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="title">Secondary</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>
