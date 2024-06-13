@@ -777,6 +777,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                                    (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child_or_self);
   gtk_widget_set_layout_manager (self->sheet_bin, gtk_bin_layout_new ());
   gtk_widget_add_css_class (self->sheet_bin, "background");
+  gtk_widget_add_css_class (self->sheet_bin, "has-drag-handle");
   gtk_widget_set_focusable (self->sheet_bin, TRUE);
   gtk_widget_set_child_visible (self->sheet_bin, FALSE);
   gtk_widget_set_parent (self->sheet_bin, GTK_WIDGET (self));
@@ -1365,6 +1366,11 @@ adw_bottom_sheet_set_show_drag_handle (AdwBottomSheet *self,
   self->show_drag_handle = show_drag_handle;
 
   gtk_widget_set_visible (self->drag_handle, show_drag_handle);
+
+  if (show_drag_handle)
+    gtk_widget_add_css_class (self->sheet_bin, "has-drag-handle");
+  else
+    gtk_widget_remove_css_class (self->sheet_bin, "has-drag-handle");
 
   update_swipe_tracker (self);
 

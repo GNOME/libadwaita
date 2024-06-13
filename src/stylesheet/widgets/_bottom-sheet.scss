@@ -118,5 +118,9 @@ bottom-sheet {
         }
       }
     }
+
+    &.has-drag-handle .top-bar > windowhandle {
+      min-height: 36px;
+    }
   }
 }
