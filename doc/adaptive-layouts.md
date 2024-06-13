@@ -531,7 +531,7 @@ sheet on narrow sizes, as follows:
           <property name="content">
             <object class="AdwBottomSheet">
               <property name="open">True</property>
-              <property name="child">
+              <property name="content">
                 <object class="AdwLayoutSlot">
                   <property name="id">primary</property>
                 </object>

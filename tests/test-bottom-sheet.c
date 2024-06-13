@@ -15,7 +15,7 @@ increment (int *data)
 }
 
 static void
-test_adw_bottom_sheet_child (void)
+test_adw_bottom_sheet_content (void)
 {
   AdwBottomSheet *sheet = ADW_BOTTOM_SHEET (g_object_ref_sink (adw_bottom_sheet_new ()));
   GtkWidget *widget = NULL;
@@ -23,21 +23,21 @@ test_adw_bottom_sheet_child (void)
 
   g_assert_nonnull (sheet);
 
-  g_signal_connect_swapped (sheet, "notify::child", G_CALLBACK (increment), &notified);
+  g_signal_connect_swapped (sheet, "notify::content", G_CALLBACK (increment), &notified);
 
-  g_object_get (sheet, "child", &widget, NULL);
+  g_object_get (sheet, "content", &widget, NULL);
   g_assert_null (widget);
 
-  adw_bottom_sheet_set_child (sheet, NULL);
+  adw_bottom_sheet_set_content (sheet, NULL);
   g_assert_cmpint (notified, ==, 0);
 
   widget = gtk_button_new ();
-  adw_bottom_sheet_set_child (sheet, widget);
-  g_assert_true (adw_bottom_sheet_get_child (sheet) == widget);
+  adw_bottom_sheet_set_content (sheet, widget);
+  g_assert_true (adw_bottom_sheet_get_content (sheet) == widget);
   g_assert_cmpint (notified, ==, 1);
 
-  g_object_set (sheet, "child", NULL, NULL);
-  g_assert_null (adw_bottom_sheet_get_child (sheet));
+  g_object_set (sheet, "content", NULL, NULL);
+  g_assert_null (adw_bottom_sheet_get_content (sheet));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (sheet);
@@ -304,7 +304,7 @@ main (int   argc,
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();
 
-  g_test_add_func ("/Adwaita/BottomSheet/child", test_adw_bottom_sheet_child);
+  g_test_add_func ("/Adwaita/BottomSheet/content", test_adw_bottom_sheet_content);
   g_test_add_func ("/Adwaita/BottomSheet/sheet", test_adw_bottom_sheet_sheet);
   g_test_add_func ("/Adwaita/BottomSheet/bottom_bar", test_adw_bottom_sheet_bottom_bar);
   g_test_add_func ("/Adwaita/BottomSheet/open", test_adw_bottom_sheet_open);

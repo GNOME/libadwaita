@@ -38,7 +38,7 @@
  *   <img src="bottom-sheet.png" alt="bottom-sheet">
  * </picture>
  *
- * `AdwBottomSheet` has three child widgets. [property@BottomSheet:child] is
+ * `AdwBottomSheet` has three child widgets. [property@BottomSheet:content] is
  * shown persistently. [property@BottomSheet:sheet] is displayed above it when
  * it's open, and [property@BottomSheet:bottom-bar] is displayed when it's not.
  *
@@ -60,9 +60,9 @@
  * by setting [property@BottomSheet:show-drag-handle] to `FALSE`. Note that the
  * handle also controls whether the sheet can be dragged using a pointer.
  *
- * Bottom sheets are modal by default, meaning that [property@BottomSheet:child]
- * is dimmed and cannot be accessed while the sheet is open. Set
- * [property@BottomSheet:modal] to `FALSE` is this behavior is unwanted.
+ * Bottom sheets are modal by default, meaning that the content is dimmed and
+ * cannot be accessed while the sheet is open. Set [property@BottomSheet:modal]
+ * to `FALSE` is this behavior is unwanted.
  *
  * To disable user interactions for opening or closing the bottom sheet (such as
  * swipes or clicking the bottom bar or close button), set
@@ -70,7 +70,7 @@
  * `FALSE`.
  *
  * In some cases, particularly when using a full-width bottom bar, it may be
- * necessary to shift [property@BottomSheet:child] upwards. Use the
+ * necessary to shift [property@BottomSheet:content] upwards. Use the
  * [property@BottomSheet:bottom-bar-height] and
  * [property@BottomSheet:sheet-height] for that.
  *
@@ -98,7 +98,8 @@
  * The `AdwBottomSheet` implementation of the [iface@Gtk.Buildable] interface
  * supports setting the sheet widget by specifying “sheet” as the “type”
  * attribute of a `<child>` element, and the bottom bar by specifying
- * “bottom-bar”. Omitting the child type results in setting the main child.
+ * “bottom-bar”. Specifying “content” or omitting the child type results in
+ * setting the content child.
  *
  * Since: 1.6
  */
@@ -107,11 +108,11 @@ struct _AdwBottomSheet
 {
   GtkWidget parent_instance;
 
-  GtkWidget *child;
+  GtkWidget *content;
   GtkWidget *sheet;
   GtkWidget *bottom_bar;
 
-  GtkWidget *child_bin;
+  GtkWidget *content_bin;
   GtkWidget *sheet_page;
   GtkWidget *sheet_stack;
   GtkWidget *sheet_bin;
@@ -142,7 +143,7 @@ struct _AdwBottomSheet
   int sheet_height;
   int bottom_bar_height;
 
-  GtkWidget *last_child_focus;
+  GtkWidget *last_content_focus;
   GtkWidget *last_sheet_focus;
 
   int min_natural_width;
@@ -163,7 +164,7 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
-  PROP_CHILD,
+  PROP_CONTENT,
   PROP_SHEET,
   PROP_BOTTOM_BAR,
   PROP_OPEN,
@@ -429,13 +430,13 @@ adw_bottom_sheet_measure (GtkWidget      *widget,
                           int            *natural_baseline)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (widget);
-  int child_min, child_nat, dim_min, dim_nat, sheet_min, sheet_nat;
+  int content_min, content_nat, dim_min, dim_nat, sheet_min, sheet_nat;
 
-  if (gtk_widget_should_layout (self->child_bin)) {
-    gtk_widget_measure (self->child_bin, orientation, for_size,
-                        &child_min, &child_nat, NULL, NULL);
+  if (gtk_widget_should_layout (self->content_bin)) {
+    gtk_widget_measure (self->content_bin, orientation, for_size,
+                        &content_min, &content_nat, NULL, NULL);
   } else {
-    child_min = child_nat = 0;
+    content_min = content_nat = 0;
   }
 
   gtk_widget_measure (self->dimming, orientation, for_size,
@@ -445,9 +446,9 @@ adw_bottom_sheet_measure (GtkWidget      *widget,
                       &sheet_min, &sheet_nat, NULL, NULL);
 
   if (minimum)
-    *minimum = MAX (child_min, MAX (dim_min, sheet_min));
+    *minimum = MAX (content_min, MAX (dim_min, sheet_min));
   if (natural)
-    *natural = MAX (child_nat, MAX (dim_nat, sheet_nat));
+    *natural = MAX (content_nat, MAX (dim_nat, sheet_nat));
   if (minimum_baseline)
     *minimum_baseline = -1;
   if (natural_baseline)
@@ -524,8 +525,8 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   else
     gtk_widget_remove_css_class (self->sheet_bin, "flush-right");
 
-  if (gtk_widget_should_layout (self->child_bin))
-    gtk_widget_allocate (self->child_bin, width, height, baseline, NULL);
+  if (gtk_widget_should_layout (self->content_bin))
+    gtk_widget_allocate (self->content_bin, width, height, baseline, NULL);
 
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
@@ -538,13 +539,13 @@ adw_bottom_sheet_dispose (GObject *object)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (object);
 
-  g_clear_weak_pointer (&self->last_child_focus);
+  g_clear_weak_pointer (&self->last_content_focus);
   g_clear_weak_pointer (&self->last_sheet_focus);
 
-  g_clear_pointer (&self->child_bin, gtk_widget_unparent);
+  g_clear_pointer (&self->content_bin, gtk_widget_unparent);
   g_clear_pointer (&self->dimming, gtk_widget_unparent);
   g_clear_pointer (&self->sheet_bin, gtk_widget_unparent);
-  self->child = NULL;
+  self->content = NULL;
   self->sheet = NULL;
   self->sheet_stack = NULL;
   self->sheet_page = NULL;
@@ -564,8 +565,8 @@ adw_bottom_sheet_get_property (GObject    *object,
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (object);
 
   switch (prop_id) {
-  case PROP_CHILD:
-    g_value_set_object (value, adw_bottom_sheet_get_child (self));
+  case PROP_CONTENT:
+    g_value_set_object (value, adw_bottom_sheet_get_content (self));
     break;
   case PROP_SHEET:
     g_value_set_object (value, adw_bottom_sheet_get_sheet (self));
@@ -614,8 +615,8 @@ adw_bottom_sheet_set_property (GObject      *object,
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (object);
 
   switch (prop_id) {
-  case PROP_CHILD:
-    adw_bottom_sheet_set_child (self, g_value_get_object (value));
+  case PROP_CONTENT:
+    adw_bottom_sheet_set_content (self, g_value_get_object (value));
     break;
   case PROP_SHEET:
     adw_bottom_sheet_set_sheet (self, g_value_get_object (value));
@@ -668,16 +669,16 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
   widget_class->grab_focus = adw_widget_grab_focus_child;
 
   /**
-   * AdwBottomSheet:child:
+   * AdwBottomSheet:content:
    *
-   * The main child widget.
+   * The content widget.
    *
    * It's always shown, and the bottom sheet is overlaid over it.
    *
    * Since: 1.6
    */
-  props[PROP_CHILD] =
-    g_param_spec_object ("child", NULL, NULL,
+  props[PROP_CONTENT] =
+    g_param_spec_object ("content", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -778,12 +779,11 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
    *
    * Whether the bottom sheet is modal.
    *
-   * When modal, [property@BottomSheet:child] will be dimmed when the bottom
+   * When modal, [property@BottomSheet:content] will be dimmed when the bottom
    * sheet is open, and clicking it will close the bottom sheet. It also cannot
    * be focused with keyboard.
    *
-   * Otherwise, the child widget is accessible even when the bottom sheet is
-   * open.
+   * Otherwise, the content is accessible even when the bottom sheet is open.
    *
    * Since: 1.6
    */
@@ -816,7 +816,7 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
    * Whether the bottom sheet can be closed by user.
    *
    * It can be closed via the close button, swiping down, pressing
-   * <kbd>Escape</kbd> or clicking the child dimming (when modal).
+   * <kbd>Escape</kbd> or clicking the content dimming (when modal).
    *
    * Bottom sheet can still be closed using [property@BottomSheet:open].
    *
@@ -832,7 +832,7 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
    *
    * The current bottom sheet height.
    *
-   * It can be used to shift the child upwards when the bottom sheet is open.
+   * It can be used to shift the content upwards when the bottom sheet is open.
    *
    * Since: 1.6
    */
@@ -846,7 +846,7 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
    *
    * The current bottom bar height.
    *
-   * It can be used to shift the child upwards permanently to accommodate for
+   * It can be used to shift the content upwards permanently to accommodate for
    * the bottom bar.
    *
    * Since: 1.6
@@ -953,10 +953,10 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
-  /* Child */
+  /* Content */
 
-  self->child_bin = adw_bin_new ();
-  gtk_widget_set_parent (self->child_bin, GTK_WIDGET (self));
+  self->content_bin = adw_bin_new ();
+  gtk_widget_set_parent (self->content_bin, GTK_WIDGET (self));
 
   /* Dimming */
 
@@ -1077,8 +1077,10 @@ adw_bottom_sheet_buildable_add_child (GtkBuildable *buildable,
     adw_bottom_sheet_set_sheet (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
   else if (!g_strcmp0 (type, "bottom-bar"))
     adw_bottom_sheet_set_bottom_bar (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
+  else if (!g_strcmp0 (type, "content"))
+    adw_bottom_sheet_set_content (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
   else if (!type && GTK_IS_WIDGET (child))
-    adw_bottom_sheet_set_child (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
+    adw_bottom_sheet_set_content (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -1247,53 +1249,53 @@ adw_bottom_sheet_new (void)
 }
 
 /**
- * adw_bottom_sheet_get_child:
+ * adw_bottom_sheet_get_content:
  * @self: a bottom sheet
  *
- * Gets the main child widget for @self.
+ * Gets the content widget for @self.
  *
- * Returns: (nullable) (transfer none): the child widget
+ * Returns: (nullable) (transfer none): the content widget
  *
  * Since: 1.6
  */
 GtkWidget *
-adw_bottom_sheet_get_child (AdwBottomSheet *self)
+adw_bottom_sheet_get_content (AdwBottomSheet *self)
 {
   g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), NULL);
 
-  return self->child;
+  return self->content;
 }
 
 /**
- * adw_bottom_sheet_set_child:
+ * adw_bottom_sheet_set_content:
  * @self: a bottom sheet
- * @child: (nullable): the child widget
+ * @content: (nullable): the content widget
  *
- * Sets the main child widget for @self.
+ * Sets the content widget for @self.
  *
  * It's always shown, and the bottom sheet is overlaid over it.
  *
  * Since: 1.6
  */
 void
-adw_bottom_sheet_set_child (AdwBottomSheet *self,
-                            GtkWidget      *child)
+adw_bottom_sheet_set_content (AdwBottomSheet *self,
+                              GtkWidget      *content)
 {
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
-  g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
+  g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
-  if (self->child == child)
+  if (self->content == content)
     return;
 
-  self->child = child;
+  self->content = content;
 
-  adw_bin_set_child (ADW_BIN (self->child_bin), child);
-  gtk_widget_set_visible (self->child_bin, child != NULL);
+  adw_bin_set_child (ADW_BIN (self->content_bin), content);
+  gtk_widget_set_visible (self->content_bin, content != NULL);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT]);
 }
 
 /**
@@ -1485,10 +1487,10 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
       focus = gtk_root_get_focus (root);
 
     if (open) {
-      if (focus && !gtk_widget_is_ancestor (focus, self->child_bin))
+      if (focus && !gtk_widget_is_ancestor (focus, self->content_bin))
         focus = NULL;
 
-      g_set_weak_pointer (&self->last_child_focus, focus);
+      g_set_weak_pointer (&self->last_content_focus, focus);
     } else {
       if (focus && focus != self->sheet_bin && !gtk_widget_is_ancestor (focus, self->sheet_bin))
         focus = NULL;
@@ -1498,7 +1500,7 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
   }
 
   if (self->modal)
-    gtk_widget_set_can_focus (self->child_bin, !open);
+    gtk_widget_set_can_focus (self->content_bin, !open);
 
   if (gtk_widget_get_mapped (GTK_WIDGET (self))) {
     if (open) {
@@ -1515,20 +1517,20 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
       }
 
       g_clear_weak_pointer (&self->last_sheet_focus);
-    } else if (self->child) {
-      if (self->last_child_focus) {
-        gtk_widget_grab_focus (self->last_child_focus);
+    } else if (self->content) {
+      if (self->last_content_focus) {
+        gtk_widget_grab_focus (self->last_content_focus);
       } else {
-        g_signal_emit_by_name (self->child_bin, "move-focus", GTK_DIR_TAB_FORWARD);
+        g_signal_emit_by_name (self->content_bin, "move-focus", GTK_DIR_TAB_FORWARD);
 
         if (root)
           focus = gtk_root_get_focus (root);
 
-        if (!focus || !gtk_widget_is_ancestor (focus, self->child_bin))
-          gtk_widget_grab_focus (self->child_bin);
+        if (!focus || !gtk_widget_is_ancestor (focus, self->content_bin))
+          gtk_widget_grab_focus (self->content_bin);
       }
 
-      g_clear_weak_pointer (&self->last_child_focus);
+      g_clear_weak_pointer (&self->last_content_focus);
     }
   }
 
@@ -1723,11 +1725,11 @@ adw_bottom_sheet_get_modal (AdwBottomSheet *self)
  *
  * Sets whether the bottom sheet is modal.
  *
- * When modal, [property@BottomSheet:child] will be dimmed when the bottom sheet
- * is open, and clicking it will close the bottom sheet. It also cannot be
+ * When modal, [property@BottomSheet:content] will be dimmed when the bottom
+ * sheet is open, and clicking it will close the bottom sheet. It also cannot be
  * focused with keyboard.
  *
- * Otherwise, the child widget is accessible even when the bottom sheet is open.
+ * Otherwise, the content is accessible even when the bottom sheet is open.
  *
  * Since: 1.6
  */
@@ -1832,7 +1834,7 @@ adw_bottom_sheet_get_can_close (AdwBottomSheet *self)
  * Sets whether the bottom sheet can be closed by user.
  *
  * It can be closed via the close button, swiping down, pressing
- * <kbd>Escape</kbd> or clicking the child dimming (when modal).
+ * <kbd>Escape</kbd> or clicking the content dimming (when modal).
  *
  * Bottom sheet can still be closed using [property@BottomSheet:open].
  *
@@ -1862,7 +1864,7 @@ adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
  *
  * Gets the current bottom sheet height.
  *
- * It can be used to shift the child upwards when the bottom sheet is open.
+ * It can be used to shift the content upwards when the bottom sheet is open.
  *
  * Since: 1.6
  */
@@ -1880,8 +1882,8 @@ adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self)
  *
  * Gets the current bottom bar height.
  *
- * It can be used to shift the child upwards permanently to accommodate for the
- * bottom bar.
+ * It can be used to shift the content upwards permanently to accommodate for
+ * the bottom bar.
  *
  * Since: 1.6
  */

@@ -8,7 +8,7 @@
     <property name="content">
       <object class="AdwBottomSheet">
         <property name="open">True</property>
-        <property name="child">
+        <property name="content">
           <object class="AdwToolbarView">
             <child type="top">
               <object class="AdwHeaderBar">

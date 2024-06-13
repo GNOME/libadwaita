@@ -27,10 +27,10 @@ ADW_AVAILABLE_IN_1_6
 GtkWidget *adw_bottom_sheet_new (void);
 
 ADW_AVAILABLE_IN_1_6
-GtkWidget *adw_bottom_sheet_get_child (AdwBottomSheet *self);
+GtkWidget *adw_bottom_sheet_get_content (AdwBottomSheet *self);
 ADW_AVAILABLE_IN_1_6
-void       adw_bottom_sheet_set_child (AdwBottomSheet *self,
-                                       GtkWidget      *child);
+void       adw_bottom_sheet_set_content (AdwBottomSheet *self,
+                                         GtkWidget      *content);
 
 ADW_AVAILABLE_IN_1_6
 GtkWidget *adw_bottom_sheet_get_sheet (AdwBottomSheet *self);
