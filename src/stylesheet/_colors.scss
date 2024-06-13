@@ -109,6 +109,9 @@ $dimmer_opacity: 30%;
 $disabled_opacity: 50%;
 $strong_disabled_opacity: 30%;
 
+$standalone-color-oklab-light: Min(l, 0.5) a b;
+$standalone-color-oklab-dark: Max(l, 0.85) a b;
+
 // High Contrast color overrides
 @if $contrast == 'high' {
   $dim_label_opacity: 90%;

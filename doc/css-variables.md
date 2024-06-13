@@ -71,23 +71,19 @@ override them manually when setting app-wide accent color.
 However, when overriding the background colors for specific widgets, the
 standalone colors must overridden too, as follows:
 
-Light style:
-
 ```css
 my-widget {
   --accent-bg-color: var(--purple-3);
-  --accent-color: oklab(from var(--accent-bg-color) min(l, 0.5) a b);
+  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
 }
 ```
 
-Dark style:
+The `--standalone-color-oklab` variable has the following values for light and
+dark styles:
 
-```css
-my-widget {
-  --accent-bg-color: var(--purple-3);
-  --accent-color: oklab(from var(--accent-bg-color) max(l, 0.85) a b);
-}
-```
+Name                              | Light                    | Dark
+--------------------------------- | ------------------------ | -------------------------
+<tt>--standalone-color-oklab</tt> | <tt>min(l, 0.5) a b</tt> | <tt>max(l, 0.85) a b</tt>
 
 ## Accent Colors
 

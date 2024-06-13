@@ -93,16 +93,14 @@
 
 :root {
   @if $variant == 'light' {
-    --accent-color: oklab(from var(--accent-bg-color) min(l, 0.5) a b);
-    --destructive-color: oklab(from var(--destructive-bg-color) min(l, 0.5) a b);
-    --success-color: oklab(from var(--success-bg-color) min(l, 0.5) a b);
-    --warning-color: oklab(from var(--warning-bg-color) min(l, 0.5) a b);
-    --error-color: oklab(from var(--error-bg-color) min(l, 0.5) a b);
+    --standalone-color-oklab: min(l, 0.5) a b;
   } @else {
-    --accent-color: oklab(from var(--accent-bg-color) max(l, 0.85) a b);
-    --destructive-color: oklab(from var(--destructive-bg-color) max(l, 0.85) a b);
-    --success-color: oklab(from var(--success-bg-color) max(l, 0.85) a b);
-    --warning-color: oklab(from var(--warning-bg-color) max(l, 0.85) a b);
-    --error-color: oklab(from var(--error-bg-color) max(l, 0.85) a b);
+    --standalone-color-oklab: max(l, 0.85) a b;
   }
+
+  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+  --destructive-color: oklab(from var(--destructive-bg-color) var(--standalone-color-oklab));
+  --success-color: oklab(from var(--success-bg-color) var(--standalone-color-oklab));
+  --warning-color: oklab(from var(--warning-bg-color) var(--standalone-color-oklab));
+  --error-color: oklab(from var(--error-bg-color) var(--standalone-color-oklab));
 }
