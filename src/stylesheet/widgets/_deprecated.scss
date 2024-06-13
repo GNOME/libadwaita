@@ -112,7 +112,7 @@ iconview {
     // small enough that background color is unaffected, but GTK will still
     // redraw the treeview on --accent-bg-color changes. This is absolutely
     // terrible but I'll take it over changing GtkCellRenderer code any day
-    background-color: color-mix(in srgb, var(--accent-bg-color) 0.00001%, var(--view-bg-color));
+    background-color: color-mix(in srgb, var(--accent-bg-color) 0.0001%, var(--view-bg-color));
   }
 
   @if $contrast == 'high' {
@@ -201,7 +201,7 @@ treeview.view {
     // small enough that background color is unaffected, but GTK will still
     // redraw the treeview on --accent-bg-color changes. This is absolutely
     // terrible but I'll take it over changing GtkCellRenderer code any day
-    background-color: color-mix(in srgb, var(--accent-bg-color) 0.00001%, var(--view-bg-color));
+    background-color: color-mix(in srgb, var(--accent-bg-color) 0.0001%, var(--view-bg-color));
   }
 
   border-left-color: $treeview_borders_opaque; // this is actually the tree lines color,
