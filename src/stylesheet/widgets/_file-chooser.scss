@@ -138,6 +138,12 @@ filechooser {
     }
   }
 
+  columnview > listview,
+  gridview {
+    --accent-bg-color: #959595;
+    --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+  }
+
   // Style the outer action bar with a toolbar view-like shadow
   > box > actionbar {
     box-shadow: 0 -1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50% transparent)),
@@ -168,6 +174,11 @@ filechooser {
     // we only need top undershoot when it's visible, to avoid a double shadow.
     > stack > scrolledwindow {
       @include undershoot(bottom);
+
+      list {
+        --accent-bg-color: #959595;
+        --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+      }
     }
 
     // Make the Connect to Server action bar flat
