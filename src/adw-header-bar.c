@@ -178,7 +178,7 @@ struct _AdwHeaderBar {
 
   GtkWidget *title_navigation_page;
   GtkWidget *dialog;
-  gboolean is_within_sheet;
+  GtkWidget *sheet;
 
   GSList *split_views;
 };
@@ -246,17 +246,17 @@ recreate_start_controls (AdwHeaderBar *self)
   GtkWidget *controls;
 
   if (self->start_controls) {
-    if (self->is_within_sheet && ADW_IS_SHEET_CONTROLS (self->start_controls))
+    if (self->sheet && ADW_IS_SHEET_CONTROLS (self->start_controls))
       return;
 
-    if (!self->is_within_sheet && GTK_IS_WINDOW_CONTROLS (self->start_controls))
+    if (!self->sheet && GTK_IS_WINDOW_CONTROLS (self->start_controls))
       return;
 
     gtk_box_remove (GTK_BOX (self->start_box), self->start_controls);
     self->start_controls = NULL;
   }
 
-  if (self->is_within_sheet)
+  if (self->sheet)
     controls = adw_sheet_controls_new (GTK_PACK_START);
   else
     controls = gtk_window_controls_new (GTK_PACK_START);
@@ -279,17 +279,17 @@ recreate_end_controls (AdwHeaderBar *self)
   GtkWidget *controls;
 
   if (self->end_controls) {
-    if (self->is_within_sheet && ADW_IS_SHEET_CONTROLS (self->end_controls))
+    if (self->sheet && ADW_IS_SHEET_CONTROLS (self->end_controls))
       return;
 
-    if (!self->is_within_sheet && GTK_IS_WINDOW_CONTROLS (self->end_controls))
+    if (!self->sheet && GTK_IS_WINDOW_CONTROLS (self->end_controls))
       return;
 
     gtk_box_remove (GTK_BOX (self->end_box), self->end_controls);
     self->end_controls = NULL;
   }
 
-  if (self->is_within_sheet)
+  if (self->sheet)
     controls = adw_sheet_controls_new (GTK_PACK_END);
   else
     controls = gtk_window_controls_new (GTK_PACK_END);
@@ -414,6 +414,12 @@ update_title (AdwHeaderBar *self)
   if (!self->title_label)
     return;
 
+  if (ADW_IS_BOTTOM_SHEET (self->sheet) &&
+      adw_bottom_sheet_get_show_drag_handle (ADW_BOTTOM_SHEET (self->sheet))) {
+    gtk_label_set_text (GTK_LABEL (self->title_label), NULL);
+    return;
+  }
+
   if (self->title_navigation_page)
     title = adw_navigation_page_get_title (ADW_NAVIGATION_PAGE (self->title_navigation_page));
 
@@ -458,8 +464,8 @@ construct_title_label (AdwHeaderBar *self)
   update_title (self);
 }
 
-static gboolean
-is_within_sheet (GtkWidget *widget)
+static GtkWidget *
+find_sheet (GtkWidget *widget)
 {
   GtkWidget *sheet, *bin, *parent;
 
@@ -473,16 +479,16 @@ is_within_sheet (GtkWidget *widget)
   else if (ADW_IS_FLOATING_SHEET (sheet))
     bin = adw_floating_sheet_get_sheet_bin (ADW_FLOATING_SHEET (sheet));
   else
-    return FALSE;
+    return NULL;
 
   if (bin && (widget == bin || gtk_widget_is_ancestor (widget, bin)))
-    return TRUE;
+    return sheet;
 
   parent = gtk_widget_get_parent (sheet);
   if (parent)
-    return is_within_sheet (parent);
+    return find_sheet (parent);
 
-  return FALSE;
+  return NULL;
 }
 
 static void
@@ -497,8 +503,12 @@ adw_header_bar_root (GtkWidget *widget)
     adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
+  self->sheet = find_sheet (widget);
 
-  self->is_within_sheet = is_within_sheet (widget);
+  if (ADW_IS_BOTTOM_SHEET (self->sheet)) {
+    g_signal_connect_swapped (self->sheet, "notify::show-drag-handle",
+                              G_CALLBACK (update_title), widget);
+  }
 
   if (self->title_navigation_page) {
     g_signal_connect_swapped (self->title_navigation_page, "notify::title",
@@ -589,9 +599,14 @@ adw_header_bar_unroot (GtkWidget *widget)
                                           update_title, widget);
   }
 
+  if (self->sheet) {
+    g_signal_handlers_disconnect_by_func (self->sheet,
+                                          update_title, widget);
+  }
+
   self->title_navigation_page = NULL;
   self->dialog = NULL;
-  self->is_within_sheet = FALSE;
+  self->sheet = FALSE;
 
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
