@@ -40,6 +40,7 @@ struct _AdwFloatingSheet
   GtkWidget *dimming;
 
   gboolean open;
+  gboolean can_close;
 
   AdwAnimation *open_animation;
   double progress;
@@ -51,6 +52,7 @@ enum {
   PROP_0,
   PROP_CHILD,
   PROP_OPEN,
+  PROP_CAN_CLOSE,
   LAST_PROP
 };
 
@@ -89,7 +91,20 @@ open_animation_done_cb (AdwFloatingSheet *self)
 static void
 sheet_close_cb (AdwFloatingSheet *self)
 {
-  adw_floating_sheet_set_open (self, FALSE);
+  GtkWidget *parent;
+
+  if (!self->can_close)
+    return;
+
+  if (self->open) {
+    adw_floating_sheet_set_open (self, FALSE);
+    return;
+  }
+
+  parent = gtk_widget_get_parent (GTK_WIDGET (self));
+
+  if (parent)
+    gtk_widget_activate_action (parent, "sheet.close", NULL);
 }
 
 static void
@@ -196,6 +211,9 @@ adw_floating_sheet_get_property (GObject    *object,
   case PROP_OPEN:
     g_value_set_boolean (value, adw_floating_sheet_get_open (self));
     break;
+  case PROP_CAN_CLOSE:
+    g_value_set_boolean (value, adw_floating_sheet_get_can_close (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -215,6 +233,9 @@ adw_floating_sheet_set_property (GObject      *object,
     break;
   case PROP_OPEN:
     adw_floating_sheet_set_open (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_CLOSE:
+    adw_floating_sheet_set_can_close (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -247,6 +268,11 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   props[PROP_OPEN] =
     g_param_spec_boolean ("open", NULL, NULL,
                           FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_CAN_CLOSE] =
+    g_param_spec_boolean ("can-close", NULL, NULL,
+                          TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -287,6 +313,8 @@ static void
 adw_floating_sheet_init (AdwFloatingSheet *self)
 {
   AdwAnimationTarget *target;
+
+  self->can_close = TRUE;
 
   self->dimming = g_object_new (GTK_TYPE_WINDOW_HANDLE,
                                 "css-name", "dimming",
@@ -405,6 +433,30 @@ adw_floating_sheet_set_open (AdwFloatingSheet *self,
   adw_animation_play (self->open_animation);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_OPEN]);
+}
+
+gboolean
+adw_floating_sheet_get_can_close (AdwFloatingSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_FLOATING_SHEET (self), FALSE);
+
+  return self->can_close;
+}
+
+void
+adw_floating_sheet_set_can_close (AdwFloatingSheet *self,
+                                  gboolean          can_close)
+{
+  g_return_if_fail (ADW_IS_FLOATING_SHEET (self));
+
+  can_close = !!can_close;
+
+  if (self->can_close == can_close)
+    return;
+
+  self->can_close = can_close;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
 }
 
 GtkWidget *
