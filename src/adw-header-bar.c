@@ -74,7 +74,7 @@
  *
  * ## Split View Integration
  *
- * When placed inside `AdwNavigationSplitView` or `AdwOverlaySplitView`,
+ * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
  * `AdwHeaderBar` will automatically hide the title buttons other than at the
  * edges of the window.
  *
