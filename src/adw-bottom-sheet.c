@@ -123,7 +123,20 @@ open_animation_done_cb (AdwBottomSheet *self)
 static void
 sheet_close_cb (AdwBottomSheet *self)
 {
-  adw_bottom_sheet_set_open (self, FALSE);
+  GtkWidget *parent;
+
+  if (!self->can_close)
+    return;
+
+  if (self->open) {
+    adw_bottom_sheet_set_open (self, FALSE);
+    return;
+  }
+
+  parent = gtk_widget_get_parent (GTK_WIDGET (self));
+
+  if (parent)
+    gtk_widget_activate_action (parent, "sheet.close", NULL);
 }
 
 static void

@@ -32,6 +32,10 @@ gboolean adw_floating_sheet_get_open (AdwFloatingSheet *self);
 void     adw_floating_sheet_set_open (AdwFloatingSheet *self,
                                       gboolean          open);
 
+gboolean adw_floating_sheet_get_can_close (AdwFloatingSheet *self);
+void     adw_floating_sheet_set_can_close (AdwFloatingSheet *self,
+                                           gboolean          can_close);
+
 GtkWidget *adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self);
 
 void adw_floating_sheet_set_sheet_overflow (AdwFloatingSheet *self,

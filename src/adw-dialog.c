@@ -498,6 +498,7 @@ update_presentation (AdwDialog *self)
       adw_floating_sheet_set_open (priv->floating_sheet, TRUE);
 
     adw_floating_sheet_set_child (priv->floating_sheet, priv->child_breakpoint_bin);
+    adw_floating_sheet_set_can_close (priv->floating_sheet, priv->can_close);
     adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin),
                                   GTK_WIDGET (priv->floating_sheet));
 
@@ -1477,6 +1478,9 @@ adw_dialog_set_can_close (AdwDialog *self,
 
   if (priv->bottom_sheet)
     adw_bottom_sheet_set_can_close (priv->bottom_sheet, can_close);
+
+  if (priv->floating_sheet)
+    adw_floating_sheet_set_can_close (priv->floating_sheet, can_close);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
 }
