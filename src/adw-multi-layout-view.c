@@ -141,6 +141,9 @@ parent_child (AdwMultiLayoutView *self,
 
   child = g_hash_table_lookup (self->children, id);
 
+  if (gtk_widget_get_parent (child) == GTK_WIDGET (slot))
+    return;
+
   gtk_widget_set_parent (child, GTK_WIDGET (slot));
 }
 
@@ -201,11 +204,18 @@ rebuild_current_layout (AdwMultiLayoutView *self)
   self->content = adw_layout_get_content (self->current_layout);
 
   if (self->content) {
+    int old_size;
+
     self->accepting_slots = TRUE;
     gtk_widget_set_parent (self->content, GTK_WIDGET (self));
-    self->accepting_slots = FALSE;
 
-    g_hash_table_foreach (self->children, (GHFunc) parent_child_func, self);
+    do {
+      old_size = g_hash_table_size (self->slots);
+
+      g_hash_table_foreach (self->children, (GHFunc) parent_child_func, self);
+    } while (g_hash_table_size (self->slots) > old_size);
+
+    self->accepting_slots = FALSE;
   } else {
     g_critical ("Content in AdwLayout cannot be NULL");
   }
