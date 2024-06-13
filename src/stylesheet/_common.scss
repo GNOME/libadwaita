@@ -36,10 +36,16 @@ dnd {
 
 %osd,
 .osd:not(progressbar):not(button):not(menubutton):not(splitbutton) {
-  --accent-color: #{$osd_accent_color};
   --accent-bg-color: #{$osd_accent_bg_color};
   --accent-fg-color: #{$osd_accent_fg_color};
   --scrollbar-outline-color: RGB(0 0 0 / 50%);
+  --standalone-color-oklab: #{$standalone-color-oklab-dark};
+
+  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+  --destructive-color: oklab(from var(--destructive-bg-color) var(--standalone-color-oklab));
+  --success-color: oklab(from var(--success-bg-color) var(--standalone-color-oklab));
+  --warning-color: oklab(from var(--warning-bg-color) var(--standalone-color-oklab));
+  --error-color: oklab(from var(--error-bg-color) var(--standalone-color-oklab));
 
   color: $osd_fg_color;
   border: none;
