@@ -42,7 +42,7 @@
                           <object class="AdwEntryRow" id="title_row">
                             <property name="title" translatable="yes">Title</property>
                             <property name="use_underline">True</property>
-                            <property name="text">Metered connection – updates paused</property>
+                            <property name="text">Metered connection — updates paused</property>
                             <property name="input-hints">spellcheck | word-completion | uppercase-sentences</property>
                           </object>
                         </child>
