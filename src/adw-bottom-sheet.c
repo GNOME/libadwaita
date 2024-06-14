@@ -869,7 +869,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
             AdwNavigationDirection  direction,
             AdwBottomSheet         *self)
 {
-  if (adw_animation_get_state (self->open_animation) == ADW_ANIMATION_PLAYING &&
+  if (!self->bottom_bar &&
+      adw_animation_get_state (self->open_animation) == ADW_ANIMATION_PLAYING &&
       adw_spring_animation_get_value_to (ADW_SPRING_ANIMATION (self->open_animation)) < 0.5)
     return;
 
