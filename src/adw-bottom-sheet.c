@@ -62,7 +62,7 @@
  *
  * Bottom sheets are modal by default, meaning that the content is dimmed and
  * cannot be accessed while the sheet is open. Set [property@BottomSheet:modal]
- * to `FALSE` is this behavior is unwanted.
+ * to `FALSE` if this behavior is unwanted.
  *
  * To disable user interactions for opening or closing the bottom sheet (such as
  * swipes or clicking the bottom bar or close button), set
