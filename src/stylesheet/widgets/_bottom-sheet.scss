@@ -119,8 +119,12 @@ bottom-sheet {
       }
     }
 
-    &.has-drag-handle .top-bar > windowhandle {
+    &.has-drag-handle toolbarview .top-bar > windowhandle {
       min-height: 36px;
+    }
+
+    &.has-drag-handle toolbarview toolbarview .top-bar > windowhandle {
+      min-height: 0;
     }
   }
 }
