@@ -174,7 +174,7 @@ adw_accent_color_nearest_from_rgba (GdkRGBA *original_color)
   if (h > 345)
     return ADW_ACCENT_COLOR_PINK;
 
-  if (h > 290)
+  if (h > 280)
     return ADW_ACCENT_COLOR_PURPLE;
 
   if (h > 230)

@@ -34,6 +34,7 @@ endif
 test_names = [
   'test-about-dialog',
   'test-about-window',
+  'test-accent-color',
   'test-action-row',
   'test-alert-dialog',
   'test-animation',

@@ -1,0 +1,267 @@
+/*
+ * Copyright (C) 2024 Alice Mikhaylenko <alicem@gnome.org>
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ */
+
+#include <adwaita.h>
+
+#include "adw-accent-color-private.h"
+
+#include <math.h>
+
+static inline int
+rgba_to_hex (GdkRGBA *rgba)
+{
+  return (int) (round (rgba->red   * 0xff)) << 16 |
+         (int) (round (rgba->green * 0xff)) << 8 |
+         (int) (round (rgba->blue  * 0xff));
+}
+
+static inline void
+hex_to_rgba (int      hex,
+             GdkRGBA *rgba)
+{
+  rgba->red =   (float) ((hex >> 16) & 0xff) / 0xff;
+  rgba->green = (float) ((hex >> 8)  & 0xff) / 0xff;
+  rgba->blue =  (float) ((hex)       & 0xff) / 0xff;
+  rgba->alpha = 1;
+}
+
+#define TEST_NEAREST_ACCENT(rgba_str, expected) \
+  gdk_rgba_parse (&rgba, rgba_str); \
+  g_assert_cmpint (expected, ==, adw_accent_color_nearest_from_rgba (&rgba));
+
+#define TEST_ACCENT_TO_RGBA(accent, expected) \
+  adw_accent_color_to_rgba (accent, &rgba); \
+  hex = rgba_to_hex (&rgba); \
+  g_assert_cmphex (expected, ==, hex);
+
+#define TEST_ACCENT_TO_STANDALONE_RGBA(accent, dark, expected) \
+  adw_accent_color_to_standalone_rgba (accent, dark, &rgba); \
+  hex = rgba_to_hex (&rgba); \
+  g_assert_cmphex (expected, ==, hex);
+
+#define TEST_RGBA_TO_STANDALONE(rgba_str, dark, expected) \
+  hex_to_rgba (rgba_str, &rgba); \
+  adw_rgba_to_standalone (&rgba, dark, &rgba); \
+  hex = rgba_to_hex (&rgba); \
+  g_assert_cmphex (expected, ==, hex);
+
+static void
+test_adw_accent_color_nearest_from_rgba (void)
+{
+  GdkRGBA rgba;
+
+  /* Roundtrip */
+  for (int i = 0; i <= ADW_ACCENT_COLOR_SLATE; i++) {
+    adw_accent_color_to_rgba (i, &rgba);
+    g_assert_cmpint (i, ==, adw_accent_color_nearest_from_rgba (&rgba));
+  }
+
+  /* Icon palette */
+  TEST_NEAREST_ACCENT ("#99c1f1", ADW_ACCENT_COLOR_BLUE);   /* blue 1 */
+  TEST_NEAREST_ACCENT ("#62a0ea", ADW_ACCENT_COLOR_BLUE);   /* blue 2 */
+  TEST_NEAREST_ACCENT ("#3584e4", ADW_ACCENT_COLOR_BLUE);   /* blue 3 */
+  TEST_NEAREST_ACCENT ("#1c71d8", ADW_ACCENT_COLOR_BLUE);   /* blue 4 */
+  TEST_NEAREST_ACCENT ("#1a5fb4", ADW_ACCENT_COLOR_BLUE);   /* blue 5 */
+  TEST_NEAREST_ACCENT ("#8ff0a4", ADW_ACCENT_COLOR_GREEN);  /* green 1 */
+  TEST_NEAREST_ACCENT ("#57e389", ADW_ACCENT_COLOR_GREEN);  /* green 2 */
+  TEST_NEAREST_ACCENT ("#33d17a", ADW_ACCENT_COLOR_GREEN);  /* green 3 */
+  TEST_NEAREST_ACCENT ("#2ec27e", ADW_ACCENT_COLOR_GREEN);  /* green 4 */
+  TEST_NEAREST_ACCENT ("#26a269", ADW_ACCENT_COLOR_GREEN);  /* green 5 */
+  TEST_NEAREST_ACCENT ("#f9f06b", ADW_ACCENT_COLOR_YELLOW); /* yellow 1 */
+  TEST_NEAREST_ACCENT ("#f8e45c", ADW_ACCENT_COLOR_YELLOW); /* yellow 2 */
+  TEST_NEAREST_ACCENT ("#f6d32d", ADW_ACCENT_COLOR_YELLOW); /* yellow 3 */
+  TEST_NEAREST_ACCENT ("#f5c211", ADW_ACCENT_COLOR_YELLOW); /* yellow 4 */
+  TEST_NEAREST_ACCENT ("#e5a50a", ADW_ACCENT_COLOR_YELLOW); /* yellow 5 */
+  TEST_NEAREST_ACCENT ("#ffbe6f", ADW_ACCENT_COLOR_ORANGE); /* orange 1 */
+  TEST_NEAREST_ACCENT ("#ffa348", ADW_ACCENT_COLOR_ORANGE); /* orange 2 */
+  TEST_NEAREST_ACCENT ("#ff7800", ADW_ACCENT_COLOR_ORANGE); /* orange 3 */
+  TEST_NEAREST_ACCENT ("#e66100", ADW_ACCENT_COLOR_ORANGE); /* orange 4 */
+  TEST_NEAREST_ACCENT ("#c64600", ADW_ACCENT_COLOR_ORANGE); /* orange 5 */
+  TEST_NEAREST_ACCENT ("#f66151", ADW_ACCENT_COLOR_RED);    /* red 1 */
+  TEST_NEAREST_ACCENT ("#ed333b", ADW_ACCENT_COLOR_RED);    /* red 2 */
+  TEST_NEAREST_ACCENT ("#e01b24", ADW_ACCENT_COLOR_RED);    /* red 3 */
+  TEST_NEAREST_ACCENT ("#c01c28", ADW_ACCENT_COLOR_RED);    /* red 4 */
+  TEST_NEAREST_ACCENT ("#a51d2d", ADW_ACCENT_COLOR_RED);    /* red 5 */
+  TEST_NEAREST_ACCENT ("#dc8add", ADW_ACCENT_COLOR_PURPLE); /* purple 1 */
+  TEST_NEAREST_ACCENT ("#c061cb", ADW_ACCENT_COLOR_PURPLE); /* purple 2 */
+  TEST_NEAREST_ACCENT ("#9141ac", ADW_ACCENT_COLOR_PURPLE); /* purple 3 */
+  TEST_NEAREST_ACCENT ("#813d9c", ADW_ACCENT_COLOR_PURPLE); /* purple 4 */
+  TEST_NEAREST_ACCENT ("#613583", ADW_ACCENT_COLOR_PURPLE); /* purple 5 */
+  TEST_NEAREST_ACCENT ("#cdab8f", ADW_ACCENT_COLOR_ORANGE); /* brown 1 */
+  TEST_NEAREST_ACCENT ("#b5835a", ADW_ACCENT_COLOR_ORANGE); /* brown 2 */
+  TEST_NEAREST_ACCENT ("#986a44", ADW_ACCENT_COLOR_ORANGE); /* brown 3 */
+  TEST_NEAREST_ACCENT ("#865e3c", ADW_ACCENT_COLOR_ORANGE); /* brown 4 */
+  TEST_NEAREST_ACCENT ("#63452c", ADW_ACCENT_COLOR_ORANGE); /* brown 5 */
+  TEST_NEAREST_ACCENT ("#ffffff", ADW_ACCENT_COLOR_SLATE);  /* light 1 */
+  TEST_NEAREST_ACCENT ("#f6f5f4", ADW_ACCENT_COLOR_SLATE);  /* light 2 */
+  TEST_NEAREST_ACCENT ("#deddda", ADW_ACCENT_COLOR_SLATE);  /* light 3 */
+  TEST_NEAREST_ACCENT ("#c0bfbc", ADW_ACCENT_COLOR_SLATE);  /* light 4 */
+  TEST_NEAREST_ACCENT ("#9a9996", ADW_ACCENT_COLOR_SLATE);  /* light 5 */
+  TEST_NEAREST_ACCENT ("#77767b", ADW_ACCENT_COLOR_SLATE);  /* dark 1 */
+  TEST_NEAREST_ACCENT ("#5e5c64", ADW_ACCENT_COLOR_SLATE);  /* dark 2 */
+  TEST_NEAREST_ACCENT ("#3d3846", ADW_ACCENT_COLOR_SLATE);  /* dark 3 */
+  TEST_NEAREST_ACCENT ("#241f31", ADW_ACCENT_COLOR_SLATE);  /* dark 4 */
+  TEST_NEAREST_ACCENT ("#000000", ADW_ACCENT_COLOR_SLATE);  /* dark 5 */
+
+  /* elementary */
+  TEST_NEAREST_ACCENT ("#3689e6", ADW_ACCENT_COLOR_BLUE);   /* blueberry */
+  TEST_NEAREST_ACCENT ("#28bca3", ADW_ACCENT_COLOR_TEAL);   /* mint */
+  TEST_NEAREST_ACCENT ("#68b723", ADW_ACCENT_COLOR_GREEN);  /* lime */
+  TEST_NEAREST_ACCENT ("#f9c440", ADW_ACCENT_COLOR_YELLOW); /* banana */
+  TEST_NEAREST_ACCENT ("#ffa154", ADW_ACCENT_COLOR_ORANGE); /* orange */
+  TEST_NEAREST_ACCENT ("#ed5353", ADW_ACCENT_COLOR_RED);    /* strawberry */
+  TEST_NEAREST_ACCENT ("#de3e80", ADW_ACCENT_COLOR_PINK);   /* bubblegum */
+  TEST_NEAREST_ACCENT ("#a56de2", ADW_ACCENT_COLOR_PURPLE); /* grape */
+  TEST_NEAREST_ACCENT ("#8a715e", ADW_ACCENT_COLOR_ORANGE); /* cocoa */
+  TEST_NEAREST_ACCENT ("#667885", ADW_ACCENT_COLOR_SLATE);  /* slate */
+
+  /* KDE (light) */
+  TEST_NEAREST_ACCENT ("#ef75b8", ADW_ACCENT_COLOR_PINK);
+  TEST_NEAREST_ACCENT ("#ef778a", ADW_ACCENT_COLOR_RED);
+  TEST_NEAREST_ACCENT ("#ef9275", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#eeda6b", ADW_ACCENT_COLOR_YELLOW);
+  TEST_NEAREST_ACCENT ("#77e066", ADW_ACCENT_COLOR_GREEN);
+  TEST_NEAREST_ACCENT ("#4ce0cd", ADW_ACCENT_COLOR_TEAL);
+  TEST_NEAREST_ACCENT ("#77c6ef", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#cd9ee6", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#b299ec", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#95979a", ADW_ACCENT_COLOR_SLATE);
+
+  /* KDE (dark) */
+  TEST_NEAREST_ACCENT ("#ab3175", ADW_ACCENT_COLOR_PINK);
+  TEST_NEAREST_ACCENT ("#ab3347", ADW_ACCENT_COLOR_RED);
+  TEST_NEAREST_ACCENT ("#ab4f32", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#aa9729", ADW_ACCENT_COLOR_YELLOW);
+  TEST_NEAREST_ACCENT ("#329d23", ADW_ACCENT_COLOR_GREEN);
+  TEST_NEAREST_ACCENT ("#089c8a", ADW_ACCENT_COLOR_TEAL);
+  TEST_NEAREST_ACCENT ("#3282ac", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#885aa3", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#6e56a9", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#505357", ADW_ACCENT_COLOR_SLATE);
+
+  /* Ubuntu */
+  TEST_NEAREST_ACCENT ("#e95420", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#787859", ADW_ACCENT_COLOR_YELLOW); /* bark */
+  TEST_NEAREST_ACCENT ("#657b69", ADW_ACCENT_COLOR_SLATE);  /* sage */
+  TEST_NEAREST_ACCENT ("#4b8501", ADW_ACCENT_COLOR_GREEN);  /* olive */
+  TEST_NEAREST_ACCENT ("#03875b", ADW_ACCENT_COLOR_GREEN);  /* viridian */
+  TEST_NEAREST_ACCENT ("#308280", ADW_ACCENT_COLOR_TEAL);   /* prussian green */
+  TEST_NEAREST_ACCENT ("#0073e5", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#7764d8", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#b34cb3", ADW_ACCENT_COLOR_PURPLE); /* magenta */
+  TEST_NEAREST_ACCENT ("#da3450", ADW_ACCENT_COLOR_RED);
+
+  /* Cinnamon */
+  TEST_NEAREST_ACCENT ("#0c75de", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#1f9ede", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#199ca8", ADW_ACCENT_COLOR_TEAL);
+  TEST_NEAREST_ACCENT ("#35a854", ADW_ACCENT_COLOR_GREEN);
+  TEST_NEAREST_ACCENT ("#c5a07c", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#70737a", ADW_ACCENT_COLOR_SLATE);
+  TEST_NEAREST_ACCENT ("#ff7139", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#e82127", ADW_ACCENT_COLOR_RED);
+  TEST_NEAREST_ACCENT ("#e54980", ADW_ACCENT_COLOR_PINK);
+  TEST_NEAREST_ACCENT ("#8c5dd9", ADW_ACCENT_COLOR_PURPLE);
+
+  /* COSMIC */
+  TEST_NEAREST_ACCENT ("#63d0df", ADW_ACCENT_COLOR_TEAL);
+  TEST_NEAREST_ACCENT ("#a1c0eb", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#e79cfe", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#ff9cb1", ADW_ACCENT_COLOR_PINK);
+  TEST_NEAREST_ACCENT ("#fda1a0", ADW_ACCENT_COLOR_RED);
+  TEST_NEAREST_ACCENT ("#ffad00", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#f7e062", ADW_ACCENT_COLOR_YELLOW);
+  TEST_NEAREST_ACCENT ("#92cf9c", ADW_ACCENT_COLOR_GREEN);
+  TEST_NEAREST_ACCENT ("#cabab4", ADW_ACCENT_COLOR_SLATE);
+
+  /* macOS */
+  TEST_NEAREST_ACCENT ("#017bff", ADW_ACCENT_COLOR_BLUE);
+  TEST_NEAREST_ACCENT ("#a550a7", ADW_ACCENT_COLOR_PURPLE);
+  TEST_NEAREST_ACCENT ("#f8509e", ADW_ACCENT_COLOR_PINK);
+  TEST_NEAREST_ACCENT ("#ff5257", ADW_ACCENT_COLOR_RED);
+  TEST_NEAREST_ACCENT ("#f7821a", ADW_ACCENT_COLOR_ORANGE);
+  TEST_NEAREST_ACCENT ("#ffc602", ADW_ACCENT_COLOR_YELLOW);
+  TEST_NEAREST_ACCENT ("#62ba46", ADW_ACCENT_COLOR_GREEN);
+  TEST_NEAREST_ACCENT ("#8c8c8c", ADW_ACCENT_COLOR_SLATE);
+}
+
+static void
+test_adw_accent_color_to_rgba (void)
+{
+  GdkRGBA rgba;
+  int hex;
+
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_BLUE,   0x3584e4);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_TEAL,   0x2190a4);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_GREEN,  0x3a944a);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_YELLOW, 0xc88800);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_ORANGE, 0xed5b00);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_RED,    0xe62d42);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_PINK,   0xd56199);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_PURPLE, 0x9141ac);
+  TEST_ACCENT_TO_RGBA (ADW_ACCENT_COLOR_SLATE,  0x6f8396);
+}
+
+static void
+test_adw_accent_color_to_standalone_rgba (void)
+{
+  GdkRGBA rgba;
+  int hex;
+
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_BLUE,   FALSE, 0x0461be);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_TEAL,   FALSE, 0x007184);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_GREEN,  FALSE, 0x15772e);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_YELLOW, FALSE, 0x905300);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_ORANGE, FALSE, 0xb62200);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_RED,    FALSE, 0xc00023);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_PINK,   FALSE, 0xa2326c);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_PURPLE, FALSE, 0x8939a4);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_SLATE,  FALSE, 0x526678);
+
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_BLUE,   TRUE, 0x81d0ff);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_TEAL,   TRUE, 0x7bdff4);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_GREEN,  TRUE, 0x8de698);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_YELLOW, TRUE, 0xffc057);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_ORANGE, TRUE, 0xff9c5b);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_RED,    TRUE, 0xff888c);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_PINK,   TRUE, 0xffa0d8);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_PURPLE, TRUE, 0xfba7ff);
+  TEST_ACCENT_TO_STANDALONE_RGBA (ADW_ACCENT_COLOR_SLATE,  TRUE, 0xbbd1e5);
+}
+
+static void
+test_adw_accent_color_rgba_to_standalone (void)
+{
+  GdkRGBA rgba;
+  int hex;
+
+  TEST_RGBA_TO_STANDALONE (0x3584e4, FALSE, 0x0461be);
+  TEST_RGBA_TO_STANDALONE (0x3584e4, TRUE,  0x81d0ff);
+
+  TEST_RGBA_TO_STANDALONE (0xffffff, FALSE, 0x636363);
+  TEST_RGBA_TO_STANDALONE (0xffffff, TRUE,  0xffffff);
+
+  TEST_RGBA_TO_STANDALONE (0x000000, FALSE, 0x000000);
+  TEST_RGBA_TO_STANDALONE (0x000000, TRUE,  0xcecece);
+
+  TEST_RGBA_TO_STANDALONE (0x959595, FALSE, 0x636363);
+  TEST_RGBA_TO_STANDALONE (0x959595, TRUE,  0xcecece);
+}
+
+int
+main (int   argc,
+      char *argv[])
+{
+  gtk_test_init (&argc, &argv, NULL);
+  adw_init ();
+
+  g_test_add_func ("/Adwaita/AccentColor/nearest_from_rgba", test_adw_accent_color_nearest_from_rgba);
+  g_test_add_func ("/Adwaita/AccentColor/to_rgba", test_adw_accent_color_to_rgba);
+  g_test_add_func ("/Adwaita/AccentColor/to_standalone_rgba", test_adw_accent_color_to_standalone_rgba);
+  g_test_add_func ("/Adwaita/AccentColor/rgba_to_standalone", test_adw_accent_color_rgba_to_standalone);
+
+  return g_test_run ();
+}
