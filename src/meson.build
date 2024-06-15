@@ -395,7 +395,6 @@ endif
 libadwaita = library(
   'adwaita-' + apiversion,
   libadwaita_sources,
-
               soversion: soversion,
                  c_args: libadwaita_c_args,
            dependencies: libadwaita_deps,
@@ -412,6 +411,28 @@ libadwaita_dep = declare_dependency(
             link_with: libadwaita,
   include_directories: include_directories('.'),
 )
+
+if get_option('tests')
+  libadwaita_internal = library(
+    'adwaita-' + apiversion + '-internal',
+    libadwaita_sources,
+
+                soversion: soversion,
+                   c_args: libadwaita_c_args,
+             dependencies: libadwaita_deps,
+      include_directories: [ root_inc, src_inc ],
+                  install: true,
+                link_args: libadwaita_link_args,
+              install_dir: adwaita_libdir,
+  )
+
+  libadwaita_internal_dep = declare_dependency(
+                sources: libadwaita_generated_headers,
+           dependencies: libadwaita_public_deps,
+              link_with: libadwaita_internal,
+    include_directories: include_directories('.'),
+  )
+endif
 
 meson.override_dependency(package_api_name, libadwaita_dep)
 
@@ -463,4 +484,3 @@ pkgg.generate(
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
-
