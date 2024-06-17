@@ -62,6 +62,13 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
+enum {
+  SIGNAL_CLOSE_ATTEMPT,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 static void
 open_animation_cb (double            value,
                    AdwFloatingSheet *self)
@@ -90,8 +97,10 @@ sheet_close_cb (AdwFloatingSheet *self)
 {
   GtkWidget *parent;
 
-  if (!self->can_close)
+  if (!self->can_close) {
+    g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
     return;
+  }
 
   if (self->open) {
     adw_floating_sheet_set_open (self, FALSE);
@@ -102,6 +111,20 @@ sheet_close_cb (AdwFloatingSheet *self)
 
   if (parent)
     gtk_widget_activate_action (parent, "sheet.close", NULL);
+}
+
+static gboolean
+maybe_close_cb (GtkWidget        *widget,
+                GVariant         *args,
+                AdwFloatingSheet *self)
+{
+  if (self->can_close && self->open) {
+    adw_floating_sheet_set_open (self, FALSE);
+    return GDK_EVENT_STOP;
+  }
+
+  g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
+  return GDK_EVENT_STOP;
 }
 
 static void
@@ -274,6 +297,19 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  signals[SIGNAL_CLOSE_ATTEMPT] =
+    g_signal_new ("close-attempt",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
+                  G_TYPE_NONE,
+                  0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLOSE_ATTEMPT],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
+
   gtk_widget_class_install_action (widget_class, "sheet.close", NULL,
                                    (GtkWidgetActionActivateFunc) sheet_close_cb);
 
@@ -284,6 +320,8 @@ static void
 adw_floating_sheet_init (AdwFloatingSheet *self)
 {
   AdwAnimationTarget *target;
+  GtkEventController *shortcut_controller;
+  GtkShortcut *shortcut;
 
   self->can_close = TRUE;
 
@@ -319,6 +357,15 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.01);
   g_signal_connect_swapped (self->open_animation, "done",
                             G_CALLBACK (open_animation_done_cb), self);
+
+  /* Esc to close */
+
+  shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Escape, 0),
+                               gtk_callback_action_new ((GtkShortcutFunc) maybe_close_cb, self, NULL));
+
+  shortcut_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (shortcut_controller), shortcut);
+  gtk_widget_add_controller (self->sheet_bin, shortcut_controller);
 }
 
 GtkWidget *

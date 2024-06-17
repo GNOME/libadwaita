@@ -230,6 +230,12 @@ sheet_closed_cb (GtkWidget *sheet,
 }
 
 static void
+sheet_close_attempt_cb (AdwDialog *self)
+{
+  g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
+}
+
+static void
 unset_default_widget (AdwDialog *self)
 {
   adw_dialog_set_default_widget (self, NULL);
@@ -484,6 +490,9 @@ update_presentation (AdwDialog *self)
                                     (GFunc) sheet_closed_cb,
                                     self);
 
+    g_signal_connect_swapped (priv->bottom_sheet, "close-attempt",
+                              G_CALLBACK (sheet_close_attempt_cb), self);
+
     gtk_widget_add_css_class (GTK_WIDGET (self), "bottom-sheet");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
 
@@ -511,6 +520,9 @@ update_presentation (AdwDialog *self)
                                       (GFunc) sheet_closing_cb,
                                       (GFunc) sheet_closed_cb,
                                       self);
+
+    g_signal_connect_swapped (priv->floating_sheet, "close-attempt",
+                              G_CALLBACK (sheet_close_attempt_cb), self);
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "bottom-sheet");
@@ -1249,9 +1261,6 @@ adw_dialog_class_init (AdwDialogClass *klass)
                                 (GtkShortcutFunc) open_inspector_cb, "b", FALSE);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                                 (GtkShortcutFunc) open_inspector_cb, "b", TRUE);
-
-  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0,
-                                (GtkShortcutFunc) adw_dialog_close, NULL);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "dialog");
