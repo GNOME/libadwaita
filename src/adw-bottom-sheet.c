@@ -181,6 +181,13 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
+enum {
+  SIGNAL_CLOSE_ATTEMPT,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 static void
 released_cb (GtkGestureClick *gesture,
              int              n_press,
@@ -192,9 +199,11 @@ released_cb (GtkGestureClick *gesture,
     return;
 
   if (!self->can_close)
-    return;
+    g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
+  else
+    adw_bottom_sheet_set_open (self, FALSE);
 
-  adw_bottom_sheet_set_open (self, FALSE);
+  gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 }
 
 static void
@@ -261,8 +270,10 @@ sheet_close_cb (AdwBottomSheet *self)
 {
   GtkWidget *parent;
 
-  if (!self->can_close)
+  if (!self->can_close) {
+    g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
     return;
+  }
 
   if (self->open) {
     adw_bottom_sheet_set_open (self, FALSE);
@@ -285,7 +296,8 @@ maybe_close_cb (GtkWidget      *widget,
     return GDK_EVENT_STOP;
   }
 
-  return GDK_EVENT_PROPAGATE;
+  g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
+  return GDK_EVENT_STOP;
 }
 
 static void
@@ -857,6 +869,28 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
+
+  /**
+   * AdwBottomSheet::close-attempt:
+   * @self: a bottom sheet
+   *
+   * Emitted when the close button or shortcut is used while
+   * [property@Dialog:can-close] is set to `FALSE`.
+   *
+   * Since: 1.6
+   */
+  signals[SIGNAL_CLOSE_ATTEMPT] =
+    g_signal_new ("close-attempt",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
+                  G_TYPE_NONE,
+                  0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLOSE_ATTEMPT],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_install_action (widget_class, "sheet.close", NULL,
                                    (GtkWidgetActionActivateFunc) sheet_close_cb);
