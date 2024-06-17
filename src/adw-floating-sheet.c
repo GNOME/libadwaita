@@ -61,6 +61,7 @@ static GParamSpec *props[LAST_PROP];
 enum {
   SIGNAL_CLOSING,
   SIGNAL_CLOSED,
+  SIGNAL_CLOSE_ATTEMPT,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -93,8 +94,10 @@ sheet_close_cb (AdwFloatingSheet *self)
 {
   GtkWidget *parent;
 
-  if (!self->can_close)
+  if (!self->can_close) {
+    g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
     return;
+  }
 
   if (self->open) {
     adw_floating_sheet_set_open (self, FALSE);
@@ -300,6 +303,19 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
                   G_TYPE_NONE,
                   0);
   g_signal_set_va_marshaller (signals[SIGNAL_CLOSED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
+
+  signals[SIGNAL_CLOSE_ATTEMPT] =
+    g_signal_new ("close-attempt",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
+                  G_TYPE_NONE,
+                  0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLOSE_ATTEMPT],
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__VOIDv);
 

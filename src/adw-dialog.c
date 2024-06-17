@@ -222,6 +222,13 @@ sheet_closed_cb (AdwDialog *self)
 }
 
 static void
+sheet_close_attempt_cb (AdwDialog *self)
+{
+  g_print ("a\n");
+  g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
+}
+
+static void
 unset_default_widget (AdwDialog *self)
 {
   adw_dialog_set_default_widget (self, NULL);
@@ -473,6 +480,8 @@ update_presentation (AdwDialog *self)
                               G_CALLBACK (sheet_closing_cb), self);
     g_signal_connect_swapped (priv->bottom_sheet, "closed",
                               G_CALLBACK (sheet_closed_cb), self);
+    g_signal_connect_swapped (priv->bottom_sheet, "close-attempt",
+                              G_CALLBACK (sheet_close_attempt_cb), self);
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "bottom-sheet");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
@@ -499,6 +508,8 @@ update_presentation (AdwDialog *self)
                               G_CALLBACK (sheet_closing_cb), self);
     g_signal_connect_swapped (priv->floating_sheet, "closed",
                               G_CALLBACK (sheet_closed_cb), self);
+    g_signal_connect_swapped (priv->floating_sheet, "close-attempt",
+                              G_CALLBACK (sheet_close_attempt_cb), self);
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "bottom-sheet");
@@ -1877,6 +1888,7 @@ adw_dialog_close (AdwDialog *self)
   priv = adw_dialog_get_instance_private (self);
 
   if (!priv->can_close) {
+  g_print ("b\n");
     g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
     return FALSE;
   }
