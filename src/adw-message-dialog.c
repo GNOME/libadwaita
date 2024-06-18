@@ -148,6 +148,7 @@
  * `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 
 #define DIALOG_MARGIN 30
@@ -890,6 +891,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * The heading of the dialog.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_HEADING] =
     g_param_spec_string ("heading", NULL, NULL,
@@ -904,6 +906,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * See [func@Pango.parse_markup].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_HEADING_USE_MARKUP] =
     g_param_spec_boolean ("heading-use-markup", NULL, NULL,
@@ -916,6 +919,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * The body text of the dialog.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_BODY] =
     g_param_spec_string ("body", NULL, NULL,
@@ -930,6 +934,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * See [func@Pango.parse_markup].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_BODY_USE_MARKUP] =
     g_param_spec_boolean ("body-use-markup", NULL, NULL,
@@ -944,6 +949,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * Displayed below the heading and body.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_EXTRA_CHILD] =
     g_param_spec_object ("extra-child", NULL, NULL,
@@ -961,6 +967,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * will do nothing.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_DEFAULT_RESPONSE] =
     g_param_spec_string ("default-response", NULL, NULL,
@@ -980,6 +987,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * The default close response is `close`.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   props[PROP_CLOSE_RESPONSE] =
     g_param_spec_string ("close-response", NULL, NULL,
@@ -1003,6 +1011,7 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    * [property@MessageDialog:close-response].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AlertDialog].
    */
   signals[SIGNAL_RESPONSE] =
     g_signal_new ("response",
@@ -1320,6 +1329,7 @@ adw_message_dialog_buildable_init (GtkBuildableIface *iface)
  * Returns: the newly created `AdwMessageDialog`
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 GtkWidget *
 adw_message_dialog_new (GtkWindow  *parent,
@@ -1352,6 +1362,7 @@ adw_message_dialog_new (GtkWindow  *parent,
  * Returns: (nullable): the heading of @self.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_get_heading (AdwMessageDialog *self)
@@ -1373,6 +1384,7 @@ adw_message_dialog_get_heading (AdwMessageDialog *self)
  * Sets the heading of @self.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_heading (AdwMessageDialog *self,
@@ -1410,6 +1422,7 @@ adw_message_dialog_set_heading (AdwMessageDialog *self,
  * Returns: whether @self uses markup for heading
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 gboolean
 adw_message_dialog_get_heading_use_markup (AdwMessageDialog *self)
@@ -1433,6 +1446,7 @@ adw_message_dialog_get_heading_use_markup (AdwMessageDialog *self)
  * See [func@Pango.parse_markup].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_heading_use_markup (AdwMessageDialog *self,
@@ -1470,6 +1484,7 @@ adw_message_dialog_set_heading_use_markup (AdwMessageDialog *self,
  * See [property@MessageDialog:heading].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_format_heading (AdwMessageDialog *self,
@@ -1519,6 +1534,7 @@ adw_message_dialog_format_heading (AdwMessageDialog *self,
  * See [property@MessageDialog:heading].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_format_heading_markup (AdwMessageDialog *self,
@@ -1560,6 +1576,7 @@ adw_message_dialog_format_heading_markup (AdwMessageDialog *self,
  * Returns: the body of @self.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_get_body (AdwMessageDialog *self)
@@ -1581,6 +1598,7 @@ adw_message_dialog_get_body (AdwMessageDialog *self)
  * Sets the body text of @self.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_body (AdwMessageDialog *self,
@@ -1616,6 +1634,7 @@ adw_message_dialog_set_body (AdwMessageDialog *self,
  * Returns: whether @self uses markup for body text
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 gboolean
 adw_message_dialog_get_body_use_markup (AdwMessageDialog *self)
@@ -1639,6 +1658,7 @@ adw_message_dialog_get_body_use_markup (AdwMessageDialog *self)
  * See [func@Pango.parse_markup].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_body_use_markup (AdwMessageDialog *self,
@@ -1673,6 +1693,7 @@ adw_message_dialog_set_body_use_markup (AdwMessageDialog *self,
  * See [property@MessageDialog:body].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_format_body (AdwMessageDialog *self,
@@ -1722,6 +1743,7 @@ adw_message_dialog_format_body (AdwMessageDialog *self,
  * See [property@MessageDialog:body].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_format_body_markup (AdwMessageDialog *self,
@@ -1763,6 +1785,7 @@ adw_message_dialog_format_body_markup (AdwMessageDialog *self,
  * Returns: (nullable) (transfer none): the child widget of @self.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 GtkWidget *
 adw_message_dialog_get_extra_child (AdwMessageDialog *self)
@@ -1786,6 +1809,7 @@ adw_message_dialog_get_extra_child (AdwMessageDialog *self)
  * The child widget is displayed below the heading and body.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_extra_child (AdwMessageDialog *self,
@@ -1839,6 +1863,7 @@ adw_message_dialog_set_extra_child (AdwMessageDialog *self,
  * responses further.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_add_response (AdwMessageDialog *self,
@@ -1906,6 +1931,7 @@ adw_message_dialog_add_response (AdwMessageDialog *self,
  * ```
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_add_responses (AdwMessageDialog *self,
@@ -1946,6 +1972,7 @@ adw_message_dialog_add_responses (AdwMessageDialog *self,
  * Removes a response from @self.
  *
  * Since: 1.5
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_remove_response (AdwMessageDialog *self,
@@ -1997,6 +2024,7 @@ adw_message_dialog_remove_response (AdwMessageDialog *self,
  * Returns: the label of @response
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_get_response_label (AdwMessageDialog *self,
@@ -2025,6 +2053,7 @@ adw_message_dialog_get_response_label (AdwMessageDialog *self,
  * indicates a mnemonic.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_response_label (AdwMessageDialog *self,
@@ -2057,6 +2086,7 @@ adw_message_dialog_set_response_label (AdwMessageDialog *self,
  * Returns: the appearance of @response
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 AdwResponseAppearance
 adw_message_dialog_get_response_appearance (AdwMessageDialog *self,
@@ -2098,6 +2128,7 @@ adw_message_dialog_get_response_appearance (AdwMessageDialog *self,
  * Negative responses like Cancel or Close should use the default appearance.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_response_appearance (AdwMessageDialog      *self,
@@ -2142,6 +2173,7 @@ adw_message_dialog_set_response_appearance (AdwMessageDialog      *self,
  * Returns: whether @response is enabled
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 gboolean
 adw_message_dialog_get_response_enabled (AdwMessageDialog *self,
@@ -2176,6 +2208,7 @@ adw_message_dialog_get_response_enabled (AdwMessageDialog *self,
  * Responses are enabled by default.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_response_enabled (AdwMessageDialog *self,
@@ -2209,6 +2242,7 @@ adw_message_dialog_set_response_enabled (AdwMessageDialog *self,
  * Returns: (nullable): the default response ID
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_get_default_response (AdwMessageDialog *self)
@@ -2238,6 +2272,7 @@ adw_message_dialog_get_default_response (AdwMessageDialog *self)
  * will do nothing.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_default_response (AdwMessageDialog *self,
@@ -2274,6 +2309,7 @@ adw_message_dialog_set_default_response (AdwMessageDialog *self,
  * Returns: the close response ID
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_get_close_response (AdwMessageDialog *self)
@@ -2302,6 +2338,7 @@ adw_message_dialog_get_close_response (AdwMessageDialog *self)
  * The default close response is `close`.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_set_close_response (AdwMessageDialog *self,
@@ -2334,6 +2371,7 @@ adw_message_dialog_set_close_response (AdwMessageDialog *self,
  * Used to indicate that the user has responded to the dialog in some way.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_response (AdwMessageDialog *self,
@@ -2356,6 +2394,7 @@ adw_message_dialog_response (AdwMessageDialog *self,
  * Returns: whether @self has a response with the ID @response.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 gboolean
 adw_message_dialog_has_response (AdwMessageDialog *self,
@@ -2406,6 +2445,7 @@ choose_cancelled_cb (GCancellable *cancellable,
  * This function shows @self to the user.
  *
  * Since: 1.3
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 void
 adw_message_dialog_choose (AdwMessageDialog    *self,
@@ -2439,6 +2479,7 @@ adw_message_dialog_choose (AdwMessageDialog    *self,
  *   [property@MessageDialog:close-response] if the call was cancelled.
  *
  * Since: 1.3
+ * Deprecated: 1.6: Use [class@AlertDialog].
  */
 const char *
 adw_message_dialog_choose_finish (AdwMessageDialog *self,

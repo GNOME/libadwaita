@@ -188,6 +188,7 @@
  * style class `.about`.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 
 /* Copied from GTK 4 for consistency with GtkAboutDialog. */
@@ -1379,6 +1380,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * The icon is displayed at the top of the main page.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_APPLICATION_ICON] =
     g_param_spec_string ("application-icon", NULL, NULL,
@@ -1393,6 +1395,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * The name is displayed at the top of the main page.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_APPLICATION_NAME] =
     g_param_spec_string ("application-name", NULL, NULL,
@@ -1414,6 +1417,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * properties.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DEVELOPER_NAME] =
     g_param_spec_string ("developer-name", NULL, NULL,
@@ -1431,6 +1435,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * will also be displayed above the release notes on the What's New page.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_VERSION] =
     g_param_spec_string ("version", NULL, NULL,
@@ -1454,6 +1459,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * See [property@AboutWindow:release-notes].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_RELEASE_NOTES_VERSION] =
     g_param_spec_string ("release-notes-version", NULL, NULL,
@@ -1489,6 +1495,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * as the version; otherwise, [property@AboutWindow:version] is used.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_RELEASE_NOTES] =
     g_param_spec_string ("release-notes", NULL, NULL,
@@ -1506,6 +1513,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * detailed. It can also contain links and Pango markup.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_COMMENTS] =
     g_param_spec_string ("comments", NULL, NULL,
@@ -1523,6 +1531,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * Applications can add other links below, see [method@AboutWindow.add_link].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_WEBSITE] =
     g_param_spec_string ("website", NULL, NULL,
@@ -1537,6 +1546,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * The support page link is displayed on the main page.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_SUPPORT_URL] =
     g_param_spec_string ("support-url", NULL, NULL,
@@ -1551,6 +1561,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * The issue tracker link is displayed on the main page.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_ISSUE_URL] =
     g_param_spec_string ("issue-url", NULL, NULL,
@@ -1573,6 +1584,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * Debug information cannot contain markup or links.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DEBUG_INFO] =
     g_param_spec_string ("debug-info", NULL, NULL,
@@ -1590,6 +1602,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * See [property@AboutWindow:debug-info].
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DEBUG_INFO_FILENAME] =
     g_param_spec_string ("debug-info-filename", NULL, NULL,
@@ -1616,6 +1629,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * * [method@AboutWindow.add_acknowledgement_section]
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DEVELOPERS] =
       g_param_spec_boxed ("developers", NULL, NULL,
@@ -1642,6 +1656,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * * [method@AboutWindow.add_acknowledgement_section]
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DESIGNERS] =
       g_param_spec_boxed ("designers", NULL, NULL,
@@ -1668,6 +1683,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * * [method@AboutWindow.add_acknowledgement_section]
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_ARTISTS] =
       g_param_spec_boxed ("artists", NULL, NULL,
@@ -1694,6 +1710,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * * [method@AboutWindow.add_acknowledgement_section]
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_DOCUMENTERS] =
       g_param_spec_boxed ("documenters", NULL, NULL,
@@ -1723,6 +1740,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * * [method@AboutWindow.add_acknowledgement_section]
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_TRANSLATOR_CREDITS] =
       g_param_spec_string ("translator-credits", NULL, NULL,
@@ -1744,6 +1762,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * information for the application dependencies or other components.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_COPYRIGHT] =
     g_param_spec_string ("copyright", NULL, NULL,
@@ -1773,6 +1792,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * information for the application dependencies or other components.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_LICENSE_TYPE] =
     g_param_spec_enum ("license-type", NULL, NULL,
@@ -1800,6 +1820,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * information for the application dependencies or other components.
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   props[PROP_LICENSE] =
     g_param_spec_string ("license", NULL, NULL,
@@ -1821,6 +1842,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * Returns: `TRUE` if the link has been activated
    *
    * Since: 1.2
+   * Deprecated: 1.6: Use [class@AboutDialog].
    */
   signals[SIGNAL_ACTIVATE_LINK] =
     g_signal_new ("activate-link",
@@ -1945,6 +1967,7 @@ adw_about_window_init (AdwAboutWindow *self)
  * Returns: the newly created `AdwAboutWindow`
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 GtkWidget *
 adw_about_window_new (void)
@@ -1982,6 +2005,7 @@ adw_about_window_new (void)
  * Returns: the newly created `AdwAboutWindow`
  *
  * Since: 1.4
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 GtkWidget *
 adw_about_window_new_from_appdata (const char *resource_path,
@@ -2135,6 +2159,7 @@ adw_about_window_new_from_appdata (const char *resource_path,
  * Returns: the application icon name
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_application_icon (AdwAboutWindow *self)
@@ -2154,6 +2179,7 @@ adw_about_window_get_application_icon (AdwAboutWindow *self)
  * The icon is displayed at the top of the main page.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_application_icon (AdwAboutWindow *self,
@@ -2180,6 +2206,7 @@ adw_about_window_set_application_icon (AdwAboutWindow *self,
  * Returns: the application name
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_application_name (AdwAboutWindow *self)
@@ -2199,6 +2226,7 @@ adw_about_window_get_application_name (AdwAboutWindow *self)
  * The name is displayed at the top of the main page.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_application_name (AdwAboutWindow *self,
@@ -2225,6 +2253,7 @@ adw_about_window_set_application_name (AdwAboutWindow *self,
  * Returns: the developer_name
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_developer_name (AdwAboutWindow *self)
@@ -2249,6 +2278,7 @@ adw_about_window_get_developer_name (AdwAboutWindow *self)
  * Credits page, with [property@AboutWindow:developers] and related properties.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_developer_name (AdwAboutWindow *self,
@@ -2275,6 +2305,7 @@ adw_about_window_set_developer_name (AdwAboutWindow *self,
  * Returns: the version
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_version (AdwAboutWindow *self)
@@ -2297,6 +2328,7 @@ adw_about_window_get_version (AdwAboutWindow *self)
  * also be displayed above the release notes on the What's New page.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_version (AdwAboutWindow *self,
@@ -2322,6 +2354,7 @@ adw_about_window_set_version (AdwAboutWindow *self,
  * Returns: the release notes version
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_release_notes_version (AdwAboutWindow *self)
@@ -2350,6 +2383,7 @@ adw_about_window_get_release_notes_version (AdwAboutWindow *self)
  * See [property@AboutWindow:release-notes].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_release_notes_version (AdwAboutWindow *self,
@@ -2376,6 +2410,7 @@ adw_about_window_set_release_notes_version (AdwAboutWindow *self,
  * Returns: the release notes
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_release_notes (AdwAboutWindow *self)
@@ -2416,6 +2451,7 @@ adw_about_window_get_release_notes (AdwAboutWindow *self)
  * as the version; otherwise, [property@AboutWindow:version] is used.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_release_notes (AdwAboutWindow *self,
@@ -2442,6 +2478,7 @@ adw_about_window_set_release_notes (AdwAboutWindow *self,
  * Returns: the comments
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_comments (AdwAboutWindow *self)
@@ -2464,6 +2501,7 @@ adw_about_window_get_comments (AdwAboutWindow *self)
  * detailed. It can also contain links and Pango markup.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_comments (AdwAboutWindow *self,
@@ -2489,6 +2527,7 @@ adw_about_window_set_comments (AdwAboutWindow *self,
  * Returns: the website URL
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_website (AdwAboutWindow *self)
@@ -2511,6 +2550,7 @@ adw_about_window_get_website (AdwAboutWindow *self)
  * Applications can add other links below, see [method@AboutWindow.add_link].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_website (AdwAboutWindow *self,
@@ -2536,6 +2576,7 @@ adw_about_window_set_website (AdwAboutWindow *self,
  * Returns: the support page URL
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_support_url (AdwAboutWindow *self)
@@ -2555,6 +2596,7 @@ adw_about_window_get_support_url (AdwAboutWindow *self)
  * The support page link is displayed on the main page.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_support_url (AdwAboutWindow *self,
@@ -2580,6 +2622,7 @@ adw_about_window_set_support_url (AdwAboutWindow *self,
  * Returns: the issue tracker URL
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_issue_url (AdwAboutWindow *self)
@@ -2599,6 +2642,7 @@ adw_about_window_get_issue_url (AdwAboutWindow *self)
  * The issue tracker link is displayed on the main page.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_issue_url (AdwAboutWindow *self,
@@ -2630,6 +2674,7 @@ adw_about_window_set_issue_url (AdwAboutWindow *self,
  * See [property@AboutWindow:website].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_add_link (AdwAboutWindow *self,
@@ -2675,6 +2720,7 @@ adw_about_window_add_link (AdwAboutWindow *self,
  * Returns: the debug information
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_debug_info (AdwAboutWindow *self)
@@ -2702,6 +2748,7 @@ adw_about_window_get_debug_info (AdwAboutWindow *self)
  * Debug information cannot contain markup or links.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_debug_info (AdwAboutWindow *self,
@@ -2727,6 +2774,7 @@ adw_about_window_set_debug_info (AdwAboutWindow *self,
  * Returns: the debug information filename
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_debug_info_filename (AdwAboutWindow *self)
@@ -2749,6 +2797,7 @@ adw_about_window_get_debug_info_filename (AdwAboutWindow *self)
  * See [property@AboutWindow:debug-info].
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_debug_info_filename (AdwAboutWindow *self,
@@ -2772,6 +2821,7 @@ adw_about_window_set_debug_info_filename (AdwAboutWindow *self,
  * Returns: (nullable) (transfer none) (array zero-terminated=1): The list of developers
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char * const *
 adw_about_window_get_developers (AdwAboutWindow *self)
@@ -2803,6 +2853,7 @@ adw_about_window_get_developers (AdwAboutWindow *self)
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_developers (AdwAboutWindow  *self,
@@ -2830,6 +2881,7 @@ adw_about_window_set_developers (AdwAboutWindow  *self,
  * Returns: (nullable) (transfer none) (array zero-terminated=1): The list of designers
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char * const *
 adw_about_window_get_designers (AdwAboutWindow *self)
@@ -2861,6 +2913,7 @@ adw_about_window_get_designers (AdwAboutWindow *self)
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_designers (AdwAboutWindow  *self,
@@ -2888,6 +2941,7 @@ adw_about_window_set_designers (AdwAboutWindow  *self,
  * Returns: (nullable) (transfer none) (array zero-terminated=1): The list of artists
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char * const *
 adw_about_window_get_artists (AdwAboutWindow *self)
@@ -2919,6 +2973,7 @@ adw_about_window_get_artists (AdwAboutWindow *self)
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_artists (AdwAboutWindow  *self,
@@ -2946,6 +3001,7 @@ adw_about_window_set_artists (AdwAboutWindow  *self,
  * Returns: (nullable) (transfer none) (array zero-terminated=1): The list of documenters
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char * const *
 adw_about_window_get_documenters (AdwAboutWindow *self)
@@ -2977,6 +3033,7 @@ adw_about_window_get_documenters (AdwAboutWindow *self)
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_documenters (AdwAboutWindow  *self,
@@ -3004,6 +3061,7 @@ adw_about_window_set_documenters (AdwAboutWindow  *self,
  * Returns: The translator credits string
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_translator_credits (AdwAboutWindow *self)
@@ -3038,6 +3096,7 @@ adw_about_window_get_translator_credits (AdwAboutWindow *self)
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_translator_credits (AdwAboutWindow *self,
@@ -3077,6 +3136,7 @@ adw_about_window_set_translator_credits (AdwAboutWindow *self,
  * * [method@AboutWindow.add_acknowledgement_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_add_credit_section (AdwAboutWindow  *self,
@@ -3122,6 +3182,7 @@ adw_about_window_add_credit_section (AdwAboutWindow  *self,
  * * [method@AboutWindow.add_credit_section]
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_add_acknowledgement_section (AdwAboutWindow  *self,
@@ -3147,6 +3208,7 @@ adw_about_window_add_acknowledgement_section (AdwAboutWindow  *self,
  * Returns: the copyright information
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_copyright (AdwAboutWindow *self)
@@ -3173,6 +3235,7 @@ adw_about_window_get_copyright (AdwAboutWindow *self)
  * information for the application dependencies or other components.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_copyright (AdwAboutWindow *self,
@@ -3198,6 +3261,7 @@ adw_about_window_set_copyright (AdwAboutWindow *self,
  * Returns: the license type
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 GtkLicense
 adw_about_window_get_license_type (AdwAboutWindow *self)
@@ -3230,6 +3294,7 @@ adw_about_window_get_license_type (AdwAboutWindow *self)
  * for the application dependencies or other components.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_license_type (AdwAboutWindow *self,
@@ -3262,6 +3327,7 @@ adw_about_window_set_license_type (AdwAboutWindow *self,
  * Returns: the license
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 const char *
 adw_about_window_get_license (AdwAboutWindow *self)
@@ -3293,6 +3359,7 @@ adw_about_window_get_license (AdwAboutWindow *self)
  * for the application dependencies or other components.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_set_license (AdwAboutWindow *self,
@@ -3367,6 +3434,7 @@ adw_about_window_set_license (AdwAboutWindow *self,
  * ```
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [class@AboutDialog].
  */
 void
 adw_about_window_add_legal_section (AdwAboutWindow *self,
@@ -3403,6 +3471,7 @@ adw_about_window_add_legal_section (AdwAboutWindow *self,
  * A convenience function for showing an application’s about window.
  *
  * Since: 1.2
+ * Deprecated: 1.6: Use [func@show_about_dialog].
  */
 void
 adw_show_about_window (GtkWindow  *parent,
@@ -3439,6 +3508,7 @@ adw_show_about_window (GtkWindow  *parent,
  * See [ctor@AboutWindow.new_from_appdata] for details.
  *
  * Since: 1.4
+ * Deprecated: 1.6: Use [func@show_about_dialog_from_appdata].
  */
 void
 adw_show_about_window_from_appdata (GtkWindow  *parent,

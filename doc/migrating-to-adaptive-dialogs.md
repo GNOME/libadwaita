@@ -5,9 +5,7 @@ Slug: migrating-to-adaptive-dialogs
 
 Libadwaita 1.5 introduces [class@Dialog] and replacements for
 [class@MessageDialog], [class@PreferencesWindow] and [class@AboutWindow] that
-derive from it.
-
-While the old widgets are not deprecated yet, they will be in the next release.
+derive from it. The old widgets have been deprecated.
 
 # Use `AdwWindow` or `AdwApplicationWindow` for the Parent Window
 
