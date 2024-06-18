@@ -5,6 +5,7 @@
   <object class="AdwWindow" id="widget">
     <property name="title">View Switcher Bar</property>
     <property name="default-height">150</property>
+    <property name="height-request">-1</property>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">

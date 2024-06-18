@@ -5,6 +5,7 @@
   <object class="AdwWindow" id="widget">
     <property name="default-width">450</property>
     <property name="default-height">150</property>
+    <property name="height-request">-1</property>
     <property name="content">
       <object class="AdwClamp">
         <property name="maximum-size">300</property>

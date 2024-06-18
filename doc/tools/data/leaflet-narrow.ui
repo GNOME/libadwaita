@@ -5,6 +5,8 @@
   <object class="AdwWindow" id="widget">
     <property name="default-width">320</property>
     <property name="default-height">150</property>
+    <property name="width-request">-1</property>
+    <property name="height-request">-1</property>
     <property name="content">
       <object class="AdwLeaflet">
         <child>

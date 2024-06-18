@@ -6,6 +6,7 @@
     <property name="title">Banner</property>
     <property name="default-width">600</property>
     <property name="default-height">150</property>
+    <property name="height-request">-1</property>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">

@@ -5,6 +5,7 @@
   <object class="AdwWindow" id="widget">
     <property name="default-height">240</property>
     <property name="default-width">240</property>
+    <property name="width-request">-1</property>
     <property name="title">Raised</property>
     <property name="content">
       <object class="AdwToolbarView">
