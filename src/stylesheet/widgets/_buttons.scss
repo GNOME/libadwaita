@@ -116,7 +116,7 @@ button {
     @include focus-ring($outer: true, $offset: 1px, $transition: $button_transition);
 
     color: $osd_fg_color;
-    background-color: RGB(0 0 0 / 75%);
+    background-color: RGB(0 0 0 / 65%);
 
     @if $contrast == 'high' {
       box-shadow: 0 0 0 1px currentColor;
