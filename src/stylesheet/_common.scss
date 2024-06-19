@@ -36,8 +36,8 @@ dnd {
 
 %osd,
 .osd:not(progressbar):not(button):not(menubutton):not(splitbutton) {
-  --accent-bg-color: #{$osd_accent_bg_color};
-  --accent-fg-color: #{$osd_accent_fg_color};
+  --accent-bg-color: RGB(255 255 255 / 75%);
+  --accent-fg-color: RGB(0 0 0 / 75%);
   --scrollbar-outline-color: RGB(0 0 0 / 50%);
   --standalone-color-oklab: #{$standalone-color-oklab-dark};
 
