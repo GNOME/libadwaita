@@ -287,9 +287,6 @@
                           <object class="AdwButtonRow">
                             <property name="title" translatable="yes">Add Calendar</property>
                             <property name="end-icon-name">go-next-symbolic</property>
-                            <style>
-                              <class name="suggested-action"/>
-                            </style>
                           </object>
                         </child>
                         <child>
@@ -297,6 +294,14 @@
                             <property name="title" translatable="yes">Delete Event</property>
                             <style>
                               <class name="destructive-action"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwButtonRow">
+                            <property name="title" translatable="yes">Search</property>
+                            <style>
+                              <class name="suggested-action"/>
                             </style>
                           </object>
                         </child>

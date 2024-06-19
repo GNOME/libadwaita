@@ -415,12 +415,33 @@ row.button {
     @extend .heading;
   }
 
-  &.suggested-action,
-  &.destructive-action {
-    color: var(--accent-color);
+  &.suggested-action {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+    border-bottom: none;
+
+    @include focus-ring($outer: true, $offset: 1px, $transition: $row_transition);
+
+    &:not(.expander):not(:selected).activatable {
+      &:hover {
+        background-color: var(--accent-bg-color);
+        background-image: image(color-mix(in srgb, currentColor 10%, transparent));
+      }
+
+      &:active {
+        background-color: var(--accent-bg-color);
+        background-image: image(RGB(0 0 0 / 20%));
+      }
+
+      &.has-open-popup {
+        background-color: var(--accent-bg-color);
+        background-image: image(color-mix(in srgb, currentColor 10%, transparent));
+      }
+    }
   }
 
   &.destructive-action {
+    color: var(--accent-color);
     --accent-bg-color: var(--destructive-bg-color);
     --accent-fg-color: var(--destructive-fg-color);
     --accent-color: var(--destructive-color);
