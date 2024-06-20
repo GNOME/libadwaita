@@ -38,8 +38,8 @@ void adw_accent_color_to_standalone_rgba (AdwAccentColor  self,
                                           GdkRGBA        *rgba);
 
 ADW_AVAILABLE_IN_1_6
-void adw_rgba_to_standalone (GdkRGBA  *rgba,
-                             gboolean  dark,
-                             GdkRGBA  *standalone_rgba);
+void adw_rgba_to_standalone (const GdkRGBA *rgba,
+                             gboolean       dark,
+                             GdkRGBA       *standalone_rgba);
 
 G_END_DECLS

@@ -127,9 +127,9 @@ adw_accent_color_to_standalone_rgba (AdwAccentColor  self,
  * Since: 1.6
  */
 void
-adw_rgba_to_standalone (GdkRGBA  *rgba,
-                        gboolean  dark,
-                        GdkRGBA  *standalone_rgba)
+adw_rgba_to_standalone (const GdkRGBA *rgba,
+                        gboolean       dark,
+                        GdkRGBA       *standalone_rgba)
 {
   float L, a, b;
 
