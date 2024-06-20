@@ -31,7 +31,7 @@
 /**
  * adw_accent_color_to_rgba:
  * @self: an accent color
- * @rgba: return location for the color
+ * @rgba: (out): return location for the color
  *
  * Converts @self to a `GdkRGBA` representing its background color.
  *
@@ -89,7 +89,7 @@ adw_accent_color_to_rgba (AdwAccentColor  self,
  * adw_accent_color_to_standalone_rgba:
  * @self: an accent color
  * @dark: Whether to calculate standalone color for light or dark background
- * @rgba: return location for the color
+ * @rgba: (out): return location for the color
  *
  * Converts @self to a `GdkRGBA` representing its standalone color.
  *
@@ -117,7 +117,7 @@ adw_accent_color_to_standalone_rgba (AdwAccentColor  self,
  * adw_rgba_to_standalone:
  * @rgba: a background color
  * @dark: Whether to calculate standalone color for light or dark background
- * @standalone_rgba: return location for the standalone color
+ * @standalone_rgba: (out): return location for the standalone color
  *
  * Adjusts @rgba to be suitable as a standalone color.
  *
