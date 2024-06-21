@@ -21,9 +21,6 @@ void adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
 
 GtkWidget *adw_bottom_sheet_get_sheet_bin (AdwBottomSheet *self);
 
-void adw_bottom_sheet_set_sheet_overflow (AdwBottomSheet *self,
-                                          GtkOverflow     overflow);
-
 void adw_bottom_sheet_set_callbacks (AdwBottomSheet *self,
                                      GFunc           closing_callback,
                                      GFunc           closed_callback,

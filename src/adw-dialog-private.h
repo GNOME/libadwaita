@@ -30,7 +30,4 @@ void     adw_dialog_set_closing (AdwDialog *self,
 
 GtkWidget *adw_dialog_get_window (AdwDialog *self);
 
-void adw_dialog_set_overflow (AdwDialog   *self,
-                              GtkOverflow  overflow);
-
 G_END_DECLS

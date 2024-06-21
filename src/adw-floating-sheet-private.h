@@ -38,9 +38,6 @@ void     adw_floating_sheet_set_can_close (AdwFloatingSheet *self,
 
 GtkWidget *adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self);
 
-void adw_floating_sheet_set_sheet_overflow (AdwFloatingSheet *self,
-                                            GtkOverflow       overflow);
-
 void adw_floating_sheet_set_callbacks (AdwFloatingSheet *self,
                                        GFunc             closing_callback,
                                        GFunc             closed_callback,

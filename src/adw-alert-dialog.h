@@ -98,6 +98,12 @@ ADW_AVAILABLE_IN_1_5
 void       adw_alert_dialog_set_extra_child (AdwAlertDialog *self,
                                              GtkWidget      *child);
 
+ADW_AVAILABLE_IN_1_6
+gboolean adw_alert_dialog_get_prefer_wide_layout (AdwAlertDialog *self);
+ADW_AVAILABLE_IN_1_6
+void     adw_alert_dialog_set_prefer_wide_layout (AdwAlertDialog *self,
+                                                  gboolean        prefer_wide_layout);
+
 ADW_AVAILABLE_IN_1_5
 void adw_alert_dialog_add_response (AdwAlertDialog *self,
                                     const char     *id,

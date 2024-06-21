@@ -27,7 +27,7 @@
 #define HORZ_PADDING_TARGET_VALUE 120
 
 #define VERT_PADDING_MIN_HEIGHT 720
-#define VERT_PADDING_MIN_VALUE 30
+#define VERT_PADDING_MIN_VALUE 20
 #define VERT_PADDING_TARGET_HEIGHT 1440
 #define VERT_PADDING_TARGET_VALUE 120
 
@@ -485,14 +485,6 @@ adw_floating_sheet_get_sheet_bin (AdwFloatingSheet *self)
   g_return_val_if_fail (ADW_IS_FLOATING_SHEET (self), NULL);
 
   return self->sheet_bin;
-}
-void
-adw_floating_sheet_set_sheet_overflow (AdwFloatingSheet *self,
-                                       GtkOverflow       overflow)
-{
-  g_return_if_fail (ADW_IS_FLOATING_SHEET (self));
-
-  gtk_widget_set_overflow (self->sheet_bin, overflow);
 }
 
 void

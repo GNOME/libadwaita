@@ -1,21 +1,26 @@
+$alert_radius: 18px;
+
 /********************
  * GtkMessageDialog *
  ********************/
 
 window.dialog.message {
+  background-color: var(--dialog-bg-color);
+  color: var(--dialog-fg-color);
+
+  @if $contrast != 'high' {
+    &.csd {
+      outline: none;
+    }
+  }
+
   .titlebar {
-    min-height: 20px;
+    min-height: 32px;
     background: none;
     box-shadow: none;
-    border-style: none;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
   }
 
   box.dialog-vbox.vertical {
-    margin-top: 6px;
-    border-spacing: 24px;
-
     > box > box > box > label.title {
       font-weight: 800;
       font-size: 15pt;
@@ -23,38 +28,20 @@ window.dialog.message {
   }
 
   &.csd {
+    &:not(.solid-csd) {
+      border-radius: $alert_radius;
+    }
+
     .dialog-action-area {
-      border-top: 1px solid $border_color;
       margin: 0;
-      border-spacing: 0;
+      padding: 24px;
+      padding-top: 21px;
+      border-spacing: 12px;
 
       > button {
-        @extend %button_basic_flat;
-        padding: 10px 14px; // labels are not vertically centered on message dialog, this is a workaround
-        border-radius: 0;
-        border: none;
-        background-clip: padding-box;
-        border-left: 1px solid $border_color;
-
-        &:first-child {
-          border-bottom-left-radius: $dialog_radius;
-          border-left: none;
-        }
-
-        &:last-child {
-          border-bottom-right-radius: $dialog_radius;
-        }
-
-        &.suggested-action,
-        &.destructive-action {
-          color: var(--accent-color);
-        }
-
-        &.destructive-action {
-          --accent-bg-color: var(--destructive-bg-color);
-          --accent-fg-color: var(--destructive-fg-color);
-          --accent-color: var(--destructive-color);
-        }
+        min-height: 24px;
+        padding: 10px 20px;
+        border-radius: 12px;
       }
     }
   }
@@ -71,104 +58,95 @@ window.dialog-window.alert {
   color: var(--dialog-fg-color);
 }
 
-window.messagedialog,
-dialog-host > dialog.alert.floating sheet,
-window.dialog-window.alert {
+dialog-host > dialog.alert sheet {
+  border-radius: $alert_radius;
+
   @if $contrast != 'high' {
     outline: none;
   }
 }
 
-dialog-host > dialog.alert.floating sheet,
+window.messagedialog,
 window.dialog-window.alert {
+  &.csd:not(.solid-csd) {
+    border-radius: $alert_radius;
+  }
+
+  @if $contrast != 'high' {
+    &.csd {
+      outline: none;
+    }
+  }
+}
+
+dialog-host > dialog.alert sheet,
+window.dialog-window.alert {
+  .body-scrolled-window scrollbar.vertical {
+    padding-top: 9px;
+  }
+
   .body-scrolled-window > viewport {
-    border-top-left-radius: $dialog_radius;
-    border-top-right-radius: $dialog_radius;
+    border-top-left-radius: $alert_radius;
+    border-top-right-radius: $alert_radius;
   }
 }
 
 window.messagedialog,
 dialog.alert {
   .message-area {
-    padding: 24px 30px;
+    padding-top: 32px;
+    padding-bottom: 9px;
     border-spacing: 24px;
 
     &.has-heading.has-body {
       border-spacing: 10px;
+
+      > .child {
+        margin-top: 8px;
+      }
+    }
+
+    > .heading-bin, > .body, > .child {
+      padding-left: 24px;
+      padding-right: 24px;
     }
   }
 
-  .response-area > button {
-    padding: 10px 14px;
-    border-radius: 0;
+  .response-area {
+    padding: 24px;
+    padding-top: 12px;
+    border-spacing: 12px;
 
-    @if $contrast == 'high' {
-      &:hover,
-      &.keyboard-activating,
-      &:active,
-      &:checked {
-        box-shadow: none;
-      }
-    }
-
-    &.suggested, &.destructive {
-      color: var(--accent-color);
-    }
-
-    &.destructive {
-      --accent-bg-color: var(--destructive-bg-color);
-      --accent-fg-color: var(--destructive-fg-color);
-      --accent-color: var(--destructive-color);
+    > button {
+      min-height: 24px;
+      min-width: 60px;
+      padding: 10px 20px;
+      border-radius: 12px;
     }
   }
 
- .response-area {
-    &:not(.compact) > button {
-      margin-top: -1px;
-      margin-right: -1px;
-      margin-left: -1px;
+  &.short {
+    .message-area {
+      padding-top: 24px;
+      border-spacing: 18px;
 
-      &:first-child:dir(ltr),
-      &:last-child:dir(rtl) {
-        margin-left: 0;
+      > .heading-bin, > .body, > .child {
+        padding-left: 18px;
+        padding-right: 18px;
       }
 
-      &:last-child:dir(ltr),
-      &:first-child:dir(rtl) {
-        margin-right: 0;
+      &.has-heading.has-body {
+        border-spacing: 6px;
       }
     }
 
-    &.compact > button {
-      margin-top: -1px;
-      margin-bottom: -1px;
+    .response-area {
+      padding: 18px;
+      padding-top: 9px;
 
-      &:first-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-window.messagedialog,
-dialog.alert.floating {
- .response-area {
-    &:not(.compact) > button {
-      &:first-child:dir(ltr),
-      &:last-child:dir(rtl) {
-        border-bottom-left-radius: $dialog_radius;
-      }
-
-      &:last-child:dir(ltr),
-      &:first-child:dir(rtl) {
-        border-bottom-right-radius: $dialog_radius;
-      }
-    }
-
-    &.compact > button {
-      &:first-child {
-        border-bottom-left-radius: $dialog_radius;
-        border-bottom-right-radius: $dialog_radius;
+      > button {
+        min-width: 0;
+        padding: 8px 16px;
       }
     }
   }
