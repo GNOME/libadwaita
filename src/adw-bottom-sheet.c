@@ -138,6 +138,7 @@ struct _AdwBottomSheet
   gboolean can_close;
 
   AdwSwipeTracker *swipe_tracker;
+  gboolean swipe_detected;
   gboolean swipe_active;
 
   int sheet_height;
@@ -905,6 +906,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
             AdwNavigationDirection  direction,
             AdwBottomSheet         *self)
 {
+  self->swipe_detected = FALSE;
+
   if (!self->bottom_bar &&
       adw_animation_get_state (self->open_animation) == ADW_ANIMATION_PLAYING &&
       adw_spring_animation_get_value_to (ADW_SPRING_ANIMATION (self->open_animation)) < 0.5)
@@ -916,20 +919,23 @@ prepare_cb (AdwSwipeTracker        *tracker,
   if (!self->open && !self->can_open)
     return;
 
-  self->swipe_active = TRUE;
+  self->swipe_detected = TRUE;
 }
 
 static void
 begin_swipe_cb (AdwSwipeTracker *tracker,
                 AdwBottomSheet  *self)
 {
-  if (!self->swipe_active)
+  if (!self->swipe_detected)
     return;
 
   adw_animation_pause (self->open_animation);
 
   if (!self->open)
     gtk_widget_set_child_visible (self->dimming, self->modal);
+
+  self->swipe_detected = FALSE;
+  self->swipe_active = TRUE;
 }
 
 static void
