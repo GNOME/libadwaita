@@ -557,6 +557,7 @@ adw_bottom_sheet_dispose (GObject *object)
   g_clear_pointer (&self->content_bin, gtk_widget_unparent);
   g_clear_pointer (&self->dimming, gtk_widget_unparent);
   g_clear_pointer (&self->sheet_bin, gtk_widget_unparent);
+  g_clear_object (&self->open_animation);
   self->content = NULL;
   self->sheet = NULL;
   self->sheet_stack = NULL;
