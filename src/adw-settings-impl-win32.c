@@ -160,16 +160,25 @@ color_values_changed (AdwSettingsImplWin32 *self)
 {
   struct __x_ABI_CWindows_CUI_CColor color;
   HRESULT res;
+  GdkRGBA rgba;
 
   if (!self->ui)
     return S_FALSE;
 
   res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Foreground, &color);
-  if (FAILED (res))
-    return res;
+  if (SUCCEEDED (res))
+    adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
+                                        scheme_for_fg_color (RGB (color.R, color.G, color.B)));
 
-  adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
-                                      scheme_for_fg_color (RGB (color.R, color.G, color.B)));
+  res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Accent, &color);
+  if (SUCCEEDED (res)) {
+    rgba.red = color.R / 255.0f;
+    rgba.green = color.G / 255.0f;
+    rgba.blue = color.B / 255.0f;
+    rgba.alpha = 1.0f;
+    adw_settings_impl_set_accent_color (ADW_SETTINGS_IMPL (self),
+                                        adw_accent_color_nearest_from_rgba (&rgba));
+  }
 
   return S_OK;
 }
@@ -375,12 +384,11 @@ adw_settings_impl_win32_init (AdwSettingsImplWin32 *self)
 
 AdwSettingsImpl *
 adw_settings_impl_win32_new (gboolean enable_color_scheme,
-                              gboolean enable_high_contrast,
-                              gboolean enable_accent_colors)
+                             gboolean enable_high_contrast,
+                             gboolean enable_accent_colors)
 {
   AdwSettingsImplWin32 *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_WIN32, NULL);
   GdkDisplay *display = gdk_display_get_default ();
-  gboolean found_color_scheme = FALSE;
 
   if (!GDK_IS_WIN32_DISPLAY (display))
     return ADW_SETTINGS_IMPL (self);
@@ -393,17 +401,17 @@ adw_settings_impl_win32_new (gboolean enable_color_scheme,
   }
 
 #ifdef HAS_WINRT
-  if (enable_color_scheme && SUCCEEDED (init_winrt_settings (self)))
-    found_color_scheme = TRUE;
+  if ((enable_color_scheme || enable_accent_colors) && FAILED (init_winrt_settings (self)))
+    enable_color_scheme = enable_accent_colors = FALSE;
 #endif
 
   if (enable_high_contrast)
     system_colors_changed (self);
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                  found_color_scheme,
+                                  enable_color_scheme,
                                   enable_high_contrast,
-                                  /* has_accent_colors */ FALSE);
+                                  enable_accent_colors);
 
   return ADW_SETTINGS_IMPL (self);
 }
