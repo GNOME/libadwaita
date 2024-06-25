@@ -773,6 +773,7 @@ drag_end_cb (AdwSwipeTracker *self,
   }
 
   gesture_end (self, distance, time, FALSE);
+  gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture));
 }
 
 static void
