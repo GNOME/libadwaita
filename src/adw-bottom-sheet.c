@@ -196,8 +196,10 @@ released_cb (GtkGestureClick *gesture,
              double           y,
              AdwBottomSheet  *self)
 {
-  if (self->swipe_active)
+  if (self->swipe_active) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
     return;
+  }
 
   if (!self->can_close)
     g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
@@ -205,6 +207,47 @@ released_cb (GtkGestureClick *gesture,
     adw_bottom_sheet_set_open (self, FALSE);
 
   gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+  gtk_event_controller_reset (GTK_EVENT_CONTROLLER (gesture));
+}
+
+static void
+bottom_bar_pressed_cb (GtkGestureClick *gesture,
+                       int              n_press,
+                       double           x,
+                       double           y,
+                       AdwBottomSheet  *self)
+{
+  if (self->swipe_active || !self->can_open)
+    return;
+
+  if (gtk_widget_has_focus (GTK_WIDGET (self->bottom_bar_bin)))
+    return;
+
+  gtk_widget_grab_focus (GTK_WIDGET (self->bottom_bar_bin));
+}
+
+static void
+bottom_bar_released_cb (GtkGestureClick *gesture,
+                        int              n_press,
+                        double           x,
+                        double           y,
+                        AdwBottomSheet  *self)
+{
+  if (self->swipe_active || !self->can_open) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  if (!gtk_widget_contains (GTK_WIDGET (self->bottom_bar_bin), x, y)) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  if (self->can_open)
+    adw_bottom_sheet_set_open (self, TRUE);
+
+  gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+  gtk_event_controller_reset (GTK_EVENT_CONTROLLER (gesture));
 }
 
 static void
@@ -325,7 +368,7 @@ set_heights (AdwBottomSheet *self,
 }
 
 static void
-fix_button_click_propagation_phase (GtkWidget *widget)
+disable_button_click (GtkWidget *widget)
 {
   GListModel *controllers;
   guint i, n;
@@ -339,7 +382,7 @@ fix_button_click_propagation_phase (GtkWidget *widget)
     GtkEventController *controller = g_list_model_get_item (controllers, i);
 
     if (GTK_IS_GESTURE_CLICK (controller))
-      gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_BUBBLE);
+      gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_NONE);
 
     g_object_unref (controller);
   }
@@ -1068,7 +1111,15 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   gtk_stack_add_child (GTK_STACK (self->sheet_stack), self->bottom_bar_bin);
   g_signal_connect_swapped (self->bottom_bar_bin, "clicked", G_CALLBACK (bottom_bar_clicked_cb), self);
 
-  fix_button_click_propagation_phase (self->bottom_bar_bin);
+  disable_button_click (self->bottom_bar_bin);
+
+  gesture = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
+  gtk_gesture_single_set_exclusive (GTK_GESTURE_SINGLE (gesture), TRUE);
+  g_signal_connect_object (gesture, "pressed",
+                           G_CALLBACK (bottom_bar_pressed_cb), self, 0);
+  g_signal_connect_object (gesture, "released",
+                           G_CALLBACK (bottom_bar_released_cb), self, 0);
+  gtk_widget_add_controller (self->bottom_bar_bin, gesture);
 
   /* Animation */
 
