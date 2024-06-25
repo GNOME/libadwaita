@@ -20,10 +20,12 @@ static guint signals[SIGNAL_LAST_SIGNAL];
 G_DEFINE_TYPE (AdwDemoPageBanners, adw_demo_page_banners, ADW_TYPE_BIN)
 
 static void
-toggle_button_cb (AdwDemoPageBanners *self)
+update_button_cb (AdwDemoPageBanners *self)
 {
-  if (g_strcmp0 (adw_banner_get_button_label (self->banner), "") == 0)
-    adw_banner_set_button_label (self->banner, gtk_editable_get_text (GTK_EDITABLE (self->button_label_row)));
+  GtkEditable *editable = GTK_EDITABLE (self->button_label_row);
+
+  if (gtk_editable_get_editable (editable))
+    adw_banner_set_button_label (self->banner, gtk_editable_get_text (editable));
   else
     adw_banner_set_button_label (self->banner, NULL);
 }
@@ -54,8 +56,8 @@ adw_demo_page_banners_class_init (AdwDemoPageBannersClass *klass)
                                                "/org/gnome/Adwaita1/Demo/ui/pages/banners/adw-demo-page-banners.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPageBanners, banner);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPageBanners, button_label_row);
+  gtk_widget_class_bind_template_callback (widget_class, update_button_cb);
 
-  gtk_widget_class_install_action (widget_class, "demo.toggle-button", NULL, (GtkWidgetActionActivateFunc) toggle_button_cb);
   gtk_widget_class_install_action (widget_class, "demo.activate", NULL, (GtkWidgetActionActivateFunc) banner_activate_cb);
 }
 
@@ -63,4 +65,6 @@ static void
 adw_demo_page_banners_init (AdwDemoPageBanners *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  update_button_cb (self);
 }

@@ -18,7 +18,6 @@
               <object class="AdwBanner" id="banner">
                 <property name="revealed" bind-source="show_banner_switch" bind-property="active" bind-flags="sync-create|bidirectional" />
                 <property name="title" bind-source="title_row" bind-property="text" bind-flags="sync-create" />
-                <property name="button-label" bind-source="button_label_row" bind-property="text" bind-flags="sync-create" />
                 <property name="action-name">demo.activate</property>
               </object>
             </child>
@@ -54,11 +53,12 @@
                             <property name="text">_Network Settings</property>
                             <property name="input-hints">spellcheck | word-completion | uppercase-words</property>
                             <property name="editable" bind-source="label_switch" bind-property="active" bind-flags="sync-create"/>
+                            <signal name="notify::text" handler="update_button_cb" swapped="yes"/>
+                            <signal name="notify::editable" handler="update_button_cb" swapped="yes"/>
                             <child>
                               <object class="GtkSwitch" id="label_switch">
                                 <property name="valign">center</property>
                                 <property name="active">True</property>
-                                <property name="action-name">demo.toggle-button</property>
                               </object>
                             </child>
                           </object>
