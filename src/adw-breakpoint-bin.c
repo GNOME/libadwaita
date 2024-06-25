@@ -266,7 +266,7 @@ breakpoint_changed_tick_cb (GtkWidget        *widget,
   int i;
 
   priv->tick_cb_id = 0;
-  priv->old_node = NULL;
+  g_clear_pointer (&priv->old_node, gsk_render_node_unref);
   gtk_widget_set_child_visible (priv->child, TRUE);
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
