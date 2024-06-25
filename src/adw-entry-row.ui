@@ -26,6 +26,9 @@
           <object class="AdwGizmo" id="editable_area">
             <property name="hexpand">True</property>
             <property name="overflow">hidden</property>
+            <style>
+              <class name="editable-area"/>
+            </style>
             <child>
               <object class="GtkLabel" id="empty_title">
                 <property name="ellipsize">end</property>
@@ -78,40 +81,39 @@
                 <signal name="notify::editable" handler="update_empty" swapped="yes"/>
               </object>
             </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkImage" id="indicator">
-            <property name="visible">False</property>
-            <property name="valign">center</property>
-            <style>
-              <class name="indicator"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="apply_button">
-            <property name="visible">False</property>
-            <property name="valign">center</property>
-            <property name="icon-name">adw-entry-apply-symbolic</property>
-            <property name="tooltip-text" translatable="yes">Apply</property>
-            <property name="focus-on-click">False</property>
-            <signal name="clicked" handler="apply_button_clicked_cb" swapped="yes"/>
-             <style>
-              <class name="suggested-action"/>
-              <class name="circular"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkImage" id="edit_icon">
-            <property name="valign">center</property>
-            <property name="can-target">False</property>
-            <property name="icon-name">document-edit-symbolic</property>
-            <property name="accessible-role">presentation</property>
-            <style>
-              <class name="edit-icon"/>
-            </style>
+            <child>
+              <object class="GtkImage" id="indicator">
+                <property name="valign">center</property>
+                <style>
+                  <class name="indicator"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="apply_button">
+                <property name="valign">center</property>
+                <property name="icon-name">adw-entry-apply-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Apply</property>
+                <property name="focus-on-click">False</property>
+                <signal name="clicked" handler="apply_button_clicked_cb" swapped="yes"/>
+                 <style>
+                  <class name="suggested-action"/>
+                  <class name="circular"/>
+                  <class name="apply-button"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage" id="edit_icon">
+                <property name="valign">center</property>
+                <property name="can-target">False</property>
+                <property name="icon-name">document-edit-symbolic</property>
+                <property name="accessible-role">presentation</property>
+                <style>
+                  <class name="edit-icon"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
         <child>

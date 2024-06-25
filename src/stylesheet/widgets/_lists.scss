@@ -190,18 +190,43 @@ row.entry {
     }
   }
 
-  .edit-icon, .indicator {
-    min-width: 24px;
-    min-height: 24px;
-    padding: 5px;
-  }
+  > box.header {
+    border-spacing: 0;
+    margin-left: 6px;
+    margin-right: 6px;
 
-  .edit-icon:disabled {
-    opacity: $strong_disabled_opacity;
-  }
+    > .editable-area {
+      padding: 0 6px;
 
-  .indicator {
-    opacity: $dimmer_opacity;
+      > .edit-icon, > .indicator {
+        min-width: 24px;
+        min-height: 24px;
+        padding: 5px;
+      }
+
+      > .edit-icon, > .indicator, > .apply-button {
+        &:dir(ltr) { margin-left: 6px; }
+        &:dir(rtl) { margin-right: 6px; }
+      }
+
+      > .edit-icon:disabled {
+        opacity: $strong_disabled_opacity;
+      }
+
+      > .indicator {
+        opacity: $dimmer_opacity;
+      }
+    }
+
+    > .prefixes {
+      &:dir(ltr) { margin-left: 6px; }
+      &:dir(rtl) { margin-right: 6px; }
+    }
+
+    > .suffixes {
+      &:dir(ltr) { margin-right: 6px; }
+      &:dir(rtl) { margin-left: 6px; }
+    }
   }
 
   &.monospace {

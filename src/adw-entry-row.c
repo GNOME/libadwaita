@@ -150,10 +150,10 @@ update_empty (AdwEntryRow *self)
   gboolean editable = gtk_editable_get_editable (GTK_EDITABLE (priv->text));
   gboolean empty = gtk_entry_buffer_get_length (buffer) == 0;
 
-  gtk_widget_set_visible (priv->edit_icon, !priv->text_changed && (!priv->editing || !editable));
+  gtk_widget_set_child_visible (priv->edit_icon, !priv->text_changed && (!priv->editing || !editable));
   gtk_widget_set_sensitive (priv->edit_icon, editable);
-  gtk_widget_set_visible (priv->indicator, priv->editing && priv->show_indicator);
-  gtk_widget_set_visible (priv->apply_button, priv->text_changed);
+  gtk_widget_set_child_visible (priv->indicator, priv->editing && priv->show_indicator);
+  gtk_widget_set_child_visible (priv->apply_button, priv->text_changed);
 
   priv->empty = empty && !(focused && editable) && !priv->text_changed;
 
@@ -279,6 +279,10 @@ measure_editable_area (GtkWidget      *widget,
   int text_min = 0, text_nat = 0;
   int title_min = 0, title_nat = 0;
   int empty_min = 0, empty_nat = 0;
+  int indicator_min = 0, indicator_nat = 0;
+  int edit_icon_min = 0, edit_icon_nat = 0;
+  int apply_btn_min = 0, apply_btn_nat = 0;
+  int icon_min = 0, icon_nat = 0;
 
   gtk_widget_measure (priv->text, orientation, for_size,
                       &text_min, &text_nat, NULL, NULL);
@@ -287,17 +291,53 @@ measure_editable_area (GtkWidget      *widget,
   gtk_widget_measure (priv->empty_title, orientation, for_size,
                       &empty_min, &empty_nat, NULL, NULL);
 
-  if (minimum)
-    *minimum = MAX (text_min + TITLE_SPACING + title_min, empty_min);
+  gtk_widget_measure (priv->indicator, orientation, for_size,
+                      &indicator_min, &indicator_nat, NULL, NULL);
+  gtk_widget_measure (priv->edit_icon, orientation, for_size,
+                      &edit_icon_min, &edit_icon_nat, NULL, NULL);
+  gtk_widget_measure (priv->apply_button, orientation, for_size,
+                      &apply_btn_min, &apply_btn_nat, NULL, NULL);
 
-  if (natural)
-    *natural = MAX (text_nat + TITLE_SPACING + title_nat, empty_nat);
+  icon_min = MAX (indicator_min, MAX (edit_icon_min, apply_btn_min));
+  icon_nat = MAX (indicator_nat, MAX (edit_icon_nat, apply_btn_nat));
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    if (minimum)
+      *minimum = MAX (text_min, MAX (title_min, empty_min)) + icon_min;
+    if (natural)
+      *natural = MAX (text_nat, MAX (title_nat, empty_nat)) + icon_nat;
+  } else {
+    if (minimum)
+      *minimum = MAX (text_min + TITLE_SPACING + title_min, MAX (empty_min, icon_min));
+    if (natural)
+      *natural = MAX (text_nat + TITLE_SPACING + title_nat, MAX (empty_nat, icon_nat));
+  }
 
   if (minimum_baseline)
     *minimum_baseline = -1;
 
   if (natural_baseline)
     *natural_baseline = -1;
+}
+
+static int
+get_icon_width (AdwEntryRow *self,
+                int          width,
+                int          height)
+{
+  AdwEntryRowPrivate *priv = adw_entry_row_get_instance_private (self);
+  int indicator_width, edit_icon_width, apply_btn_width, icon_width;
+
+  gtk_widget_measure (priv->indicator, GTK_ORIENTATION_HORIZONTAL, height,
+                      NULL, &indicator_width, NULL, NULL);
+  gtk_widget_measure (priv->edit_icon, GTK_ORIENTATION_HORIZONTAL, height,
+                      NULL, &edit_icon_width, NULL, NULL);
+  gtk_widget_measure (priv->apply_button, GTK_ORIENTATION_HORIZONTAL, height,
+                      NULL, &apply_btn_width, NULL, NULL);
+
+  icon_width = MAX (indicator_width, MAX (edit_icon_width, apply_btn_width));
+
+  return MIN (icon_width, width);
 }
 
 static void
@@ -311,6 +351,8 @@ allocate_editable_area (GtkWidget *widget,
   gboolean is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
   GskTransform *transform;
   int empty_height = 0, title_height = 0, text_height = 0, text_baseline = -1;
+  int icon_width;
+  gboolean has_icon;
   float empty_scale, title_scale, title_offset;
 
   gtk_widget_measure (priv->title, GTK_ORIENTATION_VERTICAL, width,
@@ -319,6 +361,15 @@ allocate_editable_area (GtkWidget *widget,
                       NULL, &empty_height, NULL, NULL);
   gtk_widget_measure (priv->text, GTK_ORIENTATION_VERTICAL, width,
                       NULL, &text_height, NULL, &text_baseline);
+
+  has_icon = gtk_widget_get_child_visible (priv->edit_icon) ||
+             gtk_widget_get_child_visible (priv->indicator) ||
+             gtk_widget_get_child_visible (priv->apply_button);
+
+  if (has_icon)
+    icon_width = get_icon_width (self, width, height);
+  else
+    icon_width = 0;
 
   empty_scale = (float) adw_lerp (1.0, (double) title_height / empty_height, priv->empty_progress);
   title_scale = (float) adw_lerp ((double) empty_height / title_height, 1.0, priv->empty_progress);
@@ -339,11 +390,26 @@ allocate_editable_area (GtkWidget *widget,
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (width, 0));
   transform = gsk_transform_scale (transform, title_scale, title_scale);
   if (is_rtl)
-    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (-width, 0));
-  gtk_widget_allocate (priv->title, width, title_height, -1, transform);
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (icon_width - width, 0));
+  gtk_widget_allocate (priv->title, width - icon_width, title_height, -1, transform);
 
+  if (is_rtl)
+    transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (icon_width, 0));
+  else
+    transform = NULL;
   text_baseline += (int) ((double) (height + title_height - text_height + TITLE_SPACING) / 2.0);
-  gtk_widget_allocate (priv->text, width, height, text_baseline, NULL);
+  gtk_widget_allocate (priv->text, width - icon_width, height, text_baseline, transform);
+
+  if (has_icon) {
+    if (is_rtl)
+      transform = NULL;
+    else
+      transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - icon_width, 0));
+
+    gtk_widget_allocate (priv->edit_icon, icon_width, height, -1, gsk_transform_ref (transform));
+    gtk_widget_allocate (priv->indicator, icon_width, height, -1, gsk_transform_ref (transform));
+    gtk_widget_allocate (priv->apply_button, icon_width, height, -1, transform);
+  }
 }
 
 static gboolean
@@ -666,6 +732,9 @@ adw_entry_row_init (AdwEntryRow *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
   gtk_editable_init_delegate (GTK_EDITABLE (self));
+
+  gtk_widget_set_child_visible (priv->indicator, FALSE);
+  gtk_widget_set_child_visible (priv->apply_button, FALSE);
 
   adw_gizmo_set_measure_func (ADW_GIZMO (priv->editable_area), (AdwGizmoMeasureFunc) measure_editable_area);
   adw_gizmo_set_allocate_func (ADW_GIZMO (priv->editable_area), (AdwGizmoAllocateFunc) allocate_editable_area);
