@@ -211,6 +211,7 @@ adw_floating_sheet_dispose (GObject *object)
 
   g_clear_pointer (&self->dimming, gtk_widget_unparent);
   g_clear_pointer (&self->sheet_bin, gtk_widget_unparent);
+  g_clear_object (&self->open_animation);
   self->child = NULL;
 
   G_OBJECT_CLASS (adw_floating_sheet_parent_class)->dispose (object);
