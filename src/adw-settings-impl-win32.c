@@ -165,19 +165,23 @@ color_values_changed (AdwSettingsImplWin32 *self)
   if (!self->ui)
     return S_FALSE;
 
-  res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Foreground, &color);
-  if (SUCCEEDED (res))
-    adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
-                                        scheme_for_fg_color (RGB (color.R, color.G, color.B)));
+  if (adw_settings_impl_get_has_color_scheme (ADW_SETTINGS_IMPL (self))) {
+    res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Foreground, &color);
+    if (SUCCEEDED (res))
+      adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
+                                          scheme_for_fg_color (RGB (color.R, color.G, color.B)));
+  }
 
-  res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Accent, &color);
-  if (SUCCEEDED (res)) {
-    rgba.red = color.R / 255.0f;
-    rgba.green = color.G / 255.0f;
-    rgba.blue = color.B / 255.0f;
-    rgba.alpha = 1.0f;
-    adw_settings_impl_set_accent_color (ADW_SETTINGS_IMPL (self),
-                                        adw_accent_color_nearest_from_rgba (&rgba));
+  if (adw_settings_impl_get_has_accent_colors (ADW_SETTINGS_IMPL (self))) {
+    res = self->ui->lpVtbl->GetColorValue (self->ui, UIColorType_Accent, &color);
+    if (SUCCEEDED (res)) {
+      rgba.red = color.R / 255.0f;
+      rgba.green = color.G / 255.0f;
+      rgba.blue = color.B / 255.0f;
+      rgba.alpha = 1.0f;
+      adw_settings_impl_set_accent_color (ADW_SETTINGS_IMPL (self),
+                                          adw_accent_color_nearest_from_rgba (&rgba));
+    }
   }
 
   return S_OK;
