@@ -1834,7 +1834,7 @@ adw_alert_dialog_remove_response (AdwAlertDialog *self,
   }
 
   if (priv->default_response == info->id)
-    gtk_window_set_default_widget (GTK_WINDOW (self), NULL);
+    adw_dialog_set_default_widget (ADW_DIALOG (self), NULL);
 
   gtk_widget_unparent (info->button);
 
