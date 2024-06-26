@@ -85,7 +85,7 @@ floating-sheet {
 }
 
 dialog.bottom-sheet {
-  &.landscape sheet {
+  &:not(.narrow) sheet {
     margin-left: 30px;
     margin-right: 30px;
 

@@ -132,6 +132,7 @@ typedef struct
   AdwDialogPresentationMode presentation_mode;
   AdwBreakpoint *portrait_breakpoint;
   AdwBreakpoint *landscape_breakpoint;
+  AdwBreakpoint *both_breakpoint;
 
   GtkWidget *focus_widget;
   GtkWidget *default_widget;
@@ -445,7 +446,27 @@ update_presentation (AdwDialog *self)
   breakpoint =
     adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->bin));
   use_bottom_sheet = priv->presentation_mode == ADW_DIALOG_BOTTOM_SHEET ||
-                     breakpoint != NULL;
+                     (priv->presentation_mode == ADW_DIALOG_AUTO && breakpoint != NULL);
+
+  if (breakpoint == priv->both_breakpoint) {
+    gtk_widget_add_css_class (GTK_WIDGET (self), "narrow");
+    gtk_widget_add_css_class (GTK_WIDGET (self), "short");
+  } else if (breakpoint == priv->portrait_breakpoint) {
+    gtk_widget_add_css_class (GTK_WIDGET (self), "narrow");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "short");
+  } else if (breakpoint == priv->landscape_breakpoint) {
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "narrow");
+    gtk_widget_add_css_class (GTK_WIDGET (self), "short");
+  } else {
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "narrow");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "short");
+  }
+
+  if (use_bottom_sheet && priv->bottom_sheet)
+    return;
+
+  if (!use_bottom_sheet && priv->floating_sheet)
+    return;
 
   root = gtk_widget_get_root (GTK_WIDGET (self));
 
@@ -500,14 +521,6 @@ update_presentation (AdwDialog *self)
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "bottom-sheet");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
-
-    if (breakpoint == priv->portrait_breakpoint) {
-      gtk_widget_add_css_class (GTK_WIDGET (self), "portrait");
-      gtk_widget_remove_css_class (GTK_WIDGET (self), "landscape");
-    } else {
-      gtk_widget_add_css_class (GTK_WIDGET (self), "landscape");
-      gtk_widget_remove_css_class (GTK_WIDGET (self), "portrait");
-    }
   } else {
     priv->floating_sheet = ADW_FLOATING_SHEET (adw_floating_sheet_new ());
 
@@ -548,40 +561,10 @@ update_presentation_mode (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
-  if (priv->window)
+  if (priv->window || !priv->bin)
     return;
 
-  switch (priv->presentation_mode) {
-  case ADW_DIALOG_AUTO:
-    g_assert (!priv->portrait_breakpoint);
-    g_assert (!priv->landscape_breakpoint);
-
-    priv->landscape_breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse (LANDSCAPE_CONDITION));
-    adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin),
-                                       priv->landscape_breakpoint);
-
-    priv->portrait_breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse (PORTRAIT_CONDITION));
-    adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin),
-                                       priv->portrait_breakpoint);
-    break;
-  case ADW_DIALOG_FLOATING:
-  case ADW_DIALOG_BOTTOM_SHEET:
-    if (priv->portrait_breakpoint) {
-      adw_breakpoint_bin_remove_breakpoint (ADW_BREAKPOINT_BIN (priv->bin),
-                                            priv->portrait_breakpoint);
-      priv->portrait_breakpoint = NULL;
-
-      adw_breakpoint_bin_remove_breakpoint (ADW_BREAKPOINT_BIN (priv->bin),
-                                            priv->landscape_breakpoint);
-      priv->landscape_breakpoint = NULL;
-    }
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-
-  if (priv->bin)
-    update_presentation (self);
+  update_presentation (self);
 }
 
 static void
@@ -2080,6 +2063,14 @@ adw_dialog_present (AdwDialog *self,
     priv->bin = adw_breakpoint_bin_new ();
     adw_breakpoint_bin_set_pass_through (ADW_BREAKPOINT_BIN (priv->bin), TRUE);
     adw_breakpoint_bin_set_warnings (ADW_BREAKPOINT_BIN (priv->bin), FALSE, TRUE);
+
+    priv->landscape_breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse (LANDSCAPE_CONDITION));
+    priv->portrait_breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse (PORTRAIT_CONDITION));
+    priv->both_breakpoint = adw_breakpoint_new (adw_breakpoint_condition_parse (PORTRAIT_CONDITION " and " LANDSCAPE_CONDITION));
+
+    adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin), priv->landscape_breakpoint);
+    adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin), priv->portrait_breakpoint);
+    adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin), priv->both_breakpoint);
 
     gtk_widget_set_parent (priv->bin, GTK_WIDGET (self));
 
