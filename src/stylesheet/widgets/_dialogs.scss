@@ -89,8 +89,8 @@ dialog.bottom-sheet {
     margin-left: 30px;
     margin-right: 30px;
 
-    > outline {
-      &.flush-left, &.flush-right, &.flush-left.flush-right {
+    &.flush-left, &.flush-right, &.flush-left.flush-right {
+      > outline {
         box-shadow: inset 1px 0 $window_outline_color,
                     inset -1px 0 $window_outline_color,
                     inset 0 1px $window_outline_color;
