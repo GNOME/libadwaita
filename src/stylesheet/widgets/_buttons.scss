@@ -631,10 +631,11 @@ buttoncontent {
 tabbutton {
   label {
     font-weight: 800;
-    font-size: 8pt;
+    // We're intentionally using pixels here, as this label is a part of the icon
+    font-size: 10.5px;
 
     &.small {
-      font-size: 6pt;
+      font-size: 8px;
     }
   }
 

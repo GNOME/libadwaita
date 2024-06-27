@@ -15,9 +15,6 @@
 #include "adw-indicator-bin-private.h"
 #include "adw-marshalers.h"
 
-/* Copied from GtkInspector code */
-#define XFT_DPI_MULTIPLIER (96.0 * PANGO_SCALE)
-
 /**
  * AdwTabButton:
  *
@@ -100,38 +97,6 @@ static void
 activate_cb (AdwTabButton *self)
 {
   g_signal_emit_by_name (self->button, "activate");
-}
-
-static void
-update_label_scale (AdwTabButton *self,
-                    GtkSettings  *settings)
-{
-  int xft_dpi;
-  PangoAttrList *attrs;
-  PangoAttribute *scale_attribute;
-
-  g_object_get (settings, "gtk-xft-dpi", &xft_dpi, NULL);
-
-  if (xft_dpi == 0)
-    xft_dpi = 96 * PANGO_SCALE;
-
-  attrs = pango_attr_list_new ();
-
-  scale_attribute = pango_attr_scale_new (XFT_DPI_MULTIPLIER / (double) xft_dpi);
-
-  pango_attr_list_change (attrs, scale_attribute);
-
-  gtk_label_set_attributes (self->label, attrs);
-
-  pango_attr_list_unref (attrs);
-}
-
-static void
-xft_dpi_changed (AdwTabButton *self,
-                 GParamSpec   *pspec,
-                 GtkSettings  *settings)
-{
-  update_label_scale (self, settings);
 }
 
 static void
@@ -370,18 +335,9 @@ adw_tab_button_class_init (AdwTabButtonClass *klass)
 static void
 adw_tab_button_init (AdwTabButton *self)
 {
-  GtkSettings *settings;
-
   gtk_widget_init_template (GTK_WIDGET (self));
 
   update_icon (self);
-
-  settings = gtk_widget_get_settings (GTK_WIDGET (self));
-
-  update_label_scale (self, settings);
-  g_signal_connect_object (settings, "notify::gtk-xft-dpi",
-                           G_CALLBACK (xft_dpi_changed), self,
-                           G_CONNECT_SWAPPED);
 }
 
 static const char *
