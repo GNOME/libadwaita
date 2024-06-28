@@ -463,6 +463,15 @@ row.button {
         background-image: image(color-mix(in srgb, currentColor 10%, transparent));
       }
     }
+
+    &:disabled {
+      opacity: var(--disabled-opacity);
+
+      > box > .icon:disabled,
+      > box > label:disabled {
+        filter: none;
+      }
+    }
   }
 
   &.destructive-action {
