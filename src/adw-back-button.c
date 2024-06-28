@@ -109,23 +109,6 @@ update_page (AdwBackButton *self)
   gtk_widget_set_visible (GTK_WIDGET (self), !!prev_page);
 }
 
-static void
-pushed_cb (NavigationViewData *data)
-{
-  AdwNavigationPage *visible_page;
-
-  g_assert (data->self);
-  g_assert (data->view);
-  g_assert (data->page);
-
-  visible_page = adw_navigation_view_get_visible_page (data->view);
-
-  if (visible_page != data->page)
-    return;
-
-  update_page (data->self);
-}
-
 static gboolean
 traverse_gather_history (AdwNavigationView *view,
                          AdwNavigationPage *page,
@@ -467,8 +450,9 @@ adw_back_button_root (GtkWidget *widget)
       data->view = ADW_NAVIGATION_VIEW (view);
       data->page = ADW_NAVIGATION_PAGE (page);
 
-      g_signal_connect_swapped (data->view, "pushed", G_CALLBACK (pushed_cb), data);
       g_signal_connect_swapped (data->view, "replaced",
+                                G_CALLBACK (update_page), self);
+      g_signal_connect_swapped (data->page, "showing",
                                 G_CALLBACK (update_page), self);
       g_signal_connect_swapped (data->page, "notify::can-pop",
                                 G_CALLBACK (update_page), self);
@@ -493,7 +477,6 @@ adw_back_button_unroot (GtkWidget *widget)
   for (l = self->navigation_views; l; l = l->next) {
     NavigationViewData *data = l->data;
 
-    g_signal_handlers_disconnect_by_func (data->view, pushed_cb, data);
     g_signal_handlers_disconnect_by_func (data->view, update_page, self);
     g_signal_handlers_disconnect_by_func (data->page, update_page, self);
 
