@@ -621,6 +621,7 @@ tabbutton {
 
   indicatorbin > indicator,
   indicatorbin > mask {
-    transform: translate(-1px, 1px);
-  }
+    &:dir(ltr) { transform: translate(-1px, 1px); }
+    &:dir(rtl) { transform: translate(1px, 1px); }
+ }
 }
