@@ -132,7 +132,7 @@ spin_button_input_cb (AdwSpinRow *self,
 {
   int return_value;
 
-  g_signal_emit (self, signals[SIGNAL_INPUT], 0, &new_value, &return_value);
+  g_signal_emit (self, signals[SIGNAL_INPUT], 0, new_value, &return_value);
 
   return return_value;
 }
