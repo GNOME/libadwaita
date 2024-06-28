@@ -1,3 +1,157 @@
+=================
+Version 1.6.alpha
+=================
+
+- Introduce AdwBottomSheet
+- Introduce AdwButtonRow
+- Introduce AdwMultiLayoutView
+- Deprecate AdwAboutWindow, AdwMessageDialog and AdwPreferencesWindow
+- Various annotation fixes
+- Build
+  - Depend on GTK 4.15.2
+- AdwAboutDialog/Window
+  - Fix an outdated appstream reference in docs
+- AdwActionRow
+  - Mention .property in docs
+- AdwAlertDialog
+  - Refresh style, drop custom suggested and destructive button styles
+  - Try harder to fit into landscape mobile screens
+  - Fix initial focus
+  - Fix the accessible role
+  - Fix setting default widget when removing a response
+  - Fix unmatched va_start()
+- AdwApplicationWindow
+  - Default minimum size to 360×200
+- AdwAvatar
+  - Fix portrait avatars on hidpi
+- AdwBin
+  - Fix a potential focus issue
+- AdwBreakpointBin
+  - Fix a leak
+- AdwBreakpointCondition
+  - Fix leaks when parsing
+- AdwCarousel
+  - Fix a build warning
+- AdwComboRow
+  - Add :header-factory
+  - Add :search-match-mode
+  - Fix initial checkmark
+  - Handle model changes properly
+- AdwDialog
+  - Fix toggling presentation mode
+  - Fix close button ignoring :can-close
+  - Fix ::close-attempt not emitting in some cases
+  - Fix swipe area for bottom sheets
+  - Make shortcuts work when there are no focusable widgets
+  - Correctly restore focus when opening a dialog from a menu
+  - Fix GtkWindow:deletable=false hiding close buttons in dialogs
+  - Fix accessibility warnings
+  - Leak fixes
+- AdwEntryRow
+  - Add :max-length
+  - Don't change size on focus
+- AdwExpanderRow
+  - Fix get_title_lines() and get_subtitle_lines() return types
+  - Fix remove() docs
+- AdwHeaderBar
+  - Don't show title when used inside AdwBottomSheet with a drag handle
+  - Fix split view links in docs
+  - Fix initial focus for the back button
+- AdwMessageDialog
+  - Refresh style, drop custom suggested and destructive button styles
+  - Try harder to fit into landscape mobile screens
+  - Fix unmatched va_start()
+- AdwOverlaySplitView
+  - Unmap sidebar when it's hidden
+- AdwPreferencesGroup
+  - Add :separate-rows
+  - Fix :header-group annotations and notifications
+  - Fix a potential focus issue
+- AdwPreferencesPage
+  - Add :description-centered
+  - Fix a potential focus issue
+- AdwSpinRow
+  - Fix ::input handling
+- AdwStyleManager
+  - Support system accent color on Linux and Windows
+- AdwSwipeTracker
+  - Various fixes for swipe handling
+- AdwTabBar
+  - Remove spinner unmap hack as GTK handles it now
+- AdwTabButton
+  - Fix needs-attention badge on RTL
+- AdwTabOverview
+  - Remove spinner unmap hack as GTK handles it now
+- AdwTabView
+  - Fix a leak when closing the last page
+  - Accessibility fixes
+  - Document :close-page return value
+- AdwToast
+  - Fix accessible role
+- AdwViewStack
+  - Accessibility fixes
+  - Fix a typo in docs
+- AdwWindow
+  - Default minimum size to 360×200
+- Docs
+  - Add a AdwMultiLayout example to the adaptive layouts page
+  - Replace the named colors page with css variables
+  - Use modern CSS rgb() syntax instead of the legacy one
+  - Stop mentioning _finish() functions, gi-docgen does it now
+  - Stop using non-standard property getter/setter annotations
+  - An attempt to make screenshot tool less flaky
+  - Update screenshots
+  - Don't list ADW_ENCODE_VERSION and ADW_UNAVAILABLE
+- Demo
+  - Rename Dialogs page to Alert Dialog
+  - Use :separate-rows for the entry rows group on the lists page
+  - Remove colored buttons example
+  - Use neutral accent color for tab pages
+  - Refresh tab page colors
+  - Fix writing style for subtitles
+  - Fix the banner page button switch
+- Stylesheet
+  - Use standard CSS functions instead of GTK-specific ones
+  - Introduce a CSS variable for each named color: @accent_color -> --accent-color etc
+    - @borders is replaced with --border-color, not --borders
+    - Each variable by default points to its named color to ensure
+      backwards compatibility
+  - Introduce --standalone-color-oklab
+  - Generate standalone colors from background colors by default
+  - Introduce --accent-blue, --accent-teal, --accent-green,
+    --accent-yellow, --accent-orange, --accent-red, --accent-pink,
+    --accent-purple and --accent-slate matching the system accents
+  - Introduce --border-opacity, --dim-opacity, --disabled-opacity
+  - Introduce --window-radius
+  - Introduce .boxed-list-separate
+  - Refresh style for GtkMessageDialog too
+  - Change .destructive-action style to make it distinct from
+    .suggested-action
+  - Support .navigation-sidebar for GtkGridView and GtkFlowBox
+  - Support .monospace for property rows
+  - Support .inline for text views
+  - Use white accent color for .osd instead of overriding it for every
+    widget inside
+  - Use matching accent colors for .error, .warning and .success
+  - Use red focus rings for destructive buttons
+  - Make file chooser selection grey
+  - Make sure --success-color, --warning-color and --error-color are
+    legible in .osd
+  - Add a hack to make GtkTreeView and GtkIconView redraw when accent
+    color changes
+  - Deprecate button.opaque
+  - Fix entry progress bars
+- Various cleanups and refactoring
+- Translation updates
+  - Brazilian Portuguese
+  - Catalan
+  - Dutch
+  - Hungarian
+  - Kabyle
+  - Portuguese
+  - Punjabi
+  - Slovenian
+
 =============
 Version 1.5.0
 =============
