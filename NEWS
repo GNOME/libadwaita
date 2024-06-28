@@ -1,4 +1,24 @@
 =============
+Version 1.4.6
+=============
+
+- AdwBreakpointCondition
+  - Fix leaks when parsing
+- AdwBreakpointBin
+  - Fix a leak
+- AdwHeaderBar
+  - Fix initial focus for the back button
+  - Fix split view links in docs
+- AdwSpinRow
+  - Fix ::input handling
+- AdwTabButton
+  - Fix needs-attention badge on RTL
+- AdwTabView
+  - Accessibility fixes
+- AdwViewStack
+  - Accessibility fixes
+
+=============
 Version 1.4.5
 =============
 
