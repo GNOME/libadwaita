@@ -234,7 +234,7 @@ async_cb (GtkWidget *parent)
 static GtkWidget *
 create_content (GtkWidget *parent)
 {
-  GtkWidget *view, *box, *button;
+  GtkWidget *view, *swindow, *box, *button;
 
   box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 24);
   gtk_widget_set_margin_top (box, 48);
@@ -274,9 +274,16 @@ create_content (GtkWidget *parent)
   g_signal_connect_swapped (button, "clicked", G_CALLBACK (async_cb), parent);
   gtk_box_append (GTK_BOX (box), button);
 
+  swindow = gtk_scrolled_window_new ();
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+                                  GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_propagate_natural_height (GTK_SCROLLED_WINDOW (swindow),
+                                                    TRUE);
+  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), box);
+
   view = adw_toolbar_view_new ();
   adw_toolbar_view_add_top_bar (ADW_TOOLBAR_VIEW (view), adw_header_bar_new ());
-  adw_toolbar_view_set_content (ADW_TOOLBAR_VIEW (view), box);
+  adw_toolbar_view_set_content (ADW_TOOLBAR_VIEW (view), swindow);
 
   return view;
 }
@@ -297,6 +304,7 @@ main (int   argc,
   adw_init ();
 
   window = adw_window_new ();
+  gtk_widget_set_size_request (window, 360, 294);
   g_signal_connect_swapped (window, "destroy", G_CALLBACK (close_cb), &done);
   gtk_window_set_title (GTK_WINDOW (window), "Alert Dialogs");
   adw_window_set_content (ADW_WINDOW (window), create_content (window));
