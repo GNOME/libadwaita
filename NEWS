@@ -1,4 +1,37 @@
 =============
+Version 1.5.2
+=============
+
+- AdwAlertDialog
+  - Fix unmatched va_start()
+  - Fix setting default widget when removing a response
+- AdwBreakpointCondition
+  - Fix leaks when parsing
+- AdwBreakpointBin
+  - Fix a leak
+- AdwDialog
+  - Fix toggling presentation mode
+  - Fix close button ignoring :can-close
+  - Fix ::close-attempt not emitting in some cases
+  - Fix swipe area for bottom sheets
+  - Leak fixes
+- AdwHeaderBar
+  - Fix initial focus for the back button
+  - Fix split view links in docs
+- AdwMessageDialog
+  - Fix unmatched va_start()
+- AdwSpinRow
+  - Fix ::input handling
+- AdwTabButton
+  - Fix needs-attention badge on RTL
+- AdwTabView
+  - Accessibility fixes
+- AdwViewStack
+  - Accessibility fixes
+- Translation updates
+  - Nepali
+
+=============
 Version 1.5.1
 =============
 
