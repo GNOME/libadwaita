@@ -850,6 +850,8 @@ adw_style_manager_get_high_contrast (AdwStyleManager *self)
  *
  * See [property@StyleManager:accent-color].
  *
+ * Returns: whether the system supports accent colors
+ *
  * Since: 1.6
  */
 gboolean

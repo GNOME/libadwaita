@@ -1960,6 +1960,8 @@ adw_bottom_sheet_set_can_close (AdwBottomSheet *self,
  *
  * It can be used to shift the content upwards when the bottom sheet is open.
  *
+ * Returns: the sheet height
+ *
  * Since: 1.6
  */
 int
@@ -1978,6 +1980,8 @@ adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self)
  *
  * It can be used to shift the content upwards permanently to accommodate for
  * the bottom bar.
+ *
+ * Returns: the bottom bar height
  *
  * Since: 1.6
  */
