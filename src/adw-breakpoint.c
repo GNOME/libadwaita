@@ -642,6 +642,7 @@ parse_multi (const char            *str,
       return cond_1;
     } else {
       *error = CONDITION_PARSER_ERROR_UNKNOWN_OPERATOR;
+      g_clear_pointer (&cond_1, adw_breakpoint_condition_free);
       return NULL;
     }
 
@@ -650,6 +651,7 @@ parse_multi (const char            *str,
     } else {
       *endp = (char *) str;
       *error = CONDITION_PARSER_ERROR_UNEXPECTED_CHARACTER;
+      g_clear_pointer (&cond_1, adw_breakpoint_condition_free);
       return NULL;
     }
 
@@ -663,6 +665,7 @@ parse_multi (const char            *str,
 
       if (!cond_2) {
         *endp = (char *) str;
+        g_clear_pointer (&cond_1, adw_breakpoint_condition_free);
         return NULL;
       }
 
@@ -679,6 +682,7 @@ parse_multi (const char            *str,
 
     if (!cond_2) {
       *endp = (char *) str;
+      g_clear_pointer (&cond_1, adw_breakpoint_condition_free);
       return NULL;
     }
 
