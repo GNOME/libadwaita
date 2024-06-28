@@ -37,6 +37,7 @@ doc:
   script:
     - meson setup --fatal-meson-warnings --prefix=/app ${MESON_ARGS} _build
     - ninja -C _build
+    - meson test -C _build --suite libadwaita:doc
     - mv _build/doc/libadwaita-1 _doc/
   artifacts:
     expose_as: 'Browse documentation'
