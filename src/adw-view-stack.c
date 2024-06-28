@@ -235,6 +235,9 @@ adw_view_stack_page_set_property (GObject      *object,
   switch (property_id) {
   case PAGE_PROP_CHILD:
     g_set_object (&self->widget, g_value_get_object (value));
+    if (self->widget)
+      gtk_accessible_set_accessible_parent (GTK_ACCESSIBLE (self->widget),
+                                            GTK_ACCESSIBLE (self), NULL);
     break;
   case PAGE_PROP_NAME:
     adw_view_stack_page_set_name (self, g_value_get_string (value));
