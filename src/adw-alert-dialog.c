@@ -699,16 +699,7 @@ measure_child (GtkWidget      *widget,
                                               DIALOG_MAX_WIDTH,
                                               gtk_widget_get_settings (widget));
 
-    if (priv->is_short) {
-      min_size = MAX (min_size, regular_max_size);
-      max_size = adw_length_unit_to_px (ADW_LENGTH_UNIT_SP,
-                                        DIALOG_MAX_WIDE_WIDTH,
-                                        gtk_widget_get_settings (widget));
-
-      max_size = MIN (max_size, wide_nat);
-    } else if (priv->prefer_wide_layout) {
-      min_size = MAX (min_size, regular_max_size);
-
+    if (priv->prefer_wide_layout || priv->is_short) {
       max_size = adw_length_unit_to_px (ADW_LENGTH_UNIT_SP,
                                         DIALOG_MAX_WIDE_WIDTH,
                                         gtk_widget_get_settings (widget));

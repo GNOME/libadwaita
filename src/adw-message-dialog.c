@@ -853,7 +853,6 @@ adw_message_dialog_measure (GtkWidget      *widget,
     narrow_nat = MAX (narrow_nat, pref_width);
 
     if (is_short) {
-      min_size = MAX (min_size, max_size);
       max_size = adw_length_unit_to_px (ADW_LENGTH_UNIT_SP,
                                         DIALOG_MAX_WIDE_WIDTH,
                                         gtk_widget_get_settings (widget));
