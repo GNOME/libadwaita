@@ -476,11 +476,6 @@ update_presentation (AdwDialog *self)
 
     if (focus)
       g_object_add_weak_pointer (G_OBJECT (focus), (gpointer *) &focus);
-
-    /* FIXME: the focused widget has a strong ref and it never gets cleared. The
-     * real source of this leak is likely somewhere in GTK, but unsetting the
-     * focus "fixes" it */
-    gtk_root_set_focus (root, NULL);
   }
 
   if (priv->bottom_sheet) {
