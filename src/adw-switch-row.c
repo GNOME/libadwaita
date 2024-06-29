@@ -38,6 +38,10 @@
  * The [property@SwitchRow:active] property should be connected to in order to
  * monitor changes to the active state.
  *
+ * ## Accessibility
+ *
+ * `AdwSwitchRow` uses the `GTK_ACCESSIBLE_ROLE_SWITCH` role.
+ *
  * Since: 1.4
  */
 
@@ -120,6 +124,7 @@ static void
 adw_switch_row_class_init (AdwSwitchRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->get_property = adw_switch_row_get_property;
   object_class->set_property = adw_switch_row_set_property;
@@ -138,6 +143,8 @@ adw_switch_row_class_init (AdwSwitchRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
+
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_SWITCH);
 }
 
 static void
