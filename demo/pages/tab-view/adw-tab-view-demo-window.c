@@ -507,9 +507,15 @@ adw_tab_view_demo_window_class_init (AdwTabViewDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, indicator_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_drop_cb);
 
+#ifdef __APPLE__
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_t, GDK_META_MASK, "win.tab-new", NULL);
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_n, GDK_META_MASK, "win.window-new", NULL);
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_w, GDK_META_MASK, "tab.close", NULL);
+#else
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_t, GDK_CONTROL_MASK, "win.tab-new", NULL);
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_n, GDK_CONTROL_MASK, "win.window-new", NULL);
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_w, GDK_CONTROL_MASK, "tab.close", NULL);
+#endif
 }
 
 static void

@@ -85,7 +85,11 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+#ifdef __APPLE__
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_w, GDK_META_MASK, "window.close", NULL);
+#else
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_w, GDK_CONTROL_MASK, "window.close", NULL);
+#endif
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
