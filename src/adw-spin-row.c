@@ -50,6 +50,11 @@
  * `AdwSpinRow` has the same structure as [class@ActionRow], as well as the
  * `.spin` style class on the main node.
  *
+ * ## Accessibility
+ *
+ * `AdwSpinRow` uses an internal `GtkSpinButton` with the
+ * `GTK_ACCESSIBLE_ROLE_SPIN_BUTTON` role.
+ *
  * Since: 1.4
  */
 
@@ -452,7 +457,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, spin_button_wrapped_cb);
   gtk_widget_class_bind_template_callback (widget_class, spin_button_notify_value_cb);
 
-  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TEXT_BOX);
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_PRESENTATION);
 }
 
 static void
