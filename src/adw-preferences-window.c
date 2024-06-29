@@ -656,7 +656,12 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+#ifdef __APPLE__
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_META_MASK, search_open_cb, NULL);
+#else
   gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_CONTROL_MASK, search_open_cb, NULL);
+#endif
+
   gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0, close_cb, NULL);
 
   gtk_widget_class_set_template_from_resource (widget_class,
