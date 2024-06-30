@@ -2076,8 +2076,13 @@ add_switch_nth_page_shortcut (AdwTabView         *self,
   GtkShortcutAction *action;
   GtkShortcut *shortcut;
 
+#ifdef __APPLE__
+  trigger = gtk_alternative_trigger_new (gtk_keyval_trigger_new (keysym, GDK_META_MASK),
+                                         gtk_keyval_trigger_new (keypad_keysym, GDK_META_MASK));
+#else
   trigger = gtk_alternative_trigger_new (gtk_keyval_trigger_new (keysym, GDK_ALT_MASK),
                                          gtk_keyval_trigger_new (keypad_keysym, GDK_ALT_MASK));
+#endif
   action = gtk_callback_action_new ((GtkShortcutFunc) select_nth_page_cb, self, NULL);
   shortcut = gtk_shortcut_new (trigger, action);
 
