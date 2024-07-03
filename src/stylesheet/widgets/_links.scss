@@ -40,7 +40,7 @@ button.link {
   &:hover,
   &:active,
   &:checked {
-    @extend %undecorated_button;
+    background-color: transparent;
   }
 
   > label {

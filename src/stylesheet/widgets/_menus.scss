@@ -132,8 +132,7 @@ popover.menu {
     min-width: 40px;
     padding: 0 $menu_padding;
     border-radius: $menu_radius;
-
-    @extend %undecorated_button;
+    background-color: transparent;
 
     &:hover,
     &:selected {
