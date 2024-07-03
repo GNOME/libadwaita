@@ -12,6 +12,7 @@
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-spinner-paintable.h"
 #include "adw-timed-animation.h"
 
 #define FADE_WIDTH 18.0f
@@ -31,8 +32,7 @@ struct _AdwTab
   GtkWidget parent_instance;
 
   GtkWidget *title;
-  GtkWidget *icon_stack;
-  GtkImage *icon;
+  GtkWidget *icon;
   GtkImage *indicator_icon;
   GtkWidget *indicator_btn;
   GtkWidget *close_btn;
@@ -174,16 +174,23 @@ update_icons (AdwTab *self)
   GIcon *gicon = adw_tab_page_get_icon (self->page);
   gboolean loading = adw_tab_page_get_loading (self->page);
   GIcon *indicator = adw_tab_page_get_indicator_icon (self->page);
-  const char *name = loading ? "spinner" : "icon";
 
-  if (self->pinned && !gicon)
-    gicon = adw_tab_view_get_default_icon (self->view);
+  if (loading) {
+    AdwSpinnerPaintable *paintable = adw_spinner_paintable_new (self->icon);
 
-  gtk_image_set_from_gicon (self->icon, gicon);
-  gtk_widget_set_visible (self->icon_stack,
+    gtk_image_set_from_paintable (GTK_IMAGE (self->icon), GDK_PAINTABLE (paintable));
+
+    g_object_unref (paintable);
+  } else {
+    if (self->pinned && !gicon)
+      gicon = adw_tab_view_get_default_icon (self->view);
+
+    gtk_image_set_from_gicon (GTK_IMAGE (self->icon), gicon);
+  }
+
+  gtk_widget_set_visible (self->icon,
                           (gicon != NULL || loading) &&
                           (!self->pinned || indicator == NULL));
-  gtk_stack_set_visible_child_name (GTK_STACK (self->icon_stack), name);
 
   gtk_widget_set_visible (self->indicator_btn, indicator != NULL);
 }
@@ -385,7 +392,7 @@ adw_tab_measure (GtkWidget      *widget,
   } else {
     int child_min, child_nat;
 
-    gtk_widget_measure (self->icon_stack, orientation, for_size,
+    gtk_widget_measure (self->icon, orientation, for_size,
                         &child_min, &child_nat, NULL, NULL);
     min = MAX (min, child_min);
     nat = MAX (nat, child_nat);
@@ -482,7 +489,7 @@ adw_tab_size_allocate (GtkWidget *widget,
   int start_width = 0, end_width = 0;
   int needs_attention_x;
 
-  measure_child (self->icon_stack, height, &icon_width);
+  measure_child (self->icon, height, &icon_width);
   measure_child (self->title, height, &title_width);
   measure_child (self->indicator_btn, height, &indicator_width);
   measure_child (self->close_btn, height, &close_width);
@@ -542,8 +549,8 @@ adw_tab_size_allocate (GtkWidget *widget,
   allocate_child (self->needs_attention_indicator, width, height,
                   needs_attention_x, needs_attention_width, baseline);
 
-  if (gtk_widget_get_visible (self->icon_stack)) {
-    allocate_child (self->icon_stack, width, height,
+  if (gtk_widget_get_visible (self->icon)) {
+    allocate_child (self->icon, width, height,
                     center_x, icon_width, baseline);
 
     center_x += icon_width;
@@ -565,7 +572,7 @@ adw_tab_snapshot (GtkWidget   *widget,
 
   gtk_widget_snapshot_child (widget, self->needs_attention_indicator, snapshot);
   gtk_widget_snapshot_child (widget, self->indicator_btn, snapshot);
-  gtk_widget_snapshot_child (widget, self->icon_stack, snapshot);
+  gtk_widget_snapshot_child (widget, self->icon, snapshot);
 
   if (draw_fade) {
     gboolean is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
@@ -624,8 +631,8 @@ adw_tab_constructed (GObject *object)
     gtk_widget_add_css_class (GTK_WIDGET (self), "pinned");
     gtk_widget_set_visible (self->title, FALSE);
     gtk_widget_set_visible (self->close_btn, FALSE);
-    gtk_widget_set_margin_start (self->icon_stack, 0);
-    gtk_widget_set_margin_end (self->icon_stack, 0);
+    gtk_widget_set_margin_start (self->icon, 0);
+    gtk_widget_set_margin_end (self->icon, 0);
   }
 
   g_signal_connect_object (self->view, "notify::default-icon",
@@ -785,7 +792,6 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-tab.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwTab, title);
-  gtk_widget_class_bind_template_child (widget_class, AdwTab, icon_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_btn);
