@@ -309,8 +309,6 @@ recreate_end_controls (AdwHeaderBar *self)
                             self->end_box);
   gtk_box_append (GTK_BOX (self->end_box), controls);
   self->end_controls = controls;
-
-  update_decoration_layout (self, FALSE, TRUE);
 }
 
 static void
@@ -625,8 +623,6 @@ adw_header_bar_unroot (GtkWidget *widget)
   }
 
   g_clear_pointer (&self->split_views, g_slist_free);
-
-  update_title_buttons (self);
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->unroot (widget);
 }
