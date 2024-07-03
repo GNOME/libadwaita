@@ -26,6 +26,13 @@ Slug: widget-gallery
   <img src="banner.png" alt="banner">
 </picture>](class.Banner.html)
 
+## Spinner
+
+[<picture>
+  <source srcset="spinner-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="spinner.png" alt="spinner">
+</picture>](class.Spinner.html)
+
 ## Avatar
 
 [<picture>

@@ -242,6 +242,8 @@ content_images = [
   "images/selection-mode-checks-dark.png",
   "images/spin-row.png",
   "images/spin-row-dark.png",
+  "images/spinner.png",
+  "images/spinner-dark.png",
   "images/split-button.png",
   "images/split-button-dark.png",
   "images/squeezer-narrow.png",

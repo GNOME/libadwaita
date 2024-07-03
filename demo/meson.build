@@ -40,6 +40,7 @@ adwaita_demo_sources = [
   'pages/multi-layout/adw-multi-layout-demo-dialog.c',
   'pages/navigation-view/adw-demo-page-navigation-view.c',
   'pages/navigation-view/adw-navigation-view-demo-dialog.c',
+  'pages/spinner/adw-demo-page-spinner.c',
   'pages/split-views/adw-demo-page-split-views.c',
   'pages/split-views/adw-navigation-split-view-demo-dialog.c',
   'pages/split-views/adw-overlay-split-view-demo-dialog.c',
