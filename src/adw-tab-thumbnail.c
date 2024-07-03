@@ -11,6 +11,7 @@
 
 #include "adw-fading-label-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-spinner-paintable.h"
 #include "adw-tab-view-private.h"
 #include "adw-timed-animation.h"
 
@@ -25,8 +26,7 @@ struct _AdwTabThumbnail
   GtkWidget *icon_title_box;
   GtkWidget *overlay;
   GtkPicture *picture;
-  GtkWidget *icon_stack;
-  GtkImage *icon;
+  GtkWidget *icon;
   GtkImage *indicator_icon;
   GtkWidget *indicator_btn;
   GtkWidget *close_btn;
@@ -95,12 +95,18 @@ update_icon (AdwTabThumbnail *self)
 {
   GIcon *gicon = adw_tab_page_get_icon (self->page);
   gboolean loading = adw_tab_page_get_loading (self->page);
-  const char *name = loading ? "spinner" : "icon";
 
-  gtk_image_set_from_gicon (self->icon, gicon);
-  gtk_widget_set_visible (self->icon_stack,
-                          (gicon != NULL || loading));
-  gtk_stack_set_visible_child_name (GTK_STACK (self->icon_stack), name);
+  if (loading) {
+    AdwSpinnerPaintable *paintable = adw_spinner_paintable_new (self->icon);
+
+    gtk_image_set_from_paintable (GTK_IMAGE (self->icon), GDK_PAINTABLE (paintable));
+
+    g_object_unref (paintable);
+  } else {
+    gtk_image_set_from_gicon (GTK_IMAGE (self->icon), gicon);
+  }
+
+  gtk_widget_set_visible (self->icon, (gicon != NULL || loading));
 }
 
 static void
@@ -507,7 +513,6 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, icon_title_box);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, picture);
-  gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, icon_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, indicator_icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTabThumbnail, indicator_btn);
