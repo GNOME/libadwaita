@@ -21,6 +21,7 @@ struct _AdwSheetControls
   char *decoration_layout;
 
   gboolean empty;
+  gboolean prefers_start;
 };
 
 enum {
@@ -33,7 +34,7 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwSheetControls, adw_sheet_controls, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwSheetControls, adw_sheet_controls, GTK_TYPE_WIDGET)
 
 static gboolean
 get_prefers_start (AdwSheetControls *self)
@@ -89,16 +90,20 @@ clear_controls (AdwSheetControls *self)
 }
 
 static void
-update_window_buttons (AdwSheetControls *self)
+update_window_buttons (AdwSheetControls *self,
+                       gboolean          force_update)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   gboolean prefers_start;
   GtkWidget *button = NULL;
   GtkWidget *image = NULL;
 
-  clear_controls (self);
-
   prefers_start = get_prefers_start (self);
+
+  if (prefers_start == self->prefers_start && !force_update)
+    return;
+
+  clear_controls (self);
 
   if (prefers_start != (self->side == GTK_PACK_START)) {
     set_empty (self, TRUE);
@@ -139,7 +144,7 @@ adw_sheet_controls_root (GtkWidget *widget)
   g_signal_connect_swapped (settings, "notify::gtk-decoration-layout",
                             G_CALLBACK (update_window_buttons), widget);
 
-  update_window_buttons (ADW_SHEET_CONTROLS (widget));
+  update_window_buttons (ADW_SHEET_CONTROLS (widget), FALSE);
 }
 
 static void
@@ -267,6 +272,8 @@ adw_sheet_controls_init (AdwSheetControls *self)
   gtk_widget_add_css_class (GTK_WIDGET (self), "start");
 
   gtk_widget_set_can_focus (GTK_WIDGET (self), FALSE);
+
+  update_window_buttons (self, TRUE);
 }
 
 GtkWidget *
@@ -310,7 +317,7 @@ adw_sheet_controls_set_side (AdwSheetControls *self,
     break;
   }
 
-  update_window_buttons (self);
+  update_window_buttons (self, TRUE);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIDE]);
 }
@@ -332,7 +339,7 @@ adw_sheet_controls_set_decoration_layout (AdwSheetControls *self,
   if (!g_set_str (&self->decoration_layout, layout))
     return;
 
-  update_window_buttons (self);
+  update_window_buttons (self, TRUE);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DECORATION_LAYOUT]);
 }
