@@ -4,6 +4,9 @@
   <template class="AdwAlertDialog" parent="AdwDialog">
     <property name="follows-content-size">True</property>
     <property name="presentation-mode">floating</property>
+    <accessibility>
+      <relation name="described-by">body_label</relation>
+    </accessibility>
     <style>
       <class name="alert"/>
     </style>
