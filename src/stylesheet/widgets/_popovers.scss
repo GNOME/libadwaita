@@ -1,5 +1,5 @@
-toolbarview.undershoot-top    popover scrolledwindow undershoot.top,
-toolbarview.undershoot-bottom popover scrolledwindow undershoot.bottom {
+toolbarview.undershoot-top    popover scrolledwindow:not(.undershoot-top) undershoot.top,
+toolbarview.undershoot-bottom popover scrolledwindow:not(.undershoot-bottom) undershoot.bottom {
   background: none;
   box-shadow: none;
 }
