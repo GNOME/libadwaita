@@ -85,6 +85,13 @@ static GParamSpec *props[LAST_PROP];
 static GHashTable *display_style_managers = NULL;
 static AdwStyleManager *default_instance = NULL;
 
+typedef enum {
+  UPDATE_BASE         = 1 << 0,
+  UPDATE_COLOR_SCHEME = 1 << 1,
+  UPDATE_ACCENT_COLOR = 1 << 2,
+  UPDATE_ALL = UPDATE_BASE | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR
+} StylesheetUpdateFlags;
+
 static void
 warn_prefer_dark_theme (AdwStyleManager *self)
 {
@@ -153,7 +160,8 @@ generate_accent_css (AdwStyleManager *self)
 }
 
 static void
-update_stylesheet (AdwStyleManager *self)
+update_stylesheet (AdwStyleManager       *self,
+                   StylesheetUpdateFlags  flags)
 {
   GtkSettings *gtk_settings;
 
@@ -169,15 +177,17 @@ update_stylesheet (AdwStyleManager *self)
                                               GTK_STYLE_PROVIDER (self->animations_provider),
                                               10000);
 
-  self->setting_dark = TRUE;
+  if (flags & UPDATE_COLOR_SCHEME) {
+    self->setting_dark = TRUE;
 
-  g_object_set (gtk_settings,
-                "gtk-application-prefer-dark-theme", self->dark,
-                NULL);
+    g_object_set (gtk_settings,
+                  "gtk-application-prefer-dark-theme", self->dark,
+                  NULL);
 
-  self->setting_dark = FALSE;
+    self->setting_dark = FALSE;
+}
 
-  if (self->provider) {
+  if (flags & UPDATE_BASE && self->provider) {
     if (adw_settings_get_high_contrast (self->settings))
       gtk_css_provider_load_from_resource (self->provider,
                                            "/org/gnome/Adwaita/styles/base-hc.css");
@@ -186,7 +196,7 @@ update_stylesheet (AdwStyleManager *self)
                                            "/org/gnome/Adwaita/styles/base.css");
   }
 
-  if (self->colors_provider) {
+  if (flags & UPDATE_COLOR_SCHEME && self->colors_provider) {
     if (self->dark)
       gtk_css_provider_load_from_resource (self->colors_provider,
                                            "/org/gnome/Adwaita/styles/defaults-dark.css");
@@ -195,7 +205,7 @@ update_stylesheet (AdwStyleManager *self)
                                            "/org/gnome/Adwaita/styles/defaults-light.css");
   }
 
-  if (self->accent_provider) {
+  if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
     char *accent_css = generate_accent_css (self);
     gtk_css_provider_load_from_string (self->accent_provider, accent_css);
     g_free (accent_css);
@@ -240,7 +250,7 @@ update_dark (AdwStyleManager *self)
 
   self->dark = dark;
 
-  update_stylesheet (self);
+  update_stylesheet (self, UPDATE_COLOR_SCHEME);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DARK]);
 }
@@ -254,7 +264,7 @@ notify_system_supports_color_schemes_cb (AdwStyleManager *self)
 static void
 notify_accent_color_cb (AdwStyleManager *self)
 {
-  update_stylesheet (self);
+  update_stylesheet (self, UPDATE_ACCENT_COLOR);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACCENT_COLOR]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACCENT_COLOR_RGBA]);
@@ -269,7 +279,7 @@ notify_system_supports_accent_colors_cb (AdwStyleManager *self)
 static void
 notify_high_contrast_cb (AdwStyleManager *self)
 {
-  update_stylesheet (self);
+  update_stylesheet (self, UPDATE_BASE);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
 }
@@ -353,7 +363,7 @@ adw_style_manager_constructed (GObject *object)
                            G_CONNECT_SWAPPED);
 
   update_dark (self);
-  update_stylesheet (self);
+  update_stylesheet (self, UPDATE_ALL);
 }
 
 static void
