@@ -26,8 +26,8 @@
  * 96×96 pixels. If it's larger than that, the visible spinner will be centered
  * inside the widget.
  *
- * See [class@SpinnerPaintable] for cases the cases where using a widget is
- * impractical or impossible, such as [property@StatusPage:paintable].
+ * See [class@SpinnerPaintable] for cases where using a widget is impractical or
+ * impossible, such as [property@StatusPage:paintable].
  *
  * ## CSS nodes
  *
