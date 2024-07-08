@@ -538,7 +538,7 @@ adw_preferences_group_set_description (AdwPreferencesGroup *self,
 
 /**
  * adw_preferences_group_get_header_suffix:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  *
  * Gets the suffix for @self's header.
  *
@@ -560,7 +560,7 @@ adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
 
 /**
  * adw_preferences_group_set_header_suffix:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @suffix: (nullable): the suffix to set
  *
  * Sets the suffix for @self's header.
@@ -603,7 +603,7 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
 
 /**
  * adw_preferences_group_get_separate_rows:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  *
  * Gets whether @self's rows are separated.
  *
@@ -625,7 +625,7 @@ adw_preferences_group_get_separate_rows (AdwPreferencesGroup *self)
 
 /**
  * adw_preferences_group_set_separate_rows:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @separate_rows: whether to separate rows
  *
  * Sets whether @self's rows are separated.

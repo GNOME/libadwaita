@@ -287,7 +287,7 @@ adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
 
 /**
  * adw_preferences_row_get_title_selectable:
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  *
  * Gets whether the user can copy the title from the label
  *
@@ -307,7 +307,7 @@ adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
 
 /**
  * adw_preferences_row_set_title_selectable:
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  * @title_selectable: `TRUE` if the user can copy the title from the label
  *
  * Sets whether the user can copy the title from the label

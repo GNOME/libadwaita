@@ -2001,7 +2001,7 @@ adw_tab_overview_set_view (AdwTabOverview *self,
 
 /**
  * adw_tab_overview_get_child:
- * @self: a `AdwTabOveview`
+ * @self: a tab overview
  *
  * Gets the child widget of @self.
  *

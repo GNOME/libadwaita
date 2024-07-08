@@ -826,7 +826,7 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
 
 /**
  * adw_action_row_get_subtitle_selectable:
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets whether the user can copy the subtitle from the label
  *
@@ -846,7 +846,7 @@ adw_action_row_get_subtitle_selectable (AdwActionRow *self)
 
 /**
  * adw_action_row_set_subtitle_selectable:
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @subtitle_selectable: `TRUE` if the user can copy the subtitle from the label
  *
  * Sets whether the user can copy the subtitle from the label
