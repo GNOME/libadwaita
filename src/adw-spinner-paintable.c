@@ -186,9 +186,12 @@ adw_spinner_paintable_dispose (GObject *object)
   g_clear_object (&self->animation);
 
   if (self->widget) {
+    g_signal_handlers_disconnect_by_func (self->widget, widget_map_cb, self);
+
     g_object_weak_unref (G_OBJECT (self->widget),
                          (GWeakNotify) widget_notify_cb,
                          self);
+
     self->widget = NULL;
   }
 
@@ -452,9 +455,7 @@ adw_spinner_paintable_set_widget (AdwSpinnerPaintable *self,
   if (self->widget) {
     g_clear_object (&self->animation);
 
-    g_signal_handlers_disconnect_by_func (self->widget,
-                                          G_CALLBACK (widget_map_cb),
-                                          self);
+    g_signal_handlers_disconnect_by_func (self->widget, widget_map_cb, self);
 
     g_object_weak_unref (G_OBJECT (self->widget),
                          (GWeakNotify) widget_notify_cb,
