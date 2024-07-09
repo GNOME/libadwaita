@@ -8,6 +8,7 @@
 
 #include "adw-status-page.h"
 
+#include "adw-spinner-paintable.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -396,6 +397,12 @@ adw_status_page_set_paintable (AdwStatusPage *self,
 
   g_set_object (&self->paintable, paintable);
   gtk_image_set_from_paintable (self->image, self->paintable);
+
+  if (ADW_IS_SPINNER_PAINTABLE (paintable))
+    gtk_widget_add_css_class (GTK_WIDGET (self->image), "spinner");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self->image), "spinner");
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAINTABLE]);
 
   g_object_thaw_notify (G_OBJECT (self));
