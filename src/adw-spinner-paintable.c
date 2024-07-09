@@ -180,14 +180,17 @@ adw_spinner_paintable_dispose (GObject *object)
 {
   AdwSpinnerPaintable *self = ADW_SPINNER_PAINTABLE (object);
 
+  if (self->animation)
+    adw_animation_reset (self->animation);
+
+  g_clear_object (&self->animation);
+
   if (self->widget) {
     g_object_weak_unref (G_OBJECT (self->widget),
                          (GWeakNotify) widget_notify_cb,
                          self);
     self->widget = NULL;
   }
-
-  g_clear_object (&self->animation);
 
   G_OBJECT_CLASS (adw_spinner_paintable_parent_class)->dispose (object);
 }
