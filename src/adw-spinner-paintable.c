@@ -54,7 +54,18 @@
  *
  * Most applications should be using [class@Spinner] instead.
  * `AdwSpinnerPaintable` is provided for the cases where using a widget is
- * impractical or impossible, such as [property@StatusPage:paintable].
+ * impractical or impossible, such as [property@StatusPage:paintable]:
+ *
+ * ```xml
+ * <object class="AdwStatusPage" id="status_page">
+ *   <property name="paintable">
+ *     <object class="AdwSpinnerPaintable">
+ *       <property name="widget">status_page</property>
+ *     </object>
+ *   </property>
+ *   <!-- ... -->
+ * </object>
+ * ```
  *
  * Since: 1.6
  */
