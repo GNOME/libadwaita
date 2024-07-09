@@ -39,6 +39,7 @@ struct _AdwTabThumbnail
   AdwTabView *view;
   AdwTabPage *page;
   gboolean pinned;
+  gboolean loading;
 
   gboolean inverted;
 
@@ -96,16 +97,17 @@ update_icon (AdwTabThumbnail *self)
   GIcon *gicon = adw_tab_page_get_icon (self->page);
   gboolean loading = adw_tab_page_get_loading (self->page);
 
-  if (loading) {
+  if (loading && !self->loading) {
     AdwSpinnerPaintable *paintable = adw_spinner_paintable_new (self->icon);
 
     gtk_image_set_from_paintable (GTK_IMAGE (self->icon), GDK_PAINTABLE (paintable));
 
     g_object_unref (paintable);
-  } else {
+  } else if (!loading) {
     gtk_image_set_from_gicon (GTK_IMAGE (self->icon), gicon);
   }
 
+  self->loading = loading;
   gtk_widget_set_visible (self->icon, (gicon != NULL || loading));
 }
 

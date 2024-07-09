@@ -52,6 +52,7 @@ struct _AdwTab
   gboolean close_overlap;
   gboolean show_close;
   gboolean fully_visible;
+  gboolean loading;
 
   AdwAnimation *close_btn_animation;
   AdwAnimation *needs_attention_animation;
@@ -175,18 +176,20 @@ update_icons (AdwTab *self)
   gboolean loading = adw_tab_page_get_loading (self->page);
   GIcon *indicator = adw_tab_page_get_indicator_icon (self->page);
 
-  if (loading) {
+  if (loading && !self->loading) {
     AdwSpinnerPaintable *paintable = adw_spinner_paintable_new (self->icon);
 
     gtk_image_set_from_paintable (GTK_IMAGE (self->icon), GDK_PAINTABLE (paintable));
 
     g_object_unref (paintable);
-  } else {
+  } else if (!loading) {
     if (self->pinned && !gicon)
       gicon = adw_tab_view_get_default_icon (self->view);
 
     gtk_image_set_from_gicon (GTK_IMAGE (self->icon), gicon);
   }
+
+  self->loading = loading;
 
   gtk_widget_set_visible (self->icon,
                           (gicon != NULL || loading) &&
