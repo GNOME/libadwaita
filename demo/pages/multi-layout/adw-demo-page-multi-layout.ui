@@ -12,8 +12,8 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="title" translatable="yes">Multi-layout View</property>
-            <property name="description" translatable="yes">A widget for switching between different layouts.</property>
+            <property name="title" translatable="yes">Multi-Layout View</property>
+            <property name="description" translatable="yes">A widget for switching between different layouts</property>
             <property name="child">
               <object class="GtkButton">
                 <property name="label" translatable="yes">Run the Demo</property>

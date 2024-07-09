@@ -14,7 +14,7 @@
           <object class="AdwStatusPage">
             <property name="icon-name">widget-clamp-symbolic</property>
             <property name="title" translatable="yes">Clamp</property>
-            <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
+            <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="maximum-size" bind-source="maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>

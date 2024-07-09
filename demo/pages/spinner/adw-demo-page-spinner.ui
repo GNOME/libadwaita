@@ -18,7 +18,7 @@
               </object>
             </property>
             <property name="title" translatable="yes">Spinner</property>
-            <property name="description" translatable="yes">A modern spinner widget.</property>
+            <property name="description" translatable="yes">A modern spinner widget</property>
           </object>
         </property>
       </object>

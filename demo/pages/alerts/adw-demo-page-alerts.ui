@@ -14,7 +14,7 @@
           <object class="AdwStatusPage">
             <property name="icon-name">widget-dialog-symbolic</property>
             <property name="title" translatable="yes">Alert Dialog</property>
-            <property name="description" translatable="yes">Adaptive alert dialog.</property>
+            <property name="description" translatable="yes">Adaptive alert dialog</property>
             <property name="child">
               <object class="GtkButton">
                 <property name="label" translatable="yes">Alert Dialog</property>

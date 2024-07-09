@@ -14,7 +14,7 @@
           <object class="AdwStatusPage">
             <property name="icon-name">widget-list-symbolic</property>
             <property name="title" translatable="yes">Lists</property>
-            <property name="description" translatable="yes">Rows and helpers for GtkListBox.</property>
+            <property name="description" translatable="yes">Rows and helpers for GtkListBox</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="maximum-size">400</property>
@@ -28,12 +28,12 @@
                         <child>
                           <object class="AdwActionRow">
                             <property name="subtitle" translatable="yes">They also have a subtitle</property>
-                            <property name="title" translatable="yes">Rows have a title</property>
+                            <property name="title" translatable="yes">Rows Have a Title</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwActionRow">
-                            <property name="title" translatable="yes">Rows can have suffix widgets</property>
+                            <property name="title" translatable="yes">Rows Can Have Suffix Widgets</property>
                             <child>
                               <object class="GtkButton">
                                 <property name="label" translatable="yes">Action</property>
@@ -49,7 +49,7 @@
                         <child>
                           <object class="AdwActionRow">
                             <property name="activatable_widget">radio_button_1</property>
-                            <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                            <property name="title" translatable="yes">Rows Can Have Prefix Widgets</property>
                             <child type="prefix">
                               <object class="GtkCheckButton" id="radio_button_1">
                                 <property name="valign">center</property>
@@ -61,7 +61,7 @@
                         <child>
                           <object class="AdwActionRow">
                             <property name="activatable_widget">radio_button_2</property>
-                            <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                            <property name="title" translatable="yes">Rows Can Have Prefix Widgets</property>
                             <child type="prefix">
                               <object class="GtkCheckButton" id="radio_button_2">
                                 <property name="group">radio_button_1</property>
@@ -252,7 +252,7 @@
                     </child>
                     <child>
                       <object class="AdwPreferencesGroup">
-                        <property name="title" translatable="yes">Groups with Suffix</property>
+                        <property name="title" translatable="yes">Groups With Suffix</property>
                         <property name="header-suffix">
                           <object class="GtkButton">
                             <property name="child">
@@ -268,7 +268,7 @@
                         </property>
                         <child>
                           <object class="AdwActionRow">
-                            <property name="title" translatable="yes">Groups can have a header suffix</property>
+                            <property name="title" translatable="yes">Groups Can Have a Header Suffix</property>
                           </object>
                         </child>
                       </object>

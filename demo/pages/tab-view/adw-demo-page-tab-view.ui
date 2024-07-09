@@ -14,7 +14,7 @@
           <object class="AdwStatusPage">
             <property name="icon-name">widget-tab-view-symbolic</property>
             <property name="title" translatable="yes">Tab View</property>
-            <property name="description" translatable="yes">A modern tab widget.</property>
+            <property name="description" translatable="yes">A modern tab widget</property>
             <property name="child">
               <object class="GtkButton">
                 <property name="label" translatable="yes">Run the Demo</property>

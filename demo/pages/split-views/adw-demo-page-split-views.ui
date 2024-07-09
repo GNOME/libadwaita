@@ -14,7 +14,7 @@
           <object class="AdwStatusPage">
             <property name="icon-name">widget-split-views-symbolic</property>
             <property name="title" translatable="yes">Split Views</property>
-            <property name="description" translatable="yes">Widgets that display sidebar and content.</property>
+            <property name="description" translatable="yes">Widgets that display sidebar and content</property>
             <property name="child">
               <object class="GtkBox">
                 <property name="orientation">vertical</property>

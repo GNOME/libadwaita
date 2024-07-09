@@ -46,7 +46,7 @@
                     </child>
                     <child>
                       <object class="GtkLabel">
-                        <property name="label" translatable="yes">A user avatar with generated fallback.</property>
+                        <property name="label" translatable="yes">A user avatar with generated fallback</property>
                         <property name="justify">center</property>
                         <property name="use-markup">true</property>
                         <property name="wrap">True</property>

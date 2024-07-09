@@ -55,7 +55,7 @@
                     </child>
                     <child>
                       <object class="GtkLabel">
-                        <property name="label" translatable="yes">Simple transitions.</property>
+                        <property name="label" translatable="yes">Simple transitions</property>
                         <property name="justify">center</property>
                         <property name="use_markup">true</property>
                         <property name="wrap">True</property>

@@ -9,7 +9,7 @@
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
         <property name="title">L_ayout</property>
-        <property name="description">Preferences pages can have a description.</property>
+        <property name="description">Preferences pages can have a description</property>
         <property name="use-underline">True</property>
         <child>
           <object class="AdwPreferencesGroup">
@@ -96,7 +96,7 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="description" translatable="yes">Preferences dialogs can have subpages.</property>
+            <property name="description" translatable="yes">Preferences dialogs can have subpages</property>
             <property name="title" translatable="yes">Subpages</property>
             <child>
               <object class="AdwActionRow">
@@ -173,7 +173,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="title" translatable="yes">This is a Subpage</property>
+            <property name="title" translatable="yes">This Is a Subpage</property>
             <property name="child">
               <object class="GtkButton">
                 <property name="label" translatable="yes">Open Another Subpage</property>
@@ -199,11 +199,10 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="title" translatable="yes">This is Another Subpage</property>
+            <property name="title" translatable="yes">This Is Another Subpage</property>
           </object>
         </property>
       </object>
     </property>
   </object>
 </interface>
-

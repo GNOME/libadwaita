@@ -16,7 +16,7 @@
               <object class="AdwStatusPage">
                 <property name="icon-name">widget-bottom-sheet-symbolic</property>
                 <property name="title" translatable="yes">Bottom Sheet</property>
-                <property name="description" translatable="yes">A bottom sheet with an optional bottom bar.</property>
+                <property name="description" translatable="yes">A bottom sheet with an optional bottom bar</property>
                 <property name="margin-bottom" bind-source="sheet" bind-property="bottom-bar-height"/>
               </object>
             </property>

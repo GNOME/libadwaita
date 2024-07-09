@@ -25,7 +25,7 @@
               <object class="AdwStatusPage">
                 <property name="icon-name">widget-banner-symbolic</property>
                 <property name="title" translatable="yes">Banner</property>
-                <property name="description" translatable="yes">A bar with contextual information.</property>
+                <property name="description" translatable="yes">A bar with contextual information</property>
                 <property name="child">
                   <object class="AdwClamp">
                     <property name="maximum-size">400</property>
