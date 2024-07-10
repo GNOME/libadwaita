@@ -182,7 +182,6 @@ model_changed (AdwComboRow *self)
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
   guint n_items = priv->model ? g_list_model_get_n_items (priv->model) : 0;
 
-  gtk_widget_set_sensitive (GTK_WIDGET (self), n_items > 0);
   gtk_widget_set_visible (priv->arrow_box, n_items > 1);
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), n_items > 1);
 }
