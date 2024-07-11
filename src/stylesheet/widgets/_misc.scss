@@ -140,10 +140,6 @@ statuspage {
         color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
         -gtk-icon-size: 128px;
 
-        &.spinner {
-          -gtk-icon-size: 96px;
-        }
-
         &:disabled {
           opacity: var(--disabled-opacity);
         }
@@ -151,6 +147,10 @@ statuspage {
         &:not(:last-child) {
           margin-bottom: 24px;
         }
+      }
+
+      > .title {
+        @extend .title-1;
       }
     }
   }
@@ -169,7 +169,26 @@ statuspage {
       }
 
       > .title {
-        font-size: 18pt;
+        @extend .title-2;
+      }
+    }
+  }
+
+  &.spinner > scrolledwindow > viewport > box {
+    margin: 24px 12px;
+    border-spacing: 24px;
+
+    > clamp > box {
+      > .icon {
+        -gtk-icon-size: 64px;
+
+        &:not(:last-child) {
+          margin-bottom: 12px;
+        }
+      }
+
+      > .title {
+        @extend .title-2;
       }
     }
   }

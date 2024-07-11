@@ -31,6 +31,10 @@
  * `AdwStatusPage` can use the
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
+ *
+ * When setting an [class@SpinnerPaintable] as [property@StatusPage:paintable],
+ * the main nodes gains the `.spinner` style class for a more compact
+ * appearance, similar to `.compact`.
  */
 
 enum {
@@ -399,9 +403,9 @@ adw_status_page_set_paintable (AdwStatusPage *self,
   gtk_image_set_from_paintable (self->image, self->paintable);
 
   if (ADW_IS_SPINNER_PAINTABLE (paintable))
-    gtk_widget_add_css_class (GTK_WIDGET (self->image), "spinner");
+    gtk_widget_add_css_class (GTK_WIDGET (self), "spinner");
   else
-    gtk_widget_remove_css_class (GTK_WIDGET (self->image), "spinner");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "spinner");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAINTABLE]);
 

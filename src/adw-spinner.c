@@ -11,6 +11,9 @@
 
 #include "adw-spinner-paintable.h"
 
+#define MIN_SIZE 16
+#define MAX_SIZE 64
+
 /**
  * AdwSpinner:
  *
@@ -21,10 +24,23 @@
  *   <img src="spinner.png" alt="spinner">
  * </picture>
  *
- * `AdwSpinner` shows a loading spinner at a specified size, set via
- * [property@Spinner:size]. The default size is 64×64 pixels, and it's capped at
- * 96×96 pixels. If it's larger than that, the visible spinner will be centered
- * inside the widget.
+ * The size of the spinner depends on the available size, never smaller than
+ * 16×16 pixels and never larger than 64×64 pixels.
+ *
+ * Use the [property@Gtk.Widget:halign] amd [property@Gtk.Widget:valign]
+ * properties in combination with [property@Gtk.Widget:width-request] and
+ * [property@Gtk.Widget:height-request] for fine sizing control.
+ *
+ * For example, the following snippet shows the spinner at 48×48 pixels:
+ *
+ * ```xml
+ * <object class="AdwSpinner">
+ *   <property name="halign">center</property>
+ *   <property name="valign">center</property>
+ *   <property name="width-request">48</property>
+ *   <property name="height-request">48</property>
+ * </object
+ * ```
  *
  * See [class@SpinnerPaintable] for cases where using a widget is impractical or
  * impossible, such as [property@StatusPage:paintable].
@@ -42,18 +58,9 @@ struct _AdwSpinner
   GtkWidget parent_instance;
 
   AdwSpinnerPaintable *paintable;
-  int size;
 };
 
 G_DEFINE_FINAL_TYPE (AdwSpinner, adw_spinner, GTK_TYPE_WIDGET)
-
-enum {
-  PROP_0,
-  PROP_SIZE,
-  LAST_PROP,
-};
-
-static GParamSpec *props[LAST_PROP];
 
 static void
 adw_spinner_measure (GtkWidget      *widget,
@@ -64,12 +71,10 @@ adw_spinner_measure (GtkWidget      *widget,
                      int            *minimum_baseline,
                      int            *natural_baseline)
 {
-  AdwSpinner *self = ADW_SPINNER (widget);
-
   if (minimum)
-    *minimum = self->size;
+    *minimum = MIN_SIZE;
   if (natural)
-    *natural = self->size;
+    *natural = MIN_SIZE;
   if (minimum_baseline)
     *minimum_baseline = -1;
   if (natural_baseline)
@@ -86,12 +91,8 @@ adw_spinner_snapshot (GtkWidget   *widget,
   w = gtk_widget_get_width (widget);
   h = gtk_widget_get_height (widget);
 
-  gtk_snapshot_translate (snapshot,
-                          &GRAPHENE_POINT_INIT (roundf ((w - self->size) / 2),
-                                                roundf ((h - self->size) / 2)));
-
   gdk_paintable_snapshot (GDK_PAINTABLE (self->paintable),
-                          snapshot, self->size, self->size);
+                          snapshot, w, h);
 }
 
 static void
@@ -105,68 +106,15 @@ adw_spinner_dispose (GObject *object)
 }
 
 static void
-adw_spinner_get_property (GObject    *object,
-                          guint       prop_id,
-                          GValue     *value,
-                          GParamSpec *pspec)
-{
-  AdwSpinner *self = ADW_SPINNER (object);
-
-  switch (prop_id) {
-  case PROP_SIZE:
-    g_value_set_int (value, adw_spinner_get_size (self));
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-  }
-}
-
-static void
-adw_spinner_set_property (GObject      *object,
-                          guint         prop_id,
-                          const GValue *value,
-                          GParamSpec   *pspec)
-{
-  AdwSpinner *self = ADW_SPINNER (object);
-
-  switch (prop_id) {
-  case PROP_SIZE:
-    adw_spinner_set_size (self, g_value_get_int (value));
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-  }
-}
-
-static void
 adw_spinner_class_init (AdwSpinnerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->dispose = adw_spinner_dispose;
-  object_class->get_property = adw_spinner_get_property;
-  object_class->set_property = adw_spinner_set_property;
 
   widget_class->measure = adw_spinner_measure;
   widget_class->snapshot = adw_spinner_snapshot;
-
-  /**
-   * AdwSpinner:size:
-   *
-   * The size of the spinner.
-   *
-   * The spinner cannot be larger than 96×96 pixels. If the provided size is
-   * larger, the visible spinner will be centered inside the widget.
-   *
-   * Since: 1.6
-   */
-  props[PROP_SIZE] =
-    g_param_spec_int ("size", NULL, NULL,
-                      0, G_MAXINT, 64,
-                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "image");
 }
@@ -176,7 +124,6 @@ adw_spinner_init (AdwSpinner *self)
 {
   gtk_widget_add_css_class (GTK_WIDGET (self), "spinner");
 
-  self->size = 64;
   self->paintable = adw_spinner_paintable_new (GTK_WIDGET (self));
 
   g_signal_connect_swapped (self->paintable, "invalidate-size",
@@ -198,51 +145,4 @@ GtkWidget *
 adw_spinner_new (void)
 {
   return g_object_new (ADW_TYPE_SPINNER, NULL);
-}
-
-/**
- * adw_spinner_get_size:
- * @self: a spinner
- *
- * Gets the size of the spinner.
- *
- * Returns: the size of the spinner
- *
- * Since: 1.6
- */
-int
-adw_spinner_get_size (AdwSpinner *self)
-{
-  g_return_val_if_fail (ADW_IS_SPINNER (self), 0);
-
-  return self->size;
-}
-
-/**
- * adw_spinner_set_size:
- * @self: a spinner
- * @size: The size of the spinner
- *
- * Sets the size of the spinner.
- *
- * The spinner cannot be larger than 96×96 pixels. If the provided size is
- * larger, the visible spinner will be centered inside the widget.
- *
- * Since: 1.6
- */
-void
-adw_spinner_set_size (AdwSpinner *self,
-                      int         size)
-{
-  g_return_if_fail (ADW_IS_SPINNER (self));
-  g_return_if_fail (size >= 0);
-
-  if (self->size == size)
-    return;
-
-  self->size = size;
-
-  gtk_widget_queue_resize (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
 }

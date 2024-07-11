@@ -46,7 +46,6 @@
                         </binding>
                         <style>
                           <class name="title"/>
-                          <class name="title-1"/>
                         </style>
                       </object>
                     </child>

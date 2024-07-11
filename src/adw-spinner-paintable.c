@@ -16,9 +16,9 @@
 #include <math.h>
 
 #define MIN_RADIUS 8
-#define NAT_RADIUS 48
+#define MAX_RADIUS 32
 #define SMALL_WIDTH 2.5
-#define LARGE_WIDTH 12
+#define LARGE_WIDTH 7
 #define SPIN_DURATION_MS 1200
 #define START_ANGLE (G_PI * 0.35)
 #define CIRCLE_OPACITY 0.15
@@ -45,7 +45,7 @@
  * </picture>
  *
  * `AdwSpinnerPaintable` size varies depending on the available space, but is
- * capped at 96×96 pixels.
+ * capped at 64×64 pixels.
  *
  * To be able to animate, `AdwSpinnerPaintable` needs a widget. It will be
  * animated according to that widget's frame clock, and only if that widget is
@@ -280,9 +280,9 @@ adw_spinner_paintable_snapshot_symbolic (GtkSymbolicPaintable *paintable,
   GskPathPoint start_point, end_point;
   GskPathMeasure *measure;
 
-  radius = MIN (floorf (MIN (width, height) / 2), NAT_RADIUS);
+  radius = MIN (floorf (MIN (width, height) / 2), MAX_RADIUS);
   line_width = adw_lerp (SMALL_WIDTH, LARGE_WIDTH,
-                         inverse_lerp (MIN_RADIUS, NAT_RADIUS, radius));
+                         inverse_lerp (MIN_RADIUS, MAX_RADIUS, radius));
 
   if (radius < line_width / 2)
     return;

@@ -24,10 +24,4 @@ G_DECLARE_FINAL_TYPE (AdwSpinner, adw_spinner, ADW, SPINNER, GtkWidget)
 ADW_AVAILABLE_IN_1_6
 GtkWidget *adw_spinner_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
-ADW_AVAILABLE_IN_1_6
-int  adw_spinner_get_size (AdwSpinner *self);
-ADW_AVAILABLE_IN_1_6
-void adw_spinner_set_size (AdwSpinner *self,
-                           int         size);
-
 G_END_DECLS
