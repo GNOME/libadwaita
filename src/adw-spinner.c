@@ -27,7 +27,7 @@
  * The size of the spinner depends on the available size, never smaller than
  * 16×16 pixels and never larger than 64×64 pixels.
  *
- * Use the [property@Gtk.Widget:halign] amd [property@Gtk.Widget:valign]
+ * Use the [property@Gtk.Widget:halign] and [property@Gtk.Widget:valign]
  * properties in combination with [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] for fine sizing control.
  *
