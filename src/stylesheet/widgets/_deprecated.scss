@@ -375,3 +375,9 @@ headerbar.flat {
 
   border { border: none; }
 }
+
+// Deprecated: Use .dimmed
+
+.dim-label {
+  @extend .dimmed;
+}

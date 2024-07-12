@@ -16,7 +16,7 @@
         <property name="margin-start">12</property>
         <property name="margin-end">12</property>
         <style>
-          <class name="dim-label"/>
+          <class name="dimmed"/>
         </style>
       </object>
     </property>

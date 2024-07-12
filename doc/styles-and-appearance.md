@@ -144,7 +144,7 @@ All standard GTK and Libadwaita widgets automatically support the high contrast
 appearance. Applications that use custom drawing or styles may need to support
 it manually.
 
-* Use style classes such as [`.dim-label`](style-classes.html#dim-labels) instead
+* Use style classes such as [`.dimmed`](style-classes.html#dimmed) instead
   of changing widget opacity manually.
 
 * Use the [helper variables](css-variables.html#helpers) when possible, instead

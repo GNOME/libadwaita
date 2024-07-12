@@ -78,7 +78,7 @@ scale {
   }
 
   > value {
-    @extend .dim-label;
+    @extend .dimmed;
     @extend .numeric;
   }
 

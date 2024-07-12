@@ -42,7 +42,7 @@
                 <property name="can-target">False</property>
                 <style>
                   <class name="title"/>
-                  <class name="dim-label"/>
+                  <class name="dimmed"/>
                 </style>
               </object>
             </child>

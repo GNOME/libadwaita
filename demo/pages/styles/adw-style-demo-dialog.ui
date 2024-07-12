@@ -1043,7 +1043,7 @@ audio-volume-medium</property>
                           <object class="GtkImage">
                             <property name="icon-name">go-next-symbolic</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dimmed"/>
                             </style>
                           </object>
                         </child>
@@ -1058,7 +1058,7 @@ audio-volume-medium</property>
                           <object class="GtkImage">
                             <property name="icon-name">go-next-symbolic</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dimmed"/>
                             </style>
                           </object>
                         </child>

@@ -114,7 +114,7 @@ row {
 row {
   label.subtitle {
     font-size: smaller;
-    @extend .dim-label;
+    @extend .dimmed;
   }
 
   > box.header {
@@ -161,7 +161,7 @@ row {
   &.property > box.header > box.title > {
     .title {
       font-size: smaller;
-      @extend .dim-label;
+      @extend .dimmed;
     }
 
     .subtitle {
@@ -189,7 +189,7 @@ row.entry {
       opacity: var(--disabled-opacity);
     }
 
-    .dim-label, .subtitle {
+    .dimmed, .dim-label, .subtitle {
       opacity: 1;
     }
   }
@@ -290,7 +290,7 @@ row.spin {
     &.#{$e_type} {
       color: var(--accent-color);
 
-      .dim-label, .subtitle {
+      .dimmed, .dim-label, .subtitle {
         opacity: 1;
       }
     }
@@ -388,7 +388,7 @@ row.expander {
   // AdwExpanderRow arrow rotation
 
   image.expander-row-arrow {
-    @extend .dim-label;
+    @extend .dimmed;
 
     transition: -gtk-icon-transform 200ms $ease-out-quad;
     @include margin-start(3px);

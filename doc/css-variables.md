@@ -962,7 +962,7 @@ These variables represent the commonly used opacity values.
 
 `--border-opacity` is used for borders. (see [`--border-color`](#border-color))
 
-`--dim-opacity` is used for the [`.dim-label`](style-classes.html#dim-labels)
+`--dim-opacity` is used for the [`.dim`](style-classes.html#dimmed)
 style class and other similar contexts, like window and row subtitles.
 
 `--disabled-opacity` is used for disabled widgets.

@@ -2,7 +2,7 @@ label {
   caret-color: currentColor;
 
   &.separator {
-    @extend .dim-label;
+    @extend .dimmed;
   }
 
   &:disabled {
@@ -10,7 +10,7 @@ label {
   }
 }
 
-.dim-label {
+.dimmed {
   opacity: var(--dim-opacity);
 }
 

@@ -15,7 +15,7 @@ progressbar {
   }
 
   > text {
-    @extend .dim-label;
+    @extend .dimmed;
     @extend .numeric;
     font-size: smaller;
   }

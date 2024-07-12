@@ -245,15 +245,14 @@ The `.spacer` style class can be applied to a [class@Gtk.Separator] to make it
 appear invisible and act as whitespace. This can be useful with [toolbars and
 similar widgets](#toolbars) to separate groups of widgets from each other.
 
-# Dim Labels
+# Dimmed
 
 <picture>
-  <source srcset="dim-label-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="dim-label.png" alt="dim-label">
+  <source srcset="dimmed-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dimmed.png" alt="dimmed">
 </picture>
 
-The `.dim-label` style class makes the widget it's applied to partially
-transparent.
+The `.dimmed` style class make the widget it's applied to partially transparent.
 
 The opacity changes between regular and high contrast styles and is represented
 by the [`--dim-opacity`](css-variables.html#opacity) variable. Use that variable
@@ -752,3 +751,22 @@ color, for example:
 ```
 
 Deprecated since: 1.6
+
+## `.dim-label`
+
+<picture>
+  <source srcset="dimmed-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="dimmed.png" alt="dim-label">
+</picture>
+
+The `.dim-label` style class makes the widget it's applied to partially
+transparent.
+
+The opacity changes between regular and high contrast styles and is represented
+by the [`--dim-opacity`](css-variables.html#opacity) variable. Use that variable
+if the style class cannot be used directly.
+
+The [`.dimmed`](#dimmed) style class is completely equivalent to it and should
+be used instead.
+
+Deprecated since: 1.7
