@@ -39,7 +39,7 @@
  *   <property name="valign">center</property>
  *   <property name="width-request">48</property>
  *   <property name="height-request">48</property>
- * </object
+ * </object>
  * ```
  *
  * See [class@SpinnerPaintable] for cases where using a widget is impractical or
