@@ -144,6 +144,7 @@ static void
 close_idle_cb (AdwTabThumbnail *self)
 {
   adw_tab_view_close_page (self->view, self->page);
+  g_object_unref (self);
 }
 
 static void
@@ -155,13 +156,14 @@ close_clicked_cb (AdwTabThumbnail *self)
   /* When animations are disabled, we don't want to immediately remove the
    * whole tab mid-click. Instead, defer it until the click has happened.
    */
-  g_idle_add_once ((GSourceOnceFunc) close_idle_cb, self);
+  g_idle_add_once ((GSourceOnceFunc) close_idle_cb, g_object_ref (self));
 }
 
 static void
 unpin_idle_cb (AdwTabThumbnail *self)
 {
   adw_tab_view_set_page_pinned (self->view, self->page, FALSE);
+  g_object_unref (self);
 }
 
 static void
@@ -173,7 +175,7 @@ unpin_clicked_cb (AdwTabThumbnail *self)
   /* When animations are disabled, we don't want to immediately unpin the
    * whole tab mid-click. Instead, defer it until the click has happened.
    */
-  g_idle_add_once ((GSourceOnceFunc) unpin_idle_cb, self);
+  g_idle_add_once ((GSourceOnceFunc) unpin_idle_cb, g_object_ref (self));
 }
 
 static void
