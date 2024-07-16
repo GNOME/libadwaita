@@ -433,12 +433,12 @@ update_presentation (AdwDialog *self)
   if (priv->window)
     return;
 
-  g_object_ref (priv->child_breakpoint_bin);
-
   breakpoint =
     adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->bin));
   use_bottom_sheet = priv->presentation_mode == ADW_DIALOG_BOTTOM_SHEET ||
                      breakpoint != NULL;
+
+  g_object_ref (priv->child_breakpoint_bin);
 
   root = gtk_widget_get_root (GTK_WIDGET (self));
 
