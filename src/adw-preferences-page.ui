@@ -2,6 +2,9 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwPreferencesPage" parent="GtkWidget">
+    <accessibility>
+      <relation name="described-by">description</relation>
+    </accessibility>
     <child>
       <object class="GtkScrolledWindow" id="scrolled_window">
         <property name="hscrollbar-policy">never</property>
