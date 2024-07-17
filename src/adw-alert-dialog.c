@@ -124,7 +124,7 @@
  *
  * `AdwAlertDialog` supports adding responses in UI definitions by via the
  * `<responses>` element that may contain multiple `<response>` elements, each
- * respresenting a response.
+ * representing a response.
  *
  * Each of the `<response>` elements must have the `id` attribute specifying the
  * response ID. The contents of the element are used as the response label.

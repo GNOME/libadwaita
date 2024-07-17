@@ -88,7 +88,7 @@ remains legible in both appearances:
 
 Libadwaita applications follow the system accent color by default. Applications
 with custom drawing or styles may need to ensure that they use the actual accent
-color instead of harcoding blue:
+color instead of hardcoding blue:
 
 * Use [accent color variables](css-variables.html#accent-colors) and the
   [`.accent`](style-classes.html#colors) style class in CSS.

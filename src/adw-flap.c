@@ -371,7 +371,7 @@ set_folded (AdwFlap  *self,
 
    /* When unlocked, folding should also hide flap. We don't want two concurrent
     * animations in this case, instead only animate reveal and schedule a fold
-    * after it finishes, which will be skipped because the flap is fuly hidden.
+    * after it finishes, which will be skipped because the flap is fully hidden.
     * Meanwhile if it's unfolding, animate folding immediately. */
   if (!self->locked && folded)
     self->schedule_fold = TRUE;

@@ -3880,7 +3880,7 @@ adw_tab_view_add_shortcuts (AdwTabView          *self,
 /**
  * adw_tab_view_remove_shortcuts:
  * @self: a tab view
- * @shortcuts: the shortcuts to reomve
+ * @shortcuts: the shortcuts to remove
  *
  * Removes @shortcuts from @self.
  *

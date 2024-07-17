@@ -598,7 +598,7 @@ automatically when using `AdwOverlaySplitView`, so there's no need to bind their
 visibility to the [property@Flap:folded] property anymore.
 
 While `AdwOverlaySplitView` doesn't require using [class@NavigationPage], it can
-still be used to provide header bar titles insead of using [class@WindowTitle].
+still be used to provide header bar titles instead of using [class@WindowTitle].
 
 ## Bottom Sheet
 

@@ -1002,7 +1002,7 @@ adw_toolbar_view_set_top_bar_style (AdwToolbarView  *self,
  * adw_toolbar_view_get_bottom_bar_style:
  * @self: a toolbar view
  *
- * Gets appearance of the botom bars for @self.
+ * Gets appearance of the bottom bars for @self.
  *
  * Returns: bottom bar style
  *
