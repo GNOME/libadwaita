@@ -22,6 +22,7 @@
                     <property name="valign">center</property>
                     <child>
                       <object class="GtkImage" id="image">
+                        <property name="use-fallback">True</property>
                         <property name="accessible-role">presentation</property>
                         <binding name="visible">
                           <closure function="has_image" type="gboolean">
