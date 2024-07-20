@@ -2402,7 +2402,7 @@ choose_cancelled_cb (GCancellable *cancellable,
  * @self: a message dialog
  * @cancellable: (nullable): a `GCancellable` to cancel the operation
  * @callback: (scope async): a callback to call when the operation is complete
- * @user_data: (closure callback): data to pass to @callback
+ * @user_data: data to pass to @callback
  *
  * This function shows @self to the user.
  *
