@@ -248,7 +248,7 @@ text_activated_cb (AdwEntryRow *self)
 {
   AdwEntryRowPrivate *priv = adw_entry_row_get_instance_private (self);
 
-  if (gtk_widget_get_visible (priv->apply_button)) {
+  if (gtk_widget_get_child_visible (priv->apply_button)) {
     apply_button_clicked_cb (self);
   } else {
     if (priv->activates_default)
