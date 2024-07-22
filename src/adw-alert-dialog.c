@@ -351,8 +351,6 @@ static void
 adw_alert_dialog_map (GtkWidget *widget)
 {
   AdwAlertDialog *self = ADW_ALERT_DIALOG (widget);
-  AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
-  GtkWidget *focus;
   GtkWidget *window;
 
   GTK_WIDGET_CLASS (adw_alert_dialog_parent_class)->map (widget);
@@ -361,8 +359,20 @@ adw_alert_dialog_map (GtkWidget *widget)
 
   if (window)
     gtk_widget_add_css_class (window, "alert");
+}
+
+static gboolean
+adw_alert_dialog_grab_focus (GtkWidget *widget)
+{
+  AdwAlertDialog *self = ADW_ALERT_DIALOG (widget);
+  AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
+  GtkWidget *focus;
+  gboolean ret;
 
   focus = adw_dialog_get_focus (ADW_DIALOG (self));
+
+  ret = GTK_WIDGET_CLASS (adw_alert_dialog_parent_class)->grab_focus (widget);
+
   if (!focus) {
     GtkWidget *default_widget;
     GList *l;
@@ -373,14 +383,12 @@ adw_alert_dialog_map (GtkWidget *widget)
       if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
         gtk_label_select_region (GTK_LABEL (focus), 0, 0);
 
-      return;
+      return TRUE;
     }
 
     default_widget = adw_dialog_get_default_widget (ADW_DIALOG (self));
-    if (default_widget) {
-      gtk_widget_grab_focus (default_widget);
-      return;
-    }
+    if (default_widget)
+      return gtk_widget_grab_focus (default_widget);
 
     for (l = g_list_last (priv->responses); l; l = l->prev) {
       ResponseInfo *response = l->data;
@@ -388,10 +396,11 @@ adw_alert_dialog_map (GtkWidget *widget)
       if (!response->enabled)
         continue;
 
-      gtk_widget_grab_focus (response->button);
-      return;
+      return gtk_widget_grab_focus (response->button);
     }
   }
+
+  return ret;
 }
 
 static GtkSizeRequestMode
@@ -871,6 +880,7 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
   object_class->finalize = adw_alert_dialog_finalize;
 
   widget_class->map = adw_alert_dialog_map;
+  widget_class->grab_focus = adw_alert_dialog_grab_focus;
 
   dialog_class->closed = adw_alert_dialog_closed;
 
