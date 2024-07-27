@@ -17,6 +17,57 @@ struct _AdwSettingsImplMacOS
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplMacOS, adw_settings_impl_macos, ADW_TYPE_SETTINGS_IMPL)
 
+@interface AccentColorChangedObserver : NSObject
+{
+  AdwSettingsImpl *impl;
+}
+@end
+
+@implementation AccentColorChangedObserver
+
+-(instancetype)initWithSettings:(AdwSettingsImpl *)_impl
+{
+  [self init];
+  g_set_weak_pointer (&self->impl, _impl);
+  return self;
+}
+
+-(void)dealloc
+{
+  g_clear_weak_pointer (&self->impl);
+  [super dealloc];
+}
+
+static AdwAccentColor
+get_accent_color (void)
+{
+  if (@available(*, macOS 10.14)) {
+    GdkRGBA rgba;
+    NSColor *accentColor = [NSColor.controlAccentColor colorUsingColorSpace:[
+                            NSColorSpace sRGBColorSpace]];
+
+    CGFloat red, green, blue, alpha;
+    [accentColor getRed:&red green:&green blue:&blue alpha:&alpha];
+
+    rgba.red = red;
+    rgba.green = green;
+    rgba.blue = blue;
+    rgba.alpha = alpha;
+
+    return adw_accent_color_nearest_from_rgba (&rgba);
+  }
+
+  return ADW_ACCENT_COLOR_BLUE;
+}
+
+-(void)appDidChangeAccentColor:(NSNotification *)notification
+{
+  if (self->impl != NULL)
+    adw_settings_impl_set_accent_color (self->impl, get_accent_color ());
+}
+
+@end
+
 @interface ThemeChangedObserver : NSObject
 {
   AdwSettingsImpl *impl;
@@ -89,27 +140,46 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
 {
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
-  if (!enable_color_scheme)
-    return ADW_SETTINGS_IMPL (self);
+  if (enable_accent_colors) {
+    if (@available(*, macOS 10.14)) {
+      static AccentColorChangedObserver *observer;
 
-  if (@available(*, macOS 10.14)) {
-    static ThemeChangedObserver *observer;
+      observer = [[AccentColorChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
 
-    observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+      [[NSDistributedNotificationCenter defaultCenter]
+        addObserver:observer
+          selector:@selector(appDidChangeAccentColor:)
+              name:@"AppleColorPreferencesChangedNotification"
+            object:nil];
 
-    [[NSDistributedNotificationCenter defaultCenter]
+      [observer appDidChangeAccentColor:nil];
+    } else {
+      enable_accent_colors = false;
+    }
+  }
+
+  if (enable_color_scheme) {
+    if (@available(*, macOS 10.14)) {
+      static ThemeChangedObserver *observer;
+
+      observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+
+      [[NSDistributedNotificationCenter defaultCenter]
       addObserver:observer
         selector:@selector(appDidChangeTheme:)
             name:@"AppleInterfaceThemeChangedNotification"
           object:nil];
 
-    [observer appDidChangeTheme:nil];
-
-    adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                    /* has_color_scheme */ TRUE,
-                                    /* has_high_contrast */ FALSE,
-                                    /* has_accent_colors */ FALSE);
+      [observer appDidChangeTheme:nil];
+    } else {
+      enable_color_scheme = false;
+    }
   }
+
+  adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
+                                  enable_color_scheme,
+                                  enable_high_contrast,
+                                  enable_accent_colors);
 
   return ADW_SETTINGS_IMPL (self);
 }
