@@ -5,6 +5,7 @@
  */
 
 #include "config.h"
+#include <glib/gi18n.h>
 
 #include "adw-toast-overlay.h"
 
@@ -240,6 +241,8 @@ show_toast (AdwToastOverlay *self,
             ToastInfo       *info)
 {
   AdwAnimationTarget *target;
+  const char *title, *button_label;
+  char *announcement;
 
   g_assert (!info->widget);
 
@@ -260,6 +263,27 @@ show_toast (AdwToastOverlay *self,
                                              G_CALLBACK (show_done_cb), info);
 
   adw_animation_play (info->show_animation);
+
+  title = adw_toast_get_title (info->toast);
+  button_label = adw_toast_get_button_label (info->toast);
+
+  if (title && button_label) {
+    announcement = g_strdup_printf (_("A toast appeared: %s, has a button: %s"),
+                                    title, button_label);
+  } else if (title && !button_label) {
+    announcement = g_strdup_printf (_("A toast appeared: %s"), title);
+  } else if (!title && button_label) {
+    announcement = g_strdup_printf (_("A toast appeared, has a button: %s"),
+                                    button_label);
+  } else {
+    announcement = g_strdup (_("A toast appeared"));
+  }
+
+  gtk_accessible_announce (GTK_ACCESSIBLE (self),
+                           announcement,
+                           GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM);
+
+  g_free (announcement);
 }
 
 static int
