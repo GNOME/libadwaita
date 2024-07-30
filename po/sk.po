@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-04-18 12:46+0000\n"
-"PO-Revision-Date: 2024-04-29 21:30+0200\n"
+"POT-Creation-Date: 2024-07-26 07:28+0000\n"
+"PO-Revision-Date: 2024-07-30 11:14+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <->\n"
 "Language: sk\n"
@@ -166,6 +166,7 @@ msgid "Unable to save debugging information"
 msgstr "Nie je možné uložiť ladiace informácie"
 
 #: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-sheet-controls.c:122 src/adw-sheet-controls.c:124
 msgid "Close"
 msgstr "Zavrieť"
 
@@ -268,8 +269,8 @@ msgid "Acknowledgements"
 msgstr "Poďakovanie"
 
 # tooltip
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:330 src/adw-back-button.c:428
+#: src/adw-back-button.c:538
 msgid "Back"
 msgstr "Prejde späť"
 
@@ -351,7 +352,7 @@ msgstr "Predvoľby"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Predvoľby vyhľadávania"
+msgstr "Hľadajte predvoľby"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
@@ -364,7 +365,7 @@ msgstr "Skúste vyhľadať niečo iné."
 
 #: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
-msgstr "Viac volieb"
+msgstr "Viac možností"
 
 # tooltip
 #: src/adw-tab-button.ui:7
