@@ -604,6 +604,14 @@ window_close_request_cb (AdwDialog *self)
   return GDK_EVENT_STOP;
 }
 
+static gboolean
+maybe_close_cb (GtkWidget *widget,
+                GVariant  *args,
+                AdwDialog *self)
+{
+  return adw_dialog_close (self);
+}
+
 static void
 present_as_window (AdwDialog *self,
                    GtkWidget *parent)
@@ -611,6 +619,8 @@ present_as_window (AdwDialog *self,
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkWidget *titlebar;
   GtkAccessibleRole role;
+  GtkEventController *shortcut_controller;
+  GtkShortcut *shortcut;
 
   if (priv->window) {
     gtk_window_present (GTK_WINDOW (priv->window));
@@ -623,6 +633,14 @@ present_as_window (AdwDialog *self,
   priv->window = gtk_window_new ();
   gtk_window_set_resizable (GTK_WINDOW (priv->window), FALSE);
   gtk_widget_add_css_class (priv->window, "dialog-window");
+
+  /* Esc to close */
+  shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Escape, 0),
+                               gtk_callback_action_new ((GtkShortcutFunc) maybe_close_cb, self, NULL));
+
+  shortcut_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (shortcut_controller), shortcut);
+  gtk_widget_add_controller (priv->window, shortcut_controller);
 
   if (parent) {
     GtkRoot *root = gtk_widget_get_root (parent);
