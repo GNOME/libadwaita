@@ -357,8 +357,10 @@ adw_alert_dialog_map (GtkWidget *widget)
 
   window = adw_dialog_get_window (ADW_DIALOG (self));
 
-  if (window)
+  if (window) {
     gtk_widget_add_css_class (window, "alert");
+    gtk_widget_grab_focus (widget);
+  }
 }
 
 static gboolean
