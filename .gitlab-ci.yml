@@ -50,7 +50,7 @@ abi-check:
   image: $FEDORA_IMAGE
   stage: build
   variables:
-    LAST_ABI_BREAK: "11849510ba90790093ae130a3e46033b1f908e57"
+    LAST_ABI_BREAK: "8896cb224e7bd737b7f99bba5a10b56e89f034c4"
   script:
     - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
 
