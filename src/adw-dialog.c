@@ -29,7 +29,7 @@
  *   `ADW_DIALOG_BOTTOM_SHEET` depending on available size.
  * @ADW_DIALOG_FLOATING: Present dialog as a centered floating window.
  * @ADW_DIALOG_BOTTOM_SHEET: Present dialog as a bottom sheet.
-
+ *
  * Describes the available presentation modes for [class@Dialog].
  *
  * New values may be added to this enumeration over time.
