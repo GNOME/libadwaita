@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-06-19 17:00+0000\n"
-"PO-Revision-Date: 2024-06-20 07:50+0200\n"
+"POT-Creation-Date: 2024-08-01 21:03+0000\n"
+"PO-Revision-Date: 2024-08-01 23:48+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -149,7 +149,7 @@ msgid "Unable to save debugging information"
 msgstr "Podrobnosti razhroščevanja ni mogoče shraniti."
 
 #: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
-#: src/adw-sheet-controls.c:122
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Zapri"
 
@@ -259,7 +259,7 @@ msgstr "Nazaj"
 msgid "Search"
 msgstr "Poišči"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Uveljavi"
 
@@ -395,7 +395,7 @@ msgstr "Poskusite z drugačnim iskalnim nizom"
 msgid "Try a different search."
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
-#: src/adw-sheet-controls.c:124
+#: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Zapri okno"
 
@@ -437,6 +437,26 @@ msgstr "Ni najdenih zavihkov"
 msgid "New _Tab"
 msgstr "Nov _zavihek"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:97
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Zapri zavihek"
+
+#: src/adw-toast-overlay.c:271
+#, fuzzy, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Pojavila se je zdravica: %s, ima gumb: %s"
+
+#: src/adw-toast-overlay.c:274
+#, fuzzy, c-format
+msgid "A toast appeared: %s"
+msgstr "Pojavila se je zdravica: %s"
+
+#: src/adw-toast-overlay.c:276
+#, fuzzy, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Pojavila se je zdravica, ima gumb: %s"
+
+#: src/adw-toast-overlay.c:279
+#, fuzzy
+msgid "A toast appeared"
+msgstr "Pojavila se je zdravica"
