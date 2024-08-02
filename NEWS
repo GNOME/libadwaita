@@ -1,4 +1,31 @@
 =============
+Version 1.5.3
+=============
+
+- AdwAlertDialog
+  - Expose body text as a11y description
+- AdwDialog
+  - Fix a memory leak
+  - Speed up switching presentation
+- AdwPreferencesPage
+  - Add an a11y relation to the description
+- AdwSpinRow
+  - Set accessible role to presentation
+- AdwSwitchRow
+  - Set accessible role to switch
+- AdwTabBar/Overview
+  - Fix a use after free when closing tabs
+- Stylesheet
+  - Fix a specificity issue with scrolled windows in popovers
+- Docs
+  - Don't annotate user_data params with closure
+  - Fix typos in migrating to breakpoints page
+- Translation updates
+  - Chinese (Taiwan)
+  - Malayalam
+  - Slovak
+
+=============
 Version 1.5.2
 =============
 
