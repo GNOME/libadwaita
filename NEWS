@@ -1,4 +1,21 @@
 =============
+Version 1.4.7
+=============
+
+- AdwPreferencesPage
+  - Add an a11y relation to the description
+- AdwSpinRow
+  - Set accessible role to presentation
+- AdwSwitchRow
+  - Set accessible role to switch
+- AdwTabBar/Overview
+  - Fix a use after free when closing tabs
+- Stylesheet
+  - Fix a specificity issue with scrolled windows in popovers
+- Docs
+  - Fix typos in migrating to breakpoints page
+
+=============
 Version 1.4.6
 =============
 
