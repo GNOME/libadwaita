@@ -758,8 +758,8 @@ visible page from your breakpoint.
   <child>
     <object class="AdwBreakpoint">
       <condition>max-width: 550sp</condition>
-      <setter object="title_stack" property="visible-child">window_title</property>
-      <setter object="switcher_bar" property="reveal">True</property>
+      <setter object="title_stack" property="visible-child">window_title</setter>
+      <setter object="switcher_bar" property="reveal">True</setter>
     </object>
   </child>
   <property name="child">
@@ -864,7 +864,7 @@ use a single [class@Gtk.Box], and a breakpoint toggling the box's
 
 <object class="AdwBreakpoint">
   <condition>max-width: 400sp</condition>
-  <setter object="box" property="orientation">vertical</property>
+  <setter object="box" property="orientation">vertical</setter>
 </object>
 ```
 
