@@ -1,3 +1,52 @@
+================
+Version 1.6.beta
+================
+
+- Introduce AdwSpinner and AdwSpinnerPaintable
+- AdwAlertDialog
+  - Accessibility fixes
+  - Fix a sizing bug with :prefer-wide-layout
+- AdwComboRow
+  - Don't change sensitivity on model change
+- AdwDialog
+  - Fix a memory leak
+  - Speed up switching presentation
+- AdwEntryRow
+  - Fix row activation
+- AdwPreferencesPage
+  - Add an a11y relation to the description
+- AdwSpinRow
+  - Set accessible role to presentation
+- AdwStatusPage
+  - Adjust style when using AdwSpinnerPaintable
+- AdwStyleManager
+  - Speed up reloading CSS
+  - Partially support system accent color on macOS
+- AdwSwitchRow
+  - Set accessible role to switch
+- AdwTabBar/Overview
+  - Use AdwSpinnerPaintable for loading state
+  - Fix a use after free when closing tabs
+- AdwToastOverlay
+  - Announce appearing toasts for screen reader
+- Demo
+  - Make strings HIG-compliant
+  - Add ctrl+q shortcut, make ctrl+w close the window instead
+- Docs
+  - Don't annotate user_data params with closure
+  - Fix typos in migrating to breakpoints page
+- Stylesheet
+  - Fix a specificity issue with scrolled windows in popovers
+  - Fix file chooser styles
+- Translation updates
+  - Chinese (Taiwan)
+  - Georgian
+  - Hebrew
+  - Hindi
+  - Russian
+  - Slovenian
+  - Turkish
+
 =================
 Version 1.6.alpha
 =================
