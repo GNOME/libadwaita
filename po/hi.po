@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-07-14 12:00+0000\n"
-"PO-Revision-Date: 2024-07-15 18:54+0530\n"
+"POT-Creation-Date: 2024-08-02 13:32+0000\n"
+"PO-Revision-Date: 2024-08-03 22:51+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -443,17 +443,21 @@ msgstr "नया टैब (_T)"
 msgid "Close Tab"
 msgstr "टैब बंद करें"
 
-#~ msgid "_Save"
-#~ msgstr "सहेजें (_S)"
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "एक टोस्ट दिखाई दिया: %s, एक बटन है: %s"
 
-#~ msgid "_Cancel"
-#~ msgstr "रद्द (_C)"
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "एक टोस्ट दिखाई दिया: %s"
 
-#~ msgid "Hide Text"
-#~ msgstr "टेक्स्ट छुपाएँ"
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "एक टोस्ट दिखाई दिया, इसमें एक बटन है: %s"
 
-#~ msgid "Show Text"
-#~ msgstr "टेक्स्ट दिखाएँ"
-
-#~ msgid "_Show Text"
-#~ msgstr "टेक्स्ट दिखाएँ (_S)"
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "एक टोस्ट दिखाई दिया"
