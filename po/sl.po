@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-08-01 21:03+0000\n"
-"PO-Revision-Date: 2024-08-01 23:48+0200\n"
+"POT-Creation-Date: 2024-08-02 10:19+0000\n"
+"PO-Revision-Date: 2024-08-06 13:57+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -24,19 +24,19 @@ msgstr ""
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
-msgstr "Splošno Javno dovoljenje GNU, različice 2 ali kasnejše"
+msgstr "Splošno javno dovoljenje GNU, različice 2 ali kasnejše"
 
 #: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
-msgstr "Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
+msgstr "Splošno javno dovoljenje GNU, različice 3 ali kasnejše"
 
 #: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
-msgstr "Manj Splošno Javno dovoljenje GNU, različice 2.1 ali kasnejše"
+msgstr "Manj splošno javno dovoljenje GNU, različice 2.1 ali kasnejše"
 
 #: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
-msgstr "Manj Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
+msgstr "Manj splošno javno dovoljenje GNU, različice 3 ali kasnejše"
 
 #: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
@@ -52,19 +52,19 @@ msgstr "Umetniško dovoljenje 2.0"
 
 #: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
-msgstr "Splošno Javno dovoljenje GNU, le različice 2"
+msgstr "Splošno javno dovoljenje GNU, le različice 2"
 
 #: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
-msgstr "Splošno Javno dovoljenje GNU, le različice 3"
+msgstr "Splošno javno dovoljenje GNU, le različice 3"
 
 #: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
-msgstr "Manj Splošno Javno dovoljenje GNU, le različice 2.1"
+msgstr "Manj splošno javno dovoljenje GNU, le različice 2.1"
 
 #: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
-msgstr "Manj Splošno Javno dovoljenje GNU, le različice 3"
+msgstr "Manj splošno javno dovoljenje GNU, le različice 3"
 
 #: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
@@ -72,7 +72,7 @@ msgstr "Splošno javno dovoljenje Affero GNU, različice 3 ali kasnejše"
 
 #: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
-msgstr "Splošno Javno dovoljenje GNU Affero, le različica 3"
+msgstr "Splošno javno dovoljenje GNU Affero, le različica 3"
 
 #: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
@@ -393,7 +393,7 @@ msgstr "Poskusite z drugačnim iskalnim nizom"
 
 #: src/adw-preferences-window.ui:164
 msgid "Try a different search."
-msgstr "Poskusite z drugačnim iskalnim nizom"
+msgstr "Poskusite z drugačnim iskalnim nizom."
 
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
@@ -442,21 +442,20 @@ msgid "Close Tab"
 msgstr "Zapri zavihek"
 
 #: src/adw-toast-overlay.c:271
-#, fuzzy, c-format
+#, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Pojavila se je zdravica: %s, ima gumb: %s"
 
 #: src/adw-toast-overlay.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "A toast appeared: %s"
 msgstr "Pojavila se je zdravica: %s"
 
 #: src/adw-toast-overlay.c:276
-#, fuzzy, c-format
+#, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Pojavila se je zdravica, ima gumb: %s"
 
 #: src/adw-toast-overlay.c:279
-#, fuzzy
 msgid "A toast appeared"
 msgstr "Pojavila se je zdravica"
