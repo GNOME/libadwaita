@@ -186,7 +186,7 @@ adw_accent_color_nearest_from_rgba (GdkRGBA *original_color)
   if (h > 130)
     return ADW_ACCENT_COLOR_GREEN;
 
-  if (h > 75)
+  if (h > 75.5)
     return ADW_ACCENT_COLOR_YELLOW;
 
   if (h > 35)
