@@ -146,6 +146,7 @@ adw_demo_generate_debug_info (void)
     const char *gtk_debug = g_getenv ("GTK_DEBUG");
     const char *gtk_theme = g_getenv ("GTK_THEME");
     const char *adw_debug_color_scheme = g_getenv ("ADW_DEBUG_COLOR_SCHEME");
+    const char *adw_debug_accent_color = g_getenv ("ADW_DEBUG_ACCENT_COLOR");
     const char *adw_debug_high_contrast = g_getenv ("ADW_DEBUG_HIGH_CONTRAST");
     const char *adw_disable_portal = g_getenv ("ADW_DISABLE_PORTAL");
 
@@ -162,6 +163,8 @@ adw_demo_generate_debug_info (void)
       g_string_append_printf (string, "- GTK_THEME: %s\n", gtk_theme);
     if (adw_debug_color_scheme)
       g_string_append_printf (string, "- ADW_DEBUG_COLOR_SCHEME: %s\n", adw_debug_color_scheme);
+    if (adw_debug_accent_color)
+      g_string_append_printf (string, "- ADW_DEBUG_ACCENT_COLOR: %s\n", adw_debug_accent_color);
     if (adw_debug_high_contrast)
       g_string_append_printf (string, "- ADW_DEBUG_HIGH_CONTRAST: %s\n", adw_debug_high_contrast);
     if (adw_disable_portal)
