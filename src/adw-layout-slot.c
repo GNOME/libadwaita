@@ -28,7 +28,6 @@ struct _AdwLayoutSlot
 {
   GtkWidget parent_instance;
 
-  GtkWidget *child;
   char *id;
 };
 
@@ -54,16 +53,6 @@ adw_layout_slot_root (GtkWidget *widget)
 
   if (view)
     adw_multi_layout_view_register_slot (ADW_MULTI_LAYOUT_VIEW (view), self->id, widget);
-}
-
-static void
-adw_layout_slot_dispose (GObject *object)
-{
-  AdwLayoutSlot *self = ADW_LAYOUT_SLOT (object);
-
-  g_clear_pointer (&self->child, gtk_widget_unparent);
-
-  G_OBJECT_CLASS (adw_layout_slot_parent_class)->dispose (object);
 }
 
 static void
@@ -116,7 +105,6 @@ adw_layout_slot_class_init (AdwLayoutSlotClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  object_class->dispose = adw_layout_slot_dispose;
   object_class->finalize = adw_layout_slot_finalize;
   object_class->get_property = adw_layout_slot_get_property;
   object_class->set_property = adw_layout_slot_set_property;
