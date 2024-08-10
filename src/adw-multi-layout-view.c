@@ -21,7 +21,9 @@
  *
  * `AdwMultiLayoutView` contains layouts and children. Each child has
  * an ID, each layout has slots inside it, each slot also has an ID. When
- * switching layouts, children are inserted into slots with matching IDs.
+ * switching layouts, children are inserted into slots with matching IDs. The
+ * [property@Gtk.Widget:visible] property of each slot is updated to match
+ * that of the inserted child.
  *
  * This can be useful for rearranging children when it's difficult to do so
  * otherwise, for example to move a child from a sidebar to a bottom bar.
@@ -105,6 +107,7 @@ struct _AdwMultiLayoutView
 
   GList *layouts;
   GHashTable *children;
+  GHashTable *child_visible_bindings;
 
   AdwLayout *current_layout;
   GtkWidget *content;
@@ -135,6 +138,7 @@ parent_child (AdwMultiLayoutView *self,
 {
   GtkWidget *slot = g_hash_table_lookup (self->slots, id);
   GtkWidget *child;
+  GBinding *child_visible_binding;
 
   if (!slot)
     return;
@@ -143,6 +147,14 @@ parent_child (AdwMultiLayoutView *self,
 
   if (gtk_widget_get_parent (child) == GTK_WIDGET (slot))
     return;
+
+  child_visible_binding = g_object_bind_property (child, "visible",
+                                                  slot, "visible",
+                                                  G_BINDING_SYNC_CREATE);
+
+  g_hash_table_insert (self->child_visible_bindings,
+                       child,
+                       g_object_ref (child_visible_binding));
 
   gtk_widget_set_parent (child, GTK_WIDGET (slot));
 }
@@ -163,7 +175,17 @@ unparent_child (const char         *id,
   if (!g_hash_table_contains (self->slots, id))
     return;
 
+  g_hash_table_remove (self->child_visible_bindings, child);
   gtk_widget_unparent (child);
+}
+
+static void
+binding_unbind_and_unref (gpointer data)
+{
+  GBinding *binding = data;
+
+  g_binding_unbind (binding);
+  g_object_unref (binding);
 }
 
 static void
@@ -270,6 +292,7 @@ adw_multi_layout_view_dispose (GObject *object)
 
   g_clear_object (&self->current_layout);
   g_clear_pointer (&self->children, g_hash_table_unref);
+  g_clear_pointer (&self->child_visible_bindings, g_hash_table_unref);
 
   for (l = self->layouts; l; l = l->next)
     g_object_unref (l->data);
@@ -372,6 +395,7 @@ static void
 adw_multi_layout_view_init (AdwMultiLayoutView *self)
 {
   self->children = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+  self->child_visible_bindings = g_hash_table_new_full (NULL, NULL, NULL, binding_unbind_and_unref);
   self->slots = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 }
 
