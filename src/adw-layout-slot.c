@@ -19,6 +19,9 @@
  *
  * A child slot within [class@Layout].
  *
+ * While it contains a layout child, the [property@Gtk.Widget:visible] property
+ * of the slot is updated to match that of the layout child.
+ *
  * See [class@MultiLayoutView].
  *
  * Since: 1.6
