@@ -135,6 +135,21 @@ ADW_AVAILABLE_IN_ALL
 void     adw_view_stack_set_vhomogeneous (AdwViewStack *self,
                                           gboolean      vhomogeneous);
 
+ADW_AVAILABLE_IN_1_7
+gboolean adw_view_stack_get_enable_transitions (AdwViewStack *self);
+ADW_AVAILABLE_IN_1_7
+void     adw_view_stack_set_enable_transitions (AdwViewStack *self,
+                                                gboolean      enable_transitions);
+
+ADW_AVAILABLE_IN_1_7
+guint adw_view_stack_get_transition_duration (AdwViewStack *self);
+ADW_AVAILABLE_IN_1_7
+void  adw_view_stack_set_transition_duration (AdwViewStack *self,
+                                              guint         duration);
+
+ADW_AVAILABLE_IN_1_7
+gboolean adw_view_stack_get_transition_running (AdwViewStack *self);
+
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_view_stack_get_pages (AdwViewStack *self);
 

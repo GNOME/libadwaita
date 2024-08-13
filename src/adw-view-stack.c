@@ -16,6 +16,7 @@
 
 #include "adw-animation-util.h"
 #include "adw-gizmo-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -37,7 +38,9 @@
  * [property@ViewStackPage:needs-attention], and
  * [property@ViewStackPage:badge-number] properties.
  *
- * Unlike [class@Gtk.Stack], transitions between views are not animated.
+ * Unlike [class@Gtk.Stack], transitions between views can only be animated via
+ * a crossfade and size changes are always interpolated. Animations are disabled
+ * by default. Use [property@ViewStack:enable-transitions] to enable them.
  *
  * `AdwViewStack` maintains a [class@ViewStackPage] object for each added child,
  * which holds additional per-child properties. You obtain the
@@ -101,6 +104,9 @@ enum {
   PROP_VHOMOGENEOUS,
   PROP_VISIBLE_CHILD,
   PROP_VISIBLE_CHILD_NAME,
+  PROP_ENABLE_TRANSITIONS,
+  PROP_TRANSITION_DURATION,
+  PROP_TRANSITION_RUNNING,
   PROP_PAGES,
   LAST_PROP
 };
@@ -167,6 +173,15 @@ struct _AdwViewStack {
   AdwViewStackPage *visible_child;
 
   gboolean homogeneous[2];
+
+  gboolean enable_transitions;
+  guint transition_duration;
+  AdwViewStackPage *last_visible_child;
+  gboolean transition_running;
+  AdwAnimation *animation;
+
+  int last_visible_widget_width;
+  int last_visible_widget_height;
 
   GtkSelectionModel *pages;
 };
@@ -762,6 +777,42 @@ find_page_for_name (AdwViewStack *self,
 }
 
 static void
+set_transition_running (AdwViewStack *self,
+                        gboolean      running)
+{
+  if (self->transition_running == running)
+    return;
+
+  self->transition_running = running;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
+}
+
+static void
+transition_cb (double        value,
+               AdwViewStack *self)
+{
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] &&
+      self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
+    gtk_widget_queue_draw (GTK_WIDGET (self));
+  } else {
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+  }
+}
+
+static void
+transition_done_cb (AdwViewStack *self)
+{
+  if (self->last_visible_child) {
+    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    self->last_visible_child = NULL;
+  }
+
+  adw_animation_reset (self->animation);
+
+  set_transition_running (self, FALSE);
+}
+
+static void
 set_visible_child (AdwViewStack     *self,
                    AdwViewStackPage *page)
 {
@@ -824,8 +875,18 @@ set_visible_child (AdwViewStack     *self,
     g_set_weak_pointer (&self->visible_child->last_focus, focus);
   }
 
-  if (self->visible_child && self->visible_child->widget)
-    gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
+  if (self->transition_running)
+    adw_animation_skip (self->animation);
+
+  if (self->visible_child && self->visible_child->widget) {
+    if (gtk_widget_is_visible (widget)) {
+      self->last_visible_child = self->visible_child;
+      self->last_visible_widget_width = gtk_widget_get_width (widget);
+      self->last_visible_widget_height = gtk_widget_get_height (widget);
+    } else {
+      gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
+    }
+  }
 
   self->visible_child = page;
 
@@ -863,6 +924,9 @@ set_visible_child (AdwViewStack     *self,
                                              MIN (old_pos, new_pos),
                                              MAX (old_pos, new_pos) - MIN (old_pos, new_pos) + 1);
   }
+
+  set_transition_running (self, TRUE);
+  adw_animation_play (self->animation);
 }
 
 static void
@@ -877,6 +941,11 @@ update_child_visible (AdwViewStack     *self,
     set_visible_child (self, page);
   else if (self->visible_child == page && !visible)
     set_visible_child (self, NULL);
+
+  if (page == self->last_visible_child) {
+    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    self->last_visible_child = NULL;
+  }
 
   gtk_accessible_update_state (GTK_ACCESSIBLE (page),
                                GTK_ACCESSIBLE_STATE_HIDDEN, !visible,
@@ -1016,6 +1085,33 @@ stack_remove (AdwViewStack  *self,
 }
 
 static void
+adw_view_stack_snapshot (GtkWidget   *widget,
+                         GtkSnapshot *snapshot)
+{
+  AdwViewStack *self = ADW_VIEW_STACK (widget);
+
+  if (!self->visible_child)
+    return;
+
+  if (adw_animation_get_state (self->animation) == ADW_ANIMATION_PLAYING) {
+    double t = adw_animation_get_value (self->animation);
+
+    gtk_snapshot_push_cross_fade (snapshot, t);
+
+    if (self->last_visible_child)
+      gtk_widget_snapshot_child (widget, self->last_visible_child->widget, snapshot);
+    gtk_snapshot_pop (snapshot);
+
+    gtk_widget_snapshot_child (widget, self->visible_child->widget, snapshot);
+    gtk_snapshot_pop (snapshot);
+
+    return;
+  }
+
+  gtk_widget_snapshot_child (widget, self->visible_child->widget, snapshot);
+}
+
+static void
 adw_view_stack_size_allocate (GtkWidget *widget,
                               int        width,
                               int        height,
@@ -1023,10 +1119,84 @@ adw_view_stack_size_allocate (GtkWidget *widget,
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
 
-  if (!self->visible_child)
-    return;
+  if (self->last_visible_child) {
+    GtkAllocation child_allocation;
+    int child_width, child_height;
+    int min, nat;
 
-  gtk_widget_allocate (self->visible_child->widget, width, height, baseline, NULL);
+    gtk_widget_measure (self->last_visible_child->widget,
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        &min, &nat, NULL, NULL);
+    child_width = MAX (min, width);
+    gtk_widget_measure (self->last_visible_child->widget,
+                        GTK_ORIENTATION_VERTICAL, child_width,
+                        &min, &nat, NULL, NULL);
+    child_height = MAX (min, height);
+
+    child_allocation.x = 0;
+    child_allocation.y = 0;
+    child_allocation.width = child_width;
+    child_allocation.height = child_height;
+
+    if (child_allocation.width > width) {
+      GtkAlign halign = gtk_widget_get_halign (self->last_visible_child->widget);
+
+      if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
+        child_allocation.x = (width - child_allocation.width) / 2;
+      else if (halign == GTK_ALIGN_END)
+        child_allocation.x = (width - child_allocation.width);
+    }
+
+    if (child_allocation.height > height) {
+      GtkAlign valign = gtk_widget_get_valign (self->last_visible_child->widget);
+
+      if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
+        child_allocation.y = (height - child_allocation.height) / 2;
+      else if (valign == GTK_ALIGN_END)
+        child_allocation.y = (height - child_allocation.height);
+    }
+
+    gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation, -1);
+  }
+
+  if (self->visible_child) {
+    GtkAllocation child_allocation;
+    int min_width;
+    int min_height;
+
+    child_allocation.x = 0;
+    child_allocation.y = 0;
+    child_allocation.width = width;
+    child_allocation.height = height;
+
+    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
+                        height, &min_width, NULL, NULL, NULL);
+    width = MAX (width, min_width);
+
+    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                        child_allocation.width, &min_height, NULL, NULL, NULL);
+    child_allocation.height = MAX (child_allocation.height, min_height);
+
+    if (child_allocation.width > width) {
+      GtkAlign halign = gtk_widget_get_halign (self->visible_child->widget);
+
+      if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
+        child_allocation.x = (width - child_allocation.width) / 2;
+      else if (halign == GTK_ALIGN_END)
+        child_allocation.x = (width - child_allocation.width);
+    }
+
+    if (child_allocation.height > height) {
+      GtkAlign valign = gtk_widget_get_valign (self->visible_child->widget);
+
+      if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
+        child_allocation.y = (height - child_allocation.height) / 2;
+      else if (valign == GTK_ALIGN_END)
+        child_allocation.y = (height - child_allocation.height);
+    }
+
+    gtk_widget_size_allocate (self->visible_child->widget, &child_allocation, -1);
+  }
 }
 
 static void
@@ -1067,6 +1237,19 @@ adw_view_stack_measure (GtkWidget      *widget,
       *natural = MAX (*natural, child_nat);
     }
   }
+
+  if (self->last_visible_child != NULL && !self->homogeneous[orientation]) {
+    double t = adw_animation_get_value (self->animation);
+    int last_size;
+
+    if (orientation == GTK_ORIENTATION_HORIZONTAL)
+      last_size = self->last_visible_widget_width;
+    else
+      last_size = self->last_visible_widget_height;
+
+    *minimum = adw_lerp (last_size, *minimum, t);
+    *natural = adw_lerp (last_size, *natural, t);
+  }
 }
 
 static void
@@ -1089,6 +1272,15 @@ adw_view_stack_get_property (GObject    *object,
     break;
   case PROP_VISIBLE_CHILD_NAME:
     g_value_set_string (value, adw_view_stack_get_visible_child_name (self));
+    break;
+  case PROP_ENABLE_TRANSITIONS:
+    g_value_set_boolean (value, adw_view_stack_get_enable_transitions (self));
+    break;
+  case PROP_TRANSITION_DURATION:
+    g_value_set_uint (value, adw_view_stack_get_transition_duration (self));
+    break;
+  case PROP_TRANSITION_RUNNING:
+    g_value_set_boolean (value, adw_view_stack_get_transition_running (self));
     break;
   case PROP_PAGES:
     g_value_take_object (value, adw_view_stack_get_pages (self));
@@ -1119,6 +1311,12 @@ adw_view_stack_set_property (GObject      *object,
     break;
   case PROP_VISIBLE_CHILD_NAME:
     adw_view_stack_set_visible_child_name (self, g_value_get_string (value));
+    break;
+  case PROP_ENABLE_TRANSITIONS:
+    adw_view_stack_set_enable_transitions (self, g_value_get_boolean (value));
+    break;
+  case PROP_TRANSITION_DURATION:
+    adw_view_stack_set_transition_duration (self, g_value_get_uint (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -1163,6 +1361,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   object_class->dispose = adw_view_stack_dispose;
   object_class->finalize = adw_view_stack_finalize;
 
+  widget_class->snapshot = adw_view_stack_snapshot;
   widget_class->size_allocate = adw_view_stack_size_allocate;
   widget_class->measure = adw_view_stack_measure;
   widget_class->get_request_mode = adw_widget_get_request_mode;
@@ -1223,6 +1422,52 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwViewStack:enable-transitions:
+   *
+   * Whether the stack uses a crossfade transition between pages.
+   *
+   * Use [property@ViewStack:transition-duration] to control the duration, and
+   * [property@ViewStack:transition-running] to know when the transition is
+   * running.
+   *
+   * Since: 1.7
+   */
+  props[PROP_ENABLE_TRANSITIONS] =
+    g_param_spec_boolean ("enable-transitions", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStack:transition-duration:
+   *
+   * The transition animation duration, in milliseconds.
+   *
+   * Only used when [property@ViewStack:enable-transitions] is set to `TRUE`.
+   *
+   * Since: 1.7
+   */
+  props[PROP_TRANSITION_DURATION] =
+    g_param_spec_uint ("transition-duration", NULL, NULL,
+                       0, G_MAXUINT, 200,
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStack:transition-running:
+   *
+   * Whether a transition is currently running.
+   *
+   * If a transition is impossible, the property value will be set to `TRUE` and
+   * then immediately to `FALSE`, so it's possible to rely on its notifications
+   * to know that a transition has happened.
+   *
+   * Since: 1.7
+   */
+  props[PROP_TRANSITION_RUNNING] =
+    g_param_spec_boolean ("transition-running", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
    * AdwViewStack:pages:
    *
    * A selection model with the stack's pages.
@@ -1245,8 +1490,17 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
 static void
 adw_view_stack_init (AdwViewStack *self)
 {
+  AdwAnimationTarget *target;
+
   self->homogeneous[GTK_ORIENTATION_VERTICAL] = TRUE;
   self->homogeneous[GTK_ORIENTATION_HORIZONTAL] = TRUE;
+  self->transition_duration = 200;
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) transition_cb,
+                                              self, NULL);
+  self->animation = adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+  g_signal_connect_swapped (self->animation, "done",
+                            G_CALLBACK (transition_done_cb), self);
 }
 
 static void
@@ -1981,6 +2235,132 @@ adw_view_stack_set_vhomogeneous (AdwViewStack *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VHOMOGENEOUS]);
+}
+
+/**
+ * adw_view_stack_get_enable_transitions:
+ * @self: a view stack
+ *
+ * Gets whether @self uses a crossfade transition between pages.
+ *
+ * Use [property@ViewStack:transition-duration] to control the duration, and
+ * [property@ViewStack:transition-running] to know when the transition is
+ * running.
+ *
+ * Returns: whether to enable page transitions
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_view_stack_get_enable_transitions (AdwViewStack *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
+
+  return self->enable_transitions;
+}
+
+/**
+ * adw_view_stack_set_enable_transitions:
+ * @self: a view stack
+ * @enable_transitions: whether to enable page transitions
+ *
+ * Sets whether @self uses a crossfade transition between pages.
+ *
+ * Since: 1.7
+ */
+void
+adw_view_stack_set_enable_transitions (AdwViewStack *self,
+                                       gboolean      enable_transitions)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK (self));
+
+  enable_transitions = !!enable_transitions;
+
+  if (enable_transitions == self->enable_transitions)
+    return;
+
+  self->enable_transitions = enable_transitions;
+
+  if (self->enable_transitions) {
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
+                                      self->transition_duration);
+  } else {
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation), 0);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLE_TRANSITIONS]);
+}
+
+/**
+ * adw_view_stack_get_transition_duration:
+ * @self: a view stack
+ *
+ * Gets the transition animation duration for @self.
+ *
+ * Returns: the transition duration, in milliseconds
+ *
+ * Since: 1.7
+ */
+guint
+adw_view_stack_get_transition_duration (AdwViewStack *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), 0);
+
+  return self->transition_duration;
+}
+
+/**
+ * adw_view_stack_set_transition_duration:
+ * @self: a view stack
+ * @duration: the new duration, in milliseconds
+ *
+ * Sets the transition animation duration for @self.
+ *
+ * Only used when [property@ViewStack:enable-transitions] is set to `TRUE`.
+ *
+ * Since: 1.7
+ */
+void
+adw_view_stack_set_transition_duration (AdwViewStack *self,
+                                        guint         duration)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK (self));
+
+  if (self->transition_duration == duration)
+    return;
+
+  self->transition_duration = duration;
+
+  if (self->enable_transitions) {
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
+                                      self->transition_duration);
+  } else {
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation), 0);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_DURATION]);
+}
+
+/**
+ * adw_view_stack_get_transition_running:
+ * @self: a view stack
+ *
+ * Gets whether a transition is currently running for @self.
+ *
+ * If a transition is impossible, the property value will be set to `TRUE` and
+ * then immediately to `FALSE`, so it's possible to rely on its notifications
+ * to know that a transition has happened.
+ *
+ * Returns: whether a transition is currently running
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_view_stack_get_transition_running (AdwViewStack *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
+
+  return self->transition_running;
 }
 
 /**
