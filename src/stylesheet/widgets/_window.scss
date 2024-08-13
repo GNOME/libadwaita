@@ -37,7 +37,7 @@ window {
     &.tiled-left,
     &.tiled-right,
     &.tiled-bottom {
-      --window-radius: 0;
+      --window-radius: 0px;
       outline: none;
 
       box-shadow: 0 0 0 1px $border_color,
@@ -51,7 +51,7 @@ window {
 
     &.maximized,
     &.fullscreen {
-      --window-radius: 0;
+      --window-radius: 0px;
       outline: none;
       box-shadow: none;
       transition: none;
@@ -61,7 +61,7 @@ window {
   &.solid-csd {
     margin: 0;
     padding: 5px;
-    --window-radius: 0;
+    --window-radius: 0px;
     box-shadow: inset 0 0 0 5px $border_color,
                 inset 0 0 0 4px var(--headerbar-bg-color),
                 inset 0 0 0 1px $border_color;
