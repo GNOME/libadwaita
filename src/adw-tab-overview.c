@@ -1501,6 +1501,15 @@ escape_cb (AdwTabOverview *self)
   return GDK_EVENT_STOP;
 }
 
+static void
+start_search_cb (AdwTabOverview *self)
+{
+  if (gtk_widget_get_child_visible (self->overview)) {
+    gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (self->search_bar), TRUE);
+    gtk_widget_grab_focus (self->search_entry);
+  }
+}
+
 static gboolean
 object_handled_accumulator (GSignalInvocationHint *ihint,
                             GValue                *return_accu,
@@ -1802,6 +1811,13 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                                    (GtkWidgetActionActivateFunc) overview_close_cb);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0,
                                 (GtkShortcutFunc) escape_cb, NULL);
+#ifdef __APPLE__
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_META_MASK,
+                                (GtkShortcutFunc) start_search_cb, NULL);
+#else
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_CONTROL_MASK,
+                                (GtkShortcutFunc) start_search_cb, NULL);
+#endif
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-tab-overview.ui");
