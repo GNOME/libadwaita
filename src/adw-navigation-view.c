@@ -298,6 +298,7 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwNavigationView, adw_navigation_view, GTK_TYPE_
 enum {
   PROP_0,
   PROP_VISIBLE_PAGE,
+  PROP_VISIBLE_PAGE_TAG,
   PROP_HHOMOGENEOUS,
   PROP_VHOMOGENEOUS,
   PROP_ANIMATE_TRANSITIONS,
@@ -810,6 +811,11 @@ switch_page (AdwNavigationView *self,
     adw_animation_skip (self->transition);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
+
+  if ((prev_page != NULL && adw_navigation_page_get_tag (prev_page) != NULL) ||
+      (page != NULL && adw_navigation_page_get_tag (page) != NULL)) {
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
+  }
 }
 
 static void
@@ -1648,6 +1654,9 @@ adw_navigation_view_get_property (GObject    *object,
   case PROP_VISIBLE_PAGE:
     g_value_set_object (value, adw_navigation_view_get_visible_page (self));
     break;
+  case PROP_VISIBLE_PAGE_TAG:
+    g_value_set_string (value, adw_navigation_view_get_visible_page_tag (self));
+    break;
   case PROP_HHOMOGENEOUS:
     g_value_set_boolean (value, adw_navigation_view_get_hhomogeneous (self));
     break;
@@ -1737,6 +1746,18 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   props[PROP_VISIBLE_PAGE] =
     g_param_spec_object ("visible-page", NULL, NULL,
                          ADW_TYPE_NAVIGATION_PAGE,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwNavigationView:visible-page-tag:
+   *
+   * The tag of the currently visible page.
+   *
+   * Since: 1.7
+   */
+  props[PROP_VISIBLE_PAGE_TAG] =
+    g_param_spec_string ("visible-page-tag", NULL, NULL,
+                         NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -2887,7 +2908,11 @@ adw_navigation_view_replace (AdwNavigationView  *self,
     switch_page (self, visible_page, NULL, TRUE, FALSE, 0);
   } else if (old_visible_page) {
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
-  }
+
+    if (adw_navigation_page_get_tag (old_visible_page) != NULL) {
+      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
+    }
+}
 
   g_hash_table_unref (added_pages);
 
@@ -2985,6 +3010,29 @@ adw_navigation_view_get_visible_page (AdwNavigationView *self)
   g_object_unref (ret);
 
   return ret;
+}
+
+/**
+ * adw_navigation_view_get_visible_page_tag:
+ * @self: a navigation view
+ *
+ * Gets the tag of the currently visible page in @self.
+ *
+ * Returns: (transfer full) (nullable): the tag of the currently visible page
+ *
+ * Since: 1.7
+ */
+const char *
+adw_navigation_view_get_visible_page_tag (AdwNavigationView *self)
+{
+  g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), NULL);
+
+  AdwNavigationPage *current_page = adw_navigation_view_get_visible_page (self);
+
+  if (current_page == NULL)
+    return NULL;
+
+  return adw_navigation_page_get_tag (current_page);
 }
 
 /**
