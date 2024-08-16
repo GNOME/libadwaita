@@ -160,6 +160,9 @@ void adw_navigation_view_replace_with_tags (AdwNavigationView  *self,
 ADW_AVAILABLE_IN_1_4
 AdwNavigationPage *adw_navigation_view_get_visible_page (AdwNavigationView *self);
 
+ADW_AVAILABLE_IN_1_7
+const char *adw_navigation_view_get_visible_page_tag (AdwNavigationView *self);
+
 ADW_AVAILABLE_IN_1_4
 AdwNavigationPage *adw_navigation_view_get_previous_page (AdwNavigationView *self,
                                                           AdwNavigationPage *page);

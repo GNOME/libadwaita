@@ -60,6 +60,7 @@ test_adw_navigation_view_add_remove (void)
   g_signal_connect_swapped (view, "notify::visible-page", G_CALLBACK (increment), &notified);
 
   g_assert_null (adw_navigation_view_get_visible_page (view));
+  g_assert_null (adw_navigation_view_get_visible_page_tag (view));
   check_navigation_stack (view, 0);
   g_assert_cmpint (pushed, ==, 0);
   g_assert_cmpint (popped, ==, 0);
@@ -73,6 +74,7 @@ test_adw_navigation_view_add_remove (void)
   g_test_assert_expected_messages ();
 
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_cmpint (pushed, ==, 1);
   g_assert_cmpint (notified, ==, 1);
@@ -87,6 +89,7 @@ test_adw_navigation_view_add_remove (void)
   g_assert_null (adw_navigation_view_find_page (view, "page-2"));
 
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
 
   g_assert_cmpint (pushed, ==, 1);
@@ -127,6 +130,7 @@ test_adw_navigation_view_push_pop (void)
   /* Will be autoremoved after pop */
   adw_navigation_view_push (view, page_1);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_cmpint (pushed, ==, 1);
   g_assert_cmpint (notified, ==, 1);
@@ -134,12 +138,14 @@ test_adw_navigation_view_push_pop (void)
   /* Explicitly added page - will persist after pop */
   adw_navigation_view_add (view, page_2);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_cmpint (pushed, ==, 1);
   g_assert_cmpint (notified, ==, 1);
 
   adw_navigation_view_push (view, page_2);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_2);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-2");
   check_navigation_stack (view, 2, "page-1", "page-2");
   g_assert_cmpint (pushed, ==, 2);
   g_assert_cmpint (notified, ==, 2);
@@ -154,6 +160,7 @@ test_adw_navigation_view_push_pop (void)
   adw_navigation_view_add (view, page_3);
   adw_navigation_view_push (view, page_3);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-3");
   check_navigation_stack (view, 3, "page-1", "page-2", "page-3");
   g_assert_cmpint (pushed, ==, 3);
   g_assert_cmpint (notified, ==, 3);
@@ -161,12 +168,14 @@ test_adw_navigation_view_push_pop (void)
   /* Removing while in navigation stack - no effect until it's popped */
   adw_navigation_view_remove (view, page_3);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-3");
   check_navigation_stack (view, 3, "page-1", "page-2", "page-3");
   g_assert_cmpint (pushed, ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
   adw_navigation_view_push (view, page_4);
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-4");
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (pushed, ==, 4);
   g_assert_cmpint (popped, ==, 0);
@@ -176,6 +185,7 @@ test_adw_navigation_view_push_pop (void)
   adw_navigation_view_push (view, page_5);
   g_test_assert_expected_messages ();
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-4");
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (pushed, ==, 4);
   g_assert_cmpint (popped, ==, 0);
@@ -183,6 +193,7 @@ test_adw_navigation_view_push_pop (void)
 
   g_assert_true (adw_navigation_view_pop (view));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-3");
   check_navigation_stack (view, 3, "page-1", "page-2", "page-3");
   g_assert_null (adw_navigation_view_find_page (view, "page-4"));
   g_assert_cmpint (popped, ==, 1);
@@ -190,6 +201,7 @@ test_adw_navigation_view_push_pop (void)
 
   g_assert_true (adw_navigation_view_pop (view));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_2);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-2");
   check_navigation_stack (view, 2, "page-1", "page-2");
   g_assert_null (adw_navigation_view_find_page (view, "page-3"));
   g_assert_cmpint (popped, ==, 2);
@@ -197,6 +209,7 @@ test_adw_navigation_view_push_pop (void)
 
   g_assert_true (adw_navigation_view_pop (view));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_true (adw_navigation_view_find_page (view, "page-2") == page_2);
   g_assert_cmpint (popped, ==, 3);
@@ -205,6 +218,7 @@ test_adw_navigation_view_push_pop (void)
   /* Last page - not allowed to pop */
   g_assert_false (adw_navigation_view_pop (view));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_true (adw_navigation_view_find_page (view, "page-1") == page_1);
   g_assert_cmpint (popped, ==, 3);
@@ -264,18 +278,21 @@ test_adw_navigation_view_push_pop_by_tag (void)
 
   adw_navigation_view_push_by_tag (view, "page-2");
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_2);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-2");
   check_navigation_stack (view, 2, "page-1", "page-2");
   g_assert_cmpint (pushed, ==, 2);
   g_assert_cmpint (notified, ==, 2);
 
   adw_navigation_view_push_by_tag (view, "page-3");
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-3");
   check_navigation_stack (view, 3, "page-1", "page-2", "page-3");
   g_assert_cmpint (pushed, ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
   adw_navigation_view_push_by_tag (view, "page-4");
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-4");
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (pushed, ==, 4);
   g_assert_cmpint (notified, ==, 4);
@@ -289,18 +306,21 @@ test_adw_navigation_view_push_pop_by_tag (void)
 
   g_assert_false (adw_navigation_view_pop_to_tag (view, "page-4"));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-4");
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (popped, ==, 0);
   g_assert_cmpint (notified, ==, 4);
 
   g_assert_true (adw_navigation_view_pop_to_tag (view, "page-2"));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_2);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-2");
   check_navigation_stack (view, 2, "page-1", "page-2");
   g_assert_cmpint (popped, ==, 2);
   g_assert_cmpint (notified, ==, 5);
 
   g_assert_true (adw_navigation_view_pop_to_tag (view, "page-1"));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_cmpint (popped, ==, 3);
   g_assert_cmpint (notified, ==, 6);
@@ -339,6 +359,7 @@ test_adw_navigation_view_pop_to_page (void)
   adw_navigation_view_push (view, page_4);
 
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_4);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-4");
   check_navigation_stack (view, 4, "page-1", "page-2", "page-3", "page-4");
   g_assert_cmpint (notified, ==, 4);
 
@@ -354,6 +375,7 @@ test_adw_navigation_view_pop_to_page (void)
 
   g_assert_true (adw_navigation_view_pop_to_page (view, page_3));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_3);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-3");
   check_navigation_stack (view, 3, "page-1", "page-2", "page-3");
   g_assert_cmpint (popped, ==, 1);
   g_assert_cmpint (notified, ==, 5);
@@ -361,6 +383,7 @@ test_adw_navigation_view_pop_to_page (void)
 
   g_assert_true (adw_navigation_view_pop_to_page (view, page_1));
   g_assert_true (adw_navigation_view_get_visible_page (view) == page_1);
+  g_assert_cmpstr (adw_navigation_view_get_visible_page_tag (view), ==, "page-1");
   check_navigation_stack (view, 1, "page-1");
   g_assert_cmpint (popped, ==, 3);
   g_assert_cmpint (notified, ==, 6);
