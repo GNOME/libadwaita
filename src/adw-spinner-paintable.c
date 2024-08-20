@@ -76,6 +76,7 @@ struct _AdwSpinnerPaintable
 
   AdwAnimation *animation;
   GtkWidget *widget;
+  guint invalidate_source_id;
 };
 
 static void adw_spinner_paintable_iface_init (GdkPaintableInterface *iface);
@@ -161,12 +162,30 @@ animation_cb (double               value,
 }
 
 static void
-widget_notify_cb (AdwSpinnerPaintable *self)
+invalidate_cb (AdwSpinnerPaintable *self)
 {
-  self->widget = NULL;
   g_clear_object (&self->animation);
   gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_WIDGET]);
+  self->invalidate_source_id = 0;
+}
+
+static void
+widget_notify_cb (AdwSpinnerPaintable *self)
+{
+  self->widget = NULL;
+
+  /* FIXME: This idle callback is a workaround for https://gitlab.gnome.org/GNOME/glib/-/issues/3434
+   *
+   * 1. self->widget (an AdwSpinner) is destroyed
+   * 2. In this weak notify, AdwSpinnerPaintable destroys the AdwAnimation self->animation
+   * 3. AdwAnimation attempts to unregister its weak pointer on the same AdwSpinner but fails due to the GLib bug
+   * 4. AdwAnimation's weak notify executes unexpectedly after AdwAnimation is destroyed and corrupts heap memory
+   *
+   * Using an idle avoids the problem by deferring destruction of AdwAnimation to the next main context iteration.
+   * This workaround can be removed once the GLib bug is fixed.
+   */
+  self->invalidate_source_id = g_idle_add_once ((GSourceOnceFunc) invalidate_cb, self);
 }
 
 static void
@@ -194,6 +213,8 @@ adw_spinner_paintable_dispose (GObject *object)
 
     self->widget = NULL;
   }
+
+  g_clear_handle_id (&self->invalidate_source_id, g_source_remove);
 
   G_OBJECT_CLASS (adw_spinner_paintable_parent_class)->dispose (object);
 }
