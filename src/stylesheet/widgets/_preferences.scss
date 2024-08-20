@@ -4,7 +4,7 @@ preferencespage > scrolledwindow > viewport > clamp > box {
 }
 
 preferencesgroup > box {
-  &, .labels {
+  &, box.labels {
     border-spacing: 6px;
   }
 
