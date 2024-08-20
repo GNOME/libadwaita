@@ -876,10 +876,10 @@ pop_from_stack (AdwNavigationView *self,
   for (l = popped; l; l = l->next) {
     AdwNavigationPage *c = l->data;
 
-    g_signal_emit (self, signals[SIGNAL_POPPED], 0, c);
-
     if (c != old_page && get_remove_on_pop (c))
       adw_navigation_view_remove (self, c);
+
+    g_signal_emit (self, signals[SIGNAL_POPPED], 0, c);
   }
 
   if (self->navigation_stack_model)
