@@ -5,17 +5,16 @@
 # Translators:
 # Assumpta, 2020
 # Jaume Jorba <jaume.jorba@gmail.com>, 2020
-# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2022-2023
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2022-2024
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-06-25 18:47+0000\n"
-"PO-Revision-Date: 2024-06-25 23:06+0200\n"
+"POT-Creation-Date: 2024-08-19 13:43+0000\n"
+"PO-Revision-Date: 2024-08-20 23:06+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
-"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
-"ca/)\n"
+"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -113,15 +112,14 @@ msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
-#.
 #: src/adw-about-dialog.c:593 src/adw-about-window.c:592
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu la <a href=\"%s\">"
-"%s</a> per a més detalls."
+"Aquesta aplicació no té absolutament cap garantia. Vegeu la <a "
+"href=\"%s\">%s</a> per a més detalls."
 
 #: src/adw-about-dialog.c:671 src/adw-about-window.c:670
 msgid "This Application"
@@ -150,7 +148,7 @@ msgid "Unable to save debugging information"
 msgstr "No s'ha pogut desar la informació de depuració"
 
 #: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
-#: src/adw-sheet-controls.c:122
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Tanca"
 
@@ -255,7 +253,8 @@ msgstr "Reconeixements"
 msgid "Back"
 msgstr "Enrere"
 
-#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#. Translators: This is a placeholder text of the search entry from
+#. AdwComboRow. It should be phrased as a verb.
 #: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
 #: src/adw-preferences-window.ui:96
 msgid "Search"
@@ -283,7 +282,7 @@ msgstr "Blau"
 
 #: src/adw-inspector-page.c:117
 msgid "Teal"
-msgstr ""
+msgstr "Verd bosc"
 
 #: src/adw-inspector-page.c:119
 msgid "Green"
@@ -307,11 +306,11 @@ msgstr "Rosa"
 
 #: src/adw-inspector-page.c:129
 msgid "Purple"
-msgstr ""
+msgstr "Porpra"
 
 #: src/adw-inspector-page.c:131
 msgid "Slate"
-msgstr ""
+msgstr "Pissarra"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:270
@@ -340,19 +339,15 @@ msgstr "Esquema de color preferit"
 
 #: src/adw-inspector-page.ui:39
 msgid "Accent Color"
-msgstr ""
+msgstr "Color de contrast"
 
 #: src/adw-inspector-page.ui:42
-#, fuzzy
-#| msgid "System Supports Color Schemes"
 msgid "System Supports Accent Colors"
-msgstr "Esquemes de color de suport del sistema"
+msgstr "El sistema admet colors de contrast"
 
 #: src/adw-inspector-page.ui:48
-#, fuzzy
-#| msgid "Preferred Color Scheme"
 msgid "Preferred Accent Color"
-msgstr "Esquema de color preferit"
+msgstr "Color de contrast preferit"
 
 #: src/adw-inspector-page.ui:77
 msgid "Accessibility"
@@ -402,7 +397,7 @@ msgstr "Proveu una cerca diferent"
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
 
-#: src/adw-sheet-controls.c:124
+#: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Tanca la finestra"
 
@@ -442,9 +437,28 @@ msgstr "No s'ha trobat cap pestanya"
 msgid "New _Tab"
 msgstr "_Pestanya nova"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:97
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Ha aparegut una notificació: %s, té un botó: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Ha aparegut una notificació: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Ha aparegut una notificació, té un botó: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "Ha aparegut una notificació"
 
 #~ msgid "Search…"
 #~ msgstr "Cerca…"
