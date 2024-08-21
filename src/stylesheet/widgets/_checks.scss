@@ -9,6 +9,10 @@ checkbutton {
     // this is for a nice focus on check and radios text
     padding: 4px;
   }
+
+  &.grouped {
+    border-radius: 999px;
+  }
 }
 
 check,
