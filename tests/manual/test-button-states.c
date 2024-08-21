@@ -10,8 +10,12 @@ add_button (GtkGrid       *grid,
   GtkWidget *button;
   button = gtk_button_new_with_label ("button");
   gtk_widget_set_state_flags (button, flags, FALSE);
-  if (style_class)
+  if (style_class) {
     gtk_widget_add_css_class (button, style_class);
+
+    if (!g_strcmp0 (style_class, "card"))
+      gtk_widget_set_size_request (button, -1, 75);
+  }
   gtk_grid_attach (grid, button, column, row, 1, 1);
 }
 
