@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-06-28 16:20+0000\n"
-"PO-Revision-Date: 2024-07-16 23:41+0200\n"
+"POT-Creation-Date: 2024-08-21 12:56+0000\n"
+"PO-Revision-Date: 2024-08-23 10:24+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -145,7 +145,7 @@ msgid "Unable to save debugging information"
 msgstr "გამართვის ინფორმაციის შენახვის შეცდომა"
 
 #: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
-#: src/adw-sheet-controls.c:122
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "დახურვა"
 
@@ -392,7 +392,7 @@ msgstr "სცადეთ სხვა ძებნა"
 msgid "Try a different search."
 msgstr "სცადეთ სხვა ძებნა."
 
-#: src/adw-sheet-controls.c:124
+#: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "ფანჯრის დახურვა"
 
@@ -432,9 +432,28 @@ msgstr "შედეგების გარეშე"
 msgid "New _Tab"
 msgstr "ახალი _ჩანართი"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:97
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "ჩანართის დახურვა"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "გამოჩნდა Toast: %s, აქვს ღილაკი: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "გამოჩნდა Toast: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "გამოჩნდა Toast. აქვს ღილაკი: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "გამოჩნდა Toast. აქვს ღილაკი: %s"
 
 #~ msgid "Search…"
 #~ msgstr "ძებნა…"
