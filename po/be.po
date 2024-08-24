@@ -1,14 +1,14 @@
 # Belarusian translation for libadwaita.
 # Copyright (C) 2022 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
-# 3abac <3abac@3a.by>, 2022.
+# Yuras Shumovich <shumovichy@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-02 19:53+0000\n"
-"PO-Revision-Date: 2024-03-05 22:52+0300\n"
+"POT-Creation-Date: 2024-08-21 12:56+0000\n"
+"PO-Revision-Date: 2024-08-24 06:47+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -17,104 +17,104 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "Агульная Грамадская Ліцэнзія GNU версіі 2 або любой пазнейшай"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr ""
 "Агульная Грамадская Ліцэнзія GNU\n"
 "версіі 3 або любой пазнейшай"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr ""
 "Спрошчаная Агульная Грамадская Ліцэнзія GNU версіі 2.1 або любой пазнейшай"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr ""
 "Спрошчаная Агульная Грамадская Ліцэнзія GNU версіі 3 або любой пазнейшай"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "Ліцэнзія BSD 2-Clause"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "Ліцэнзія MIT"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "Ліцэнзія Artistic 2.0"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "Агульная Грамадская Ліцэнзія GNU, толькі версія 2"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "Агульная Грамадская Ліцэнзія GNU, толькі версія 3"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Спрошчаная Агульная Грамадская Ліцэнзія GNU, толькі версія 2.1"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Спрошчаная Агульная Грамадская Ліцэнзія GNU, толькі версія 3"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License версіі 3 або любой пазнейшай"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, толькі версія 3"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "Ліцэнзія BSD 3-Clause"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "Ліцэнзія Apache, версія 2.0"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "Публічная ліцэнзія Mozilla версіі 2.0"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "Ліцэнзія BSD Zero-Clause"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:560 src/adw-about-window.c:559
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:561 src/adw-about-window.c:560
 msgid "Design by"
 msgstr "Дызайн"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:562 src/adw-about-window.c:561
 msgid "Artwork by"
 msgstr "Мастацкае афармленне"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:563 src/adw-about-window.c:562
 msgid "Documentation by"
 msgstr "Дакументацыя"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:564 src/adw-about-window.c:563
 msgid "Translated by"
 msgstr "Пераклад"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:593 src/adw-about-window.c:592
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -123,37 +123,38 @@ msgstr ""
 "Праграма распаўсюджваецца без аніякіх гарантый. Падрабязнасці глядзіце тут: "
 "<a href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:671 src/adw-about-window.c:670
 msgid "This Application"
 msgstr "Праграма"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:973 src/adw-about-window.c:972
 #, c-format
 msgid "Version %s"
 msgstr "Версія %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:999 src/adw-about-window.c:998
 msgid "Unable to parse release notes:"
 msgstr "Не ўдалося разабраць спіс змен:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1004
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Радок: %d, знак: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1290
 msgid "Copied to clipboard"
 msgstr "Скапіявана ў буфер абмену"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1318
 msgid "Unable to save debugging information"
 msgstr "Не ўдалося захаваць адладачную інфармацыю"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Закрыць"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1339
 msgid "Save debugging information"
 msgstr "Захаваць адладачную інфармацыю"
 
@@ -230,7 +231,7 @@ msgstr "Адладачная інфармацыя"
 
 #: src/adw-about-dialog.ui:475 src/adw-about-window.ui:478
 msgid "_Copy Text"
-msgstr "_Капіраваць тэкст"
+msgstr "С_капіяваць тэкст"
 
 #: src/adw-about-dialog.ui:483 src/adw-about-window.ui:486
 msgid "_Save As…"
@@ -248,8 +249,8 @@ msgstr "Прававыя звесткі"
 msgid "Acknowledgements"
 msgstr "Падзякі"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:330 src/adw-back-button.c:428
+#: src/adw-back-button.c:538
 msgid "Back"
 msgstr "Назад"
 
@@ -259,24 +260,60 @@ msgstr "Назад"
 msgid "Search"
 msgstr "Пошук"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Ужыць"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "Без пераваг"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "Аддаваць перавагу цёмнай"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "Аддаваць перавагу светлай"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "Сіні"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "Сіне-зялёны"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "Зялёны"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "Жоўты"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "Аранжавы"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "Чырвоны"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "Ружовы"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "Фіялетавы"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "Сіне-шэры"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -300,7 +337,23 @@ msgstr "Сістэма падтрымлівае схемы колераў"
 msgid "Preferred Color Scheme"
 msgstr "Пераважная схема колераў"
 
-#: src/adw-inspector-page.ui:37
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "Акцэнтны колер"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "Сістэма падтрымлівае акцэнтныя колеры"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "Пераважны акцэнтны колер"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "Спецыяльныя магчымасці"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "Высокая кантраснасць"
 
@@ -320,7 +373,7 @@ msgstr "Caps Lock уключаны"
 msgid "_Show Password"
 msgstr "_Паказваць пароль"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "Неназваная старонка"
 
@@ -336,10 +389,17 @@ msgstr "Параметры пошуку"
 msgid "No Results Found"
 msgstr "Нічога не знойдзена"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "Паспрабуйце змяніць пошукавы запыт"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
-msgstr "Паспрабуйце іншы пошукавы запыт."
+msgstr "Паспрабуйце змяніць пошукавы запыт."
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "Закрыць акно"
 
 #: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
@@ -378,9 +438,28 @@ msgstr "Укладкі не знойдзены"
 msgid "New _Tab"
 msgstr "_Новая ўкладка"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Закрыць укладку"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "З'явіўся тост: %s, маецца кнопка: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "З'явіўся тост: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "З'явіўся тост, маецца кнопка: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "З'явіўся тост"
 
 #~ msgid "Search…"
 #~ msgstr "Пошук…"
