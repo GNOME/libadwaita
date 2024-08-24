@@ -100,7 +100,6 @@ test_adw_button_content_use_underline (void)
   g_assert_finalize_object (content);
 }
 
-/*
 static void
 test_adw_button_content_style_class_button (void)
 {
@@ -142,7 +141,6 @@ test_adw_button_content_style_class_split_button (void)
 
   g_assert_finalize_object (window);
 }
-*/
 
 int
 main (int   argc,
@@ -154,10 +152,8 @@ main (int   argc,
   g_test_add_func ("/Adwaita/ButtonContent/icon_name", test_adw_button_content_icon_name);
   g_test_add_func ("/Adwaita/ButtonContent/label", test_adw_button_content_label);
   g_test_add_func ("/Adwaita/ButtonContent/use_underline", test_adw_button_content_use_underline);
-  /* FIXME: these tests fail in CI atm
   g_test_add_func ("/Adwaita/ButtonContent/style_class_button", test_adw_button_content_style_class_button);
   g_test_add_func ("/Adwaita/ButtonContent/style_class_split_button", test_adw_button_content_style_class_split_button);
-  */
 
   return g_test_run ();
 }
