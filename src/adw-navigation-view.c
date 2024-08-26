@@ -873,13 +873,38 @@ pop_from_stack (AdwNavigationView *self,
 
   switch_page (self, old_page, new_page, TRUE, animate, velocity);
 
+  /* Signal popping of old visible page */
+  if (get_remove_on_pop (old_page)) {
+    /* Only remove visible page from hash table, not from stack yet */
+    const char *tag = adw_navigation_page_get_tag (c);
+    g_hash_table_remove (self->tag_mapping, tag);
+
+    g_signal_emit (self, signals[SIGNAL_POPPED], 0, old_page);
+
+    adw_navigation_page_set_tag (c, NULL);
+  } else {
+    g_signal_emit (self, signals[SIGNAL_POPPED], 0, c);
+  }
+
   for (l = popped; l; l = l->next) {
     AdwNavigationPage *c = l->data;
 
-    if (c != old_page && get_remove_on_pop (c))
+    if (!get_remove_on_pop (c)) {
+      g_signal_emit (self, signals[SIGNAL_POPPED], 0, c);
+      continue;
+    }
+
+    if (c == old_page) {
+      const char *tag = adw_navigation_page_get_tag (c);
+      g_hash_table_remove (self->tag_mapping, tag);
+    } else {
       adw_navigation_view_remove (self, c);
+    }
 
     g_signal_emit (self, signals[SIGNAL_POPPED], 0, c);
+
+    if (c == old_page)
+      adw_navigation_page_set_tag (old_page, NULL);
   }
 
   if (self->navigation_stack_model)
