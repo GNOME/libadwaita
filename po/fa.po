@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-02-26 19:00+0000\n"
-"PO-Revision-Date: 2024-02-27 10:56+0330\n"
+"POT-Creation-Date: 2024-08-21 12:56+0000\n"
+"PO-Revision-Date: 2024-08-26 12:32+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -16,100 +16,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "نگارش ۲ یا بالاتر پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "نگارش ۲٫۱ یا بالاتر پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "پروانهٔ دو بندی بی‌اس‌دی"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "پروانهٔ ام‌آی‌تی"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "پروانهٔ آرتیستیک ۲٫۰"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "نگارش ۲ پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "نگارش ۲٫۱ پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ کم‌تر جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "نگارش ۳ یا بالاتر پروانهٔ اعمالی جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "نگارش ۳ پروانهٔ اعمالی جامع همگانی گنو"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "پروانهٔ سه بندی بی‌اس‌دی"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "نگارش ۲٫۰ پروانهٔ آپاچی"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "نگارش ۲٫۰ پروانهٔ همگانی موزیلا"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "پروانهٔ بی‌بند بی‌اس‌دی"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:560 src/adw-about-window.c:559
 msgid "Code by"
 msgstr "کد به دست"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:561 src/adw-about-window.c:560
 msgid "Design by"
 msgstr "طرح به دست"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:562 src/adw-about-window.c:561
 msgid "Artwork by"
 msgstr "کار هنری به دست"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:563 src/adw-about-window.c:562
 msgid "Documentation by"
 msgstr "مستندسازی به دست"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:564 src/adw-about-window.c:563
 msgid "Translated by"
 msgstr "بازگردانی به دست"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:593 src/adw-about-window.c:592
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -117,37 +117,38 @@ msgid ""
 msgstr ""
 "این برنامه بی هیچ ضمانتی می‌آید. برای جزییات <a href=\"%s\">%s</a> را ببینید."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:671 src/adw-about-window.c:670
 msgid "This Application"
 msgstr "این برنامه"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:973 src/adw-about-window.c:972
 #, c-format
 msgid "Version %s"
 msgstr "نگارش %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:999 src/adw-about-window.c:998
 msgid "Unable to parse release notes:"
 msgstr "ناتوان در تجزیهٔ یادداشت انتشار:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1004
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "خط: %Id، نویسه: %Id"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1290
 msgid "Copied to clipboard"
 msgstr "در تخته‌گیره رونوشت شد"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1318
 msgid "Unable to save debugging information"
 msgstr "ناتوان در ذخیرهٔ اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "بستن"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1339
 msgid "Save debugging information"
 msgstr "ذخیرهٔ اطّلاعات اشکال‌زدایی"
 
@@ -242,7 +243,7 @@ msgstr "حقوقی"
 msgid "Acknowledgements"
 msgstr "سپاسگزاری‌ها"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445 src/adw-back-button.c:555
+#: src/adw-back-button.c:330 src/adw-back-button.c:428 src/adw-back-button.c:538
 msgid "Back"
 msgstr "بازگشت"
 
@@ -252,24 +253,60 @@ msgstr "بازگشت"
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "اعمال"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "بدون ترجیح"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "ترجیح تیره"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "ترجیح روشن"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "آبی"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "سبزآبی"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "سبز"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "زرد"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "نارنجی"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "قرمز"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "صورتی"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "بنفش"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "سنگی"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "تک"
 
@@ -291,7 +328,23 @@ msgstr "سامانه از شماهای رنگی پشتیبانی می‌کند"
 msgid "Preferred Color Scheme"
 msgstr "شمای رنگی ترجیحی"
 
-#: src/adw-inspector-page.ui:37
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "رنگ لهجه"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "سامانه از رنگ‌های لهجه پشتیبانی می‌کند"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "رنگ لهجهٔ ترجیحی"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "دسترسی‌پذیری"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "سایه‌روشن بالا"
 
@@ -311,7 +364,7 @@ msgstr "قفل تبدیل روشن است"
 msgid "_Show Password"
 msgstr "_نمایش گذرواژه"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "صفحهٔ بی‌عنوان"
 
@@ -327,10 +380,17 @@ msgstr "ترجیحات جست‌وجو"
 msgid "No Results Found"
 msgstr "هیچ نتیجه‌ای پیدا نشد"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "آزمودن جست‌وجویی متفاوت"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "جست‌وجویی دیگر را بیازمایید."
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "بستن پنجره"
 
 #: src/adw-split-button.c:519 src/adw-split-button.c:1033
 msgid "More Options"
@@ -368,9 +428,28 @@ msgstr "زبانه‌ای پیدا نشد"
 msgid "New _Tab"
 msgstr "_‌زبانهٔ جدید"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "بستن زبانه"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr ""
 
 #~ msgid "Search…"
 #~ msgstr "جست‌وجو…"
