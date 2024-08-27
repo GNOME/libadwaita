@@ -415,8 +415,12 @@ row.expander {
     color: inherit;
   }
 
-  &.property box > list > row {
+  &.property > box > list > row {
     @extend .property;
+  }
+
+  &.property.monospace > box > list > row > box.header > box.title > .subtitle {
+    font-family: monospace;
   }
 }
 
