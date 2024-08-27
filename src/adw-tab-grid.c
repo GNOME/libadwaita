@@ -1648,7 +1648,7 @@ reorder_update_cb (AdwTabGrid *self,
   double start_x, start_y, x, y;
   GdkDevice *device;
 
-  if (!self->pressed_tab) {
+  if (!self->pressed_tab || !self->pressed_tab->page) {
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
@@ -1680,9 +1680,7 @@ reorder_update_cb (AdwTabGrid *self,
   device = gtk_event_controller_get_current_event_device (GTK_EVENT_CONTROLLER (gesture));
 
   if (!self->pinned &&
-      self->pressed_tab &&
       self->pressed_tab != self->reorder_placeholder &&
-      self->pressed_tab->page &&
       !is_touchscreen (gesture) &&
       check_dnd_threshold (self, x, y)) {
     begin_drag (self, device);
