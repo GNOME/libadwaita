@@ -18,6 +18,11 @@ appearance.
   <img src="buttons-suggested-action.png" alt="buttons-suggested-action">
 </picture>
 
+<picture>
+  <source srcset="button-row-suggested-action-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="button-row-suggested-action.png" alt="button-row-suggested-action">
+</picture>
+
 The `.suggested-action` style class makes the button use accent colors. It can
 be used to denote important buttons, for example, the affirmative button in an
 action dialog.
@@ -32,6 +37,11 @@ Can also be used with [class@Gtk.MenuButton], [class@SplitButton] or
 <picture>
   <source srcset="buttons-destructive-action-dark.png" media="(prefers-color-scheme: dark)">
   <img src="buttons-destructive-action.png" alt="buttons-destructive-action">
+</picture>
+
+<picture>
+  <source srcset="button-row-destructive-action-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="button-row-destructive-action.png" alt="button-row-destructive-action">
 </picture>
 
 The `.destructive-action` style class makes the button use destructive colors.

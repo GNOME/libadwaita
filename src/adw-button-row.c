@@ -25,7 +25,8 @@
  * The `AdwButtonRow` widget has a title and two icons: before and after the
  * title.
  *
- * It is convenient to present actions like "Delete" at the end of a boxed list.
+ * It is convenient for presenting actions like "Delete" at the end of a boxed
+ * list.
  *
  * `AdwButtonRow` is always activatable.
  *
@@ -38,9 +39,26 @@
  * nodes: `image.icon.start` for the start icon, `label.title` for the title,
  * and `image.icon.end` for the end icon.
  *
- * `AdwButtonRow` can have the
- * [`.suggested-action`](style-classes.html#suggested-action) or
- * [`.destructive-action`](style-classes.html#destructive-action) style classes.
+ * ## Style classes
+ *
+ * The [`.suggested-action`](style-classes.html#suggested-action) style class
+ * makes `AdwButtonRow` use accent color for its background. It should be used
+ * very sparingly to denote important buttons.
+ *
+ * <picture>
+ *   <source srcset="button-row-suggested-action-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="button-row-suggested-action.png" alt="button-row-suggested-action">
+ * </picture>
+ *
+ * The [`.destructive-action`](style-classes.html#destructive-action) style
+ * makes the row use destructive colors. It can be used to draw attention to the
+ * potentially damaging consequences of using it. This style acts as a warning
+ * to the user.
+ *
+ * <picture>
+ *   <source srcset="button-row-destructive-action-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="button-row-destructive-action.png" alt="button-row-destructive-action">
+ * </picture>
  *
  * Since: 1.6
  */

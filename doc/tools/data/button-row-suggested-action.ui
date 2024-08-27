@@ -11,14 +11,10 @@
     <property name="separate-rows">True</property>
     <child>
       <object class="AdwButtonRow">
-        <property name="title">Add Input Source</property>
-        <property name="start-icon-name">list-add-symbolic</property>
-      </object>
-    </child>
-    <child>
-      <object class="AdwButtonRow">
-        <property name="title">Add Calendar</property>
-        <property name="end-icon-name">go-next-symbolic</property>
+        <property name="title">Search</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
       </object>
     </child>
   </object>
