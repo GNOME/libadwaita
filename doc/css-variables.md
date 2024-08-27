@@ -917,7 +917,7 @@ Name                        | Regular      | High contrast
 
 These variables represent the commonly used opacity values.
 
-`--border-opacity` is used for borders. (see [`--border-color`](#border-color)
+`--border-opacity` is used for borders. (see [`--border-color`](#border-color))
 
 `--dim-opacity` is used for the [`.dim-label`](style-classes.html#dim-labels)
 style class and other similar contexts, like window and row subtitles.
