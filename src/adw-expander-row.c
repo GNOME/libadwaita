@@ -41,6 +41,15 @@
  * It contains the subnodes `row.header` for its main embedded row,
  * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
  * its arrow.
+ *
+ * ## Style classes
+ *
+ * `AdwExpanderRow` can use the [`.`](style-classes.html#property-rows)
+ * style class to emphasize the row subtitle instead of the row title, which is
+ * useful for displaying read-only properties.
+ *
+ * When used together with the `.monospace` style class, only the subtitle
+ * becomes monospace, not the title or any extra widgets.
  */
 
 typedef struct
