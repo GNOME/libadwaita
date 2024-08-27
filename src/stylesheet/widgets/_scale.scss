@@ -77,18 +77,9 @@ scale {
 
   // click-and-hold the slider to activate
   &.fine-tune {
-    padding: 9px;
-
-    &.horizontal {
-      min-height: 16px;
-    }
-
-    &.vertical {
-      min-width: 16px;
-    }
-
     > trough {
       // to make the trough grow in fine-tune mode
+      margin: -3px;
       > slider { margin: -5px; }
     }
   }
@@ -193,7 +184,7 @@ scale {
       &.top { margin-left: 3px; }
       &.bottom { margin-right: 3px; }
 
-      indicator { min-height: ($_marks_length - 3px); }
+      indicator { min-width: ($_marks_length - 3px); }
     }
 
     &.marks-before {
