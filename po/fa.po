@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-08-21 12:56+0000\n"
-"PO-Revision-Date: 2024-08-26 12:32+0330\n"
+"POT-Creation-Date: 2024-08-26 14:30+0000\n"
+"PO-Revision-Date: 2024-08-27 15:45+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -435,21 +435,21 @@ msgstr "بستن زبانه"
 #: src/adw-toast-overlay.c:271
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
-msgstr ""
+msgstr "برنمایی ظاهر شد: %s. دکمه‌ای دارد: %s"
 
 #: src/adw-toast-overlay.c:274
 #, c-format
 msgid "A toast appeared: %s"
-msgstr ""
+msgstr "برنمایی ظاهر شد: %s"
 
 #: src/adw-toast-overlay.c:276
 #, c-format
 msgid "A toast appeared, has a button: %s"
-msgstr ""
+msgstr "برنمایی ظاهر شد. دکمه‌ای دارد: %s"
 
 #: src/adw-toast-overlay.c:279
 msgid "A toast appeared"
-msgstr ""
+msgstr "برنمایی ظاهر شد"
 
 #~ msgid "Search…"
 #~ msgstr "جست‌وجو…"
