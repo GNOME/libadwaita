@@ -2402,7 +2402,7 @@ drag_end (AdwTabGrid *self,
 
   if (self->drag_icon) {
     g_clear_object (&self->drag_icon->resize_animation);
-    g_clear_pointer (&self->drag_icon, g_free);
+    g_clear_pointer (&self->drag_icon, g_atomic_rc_box_release);
   }
 
   g_object_unref (drag);
@@ -2472,7 +2472,7 @@ create_drag_icon (AdwTabGrid *self,
   DragIcon *icon;
   AdwAnimationTarget *target;
 
-  icon = g_new0 (DragIcon, 1);
+  icon = g_atomic_rc_box_new0 (DragIcon);
 
   icon->drag = drag;
 
@@ -2501,7 +2501,7 @@ create_drag_icon (AdwTabGrid *self,
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               icon_resize_animation_value_cb,
-                                              icon, NULL);
+                                              g_atomic_rc_box_acquire (icon), NULL);
   icon->resize_animation =
     adw_timed_animation_new (GTK_WIDGET (icon->tab), 0, 1,
                              ICON_RESIZE_ANIMATION_DURATION, target);
