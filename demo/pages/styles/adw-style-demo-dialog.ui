@@ -241,6 +241,72 @@ The "opaque" style class allows to create buttons with custom colors that look s
                 </child>
                 <child>
                   <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Toggle Groups</property>
+                    <property name="description" translatable="yes">The "flat", "round" and "osd" style classes action can all be used together</property>
+                    <child>
+                      <object class="GtkBox" id="toggle_group_box">
+                        <property name="spacing">6</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="AdwToggleGroup">
+                            <property name="tooltip-text">flat</property>
+                            <style>
+                              <class name="flat"/>
+                            </style>
+                           <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">Flat</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">Flat</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwToggleGroup">
+                            <property name="tooltip-text">round</property>
+                            <style>
+                              <class name="round"/>
+                            </style>
+                           <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">Round</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">Round</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwToggleGroup">
+                            <property name="tooltip-text">osd</property>
+                            <style>
+                              <class name="osd"/>
+                            </style>
+                           <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">OSD</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwToggle">
+                                <property name="label" translatable="yes">OSD</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Linked Controls</property>
                     <property name="description" translatable="yes">The "linked" style on GtkBox and similar containers allows to visually join related button-like and entry-like widgets</property>
                     <child>
@@ -1023,6 +1089,7 @@ audio-volume-medium</property>
         <setter object="button_box_1" property="orientation">vertical</setter>
         <setter object="entry_box_1" property="orientation">vertical</setter>
         <setter object="entry_box_2" property="orientation">vertical</setter>
+        <setter object="toggle_group_box" property="orientation">vertical</setter>
         <setter object="label_box" property="orientation">vertical</setter>
         <setter object="label_box" property="spacing">12</setter>
       </object>
