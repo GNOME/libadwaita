@@ -3,12 +3,17 @@
 # This file is distributed under the same license as the libadwaita package.
 # Seong-ho Cho <shcho@gnome.org>, 2021-2024.
 #
+# Note for translation
+#
+# toast: 창 하단에서 식빵처럼 튀어오르는 메시지 상자. '토스트'로 음역합니다.
+# "toast" 동작 참고: https://www.youtube.com/watch?v=eTilPwHt3dM
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-02-26 19:00+0000\n"
-"PO-Revision-Date: 2024-03-02 02:02+0900\n"
+"POT-Creation-Date: 2024-08-27 15:21+0000\n"
+"PO-Revision-Date: 2024-08-29 20:54+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -16,100 +21,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU 일반 공중 사용 허가서 버전 2 이상"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU 일반 공중 사용 허가서 버전 3 이상"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU 약소 일반 공중 사용 허가서 버전 2.1 이상"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU 약소 일반 공중 사용 허가서 버전 3 이상"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "BSD 2조항 라이선스"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "MIT 라이선스(MIT)"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "아티스틱 라이선스 2.0"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU 일반 공중 사용 허가서 버전 2 전용"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU 일반 공중 사용 허가서 버전 3 전용"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU 약소 일반 공중 사용 허가서 버전 2.1 전용"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU 약소 일반 공중 사용 허가서 버전 3 전용"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero 일반 공중 사용 허가서 버전 3 이상"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero 일반 공중 사용 허가서 버전 3 전용"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "BSD 3조항 라이선스"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "아파치 라이선스 버전 2.0"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "모질라 공중 라이선스 2.0"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "BSD 0조항 라이선스"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:560 src/adw-about-window.c:559
 msgid "Code by"
 msgstr "코드 작성자"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:561 src/adw-about-window.c:560
 msgid "Design by"
 msgstr "설계자"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:562 src/adw-about-window.c:561
 msgid "Artwork by"
 msgstr "아트워크"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:563 src/adw-about-window.c:562
 msgid "Documentation by"
 msgstr "문서 작성자"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:564 src/adw-about-window.c:563
 msgid "Translated by"
 msgstr "번역자"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:593 src/adw-about-window.c:592
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -118,37 +123,38 @@ msgstr ""
 "이 프로그램은 명백하게 어떤 보증도 하지 않습니다. 자세한 내용은 <a "
 "href=\"%s\">%s</a> 조항을 살펴보십시오."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:671 src/adw-about-window.c:670
 msgid "This Application"
 msgstr "이 프로그램"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:973 src/adw-about-window.c:972
 #, c-format
 msgid "Version %s"
 msgstr "버전 %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:999 src/adw-about-window.c:998
 msgid "Unable to parse release notes:"
 msgstr "릴리스 노트를 해석할 수 없습니다:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1004
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "행 %d번, %d번째 문자"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1290
 msgid "Copied to clipboard"
 msgstr "클립보드에 복사했습니다"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1318
 msgid "Unable to save debugging information"
 msgstr "디버깅 정보를 저장할 수 없습니다"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "닫기"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1339
 msgid "Save debugging information"
 msgstr "디버깅 정보 저장"
 
@@ -243,8 +249,8 @@ msgstr "법적 정보"
 msgid "Acknowledgements"
 msgstr "감사문"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:330 src/adw-back-button.c:428
+#: src/adw-back-button.c:538
 msgid "Back"
 msgstr "뒤로"
 
@@ -254,24 +260,60 @@ msgstr "뒤로"
 msgid "Search"
 msgstr "검색"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "적용"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "기본 설정 없음"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "어두움 선호"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "밝음 선호"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "청색"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "청록"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "녹색"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "황색"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "적황"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "적색"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "분홍"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "자색"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "청회"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "애드와이타"
 
@@ -293,7 +335,23 @@ msgstr "시스템에서 색 스킴을 지원합니다"
 msgid "Preferred Color Scheme"
 msgstr "선호하는 색 스킴"
 
-#: src/adw-inspector-page.ui:37
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "색 강조"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "시스템에서 색 강조를 지원합니다"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "선호하는 색 강조"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "접근성"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "고대비"
 
@@ -313,7 +371,7 @@ msgstr "Caps Lock 켬"
 msgid "_Show Password"
 msgstr "암호 표시(_S)"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "제목 없는 페이지"
 
@@ -329,12 +387,19 @@ msgstr "검색 기본 설정"
 msgid "No Results Found"
 msgstr "결과 없음"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "다른 단어로 검색해보십시오"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "다른 단어로 검색해보십시오."
 
-#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "창 닫기"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
 msgstr "추가 옵션"
 
@@ -369,9 +434,28 @@ msgstr "탭 없음"
 msgid "New _Tab"
 msgstr "새 탭(_T)"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "탭 닫기"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "토스트 나타남: %s, 단추 있음: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "토스트 나타남: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "토스트 나타남, 단추 있음: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "토스트 나타남"
 
 #~ msgid "Search…"
 #~ msgstr "검색…"
