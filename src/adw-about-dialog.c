@@ -211,8 +211,8 @@ static const LicenseInfo gtk_license_info [] = {
   { N_("BSD 2-Clause License"), "https://opensource.org/licenses/bsd-license.php", "BSD-2-Clause" },
   { N_("The MIT License (MIT)"), "https://opensource.org/licenses/mit-license.php", "MIT" },
   { N_("Artistic License 2.0"), "https://opensource.org/licenses/artistic-license-2.0.php", "Artistic-2.0" },
-  { N_("GNU General Public License, version 2 only"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0" },
-  { N_("GNU General Public License, version 3 only"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0" },
+  { N_("GNU General Public License, version 2 only"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0-only" },
+  { N_("GNU General Public License, version 3 only"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0-only" },
   { N_("GNU Lesser General Public License, version 2.1 only"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html", "LGPL-2.1-only" },
   { N_("GNU Lesser General Public License, version 3 only"), "https://www.gnu.org/licenses/lgpl-3.0.html", "LGPL-3.0-only" },
   { N_("GNU Affero General Public License, version 3 or later"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-or-later" },
@@ -226,6 +226,17 @@ static const LicenseInfo gtk_license_info [] = {
 /* Keep this static assertion updated with the last element of the enumeration,
  * and make sure it matches the last element of the array. */
 G_STATIC_ASSERT (G_N_ELEMENTS (gtk_license_info) - 1 == GTK_LICENSE_0BSD);
+
+typedef struct {
+  const char *spdx_id;
+  GtkLicense license;
+} LicenseAlias;
+
+/* Deprecated SPDX IDs */
+static const LicenseAlias license_aliases [] = {
+  { "GPL-2.0", GTK_LICENSE_GPL_2_0_ONLY },
+  { "GPL-3.0", GTK_LICENSE_GPL_3_0_ONLY },
+};
 
 typedef struct {
   char *name;
@@ -2102,6 +2113,14 @@ adw_about_dialog_new_from_appdata (const char *resource_path,
     for (i = 0; i < G_N_ELEMENTS (gtk_license_info); i++) {
       if (g_strcmp0 (gtk_license_info[i].spdx_id, project_license) == 0) {
         adw_about_dialog_set_license_type (self, (GtkLicense) i);
+        break;
+      }
+    }
+
+    /* Handle deprecated SPDX IDs */
+    for (i = 0; i < G_N_ELEMENTS (license_aliases); i++) {
+      if (g_strcmp0 (license_aliases[i].spdx_id, project_license) == 0) {
+        adw_about_dialog_set_license_type (self, license_aliases[i].license);
         break;
       }
     }
