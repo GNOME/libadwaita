@@ -1,3 +1,49 @@
+==============
+Version 1.6.rc
+==============
+
+- AdwMultiLayoutView
+  - Hide slots when their child is invisible
+- AdwPreferencesDialog/Window
+  - Support macOS keybindings
+- AdwSpinner
+  - Work around a memory corruption issue
+- AdwTabBar/Overview
+  - Fix 2 drag-n-drop crashes
+- AdwTabView
+  - Support macOS keybindings
+- Demo
+  - List ADW_DEBUG_ACCENT_COLOR in about dialog debug info
+  - Support macOS keybindings
+- Docs
+  - List available style classes for each widget
+  - Typo fixes
+- Stylesheet
+  - Add .ssd-frame style class for mutter titlebars
+  - Make radio button focus ring round
+  - Use relative font sizes
+  - Support .property.monospace for AdwExpanderRow too
+  - Fix GtkScale value overlapping with slider
+  - Fix --window-radius 0px unit
+- Translation updates
+  - Basque
+  - Belarusian
+  - Brazilian Portuguese
+  - Catalan
+  - Chinese (China)
+  - Finnish
+  - Georgian
+  - German
+  - Hebrew
+  - Hindi
+  - Hungarian
+  - Norwegian Bokmål
+  - Persian
+  - Romanian
+  - Russian
+  - Slovenian
+  - Ukrainian
+
 ================
 Version 1.6.beta
 ================
