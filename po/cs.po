@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-08-29 14:34+0000\n"
-"PO-Revision-Date: 2024-08-30 11:40+0200\n"
+"POT-Creation-Date: 2024-08-30 16:42+0000\n"
+"PO-Revision-Date: 2024-08-30 20:06+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -87,30 +87,30 @@ msgstr "Mozilla Public License 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:571 src/adw-about-window.c:570
 msgid "Code by"
 msgstr "Naprogramovali"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:572 src/adw-about-window.c:571
 msgid "Design by"
 msgstr "Navrhli"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:573 src/adw-about-window.c:572
 msgid "Artwork by"
 msgstr "Ztvárnili"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:573
 msgid "Documentation by"
 msgstr "Zdokumentovali"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:563
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:574
 msgid "Translated by"
 msgstr "Přeložili"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:592
+#: src/adw-about-dialog.c:604 src/adw-about-window.c:603
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,38 +119,38 @@ msgstr ""
 "Tato aplikace je šířena bez jakýchkoliv záruk. Podrobnosti viz <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:670
+#: src/adw-about-dialog.c:682 src/adw-about-window.c:681
 msgid "This Application"
 msgstr "Tato aplikace"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:972
+#: src/adw-about-dialog.c:984 src/adw-about-window.c:983
 #, c-format
 msgid "Version %s"
 msgstr "Verze %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:998
+#: src/adw-about-dialog.c:1010 src/adw-about-window.c:1009
 msgid "Unable to parse release notes:"
 msgstr "Nezdařilo se zpracovat poznámky k vydání:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1004
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1015
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "řádek: %d, znak: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1290
+#: src/adw-about-dialog.c:1302 src/adw-about-window.c:1301
 msgid "Copied to clipboard"
 msgstr "Zkopírováno do schránky"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1318
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1329
 msgid "Unable to save debugging information"
 msgstr "Nezdařilo se uložit ladicí informace"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Zavřít"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1339
+#: src/adw-about-dialog.c:1351 src/adw-about-window.c:1350
 msgid "Save debugging information"
 msgstr "Uložení ladicích informací"
 
@@ -274,39 +274,39 @@ msgstr "upřednostnit světlé"
 
 #: src/adw-inspector-page.c:115
 msgid "Blue"
-msgstr ""
+msgstr "modrá"
 
 #: src/adw-inspector-page.c:117
 msgid "Teal"
-msgstr ""
+msgstr "modrozelená"
 
 #: src/adw-inspector-page.c:119
 msgid "Green"
-msgstr ""
+msgstr "zelená"
 
 #: src/adw-inspector-page.c:121
 msgid "Yellow"
-msgstr ""
+msgstr "žlutá"
 
 #: src/adw-inspector-page.c:123
 msgid "Orange"
-msgstr ""
+msgstr "oranžová"
 
 #: src/adw-inspector-page.c:125
 msgid "Red"
-msgstr ""
+msgstr "červená"
 
 #: src/adw-inspector-page.c:127
 msgid "Pink"
-msgstr ""
+msgstr "růžová"
 
 #: src/adw-inspector-page.c:129
 msgid "Purple"
-msgstr ""
+msgstr "fialová"
 
 #: src/adw-inspector-page.c:131
 msgid "Slate"
-msgstr ""
+msgstr "břidlicová"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:270
@@ -335,19 +335,15 @@ msgstr "Upřednostňované schéma barev"
 
 #: src/adw-inspector-page.ui:39
 msgid "Accent Color"
-msgstr ""
+msgstr "Barevný odstín"
 
 #: src/adw-inspector-page.ui:42
-#, fuzzy
-#| msgid "System Supports Color Schemes"
 msgid "System Supports Accent Colors"
-msgstr "Systém podporuje schémata barev"
+msgstr "Systém podporuje barevné odstíny"
 
 #: src/adw-inspector-page.ui:48
-#, fuzzy
-#| msgid "Preferred Color Scheme"
 msgid "Preferred Accent Color"
-msgstr "Upřednostňované schéma barev"
+msgstr "Upřednostňovaný barevný odstín"
 
 #: src/adw-inspector-page.ui:77
 msgid "Accessibility"
