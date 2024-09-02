@@ -36,7 +36,7 @@ shortcuts-section stackswitcher.circular {
   }
 }
 
-window.shortcuts {
+window.shortcuts:not(.ssd-frame) {
   headerbar.titlebar {
     @extend .flat;
     @extend %headerbar-shrunk;

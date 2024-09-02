@@ -7,7 +7,7 @@
  * Print dialog *
 *****************/
 
-window.print {
+window.print:not(.ssd-frame) {
   drawing {
     color: var(--window-fg-color);
     background: none;
@@ -35,7 +35,7 @@ window.print {
  * Page setup dalog *
  ********************/
 
-window.pagesetup {
+window.pagesetup:not(.ssd-frame) {
   headerbar.titlebar {
     @extend .flat;
   }
@@ -45,7 +45,7 @@ window.pagesetup {
  * GtkAboutDialog *
  ******************/
 
-window.aboutdialog {
+window.aboutdialog:not(.ssd-frame) {
   headerbar.titlebar {
     @extend .flat;
   }
@@ -58,7 +58,7 @@ window.aboutdialog {
 /*************************
  * GtkColorChooserDialog *
  *************************/
-window.colorchooser {
+window.colorchooser:not(.ssd-frame) {
   headerbar.titlebar {
     @extend .flat;
   }

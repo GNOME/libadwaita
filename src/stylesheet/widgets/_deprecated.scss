@@ -8,7 +8,7 @@ $deprecated_linked_widgets: ("combobox",         "> box > button.combo"),
  * GtkAppChooserDialog *
  ***********************/
 
-window.appchooser {
+window.appchooser:not(.ssd-frame) {
   headerbar.titlebar {
     @extend .flat;
     @extend %headerbar-shrunk;
