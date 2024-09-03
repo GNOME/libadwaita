@@ -130,15 +130,12 @@ gather_navigation_history (AdwBackButton *self)
 {
   GPtrArray *pages = g_ptr_array_new ();
   GSList *l;
-  gboolean first_view = TRUE;
 
   for (l = self->navigation_views; l; l = l->next) {
     NavigationViewData *data = l->data;
 
-    if (traverse_view (data->view, first_view, FALSE, traverse_gather_history, pages))
+    if (traverse_view (data->view, TRUE, FALSE, traverse_gather_history, pages))
       break;
-
-    first_view = FALSE;
   }
 
   return pages;
