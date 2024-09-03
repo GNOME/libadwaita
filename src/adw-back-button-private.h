@@ -26,4 +26,6 @@ G_DECLARE_FINAL_TYPE (AdwBackButton, adw_back_button, ADW, BACK_BUTTON, AdwBin)
 
 GtkWidget *adw_back_button_new (void);
 
+GPtrArray *adw_back_button_gather_navigation_history (AdwBackButton *self);
+
 G_END_DECLS

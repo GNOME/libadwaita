@@ -125,25 +125,6 @@ traverse_gather_history (AdwNavigationView *view,
   return FALSE;
 }
 
-static GPtrArray *
-gather_navigation_history (AdwBackButton *self)
-{
-  GPtrArray *pages = g_ptr_array_new ();
-  GSList *l;
-  gboolean first_view = TRUE;
-
-  for (l = self->navigation_views; l; l = l->next) {
-    NavigationViewData *data = l->data;
-
-    if (traverse_view (data->view, first_view, FALSE, traverse_gather_history, pages))
-      break;
-
-    first_view = FALSE;
-  }
-
-  return pages;
-}
-
 typedef struct {
   AdwBackButton *self;
   AdwNavigationPage *target_page;
@@ -322,7 +303,7 @@ create_navigation_menu (AdwBackButton *self)
   g_clear_handle_id (&self->clear_menu_id, g_source_remove);
   clear_menu (self);
 
-  history = gather_navigation_history (self);
+  history = adw_back_button_gather_navigation_history (self);
 
   for (i = 0; i < history->len; i++) {
     AdwNavigationPage *page = g_ptr_array_index (history, i);
@@ -555,4 +536,23 @@ GtkWidget *
 adw_back_button_new (void)
 {
   return g_object_new (ADW_TYPE_BACK_BUTTON, NULL);
+}
+
+GPtrArray *
+adw_back_button_gather_navigation_history (AdwBackButton *self)
+{
+  GPtrArray *pages = g_ptr_array_new ();
+  GSList *l;
+  gboolean first_view = TRUE;
+
+  for (l = self->navigation_views; l; l = l->next) {
+    NavigationViewData *data = l->data;
+
+    if (traverse_view (data->view, first_view, FALSE, traverse_gather_history, pages))
+      break;
+
+    first_view = FALSE;
+  }
+
+  return pages;
 }

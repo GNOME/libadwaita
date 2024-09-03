@@ -41,6 +41,7 @@ test_names = [
   'test-animation-target',
   'test-application-window',
   'test-avatar',
+  'test-back-button',
   'test-banner',
   'test-bin',
   'test-bottom-sheet',
