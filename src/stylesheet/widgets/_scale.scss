@@ -75,15 +75,6 @@ scale {
     }
   }
 
-  // click-and-hold the slider to activate
-  &.fine-tune {
-    > trough {
-      // to make the trough grow in fine-tune mode
-      margin: -3px;
-      > slider { margin: -5px; }
-    }
-  }
-
   > value {
     @extend .dim-label;
     @extend .numeric;
@@ -128,11 +119,19 @@ scale {
     > value.left  { margin-right: 9px; }
     > value.right { margin-left: 9px; }
 
-    &.fine-tune > marks {
-      &.top { margin-top: 3px; }
-      &.bottom { margin-bottom: 3px; }
+    &.fine-tune {
+      > trough {
+        // to make the trough grow vertically in fine-tune mode
+        margin: -3px 0px;
+        > slider { margin: -5px -8px; }
+      }
 
-      indicator { min-height: ($_marks_length - 3px); }
+      > marks {
+        &.top { margin-top: 3px; }
+        &.bottom { margin-bottom: 3px; }
+
+        indicator { min-height: ($_marks_length - 3px); }
+      }
     }
 
     &.marks-before {
@@ -180,11 +179,19 @@ scale {
     > value.top    { margin-bottom: 9px; }
     > value.bottom { margin-top: 9px; }
 
-    &.fine-tune > marks {
-      &.top { margin-left: 3px; }
-      &.bottom { margin-right: 3px; }
+    &.fine-tune {
+      > trough {
+        // to make the trough grow horizontally in fine-tune mode
+        margin: 0px -3px;
+        > slider { margin: -8px -5px; }
+      }
 
-      indicator { min-width: ($_marks_length - 3px); }
+      > marks {
+        &.top { margin-left: 3px; }
+        &.bottom { margin-right: 3px; }
+
+        indicator { min-width: ($_marks_length - 3px); }
+      }
     }
 
     &.marks-before {
