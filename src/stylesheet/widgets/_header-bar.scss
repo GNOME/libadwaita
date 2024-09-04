@@ -223,9 +223,8 @@ window.devel {
     background-repeat: repeat-x;
   }
 
-  dialog headerbar > windowhandle {
+  sheet headerbar > windowhandle {
     background-image: unset;
     background-repeat: unset;
   }
 }
-

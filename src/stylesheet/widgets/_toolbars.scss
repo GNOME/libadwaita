@@ -300,9 +300,8 @@ toolbarview {
     background-repeat: repeat-x;
   }
 
-  window.devel dialog & > .top-bar {
+  window.devel sheet & > .top-bar {
     background-image: unset;
     background-repeat: unset;
   }
 }
-
