@@ -169,9 +169,9 @@ draw_paintable_cb (ScreenshotData *data)
   int x, y, width, height;
   graphene_rect_t bounds;
 
-  g_assert (gtk_widget_compute_bounds (data->widget, data->window, &bounds));
-
   if (GTK_IS_NATIVE (data->widget)) {
+    g_assert (gtk_widget_compute_bounds (data->widget, data->widget, &bounds));
+
     GdkSurface *surface;
     double transform_x, transform_y;
 
@@ -183,6 +183,8 @@ draw_paintable_cb (ScreenshotData *data)
     width = gdk_surface_get_width (surface);
     height = gdk_surface_get_height (surface);
   } else {
+    g_assert (gtk_widget_compute_bounds (data->widget, data->window, &bounds));
+
     x = gtk_widget_get_margin_start (data->widget);
     y = gtk_widget_get_margin_top (data->widget);
     width = bounds.size.width + x + gtk_widget_get_margin_end (data->widget);
