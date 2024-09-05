@@ -407,6 +407,8 @@ take_screenshot (const char *name,
   data->name = g_file_get_path (output_file);
   data->provider = load_css ("style");
 
+  gtk_widget_set_can_target (data->window, FALSE);
+
   if (dark)
     data->provider_dark = load_css ("style-dark");
 
