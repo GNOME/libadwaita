@@ -4,7 +4,7 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="AdwWindow" id="window">
     <property name="default-width">600</property>
-    <property name="default-height">350</property>
+    <property name="default-height">370</property>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
