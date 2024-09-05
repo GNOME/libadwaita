@@ -5,7 +5,7 @@
   <!-- FIXME: GtkBuilder needs to support having them inline -->
   <object class="AdwSpinnerPaintable" id="spinner"/>
   <object class="GtkImage" id="widget">
-    <property name="pixel-size">96</property>
+    <property name="pixel-size">64</property>
     <property name="paintable">spinner</property>
   </object>
 </interface>
