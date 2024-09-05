@@ -559,7 +559,7 @@ run_screenshot (GFile *input_dir,
     char *shortname = l->data;
 
     process_image (shortname, input_dir, output_dir);
-	g_free (shortname);
+    g_free (shortname);
   }
 
   g_list_free (children);
@@ -591,6 +591,10 @@ main (int    argc,
   GFile *output_dir = NULL;
   GError *error = NULL;
   gboolean result;
+
+  g_setenv ("ADW_DEBUG_COLOR_SCHEME", "default", TRUE);
+  g_setenv ("ADW_DEBUG_HIGH_CONTRAST", "0", TRUE);
+  g_setenv ("ADW_DEBUG_ACCENT_COLOR", "blue", TRUE);
 
   g_option_context_add_main_entries (context, entries, NULL);
   if (!g_option_context_parse (context, &argc, &argv, NULL)) {
