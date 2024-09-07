@@ -1,14 +1,14 @@
 # Bulgarian translation of libadwaita po-file.
-# Copyright (C) 2022, 2023 Alexander Shopov.
+# Copyright (C) 2022, 2023, 2024 Alexander Shopov.
 # This file is distributed under the same license as the libadwaita package.
-# Alexander Shopov <ash@kambanaria.org> 2022, 2023.
+# Alexander Shopov <ash@kambanaria.org> 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-04 16:21+0000\n"
-"PO-Revision-Date: 2023-03-04 19:29+0200\n"
+"POT-Creation-Date: 2024-09-05 21:34+0000\n"
+"PO-Revision-Date: 2024-09-07 18:36+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -17,94 +17,98 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "Общ публичен лиценз на GNU (GNU GPL), версия 2 или по-нова"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "Общ публичен лиценз на GNU (GNU GPL), версия 3 или по-нова"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), версия 2.1 или по-нова"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), версия 3 или по-нова"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "Двуклаузов лиценз на BSD"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "Лиценз на MIT"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "Артистичен лиценз 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "Общ публичен лиценз на GNU (GNU GPL), само версия 2"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "Общ публичен лиценз на GNU (GNU GPL), само версия 3"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), само версия 2.1"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), само версия 3"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Общ публичен лиценз на GNU Affero (GNU GPL), версия 3 или по-нова"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Общ публичен лиценз на GNU Affero (GNU GPL), само версия 3"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "Триклаузов лиценз на BSD"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "Лиценз на Apache, версия 2.0"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "Публичен лиценз на Mozilla, версия 2.0"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
+msgid "BSD Zero-Clause License"
+msgstr "Безклаузов лиценз на BSD"
+
+#: src/adw-about-dialog.c:571 src/adw-about-window.c:570
 msgid "Code by"
 msgstr "Код от"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-dialog.c:572 src/adw-about-window.c:571
 msgid "Design by"
 msgstr "Дизайн от"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-dialog.c:573 src/adw-about-window.c:572
 msgid "Artwork by"
 msgstr "Художествено оформление от"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:573
 msgid "Documentation by"
 msgstr "Документирано от"
 
-#: src/adw-about-window.c:533
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:574
 msgid "Translated by"
 msgstr "Преведено от"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:562
+#: src/adw-about-dialog.c:604 src/adw-about-window.c:603
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -113,100 +117,95 @@ msgstr ""
 "Тази програма идва без всякаква гаранция. За повече информация вижте <a "
 "href='%s'>%s</a>."
 
-#: src/adw-about-window.c:640
+#: src/adw-about-dialog.c:682 src/adw-about-window.c:681
 msgid "This Application"
 msgstr "Тази програма"
 
-#: src/adw-about-window.c:942
+#: src/adw-about-dialog.c:984 src/adw-about-window.c:983
 #, c-format
 msgid "Version %s"
 msgstr "Версия %s"
 
-#: src/adw-about-window.c:968
+#: src/adw-about-dialog.c:1010 src/adw-about-window.c:1009
 msgid "Unable to parse release notes:"
 msgstr "Бележките по изданието не може да се анализират:"
 
-#: src/adw-about-window.c:974
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1015
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Ред: %d, знак: %d"
 
-#: src/adw-about-window.c:1267
+#: src/adw-about-dialog.c:1302 src/adw-about-window.c:1301
 msgid "Copied to clipboard"
 msgstr "Копирано в буфера за обмен"
 
-#: src/adw-about-window.c:1301
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1329
 msgid "Unable to save debugging information"
 msgstr "Информацията за изчистване на грешки не може да се запази"
 
-#: src/adw-about-window.c:1306
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Затваряне"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1351 src/adw-about-window.c:1350
 msgid "Save debugging information"
 msgstr "Запазване на информацията за изчистване на грешки"
 
-#: src/adw-about-window.ui:5
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
 msgid "About"
 msgstr "Относно"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-dialog.ui:89 src/adw-about-window.ui:92
 msgid "_What’s New"
 msgstr "Какво _ново"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-dialog.ui:105 src/adw-about-window.ui:108
 msgid "_Details"
 msgstr "_Подробности"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:341
+#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "_Уеб сайт"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
 msgid "_Support Questions"
 msgstr "_Въпроси по поддръжката"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "_Докладване на грешка"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-dialog.ui:178 src/adw-about-window.ui:181
 msgid "_Troubleshooting"
 msgstr "_Справяне с проблеми"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
 msgid "_Credits"
 msgstr "_Сътрудници"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-dialog.ui:214 src/adw-about-window.ui:217
 msgid "_Legal"
 msgstr "_Правни въпроси"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-dialog.ui:230 src/adw-about-window.ui:233
 msgid "_Acknowledgements"
 msgstr "_Признание"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-dialog.ui:260 src/adw-about-window.ui:263
 msgid "What’s New"
 msgstr "Какво ново"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
-msgid "Back"
-msgstr "Назад"
-
-#: src/adw-about-window.ui:351
+#: src/adw-about-dialog.ui:303 src/adw-about-window.ui:306
 msgid "Details"
 msgstr "Подробности"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:369 src/adw-about-window.ui:372
 msgid "Troubleshooting"
 msgstr "Справяне с проблеми"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-dialog.ui:392 src/adw-about-window.ui:395
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -216,52 +215,99 @@ msgstr ""
 "с проблем. Ако я предоставите на разработчиците на грешки заедно с доклада "
 "за грешка, увеличавате шансовете им да открият и отстранят проблема."
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-dialog.ui:403 src/adw-about-window.ui:406
 msgid "_Debugging Information"
 msgstr "_Информация за изчистване на грешки"
 
-#: src/adw-about-window.ui:507
-msgid "Credits"
-msgstr "Заслуги"
-
-#: src/adw-about-window.ui:554
-msgid "Legal"
-msgstr "Правна информация"
-
-#: src/adw-about-window.ui:601
-msgid "Acknowledgements"
-msgstr "Признание"
-
-#: src/adw-about-window.ui:648
+#: src/adw-about-dialog.ui:430 src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Информация за изчистване на грешки"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-dialog.ui:475 src/adw-about-window.ui:478
 msgid "_Copy Text"
 msgstr "_Копиране на текста"
 
-#: src/adw-about-window.ui:703
-msgid "_Save as…"
+#: src/adw-about-dialog.ui:483 src/adw-about-window.ui:486
+msgid "_Save As…"
 msgstr "_Запазване като…"
 
-#: src/adw-entry-row.ui:95
+#: src/adw-about-dialog.ui:496 src/adw-about-window.ui:499
+msgid "Credits"
+msgstr "Заслуги"
+
+#: src/adw-about-dialog.ui:527 src/adw-about-window.ui:530
+msgid "Legal"
+msgstr "Правна информация"
+
+#: src/adw-about-dialog.ui:559 src/adw-about-window.ui:562
+msgid "Acknowledgements"
+msgstr "Признание"
+
+#: src/adw-back-button.c:311 src/adw-back-button.c:409
+#: src/adw-back-button.c:519
+msgid "Back"
+msgstr "Назад"
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Търсене"
+
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Прилагане"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "Няма настройки"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "Предпочитане на тъмна"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "Предпочитане на светла"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "Синьо"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "Синьозелено"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "Зелено"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "Жълто"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "Оранжево"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "Червено"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "Розово"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "Виолетово"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "Тъмносиво"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "Адвайта"
 
@@ -281,51 +327,75 @@ msgstr ""
 msgid "System Supports Color Schemes"
 msgstr "Системата поддържа цветови схеми"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "Предпочитана цветова схема"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "Акцентиращ цвят"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "Системата поддържа акцентиращи цветове"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "Предпочитан акцентиращ цвят"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "Достъпност"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "Висок контраст"
 
 #: src/adw-password-entry-row.c:70
-msgid "Hide Text"
-msgstr "Скриване на текста"
+msgid "Hide Password"
+msgstr "Скриване на парола"
 
 #: src/adw-password-entry-row.c:74
-msgid "Show Text"
-msgstr "Показване на текста"
+msgid "Show Password"
+msgstr "Показване на парола"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Клавишът „Caps Lock“ е натиснат"
 
 #: src/adw-password-entry-row.c:176
-msgid "_Show Text"
-msgstr "_Показване на _текста"
+msgid "_Show Password"
+msgstr "_Показване на парола"
 
-#: src/adw-preferences-window.c:243
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "Страница без име"
 
-#: src/adw-preferences-window.ui:8
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
 msgid "Preferences"
 msgstr "Настройки"
 
-#: src/adw-preferences-window.ui:69
-msgid "Search"
-msgstr "Търсене"
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Настройки на търсенето"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Няма резултати"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "Пробвайте различно търсене"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Пробвайте различно търсене."
 
-#: src/adw-split-button.c:495 src/adw-split-button.c:957
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "Затваряне на прозореца"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
 msgstr "Повече настройки"
 
@@ -333,33 +403,62 @@ msgstr "Повече настройки"
 msgid "View Open Tabs"
 msgstr "Преглед на отворените подпрозорци"
 
-#: src/adw-tab-overview.c:899
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:928
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%u подпрозорец"
 msgstr[1] "%u подпрозореца"
 
-#: src/adw-tab-overview.ui:23
+#: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
 msgstr "Търсене на подпрозорци"
 
-#: src/adw-tab-overview.ui:53
+#: src/adw-tab-overview.ui:51
 msgid "Search tabs"
 msgstr "Търсене на подпрозорци"
 
-#: src/adw-tab-overview.ui:99
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Няма отворени подпрозорци"
 
-#: src/adw-tab-overview.ui:112
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Не са открити подпрозорци"
 
-#: src/adw-tab-overview.ui:133
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Нов _подпрозорец"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Затваряне на подпрозорец"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Излезе информативно съобщение: %s, има бутон: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Излезе информативно съобщение: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Излезе информативно съобщение, има бутон: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "Излезе информативно съобщение"
+
+#~ msgid "Hide Text"
+#~ msgstr "Скриване на текста"
+
+#~ msgid "Show Text"
+#~ msgstr "Показване на текста"
+
+#~ msgid "_Show Text"
+#~ msgstr "_Показване на _текста"
