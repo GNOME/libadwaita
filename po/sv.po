@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libadwaita master\n"
+"Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-02-26 19:00+0000\n"
-"PO-Revision-Date: 2024-02-26 20:04+0100\n"
+"POT-Creation-Date: 2024-09-03 15:08+0000\n"
+"PO-Revision-Date: 2024-08-08 15:09+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,101 +17,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public License, version 2 eller senare"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public License, version 3 eller senare"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public License, version 2.1 eller senare"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License, version 3 eller senare"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause License"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "The MIT License (MIT)"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "Artistic License 2.0"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public License, endast version 2"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public License, endast version 3"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License, endast version 2.1"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License, endast version 3"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License, version 3 eller senare"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, endast version 3"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause License"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "Apache License, Version 2.0"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
-#| msgid "BSD 2-Clause License"
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:571 src/adw-about-window.c:570
 msgid "Code by"
 msgstr "Kod av"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:572 src/adw-about-window.c:571
 msgid "Design by"
 msgstr "Design av"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:573 src/adw-about-window.c:572
 msgid "Artwork by"
 msgstr "Grafik av"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:573
 msgid "Documentation by"
 msgstr "Dokumentation av"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:574
 msgid "Translated by"
 msgstr "Översatt av"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:604 src/adw-about-window.c:603
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -120,37 +119,38 @@ msgstr ""
 "Detta program levereras utan någon form av garanti. Se <a href=\"%s\">%s</a> "
 "för detaljer."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:682 src/adw-about-window.c:681
 msgid "This Application"
 msgstr "Detta program"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:984 src/adw-about-window.c:983
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:1010 src/adw-about-window.c:1009
 msgid "Unable to parse release notes:"
 msgstr "Kunde inte tolka kommentarer till utgåva:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1015
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Rad: %d, tecken: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1302 src/adw-about-window.c:1301
 msgid "Copied to clipboard"
 msgstr "Kopierat till urklipp"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1329
 msgid "Unable to save debugging information"
 msgstr "Kunde inte spara felsökningsinformation"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Stäng"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1351 src/adw-about-window.c:1350
 msgid "Save debugging information"
 msgstr "Spara felsökningsinformation"
 
@@ -245,8 +245,8 @@ msgstr "Juridisk information"
 msgid "Acknowledgements"
 msgstr "Tillkännagivanden"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:311 src/adw-back-button.c:409
+#: src/adw-back-button.c:519
 msgid "Back"
 msgstr "Bakåt"
 
@@ -256,24 +256,60 @@ msgstr "Bakåt"
 msgid "Search"
 msgstr "Sök"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Verkställ"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "Inget föredraget"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "Föredra mörkt"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "Föredra ljust"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "Blå"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "Grönblå"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "Grön"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "Gul"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "Orange"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "Röd"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "Rosa"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "Lila"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "Skiffer"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -297,7 +333,23 @@ msgstr "Systemet stöder färgscheman"
 msgid "Preferred Color Scheme"
 msgstr "Föredraget färgschema"
 
-#: src/adw-inspector-page.ui:37
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "Accentfärg"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "Systemet stöder accentfärger"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "Föredragen accentfärg"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "Hjälpmedel"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "Hög kontrast"
 
@@ -317,7 +369,7 @@ msgstr "Caps Lock är på"
 msgid "_Show Password"
 msgstr "_Visa lösenord"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
@@ -334,12 +386,19 @@ msgstr "Sök inställningar"
 msgid "No Results Found"
 msgstr "Inga resultat hittades"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+msgid "Try a different search"
+msgstr "Försök med en annan sökning"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Försök med en annan sökning."
 
-#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "Stäng fönstret"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
 msgstr "Fler alternativ"
 
@@ -375,9 +434,28 @@ msgstr "Inga flikar hittades"
 msgid "New _Tab"
 msgstr "Ny _flik"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Stäng flik"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Ett meddelande dök upp: %s, har en knapp: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Ett meddelande dök upp: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Ett meddelande dök upp, har en knapp: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "Ett meddelande dök upp"
 
 #~ msgid "Search…"
 #~ msgstr "Sök…"
