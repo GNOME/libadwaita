@@ -74,6 +74,47 @@
  * New values may be added to this enumeration over time.
  */
 
+/**
+ * ADW_EASE:
+ *
+ * Cubic bezier tweening, with control points in (0.25, 0.1) and (0.25, 1.0).
+ *
+ * Increases in velocity towards the middle of the animation, slowing back down
+ * at the end.
+ *
+ * Since: 1.7
+ */
+
+/**
+ * ADW_EASE_IN:
+ *
+ * Cubic bezier tweening, with control points in (0.42, 0.0) and (1.0, 1.0).
+ *
+ * Starts off slowly, with the speed of the animation increasing until complete.
+ *
+ * Since: 1.7
+ */
+
+/**
+ * ADW_EASE_OUT:
+ *
+ * Cubic bezier tweening, with control points in (0.0, 0.0) and (0.58, 1.0).
+ *
+ * Starts quickly, slowing down the animation until complete.
+ *
+ * Since: 1.7
+ */
+
+/**
+ * ADW_EASE_IN_OUT:
+ *
+ * Cubic bezier tweening, with control points in (0.42, 0.0) and (0.58, 1.0).
+ *
+ * Starts off slowly, speeds up in the middle, and then slows down again.
+ *
+ * Since: 1.7
+ */
+
 static inline double
 linear (double t,
         double d)
@@ -425,6 +466,70 @@ ease_in_out_bounce (double t,
     return ease_out_bounce (t * 2 - d, d) * 0.5 + 1.0 * 0.5;
 }
 
+static inline double
+x_for_t (double t,
+         double x_1,
+         double x_2)
+{
+  double omt = 1.0 - t;
+
+  return 3.0 * omt * omt * t * x_1
+       + 3.0 * omt * t * t * x_2
+       + t * t * t;
+}
+
+static inline double
+y_for_t (double t,
+         double y_1,
+         double y_2)
+{
+  double omt = 1.0 - t;
+
+  return 3.0 * omt * omt * t * y_1
+       + 3.0 * omt * t * t * y_2
+       + t * t * t;
+}
+
+static inline double
+t_for_x (double x,
+         double x_1,
+         double x_2)
+{
+  double min_t = 0, max_t = 1;
+  int i;
+
+  for (i = 0; i < 30; ++i) {
+    double guess_t = (min_t + max_t) / 2.0;
+    double guess_x = x_for_t (guess_t, x_1, x_2);
+
+    if (x < guess_x)
+      max_t = guess_t;
+    else
+      min_t = guess_t;
+  }
+
+  return (min_t + max_t) / 2.0;
+}
+
+static double
+ease_cubic_bezier (double t,
+                   double d,
+                   double x_1,
+                   double y_1,
+                   double x_2,
+                   double y_2)
+{
+  double p = t / d;
+
+  if (G_APPROX_VALUE (p, 0.0, DBL_EPSILON))
+    return 0.0;
+
+  if (G_APPROX_VALUE (p, 1.0, DBL_EPSILON))
+    return 1.0;
+
+  return y_for_t (t_for_x (p, x_1, x_2), y_1, y_2);
+}
+
 /**
  * adw_easing_ease:
  * @self: an easing value
@@ -503,6 +608,14 @@ adw_easing_ease (AdwEasing self,
       return ease_out_bounce (value, 1);
     case ADW_EASE_IN_OUT_BOUNCE:
       return ease_in_out_bounce (value, 1);
+    case ADW_EASE:
+      return ease_cubic_bezier (value, 1, 0.25, 0.1, 0.25, 0.1);
+    case ADW_EASE_IN:
+      return ease_cubic_bezier (value, 1, 0.42, 0.0, 1.0, 1.0);
+    case ADW_EASE_OUT:
+      return ease_cubic_bezier (value, 1, 0.0, 0.0, 0.58, 1.0);
+    case ADW_EASE_IN_OUT:
+      return ease_cubic_bezier (value, 1, 0.42, 0.0, 0.58, 1.0);
     default:
       g_assert_not_reached ();
   }
