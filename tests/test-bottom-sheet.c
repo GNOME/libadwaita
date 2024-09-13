@@ -150,7 +150,7 @@ test_adw_bottom_sheet_align (void)
   g_assert_cmpfloat_with_epsilon (adw_bottom_sheet_get_align (sheet), 1, 0.005);
   g_assert_cmpint (notified, ==, 1);
 
-  g_object_set (sheet, "align", 0, NULL);
+  g_object_set (sheet, "align", 0.0f, NULL);
   g_assert_cmpfloat_with_epsilon (adw_bottom_sheet_get_align (sheet), 0, 0.005);
   g_assert_cmpint (notified, ==, 2);
 
