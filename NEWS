@@ -1,4 +1,15 @@
 =============
+Version 1.4.8
+=============
+
+- AdwHeaderBar
+  - Fix back button menu picking up phantom pages in some situations
+- AdwTabBar/Overview
+  - Fix 2 crashes with drag-n-drop
+- Stylesheet
+  - Fix scroll undershoot in dropdowns and emoji picker
+
+=============
 Version 1.4.7
 =============
 
