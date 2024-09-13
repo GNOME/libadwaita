@@ -60,7 +60,7 @@ show_about (GSimpleAction *action,
   adw_about_dialog_set_version (ADW_ABOUT_DIALOG (about), ADW_VERSION_S);
   adw_about_dialog_set_debug_info (ADW_ABOUT_DIALOG (about), debug_info);
   adw_about_dialog_set_debug_info_filename (ADW_ABOUT_DIALOG (about), "adwaita-1-demo-debug-info.txt");
-  adw_about_dialog_set_copyright (ADW_ABOUT_DIALOG (about), "© 2017–2022 Purism SPC");
+  adw_about_dialog_set_copyright (ADW_ABOUT_DIALOG (about), "© 2017–2022 Purism SPC\n© 2023-2024 GNOME Foundation Inc.");
   adw_about_dialog_set_developers (ADW_ABOUT_DIALOG (about), developers);
   adw_about_dialog_set_designers (ADW_ABOUT_DIALOG (about), designers);
   adw_about_dialog_set_artists (ADW_ABOUT_DIALOG (about), designers);
