@@ -1,7 +1,7 @@
 [library]
 version = "@VERSION@"
 description = "Building blocks for modern GNOME applications"
-authors = "Purism SPC"
+authors = "Libadwaita contributors"
 license = "LGPL-2.1-or-later"
 browse_url = "https://gitlab.gnome.org/GNOME/libadwaita/"
 repository_url = "https://gitlab.gnome.org/GNOME/libadwaita.git"
