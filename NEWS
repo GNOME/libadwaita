@@ -1,3 +1,44 @@
+=============
+Version 1.6.0
+=============
+
+- AdwAboutDialog/Window
+  - Support non-deprecated GPL-2/3.0-only SPDX IDs
+- AdwBottomSheet
+  - Fix a crash in tests on some platforms
+- AdwHeaderBar
+  - Fix back button menu picking up phantom pages in some situations
+- AdwMessageDialog
+  - Fix title size
+- AdwTabOverview
+  - Focus search entry with Ctrl+F
+- Docs
+  - Screenshot tool fixes
+  - Update screenshots
+- Tests
+  - Add AdwBackButton tests
+- Stylesheet
+  - Disable .devel header bars for bottom sheets, like for dialogs
+  - Fix header bar in GTK dialogs
+  - Fix fine-tune scale styles
+  - Fix scroll undershoot in dropdowns and emoji picker
+- Translation updates
+  - British English
+  - Bulgarian
+  - Czech
+  - Danish
+  - French
+  - Galician
+  - Indonesian
+  - Korean
+  - Lithuanian
+  - Occitan
+  - Polish
+  - Portuguese
+  - Spanish
+  - Swedish
+  - Turkish
+
 ==============
 Version 1.6.rc
 ==============
