@@ -1,4 +1,21 @@
 =============
+Version 1.5.4
+=============
+
+- AdwAboutDialog/Window
+  - Support non-deprecated GPL-2/3.0-only SPDX IDs
+- AdwHeaderBar
+  - Fix back button menu picking up phantom pages in some situations
+- AdwTabBar/Overview
+  - Fix 2 crashes with drag-n-drop
+- Stylesheet
+  - Fix scroll undershoot in dropdowns and emoji picker
+- Translation updates
+  - Georgian
+  - German
+  - Romanian
+
+=============
 Version 1.5.3
 =============
 
