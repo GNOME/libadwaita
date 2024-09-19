@@ -511,7 +511,7 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
                                 AdwEasing          easing)
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
-  g_return_if_fail (easing <= ADW_EASE_IN_OUT_BOUNCE);
+  g_return_if_fail (easing <= ADW_EASE_IN_OUT);
 
   if (self->easing == easing)
     return;
