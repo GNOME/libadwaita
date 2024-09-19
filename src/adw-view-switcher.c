@@ -13,6 +13,7 @@
 #include "adw-enums.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-button-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwViewSwitcher:
@@ -110,6 +111,8 @@ struct _AdwViewSwitcher
   GtkSelectionModel *pages;
   GHashTable *buttons;
 
+  GtkWidget *active_button;
+
   AdwViewSwitcherPolicy policy;
 };
 
@@ -129,10 +132,14 @@ on_button_toggled (GtkWidget       *button,
   index = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (button), "child-index"));
 
   if (active) {
-      gtk_selection_model_select_item (self->pages, index, TRUE);
+    gtk_selection_model_select_item (self->pages, index, TRUE);
+    self->active_button = button;
   } else {
     gboolean selected = gtk_selection_model_is_selected (self->pages, index);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), selected);
+
+    if (selected)
+      self->active_button = button;
   }
 }
 
@@ -199,6 +206,9 @@ add_child (AdwViewSwitcher *self,
   selected = gtk_selection_model_is_selected (self->pages, position);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), selected);
 
+  if (selected)
+    self->active_button = GTK_WIDGET (button);
+
   gtk_accessible_update_state (GTK_ACCESSIBLE (button),
                                GTK_ACCESSIBLE_STATE_SELECTED, selected,
                                -1);
@@ -231,6 +241,8 @@ clear_switcher (AdwViewSwitcher *self)
   GtkWidget *page;
   GtkWidget *button;
 
+  self->active_button = NULL;
+
   g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
     gtk_widget_unparent (button);
@@ -254,6 +266,8 @@ selection_changed_cb (AdwViewSwitcher   *self,
 {
   guint i;
 
+  self->active_button = NULL;
+
   for (i = position; i < position + n_items; i++) {
     AdwViewStackPage *page = NULL;
     GtkWidget *button;
@@ -265,6 +279,8 @@ selection_changed_cb (AdwViewSwitcher   *self,
     if (button) {
       selected = gtk_selection_model_is_selected (self->pages, i);
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), selected);
+
+      self->active_button = button;
 
       gtk_accessible_update_state (GTK_ACCESSIBLE (button),
                                    GTK_ACCESSIBLE_STATE_SELECTED, selected,
@@ -312,6 +328,36 @@ unset_stack (AdwViewSwitcher *self)
   clear_switcher (self);
   g_clear_object (&self->stack);
   g_clear_object (&self->pages);
+}
+
+static gboolean
+adw_view_switcher_focus (GtkWidget        *widget,
+                         GtkDirectionType  direction)
+{
+  AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
+
+  if (!gtk_widget_get_focus_child (widget)) {
+    if (self->active_button)
+      return gtk_widget_child_focus (self->active_button, direction);
+
+    return adw_widget_focus_child (widget, direction);
+  }
+
+  if (direction == GTK_DIR_TAB_FORWARD || direction == GTK_DIR_TAB_BACKWARD)
+    return GDK_EVENT_PROPAGATE;
+
+  return adw_widget_focus_child (widget, direction);
+}
+
+static gboolean
+adw_view_switcher_grab_focus (GtkWidget *widget)
+{
+  AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
+
+  if (self->active_button)
+    return gtk_widget_grab_focus (self->active_button);
+
+  return adw_widget_grab_focus_child (widget);
 }
 
 static void
@@ -386,6 +432,9 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   object_class->set_property = adw_view_switcher_set_property;
   object_class->dispose = adw_view_switcher_dispose;
   object_class->finalize = adw_view_switcher_finalize;
+
+  widget_class->focus = adw_view_switcher_focus;
+  widget_class->grab_focus = adw_view_switcher_grab_focus;
 
   /**
    * AdwViewSwitcher:policy:
