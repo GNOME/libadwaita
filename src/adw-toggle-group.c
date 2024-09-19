@@ -944,6 +944,39 @@ adw_toggle_group_finalize (GObject *object)
   G_OBJECT_CLASS (adw_toggle_group_parent_class)->finalize (object);
 }
 
+static gboolean
+adw_toggle_group_focus (GtkWidget        *widget,
+                        GtkDirectionType  direction)
+{
+  AdwToggleGroup *self = ADW_TOGGLE_GROUP (widget);
+
+  if (!gtk_widget_get_focus_child (widget)) {
+    AdwToggle *toggle = adw_toggle_group_get_toggle (self, self->active);
+
+    if (toggle && toggle->button)
+      return gtk_widget_child_focus (toggle->button, direction);
+
+    return adw_widget_focus_child (widget, direction);
+  }
+
+  if (direction == GTK_DIR_TAB_FORWARD || direction == GTK_DIR_TAB_BACKWARD)
+    return GDK_EVENT_PROPAGATE;
+
+  return adw_widget_focus_child (widget, direction);
+}
+
+static gboolean
+adw_toggle_group_grab_focus (GtkWidget *widget)
+{
+  AdwToggleGroup *self = ADW_TOGGLE_GROUP (widget);
+  AdwToggle *toggle = adw_toggle_group_get_toggle (self, self->active);
+
+  if (toggle && toggle->button)
+    return gtk_widget_grab_focus (toggle->button);
+
+  return adw_widget_grab_focus_child (widget);
+}
+
 static void
 adw_toggle_group_class_init (AdwToggleGroupClass *klass)
 {
@@ -954,6 +987,9 @@ adw_toggle_group_class_init (AdwToggleGroupClass *klass)
   object_class->set_property = adw_toggle_group_set_property;
   object_class->dispose = adw_toggle_group_dispose;
   object_class->finalize = adw_toggle_group_finalize;
+
+  widget_class->focus = adw_toggle_group_focus;
+  widget_class->grab_focus = adw_toggle_group_grab_focus;
 
   /**
    * AdwToggleGroup:n-toggles:
