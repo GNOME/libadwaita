@@ -552,6 +552,8 @@ adw_tab_thumbnail_init (AdwTabThumbnail *self)
                                                   0, 1,
                                                   FADE_TRANSITION_DURATION,
                                                   target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->fade_animation), ADW_EASE);
 }
 
 AdwTabThumbnail *

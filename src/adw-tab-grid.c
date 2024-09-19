@@ -1187,6 +1187,8 @@ animate_reordering (AdwTabGrid *self,
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              REORDER_ANIMATION_DURATION, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->reorder_animation), ADW_EASE);
+
   g_signal_connect_swapped (self->reorder_animation, "done",
                             G_CALLBACK (reorder_animation_done_cb), self);
 
@@ -1240,6 +1242,8 @@ animate_reorder_offset (AdwTabGrid *self,
   info->reorder_animation =
     adw_timed_animation_new (GTK_WIDGET (self), start_offset, offset,
                              REORDER_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->reorder_animation), ADW_EASE);
 
   g_signal_connect_swapped (info->reorder_animation, "done",
                             G_CALLBACK (reorder_offset_animation_done_cb), info);
@@ -1901,6 +1905,8 @@ page_attached_cb (AdwTabGrid *self,
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              OPEN_ANIMATION_DURATION, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->appear_animation), ADW_EASE);
+
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (open_animation_done_cb), info);
 
@@ -2014,6 +2020,8 @@ page_detached_cb (AdwTabGrid *self,
   info->appear_animation =
     adw_timed_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                              CLOSE_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->appear_animation), ADW_EASE);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (close_animation_done_cb), info);
@@ -2195,6 +2203,8 @@ insert_placeholder (AdwTabGrid *self,
     adw_timed_animation_new (GTK_WIDGET (self), initial_progress, 1,
                              OPEN_ANIMATION_DURATION, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->appear_animation), ADW_EASE);
+
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (open_animation_done_cb), info);
 
@@ -2243,6 +2253,8 @@ replace_placeholder (AdwTabGrid *self,
   info->appear_animation =
     adw_timed_animation_new (GTK_WIDGET (self), initial_progress, 1,
                              OPEN_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->appear_animation), ADW_EASE);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (replace_animation_done_cb), info);
@@ -2309,6 +2321,8 @@ remove_placeholder (AdwTabGrid *self)
   info->appear_animation =
     adw_timed_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                              CLOSE_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->appear_animation), ADW_EASE);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (remove_animation_done_cb), info);
@@ -2505,6 +2519,8 @@ create_drag_icon (AdwTabGrid *self,
   icon->resize_animation =
     adw_timed_animation_new (GTK_WIDGET (icon->tab), 0, 1,
                              ICON_RESIZE_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (icon->resize_animation), ADW_EASE);
 
   self->drag_icon = icon;
 }
@@ -3507,6 +3523,8 @@ adw_tab_grid_init (AdwTabGrid *self)
   self->resize_animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              RESIZE_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->resize_animation), ADW_EASE);
 
   g_signal_connect_swapped (self->resize_animation, "done",
                             G_CALLBACK (resize_animation_done_cb), self);

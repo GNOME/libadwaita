@@ -344,6 +344,8 @@ adw_carousel_indicator_lines_init (AdwCarouselIndicatorLines *self)
 
   self->animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->animation), ADW_LINEAR);
 }
 
 /**

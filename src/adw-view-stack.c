@@ -1499,6 +1499,9 @@ adw_view_stack_init (AdwViewStack *self)
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) transition_cb,
                                               self, NULL);
   self->animation = adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->animation), ADW_EASE);
+
   g_signal_connect_swapped (self->animation, "done",
                             G_CALLBACK (transition_done_cb), self);
 }

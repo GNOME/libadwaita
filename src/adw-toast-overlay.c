@@ -191,6 +191,8 @@ hide_current_toast (AdwToastOverlay *self)
   info->hide_animation =
     adw_timed_animation_new (GTK_WIDGET (self), 1, 0, HIDE_DURATION, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->hide_animation), ADW_EASE);
+
   g_signal_connect_swapped (info->hide_animation, "done",
                             G_CALLBACK (hide_done_cb), info);
 
@@ -258,6 +260,8 @@ show_toast (AdwToastOverlay *self,
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,
                              target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (info->show_animation), ADW_EASE);
 
   info->shown_id = g_signal_connect_swapped (info->show_animation, "done",
                                              G_CALLBACK (show_done_cb), info);

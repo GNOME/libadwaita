@@ -344,6 +344,8 @@ animate_child_resize (AdwCarousel *self,
     adw_timed_animation_new (GTK_WIDGET (self), old_size,
                              value, duration, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (child->resize_animation), ADW_EASE);
+
   g_signal_connect_swapped (child->resize_animation, "done",
                             G_CALLBACK (resize_animation_done_cb), child);
 

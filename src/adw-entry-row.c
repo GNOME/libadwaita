@@ -752,6 +752,8 @@ adw_entry_row_init (AdwEntryRow *self)
     adw_timed_animation_new (GTK_WIDGET (self), 0, 0,
                              EMPTY_ANIMATION_DURATION, target);
 
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (priv->empty_animation), ADW_EASE);
+
   g_signal_group_connect_swapped (priv->buffer_signals, "notify::length",
                                   G_CALLBACK (on_length_changed), self);
 

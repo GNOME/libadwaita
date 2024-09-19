@@ -729,6 +729,9 @@ adw_tab_overview_scrollable_init (AdwTabOverviewScrollable *self)
   self->scroll_animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              SCROLL_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->scroll_animation), ADW_EASE);
+
   g_signal_connect_swapped (self->scroll_animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);
 }
@@ -1875,6 +1878,8 @@ adw_tab_overview_init (AdwTabOverview *self)
                              0, 0,
                              TRANSITION_DURATION,
                              target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->open_animation), ADW_EASE);
 
   g_signal_connect_swapped (self->open_animation, "done",
                             G_CALLBACK (open_animation_done_cb), self);
