@@ -163,6 +163,8 @@ struct _AdwTabBox
 
   GtkWidget *needs_attention_left;
   GtkWidget *needs_attention_right;
+
+  TabInfo *middle_clicked_tab;
 };
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabBox, adw_tab_box, GTK_TYPE_WIDGET,
@@ -1939,6 +1941,9 @@ close_animation_done_cb (TabInfo *info)
   if (self->reordered_tab == info)
     self->reordered_tab = NULL;
 
+  if (self->middle_clicked_tab == info)
+    self->pressed_tab = NULL;
+
   remove_and_free_tab_info (info);
 
   self->n_tabs--;
@@ -2990,6 +2995,7 @@ pressed_cb (AdwTabBox  *self,
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
   if (button == GDK_BUTTON_MIDDLE) {
+    self->middle_clicked_tab = info;
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 
     return;
@@ -3033,7 +3039,14 @@ released_cb (AdwTabBox  *self,
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
   if (button == GDK_BUTTON_MIDDLE) {
+    if (info != self->middle_clicked_tab) {
+      self->middle_clicked_tab = NULL;
+      gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+      return;
+    }
+
     adw_tab_view_close_page (self->view, info->page);
+    self->middle_clicked_tab = NULL;
 
     return;
   }
