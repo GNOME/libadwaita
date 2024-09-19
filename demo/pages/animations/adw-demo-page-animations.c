@@ -118,6 +118,14 @@ animations_easing_name (AdwEnumListItem *value,
     return g_strdup (_("Ease-out (Bounce)"));
   case ADW_EASE_IN_OUT_BOUNCE:
     return g_strdup (_("Ease-in-out (Bounce)"));
+  case ADW_EASE:
+    return g_strdup (_("Ease"));
+  case ADW_EASE_IN:
+    return g_strdup (_("Ease-in"));
+  case ADW_EASE_OUT:
+    return g_strdup (_("Ease-out"));
+  case ADW_EASE_IN_OUT:
+    return g_strdup (_("Ease-in-out"));
   default:
     return NULL;
   }
