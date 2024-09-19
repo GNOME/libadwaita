@@ -420,7 +420,7 @@ measure_heading (GtkWidget      *widget,
                  int            *minimum_baseline,
                  int            *natural_baseline)
 {
-  AdwAlertDialog *self = ADW_ALERT_DIALOG (gtk_widget_get_ancestor (widget, ADW_TYPE_ALERT_DIALOG));
+  AdwAlertDialog *self = g_object_get_data (G_OBJECT (widget), "-adw-alert-dialog");
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
   int large_min, large_nat, small_min, small_nat;
 
@@ -477,7 +477,7 @@ allocate_heading (GtkWidget *widget,
                   int        height,
                   int        baseline)
 {
-  AdwAlertDialog *self = ADW_ALERT_DIALOG (gtk_widget_get_ancestor (widget, ADW_TYPE_ALERT_DIALOG));
+  AdwAlertDialog *self = g_object_get_data (G_OBJECT (widget), "-adw-alert-dialog");
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
   gboolean small_label;
 
@@ -569,7 +569,7 @@ measure_responses (GtkWidget      *widget,
                    int            *minimum_baseline,
                    int            *natural_baseline)
 {
-  AdwAlertDialog *self = ADW_ALERT_DIALOG (gtk_widget_get_ancestor (widget, ADW_TYPE_ALERT_DIALOG));
+  AdwAlertDialog *self = g_object_get_data (G_OBJECT (widget), "-adw-alert-dialog");
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
@@ -668,7 +668,7 @@ measure_child (GtkWidget      *widget,
                int            *min_baseline,
                int            *nat_baseline)
 {
-  AdwAlertDialog *self = ADW_ALERT_DIALOG (gtk_widget_get_ancestor (widget, ADW_TYPE_ALERT_DIALOG));
+  AdwAlertDialog *self = g_object_get_data (G_OBJECT (widget), "-adw-alert-dialog");
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
   int max_size, min_size, base_nat;
 
@@ -743,7 +743,7 @@ allocate_child (GtkWidget *widget,
                 int        height,
                 int        baseline)
 {
-  AdwAlertDialog *self = ADW_ALERT_DIALOG (gtk_widget_get_ancestor (widget, ADW_TYPE_ALERT_DIALOG));
+  AdwAlertDialog *self = g_object_get_data (G_OBJECT (widget), "-adw-alert-dialog");
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
 
   gtk_widget_allocate (priv->window_handle, width, height, baseline, NULL);
@@ -1066,6 +1066,10 @@ adw_alert_dialog_init (AdwAlertDialog *self)
   priv->id_to_response = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  g_object_set_data (G_OBJECT (priv->contents), "-adw-alert-dialog", self);
+  g_object_set_data (G_OBJECT (priv->heading_bin), "-adw-alert-dialog", self);
+  g_object_set_data (G_OBJECT (priv->response_area), "-adw-alert-dialog", self);
 
   gtk_widget_set_layout_manager (priv->contents,
                                  gtk_custom_layout_new (adw_widget_get_request_mode,
@@ -2510,3 +2514,4 @@ adw_alert_dialog_choose_finish (AdwAlertDialog *self,
 
   return g_quark_to_string (id);
 }
+
