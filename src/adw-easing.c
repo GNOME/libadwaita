@@ -609,7 +609,7 @@ adw_easing_ease (AdwEasing self,
     case ADW_EASE_IN_OUT_BOUNCE:
       return ease_in_out_bounce (value, 1);
     case ADW_EASE:
-      return ease_cubic_bezier (value, 1, 0.25, 0.1, 0.25, 0.1);
+      return ease_cubic_bezier (value, 1, 0.25, 0.1, 0.25, 1.0);
     case ADW_EASE_IN:
       return ease_cubic_bezier (value, 1, 0.42, 0.0, 1.0, 1.0);
     case ADW_EASE_OUT:
