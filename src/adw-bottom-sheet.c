@@ -20,6 +20,7 @@
 #include "adw-spring-animation.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 #define TOP_PADDING_MIN_HEIGHT 720
@@ -27,6 +28,7 @@
 #define TOP_PADDING_TARGET_HEIGHT 1440
 #define TOP_PADDING_TARGET_VALUE 120
 #define CHILD_SWITCH_THRESHOLD 0.15
+#define REVEAL_BOTTOM_BAR_DURATION 250
 
 /**
  * AdwBottomSheet:
@@ -47,6 +49,9 @@
  * [property@BottomSheet:full-width] is set to `FALSE`. In this case,
  * [property@BottomSheet:align] determines where along the bottom edge they are
  * placed.
+ *
+ * Bottom bar can be hidden using the [property@BottomSheet:reveal-bottom-bar]
+ * property.
  *
  * `AdwBottomSheet` can be useful for applications such as music players, that
  * want to have a persistent bottom bar that expands into a bottom sheet when
@@ -132,6 +137,10 @@ struct _AdwBottomSheet
   gboolean switch_child;
   gboolean showing_bottom_bar;
 
+  AdwAnimation *reveal_bottom_bar_animation;
+  double reveal_bottom_bar_progress;
+  gboolean reveal_bottom_bar;
+
   gboolean show_drag_handle;
   gboolean modal;
   gboolean can_open;
@@ -177,6 +186,7 @@ enum {
   PROP_CAN_CLOSE,
   PROP_SHEET_HEIGHT,
   PROP_BOTTOM_BAR_HEIGHT,
+  PROP_REVEAL_BOTTOM_BAR,
   LAST_PROP
 };
 
@@ -300,13 +310,31 @@ open_animation_done_cb (AdwBottomSheet *self)
 {
   if (self->progress < 0.5) {
     gtk_widget_set_child_visible (self->dimming, FALSE);
-    gtk_widget_set_child_visible (self->sheet_bin, self->bottom_bar != NULL);
+    gtk_widget_set_child_visible (self->sheet_bin,
+                                  self->bottom_bar != NULL &&
+                                  self->reveal_bottom_bar);
 
     if (self->closed_callback)
       self->closed_callback (self, self->user_data);
   }
 
   self->switch_child = FALSE;
+}
+
+static void
+reveal_animation_cb (double          value,
+                     AdwBottomSheet *self)
+{
+  self->reveal_bottom_bar_progress = value;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+reveal_animation_done_cb (AdwBottomSheet *self)
+{
+  if (!self->reveal_bottom_bar && G_APPROX_VALUE (self->progress, 0, DBL_EPSILON))
+    gtk_widget_set_child_visible (self->sheet_bin, FALSE);
 }
 
 static void
@@ -552,6 +580,8 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
                         &bottom_bar_min_height, &bottom_bar_height, NULL, NULL);
 
     bottom_bar_height = MAX (MIN (bottom_bar_height, height), bottom_bar_min_height);
+
+    bottom_bar_height = round (adw_lerp (0, bottom_bar_height, self->reveal_bottom_bar_progress));
   } else {
     bottom_bar_height = 0;
   }
@@ -563,6 +593,7 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
                                             TOP_PADDING_MIN_HEIGHT)));
 
   sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
+
   sheet_y = height - round (adw_lerp (bottom_bar_height, sheet_height, self->progress));
 
   set_heights (self,
@@ -659,6 +690,9 @@ adw_bottom_sheet_get_property (GObject    *object,
   case PROP_BOTTOM_BAR_HEIGHT:
     g_value_set_int (value, adw_bottom_sheet_get_bottom_bar_height (self));
     break;
+  case PROP_REVEAL_BOTTOM_BAR:
+    g_value_set_boolean (value, adw_bottom_sheet_get_reveal_bottom_bar (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -702,6 +736,9 @@ adw_bottom_sheet_set_property (GObject      *object,
     break;
   case PROP_CAN_CLOSE:
     adw_bottom_sheet_set_can_close (self, g_value_get_boolean (value));
+    break;
+  case PROP_REVEAL_BOTTOM_BAR:
+    adw_bottom_sheet_set_reveal_bottom_bar (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -761,6 +798,9 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
    *
    * Shown when [property@BottomSheet:open] is `FALSE`. When open, morphs into
    * the [property@BottomSheet:sheet].
+   *
+   * Bottom bar can be temporarily hidden using the
+   * [property@BottomSheet:reveal-bottom-bar] property.
    *
    * Since: 1.6
    */
@@ -914,6 +954,23 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
                       0, G_MAXINT, 0,
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwBottomSheet:reveal-bottom-bar:
+   *
+   * Whether to reveal the bottom bar.
+   *
+   * The transition will be animated.
+   *
+   * See [property@BottomSheet:bottom-bar] and
+   * [property@BottomSheet:bottom-bar-height].
+   *
+   * Since: 1.7
+   */
+  props[PROP_REVEAL_BOTTOM_BAR] =
+    g_param_spec_boolean ("reveal-bottom-bar", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -1036,6 +1093,8 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->can_open = TRUE;
   self->can_close = TRUE;
   self->showing_bottom_bar = TRUE;
+  self->reveal_bottom_bar = TRUE;
+  self->reveal_bottom_bar_progress = 1;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
@@ -1121,7 +1180,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                            G_CALLBACK (bottom_bar_released_cb), self, 0);
   gtk_widget_add_controller (self->bottom_bar_bin, gesture);
 
-  /* Animation */
+  /* Animations */
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) open_animation_cb,
                                               self,
@@ -1135,6 +1194,19 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.0001);
   g_signal_connect_swapped (self->open_animation, "done",
                             G_CALLBACK (open_animation_done_cb), self);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) reveal_animation_cb,
+                                              self,
+                                              NULL);
+
+  self->reveal_bottom_bar_animation = adw_timed_animation_new (GTK_WIDGET (self),
+                                                               0, 1,
+                                                               REVEAL_BOTTOM_BAR_DURATION,
+                                                               target);
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->reveal_bottom_bar_animation),
+                                  ADW_EASE);
+  g_signal_connect_swapped (self->reveal_bottom_bar_animation, "done",
+                            G_CALLBACK (reveal_animation_done_cb), self);
 
   /* Swipes */
 
@@ -1473,6 +1545,9 @@ adw_bottom_sheet_get_bottom_bar (AdwBottomSheet *self)
  * Shown when [property@BottomSheet:open] is `FALSE`. When open, morphs into
  * the [property@BottomSheet:sheet].
  *
+ * Bottom bar can be temporarily hidden using the
+ * [property@BottomSheet:reveal-bottom-bar] property.
+ *
  * Since: 1.6
  */
 void
@@ -1501,8 +1576,11 @@ adw_bottom_sheet_set_bottom_bar (AdwBottomSheet *self,
     gtk_widget_remove_css_class (self->sheet_bin, "bottom-bar");
   }
 
-  if (G_APPROX_VALUE (self->progress, 0, DBL_EPSILON))
-    gtk_widget_set_child_visible (self->sheet_bin, self->bottom_bar != NULL);
+  if (G_APPROX_VALUE (self->progress, 0, DBL_EPSILON)) {
+    gtk_widget_set_child_visible (self->sheet_bin,
+                                  self->bottom_bar != NULL &&
+                                  self->reveal_bottom_bar);
+  }
 
   update_swipe_tracker (self);
 
@@ -1991,6 +2069,73 @@ adw_bottom_sheet_get_bottom_bar_height (AdwBottomSheet *self)
   g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), 0);
 
   return self->bottom_bar_height;
+}
+
+/**
+ * adw_bottom_sheet_get_reveal_bottom_bar:
+ * @self: a bottom sheet
+ *
+ * Gets whether the bottom bar is revealed.
+ *
+ * Returns: whether the bottom bar is revealed
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_bottom_sheet_get_reveal_bottom_bar (AdwBottomSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_BOTTOM_SHEET (self), FALSE);
+
+  return self->reveal_bottom_bar;
+}
+
+/**
+ * adw_bottom_sheet_set_reveal_bottom_bar:
+ * @self: a bottom sheet
+ * @reveal: whether to reveal the bottom bar
+ *
+ * Sets whether to reveal the bottom bar.
+ *
+ * The transition will be animated.
+ *
+ * See [property@BottomSheet:bottom-bar] and
+ * [property@BottomSheet:bottom-bar-height].
+ *
+ * Since: 1.7
+ */
+void
+adw_bottom_sheet_set_reveal_bottom_bar (AdwBottomSheet *self,
+                                        gboolean        reveal)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  reveal = !!reveal;
+
+  if (self->reveal_bottom_bar == reveal)
+    return;
+
+  self->reveal_bottom_bar = reveal;
+
+  if (self->bottom_bar) {
+    adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->reveal_bottom_bar_animation),
+                                        self->reveal_bottom_bar_progress);
+    adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->reveal_bottom_bar_animation),
+                                      reveal ? 1 : 0);
+
+    if (reveal)
+      gtk_widget_set_child_visible (self->sheet_bin, TRUE);
+
+    adw_animation_play (self->reveal_bottom_bar_animation);
+  } else {
+    self->reveal_bottom_bar_progress = reveal ? 1 : 0;
+  }
+
+  if (reveal)
+    gtk_widget_remove_css_class (self->sheet_bin, "hidden");
+  else
+    gtk_widget_add_css_class (self->sheet_bin, "hidden");
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_BOTTOM_BAR]);
 }
 
 void

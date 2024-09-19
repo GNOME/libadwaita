@@ -91,4 +91,10 @@ int adw_bottom_sheet_get_sheet_height (AdwBottomSheet *self);
 ADW_AVAILABLE_IN_1_6
 int adw_bottom_sheet_get_bottom_bar_height (AdwBottomSheet *self);
 
+ADW_AVAILABLE_IN_1_7
+gboolean adw_bottom_sheet_get_reveal_bottom_bar (AdwBottomSheet *self);
+ADW_AVAILABLE_IN_1_7
+void     adw_bottom_sheet_set_reveal_bottom_bar (AdwBottomSheet *self,
+                                                 gboolean        reveal);
+
 G_END_DECLS

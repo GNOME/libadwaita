@@ -297,6 +297,34 @@ test_adw_bottom_sheet_can_close (void)
   g_assert_finalize_object (sheet);
 }
 
+static void
+test_adw_bottom_sheet_reveal_bottom_bar (void)
+{
+  AdwBottomSheet *sheet = ADW_BOTTOM_SHEET (g_object_ref_sink (adw_bottom_sheet_new ()));
+  gboolean reveal;
+  int notified = 0;
+
+  g_assert_nonnull (sheet);
+
+  g_signal_connect_swapped (sheet, "notify::reveal-bottom-bar", G_CALLBACK (increment), &notified);
+
+  g_object_get (sheet, "reveal-bottom-bar", &reveal, NULL);
+  g_assert_true (reveal);
+
+  adw_bottom_sheet_set_reveal_bottom_bar (sheet, TRUE);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_bottom_sheet_set_reveal_bottom_bar (sheet, FALSE);
+  g_assert_false (adw_bottom_sheet_get_reveal_bottom_bar (sheet));
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (sheet, "reveal-bottom-bar", TRUE, NULL);
+  g_assert_true (adw_bottom_sheet_get_reveal_bottom_bar (sheet));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (sheet);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -314,6 +342,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/BottomSheet/modal", test_adw_bottom_sheet_modal);
   g_test_add_func ("/Adwaita/BottomSheet/can_open", test_adw_bottom_sheet_can_open);
   g_test_add_func ("/Adwaita/BottomSheet/can_close", test_adw_bottom_sheet_can_close);
+  g_test_add_func ("/Adwaita/BottomSheet/reveal_bottom_bar", test_adw_bottom_sheet_reveal_bottom_bar);
 
   return g_test_run ();
 }
