@@ -11,6 +11,12 @@
         <property name="title">L_ayout</property>
         <property name="description">Preferences pages can have a description</property>
         <property name="use-underline">True</property>
+        <property name="banner">
+          <object class="AdwBanner">
+            <property name="title">Preferences pages can have a banner</property>
+            <property name="revealed">True</property>
+          </object>
+        </property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="description" translatable="yes">Preferences are organized in pages, this example has the following pages:</property>

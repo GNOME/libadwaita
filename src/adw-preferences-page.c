@@ -35,6 +35,7 @@
 
 typedef struct
 {
+  GtkWidget *banner;
   GtkBox *box;
   GtkLabel *description;
   GtkWidget *scrolled_window;
@@ -64,6 +65,7 @@ enum {
   PROP_NAME,
   PROP_USE_UNDERLINE,
   PROP_DESCRIPTION_CENTERED,
+  PROP_BANNER,
   LAST_PROP,
 };
 
@@ -104,6 +106,9 @@ adw_preferences_page_get_property (GObject    *object,
   case PROP_DESCRIPTION_CENTERED:
     g_value_set_boolean (value, adw_preferences_page_get_description_centered (self));
     break;
+  case PROP_BANNER:
+    g_value_set_object (value, adw_preferences_page_get_banner (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -136,6 +141,9 @@ adw_preferences_page_set_property (GObject      *object,
   case PROP_DESCRIPTION_CENTERED:
     adw_preferences_page_set_description_centered (self, g_value_get_boolean (value));
     break;
+  case PROP_BANNER:
+    adw_preferences_page_set_banner (self, g_value_get_object (value));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -144,7 +152,12 @@ adw_preferences_page_set_property (GObject      *object,
 static void
 adw_preferences_page_dispose (GObject *object)
 {
+  AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (object);
+  AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+
   gtk_widget_dispose_template (GTK_WIDGET (object), ADW_TYPE_PREFERENCES_PAGE);
+
+  g_clear_pointer (&priv->banner, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_preferences_page_parent_class)->dispose (object);
 }
@@ -200,7 +213,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * AdwPreferencesPage:description:
    *
    * The description to be displayed at the top of the page.
-   * 
+   *
    * Since: 1.4
    */
   props[PROP_DESCRIPTION] =
@@ -240,6 +253,18 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwPreferencesPage:banner:
+   *
+   * A [class@Banner] displayed at the top of the page.
+   *
+   * Since: 1.7
+   */
+  props[PROP_BANNER] =
+    g_param_spec_object ("banner", NULL, NULL,
+                         ADW_TYPE_BANNER,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -250,13 +275,16 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
 
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
 }
 
 static void
 adw_preferences_page_init (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+  GtkLayoutManager *layout = gtk_widget_get_layout_manager (GTK_WIDGET (self));
+
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (layout), GTK_ORIENTATION_VERTICAL);
 
   priv->title = g_strdup ("");
 
@@ -436,7 +464,7 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
  * Gets the description of @self.
  *
  * Returns: the description of @self.
- * 
+ *
  * Since: 1.4
  */
 const char *
@@ -457,9 +485,9 @@ adw_preferences_page_get_description (AdwPreferencesPage *self)
  * @description: the description
  *
  * Sets the description of @self.
- * 
+ *
  * The description is displayed at the top of the page.
- * 
+ *
  * Since: 1.4
  */
 void
@@ -627,6 +655,64 @@ adw_preferences_page_set_description_centered (AdwPreferencesPage *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION_CENTERED]);
+}
+
+/**
+ * adw_preferences_page_get_banner:
+ * @self: a preferences page
+ *
+ * Gets the banner displayed at the top of the page.
+ *
+ * Returns: (nullable) (transfer none): the banner for @self
+ *
+ * Since: 1.7
+ */
+AdwBanner *
+adw_preferences_page_get_banner (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return ADW_BANNER (priv->banner);
+}
+
+/**
+ * adw_preferences_page_set_banner:
+ * @self: a preferences page
+ * @banner: (nullable): the banner to display at the top of the page
+ *
+ * Sets the banner displayed at the top of the page.
+ *
+ * Since: 1.7
+ */
+void
+adw_preferences_page_set_banner (AdwPreferencesPage *self,
+                                 AdwBanner          *banner)
+{
+  AdwPreferencesPagePrivate *priv;
+  GtkWidget *banner_widget;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (banner == NULL || ADW_IS_BANNER (banner));
+
+  priv = adw_preferences_page_get_instance_private (self);
+  banner_widget = GTK_WIDGET (banner);
+
+  if (priv->banner == banner_widget)
+    return;
+
+  if (priv->banner)
+    gtk_widget_unparent (priv->banner);
+
+  priv->banner = banner_widget;
+
+  if (priv->banner)
+    gtk_widget_insert_after (priv->banner, GTK_WIDGET (self), NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BANNER]);
 }
 
 static GListModel *
