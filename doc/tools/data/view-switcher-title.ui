@@ -42,6 +42,8 @@
               <object class="AdwViewStackPage">
                 <property name="title">Page 3</property>
                 <property name="icon-name">applications-system-symbolic</property>
+                <property name="needs-attention">True</property>
+                <property name="badge-number">3</property>
                 <property name="child">
                   <object class="AdwBin"/>
                 </property>
