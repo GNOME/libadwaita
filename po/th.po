@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2024-09-19 16:13+0000\n"
-"PO-Revision-Date: 2024-09-21 20:33+0700\n"
+"PO-Revision-Date: 2024-09-21 21:14+0700\n"
 "Last-Translator: Atirut Wattanamongkol <atirut.wattanamongkol@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
@@ -112,10 +112,9 @@ msgstr "แปลโดย"
 #: src/adw-about-dialog.c:604 src/adw-about-window.c:603
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
-msgstr ""
-"แอปพลิเคชันนี้ไม่มีการรับประกันใดๆ ทั้งสิ้น ดูรายละเอียดเพิ่มเติมได้ที่ <a href=\"%s\">%s</a>"
+"This application comes with absolutely no warranty. See the <a href=\"%s\">%s</a> for "
+"details."
+msgstr "แอปพลิเคชันนี้ไม่มีการรับประกันใดๆ ทั้งสิ้น ดูรายละเอียดเพิ่มเติมได้ที่ <a href=\"%s\">%s</a>"
 
 #: src/adw-about-dialog.c:682 src/adw-about-window.c:681
 msgid "This Application"
@@ -143,8 +142,7 @@ msgstr ""
 msgid "Unable to save debugging information"
 msgstr ""
 
-#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334
-#: src/adw-sheet-controls.c:127
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334 src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr ""
 
@@ -164,15 +162,14 @@ msgstr "มี_อะไรใหม่"
 msgid "_Details"
 msgstr "_รายละเอียด"
 
-#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:341
-#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
+#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:341 src/adw-about-window.ui:124
+#: src/adw-about-window.ui:344
 msgid "_Website"
 msgstr "เ_ว็บไซต์"
 
 #: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
-#, fuzzy
 msgid "_Support Questions"
-msgstr "คำถามการ_สนับสนุน"
+msgstr "คำถาม_ช่วยเหลือ"
 
 #: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
 msgid "_Report an Issue"
@@ -183,7 +180,6 @@ msgid "_Troubleshooting"
 msgstr "การแ_ก้ไขปัญหา"
 
 #: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
-#, fuzzy
 msgid "_Credits"
 msgstr "เ_ครดิต"
 
@@ -209,12 +205,12 @@ msgstr "การแก้ไขปัญหา"
 
 #: src/adw-about-dialog.ui:392 src/adw-about-window.ui:395
 msgid ""
-"To assist in troubleshooting, you can view your debugging information. "
-"Providing this information to the application developers can help diagnose "
-"any problems you encounter when you report an issue."
+"To assist in troubleshooting, you can view your debugging information. Providing this "
+"information to the application developers can help diagnose any problems you encounter when "
+"you report an issue."
 msgstr ""
-"คุณสามารถดูข้อมูลการดีบักเพื่อช่วยในการแก้ไขปัญหาได้ "
-"การให้ข้อมูลนี้แก่ผู้พัฒนาแอปพลิเคชันจะช่วยวินิจฉัยปัญหาต่าง ๆ ที่คุณพบเมื่อคุณรายงานปัญหา"
+"คุณสามารถดูข้อมูลการดีบักเพื่อช่วยในการแก้ไขปัญหาได้ การให้ข้อมูลนี้แก่ผู้พัฒนาแอปพลิเคชันจะช่วยวินิจฉัยปัญหาต่าง ๆ "
+"ที่คุณพบเมื่อคุณรายงานปัญหา"
 
 #: src/adw-about-dialog.ui:403 src/adw-about-window.ui:406
 msgid "_Debugging Information"
@@ -233,7 +229,6 @@ msgid "_Save As…"
 msgstr "_บันทึกเป็น…"
 
 #: src/adw-about-dialog.ui:496 src/adw-about-window.ui:499
-#, fuzzy
 msgid "Credits"
 msgstr "เครดิต"
 
@@ -245,14 +240,12 @@ msgstr "ข้อมูลทางกฎหมาย"
 msgid "Acknowledgements"
 msgstr "คำขอบคุณ"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:311 src/adw-back-button.c:409 src/adw-back-button.c:519
 msgid "Back"
 msgstr "กลับ"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85 src/adw-preferences-window.ui:96
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -318,9 +311,7 @@ msgid "System Appearance"
 msgstr ""
 
 #: src/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
+msgid "Override settings for this application. They will be reset upon closing the inspector."
 msgstr ""
 
 #: src/adw-inspector-page.ui:14
@@ -409,7 +400,6 @@ msgstr ""
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
