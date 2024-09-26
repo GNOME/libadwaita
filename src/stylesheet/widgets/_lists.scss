@@ -148,6 +148,10 @@ row {
     > .prefixes,
     > .suffixes {
       border-spacing: 6px;
+
+      > .suffixes {
+        border-spacing: 6px;
+      }
     }
 
     > .icon,
