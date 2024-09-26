@@ -101,6 +101,34 @@ test_adw_navigation_split_view_content (void)
 }
 
 static void
+test_adw_navigation_split_view_sidebar_position (void)
+{
+  AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
+  GtkPackType position;
+  int notified = 0;
+
+  g_assert_nonnull (split_view);
+
+  g_signal_connect_swapped (split_view, "notify::sidebar-position", G_CALLBACK (increment), &notified);
+
+  g_object_get (split_view, "sidebar-position", &position, NULL);
+  g_assert_cmpint (position, ==, GTK_PACK_START);
+
+  adw_navigation_split_view_set_sidebar_position (split_view, GTK_PACK_START);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_navigation_split_view_set_sidebar_position (split_view, GTK_PACK_END);
+  g_assert_cmpint (adw_navigation_split_view_get_sidebar_position (split_view), ==, GTK_PACK_END);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (split_view, "sidebar-position", GTK_PACK_START, NULL);
+  g_assert_cmpint (adw_navigation_split_view_get_sidebar_position (split_view), ==, GTK_PACK_START);
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (split_view);
+}
+
+static void
 test_adw_navigation_split_view_collapsed (void)
 {
   AdwNavigationSplitView *split_view = g_object_ref_sink (ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ()));
@@ -491,6 +519,7 @@ main (int   argc,
 
   g_test_add_func ("/Adwaita/NavigationSplitView/sidebar", test_adw_navigation_split_view_sidebar);
   g_test_add_func ("/Adwaita/NavigationSplitView/content", test_adw_navigation_split_view_content);
+  g_test_add_func ("/Adwaita/NavigationSplitView/sidebar-position", test_adw_navigation_split_view_sidebar_position);
   g_test_add_func ("/Adwaita/NavigationSplitView/collapsed", test_adw_navigation_split_view_collapsed);
   g_test_add_func ("/Adwaita/NavigationSplitView/show_content", test_adw_navigation_split_view_show_content);
   g_test_add_func ("/Adwaita/NavigationSplitView/min_sidebar_width", test_adw_navigation_split_view_min_sidebar_width);

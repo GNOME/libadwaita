@@ -41,6 +41,12 @@ ADW_AVAILABLE_IN_1_4
 void               adw_navigation_split_view_set_content (AdwNavigationSplitView *self,
                                                           AdwNavigationPage      *content);
 
+ADW_AVAILABLE_IN_1_7
+GtkPackType adw_navigation_split_view_get_sidebar_position (AdwNavigationSplitView *self);
+ADW_AVAILABLE_IN_1_7
+void        adw_navigation_split_view_set_sidebar_position (AdwNavigationSplitView *self,
+                                                            GtkPackType             position);
+
 ADW_AVAILABLE_IN_1_4
 gboolean adw_navigation_split_view_get_collapsed (AdwNavigationSplitView *self);
 ADW_AVAILABLE_IN_1_4

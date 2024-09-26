@@ -338,8 +338,12 @@ update_start_title_buttons (AdwHeaderBar *self)
     if (ADW_IS_NAVIGATION_SPLIT_VIEW (data->split_view)) {
       AdwNavigationSplitView *split_view = ADW_NAVIGATION_SPLIT_VIEW (data->split_view);
       gboolean collapsed = adw_navigation_split_view_get_collapsed (split_view);
+      GtkPackType sidebar_pos = adw_navigation_split_view_get_sidebar_position (split_view);
 
-      show &= data->is_sidebar || collapsed;
+      if (data->is_sidebar)
+        show &= collapsed || sidebar_pos == GTK_PACK_START;
+      else
+        show &= collapsed || sidebar_pos == GTK_PACK_END;
     }
 
     if (ADW_IS_OVERLAY_SPLIT_VIEW (data->split_view)) {
@@ -377,8 +381,12 @@ update_end_title_buttons (AdwHeaderBar *self)
     if (ADW_IS_NAVIGATION_SPLIT_VIEW (data->split_view)) {
       AdwNavigationSplitView *split_view = ADW_NAVIGATION_SPLIT_VIEW (data->split_view);
       gboolean collapsed = adw_navigation_split_view_get_collapsed (split_view);
+      GtkPackType sidebar_pos = adw_navigation_split_view_get_sidebar_position (split_view);
 
-      show &= !data->is_sidebar || collapsed;
+      if (data->is_sidebar)
+        show &= collapsed || sidebar_pos == GTK_PACK_END;
+      else
+        show &= collapsed || sidebar_pos == GTK_PACK_START;
     }
 
     if (ADW_IS_OVERLAY_SPLIT_VIEW (data->split_view)) {
@@ -544,6 +552,8 @@ adw_header_bar_root (GtkWidget *widget)
       split_view = parent;
 
       g_signal_connect_swapped (split_view, "notify::collapsed",
+                                G_CALLBACK (update_title_buttons), widget);
+      g_signal_connect_swapped (split_view, "notify::sidebar-position",
                                 G_CALLBACK (update_title_buttons), widget);
 
       sidebar = adw_navigation_split_view_get_sidebar (ADW_NAVIGATION_SPLIT_VIEW (split_view));
