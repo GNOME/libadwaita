@@ -93,13 +93,36 @@ window.about,
 dialog.about {
   .main-page {
     > viewport > clamp > box {
-      margin: 12px;
-      border-spacing: 6px;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 18px;
+      border-spacing: 24px;
+
+      > .header {
+        // Tall layout
+        > box {
+          border-spacing: 6px;
+          padding-top: 12px;
+
+          .app-name {
+            @extend .title-1;
+          }
+        }
+
+        // Short layout
+        > grid {
+          border-spacing: 12px 0;
+          padding: 0 9px;
+
+          .app-name {
+            padding-top: 6px;
+            @extend .title-2;
+          }
+        }
+      }
 
       > box {
-        margin-top: 18px;
         border-spacing: 18px;
-        margin-bottom: 6px;
       }
     }
 
