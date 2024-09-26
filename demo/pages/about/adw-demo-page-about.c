@@ -75,6 +75,11 @@ demo_run_cb (AdwDemoPageAbout *self)
                                                 _("Special thanks to"),
                                                 special_thanks);
 
+  adw_about_dialog_add_other_app (ADW_ABOUT_DIALOG (about),
+                                  "org.gnome.Adwaita1.Demo",
+                                  _("Adwaita Demo"),
+                                  _("Tour of the features in Libadwaita"));
+
   adw_dialog_present (about, GTK_WIDGET (self));
 }
 

@@ -136,6 +136,7 @@ test_adw_about_dialog_create (void)
   adw_about_dialog_add_acknowledgement_section (dialog, "Example", acknowledgements);
   adw_about_dialog_add_legal_section (dialog, "Example", "© 2022 Example", GTK_LICENSE_GPL_3_0, NULL);
   adw_about_dialog_add_legal_section (dialog, "Example", "© 2022 Example", GTK_LICENSE_CUSTOM, "License");
+  adw_about_dialog_add_other_app (dialog, "org.example.App", "Example App", "Example summary");
 
   g_assert_finalize_object (dialog);
 }

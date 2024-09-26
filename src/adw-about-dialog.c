@@ -149,6 +149,10 @@
  * To add information about other modules, such as application dependencies or
  * data, use [method@AboutDialog.add_legal_section].
  *
+ * ## Other applications
+ *
+ * TODO
+ *
  * ## Constructing
  *
  * To make constructing an `AdwAboutDialog` as convenient as possible, you can
@@ -282,6 +286,8 @@ struct _AdwAboutDialog {
   GtkWidget *credits_box;
   GtkWidget *legal_box;
   GtkWidget *acknowledgements_box;
+
+  GtkWidget *other_apps_group;
 
   char *application_icon;
   char *application_name;
@@ -1886,6 +1892,8 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, legal_box);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, acknowledgements_box);
 
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, other_apps_group);
+
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
   gtk_widget_class_bind_template_callback (widget_class, legal_showing_cb);
 
@@ -2282,6 +2290,16 @@ adw_about_dialog_set_developer_name (AdwAboutDialog *self,
 
   gtk_widget_set_visible (self->developer_name_label,
                           developer_name && *developer_name);
+
+  if (developer_name && *developer_name) {
+    char *other_apps_title = g_strdup_printf (_("Other Apps by %s"), developer_name);
+    adw_preferences_group_set_title (ADW_PREFERENCES_GROUP (self->other_apps_group),
+                                     other_apps_title);
+    g_free (other_apps_title);
+  } else {
+    adw_preferences_group_set_title (ADW_PREFERENCES_GROUP (self->other_apps_group),
+                                     _("Other Apps"));
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEVELOPER_NAME]);
 }
@@ -3411,6 +3429,74 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
   self->legal_sections = g_slist_append (self->legal_sections, section);
 
   update_legal (self);
+}
+
+/**
+ * adw_about_dialog_add_other_app:
+ * @self: an about dialog
+ * @appid: the application ID
+ * @name: the application name
+ * @summary: the application summary
+ *
+ * Adds another application to @self.
+ *
+ * The application will be displayed at the bottom of the main page, in a
+ * separate section. Each added application will be presented as a row with
+ * @title and @summary, as well as an icon with the name @appid. Clicking the
+ * row will show @appid in the software center app.
+ *
+ * This can be used to link to your other applications if you have multiple.
+ *
+ * Example:
+ *
+ * ```c
+ * adw_about_dialog_add_other_app (ADW_ABOUT_DIALOG (about),
+ *                                 "org.gnome.Boxes",
+ *                                 _("Boxes"),
+ *                                 _("Virtualization made simple"));
+ * ```
+ *
+ * Since: 1.7
+ */
+void
+adw_about_dialog_add_other_app (AdwAboutDialog *self,
+                                const char     *appid,
+                                const char     *name,
+                                const char     *summary)
+{
+  GtkWidget *row, *icon;
+  char *url;
+
+  g_return_if_fail (ADW_IS_ABOUT_DIALOG (self));
+  g_return_if_fail (appid != NULL);
+  g_return_if_fail (name != NULL);
+  g_return_if_fail (summary != NULL);
+
+  url = g_strconcat ("appstream:", appid, NULL);
+
+  row = adw_action_row_new ();
+
+  icon = gtk_image_new_from_icon_name (appid);
+  gtk_image_set_pixel_size (GTK_IMAGE (icon), 32);
+  gtk_widget_add_css_class (icon, "lowres-icon");
+  adw_action_row_add_prefix (ADW_ACTION_ROW (row), icon);
+
+  adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), name);
+  adw_action_row_set_subtitle (ADW_ACTION_ROW (row), summary);
+
+  adw_action_row_add_suffix (ADW_ACTION_ROW (row),
+                             gtk_image_new_from_icon_name ("adw-external-link-symbolic"));
+
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
+  gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "about.show-url");
+  gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", url);
+
+  gtk_widget_set_tooltip_text (row, url);
+
+  adw_preferences_group_add (ADW_PREFERENCES_GROUP (self->other_apps_group), row);
+  gtk_widget_set_visible (self->other_apps_group, TRUE);
+
+  g_free (url);
 }
 
 /**

@@ -173,6 +173,12 @@ void adw_about_dialog_add_legal_section (AdwAboutDialog *self,
                                          GtkLicense      license_type,
                                          const char     *license);
 
+ADW_AVAILABLE_IN_1_7
+void adw_about_dialog_add_other_app (AdwAboutDialog *self,
+                                     const char     *appid,
+                                     const char     *name,
+                                     const char     *summary);
+
 ADW_AVAILABLE_IN_1_5
 void adw_show_about_dialog (GtkWidget  *parent,
                             const char *first_property_name,

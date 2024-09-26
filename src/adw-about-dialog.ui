@@ -243,6 +243,11 @@
                                         </child>
                                       </object>
                                     </child>
+                                    <child>
+                                      <object class="AdwPreferencesGroup" id="other_apps_group">
+                                        <property name="visible">False</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
