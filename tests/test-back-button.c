@@ -182,6 +182,42 @@ test_adw_back_button_test_split_view_simple (void)
 }
 
 static void
+test_adw_back_button_test_split_view_inverted (void)
+{
+  AdwNavigationSplitView *split_view = ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ());
+  AdwBackButton *button = ADW_BACK_BUTTON (adw_back_button_new ());
+  GtkWidget *window = gtk_window_new ();
+
+  adw_navigation_split_view_set_sidebar_position (split_view, GTK_PACK_END);
+
+  set_sidebar (split_view, "sidebar", GTK_WIDGET (button));
+  set_content (split_view, "content", NULL);
+
+  gtk_window_set_child (GTK_WINDOW (window), GTK_WIDGET (split_view));
+  gtk_window_present (GTK_WINDOW (window));
+
+  /*
+   * split_view
+   *   content
+   *   ---
+   *   sidebar: back button
+   */
+
+  check_history (button, 0);
+
+  /*
+   * split_view
+   *   content
+   *   sidebar: back button
+   */
+
+  adw_navigation_split_view_set_collapsed (split_view, TRUE);
+  check_history (button, 1, "content");
+
+  g_assert_finalize_object (window);
+}
+
+static void
 test_adw_back_button_test_split_view_nested_sidebar (void)
 {
   AdwNavigationSplitView *split_view1 = ADW_NAVIGATION_SPLIT_VIEW (adw_navigation_split_view_new ());
@@ -429,6 +465,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/BackButton/simple", test_adw_back_button_test_simple);
   g_test_add_func ("/Adwaita/BackButton/nested", test_adw_back_button_test_nested);
   g_test_add_func ("/Adwaita/BackButton/split_view_simple", test_adw_back_button_test_split_view_simple);
+  g_test_add_func ("/Adwaita/BackButton/split_view_inverted", test_adw_back_button_test_split_view_inverted);
   g_test_add_func ("/Adwaita/BackButton/split_view_nested_sidebar", test_adw_back_button_test_split_view_nested_sidebar);
   g_test_add_func ("/Adwaita/BackButton/split_view_nested_content", test_adw_back_button_test_split_view_nested_content);
   g_test_add_func ("/Adwaita/BackButton/split_view_with_nav_views", test_adw_back_button_test_split_view_with_nav_views);
