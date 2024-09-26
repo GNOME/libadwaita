@@ -40,8 +40,10 @@
                 </style>
                 <child>
                   <object class="GtkBox" id="suffixes">
-                    <property name="spacing">12</property>
                     <property name="visible">False</property>
+                    <style>
+                      <class name="suffixes"/>
+                    </style>
                   </object>
                 </child>
                 <child>
