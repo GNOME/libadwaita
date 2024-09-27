@@ -1266,6 +1266,9 @@ get_sheet_width (AdwBottomSheet *self)
 
   width = gtk_widget_get_width (GTK_WIDGET (self));
 
+  if (!self->sheet_bin)
+    return width;
+
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
 
