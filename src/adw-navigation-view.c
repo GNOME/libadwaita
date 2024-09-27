@@ -1360,10 +1360,10 @@ adw_navigation_view_measure (GtkWidget      *widget,
                              int            *natural_baseline)
 {
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (widget);
-  int min = 0, nat = 0, min_baseline = -1, nat_baseline = -1;
+  int min = 0, nat = 0;
 
   if (self->homogeneous[orientation]) {
-    int child_min = 0, child_nat = 0, child_min_baseline = -1, child_nat_baseline = -1;
+    int child_min = 0, child_nat = 0;
     GtkWidget *child;
 
     for (child = gtk_widget_get_first_child (GTK_WIDGET (self));
@@ -1372,33 +1372,29 @@ adw_navigation_view_measure (GtkWidget      *widget,
       if (!ADW_IS_NAVIGATION_PAGE (child))
         continue;
 
-      gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat,
-                          &child_min_baseline, &child_nat_baseline);
+      gtk_widget_measure (child, orientation, for_size,
+                          &child_min, &child_nat, NULL, NULL);
 
       min = MAX (min, child_min);
       nat = MAX (nat, child_nat);
-      min_baseline = MAX (min_baseline, child_min_baseline);
-      nat_baseline = MAX (nat_baseline, child_nat_baseline);
     }
   } else {
-    int last_min = 0, last_nat = 0, last_min_baseline = -1, last_nat_baseline = -1;
     AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
 
     if (visible_page) {
       gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
-                          &min, &nat, &min_baseline, &nat_baseline);
+                          &min, &nat, NULL, NULL);
     }
 
     if (self->hiding_page) {
-      gtk_widget_measure (GTK_WIDGET (self->hiding_page),
-                          orientation, for_size, &last_min, &last_nat,
-                          &last_min_baseline, &last_nat_baseline);
-    }
+      int last_min = 0, last_nat = 0;
 
-    min = MAX (min, last_min);
-    nat = MAX (nat, last_nat);
-    min_baseline = MAX (min_baseline, last_min_baseline);
-    nat_baseline = MAX (nat_baseline, last_nat_baseline);
+      gtk_widget_measure (GTK_WIDGET (self->hiding_page), orientation, for_size,
+                          &last_min, &last_nat, NULL, NULL);
+
+      min = MAX (min, last_min);
+      nat = MAX (nat, last_nat);
+    }
   }
 
   if (minimum)
@@ -1406,9 +1402,9 @@ adw_navigation_view_measure (GtkWidget      *widget,
   if (natural)
     *natural = nat;
   if (minimum_baseline)
-    *minimum_baseline = min_baseline;
+    *minimum_baseline = -1;
   if (natural_baseline)
-    *natural_baseline = nat_baseline;
+    *natural_baseline = -1;
 }
 
 static void
