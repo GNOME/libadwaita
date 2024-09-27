@@ -9,6 +9,7 @@
 #include "config.h"
 #include "adw-navigation-view-private.h"
 
+#include "adw-animation-util.h"
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-shadow-helper-private.h"
@@ -279,6 +280,9 @@ struct _AdwNavigationView
   gboolean transition_cancel;
   double transition_progress;
   gboolean gesture_active;
+
+  int last_width;
+  int last_height;
 
   AdwShadowHelper *shadow_helper;
   AdwSwipeTracker *swipe_tracker;
@@ -801,6 +805,8 @@ switch_page (AdwNavigationView *self,
   g_set_object (&self->showing_page, page);
   g_set_object (&self->hiding_page, prev_page);
   self->transition_pop = pop;
+  self->last_width = gtk_widget_get_width (GTK_WIDGET (self));
+  self->last_height = gtk_widget_get_height (GTK_WIDGET (self));
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
@@ -899,7 +905,12 @@ transition_cb (double             value,
 {
   self->transition_progress = value;
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] &&
+      self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  } else {
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+  }
 }
 
 static void
@@ -1245,6 +1256,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
 
   self->showing_page = new_page;
   self->hiding_page = g_object_ref (visible_page);
+  self->last_width = gtk_widget_get_width (GTK_WIDGET (self));
+  self->last_height = gtk_widget_get_height (GTK_WIDGET (self));
 
   self->transition_pop = (direction == ADW_NAVIGATION_DIRECTION_BACK);
 
@@ -1288,7 +1301,12 @@ update_swipe_cb (AdwSwipeTracker   *tracker,
   else
     self->transition_progress = progress;
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] &&
+      self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  } else {
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+  }
 }
 
 static void
@@ -1379,21 +1397,25 @@ adw_navigation_view_measure (GtkWidget      *widget,
       nat = MAX (nat, child_nat);
     }
   } else {
-    AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
 
-    if (visible_page) {
-      gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
-                          &min, &nat, NULL, NULL);
-    }
-
-    if (self->hiding_page) {
-      int last_min = 0, last_nat = 0;
+    if (self->hiding_page && self->showing_page) {
+      double t = CLAMP (self->transition_progress, 0, 1);
+      int hiding_min, hiding_nat, showing_min, showing_nat;
 
       gtk_widget_measure (GTK_WIDGET (self->hiding_page), orientation, for_size,
-                          &last_min, &last_nat, NULL, NULL);
+                          &hiding_min, &hiding_nat, NULL, NULL);
+      gtk_widget_measure (GTK_WIDGET (self->showing_page), orientation, for_size,
+                          &showing_min, &showing_nat, NULL, NULL);
 
-      min = MAX (min, last_min);
-      nat = MAX (nat, last_nat);
+      min = adw_lerp (hiding_min, showing_min, t);
+      nat = adw_lerp (hiding_nat, showing_nat, t);
+    } else {
+      AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
+
+      if (visible_page) {
+        gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
+                            &min, &nat, NULL, NULL);
+      }
     }
   }
 
