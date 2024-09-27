@@ -267,6 +267,8 @@ struct _AdwNavigationView
   GHashTable *tag_mapping;
   GListStore *navigation_stack;
 
+  gboolean homogeneous[2];
+
   gboolean animate_transitions;
   gboolean pop_on_escape;
 
@@ -296,6 +298,8 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwNavigationView, adw_navigation_view, GTK_TYPE_
 enum {
   PROP_0,
   PROP_VISIBLE_PAGE,
+  PROP_HHOMOGENEOUS,
+  PROP_VHOMOGENEOUS,
   PROP_ANIMATE_TRANSITIONS,
   PROP_POP_ON_ESCAPE,
   PROP_NAVIGATION_STACK,
@@ -1356,29 +1360,55 @@ adw_navigation_view_measure (GtkWidget      *widget,
                              int            *natural_baseline)
 {
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (widget);
-  AdwNavigationPage *visible_page = NULL;
   int min = 0, nat = 0, min_baseline = -1, nat_baseline = -1;
-  int last_min = 0, last_nat = 0, last_min_baseline = -1, last_nat_baseline = -1;
 
-  visible_page = adw_navigation_view_get_visible_page (self);
+  if (self->homogeneous[orientation]) {
+    int child_min = 0, child_nat = 0, child_min_baseline = -1, child_nat_baseline = -1;
+    GtkWidget *child;
 
-  if (visible_page)
-    gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
-                        &min, &nat, &min_baseline, &nat_baseline);
+    for (child = gtk_widget_get_first_child (GTK_WIDGET (self));
+         child;
+         child = gtk_widget_get_next_sibling (child)) {
+      if (!ADW_IS_NAVIGATION_PAGE (child))
+        continue;
 
-  if (self->hiding_page)
-    gtk_widget_measure (GTK_WIDGET (self->hiding_page),
-                        orientation, for_size, &last_min, &last_nat,
-                        &last_min_baseline, &last_nat_baseline);
+      gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat,
+                          &child_min_baseline, &child_nat_baseline);
+
+      min = MAX (min, child_min);
+      nat = MAX (nat, child_nat);
+      min_baseline = MAX (min_baseline, child_min_baseline);
+      nat_baseline = MAX (nat_baseline, child_nat_baseline);
+    }
+  } else {
+    int last_min = 0, last_nat = 0, last_min_baseline = -1, last_nat_baseline = -1;
+    AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
+
+    if (visible_page) {
+      gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
+                          &min, &nat, &min_baseline, &nat_baseline);
+    }
+
+    if (self->hiding_page) {
+      gtk_widget_measure (GTK_WIDGET (self->hiding_page),
+                          orientation, for_size, &last_min, &last_nat,
+                          &last_min_baseline, &last_nat_baseline);
+    }
+
+    min = MAX (min, last_min);
+    nat = MAX (nat, last_nat);
+    min_baseline = MAX (min_baseline, last_min_baseline);
+    nat_baseline = MAX (nat_baseline, last_nat_baseline);
+  }
 
   if (minimum)
-    *minimum = MAX (min, last_min);
+    *minimum = min;
   if (natural)
-    *natural = MAX (nat, last_nat);
+    *natural = nat;
   if (minimum_baseline)
-    *minimum_baseline = MAX (min_baseline, last_min_baseline);
+    *minimum_baseline = min_baseline;
   if (natural_baseline)
-    *natural_baseline = MAX (nat_baseline, last_nat_baseline);
+    *natural_baseline = nat_baseline;
 }
 
 static void
@@ -1622,6 +1652,12 @@ adw_navigation_view_get_property (GObject    *object,
   case PROP_VISIBLE_PAGE:
     g_value_set_object (value, adw_navigation_view_get_visible_page (self));
     break;
+  case PROP_HHOMOGENEOUS:
+    g_value_set_boolean (value, adw_navigation_view_get_hhomogeneous (self));
+    break;
+  case PROP_VHOMOGENEOUS:
+    g_value_set_boolean (value, adw_navigation_view_get_vhomogeneous (self));
+    break;
   case PROP_ANIMATE_TRANSITIONS:
     g_value_set_boolean (value, adw_navigation_view_get_animate_transitions (self));
     break;
@@ -1645,6 +1681,12 @@ adw_navigation_view_set_property (GObject      *object,
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (object);
 
   switch (prop_id) {
+  case PROP_HHOMOGENEOUS:
+    adw_navigation_view_set_hhomogeneous (self, g_value_get_boolean (value));
+    break;
+  case PROP_VHOMOGENEOUS:
+    adw_navigation_view_set_vhomogeneous (self, g_value_get_boolean (value));
+    break;
   case PROP_ANIMATE_TRANSITIONS:
     adw_navigation_view_set_animate_transitions (self, g_value_get_boolean (value));
     break;
@@ -1700,6 +1742,42 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
     g_param_spec_object ("visible-page", NULL, NULL,
                          ADW_TYPE_NAVIGATION_PAGE,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwNavigationView:hhomogeneous:
+   *
+   * Whether the view is horizontally homogeneous.
+   *
+   * If the view is horizontally homogeneous, it allocates the same width for
+   * all pages.
+   *
+   * If it's not, the page may change width when a different page becomes
+   * visible.
+   *
+   * Since: 1.7
+   */
+  props[PROP_HHOMOGENEOUS] =
+    g_param_spec_boolean ("hhomogeneous", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwNavigationView:vhomogeneous:
+   *
+   * Whether the view is vertically homogeneous.
+   *
+   * If the view is vertically homogeneous, it allocates the same height for
+   * all pages.
+   *
+   * If it's not, the view may change height when a different page becomes
+   * visible.
+   *
+   * Since: 1.7
+   */
+  props[PROP_VHOMOGENEOUS] =
+    g_param_spec_boolean ("vhomogeneous", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwNavigationView:animate-transitions:
@@ -2950,6 +3028,109 @@ adw_navigation_view_get_previous_page (AdwNavigationView *self,
   g_object_unref (ret);
 
   return ret;
+}
+
+/**
+ * adw_navigation_view_get_hhomogeneous:
+ * @self: a navigation view
+ *
+ * Gets whether @self is horizontally homogeneous.
+ *
+ * Returns: whether @self is horizontally homogeneous
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_navigation_view_get_hhomogeneous (AdwNavigationView *self)
+{
+  g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), FALSE);
+
+  return self->homogeneous[GTK_ORIENTATION_HORIZONTAL];
+}
+
+/**
+ * adw_navigation_view_set_hhomogeneous:
+ * @self: a navigation view
+ * @hhomogeneous: whether to make @self horizontally homogeneous
+ *
+ * Sets @self to be horizontally homogeneous or not.
+ *
+ * If the view is horizontally homogeneous, it allocates the same width for
+ * all pages.
+ *
+ * If it's not, the view may change width when a different page becomes visible.
+ *
+ * Since: 1.7
+ */
+void
+adw_navigation_view_set_hhomogeneous (AdwNavigationView *self,
+                                      gboolean           hhomogeneous)
+{
+  g_return_if_fail (ADW_IS_NAVIGATION_VIEW (self));
+
+  hhomogeneous = !!hhomogeneous;
+
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] == hhomogeneous)
+    return;
+
+  self->homogeneous[GTK_ORIENTATION_HORIZONTAL] = hhomogeneous;
+
+  if (gtk_widget_get_visible (GTK_WIDGET (self)))
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HHOMOGENEOUS]);
+}
+
+/**
+ * adw_navigation_view_get_vhomogeneous:
+ * @self: a navigation view
+ *
+ * Gets whether @self is vertically homogeneous.
+ *
+ * Returns: whether @self is vertically homogeneous
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_navigation_view_get_vhomogeneous (AdwNavigationView *self)
+{
+  g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), FALSE);
+
+  return self->homogeneous[GTK_ORIENTATION_VERTICAL];
+}
+
+/**
+ * adw_navigation_view_set_vhomogeneous:
+ * @self: a navigation view
+ * @vhomogeneous: whether to make @self vertically homogeneous
+ *
+ * Sets @self to be vertically homogeneous or not.
+ *
+ * If the view is vertically homogeneous, it allocates the same height for
+ * all pages.
+ *
+ * If it's not, the view may change height when a different page becomes
+ * visible.
+ *
+ * Since: 1.7
+ */
+void
+adw_navigation_view_set_vhomogeneous (AdwNavigationView *self,
+                                      gboolean           vhomogeneous)
+{
+  g_return_if_fail (ADW_IS_NAVIGATION_VIEW (self));
+
+  vhomogeneous = !!vhomogeneous;
+
+  if (self->homogeneous[GTK_ORIENTATION_VERTICAL] == vhomogeneous)
+    return;
+
+  self->homogeneous[GTK_ORIENTATION_VERTICAL] = vhomogeneous;
+
+  if (gtk_widget_get_visible (GTK_WIDGET (self)))
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VHOMOGENEOUS]);
 }
 
 /**
