@@ -452,7 +452,7 @@ measure_sheet (GtkWidget      *widget,
     sheet_min = sheet_nat = 0;
   }
 
-  if (self->min_natural_width >= 0)
+  if (orientation == GTK_ORIENTATION_HORIZONTAL && self->min_natural_width >= 0)
     sheet_nat = MAX (sheet_nat, self->min_natural_width);
 
   if (gtk_widget_should_layout (self->drag_handle)) {
