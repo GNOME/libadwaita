@@ -12,6 +12,7 @@
 
 #include "config.h"
 #include <math.h>
+#include <glib/gi18n.h>
 
 #include "adw-avatar.h"
 #include "adw-gizmo-private.h"
@@ -44,6 +45,10 @@
  * ## CSS nodes
  *
  * `AdwAvatar` has a single CSS node with name `avatar`.
+ *
+ * ## Accessibility
+ *
+ * `AdwAvatar` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
  */
 
 struct _AdwAvatar
@@ -150,10 +155,26 @@ update_initials (AdwAvatar *self)
 {
   char *initials;
 
+ if (self->text && *self->text) {
+    char *accessible_label = g_strdup_printf (_("Avatar of %s"), self->text);
+
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_LABEL,
+                                    accessible_label,
+                                    -1);
+
+    g_free (accessible_label);
+  } else {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_LABEL,
+                                    NULL,
+                                    -1);
+  }
+
   if (gtk_image_get_paintable (self->custom_image) != NULL ||
       !self->show_initials ||
-      self->text == NULL ||
-      strlen (self->text) == 0)
+      !self->text ||
+      !*self->text)
     return;
 
   initials = extract_initials_from_text (self->text);
@@ -437,25 +458,33 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_IMG);
 }
 
 static void
 adw_avatar_init (AdwAvatar *self)
 {
-  self->gizmo = adw_gizmo_new ("avatar", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->gizmo = adw_gizmo_new_with_role ("avatar", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                         NULL, NULL, NULL, NULL, NULL, NULL);
   gtk_widget_set_overflow (self->gizmo, GTK_OVERFLOW_HIDDEN);
   gtk_widget_set_halign (self->gizmo, GTK_ALIGN_CENTER);
   gtk_widget_set_valign (self->gizmo, GTK_ALIGN_CENTER);
   gtk_widget_set_layout_manager (self->gizmo, gtk_bin_layout_new ());
   gtk_widget_set_parent (self->gizmo, GTK_WIDGET (self));
 
-  self->label = GTK_LABEL (gtk_label_new (NULL));
+  self->label = g_object_new (GTK_TYPE_LABEL,
+                              "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                              NULL);
   gtk_widget_set_parent (GTK_WIDGET (self->label), self->gizmo);
 
-  self->icon = GTK_IMAGE (gtk_image_new ());
+  self->icon = g_object_new (GTK_TYPE_IMAGE,
+                             "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                             NULL);
   gtk_widget_set_parent (GTK_WIDGET (self->icon), self->gizmo);
 
-  self->custom_image = GTK_IMAGE (gtk_image_new ());
+  self->custom_image = g_object_new (GTK_TYPE_IMAGE,
+                                     "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                     NULL);
   gtk_widget_set_parent (GTK_WIDGET (self->custom_image), self->gizmo);
 
   self->text = g_strdup ("");

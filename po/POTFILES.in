@@ -5,6 +5,7 @@ src/adw-about-dialog.ui
 src/adw-about-window.c
 src/adw-about-window.ui
 src/adw-alert-dialog.c
+src/adw-avatar.c
 src/adw-back-button.c
 src/adw-breakpoint.c
 src/adw-combo-row.ui
