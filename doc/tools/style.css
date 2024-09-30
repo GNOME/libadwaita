@@ -26,3 +26,9 @@
 .overview-tab-page {
   background: linear-gradient(to bottom right, var(--blue-1) 25%, var(--green-1));
 }
+
+.tags label {
+  padding: 3px 12px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  border-radius: 99px;
+}

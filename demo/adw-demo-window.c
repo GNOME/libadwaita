@@ -20,6 +20,7 @@
 #include "pages/toggles/adw-demo-page-toggles.h"
 #include "pages/view-switcher/adw-demo-page-view-switcher.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
+#include "pages/wrap-box/adw-demo-page-wrap-box.h"
 
 struct _AdwDemoWindow
 {
@@ -130,6 +131,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_TOGGLES);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_VIEW_SWITCHER);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_WRAP_BOX);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 

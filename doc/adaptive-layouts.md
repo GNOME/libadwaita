@@ -51,6 +51,31 @@ This is commonly used for patterns such as [boxed lists](boxed-lists.html):
 
 See also: [class@ClampLayout], [class@ClampScrollable].
 
+# Wrap Box
+
+[class@WrapBox] is similar to [class@Gtk.Box], but can wrap lines when the
+widgets cannot fit otherwise. Unlike [class@Gtk.FlowBox], the children aren't
+arranged into a grid and behave like words in a wrapping label.
+
+<picture>
+  <source srcset="adaptive-tags-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-tags-wide.png" alt="adaptive-tags-wide">
+</picture>
+<picture>
+  <source srcset="adaptive-tags-narrow-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-tags-narrow.png" alt="adaptive-tags-narrow">
+</picture>
+
+```xml
+<object class="AdwWrapBox">
+  <property name="line-spacing">6</property>
+  <property name="child-spacing">6</property>
+  <!-- children -->
+</object>
+```
+
+See also: [class@WrapLayout].
+
 # Dialogs
 
 [class@Dialog] is an adaptive dialog container. It can be presented as a

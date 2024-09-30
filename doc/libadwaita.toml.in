@@ -90,6 +90,10 @@ content_images = [
   "images/adaptive-tabs-narrow-2-dark.png",
   "images/adaptive-tabs-wide.png",
   "images/adaptive-tabs-wide-dark.png",
+  "images/adaptive-tags-narrow.png",
+  "images/adaptive-tags-narrow-dark.png",
+  "images/adaptive-tags-wide.png",
+  "images/adaptive-tags-wide-dark.png",
   "images/adaptive-triple-pane-narrow-1.png",
   "images/adaptive-triple-pane-narrow-1-dark.png",
   "images/adaptive-triple-pane-narrow-2.png",
@@ -346,6 +350,8 @@ content_images = [
   "images/window-dark.png",
   "images/window-title.png",
   "images/window-title-dark.png",
+  "images/wrap-box.png",
+  "images/wrap-box-dark.png",
   "libadwaita.svg",
 ]
 

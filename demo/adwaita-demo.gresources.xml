@@ -73,6 +73,7 @@
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-demo-page-view-switcher.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-view-switcher-demo-dialog.ui</file>
     <file preprocess="xml-stripblanks">pages/welcome/adw-demo-page-welcome.ui</file>
+    <file preprocess="xml-stripblanks">pages/wrap-box/adw-demo-page-wrap-box.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-preferences-dialog.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-window.ui</file>
   </gresource>

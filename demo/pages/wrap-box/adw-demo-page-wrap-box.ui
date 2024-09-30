@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageWrapBox" parent="AdwBin">
+    <property name="child">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="icon-name">widget-view-switcher-symbolic</property>
+            <property name="title" translatable="yes">Wrap Box</property>
+            <property name="description" translatable="yes">A box-like widget that can wrap into multiple lines.</property>
+            <property name="child">
+              <object class="AdwClamp">
+                <property name="child">
+                  <object class="AdwWrapBox" id="wrap_box">
+                    <property name="line-spacing">6</property>
+                    <property name="child-spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="add_btn">
+                        <property name="icon-name">list-add-symbolic</property>
+                        <property name="action-name">demo.add-tag</property>
+                        <style>
+                          <class name="flat"/>
+                          <class name="circular"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

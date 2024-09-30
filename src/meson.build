@@ -31,6 +31,7 @@ adw_public_enum_headers = [
   'adw-toast.h',
   'adw-toolbar-view.h',
   'adw-view-switcher.h',
+  'adw-wrap-layout.h',
 ]
 
 adw_private_enum_headers = [
@@ -176,6 +177,8 @@ src_headers = [
   'adw-view-switcher-title.h',
   'adw-window.h',
   'adw-window-title.h',
+  'adw-wrap-box.h',
+  'adw-wrap-layout.h',
 ]
 
 gen_public_types = find_program('gen-public-types.py', required: true)
@@ -267,6 +270,8 @@ src_sources = [
   'adw-view-switcher-title.c',
   'adw-window.c',
   'adw-window-title.c',
+  'adw-wrap-box.c',
+  'adw-wrap-layout.c',
 ]
 
 # Files that should not be introspected

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWrapBox" id="widget">
+    <property name="line-spacing">6</property>
+    <property name="child-spacing">6</property>
+    <property name="natural-line-length">250</property>
+    <style>
+      <class name="tags"/>
+    </style>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Audio</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Documents</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Folders</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Images</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Text</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Spreadsheets</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">PDF</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Videos</property>
+      </object>
+    </child>
+  </object>
+</interface>

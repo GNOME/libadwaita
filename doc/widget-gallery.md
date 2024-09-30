@@ -246,7 +246,7 @@ Slug: widget-gallery
   <img src="bottom-sheet.png" alt="bottom-sheet">
 </picture>](class.BottomSheet.html)
 
-# Helpers
+# Layout
 
 ## Breakpoint Bin
 
@@ -267,6 +267,24 @@ Slug: widget-gallery
 </picture>](class.Clamp.html)
 
 See also: [class@ClampLayout], [class@ClampScrollable]
+
+## Wrap Box
+
+[<picture>
+  <source srcset="wrap-box-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="wrap-box.png" alt="wrap-box">
+</picture>](class.WrapBox.html)
+
+See also: [class@WrapLayout]
+
+## Bin
+
+[<picture>
+  <source srcset="bin-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="bin.png" alt="bin">
+</picture>](class.Bin.html)
+
+# Helpers
 
 ## Toolbar View
 
@@ -311,10 +329,3 @@ See also: [class@ApplicationWindow]
   <source srcset="button-content-dark.png" media="(prefers-color-scheme: dark)">
   <img src="button-content.png" alt="button-content">
 </picture>](class.ButtonContent.html)
-
-## Bin
-
-[<picture>
-  <source srcset="bin-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="bin.png" alt="bin">
-</picture>](class.Bin.html)

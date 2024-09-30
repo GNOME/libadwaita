@@ -54,6 +54,7 @@ adwaita_demo_sources = [
   'pages/view-switcher/adw-demo-page-view-switcher.c',
   'pages/view-switcher/adw-view-switcher-demo-dialog.c',
   'pages/welcome/adw-demo-page-welcome.c',
+  'pages/wrap-box/adw-demo-page-wrap-box.c',
 
   'adwaita-demo.c',
   'adw-demo-debug-info.c',

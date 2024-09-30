@@ -93,6 +93,7 @@ test_names = [
   'test-view-switcher-bar',
   'test-window',
   'test-window-title',
+  'test-wrap-layout',
 ]
 
 foreach test_name : test_names
