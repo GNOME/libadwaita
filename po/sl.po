@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-09-26 23:42+0000\n"
-"PO-Revision-Date: 2024-09-29 21:01+0200\n"
+"POT-Creation-Date: 2024-09-30 14:13+0000\n"
+"PO-Revision-Date: 2024-09-30 22:29+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -170,56 +170,56 @@ msgstr "Drugi programi"
 msgid "About"
 msgstr "O programu"
 
-#: src/adw-about-dialog.ui:89 src/adw-about-window.ui:92
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
 msgid "_What’s New"
 msgstr "_Kaj je novega"
 
-#: src/adw-about-dialog.ui:105 src/adw-about-window.ui:108
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "_Podrobnosti"
 
-#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:346
-#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
 msgid "_Website"
 msgstr "_Spletišče"
 
-#: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Support Questions"
 msgstr "_Vprašanja podpore"
 
-#: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
 msgid "_Report an Issue"
 msgstr "_Pošlji poročilo o napaki"
 
-#: src/adw-about-dialog.ui:178 src/adw-about-window.ui:181
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
 msgid "_Troubleshooting"
 msgstr "_Odpravljanje težav"
 
-#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
 msgid "_Credits"
 msgstr "_Zasluge"
 
-#: src/adw-about-dialog.ui:214 src/adw-about-window.ui:217
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
 msgid "_Legal"
 msgstr "_Pravna opomba"
 
-#: src/adw-about-dialog.ui:230 src/adw-about-window.ui:233
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
 msgid "_Acknowledgements"
 msgstr "_Priznanja vlog"
 
-#: src/adw-about-dialog.ui:265 src/adw-about-window.ui:263
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
 msgid "What’s New"
 msgstr "Kaj je novega"
 
-#: src/adw-about-dialog.ui:308 src/adw-about-window.ui:306
+#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: src/adw-about-dialog.ui:374 src/adw-about-window.ui:372
+#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
 msgid "Troubleshooting"
 msgstr "Odpravljanje težav"
 
-#: src/adw-about-dialog.ui:397 src/adw-about-window.ui:395
+#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -229,33 +229,38 @@ msgstr ""
 "razhroščevanja. Podatki so lahko v veliko pomoč razvijalcem programa pri "
 "ugotavljanju težav, na katere naletite."
 
-#: src/adw-about-dialog.ui:408 src/adw-about-window.ui:406
+#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
 msgid "_Debugging Information"
 msgstr "_Podrobnosti razhroščevanja"
 
-#: src/adw-about-dialog.ui:435 src/adw-about-window.ui:433
+#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
 msgid "Debugging Information"
 msgstr "Podrobnosti razhroščevanja"
 
-#: src/adw-about-dialog.ui:480 src/adw-about-window.ui:478
+#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
 msgid "_Copy Text"
 msgstr "_Kopiraj besedilo"
 
-#: src/adw-about-dialog.ui:488 src/adw-about-window.ui:486
+#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
 msgid "_Save As…"
 msgstr "_Shrani kot …"
 
-#: src/adw-about-dialog.ui:501 src/adw-about-window.ui:499
+#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
 msgid "Credits"
 msgstr "Zasluge"
 
-#: src/adw-about-dialog.ui:532 src/adw-about-window.ui:530
+#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
 msgid "Legal"
 msgstr "Pravna opomba"
 
-#: src/adw-about-dialog.ui:564 src/adw-about-window.ui:562
+#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Priznanja vlog"
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr "Avatar za: %s"
 
 #: src/adw-back-button.c:311 src/adw-back-button.c:409
 #: src/adw-back-button.c:519
