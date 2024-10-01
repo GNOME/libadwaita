@@ -356,10 +356,17 @@ adw_breakpoint_bin_measure (GtkWidget      *widget,
       min = 0;
   }
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    nat = MAX (nat, priv->natural_width);
-  else
-    nat = MAX (nat, priv->natural_height);
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    if (priv->natural_width >= 0)
+      nat = MAX (min, priv->natural_width);
+    else
+      nat = MAX (min, nat);
+  } else {
+    if (priv->natural_height >= 0)
+      nat = MAX (min, priv->natural_height);
+    else
+      nat = MAX (min, nat);
+  }
 
   if (minimum)
     *minimum = min;
