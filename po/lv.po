@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-03-08 16:57+0000\n"
-"PO-Revision-Date: 2024-03-08 23:11+0200\n"
+"POT-Creation-Date: 2024-09-14 11:40+0000\n"
+"PO-Revision-Date: 2024-10-01 22:05+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -16,101 +16,100 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:206
+#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU Vispārīgā Publiskā Licence 2. versija vai jaunāka"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU Vispārīgā Publiskā Licence 3. versija vai jaunāka"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Mazākā Vispārīgā Publiskā Licence 2.1. versija vai jaunāka"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Mazākā Vispārīgā Publiskā Licence 3. versija vai jaunāka"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "BSD divu klauzulu licence"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "MIT licence (MIT)"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "Mākslinieciskā licence 2.0"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU Vispārīgā Publiskā Licence tikai 2. versija"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU Vispārīgā Publiskā Licence tikai 3. versija"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Mazāk Vispārīgā Publiskā Licence tikai 2.1 versija"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Mazāk Vispārīgā Publiskā Licence tikai 3 versija"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero Vispārīgā Publiskā Licence 3. versija vai jaunāka"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero Vispārīgā Publiskā Licence tikai 3. versija"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "BSD trīs klauzulu licence"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "Apache license, 2.0 versija"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla publiskā licence 2.0"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:222
-#| msgid "BSD 2-Clause License"
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "BSD nulle klauzulu licence"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:571 src/adw-about-window.c:570
 msgid "Code by"
 msgstr "Programmēja"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:572 src/adw-about-window.c:571
 msgid "Design by"
 msgstr "Projektēja"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:573 src/adw-about-window.c:572
 msgid "Artwork by"
 msgstr "Zīmēja"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:573
 msgid "Documentation by"
 msgstr "Dokumentēja"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:574
 msgid "Translated by"
 msgstr "Tulkoja"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:604 src/adw-about-window.c:603
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,37 +118,38 @@ msgstr ""
 "Šī lietotne nāk bez jebkādas garantijas. Lai uzzinātu vairāk, apmeklējiet <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:682 src/adw-about-window.c:681
 msgid "This Application"
 msgstr "Šī lietotne"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:984 src/adw-about-window.c:983
 #, c-format
 msgid "Version %s"
 msgstr "Versija %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:1010 src/adw-about-window.c:1009
 msgid "Unable to parse release notes:"
 msgstr "Neizdevās parsēt laidiena piezīmes:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1015
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Rinda: %d, rakstzīme: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1302 src/adw-about-window.c:1301
 msgid "Copied to clipboard"
 msgstr "Kopēts starpliktuvē"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1329
 msgid "Unable to save debugging information"
 msgstr "Neizdevās saglabāt atkļūdošanas informāciju"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1334
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Aizvērt"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1351 src/adw-about-window.c:1350
 msgid "Save debugging information"
 msgstr "Saglabāt atkļūdošanas informāciju"
 
@@ -244,8 +244,8 @@ msgstr "Legāls"
 msgid "Acknowledgements"
 msgstr "Atzinības"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:311 src/adw-back-button.c:409
+#: src/adw-back-button.c:519
 msgid "Back"
 msgstr "Atpakaļ"
 
@@ -255,24 +255,60 @@ msgstr "Atpakaļ"
 msgid "Search"
 msgstr "Meklēt"
 
-#: src/adw-entry-row.ui:97
+#: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Pielietot"
 
-#: src/adw-inspector-page.c:75
+#: src/adw-inspector-page.c:98
 msgid "No Preference"
 msgstr "Nav priekšroka"
 
-#: src/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:100
 msgid "Prefer Dark"
 msgstr "Priekšroka tumšajam"
 
-#: src/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:102
 msgid "Prefer Light"
 msgstr "Priekšroka gaišajam"
 
+#: src/adw-inspector-page.c:115
+msgid "Blue"
+msgstr "Zils"
+
+#: src/adw-inspector-page.c:117
+msgid "Teal"
+msgstr "Zilganzaļš"
+
+#: src/adw-inspector-page.c:119
+msgid "Green"
+msgstr "Zaļš"
+
+#: src/adw-inspector-page.c:121
+msgid "Yellow"
+msgstr "Dzeltens"
+
+#: src/adw-inspector-page.c:123
+msgid "Orange"
+msgstr "Oranžs"
+
+#: src/adw-inspector-page.c:125
+msgid "Red"
+msgstr "Sarkans"
+
+#: src/adw-inspector-page.c:127
+msgid "Pink"
+msgstr "Rozā"
+
+#: src/adw-inspector-page.c:129
+msgid "Purple"
+msgstr "Purpura"
+
+#: src/adw-inspector-page.c:131
+msgid "Slate"
+msgstr "Šīfera zils"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:97
+#: src/adw-inspector-page.c:270
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -296,7 +332,25 @@ msgstr "Sistēma atbalsta krāsu shēmas"
 msgid "Preferred Color Scheme"
 msgstr "Vēlamā krāsu shēma"
 
-#: src/adw-inspector-page.ui:37
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "Akcenta krāsa"
+
+#: src/adw-inspector-page.ui:42
+#| msgid "System Supports Color Schemes"
+msgid "System Supports Accent Colors"
+msgstr "Sistēma atbalsta akcenta krāsas"
+
+#: src/adw-inspector-page.ui:48
+#| msgid "Preferred Color Scheme"
+msgid "Preferred Accent Color"
+msgstr "Vēlamā akcenta krāsa"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "Piekļūstamība"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "Augsts kontrasts"
 
@@ -316,7 +370,7 @@ msgstr "Ieslēgts Caps Lock"
 msgid "_Show Password"
 msgstr "_Rādīt paroli"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
 msgid "Untitled page"
 msgstr "Nenosaukta lapa"
 
@@ -332,12 +386,20 @@ msgstr "Rādīt iestatījumus"
 msgid "No Results Found"
 msgstr "Nav atrastu rezultātu"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:164
-#: src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+#| msgid "Try a different search."
+msgid "Try a different search"
+msgstr "Mēģiniet ar citu meklējamo vārdu"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "Mēģiniet ar citu meklējamo vārdu."
 
-#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "Aizvērt logu"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
 msgstr "Vairāk opciju"
 
@@ -374,7 +436,26 @@ msgstr "Nav atrastu ciļņu"
 msgid "New _Tab"
 msgstr "Jauna _cilne"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:95
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
 msgstr "Aizvērt cilni"
+
+#: src/adw-toast-overlay.c:271
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Parādījās grauzdiņš: %s, ir poga: %s"
+
+#: src/adw-toast-overlay.c:274
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Parādījās grauzdiņš: %s"
+
+#: src/adw-toast-overlay.c:276
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Parādījās grauzdiņš, ir poga: %s"
+
+#: src/adw-toast-overlay.c:279
+msgid "A toast appeared"
+msgstr "Parādījās grauzdiņš"
 
