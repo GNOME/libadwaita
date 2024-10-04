@@ -85,6 +85,19 @@ Name                              | Light                    | Dark
 --------------------------------- | ------------------------ | -------------------------
 <tt>--standalone-color-oklab</tt> | <tt>min(l, 0.5) a b</tt> | <tt>max(l, 0.85) a b</tt>
 
+::: note "<a id='out-of-gamut-colors'>Note</a>"
+    Adjusting colors in the Oklab color space may produce colors outside of sRGB
+    gamut. These colors need to be gamut mapped in order to be displayed on
+    screen. This page lists colors after gamut mapping, and out of gamut colors
+    will be marked with an asterisk.
+
+    For example, the dark standalone color for blue accent color is
+    `oklab(0.850000 -0.081818 -0.053404)`, so
+    `color(srgb 0.504313 0.817230 1.218717)` when converted to sRGB. However,
+    the blue channel in this color is outside the [0-1] range and is clipped to
+    it before being displayed, so the end result is
+    `color(srgb 0.504313 0.817230 1)`, or `#81d0ff`.
+
 ## Accent Colors
 
 The accent color is used across many different widgets, often to indicate that a
@@ -124,7 +137,7 @@ always be one of the following:
     <td><div class="color-pill" style="background-color: #0461be"/></td>
     <td><tt>#0461be</tt></td>
     <td><div class="color-pill" style="background-color: #81d0ff"/></td>
-    <td><tt>#81d0ff</tt></td>
+    <td><tt>#81d0ff</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Teal</td>
@@ -133,7 +146,7 @@ always be one of the following:
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill" style="background-color: #007184"/></td>
-    <td><tt>#007184</tt></td>
+    <td><tt>#007184</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #7bdff4"/></td>
     <td><tt>#7bdff4</tt></td>
   </tr>
@@ -155,9 +168,9 @@ always be one of the following:
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill" style="background-color: #905300"/></td>
-    <td><tt>#905300</tt></td>
+    <td><tt>#905300</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ffc057"/></td>
-    <td><tt>#ffc057</tt></td>
+    <td><tt>#ffc057</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Orange</td>
@@ -166,9 +179,9 @@ always be one of the following:
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill" style="background-color: #b62200"/></td>
-    <td><tt>#b62200</tt></td>
+    <td><tt>#b62200</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ff9c5b"/></td>
-    <td><tt>#ff9c5b</tt></td>
+    <td><tt>#ff9c5b</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Red</td>
@@ -177,9 +190,9 @@ always be one of the following:
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill" style="background-color: #c00023"/></td>
-    <td><tt>#c00023</tt></td>
+    <td><tt>#c00023</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ff888c"/></td>
-    <td><tt>#ff888c</tt></td>
+    <td><tt>#ff888c</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Pink</td>
@@ -190,7 +203,7 @@ always be one of the following:
     <td><div class="color-pill" style="background-color: #a2326c"/></td>
     <td><tt>#a2326c</tt></td>
     <td><div class="color-pill" style="background-color: #ffa0d8"/></td>
-    <td><tt>#ffa0d8</tt></td>
+    <td><tt>#ffa0d8</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Purple</td>
@@ -201,7 +214,7 @@ always be one of the following:
     <td><div class="color-pill" style="background-color: #8939a4"/></td>
     <td><tt>#8939a4</tt></td>
     <td><div class="color-pill" style="background-color: #fba7ff"/></td>
-    <td><tt>#fba7ff</tt></td>
+    <td><tt>#fba7ff</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
   <tr>
     <td>Slate</td>
@@ -305,9 +318,9 @@ detailed above.
   <tr>
     <td><tt>--destructive-color</tt></td>
     <td><div class="color-pill" style="background-color: #c30000"/></td>
-    <td><tt>#c30000</tt></td>
+    <td><tt>#c30000</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ff938c"/></td>
-    <td><tt>#ff938c</tt></td>
+    <td><tt>#ff938c</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
 </table>
 
@@ -344,7 +357,7 @@ above.
   <tr>
     <td><tt>--success-color</tt></td>
     <td><div class="color-pill" style="background-color: #007c3d"/></td>
-    <td><tt>#007c3d</tt></td>
+    <td><tt>#007c3d</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #78e9ab"/></td>
     <td><tt>#78e9ab</tt></td>
   </tr>
@@ -383,7 +396,7 @@ above.
   <tr>
     <td><tt>--warning-color</tt></td>
     <td><div class="color-pill" style="background-color: #905400"/></td>
-    <td><tt>#905400</tt></td>
+    <td><tt>#905400</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ffc252"/></td>
     <td><tt>#ffc252</tt></td>
   </tr>
@@ -420,9 +433,9 @@ The `--error-color` color is derived from `--error-bg-color` as detailed above.
   <tr>
     <td><tt>--error-color</tt></td>
     <td><div class="color-pill" style="background-color: #c30000"/></td>
-    <td><tt>#c30000</tt></td>
+    <td><tt>#c30000</tt> <a href="#out-of-gamut-colors">*</a></td>
     <td><div class="color-pill" style="background-color: #ff938c"/></td>
-    <td><tt>#ff938c</tt></td>
+    <td><tt>#ff938c</tt> <a href="#out-of-gamut-colors">*</a></td>
   </tr>
 </table>
 
@@ -1245,4 +1258,3 @@ Name                                            | Value
 <tt>&#64;theme_unfocused_selected_fg_color</tt> | [<tt>&#64;accent_fg_color</tt>](#accent-colors)
 <tt>&#64;unfocused_insensitive_color</tt>       | <tt>&#64;insensitive_bg_color</tt>
 <tt>&#64;unfocused_borders</tt>                 | <tt>&#64;borders</tt>
-
