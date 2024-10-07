@@ -38,9 +38,9 @@ ADW_AVAILABLE_IN_ALL
 void adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
                                                 int             tightening_threshold);
 
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_4
 AdwLengthUnit adw_clamp_layout_get_unit (AdwClampLayout *self);
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_4
 void          adw_clamp_layout_set_unit (AdwClampLayout *self,
                                          AdwLengthUnit   unit);
 
