@@ -12,7 +12,7 @@ We use the Meson (and thereby Ninja) build system for libadwaita. The quickest
 way to get going is to do the following:
 
 ```sh
-meson . _build
+meson setup _build
 ninja -C _build
 ninja -C _build install
 ```
@@ -20,7 +20,7 @@ ninja -C _build install
 For build options see [meson_options.txt](./meson_options.txt). E.g. to enable documentation:
 
 ```sh
-meson . _build -Dgtk_doc=true
+meson setup _build -Dgtk_doc=true
 ninja -C _build
 ```
 
