@@ -1721,7 +1721,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    * AdwTabOverview::create-tab:
    * @self: a tab overview
    *
-   * Emitted when a tab needs to be created;
+   * Emitted when a tab needs to be created.
    *
    * This can happen after the new tab button has been pressed, see
    * [property@TabOverview:enable-new-tab].
