@@ -124,7 +124,7 @@ After running the command above, one may now build the library:
 ```bash
 git clone https://gitlab.gnome.org/GNOME/libadwaita.git
 cd libadwaita
-meson _build
+meson setup _build
 ninja -C _build
 ninja -C _build install
 ```
