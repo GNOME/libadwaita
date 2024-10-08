@@ -151,7 +151,8 @@
  *
  * ## Other applications
  *
- * TODO
+ * `AdwAboutDialog` can show links to your other apps at the end of the main
+ * page. To add them, use [method@AboutDialog.add_other_app].
  *
  * ## Constructing
  *
