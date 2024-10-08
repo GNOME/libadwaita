@@ -2907,9 +2907,20 @@ popup_menu_cb (GtkWidget  *widget,
 static void
 handle_click (AdwTabBox  *self,
               TabInfo    *info,
-              GtkGesture *gesture)
+              GtkGesture *gesture,
+              double      x,
+              double      y)
 {
   gboolean can_grab_focus;
+
+  graphene_point_t point;
+  if (!gtk_widget_compute_point (GTK_WIDGET (self), GTK_WIDGET (info->tab),
+                                 &GRAPHENE_POINT_INIT (x, y), &point)) {
+    return;
+  }
+
+  if (!adw_tab_can_click_at (info->tab, point.x, point.y))
+    return;
 
   if (self->adjustment) {
     int pos = get_tab_position (self, info, FALSE);
@@ -2991,7 +3002,9 @@ pressed_cb (AdwTabBox  *self,
     return;
   }
 
-  handle_click (self, info, gesture);
+  x -= gtk_adjustment_get_value (self->adjustment);
+
+  handle_click (self, info, gesture, x, y);
 }
 
 static void
@@ -3035,8 +3048,11 @@ released_cb (AdwTabBox  *self,
     return;
   }
 
-  if (is_touchscreen (gesture))
-    handle_click (self, info, gesture);
+  if (is_touchscreen (gesture)) {
+    x -= gtk_adjustment_get_value (self->adjustment);
+
+    handle_click (self, info, gesture, x, y);
+  }
 }
 
 /* Overrides */

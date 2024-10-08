@@ -1054,3 +1054,23 @@ adw_tab_set_extra_drag_preload (AdwTab   *self,
 
   gtk_drop_target_set_preload (self->drop_target, preload);
 }
+
+gboolean
+adw_tab_can_click_at (AdwTab *self,
+                      float   x,
+                      float   y)
+{
+  GtkWidget *picked;
+
+  g_return_val_if_fail (ADW_IS_TAB (self), FALSE);
+
+  picked = gtk_widget_pick (GTK_WIDGET (self), x, y, GTK_PICK_DEFAULT);
+
+  if (picked == self->close_btn || gtk_widget_is_ancestor (picked, self->close_btn))
+    return FALSE;
+
+  if (picked == self->indicator_btn || gtk_widget_is_ancestor (picked, self->indicator_btn))
+    return FALSE;
+
+  return TRUE;
+}

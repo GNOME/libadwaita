@@ -47,4 +47,8 @@ void adw_tab_setup_extra_drop_target (AdwTab        *self,
 void adw_tab_set_extra_drag_preload (AdwTab   *self,
                                      gboolean  preload);
 
+gboolean adw_tab_can_click_at (AdwTab *self,
+                               float   x,
+                               float   y);
+
 G_END_DECLS
