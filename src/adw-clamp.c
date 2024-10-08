@@ -37,6 +37,8 @@
  * `AdwClamp` can scale with the text scale factor, use the
  * [property@Clamp:unit] property to enable that behavior.
  *
+ * See also: [class@ClampLayout], [class@ClampScrollable].
+ *
  * ## CSS nodes
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
