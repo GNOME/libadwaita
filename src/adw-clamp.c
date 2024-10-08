@@ -35,7 +35,7 @@
  * allocated the minimum size it can fit in instead.
  *
  * `AdwClamp` can scale with the text scale factor, use the
- * [property@ClampLayout:unit] property to enable that behavior.
+ * [property@Clamp:unit] property to enable that behavior.
  *
  * ## CSS nodes
  *
