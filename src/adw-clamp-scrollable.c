@@ -22,6 +22,8 @@
  *
  * The primary use case for `AdwClampScrollable` is clamping
  * [class@Gtk.ListView].
+ *
+ * See also: [class@ClampLayout].
  */
 
 enum {
