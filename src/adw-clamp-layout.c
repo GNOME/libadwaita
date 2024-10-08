@@ -38,6 +38,8 @@
  *
  * `AdwClampLayout` can scale with the text scale factor, use the
  * [property@ClampLayout:unit] property to enable that behavior.
+ *
+ * See also: [class@Clamp], [class@ClampScrollable].
  */
 
 #define ADW_EASE_OUT_TAN_CUBIC 3
