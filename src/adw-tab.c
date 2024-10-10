@@ -1039,6 +1039,9 @@ adw_tab_can_click_at (AdwTab *self,
 
   picked = gtk_widget_pick (GTK_WIDGET (self), x, y, GTK_PICK_DEFAULT);
 
+  if (picked == NULL)
+    return TRUE;
+
   if (picked == self->close_btn || gtk_widget_is_ancestor (picked, self->close_btn))
     return FALSE;
 
