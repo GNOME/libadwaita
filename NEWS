@@ -1,4 +1,29 @@
 =============
+Version 1.5.5
+=============
+
+- Fix meson syntax in readme
+- AdwBreakpointBin
+  - Fix natural size
+- AdwClamp
+  - Fix get/set_unit() version
+- AdwExpanderRow
+  - Make suffix spacing match action rows and entry rows
+- AdwTabBar
+  - Don't select tabs when clicking close or indicator buttons
+  - Only handle middle clicks started and ended on the same tab
+- AdwTabOverview
+  - Only handle middle clicks started and ended on the same thumbnail
+- AdwViewSwitcher
+  - Have a minimum height outside header bars
+- Docs
+  - Update deprecated meson syntax
+  - Typo fixes
+  - Link clamp/layout/scrollable docs between each other
+- Translation updates
+  - Thai
+
+=============
 Version 1.5.4
 =============
 
