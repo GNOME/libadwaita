@@ -1,4 +1,38 @@
 =============
+Version 1.6.1
+=============
+
+- Fix meson syntax in readme
+- AdwAboutDialog/Window
+  - Fix natural width
+- AdwAlertDialog
+  - Fix a crash when setting content-width/height before present()
+- AdwBottomSheet
+  - Fix natural height
+  - Fix criticals in dispose in some cases
+- AdwBreakpointBin
+  - Fix natural size
+- AdwClamp
+  - Fix get/set_unit() version
+- AdwExpanderRow
+  - Make suffix spacing match action rows and entry rows
+- AdwTabBar
+  - Don't select tabs when clicking close or indicator buttons
+  - Only handle middle clicks started and ended on the same tab
+- AdwTabOverview
+  - Only handle middle clicks started and ended on the same thumbnail
+- AdwViewSwitcher
+  - Have a minimum height outside header bars
+- Docs
+  - Indicate and explain out of gamut colors on CSS variables page
+  - Update deprecated meson syntax
+  - Typo fixes
+  - Link clamp/layout/scrollable docs between each other
+- Translation updates
+  - Latvian
+  - Thai
+
+=============
 Version 1.6.0
 =============
 
