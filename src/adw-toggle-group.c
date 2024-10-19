@@ -396,7 +396,7 @@ adw_toggle_class_init (AdwToggleClass *class)
    * The toggle label.
    *
    * The label will be displayed alone or next to the icon, unless
-   * [property@Toggle:child] is set, but will stil be read out by the screen
+   * [property@Toggle:child] is set, but will still be read out by the screen
    * reader.
    *
    * Since: 1.7
@@ -1266,7 +1266,7 @@ adw_toggle_get_label (AdwToggle *self)
  * Sets the label of @self to @label.
  *
  * The label will be displayed alone or next to the icon, unless
- * [property@Toggle:child] is set, but will stil be read out by the screen
+ * [property@Toggle:child] is set, but will still be read out by the screen
  * reader.
  *
  * Since: 1.7
