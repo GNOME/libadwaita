@@ -79,7 +79,7 @@
   // stand-alone OSD toolbars
   &.osd {
     padding: 12px;
-    border-radius: $card_radius;
+    border-radius: $button_radius + 6px;
   }
 }
 

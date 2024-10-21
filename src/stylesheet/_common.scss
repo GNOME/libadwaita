@@ -5,12 +5,12 @@ $focus_transition: outline-color 200ms $ease-out-quad,
                    outline-offset 200ms $ease-out-quad;
 $button_transition: background 200ms $ease-out-quad,
                     box-shadow 200ms $ease-out-quad;
-$button_radius: 6px;
-$card_radius: $button_radius + 6;
-$menu_radius: 6px;
+$button_radius: 9px;
+$card_radius: 12px;
+$menu_radius: 9px;
 $menu_margin: 6px; //margin around menuitems & sidebar items
 $menu_padding: 12px; //inner menuitem padding
-$popover_radius: $button_radius + 6;
+$popover_radius: $menu_radius + 6;
 $dialog_radius: $button_radius + 6;
 
 :root {

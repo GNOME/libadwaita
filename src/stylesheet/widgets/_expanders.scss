@@ -13,7 +13,7 @@ expander-widget {
   @include focus-ring("> box > title");
 
   > box > title {
-    border-radius: $button_radius;
+    border-radius: 6px;
 
     > expander {
       opacity: .7;

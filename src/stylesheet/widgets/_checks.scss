@@ -1,6 +1,8 @@
+$check_radius: 6px;
+
 checkbutton {
   border-spacing: 4px;
-  border-radius: $button_radius + 3px;
+  border-radius: $check_radius + 3px;
   padding: 3px;
 
   @include focus-ring();
@@ -63,7 +65,7 @@ radio {
 }
 
 check {
-  border-radius: $button_radius;
+  border-radius: $check_radius;
 
   &:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/check-symbolic.symbolic.png")),
                                             -gtk-recolor(url("assets/check@2-symbolic.symbolic.png"))); }

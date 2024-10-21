@@ -872,6 +872,9 @@ The "card" style class can be used to achieve the same style with GtkBox or simi
 The "raised" style class can be used to make a button inside a toolbar use default appearance instead.</property>
                     <child>
                       <object class="GtkFrame">
+                        <style>
+                          <class name="toolbar-demo"/>
+                        </style>
                         <property name="margin-bottom">12</property>
                         <property name="child">
                           <object class="GtkBox">

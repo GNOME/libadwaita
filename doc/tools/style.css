@@ -1,6 +1,6 @@
 .docs-background {
   background: color-mix(in srgb, currentColor 5%, transparent);
-  border-radius: 12px;
+  border-radius: 15px;
 }
 
 #opaque-button-1 {
