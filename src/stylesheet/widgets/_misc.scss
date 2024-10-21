@@ -31,22 +31,6 @@ separator {
   }
 }
 
-/*********************
- * App Notifications *
- *********************/
-
-.app-notification {
-  @extend %osd;
-
-  padding: 10px;
-  border-spacing: 10px;
-  border-radius: 0 0 $button_radius + 6px $button_radius + 6px;
-  background-image: linear-gradient(to bottom, RGB(0 0 0 / 20%), transparent 2px);
-  background-clip: padding-box;
-
-  border { border: none; }
-}
-
 /**********
  * Toasts *
  **********/
