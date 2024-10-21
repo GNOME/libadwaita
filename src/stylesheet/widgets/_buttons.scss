@@ -369,10 +369,10 @@ button.color {
   padding: 5px;
 
   > colorswatch:only-child {
-    border-radius: 2.5px;
+    border-radius: $button_radius - 4.5px;
 
     > overlay {
-      border-radius: 2px;
+      border-radius: $button_radius - 5px;
     }
 
     &:disabled {

@@ -84,3 +84,7 @@ stacksidebar {
   min-height: 0;
   padding: 6px;
 }
+
+.toolbar-demo {
+  border-radius: 15px;
+}
