@@ -574,18 +574,8 @@ window_close_request_cb (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
-  if (priv->force_closing || adw_dialog_close (self)) {
-    GtkAccessibleRole role =
-      gtk_accessible_get_accessible_role (GTK_ACCESSIBLE (priv->window));
-
-    g_object_set (self, "accessible-role", role, NULL);
-
-    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
-                                    GTK_ACCESSIBLE_PROPERTY_LABEL, priv->title,
-                                    -1);
-
+  if (priv->force_closing || adw_dialog_close (self))
     return GDK_EVENT_PROPAGATE;
-  }
 
   return GDK_EVENT_STOP;
 }
@@ -604,7 +594,6 @@ present_as_window (AdwDialog *self,
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkWidget *titlebar;
-  GtkAccessibleRole role;
   GtkEventController *shortcut_controller;
   GtkShortcut *shortcut;
 
@@ -650,13 +639,6 @@ present_as_window (AdwDialog *self,
   g_object_bind_property (self, "default-widget", priv->window, "default-widget", G_BINDING_SYNC_CREATE);
 
   g_signal_connect_swapped (priv->window, "close-request", G_CALLBACK (window_close_request_cb), self);
-
-  /* Transfer the accessible role onto the window */
-  role = gtk_accessible_get_accessible_role (GTK_ACCESSIBLE (self));
-  g_object_set (priv->window, "accessible-role", role, NULL);
-  g_object_set (self, "accessible-role", GTK_ACCESSIBLE_ROLE_GENERIC, NULL);
-
-  gtk_accessible_reset_property (GTK_ACCESSIBLE (self), GTK_ACCESSIBLE_PROPERTY_LABEL);
 
   gtk_window_present (GTK_WINDOW (priv->window));
 }
