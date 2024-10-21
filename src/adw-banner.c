@@ -13,10 +13,10 @@
 #include "adw-widget-utils-private.h"
 
 #define HORZ_SPACING 6
+#define HORZ_SPACING_CENTERED 36
 #define VERT_SPACING 9
 #define HORZ_PADDING 6
 #define VERT_PADDING 6
-#define LABEL_MAX_WIDTH 500
 #define BUTTON_HORZ_MIN_WIDTH 84
 #define BUTTON_VERT_MIN_WIDTH 160
 
@@ -317,7 +317,7 @@ allocate_content (GtkWidget *widget,
       button_width = MAX (button_width, BUTTON_HORZ_MIN_WIDTH);
 
       /* Does centered title fit? */
-      if (label_width + (button_width + HORZ_SPACING) * 2 > width)
+      if (label_width + (button_width + HORZ_SPACING_CENTERED) * 2 > width)
         label_x = is_rtl ? (width - label_width - HORZ_PADDING) : HORZ_PADDING;
 
       button_x = is_rtl ? 0 : width - button_width;
