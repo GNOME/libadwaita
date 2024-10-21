@@ -257,8 +257,13 @@ tabthumbnail {
   }
 }
 
-taboverview > .overview  .new-tab-button {
-  margin: 18px;
+taboverview > .overview {
+  color: var(--overview-fg-color);
+  background-color: var(--overview-bg-color);
+
+  .new-tab-button {
+    margin: 18px;
+  }
 }
 
 tabview:drop(active),

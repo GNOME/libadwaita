@@ -80,7 +80,7 @@
 @define-color popover_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
 
 // Thumbnails
-@define-color thumbnail_bg_color #{if($variant == 'light', #ffffff, #383838)};
+@define-color thumbnail_bg_color #{if($variant == 'light', #ffffff, #3b3b3b)};
 @define-color thumbnail_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
 
 // Miscellaneous
@@ -106,5 +106,13 @@
   } @else {
     --active-toggle-bg-color: rgb(255 255 255 / 20%);
     --active-toggle-fg-color: #ffffff;
+  }
+
+  @if $variant == 'light' {
+    --overview-bg-color: #f3f3f3;
+    --overview-fg-color: rgb(0 0 0 / 80%);
+  } @else {
+    --overview-bg-color: #2a2a2a;
+    --overview-fg-color: #ffffff;
   }
 }

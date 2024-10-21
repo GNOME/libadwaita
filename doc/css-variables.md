@@ -779,9 +779,37 @@ These colors are used for
 similar widgets. This color should always be partially transparent black, with
 the opacity tuned to be well visible on top of `--card-bg-color`.
 
-## Thumbnail Colors
+## Tab Overview Colors
 
-These colors are used for [class@TabOverview] thumbnails.
+These colors are used for [class@TabOverview].
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>--overview-bg-color</tt></td>
+    <td><div class="color-pill" style="background-color: #f3f3f3"/></td>
+    <td><tt>#f3f3f3</tt></td>
+    <td><div class="color-pill dark" style="background-color: #2a2a2a"/></td>
+    <td><tt>#2a2a2a</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--overview-fg-color</tt></td>
+    <td><div class="color-pill" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
+    <td><div class="color-pill dark" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+</table>
+
+`--overview-bg-color` and `--overview-bg-color` are used for the overview itself.
+
+Since: 1.7
 
 <table>
   <tr>
@@ -795,8 +823,8 @@ These colors are used for [class@TabOverview] thumbnails.
     <td><tt>--thumbnail-bg-color</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
-    <td><div class="color-pill" style="background-color: #383838"/></td>
-    <td><tt>#383838</tt></td>
+    <td><div class="color-pill" style="background-color: #3b3b3b"/></td>
+    <td><tt>#3b3b3b</tt></td>
   </tr>
   <tr>
     <td><tt>--thumbnail-fg-color</tt></td>
@@ -806,6 +834,8 @@ These colors are used for [class@TabOverview] thumbnails.
     <td><tt>#ffffff</tt></td>
   </tr>
 </table>
+
+`--thumbnail-bg-color` and `--thumbnail-fg-color` are used for the tab thumbnails.
 
 Since: 1.3
 
@@ -1258,3 +1288,4 @@ Name                                            | Value
 <tt>&#64;theme_unfocused_selected_fg_color</tt> | [<tt>&#64;accent_fg_color</tt>](#accent-colors)
 <tt>&#64;unfocused_insensitive_color</tt>       | <tt>&#64;insensitive_bg_color</tt>
 <tt>&#64;unfocused_borders</tt>                 | <tt>&#64;borders</tt>
+
