@@ -10,7 +10,7 @@ toggle-group {
   ---group-padding: 3px;
 
   background: $button_color;
-  border-radius: calc(#{$button_radius} + var(---group-padding));
+  border-radius: $button_radius;
   padding: var(---group-padding);
 
   &:disabled {
@@ -26,7 +26,7 @@ toggle-group {
   }
 
   > toggle {
-    border-radius: $button_radius;
+    border-radius: calc(#{$button_radius} - var(---group-padding);
     font-weight: bold;
     min-width: 34px;
     min-height: calc(34px - var(---group-padding) * 2);
