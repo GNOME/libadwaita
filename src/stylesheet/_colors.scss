@@ -70,6 +70,7 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
   --shade-color: @shade_color;
   --scrollbar-outline-color: @scrollbar_outline_color;
+  --banner-color: @banner_color;
 }
 
 // Other colors
