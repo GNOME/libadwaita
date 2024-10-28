@@ -19,6 +19,7 @@ checkbutton {
 
 check,
 radio {
+  transition: $button_transition;
   min-height: 14px;
   min-width: 14px;
   -gtk-icon-size: 14px;

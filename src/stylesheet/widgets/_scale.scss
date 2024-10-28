@@ -1,6 +1,7 @@
 $_slider_border_color: RGB(0 0 0 / #{if($contrast == 'high', 35%, 10%)});
 
 %scale_trough {
+  transition: $button_transition;
   border-radius: 99px;
   background-color: $trough_color;
 
@@ -10,6 +11,7 @@ $_slider_border_color: RGB(0 0 0 / #{if($contrast == 'high', 35%, 10%)});
 }
 
 %scale_highlight {
+  transition: $button_transition;
   border-radius: 99px;
   background-color: var(--accent-bg-color);
   color: var(--accent-fg-color);

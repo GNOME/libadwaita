@@ -8,7 +8,7 @@ switch {
   &:hover { background-color: $trough_hover_color; }
   &:active { background-color: $trough_active_color; }
 
-  @include focus-ring($offset: 1px, $outer: true);
+  @include focus-ring($offset: 1px, $outer: true, $transition: $button_transition);
 
   &:disabled {
     filter: Opacity(var(--disabled-opacity));
