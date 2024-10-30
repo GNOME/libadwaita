@@ -812,7 +812,6 @@ switch_page (AdwNavigationView *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
-  if ((prev_page != NULL && adw_navigation_page_get_tag (prev_page) != NULL) ||
   if (prev_page && prev_page->tag && page && page->tag)
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
 }
