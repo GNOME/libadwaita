@@ -23,6 +23,7 @@
                     <child>
                       <object class="GtkImage" id="image">
                         <property name="accessible-role">presentation</property>
+                        <property name="halign">center</property>
                         <binding name="visible">
                           <closure function="has_image" type="gboolean">
                             <lookup name="icon-name">image</lookup>
