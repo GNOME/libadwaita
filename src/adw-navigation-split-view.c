@@ -1075,11 +1075,11 @@ adw_navigation_split_view_set_sidebar (AdwNavigationSplitView *self,
   g_return_if_fail (ADW_IS_NAVIGATION_SPLIT_VIEW (self));
   g_return_if_fail (sidebar == NULL || ADW_IS_NAVIGATION_PAGE (sidebar));
 
-  if (sidebar)
-    g_return_if_fail (gtk_widget_get_parent (GTK_WIDGET (sidebar)) == NULL);
-
   if (sidebar == self->sidebar)
     return;
+
+  if (sidebar)
+    g_return_if_fail (gtk_widget_get_parent (GTK_WIDGET (sidebar)) == NULL);
 
   if (tags_equal (sidebar, self->content)) {
     g_critical ("Trying to add sidebar with the tag '%s' to "
@@ -1168,11 +1168,11 @@ adw_navigation_split_view_set_content (AdwNavigationSplitView *self,
   g_return_if_fail (ADW_IS_NAVIGATION_SPLIT_VIEW (self));
   g_return_if_fail (content == NULL || ADW_IS_NAVIGATION_PAGE (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (GTK_WIDGET (content)) == NULL);
-
   if (content == self->content)
     return;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (GTK_WIDGET (content)) == NULL);
 
   if (tags_equal (self->sidebar, content)) {
     g_critical ("Trying to add content with the tag '%s' to "

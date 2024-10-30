@@ -340,13 +340,13 @@ adw_window_set_content (AdwWindow *self,
   g_return_if_fail (ADW_IS_WINDOW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
-
   priv = adw_window_get_instance_private (self);
 
   if (adw_window_get_content (self) == content)
     return;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
   adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin), content);
 

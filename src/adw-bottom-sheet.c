@@ -1453,13 +1453,13 @@ adw_bottom_sheet_set_content (AdwBottomSheet *self,
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
-
   if (self->content == content)
     return;
 
   self->content = content;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
   adw_bin_set_child (ADW_BIN (self->content_bin), content);
   gtk_widget_set_visible (self->content_bin, content != NULL);
@@ -1503,11 +1503,11 @@ adw_bottom_sheet_set_sheet (AdwBottomSheet *self,
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
   g_return_if_fail (sheet == NULL || GTK_IS_WIDGET (sheet));
 
-  if (sheet)
-    g_return_if_fail (gtk_widget_get_parent (sheet) == NULL);
-
   if (self->sheet == sheet)
     return;
+
+  if (sheet)
+    g_return_if_fail (gtk_widget_get_parent (sheet) == NULL);
 
   if (self->sheet)
     gtk_widget_unparent (self->sheet);
@@ -1560,11 +1560,11 @@ adw_bottom_sheet_set_bottom_bar (AdwBottomSheet *self,
   g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
   g_return_if_fail (bottom_bar == NULL || GTK_IS_WIDGET (bottom_bar));
 
-  if (bottom_bar)
-    g_return_if_fail (gtk_widget_get_parent (bottom_bar) == NULL);
-
   if (self->bottom_bar == bottom_bar)
     return;
+
+  if (bottom_bar)
+    g_return_if_fail (gtk_widget_get_parent (bottom_bar) == NULL);
 
   self->bottom_bar = bottom_bar;
 

@@ -2202,13 +2202,13 @@ adw_navigation_page_set_child (AdwNavigationPage *self,
   g_return_if_fail (ADW_IS_NAVIGATION_PAGE (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   priv = adw_navigation_page_get_instance_private (self);
 
   if (priv->child == child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   g_object_freeze_notify (G_OBJECT (self));
 

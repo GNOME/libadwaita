@@ -311,11 +311,11 @@ adw_clamp_set_child (AdwClamp  *self,
   g_return_if_fail (ADW_IS_CLAMP (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   if (self->child == child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   g_clear_pointer (&self->child, gtk_widget_unparent);
 

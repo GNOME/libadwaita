@@ -390,11 +390,11 @@ adw_floating_sheet_set_child (AdwFloatingSheet *self,
   g_return_if_fail (ADW_IS_FLOATING_SHEET (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   if (self->child == child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   if (self->child)
     gtk_widget_unparent (self->child);

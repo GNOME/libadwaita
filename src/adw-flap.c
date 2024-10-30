@@ -1839,11 +1839,11 @@ adw_flap_set_content (AdwFlap   *self,
   g_return_if_fail (ADW_IS_FLAP (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
-
   if (self->content.widget == content)
     return;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
   if (self->content.widget)
     remove_child (self, &self->content);
@@ -1894,11 +1894,11 @@ adw_flap_set_flap (AdwFlap   *self,
   g_return_if_fail (ADW_IS_FLAP (self));
   g_return_if_fail (flap == NULL || GTK_IS_WIDGET (flap));
 
-  if (flap)
-    g_return_if_fail (gtk_widget_get_parent (flap) == NULL);
-
   if (self->flap.widget == flap)
     return;
+
+  if (flap)
+    g_return_if_fail (gtk_widget_get_parent (flap) == NULL);
 
   if (self->flap.widget)
     remove_child (self, &self->flap);
@@ -1952,11 +1952,11 @@ adw_flap_set_separator (AdwFlap   *self,
   g_return_if_fail (ADW_IS_FLAP (self));
   g_return_if_fail (separator == NULL || GTK_IS_WIDGET (separator));
 
-  if (separator)
-    g_return_if_fail (gtk_widget_get_parent (separator) == NULL);
-
   if (self->separator.widget == separator)
     return;
+
+  if (separator)
+    g_return_if_fail (gtk_widget_get_parent (separator) == NULL);
 
   if (self->separator.widget)
     remove_child (self, &self->separator);

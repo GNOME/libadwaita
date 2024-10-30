@@ -1310,11 +1310,11 @@ adw_overlay_split_view_set_sidebar (AdwOverlaySplitView *self,
   g_return_if_fail (ADW_IS_OVERLAY_SPLIT_VIEW (self));
   g_return_if_fail (sidebar == NULL || GTK_IS_WIDGET (sidebar));
 
-  if (sidebar)
-    g_return_if_fail (gtk_widget_get_parent (sidebar) == NULL);
-
   if (sidebar == adw_overlay_split_view_get_sidebar (self))
     return;
+
+  if (sidebar)
+    g_return_if_fail (gtk_widget_get_parent (sidebar) == NULL);
 
   adw_bin_set_child (ADW_BIN (self->sidebar_bin), sidebar);
 
@@ -1357,11 +1357,11 @@ adw_overlay_split_view_set_content (AdwOverlaySplitView *self,
   g_return_if_fail (ADW_IS_OVERLAY_SPLIT_VIEW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
-
   if (content == adw_overlay_split_view_get_content (self))
     return;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
   adw_bin_set_child (ADW_BIN (self->content_bin), content);
 

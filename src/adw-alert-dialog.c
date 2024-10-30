@@ -1833,13 +1833,13 @@ adw_alert_dialog_set_extra_child (AdwAlertDialog *self,
   g_return_if_fail (ADW_IS_ALERT_DIALOG (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   priv = adw_alert_dialog_get_instance_private (self);
 
   if (child == priv->child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   priv->child = child;
   adw_bin_set_child (ADW_BIN (priv->child_bin), child);

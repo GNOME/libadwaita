@@ -580,13 +580,13 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
   g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
   g_return_if_fail (suffix == NULL || GTK_IS_WIDGET (suffix));
 
-  if (suffix)
-    g_return_if_fail (gtk_widget_get_parent (suffix) == NULL);
-
   priv = adw_preferences_group_get_instance_private (self);
 
   if (suffix == priv->header_suffix)
     return;
+
+  if (suffix)
+    g_return_if_fail (gtk_widget_get_parent (suffix) == NULL);
 
   if (priv->header_suffix)
     gtk_box_remove (priv->header_box, priv->header_suffix);

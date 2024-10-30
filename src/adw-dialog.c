@@ -1348,13 +1348,13 @@ adw_dialog_set_child (AdwDialog *self,
   g_return_if_fail (ADW_IS_DIALOG (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   priv = adw_dialog_get_instance_private (self);
 
   if (priv->child == child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   priv->child = child;
 

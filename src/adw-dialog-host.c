@@ -474,11 +474,11 @@ adw_dialog_host_set_child (AdwDialogHost *self,
   g_return_if_fail (ADW_IS_DIALOG_HOST (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
-  if (child)
-    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
-
   if (adw_dialog_host_get_child (self) == child)
     return;
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   adw_bin_set_child (ADW_BIN (self->bin), child);
 

@@ -805,11 +805,11 @@ adw_toolbar_view_set_content (AdwToolbarView *self,
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  if (content)
-    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
-
   if (content == self->content)
     return;
+
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
   if (self->content)
     gtk_widget_unparent (self->content);
