@@ -813,9 +813,8 @@ switch_page (AdwNavigationView *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
   if ((prev_page != NULL && adw_navigation_page_get_tag (prev_page) != NULL) ||
-      (page != NULL && adw_navigation_page_get_tag (page) != NULL)) {
+  if (prev_page && prev_page->tag && page && page->tag)
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
-  }
 }
 
 static void
@@ -2909,9 +2908,8 @@ adw_navigation_view_replace (AdwNavigationView  *self,
   } else if (old_visible_page) {
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
-    if (adw_navigation_page_get_tag (old_visible_page) != NULL) {
+    if (old_visible_page->tag)
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
-    }
 }
 
   g_hash_table_unref (added_pages);
@@ -3018,7 +3016,7 @@ adw_navigation_view_get_visible_page (AdwNavigationView *self)
  *
  * Gets the tag of the currently visible page in @self.
  *
- * Returns: (transfer full) (nullable): the tag of the currently visible page
+ * Returns: (transfer none) (nullable): the tag of the currently visible page
  *
  * Since: 1.7
  */
@@ -3027,7 +3025,11 @@ adw_navigation_view_get_visible_page_tag (AdwNavigationView *self)
 {
   g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), NULL);
 
-  AdwNavigationPage *current_page = adw_navigation_view_get_visible_page (self);
+  AdwNavigationPage *current_page;
+
+  g_return_val_if_fail (ADW_IS_NAVIGATION_VIEW (self), NULL);
+
+  current_page = adw_navigation_view_get_visible_page (self);
 
   if (current_page == NULL)
     return NULL;
