@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="title">Banner</property>
+    <property name="default-width">600</property>
+    <property name="default-height">150</property>
+    <property name="height-request">-1</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="GtkHeaderBar"/>
+        </child>
+        <property name="content">
+          <object class="AdwBanner">
+            <property name="valign">start</property>
+            <property name="revealed">True</property>
+            <property name="title">Unlock to change settings</property>
+            <property name="button-label">Unlock</property>
+            <property name="button-style">suggested</property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>

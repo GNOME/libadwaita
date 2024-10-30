@@ -8,6 +8,7 @@ struct _AdwDemoPageBanners
 
   AdwBanner *banner;
   AdwEntryRow *button_label_row;
+  AdwSwitchRow *button_style_row;
 };
 
 enum {
@@ -39,6 +40,15 @@ banner_activate_cb (AdwDemoPageBanners *self)
 }
 
 static void
+button_style_notify_active_cb (AdwDemoPageBanners *self)
+{
+  if (adw_switch_row_get_active (self->button_style_row))
+    adw_banner_set_button_style (self->banner, ADW_BANNER_BUTTON_SUGGESTED);
+  else
+    adw_banner_set_button_style (self->banner, ADW_BANNER_BUTTON_DEFAULT);
+}
+
+static void
 adw_demo_page_banners_class_init (AdwDemoPageBannersClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -56,6 +66,8 @@ adw_demo_page_banners_class_init (AdwDemoPageBannersClass *klass)
                                                "/org/gnome/Adwaita1/Demo/ui/pages/banners/adw-demo-page-banners.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPageBanners, banner);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPageBanners, button_label_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoPageBanners, button_style_row);
+  gtk_widget_class_bind_template_callback (widget_class, button_style_notify_active_cb);
   gtk_widget_class_bind_template_callback (widget_class, update_button_cb);
 
   gtk_widget_class_install_action (widget_class, "demo.activate", NULL, (GtkWidgetActionActivateFunc) banner_activate_cb);

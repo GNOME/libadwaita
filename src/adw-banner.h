@@ -17,6 +17,11 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+  ADW_BANNER_BUTTON_DEFAULT,
+  ADW_BANNER_BUTTON_SUGGESTED,
+} AdwBannerButtonStyle;
+
 #define ADW_TYPE_BANNER (adw_banner_get_type())
 
 ADW_AVAILABLE_IN_1_3
@@ -48,5 +53,11 @@ gboolean adw_banner_get_use_markup (AdwBanner *self);
 ADW_AVAILABLE_IN_1_3
 void     adw_banner_set_use_markup (AdwBanner *self,
                                     gboolean   use_markup);
+
+ADW_AVAILABLE_IN_1_7
+AdwBannerButtonStyle adw_banner_get_button_style (AdwBanner            *self);
+ADW_AVAILABLE_IN_1_7
+void                 adw_banner_set_button_style (AdwBanner            *self,
+                                                  AdwBannerButtonStyle  style);
 
 G_END_DECLS

@@ -86,7 +86,6 @@
 // Miscellaneous
 @define-color shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
 @define-color scrollbar_outline_color #{if($variant == 'light', white, RGB(0 0 0 / 95%))};
-@define-color banner_color #{if($variant == 'light', RGB(169 169 169 / 70%), #808080)};
 
 :root {
   @if $variant == 'light' {

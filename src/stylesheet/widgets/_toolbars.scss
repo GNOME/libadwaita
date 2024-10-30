@@ -215,6 +215,8 @@ actionbar > revealer > box {
  * AdwBanner *
  *************/
 banner > revealer > widget {
+  --banner-color: #808080;
+
   /* There are 2 more instances in _sidebars.css, keep in sync with that */
   background-color: color-mix(in srgb, var(--banner-color) 30%, var(--window-bg-color));
   color: var(--window-fg-color);

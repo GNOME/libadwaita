@@ -7,6 +7,12 @@
 #include <adwaita.h>
 
 static void
+increment (int *data)
+{
+  (*data)++;
+}
+
+static void
 test_adw_banner_revealed (void)
 {
   AdwBanner *banner = g_object_ref_sink (ADW_BANNER (adw_banner_new ("")));
@@ -66,6 +72,30 @@ test_adw_banner_button_label (void)
   g_assert_finalize_object (banner);
 }
 
+static void
+test_adw_banner_button_style (void)
+{
+  AdwBanner *banner = g_object_ref_sink (ADW_BANNER (adw_banner_new ("")));
+  AdwBannerButtonStyle button_style;
+  int notified = 0;
+
+  g_assert_nonnull (banner);
+
+  g_signal_connect_swapped (banner, "notify::button-style", G_CALLBACK (increment), &notified);
+
+  g_object_get (banner, "button-style", &button_style, NULL);
+  g_assert_cmpint (button_style, ==, ADW_BANNER_BUTTON_DEFAULT);
+
+  adw_banner_set_button_style (banner, ADW_BANNER_BUTTON_DEFAULT);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_banner_set_button_style (banner, ADW_BANNER_BUTTON_SUGGESTED);
+  g_assert_cmpint (adw_banner_get_button_style (banner), ==, ADW_BANNER_BUTTON_SUGGESTED);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_assert_finalize_object (banner);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -76,6 +106,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Banner/revealed", test_adw_banner_revealed);
   g_test_add_func ("/Adwaita/Banner/title", test_adw_banner_title);
   g_test_add_func ("/Adwaita/Banner/button_label", test_adw_banner_button_label);
+  g_test_add_func ("/Adwaita/Banner/button_style", test_adw_banner_button_style);
 
   return g_test_run ();
 }
