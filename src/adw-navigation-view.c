@@ -812,8 +812,10 @@ switch_page (AdwNavigationView *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
-  if (prev_page && prev_page->tag && page && page->tag)
+  if (prev_page && adw_navigation_page_get_tag (prev_page) &&
+      page && adw_navigation_page_get_tag (page)) {
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
+  }
 }
 
 static void
@@ -2907,7 +2909,7 @@ adw_navigation_view_replace (AdwNavigationView  *self,
   } else if (old_visible_page) {
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
-    if (old_visible_page->tag)
+    if (adw_navigation_page_get_tag (old_visible_page))
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_TAG]);
 }
 
