@@ -387,11 +387,13 @@ populate_group (AdwInlineViewSwitcher *self)
   }
 
   visible_child = adw_view_stack_get_visible_child (self->stack);
-  page = adw_view_stack_get_page (self->stack, visible_child);
+  if (visible_child) {
+    page = adw_view_stack_get_page (self->stack, visible_child);
 
-  if (adw_view_stack_page_get_visible (page)) {
-    AdwToggle *toggle = g_hash_table_lookup (self->toggles, page);
-    index = adw_toggle_get_index (toggle);
+    if (adw_view_stack_page_get_visible (page)) {
+      AdwToggle *toggle = g_hash_table_lookup (self->toggles, page);
+      index = adw_toggle_get_index (toggle);
+    }
   }
 
   adw_toggle_group_set_active (ADW_TOGGLE_GROUP (self->toggle_group), index);
