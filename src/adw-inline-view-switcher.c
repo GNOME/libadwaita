@@ -174,11 +174,11 @@ transform_can_shrink (GBinding     *binding,
 }
 
 static void
-update_tooltip (AdwInlineViewSwitcher *self,
-                GParamSpec            *pspec,
-                AdwViewStackPage      *page)
+update_tooltip (AdwToggle        *toggle,
+                GParamSpec       *pspec,
+                AdwViewStackPage *page)
 {
-  AdwToggle *toggle = g_hash_table_lookup (self->toggles, page);
+  AdwInlineViewSwitcher *self = g_object_get_data (G_OBJECT (toggle), "switcher");
   const char *title;
   char *stripped_title, *tooltip;
 
@@ -336,7 +336,7 @@ update_toggle (AdwInlineViewSwitcher *self,
   g_signal_connect_swapped (controller, "leave", G_CALLBACK (drag_leave_cb), toggle);
   gtk_widget_add_controller (child, controller);
 
-  update_tooltip (self, NULL, page);
+  update_tooltip (toggle, NULL, page);
 
   adw_toggle_set_child (toggle, child);
 }
@@ -351,6 +351,7 @@ add_toggle (AdwInlineViewSwitcher *self,
   /* page ownership is passed into self->toggles */
   g_hash_table_insert (self->toggles, page, toggle);
 
+  g_object_set_data (G_OBJECT (toggle), "switcher", self);
   g_object_set_data (G_OBJECT (toggle), "toggle-group", self->toggle_group);
   g_object_set_data (G_OBJECT (toggle), "child-index", GUINT_TO_POINTER (index));
 
@@ -358,8 +359,8 @@ add_toggle (AdwInlineViewSwitcher *self,
   g_object_bind_property (page, "icon-name", toggle, "icon-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "use-underline", toggle, "use-underline", G_BINDING_SYNC_CREATE);
 
-  g_signal_connect_object (toggle, "notify::label", G_CALLBACK (update_tooltip), page, G_CONNECT_SWAPPED);
-  g_signal_connect_object (toggle, "notify::use-underline", G_CALLBACK (update_tooltip), page, G_CONNECT_SWAPPED);
+  g_signal_connect_object (toggle, "notify::label", G_CALLBACK (update_tooltip), page, 0);
+  g_signal_connect_object (toggle, "notify::use-underline", G_CALLBACK (update_tooltip), page, 0);
 
   update_toggle (self, toggle, page);
 
