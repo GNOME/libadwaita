@@ -8,7 +8,6 @@
   }
 
   --shade-color: var(--sidebar-shade-color);
-  --banner-color: #808080;
 
   banner > revealer > widget {
     background-color: color-mix(in srgb, var(--banner-color) 30%, var(--sidebar-bg-color));

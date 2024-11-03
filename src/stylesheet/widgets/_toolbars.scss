@@ -214,21 +214,23 @@ actionbar > revealer > box {
 /*************
  * AdwBanner *
  *************/
-banner > revealer > widget {
+banner {
   --banner-color: #808080;
 
-  /* There are 2 more instances in _sidebars.css, keep in sync with that */
-  background-color: color-mix(in srgb, var(--banner-color) 30%, var(--window-bg-color));
-  color: var(--window-fg-color);
-  padding: 6px;
+  > revealer > widget {
+    /* There are 2 more instances in _sidebars.css, keep in sync with that */
+    background-color: color-mix(in srgb, var(--banner-color) 30%, var(--window-bg-color));
+    color: var(--window-fg-color);
+    padding: 6px;
 
-  &:backdrop {
-    background-color: color-mix(in srgb, var(--banner-color) 15%, var(--window-bg-color));
-    transition: background-color $backdrop_transition;
+    &:backdrop {
+      background-color: color-mix(in srgb, var(--banner-color) 15%, var(--window-bg-color));
+      transition: background-color $backdrop_transition;
 
-    > label, > button {
-      filter: opacity(.5);
-      transition: filter $backdrop_transition;
+      > label, > button {
+        filter: opacity(.5);
+        transition: filter $backdrop_transition;
+      }
     }
   }
 }
