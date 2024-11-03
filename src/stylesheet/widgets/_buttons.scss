@@ -163,19 +163,19 @@ button {
 
     &.keyboard-activating,
     &:active {
-      background-image: image(RGB(0 0 0 / 20%));
+      background-image: image(RGB(0 0 6 / 20%));
     }
 
     &:checked {
-      background-image: image(RGB(0 0 0 / 15%));
+      background-image: image(RGB(0 0 6 / 15%));
 
       &:hover {
-        background-image: image(RGB(0 0 0 / 5%));
+        background-image: image(RGB(0 0 6 / 5%));
       }
 
       &.keyboard-activating,
       &:active {
-        background-image: image(RGB(0 0 0 / 30%));
+        background-image: image(RGB(0 0 6 / 30%));
       }
     }
   }

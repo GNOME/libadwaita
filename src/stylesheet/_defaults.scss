@@ -5,7 +5,7 @@
 // Sass thinks we're using the colors in the variables as strings and may shoot
 // warning, it's innocuous and can be defeated by using #{$var}.
 
-// These are the colors apps are can override. We define the defaults here and
+// These are the colors apps can override. We define the defaults here and
 // define variables for them in _colors.scss
 
 // destructive-action buttons
@@ -22,7 +22,7 @@
 @define-color error_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color error_fg_color white;
 
-@if $variant == 'light' {
+@if $variant == "light" {
   @define-color accent_color oklab(from @accent_bg_color min(l, 0.5) a b);
   @define-color destructive_color oklab(from @destructive_bg_color min(l, 0.5) a b);
   @define-color success_color oklab(from @success_bg_color min(l, 0.5) a b);
@@ -37,82 +37,92 @@
 }
 
 // Window
-@define-color window_bg_color #{if($variant == 'light', #fafafa, #242424)};
-@define-color window_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
+@define-color window_bg_color #{if($variant == 'light', #fafafb, #222226)};
+@define-color window_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
 
 // Views - e.g. text view or tree view
-@define-color view_bg_color #{if($variant == 'light', #ffffff, #1e1e1e)};
-@define-color view_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
+@define-color view_bg_color #{if($variant == 'light', #ffffff, #1d1d20)};
+@define-color view_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
 
 // Header bar, search bar, tab bar
-@define-color headerbar_bg_color #{if($variant == 'light', #ffffff, #303030)};
-@define-color headerbar_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
-@define-color headerbar_border_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
+@define-color headerbar_bg_color #{if($variant == 'light', #ffffff, #2e2e32)};
+@define-color headerbar_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
+@define-color headerbar_border_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
 @define-color headerbar_backdrop_color @window_bg_color;
-@define-color headerbar_shade_color #{if($variant == 'light', RGB(0 0 0 / 12%), RGB(0 0 0 / 36%))};
-@define-color headerbar_darker_shade_color #{if($variant == 'light', RGB(0 0 0 / 12%), RGB(0 0 0 / 90%))};
+@define-color headerbar_shade_color #{if($variant == 'light', RGB(0 0 6 / 12%), RGB(0 0 6 / 36%))};
+@define-color headerbar_darker_shade_color #{if($variant == 'light', RGB(0 0 6 / 12%), RGB(0 0 12 / 90%))};
 
 // Split pane views
-@define-color sidebar_bg_color #{if($variant == 'light', #ebebeb, #303030)};
-@define-color sidebar_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
-@define-color sidebar_backdrop_color #{if($variant == 'light', #f2f2f2, #2a2a2a)};
-@define-color sidebar_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
-@define-color sidebar_border_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 36%))};
+@define-color sidebar_bg_color #{if($variant == 'light', #ebebed, #2e2e32)};
+@define-color sidebar_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
+@define-color sidebar_backdrop_color #{if($variant == 'light', #f2f2f4, #28282c)};
+@define-color sidebar_shade_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 25%))};
+@define-color sidebar_border_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 36%))};
 
-@define-color secondary_sidebar_bg_color #{if($variant == 'light', #f3f3f3, #2a2a2a)};
-@define-color secondary_sidebar_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
-@define-color secondary_sidebar_backdrop_color #{if($variant == 'light', #f6f6f6, #272727)};
-@define-color secondary_sidebar_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
-@define-color secondary_sidebar_border_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 36%))};
+@define-color secondary_sidebar_bg_color #{if($variant == 'light', #f3f3f5, #28282c)};
+@define-color secondary_sidebar_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
+@define-color secondary_sidebar_backdrop_color #{if($variant == 'light', #f6f6fa, #252529)};
+@define-color secondary_sidebar_shade_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 25%))};
+@define-color secondary_sidebar_border_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 36%))};
 
 // Cards, boxed lists
 @define-color card_bg_color #{if($variant == 'light', #ffffff, RGB(255 255 255 / 8%))};
-@define-color card_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
-@define-color card_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 36%))};
+@define-color card_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
+@define-color card_shade_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 36%))};
 
 // Dialogs
-@define-color dialog_bg_color #{if($variant == 'light', #fafafa, #383838)};
-@define-color dialog_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
+@define-color dialog_bg_color #{if($variant == 'light', #fafafb, #36363a)};
+@define-color dialog_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
 
 // Popovers
-@define-color popover_bg_color #{if($variant == 'light', #ffffff, #383838)};
-@define-color popover_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
-@define-color popover_shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
+@define-color popover_bg_color #{if($variant == 'light', #ffffff, #36363a)};
+@define-color popover_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
+@define-color popover_shade_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 25%))};
 
 // Thumbnails
-@define-color thumbnail_bg_color #{if($variant == 'light', #ffffff, #3b3b3b)};
-@define-color thumbnail_fg_color #{if($variant == 'light', RGB(0 0 0 / 80%), white)};
+@define-color thumbnail_bg_color #{if($variant == 'light', #ffffff, #39393d)};
+@define-color thumbnail_fg_color #{if($variant == 'light', RGB(0 0 6 / 80%), white)};
 
 // Miscellaneous
-@define-color shade_color #{if($variant == 'light', RGB(0 0 0 / 7%), RGB(0 0 0 / 25%))};
-@define-color scrollbar_outline_color #{if($variant == 'light', white, RGB(0 0 0 / 95%))};
+@define-color shade_color #{if($variant == 'light', RGB(0 0 6 / 7%), RGB(0 0 6 / 25%))};
+@define-color scrollbar_outline_color #{if($variant == 'light', white, RGB(0 0 12 / 95%))};
 
 :root {
-  @if $variant == 'light' {
+  @if $variant == "light" {
     --standalone-color-oklab: min(l, 0.5) a b;
   } @else {
     --standalone-color-oklab: max(l, 0.85) a b;
   }
 
-  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
-  --destructive-color: oklab(from var(--destructive-bg-color) var(--standalone-color-oklab));
-  --success-color: oklab(from var(--success-bg-color) var(--standalone-color-oklab));
-  --warning-color: oklab(from var(--warning-bg-color) var(--standalone-color-oklab));
-  --error-color: oklab(from var(--error-bg-color) var(--standalone-color-oklab));
+  --accent-color: oklab(
+    from var(--accent-bg-color) var(--standalone-color-oklab)
+  );
+  --destructive-color: oklab(
+    from var(--destructive-bg-color) var(--standalone-color-oklab)
+  );
+  --success-color: oklab(
+    from var(--success-bg-color) var(--standalone-color-oklab)
+  );
+  --warning-color: oklab(
+    from var(--warning-bg-color) var(--standalone-color-oklab)
+  );
+  --error-color: oklab(
+    from var(--error-bg-color) var(--standalone-color-oklab)
+  );
 
-  @if $variant == 'light' {
+  @if $variant == "light" {
     --active-toggle-bg-color: #ffffff;
-    --active-toggle-fg-color: rgb(0 0 0 / 80%);
+    --active-toggle-fg-color: rgb(0 0 6 / 80%);
   } @else {
     --active-toggle-bg-color: rgb(255 255 255 / 20%);
     --active-toggle-fg-color: #ffffff;
   }
 
-  @if $variant == 'light' {
-    --overview-bg-color: #f3f3f3;
-    --overview-fg-color: rgb(0 0 0 / 80%);
+  @if $variant == "light" {
+    --overview-bg-color: #f3f3f5;
+    --overview-fg-color: rgb(0 0 6 / 80%);
   } @else {
-    --overview-bg-color: #2a2a2a;
+    --overview-bg-color: #28282c;
     --overview-fg-color: #ffffff;
   }
 }

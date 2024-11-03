@@ -1,4 +1,4 @@
-$_slider_border_color: RGB(0 0 0 / #{if($contrast == 'high', 35%, 10%)});
+$_slider_border_color: RGB(0 0 6 / #{if($contrast == 'high', 35%, 10%)});
 
 %scale_trough {
   transition: $button_transition;
@@ -43,7 +43,7 @@ scale {
 
     > slider {
       background-color: $slider_color;
-      box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px RGB(0 0 0 / 20%);
+      box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px RGB(0 0 6 / 20%);
 
       border-radius: 100%;
 
@@ -73,7 +73,7 @@ scale {
 
     > trough > slider {
       box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px transparent;
-      outline-color: RGB(0 0 0 / #{if($contrast == 'high', 50%, 20%)});
+      outline-color: RGB(0 0 6 / #{if($contrast == 'high', 50%, 20%)});
     }
   }
 
@@ -89,7 +89,7 @@ scale {
 
       // Adjust box-shadow for the 45deg rotation, for 0px 2px we ideally want
       // 1/√2px 1/√2px, round that to 1px 1px
-      box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px RGB(0 0 0 / 20%);
+      box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px RGB(0 0 6 / 20%);
 
       &:disabled {
         box-shadow: 0 0 0 1px $_slider_border_color, 1px 1px 4px transparent;

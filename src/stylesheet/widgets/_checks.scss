@@ -57,7 +57,7 @@ radio {
     box-shadow: none;
 
     &:hover { background-image: image(color-mix(in srgb, currentColor 10%, transparent)); }
-    &:active { background-image: image(RGB(0 0 0 / 20%)); }
+    &:active { background-image: image(RGB(0 0 6 / 20%)); }
   }
 
   &:disabled {
