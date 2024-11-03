@@ -392,3 +392,263 @@ Use minus signs instead of underscores in property names:
 ```xml
 <property name="margin_start">12</property>
 ```
+
+## Docs
+
+Libadwaita documentation uses gi-docgen and should follow its conventions, as
+described in [gi-docgen docs](https://gnome.pages.gitlab.gnome.org/gi-docgen/tutorial.html).
+
+### Summaries
+
+gi-docgen uses the first paragraph of most doc comments as a summary that can be
+displayed in a list of symbols. This paragraph must be kept short and to the
+point. As a rule of thumb, it should not exceed a single line. It doesn't need
+to describe every detail, add more paragraphs for that.
+
+*Good*:
+
+```md
+ * Sets whether @self can be closed.
+ *
+ * If set to `FALSE`, the close button, shortcuts and
+ * [method@Dialog.close] will result in [signal@Dialog::close-attempt] being
+ * emitted instead, and bottom sheet close swipe will be disabled.
+ * [method@Dialog.force_close] still works.
+```
+
+*Bad*:
+
+```md
+ * Sets whether @self can be closed. If set to `FALSE`, the close button,
+ * shortcuts and [method@Dialog.close] will result in
+ * [signal@Dialog::close-attempt] being emitted instead, and bottom sheet close
+ * swipe will be disabled. [method@Dialog.force_close] still works.
+```
+
+### GTK-doc syntax
+
+Even though gi-docgen supports legacy gtk-doc syntax within doc comments, avoid
+using it and stick to gi-docgen syntax instead.
+
+*Good*:
+
+```md
+`TRUE`
+[class@Dialog]
+[method@Dialog.present]
+```
+
+*Bad*:
+
+```md
+%TRUE
+%AdwDialog
+adw_dialog_present()
+```
+
+### Parameters and Return Values
+
+gi-docgen already mentions parameter and return value types. Don't mention them
+explicitly, instead use more specific descriptions when possible. Even in
+obvious cases, such as the `@self` parameter, avoid repetition and omit the
+type.
+
+*Good*:
+
+```md
+ * @self: a window
+ * @breakpoint: (transfer full): the breakpoint to add
+```
+
+*Bad*:
+
+```md
+ * @self: an `AdwWindow`
+ * @breakpoint: (transfer full): an `AdwBreakpoint`
+```
+
+### Linking to Symbols
+
+When linking to other libadwaita symbols, don't include the namespace when
+possible.
+
+*Good*:
+
+```md
+[class@NavigationView]
+[property@Banner:title]
+[method@Dialog.present]
+[signal@AlertDialog::response]
+[enum@AnimationState]
+```
+
+Linking to enum members needs a namespace, see
+https://gitlab.gnome.org/GNOME/gi-docgen/-/issues/186
+
+```md
+[enum@Adw.AnimationState.PLAYING]
+```
+
+*Bad*:
+
+```xml
+[class@Adw.NavigationView]
+[property@Adw.Banner:title]
+[method@Adw.Dialog.present]
+[signal@Adw.AlertDialog::response]
+[enum@Adw.AnimationState]
+```
+
+### Headings
+
+Avoid level 1 headings in doc comments, since gi-docgen will use those for the
+symbol itself. Start from level 2.
+
+*Good*:
+
+```md
+## CSS Nodes
+```
+
+*Bad*:
+
+```md
+# CSS Nodes
+```
+
+For standalone pages, use level 1 headings anyway. Otherwise, the table of
+contents will look wrong.
+
+### Class Descriptions
+
+Try to include an overview of all the functionality the class has, as well as
+an example when appropriate.
+
+#### Widgets
+
+Widget documentation should include a screenshot after the summary when
+appropriate.
+
+Widgets should also usually include the following sections:
+
+- CSS nodes: describe the widget's CSS name, style classes and internal
+  structure
+
+- Style classes: if the widget has style classes available for it, list them
+  here in addition to [doc/style-classes.md](./doc/style-classes.md)
+
+- Accessibility: describe the widget's accessible role here
+
+### Getter, and Setter and Property Descriptions
+
+Getter, setter and property documentation should use the same wording when
+possible.
+
+Most of the time, the detailed description is irrelevant for getters, so omit it
+and only include the summary.
+
+### Copying From GTK
+
+GTK documentation is less strict about style, so generally speaking docs copied
+from GTK need to be reworded and expanded.
+
+### Standalone Pages
+
+Libadwaita has a number of standalone doc pages. Keep them up to date when
+making changes.
+
+- [adaptive-layouts.md](./doc/adaptive-layouts.md) lists adaptive patterns with
+  screenshots and detailed examples. Update it when adding widgets that can be
+  used for adaptive UIs.
+
+  Note: this page lists patterns, not widgets. Use real-world examples. For
+  example, split views are typically used for sidebars, so even though they don't
+  provide sidebar contents on their own, include sidebar contents into the
+  screenshots, rather than leaving the panes empty.
+
+  Patterns can also span multiple widgets. For example, `AdwTabView`, `AdwTabBar`,
+  `AdwTabOverview` and `AdwTabButton` comprise a single pattern and are meant to
+  be used together, so they are all mentioned in a single section.
+
+- [boxed-lists.md](./doc/boxed-lists.md) lists widgets implementing boxed lists:
+  list rows, preferences groups etc. Update it when adding new row widgets.
+
+- [css-variables.md](./doc/css-variables.md) lists CSS variables from the
+  stylesheet, as well as their conventions. Update it whenever you add or change
+  the variables.
+
+- [style-classes.md](./doc/style-classes.md) lists the available style classes
+  along with their screenshots, both unique to libadwaita and inherited from
+  GTK. It should be updated whenever adding a new style class, making an
+  existing one work for more widgets, or adding a new widget that can use
+  existing classes.
+
+- [styles-and-appearance.md](./doc/styles-and-appearance.md) lists general
+  recommendations and guidelines for style handling. It should only be updated
+  when adding significant new features, such as accent colors.
+
+- [widget-gallery.md](./doc/widget-gallery.md) lists widgets along with their
+  screenshots. Update it whenever adding a new widget.
+
+### Screenshots
+
+Libadwaita docs use screenshots generated from UI files.
+
+#### Adding a screenshot
+
+1. Create an `IMAGE.ui` file in the `doc/tools/data/` directory.
+2. Put the widget to screenshot inside with the `widget` id. For example:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkButton" id="widget">
+    <property name="label">Example</property>
+  </object>
+</interface>
+```
+
+If a widget needs to be hovered - for example, a list item - put the `hover` id
+onto it.
+
+If the widget needs special treatment - for example, it's a `GtkPopover` - it
+should be special-cased in `screenshot.c` based on its type.
+
+If you need special styles, add them to [`doc/tools/style.css`](./doc/tools/style.css)
+and/or [`doc/tools/style-dark.css`](./doc/tools/style-dark.css).
+
+When demoing widgets that don't have a background and may look confusing in the
+middle of a doc page, use the `.docs-background` CSS class. It will add a faint
+grey background under the screenshot, like in the `AdwStatusPage` screenshot.
+
+3. From the build directory, run:
+
+```
+./doc/tools/screenshot ../doc/tools/data/ ../doc/images/ -i IMAGE
+```
+
+4. The generator will create `IMAGE.png` and `IMAGE-dark.png` images. Add them
+to [`doc/libadwaita.toml.in`](./doc/libadwaita.toml.in).
+5. Use them in the docs as follows:
+
+```html
+<picture>
+  <source srcset="IMAGE-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="IMAGE.png" alt="IMAGE">
+</picture>
+```
+
+#### Regenerating Screenshots
+
+Make sure your system has Cantarell and Noto Sans Mono fonts installed on your
+system, otherwise the screenshots may have wrong fonts.
+
+To regenerate all screenshots, run:
+
+```c
+./doc/tools/screenshot ../doc/tools/data/ ../doc/images/
+```
+
+from the build directory.
