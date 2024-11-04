@@ -4,16 +4,16 @@ scrollbar {
   $_scrollbar_transition: all 200ms linear;
 
   > range > trough {
-    margin: 7px;
+    margin: 9px;
     transition: $_scrollbar_transition;
-    border-radius: 10px;
+    border-radius: 99px;
 
     > slider {
       min-width: $_slider_width;
       min-height: $_slider_width;
-      margin: -6px;
-      border: 6px solid transparent;
-      border-radius: 10px;
+      margin: -8px;
+      border: 8px solid transparent;
+      border-radius: 99px;
       background-clip: padding-box;
       transition: $_scrollbar_transition;
 
@@ -36,13 +36,13 @@ scrollbar {
   }
 
   &.horizontal > range > trough {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   &.vertical > range > trough {
-    margin-left: 6px;
-    margin-right: 6px;
+    margin-left: 8px;
+    margin-right: 8px;
   }
 
   &.overlay-indicator {
@@ -61,7 +61,7 @@ scrollbar {
           outline: 1px solid color-mix(in srgb, var(--scrollbar-outline-color) 60%, transparent);
         }
 
-        outline-offset: -6px;
+        outline-offset: -8px;
       }
     }
 
@@ -90,8 +90,8 @@ scrollbar {
       }
 
       &:not(.hovering) > range > trough {
-        margin-top: 3px;
-        margin-bottom: 3px;
+        margin-top: 4px;
+        margin-bottom: 4px;
       }
     }
 
@@ -105,8 +105,8 @@ scrollbar {
       }
 
       &:not(.hovering) > range > trough {
-        margin-left: 3px;
-        margin-right: 3px;
+        margin-left: 4px;
+        margin-right: 4px;
       }
     }
   }
