@@ -472,6 +472,7 @@ init_libadwaita (void)
                 "gtk-icon-theme-name", "Adwaita",
                 "gtk-decoration-layout", ":close",
                 "gtk-hint-font-metrics", TRUE,
+                "gtk-font-rendering", GTK_FONT_RENDERING_MANUAL,
                 NULL);
 }
 
