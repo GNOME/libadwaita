@@ -1898,10 +1898,12 @@ adw_dialog_close (AdwDialog *self)
     return FALSE;
   }
 
-  if (priv->window)
+  if (priv->window) {
     gtk_window_close (GTK_WINDOW (priv->window));
-  else
+    priv->window = NULL;
+  } else {
     adw_dialog_force_close (self);
+  }
 
   return TRUE;
 }
