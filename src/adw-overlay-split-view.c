@@ -190,6 +190,9 @@ struct _AdwOverlaySplitView
   AdwLengthUnit sidebar_width_unit;
 
   int sidebar_width;
+
+  GtkWidget *last_sidebar_focus;
+  GtkWidget *last_content_focus;
 };
 
 static void adw_overlay_split_view_buildable_init (GtkBuildableIface *iface);
@@ -246,7 +249,7 @@ static void
 update_shield (AdwOverlaySplitView *self)
 {
   gtk_widget_set_child_visible (self->shield,
-                          self->collapsed && self->show_progress > 0);
+                                self->collapsed && self->show_progress > 0);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
@@ -293,6 +296,11 @@ set_show_sidebar (AdwOverlaySplitView *self,
                   gboolean             animate,
                   double               velocity)
 {
+  GtkRoot *root;
+  GtkWidget *focus;
+  gboolean focus_in_sidebar = FALSE;
+  gboolean focus_in_content = FALSE;
+
   show_sidebar = !!show_sidebar;
 
   if (self->show_sidebar == show_sidebar)
@@ -300,8 +308,42 @@ set_show_sidebar (AdwOverlaySplitView *self,
 
   self->show_sidebar = show_sidebar;
 
-  if (show_sidebar)
+  root = gtk_widget_get_root (GTK_WIDGET (self));
+  if (root)
+    focus = gtk_root_get_focus (root);
+  else
+    focus = NULL;
+
+  if (focus) {
+    if (!show_sidebar && gtk_widget_is_ancestor (focus, self->sidebar_bin)) {
+      focus_in_sidebar = TRUE;
+      g_set_weak_pointer (&self->last_sidebar_focus, focus);
+    }
+
+    if (show_sidebar && self->collapsed && gtk_widget_is_ancestor (focus, self->content_bin)) {
+      focus_in_content = TRUE;
+      g_set_weak_pointer (&self->last_content_focus, focus);
+    }
+  }
+
+  gtk_widget_set_can_focus (self->sidebar_bin, !self->collapsed || show_sidebar);
+  gtk_widget_set_can_focus (self->content_bin, !self->collapsed || !show_sidebar);
+
+  if (show_sidebar) {
     gtk_widget_set_child_visible (self->sidebar_bin, TRUE);
+
+    if (self->collapsed && focus_in_content) {
+      if (self->last_sidebar_focus)
+        gtk_widget_grab_focus (self->last_sidebar_focus);
+      else
+        gtk_widget_child_focus (self->sidebar_bin, GTK_DIR_TAB_FORWARD);
+    }
+  } else if (focus_in_sidebar) {
+    if (self->last_content_focus)
+      gtk_widget_grab_focus (self->last_content_focus);
+    else
+      gtk_widget_child_focus (self->content_bin, GTK_DIR_TAB_FORWARD);
+  }
 
   if (animate) {
     if (!self->swipe_active)
@@ -842,6 +884,9 @@ static void
 adw_overlay_split_view_dispose (GObject *object)
 {
   AdwOverlaySplitView *self = ADW_OVERLAY_SPLIT_VIEW (object);
+
+  g_clear_weak_pointer (&self->last_sidebar_focus);
+  g_clear_weak_pointer (&self->last_content_focus);
 
   g_clear_pointer (&self->sidebar_bin, gtk_widget_unparent);
   g_clear_pointer (&self->content_bin, gtk_widget_unparent);
@@ -1418,6 +1463,9 @@ adw_overlay_split_view_set_collapsed (AdwOverlaySplitView *self,
 
   if (!self->pin_sidebar)
     set_show_sidebar (self, !self->collapsed, FALSE, 0);
+
+  gtk_widget_set_can_focus (self->sidebar_bin, !collapsed || self->show_sidebar);
+  gtk_widget_set_can_focus (self->content_bin, !collapsed || !self->show_sidebar);
 
   update_collapsed (self);
 
