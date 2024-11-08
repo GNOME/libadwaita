@@ -51,7 +51,7 @@ key_press_event_cb (GtkWidget *widget, GdkEvent *event, gpointer data)
 ### Function Prototypes
 
 Function prototypes should be grouped together in logical groups, e.g. all
-constructors, or all accessords to a given property.
+constructors, or the getter and setter of a given property.
 There should be no empty line in a group, and groups should be separated from
 each other by an empty line.
 
