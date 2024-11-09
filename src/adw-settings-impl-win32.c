@@ -242,10 +242,6 @@ init_winrt_ui_settings (AdwSettingsImplWin32 *self)
   if (FAILED (res))
     return E_FAIL;
 
-  res = color_values_changed (self);
-  if (FAILED (res))
-    return E_FAIL;
-
   return S_OK;
 }
 
@@ -409,13 +405,17 @@ adw_settings_impl_win32_new (gboolean enable_color_scheme,
     enable_color_scheme = enable_accent_colors = FALSE;
 #endif
 
-  if (enable_high_contrast)
-    system_colors_changed (self);
-
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   enable_color_scheme,
                                   enable_high_contrast,
                                   enable_accent_colors);
+
+  if (enable_high_contrast)
+    system_colors_changed (self);
+
+#ifdef HAS_WINRT
+  color_values_changed (self);
+#endif
 
   return ADW_SETTINGS_IMPL (self);
 }
