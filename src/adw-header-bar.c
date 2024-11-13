@@ -120,7 +120,7 @@
  * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
  * subnode, which contains a `box` subnode, which contains three `widget`
  * subnodes at the start, center and end of the header bar. The start and end
- * subnotes contain a `box` subnode with the `.start` and `.end` style classes
+ * subnodes contain a `box` subnode with the `.start` and `.end` style classes
  * respectively, and the center node contains a node that represents the title.
  *
  * Each of the boxes contains a `windowcontrols` subnode, see
