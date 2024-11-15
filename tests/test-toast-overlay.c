@@ -58,6 +58,23 @@ test_adw_toast_overlay_add_toast (void)
   g_assert_finalize_object (toast);
 }
 
+static void
+test_adw_toast_overlay_dismiss_all (void)
+{
+  AdwToastOverlay *toast_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new ()));
+  AdwToast *toast = adw_toast_new ("Test Notification");
+
+  g_assert_nonnull (toast_overlay);
+  g_assert_nonnull (toast);
+
+  adw_toast_overlay_add_toast (toast_overlay, g_object_ref (toast));
+
+  adw_toast_overlay_dismiss_all (toast_overlay);
+
+  g_assert_finalize_object (toast_overlay);
+  g_assert_finalize_object (toast);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -67,6 +84,7 @@ main (int   argc,
 
   g_test_add_func ("/Adwaita/ToastOverlay/child", test_adw_toast_overlay_child);
   g_test_add_func ("/Adwaita/ToastOverlay/add_toast", test_adw_toast_overlay_add_toast);
+  g_test_add_func ("/Adwaita/ToastOverlay/dismiss_all", test_adw_toast_overlay_dismiss_all);
 
   return g_test_run ();
 }

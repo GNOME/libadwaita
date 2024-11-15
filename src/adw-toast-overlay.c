@@ -36,6 +36,9 @@
  * main child, on top of which it can display a [class@Toast], overlaid.
  * Toasts can be shown with [method@ToastOverlay.add_toast].
  *
+ * Use [method@ToastOverlay.dismiss_all] to dismiss all toasts at once, or
+ * [method@Toast.dismiss] to dismiss a single toast.
+ *
  * See [class@Toast] for details.
  *
  * ## CSS nodes
@@ -715,4 +718,23 @@ adw_toast_overlay_add_toast (AdwToastOverlay *self,
   default:
     g_assert_not_reached ();
   }
+}
+
+/**
+ * adw_toast_overlay_dismiss_all:
+ * @self: a toast overlay
+ *
+ * Dismisses all displayed toasts.
+ *
+ * Use [method@Toast.dismiss] to dismiss a single toast.
+ *
+ * Since: 1.7
+ */
+void
+adw_toast_overlay_dismiss_all (AdwToastOverlay *self)
+{
+  g_return_if_fail (ADW_IS_TOAST_OVERLAY (self));
+
+  g_clear_pointer (&self->current_toast, dismiss_and_free_toast_info);
+  g_queue_clear_full (self->queue, (GDestroyNotify) dismiss_and_free_toast_info);
 }

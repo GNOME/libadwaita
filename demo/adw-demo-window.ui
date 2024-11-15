@@ -177,6 +177,7 @@
                         <property name="child">
                           <object class="AdwDemoPageToasts" id="toasts_page">
                             <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
+                            <signal name="dismiss-all" handler="adw_toast_overlay_dismiss_all" object="toast_overlay" swapped="yes"/>
                           </object>
                         </property>
                       </object>

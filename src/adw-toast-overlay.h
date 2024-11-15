@@ -35,4 +35,7 @@ ADW_AVAILABLE_IN_ALL
 void adw_toast_overlay_add_toast (AdwToastOverlay *self,
                                   AdwToast        *toast);
 
+ADW_AVAILABLE_IN_1_7
+void adw_toast_overlay_dismiss_all (AdwToastOverlay *self);
+
 G_END_DECLS

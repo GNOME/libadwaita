@@ -12,6 +12,7 @@ struct _AdwDemoPageToasts
 
 enum {
   SIGNAL_ADD_TOAST,
+  SIGNAL_DISMISS_ALL,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -91,6 +92,13 @@ toast_dismiss_cb (AdwDemoPageToasts *self)
 }
 
 static void
+toast_dismiss_all_cb (AdwDemoPageToasts *self)
+{
+  g_signal_emit (self, signals[SIGNAL_DISMISS_ALL], 0);
+  self->undo_toast = NULL;
+}
+
+static void
 adw_demo_page_toasts_class_init (AdwDemoPageToastsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -104,12 +112,22 @@ adw_demo_page_toasts_class_init (AdwDemoPageToastsClass *klass)
                   G_TYPE_NONE, 1,
                   ADW_TYPE_TOAST);
 
+  signals[SIGNAL_DISMISS_ALL] =
+    g_signal_new ("dismiss-all",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
+
+
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/toasts/adw-demo-page-toasts.ui");
 
   gtk_widget_class_install_action (widget_class, "toast.add", NULL, (GtkWidgetActionActivateFunc) toast_add_cb);
   gtk_widget_class_install_action (widget_class, "toast.add-with-button", NULL, (GtkWidgetActionActivateFunc) toast_add_with_button_cb);
   gtk_widget_class_install_action (widget_class, "toast.add-with-long-title", NULL, (GtkWidgetActionActivateFunc) toast_add_with_long_title_cb);
   gtk_widget_class_install_action (widget_class, "toast.dismiss", NULL, (GtkWidgetActionActivateFunc) toast_dismiss_cb);
+  gtk_widget_class_install_action (widget_class, "toast.dismiss-all", NULL, (GtkWidgetActionActivateFunc) toast_dismiss_all_cb);
 }
 
 static void
