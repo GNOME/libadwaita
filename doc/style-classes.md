@@ -258,6 +258,8 @@ The opacity changes between regular and high contrast styles and is represented
 by the [`--dim-opacity`](css-variables.html#opacity) variable. Use that variable
 if the style class cannot be used directly.
 
+Since: 1.7
+
 # Typography Styles
 
 These style classes can be applied to any widgets, but are mostly used for
