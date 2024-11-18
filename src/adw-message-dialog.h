@@ -141,7 +141,7 @@ ADW_DEPRECATED_IN_1_6_FOR(adw_alert_dialog_set_close_response)
 void        adw_message_dialog_set_close_response (AdwMessageDialog *self,
                                                    const char       *response);
 
-ADW_DEPRECATED_IN_1_6_FOR(adw_alert_dialog_response)
+ADW_DEPRECATED_IN_1_6
 void adw_message_dialog_response (AdwMessageDialog *self,
                                   const char       *response);
 
