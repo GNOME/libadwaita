@@ -2836,16 +2836,16 @@ adw_navigation_view_replace (AdwNavigationView  *self,
                              AdwNavigationPage **pages,
                              int                 n_pages)
 {
-  AdwNavigationPage *visible_page, *old_visible_page;
+  AdwNavigationPage *visible_page;
   GHashTable *added_pages;
   guint i, old_length;
-  gboolean old_visible_page_has_tag = FALSE;
+  gboolean had_visible_page, old_visible_page_has_tag = FALSE;
 
   g_return_if_fail (ADW_IS_NAVIGATION_VIEW (self));
   g_return_if_fail (n_pages >= 0);
 
   visible_page = adw_navigation_view_get_visible_page (self);
-  old_visible_page = visible_page;
+  had_visible_page = visible_page != NULL;
   old_length = g_list_model_get_n_items (G_LIST_MODEL (self->navigation_stack));
 
   added_pages = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -2866,14 +2866,10 @@ adw_navigation_view_replace (AdwNavigationView  *self,
     if (get_remove_on_pop (c) &&
         !g_hash_table_contains (added_pages, c)) {
       if (c == visible_page) {
+        old_visible_page_has_tag = adw_navigation_page_get_tag (visible_page) != NULL;
         adw_navigation_page_hiding (visible_page);
         adw_navigation_page_hidden (visible_page);
         visible_page = NULL;
-      }
-
-      if (c == old_visible_page &&
-          adw_navigation_page_get_tag (old_visible_page)) {
-        old_visible_page_has_tag = TRUE;
       }
 
       remove_page (self, c, FALSE);
@@ -2912,7 +2908,7 @@ adw_navigation_view_replace (AdwNavigationView  *self,
       switch_page (self, visible_page, new_visible_page, TRUE, FALSE, 0);
   } else if (visible_page) {
     switch_page (self, visible_page, NULL, TRUE, FALSE, 0);
-  } else if (old_visible_page) {
+  } else if (had_visible_page) {
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
 
     if (old_visible_page_has_tag)
