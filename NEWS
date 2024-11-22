@@ -1,4 +1,20 @@
 =============
+Version 1.6.2
+=============
+
+- AdwDialog
+  - Fix accessible role critical when using window-backed dialogs
+- AdwHeaderBar
+  - Fix a typo in docs
+- AdwMessageDialog
+  - Fix a typo in adw_message_dialog_response() deprecation message
+- AdwStyleManager
+  - Fix initial color scheme value on Windows
+- Translation updates
+  - Dutch
+  - Serbian
+
+=============
 Version 1.6.1
 =============
 
