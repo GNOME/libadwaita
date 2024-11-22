@@ -509,9 +509,12 @@ allocate_sidebar (GtkWidget *widget,
 {
   AdwOverlaySplitView *self = ADW_OVERLAY_SPLIT_VIEW (gtk_widget_get_parent (widget));
   GtkWidget *child = adw_bin_get_child (ADW_BIN (widget));
+  GtkBorder inset;
 
   if (!child)
     return;
+
+  gtk_widget_get_inset (widget, &inset);
 
   if (width > self->sidebar_width) {
     GskTransform *transform = NULL;
@@ -519,12 +522,12 @@ allocate_sidebar (GtkWidget *widget,
     if (self->sidebar_position == get_start_or_end (self))
       transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - self->sidebar_width, 0));
 
-    gtk_widget_allocate (child, self->sidebar_width, height, baseline, transform);
+    gtk_widget_allocate_with_inset (child, self->sidebar_width, height, baseline, transform, &inset);
 
     return;
   }
 
-  gtk_widget_allocate (child, width, height, baseline, NULL);
+  gtk_widget_allocate_with_inset (child, width, height, baseline, NULL, &inset);
 }
 
 static void
@@ -586,9 +589,13 @@ allocate_uncollapsed (GtkWidget *widget,
   AdwOverlaySplitView *self = ADW_OVERLAY_SPLIT_VIEW (widget);
   int content_min, sidebar_width, sidebar_offset;
   GskTransform *transform;
+  GtkBorder sidebar_inset, content_inset;
 
-  gtk_widget_measure (self->content_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &content_min, NULL, NULL, NULL);
+  gtk_widget_get_inset (widget, &sidebar_inset);
+  gtk_widget_get_inset (widget, &content_inset);
+
+  gtk_widget_measure_with_inset (self->content_bin, GTK_ORIENTATION_HORIZONTAL,
+                                 -1, &content_inset, &content_min, NULL, NULL, NULL);
 
   sidebar_width = MIN (get_sidebar_width (self, width, FALSE), width - content_min);
   sidebar_offset = (int) (sidebar_width * self->show_progress);
@@ -602,18 +609,18 @@ allocate_uncollapsed (GtkWidget *widget,
 
   if (self->sidebar_position == get_start_or_end (self)) {
     transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sidebar_offset - self->sidebar_width, 0));
-    gtk_widget_allocate (self->sidebar_bin, sidebar_width, height, baseline, transform);
+    gtk_widget_allocate_with_inset (self->sidebar_bin, sidebar_width, height, baseline, transform, &sidebar_inset);
 
     transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sidebar_offset, 0));
-    gtk_widget_allocate (self->content_bin, width - sidebar_offset, height, baseline, transform);
+    gtk_widget_allocate_with_inset (self->content_bin, width - sidebar_offset, height, baseline, transform, &content_inset);
   } else {
     if (sidebar_width > self->sidebar_width)
       transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - sidebar_width, 0));
     else
       transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - sidebar_offset, 0));
 
-    gtk_widget_allocate (self->sidebar_bin, sidebar_width, height, baseline, transform);
-    gtk_widget_allocate (self->content_bin, width - sidebar_offset, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->sidebar_bin, sidebar_width, height, baseline, transform, &sidebar_inset);
+    gtk_widget_allocate_with_inset (self->content_bin, width - sidebar_offset, height, baseline, NULL, &content_inset);
   }
 }
 
@@ -667,6 +674,10 @@ allocate_collapsed (GtkWidget *widget,
   AdwOverlaySplitView *self = ADW_OVERLAY_SPLIT_VIEW (widget);
   int sidebar_width, sidebar_pos, sidebar_offset;
   double shadow_progress;
+  GtkBorder sidebar_inset, content_inset;
+
+  gtk_widget_get_inset (widget, &sidebar_inset);
+  gtk_widget_get_inset (widget, &content_inset);
 
   sidebar_width = get_sidebar_width (self, width, TRUE);
   self->sidebar_width = sidebar_width;
@@ -688,11 +699,12 @@ allocate_collapsed (GtkWidget *widget,
   }
 
   if (gtk_widget_should_layout (self->content_bin))
-    gtk_widget_allocate (self->content_bin, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->content_bin, width, height, baseline, NULL, &content_inset);
 
   if (gtk_widget_should_layout (self->sidebar_bin))
-    gtk_widget_allocate (self->sidebar_bin, sidebar_width, height, baseline,
-                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sidebar_pos, 0)));
+    gtk_widget_allocate_with_inset (self->sidebar_bin, sidebar_width, height, baseline,
+                                    gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sidebar_pos, 0)),
+                                    &sidebar_inset);
 
   if (gtk_widget_should_layout (self->shield))
     gtk_widget_allocate (self->shield, width, height, baseline, NULL);
@@ -1164,6 +1176,7 @@ adw_overlay_split_view_init (AdwOverlaySplitView *self)
   gtk_widget_add_controller (GTK_WIDGET (self), self->shortcut_controller);
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               set_show_progress,

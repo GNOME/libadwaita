@@ -234,6 +234,7 @@ update_undershoots (AdwToolbarView *self)
 static void
 update_collapse_style (GtkWidget *box)
 {
+  GtkWidget *revealer = gtk_widget_get_parent (gtk_widget_get_parent (box));
   int n_visible = 0;
   GtkWidget *child;
 
@@ -251,6 +252,8 @@ update_collapse_style (GtkWidget *box)
     gtk_widget_add_css_class (box, "collapse-spacing");
   else
     gtk_widget_remove_css_class (box, "collapse-spacing");
+
+  gtk_widget_set_visible (revealer, n_visible >= 1);
 }
 
 static GtkSizeRequestMode
@@ -265,27 +268,43 @@ adw_toolbar_view_get_request_mode (GtkWidget *widget)
 }
 
 static void
-adw_toolbar_view_measure (GtkWidget      *widget,
-                          GtkOrientation  orientation,
-                          int             for_size,
-                          int            *minimum,
-                          int            *natural,
-                          int            *minimum_baseline,
-                          int            *natural_baseline)
+adw_toolbar_view_measure_with_inset (GtkWidget       *widget,
+                                     GtkOrientation   orientation,
+                                     int              for_size,
+                                     const GtkBorder *inset,
+                                     int             *minimum,
+                                     int             *natural,
+                                     int             *minimum_baseline,
+                                     int             *natural_baseline)
 {
   AdwToolbarView *self = ADW_TOOLBAR_VIEW (widget);
   int top_min, bottom_min, content_min = 0;
   int top_nat, bottom_nat, content_nat = 0;
+  GtkBorder top_inset, bottom_inset, content_inset;
 
-  gtk_widget_measure (self->top_bar, orientation, -1,
-                      &top_min, &top_nat, NULL, NULL);
+  top_inset = *inset;
+  top_inset.bottom = 0;
 
-  gtk_widget_measure (self->bottom_bar, orientation, -1,
-                      &bottom_min, &bottom_nat, NULL, NULL);
+  bottom_inset = *inset;
+  bottom_inset.top = 0;
+
+  gtk_widget_measure_with_inset (self->top_bar, orientation, -1, &top_inset,
+                                 &top_min, &top_nat, NULL, NULL);
+
+  gtk_widget_measure_with_inset (self->bottom_bar, orientation, -1, &bottom_inset,
+                                 &bottom_min, &bottom_nat, NULL, NULL);
+
+  content_inset = *inset;
+
+  if (!self->extend_content_to_top_edge)
+    content_inset.top = MAX (content_inset.top, top_min); // TODO hm, it shouldn't just be min
+
+  if (!self->extend_content_to_bottom_edge)
+    content_inset.bottom = MAX (content_inset.bottom, bottom_min); // TODO hm, it shouldn't just be min
 
   if (self->content)
-    gtk_widget_measure (self->content, orientation, for_size,
-                        &content_min, &content_nat, NULL, NULL);
+    gtk_widget_measure_with_inset (self->content, orientation, for_size, &content_inset,
+                                   &content_min, &content_nat, NULL, NULL);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     if (minimum)
@@ -293,27 +312,10 @@ adw_toolbar_view_measure (GtkWidget      *widget,
     if (natural)
       *natural = MAX (content_nat, MAX (top_nat, bottom_nat));
   } else {
-    int min = content_min;
-    int nat = content_nat;
-
-    if (self->extend_content_to_top_edge && self->extend_content_to_bottom_edge) {
-      min = MAX (min, top_min + bottom_min);
-      nat = MAX (nat, top_nat + bottom_nat);
-    } else if (self->extend_content_to_top_edge) {
-      min = MAX (min, top_min) + bottom_min;
-      nat = MAX (nat, top_nat) + bottom_nat;
-    } else if (self->extend_content_to_bottom_edge) {
-      min = MAX (min, bottom_min) + top_min;
-      nat = MAX (nat, bottom_nat) + top_nat;
-    } else {
-      min += top_min + bottom_min;
-      nat += top_nat + bottom_nat;
-    }
-
     if (minimum)
-      *minimum = min;
+      *minimum = MAX (content_min, top_min + bottom_min);
     if (natural)
-      *natural = nat;
+      *natural = MAX (content_nat, top_nat + bottom_nat);
   }
 
   if (minimum_baseline)
@@ -331,12 +333,20 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
   AdwToolbarView *self = ADW_TOOLBAR_VIEW (widget);
   int top_min, top_nat, bottom_min, bottom_nat, content_min = 0;
   int top_height, bottom_height;
-  int content_height, content_offset;
+  GtkBorder inset, top_inset, bottom_inset, content_inset;
 
-  gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
-                      &top_min, &top_nat, NULL, NULL);
-  gtk_widget_measure (self->bottom_bar, GTK_ORIENTATION_VERTICAL, -1,
-                      &bottom_min, &bottom_nat, NULL, NULL);
+  gtk_widget_get_inset (widget, &inset);
+
+  top_inset = inset;
+  top_inset.bottom = 0;
+
+  bottom_inset = inset;
+  bottom_inset.top = 0;
+
+  gtk_widget_measure_with_inset (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
+                                 &top_inset, &top_min, &top_nat, NULL, NULL);
+  gtk_widget_measure_with_inset (self->bottom_bar, GTK_ORIENTATION_VERTICAL, -1,
+                                 &bottom_inset, &bottom_min, &bottom_nat, NULL, NULL);
 
   if (self->content)
     gtk_widget_measure (self->content, GTK_ORIENTATION_VERTICAL, -1,
@@ -353,16 +363,13 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
   top_height = CLAMP (height - content_min - bottom_min, top_min, top_nat);
   bottom_height = CLAMP (height - content_min - top_height, bottom_min, bottom_nat);
 
-  content_height = height;
-  content_offset = 0;
+  content_inset = inset;
 
-  if (!self->extend_content_to_top_edge) {
-    content_height -= top_height;
-    content_offset = top_height;
-  }
+  if (!self->extend_content_to_top_edge)
+    content_inset.top = MAX (content_inset.top, top_height);
 
   if (!self->extend_content_to_bottom_edge)
-    content_height -= bottom_height;
+    content_inset.bottom = MAX (content_inset.bottom, bottom_height);
 
   if (self->top_bar_height != top_height) {
     self->top_bar_height = top_height;
@@ -374,13 +381,14 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BOTTOM_BAR_HEIGHT]);
   }
 
-  gtk_widget_allocate (self->top_bar, width, top_height, -1, NULL);
-  gtk_widget_allocate (self->bottom_bar, width, bottom_height, -1,
-                       gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, height - bottom_height)));
+  gtk_widget_allocate_with_inset (self->top_bar, width, top_height, -1, NULL, &top_inset);
+  gtk_widget_allocate_with_inset (self->bottom_bar, width, bottom_height, -1,
+                                  gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, height - bottom_height)),
+                                  &bottom_inset);
 
   if (self->content)
-    gtk_widget_allocate (self->content, width, content_height, -1,
-                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, content_offset)));
+    gtk_widget_allocate_with_inset (self->content, width, height, -1,
+                                    NULL, &content_inset);
 
   update_undershoots (self);
 }
@@ -487,7 +495,7 @@ adw_toolbar_view_class_init (AdwToolbarViewClass *klass)
   object_class->set_property = adw_toolbar_view_set_property;
 
   widget_class->get_request_mode = adw_toolbar_view_get_request_mode;
-  widget_class->measure = adw_toolbar_view_measure;
+  widget_class->measure_with_inset = adw_toolbar_view_measure_with_inset;
   widget_class->size_allocate = adw_toolbar_view_size_allocate;
   widget_class->focus = adw_widget_focus_child;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -699,9 +707,11 @@ adw_toolbar_view_init (AdwToolbarView *self)
   self->top_bar_style = ADW_TOOLBAR_FLAT;
   self->bottom_bar_style = ADW_TOOLBAR_FLAT;
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   self->top_bar = gtk_revealer_new ();
+  gtk_widget_set_visible (self->top_bar, FALSE);
   gtk_widget_set_overflow (self->top_bar, GTK_OVERFLOW_VISIBLE);
   gtk_revealer_set_reveal_child (GTK_REVEALER (self->top_bar), TRUE);
   gtk_widget_set_vexpand (self->top_bar, FALSE);
@@ -715,6 +725,7 @@ adw_toolbar_view_init (AdwToolbarView *self)
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (top_handle), self->top_box);
 
   self->bottom_bar = gtk_revealer_new ();
+  gtk_widget_set_visible (self->bottom_bar, FALSE);
   gtk_widget_set_overflow (self->bottom_bar, GTK_OVERFLOW_VISIBLE);
   gtk_revealer_set_reveal_child (GTK_REVEALER (self->bottom_bar), TRUE);
   gtk_revealer_set_transition_type (GTK_REVEALER (self->bottom_bar),

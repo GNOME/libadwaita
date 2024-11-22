@@ -261,18 +261,19 @@ adw_dialog_host_unmap (GtkWidget *widget)
 }
 
 static void
-adw_dialog_host_measure (GtkWidget      *widget,
-                         GtkOrientation  orientation,
-                         int             for_size,
-                         int            *minimum,
-                         int            *natural,
-                         int            *minimum_baseline,
-                         int            *natural_baseline)
+adw_dialog_host_measure_with_inset (GtkWidget       *widget,
+                                    GtkOrientation   orientation,
+                                    int              for_size,
+                                    const GtkBorder *inset,
+                                    int             *minimum,
+                                    int             *natural,
+                                    int             *minimum_baseline,
+                                    int             *natural_baseline)
 {
   AdwDialogHost *self = ADW_DIALOG_HOST (widget);
 
-  gtk_widget_measure (self->bin, orientation, for_size,
-                      minimum, natural, minimum_baseline, natural_baseline);
+  gtk_widget_measure_with_inset (self->bin, orientation, for_size, inset,
+                                 minimum, natural, minimum_baseline, natural_baseline);
 }
 
 static void
@@ -282,6 +283,9 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
                                int        baseline)
 {
   GtkWidget *child;
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (child = gtk_widget_get_first_child (widget);
        child;
@@ -290,10 +294,10 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
 
     gtk_widget_get_preferred_size (child, &min, NULL);
 
-    width = MAX (width, min.width);
-    height = MAX (height, min.height);
+    int w = MAX (width, min.width);
+    int h = MAX (height, min.height);
 
-    gtk_widget_allocate (child, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (child, w, h, baseline, NULL, &inset);
   }
 }
 
@@ -391,7 +395,7 @@ adw_dialog_host_class_init (AdwDialogHostClass *klass)
   widget_class->root = adw_dialog_host_root;
   widget_class->unroot = adw_dialog_host_unroot;
   widget_class->unmap = adw_dialog_host_unmap;
-  widget_class->measure = adw_dialog_host_measure;
+  widget_class->measure_with_inset = adw_dialog_host_measure_with_inset;
   widget_class->size_allocate = adw_dialog_host_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -431,6 +435,8 @@ adw_dialog_host_init (AdwDialogHost *self)
   controller = gtk_event_controller_key_new ();
   g_signal_connect_swapped (controller, "key-pressed", G_CALLBACK (key_pressed_cb), self);
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

@@ -687,6 +687,8 @@ adw_navigation_page_init (AdwNavigationPage *self)
   priv->title = g_strdup ("");
   priv->can_pop = TRUE;
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
+
   gtk_accessible_update_property (GTK_ACCESSIBLE (self),
                                   GTK_ACCESSIBLE_PROPERTY_LABEL, priv->title,
                                   -1);
@@ -1357,13 +1359,14 @@ set_child_view (AdwNavigationPage *self,
 }
 
 static void
-adw_navigation_view_measure (GtkWidget      *widget,
-                             GtkOrientation  orientation,
-                             int             for_size,
-                             int            *minimum,
-                             int            *natural,
-                             int            *minimum_baseline,
-                             int            *natural_baseline)
+adw_navigation_view_measure_with_inset (GtkWidget       *widget,
+                                        GtkOrientation   orientation,
+                                        int              for_size,
+                                        const GtkBorder *inset,
+                                        int             *minimum,
+                                        int             *natural,
+                                        int             *minimum_baseline,
+                                        int             *natural_baseline)
 {
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (widget);
   int min = 0, nat = 0;
@@ -1378,8 +1381,8 @@ adw_navigation_view_measure (GtkWidget      *widget,
       if (!ADW_IS_NAVIGATION_PAGE (child))
         continue;
 
-      gtk_widget_measure (child, orientation, for_size,
-                          &child_min, &child_nat, NULL, NULL);
+      gtk_widget_measure_with_inset (child, orientation, for_size, inset,
+                                     &child_min, &child_nat, NULL, NULL);
 
       min = MAX (min, child_min);
       nat = MAX (nat, child_nat);
@@ -1388,15 +1391,15 @@ adw_navigation_view_measure (GtkWidget      *widget,
     AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
 
     if (visible_page) {
-      gtk_widget_measure (GTK_WIDGET (visible_page), orientation, for_size,
-                          &min, &nat, NULL, NULL);
+      gtk_widget_measure_with_inset (GTK_WIDGET (visible_page), orientation, for_size, inset,
+                                     &min, &nat, NULL, NULL);
     }
 
     if (self->hiding_page) {
       int last_min = 0, last_nat = 0;
 
-      gtk_widget_measure (GTK_WIDGET (self->hiding_page), orientation, for_size,
-                          &last_min, &last_nat, NULL, NULL);
+      gtk_widget_measure_with_inset (GTK_WIDGET (self->hiding_page), orientation, for_size, inset,
+                                     &last_min, &last_nat, NULL, NULL);
 
       min = MAX (min, last_min);
       nat = MAX (nat, last_nat);
@@ -1425,14 +1428,16 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
   gboolean is_rtl;
   double progress;
   int offset;
+  GtkBorder inset;
 
+  gtk_widget_get_inset (widget, &inset);
   visible_page = adw_navigation_view_get_visible_page (self);
 
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
   if (!self->hiding_page || !self->showing_page) {
     if (visible_page)
-      gtk_widget_allocate (GTK_WIDGET (visible_page), width, height, baseline, NULL);
+      gtk_widget_allocate_with_inset (GTK_WIDGET (visible_page), width, height, baseline, NULL, &inset);
 
     adw_shadow_helper_size_allocate (self->shadow_helper, 0, 0,
                                      baseline, 0, 0, 1,
@@ -1460,7 +1465,7 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
   offset = (int) round (progress * width);
 
   if (static_page)
-    gtk_widget_allocate (static_page, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (static_page, width, height, baseline, NULL, &inset);
 
   if (gtk_widget_should_layout (self->shield)) {
     GskTransform *transform = NULL;
@@ -1474,13 +1479,14 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
         transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (offset, 0));
     }
 
-    gtk_widget_allocate (self->shield, width, height, baseline, transform);
+    gtk_widget_allocate_with_inset (self->shield, width, height, baseline, transform, &inset);
   }
 
   if (is_rtl) {
     if (moving_page)
-      gtk_widget_allocate (moving_page, width, height, baseline,
-                           gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-offset, 0)));
+      gtk_widget_allocate_with_inset (moving_page, width, height, baseline,
+                                      gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-offset, 0)),
+                                      &inset);
 
     adw_shadow_helper_size_allocate (self->shadow_helper,
                                      MAX (0, offset), height,
@@ -1488,8 +1494,9 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
                                      GTK_PAN_DIRECTION_LEFT);
   } else {
     if (moving_page)
-      gtk_widget_allocate (moving_page, width, height, baseline,
-                           gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (offset, 0)));
+      gtk_widget_allocate_with_inset (moving_page, width, height, baseline,
+                                      gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (offset, 0)),
+                                      &inset);
 
     adw_shadow_helper_size_allocate (self->shadow_helper,
                                      MAX (0, offset), height,
@@ -1727,7 +1734,7 @@ adw_navigation_view_class_init (AdwNavigationViewClass *klass)
   object_class->get_property = adw_navigation_view_get_property;
   object_class->set_property = adw_navigation_view_set_property;
 
-  widget_class->measure = adw_navigation_view_measure;
+  widget_class->measure_with_inset = adw_navigation_view_measure_with_inset;
   widget_class->size_allocate = adw_navigation_view_size_allocate;
   widget_class->snapshot = adw_navigation_view_snapshot;
   widget_class->root = adw_navigation_view_root;
@@ -1993,6 +2000,7 @@ adw_navigation_view_init (AdwNavigationView *self)
 
   self->shadow_helper = adw_shadow_helper_new (GTK_WIDGET (self));
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   gesture = gtk_gesture_click_new ();

@@ -125,6 +125,7 @@ adw_bin_class_init (AdwBinClass *klass)
 static void
 adw_bin_init (AdwBin *self)
 {
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

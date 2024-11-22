@@ -269,11 +269,17 @@ allocate_uncollapsed (GtkWidget *widget,
   GtkSettings *settings = gtk_widget_get_settings (widget);
   int sidebar_min, content_min, sidebar_max, sidebar_width;
   GskTransform *transform;
+  GtkBorder sidebar_inset, content_inset;
 
-  gtk_widget_measure (self->sidebar_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &sidebar_min, NULL, NULL, NULL);
-  gtk_widget_measure (self->content_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &content_min, NULL, NULL, NULL);
+  gtk_widget_get_inset (widget, &sidebar_inset);
+  gtk_widget_get_inset (widget, &content_inset);
+
+  gtk_widget_measure_with_inset (self->sidebar_bin, GTK_ORIENTATION_HORIZONTAL,
+                                 -1, &sidebar_inset,
+                                 &sidebar_min, NULL, NULL, NULL);
+  gtk_widget_measure_with_inset (self->content_bin, GTK_ORIENTATION_HORIZONTAL,
+                                 -1, &content_inset,
+                                 &content_min, NULL, NULL, NULL);
 
   sidebar_min = MAX (sidebar_min,
                      ceil (adw_length_unit_to_px (self->sidebar_width_unit,
@@ -289,16 +295,18 @@ allocate_uncollapsed (GtkWidget *widget,
   sidebar_width = CLAMP ((int) (width * self->sidebar_width_fraction),
                          sidebar_min, sidebar_max);
 
+  // TODO handle left/right insets
+
   if (self->sidebar_position == get_start_or_end (self)) {
     transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sidebar_width, 0));
 
-    gtk_widget_allocate (self->sidebar_bin, sidebar_width, height, baseline, NULL);
-    gtk_widget_allocate (self->content_bin, width - sidebar_width, height, baseline, transform);
+    gtk_widget_allocate_with_inset (self->sidebar_bin, sidebar_width, height, baseline, NULL, &sidebar_inset);
+    gtk_widget_allocate_with_inset (self->content_bin, width - sidebar_width, height, baseline, transform, &content_inset);
   } else {
     transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - sidebar_width, 0));
 
-    gtk_widget_allocate (self->sidebar_bin, sidebar_width, height, baseline, transform);
-    gtk_widget_allocate (self->content_bin, width - sidebar_width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->sidebar_bin, sidebar_width, height, baseline, transform, &sidebar_inset);
+    gtk_widget_allocate_with_inset (self->content_bin, width - sidebar_width, height, baseline, NULL, &content_inset);
   }
 }
 
@@ -992,6 +1000,8 @@ adw_navigation_split_view_init (AdwNavigationSplitView *self)
   self->max_sidebar_width = 280;
   self->sidebar_width_fraction = 0.25;
   self->sidebar_width_unit = ADW_LENGTH_UNIT_SP;
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   update_collapsed (self);
 }

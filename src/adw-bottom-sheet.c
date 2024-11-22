@@ -481,6 +481,13 @@ allocate_sheet (GtkWidget *widget,
                 int        baseline)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (gtk_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET));
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
+
+  inset.top = 0;
+  inset.left = 0;
+  inset.right = 0;
 
   if (gtk_widget_should_layout (self->drag_handle)) {
     int handle_width, handle_height, handle_x;
@@ -503,17 +510,18 @@ allocate_sheet (GtkWidget *widget,
   }
 
   if (self->sheet && gtk_widget_should_layout (self->sheet))
-    gtk_widget_allocate (self->sheet, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->sheet, width, height, baseline, NULL, &inset);
 }
 
 static void
-adw_bottom_sheet_measure (GtkWidget      *widget,
-                          GtkOrientation  orientation,
-                          int             for_size,
-                          int            *minimum,
-                          int            *natural,
-                          int            *minimum_baseline,
-                          int            *natural_baseline)
+adw_bottom_sheet_measure_with_inset (GtkWidget       *widget,
+                                     GtkOrientation   orientation,
+                                     int              for_size,
+                                     const GtkBorder *inset,
+                                     int             *minimum,
+                                     int             *natural,
+                                     int             *minimum_baseline,
+                                     int             *natural_baseline)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (widget);
   int content_min, content_nat, dim_min, dim_nat, sheet_min, sheet_nat;
@@ -553,9 +561,15 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   int top_padding;
   int bottom_bar_height;
   float align;
+  GtkBorder inset;
+  int inset_width;
 
   if (width == 0 && height == 0)
     return;
+
+  gtk_widget_get_inset (widget, &inset);
+
+  inset_width = width - inset.left - inset.right;
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
@@ -566,20 +580,26 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
     align = self->align;
 
   if (self->full_width)
-    sheet_width = MAX (width, sheet_min_width);
+    sheet_width = MAX (inset_width, sheet_min_width);
   else
     sheet_width = MAX (MIN (sheet_width, width), sheet_min_width);
 
-  sheet_x = round ((width - sheet_width) * align);
+  sheet_x = round ((inset_width - sheet_width) * align);
 
-  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
-                      &sheet_min_height, &sheet_height, NULL, NULL);
+  gtk_widget_measure_with_inset (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width, &inset,
+                                 &sheet_min_height, &sheet_height, NULL, NULL);
 
   if (self->bottom_bar) {
     int bottom_bar_min_height;
+    GtkBorder bottom_bar_inset;
 
-    gtk_widget_measure (self->bottom_bar_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
-                        &bottom_bar_min_height, &bottom_bar_height, NULL, NULL);
+    bottom_bar_inset.top = 0;
+    bottom_bar_inset.left = 0;
+    bottom_bar_inset.right = 0;
+    bottom_bar_inset.bottom = inset.bottom;
+
+    gtk_widget_measure_with_inset (self->bottom_bar_bin, GTK_ORIENTATION_VERTICAL, sheet_width, &bottom_bar_inset,
+                                   &bottom_bar_min_height, &bottom_bar_height, NULL, NULL);
 
     bottom_bar_height = MAX (MIN (bottom_bar_height, height), bottom_bar_min_height);
 
@@ -594,7 +614,7 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
                                   (double) (TOP_PADDING_TARGET_HEIGHT -
                                             TOP_PADDING_MIN_HEIGHT)));
 
-  sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
+  sheet_height = MAX (MIN (sheet_height, height - top_padding - inset.top), sheet_min_height);
 
   sheet_y = height - round (adw_lerp (bottom_bar_height, sheet_height, self->progress));
 
@@ -615,12 +635,12 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
     gtk_widget_remove_css_class (self->sheet_bin, "flush-right");
 
   if (gtk_widget_should_layout (self->content_bin))
-    gtk_widget_allocate (self->content_bin, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->content_bin, width, height, baseline, NULL, &inset);
 
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
   transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sheet_x, sheet_y));
-  gtk_widget_allocate (self->sheet_bin, sheet_width, sheet_height, baseline, transform);
+  gtk_widget_allocate_with_inset (self->sheet_bin, sheet_width, sheet_height, baseline, transform, &inset);
 }
 
 static void
@@ -758,7 +778,7 @@ adw_bottom_sheet_class_init (AdwBottomSheetClass *klass)
   object_class->set_property = adw_bottom_sheet_set_property;
 
   widget_class->contains = adw_widget_contains_passthrough;
-  widget_class->measure = adw_bottom_sheet_measure;
+  widget_class->measure_with_inset = adw_bottom_sheet_measure_with_inset;
   widget_class->size_allocate = adw_bottom_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -1099,6 +1119,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->reveal_bottom_bar_progress = 1;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   /* Content */
 
@@ -1127,6 +1148,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                                    (AdwGizmoFocusFunc) adw_widget_focus_child,
                                    (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child_or_self);
   gtk_widget_set_layout_manager (self->sheet_bin, gtk_bin_layout_new ());
+  gtk_widget_set_inset_mode (self->sheet_bin, GTK_INSET_EXTEND);
   gtk_widget_add_css_class (self->sheet_bin, "background");
   gtk_widget_add_css_class (self->sheet_bin, "has-drag-handle");
   gtk_widget_set_focusable (self->sheet_bin, TRUE);
@@ -1143,6 +1165,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL,
                                  (AdwGizmoContainsFunc) adw_widget_contains_passthrough,
                                  NULL, NULL);
+  gtk_widget_set_inset_mode (self->outline, GTK_INSET_EXTEND);
   gtk_widget_set_can_target (self->outline, FALSE);
   gtk_widget_set_can_focus (self->outline, FALSE);
   gtk_widget_set_parent (self->outline, self->sheet_bin);
@@ -1153,6 +1176,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                                     (AdwGizmoFocusFunc) adw_widget_focus_child,
                                     (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child_or_self);
   gtk_widget_set_overflow (self->sheet_page, GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (self->sheet_page, GTK_INSET_EXTEND);
   gtk_widget_set_layout_manager (self->sheet_page,
                                  gtk_custom_layout_new (adw_widget_get_request_mode,
                                                         measure_sheet,
@@ -1265,19 +1289,24 @@ static int
 get_sheet_width (AdwBottomSheet *self)
 {
   int sheet_width, sheet_min_width, width;
+  GtkBorder inset;
+  int inset_width;
+
+  gtk_widget_get_inset (GTK_WIDGET (self), &inset);
 
   width = gtk_widget_get_width (GTK_WIDGET (self));
+  inset_width = width - inset.left - inset.right;
 
   if (!self->sheet_bin)
-    return width;
+    return inset_width;
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
 
   if (self->full_width)
-    return MAX (width, sheet_min_width);
+    return MAX (inset_width, sheet_min_width);
 
-  return MAX (MIN (sheet_width, width), sheet_min_width);
+  return MAX (MIN (sheet_width, inset_width), sheet_min_width);
 }
 
 static double

@@ -2148,13 +2148,14 @@ init_shortcuts (AdwTabView         *self,
 }
 
 static void
-adw_tab_view_measure (GtkWidget      *widget,
-                      GtkOrientation  orientation,
-                      int             for_size,
-                      int            *minimum,
-                      int            *natural,
-                      int            *minimum_baseline,
-                      int            *natural_baseline)
+adw_tab_view_measure_with_inset (GtkWidget       *widget,
+                                 GtkOrientation   orientation,
+                                 int              for_size,
+                                 const GtkBorder *inset,
+                                 int             *minimum,
+                                 int             *natural,
+                                 int             *minimum_baseline,
+                                 int             *natural_baseline)
 {
   AdwTabView *self = ADW_TAB_VIEW (widget);
   int i;
@@ -2166,8 +2167,8 @@ adw_tab_view_measure (GtkWidget      *widget,
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
     int child_min, child_nat;
 
-    gtk_widget_measure (page->bin, orientation, for_size,
-                        &child_min, &child_nat, NULL, NULL);
+    gtk_widget_measure_with_inset (page->bin, orientation, for_size, inset,
+                                   &child_min, &child_nat, NULL, NULL);
 
     *minimum = MAX (*minimum, child_min);
     *natural = MAX (*natural, child_nat);
@@ -2181,13 +2182,16 @@ adw_tab_view_size_allocate (GtkWidget *widget,
                             int        baseline)
 {
   AdwTabView *self = ADW_TAB_VIEW (widget);
+  GtkBorder inset;
   int i;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (i = 0; i < self->n_pages; i++) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
 
     if (gtk_widget_get_child_visible (page->bin))
-      gtk_widget_allocate (page->bin, width, height, baseline, NULL);
+      gtk_widget_allocate_with_inset (page->bin, width, height, baseline, NULL, &inset);
   }
 }
 
@@ -2407,7 +2411,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   object_class->get_property = adw_tab_view_get_property;
   object_class->set_property = adw_tab_view_set_property;
 
-  widget_class->measure = adw_tab_view_measure;
+  widget_class->measure_with_inset = adw_tab_view_measure_with_inset;
   widget_class->size_allocate = adw_tab_view_size_allocate;
   widget_class->snapshot = adw_tab_view_snapshot;
   widget_class->map = adw_tab_view_map;
@@ -2767,6 +2771,7 @@ adw_tab_view_init (AdwTabView *self)
   init_shortcuts (self, controller);
 
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

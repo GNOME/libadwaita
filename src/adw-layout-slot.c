@@ -138,6 +138,7 @@ adw_layout_slot_class_init (AdwLayoutSlotClass *klass)
 static void
 adw_layout_slot_init (AdwLayoutSlot *self)
 {
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 /**

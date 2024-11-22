@@ -185,6 +185,9 @@ allocate_child (AdwBreakpointBin *self,
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
   int min_width, min_height;
+  GtkBorder inset;
+
+  gtk_widget_get_inset (GTK_WIDGET (self), &inset);
 
   if (priv->old_node)
     return;
@@ -218,13 +221,13 @@ allocate_child (AdwBreakpointBin *self,
                  G_OBJECT_TYPE_NAME (warning_widget), warning_widget);
   }
 
-  gtk_widget_measure (priv->child, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &min_width, NULL, NULL, NULL);
-  gtk_widget_measure (priv->child, GTK_ORIENTATION_VERTICAL, -1,
-                      &min_height, NULL, NULL, NULL);
+  gtk_widget_measure_with_inset (priv->child, GTK_ORIENTATION_HORIZONTAL, -1, &inset,
+                                 &min_width, NULL, NULL, NULL);
+  gtk_widget_measure_with_inset (priv->child, GTK_ORIENTATION_VERTICAL, -1, &inset,
+                                 &min_height, NULL, NULL, NULL);
 
   if (width >= min_width && height >= min_height) {
-    gtk_widget_allocate (priv->child, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (priv->child, width, height, baseline, NULL, &inset);
 
     return;
   }
@@ -254,7 +257,7 @@ allocate_child (AdwBreakpointBin *self,
   width = MAX (width, min_width);
   height = MAX (height, min_height);
 
-  gtk_widget_allocate (priv->child, width, height, baseline, NULL);
+  gtk_widget_allocate_with_inset (priv->child, width, height, baseline, NULL, &inset);
 }
 
 static gboolean
@@ -336,21 +339,22 @@ adw_breakpoint_bin_get_request_mode (GtkWidget *widget)
 }
 
 static void
-adw_breakpoint_bin_measure (GtkWidget      *widget,
-                            GtkOrientation  orientation,
-                            int             for_size,
-                            int            *minimum,
-                            int            *natural,
-                            int            *minimum_baseline,
-                            int            *natural_baseline)
+adw_breakpoint_bin_measure_with_inset (GtkWidget       *widget,
+                                       GtkOrientation   orientation,
+                                       int              for_size,
+                                       const GtkBorder *inset,
+                                       int             *minimum,
+                                       int             *natural,
+                                       int             *minimum_baseline,
+                                       int             *natural_baseline)
 {
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
   int min = 0, nat = 0;
 
   if (priv->child) {
-    gtk_widget_measure (priv->child, orientation, for_size,
-                        &min, &nat, NULL, NULL);
+    gtk_widget_measure_with_inset (priv->child, orientation, for_size, inset,
+                                   &min, &nat, NULL, NULL);
 
     if (priv->breakpoints)
       min = 0;
@@ -566,7 +570,7 @@ adw_breakpoint_bin_class_init (AdwBreakpointBinClass *klass)
 
   widget_class->contains = adw_breakpoint_bin_contains;
   widget_class->get_request_mode = adw_breakpoint_bin_get_request_mode;
-  widget_class->measure = adw_breakpoint_bin_measure;
+  widget_class->measure_with_inset = adw_breakpoint_bin_measure_with_inset;
   widget_class->size_allocate = adw_breakpoint_bin_size_allocate;
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->snapshot = adw_breakpoint_bin_snapshot;
@@ -614,6 +618,7 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
   priv->delayed_focus = g_array_new (FALSE, FALSE, sizeof (DelayedFocus));
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

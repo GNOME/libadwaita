@@ -277,6 +277,8 @@ static void
 adw_status_page_init (AdwStatusPage *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

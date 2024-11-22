@@ -397,6 +397,8 @@ adw_multi_layout_view_init (AdwMultiLayoutView *self)
   self->children = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   self->child_visible_bindings = g_hash_table_new_full (NULL, NULL, NULL, binding_unbind_and_unref);
   self->slots = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

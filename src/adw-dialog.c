@@ -1265,6 +1265,8 @@ adw_dialog_init (AdwDialog *self)
   priv->follows_content_size = FALSE;
   priv->presentation_mode = ADW_DIALOG_AUTO;
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
+
   priv->child_breakpoint_bin = adw_breakpoint_bin_new ();
   gtk_widget_set_overflow (priv->child_breakpoint_bin, GTK_OVERFLOW_VISIBLE);
   adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),

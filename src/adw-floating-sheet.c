@@ -130,16 +130,17 @@ maybe_close_cb (GtkWidget        *widget,
 }
 
 static void
-adw_floating_sheet_measure (GtkWidget      *widget,
-                            GtkOrientation  orientation,
-                            int             for_size,
-                            int            *minimum,
-                            int            *natural,
-                            int            *minimum_baseline,
-                            int            *natural_baseline)
+adw_floating_sheet_measure_with_inset (GtkWidget       *widget,
+                                       GtkOrientation   orientation,
+                                       int              for_size,
+                                       const GtkBorder *inset,
+                                       int             *minimum,
+                                       int             *natural,
+                                       int             *minimum_baseline,
+                                       int             *natural_baseline)
 {
   AdwFloatingSheet *self = ADW_FLOATING_SHEET (widget);
-  int dim_min, dim_nat, sheet_min, sheet_nat;
+  int dim_min, dim_nat, sheet_min, sheet_nat, inset_size;
 
   gtk_widget_measure (self->dimming, orientation, for_size,
                       &dim_min, &dim_nat, NULL, NULL);
@@ -147,10 +148,15 @@ adw_floating_sheet_measure (GtkWidget      *widget,
   gtk_widget_measure (self->sheet_bin, orientation, for_size,
                       &sheet_min, &sheet_nat, NULL, NULL);
 
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    inset_size = inset->left + inset->right;
+  else
+    inset_size = inset->top + inset->bottom;
+
   if (minimum)
-    *minimum = MAX (dim_min, sheet_min);
+    *minimum = MAX (dim_min, sheet_min) + inset_size;
   if (natural)
-    *natural = MAX (dim_nat, sheet_nat);
+    *natural = MAX (dim_nat, sheet_nat) + inset_size;
   if (minimum_baseline)
     *minimum_baseline = -1;
   if (natural_baseline)
@@ -168,9 +174,13 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
   int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
   int horz_padding, vert_padding;
   float scale;
+  GtkBorder inset;
+  int inset_width, inset_height;
 
   if (width == 0 && height == 0)
     return;
+
+  gtk_widget_get_inset (widget, &inset);
 
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
@@ -188,15 +198,18 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
 
-  sheet_width = MAX (sheet_min_width, MIN (sheet_width, width - horz_padding * 2));
+  inset_width = width - inset.left - inset.right;
+  inset_height = height - inset.top - inset.bottom;
+
+  sheet_width = MAX (sheet_min_width, MIN (sheet_width, inset_width - horz_padding * 2));
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
                       &sheet_min_height, &sheet_height, NULL, NULL);
 
-  sheet_height = MAX (sheet_min_height, MIN (sheet_height, height - vert_padding * 2));
+  sheet_height = MAX (sheet_min_height, MIN (sheet_height, inset_height - vert_padding * 2));
 
-  sheet_x = round ((width - sheet_width) * 0.5);
-  sheet_y = round ((height - sheet_height) * 0.5);
+  sheet_x = round ((inset_width - sheet_width) * 0.5) + inset.left;
+  sheet_y = round ((inset_height - sheet_height) * 0.5) + inset.top;
 
   scale = MIN_SCALE + (1 - MIN_SCALE) * self->progress;
   transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width / 2.0f, height / 2.0f));
@@ -276,7 +289,7 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   object_class->set_property = adw_floating_sheet_set_property;
 
   widget_class->contains = adw_widget_contains_passthrough;
-  widget_class->measure = adw_floating_sheet_measure;
+  widget_class->measure_with_inset = adw_floating_sheet_measure_with_inset;
   widget_class->size_allocate = adw_floating_sheet_size_allocate;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -369,6 +382,8 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   shortcut_controller = gtk_shortcut_controller_new ();
   gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (shortcut_controller), shortcut);
   gtk_widget_add_controller (self->sheet_bin, shortcut_controller);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 GtkWidget *
@@ -511,3 +526,4 @@ adw_floating_sheet_set_callbacks (AdwFloatingSheet *self,
   self->closed_callback = closed_callback;
   self->user_data = user_data;
 }
+

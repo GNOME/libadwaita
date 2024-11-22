@@ -1118,95 +1118,103 @@ adw_view_stack_size_allocate (GtkWidget *widget,
                               int        baseline)
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   if (self->last_visible_child) {
-    GtkAllocation child_allocation;
     int child_width, child_height;
     int min, nat;
+    int x, y;
 
-    gtk_widget_measure (self->last_visible_child->widget,
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        &min, &nat, NULL, NULL);
+    gtk_widget_measure_with_inset (self->last_visible_child->widget,
+                                   GTK_ORIENTATION_HORIZONTAL, -1, &inset,
+                                   &min, &nat, NULL, NULL);
     child_width = MAX (min, width);
-    gtk_widget_measure (self->last_visible_child->widget,
-                        GTK_ORIENTATION_VERTICAL, child_width,
-                        &min, &nat, NULL, NULL);
+    gtk_widget_measure_with_inset (self->last_visible_child->widget,
+                                   GTK_ORIENTATION_VERTICAL, child_width, &inset,
+                                   &min, &nat, NULL, NULL);
     child_height = MAX (min, height);
 
-    child_allocation.x = 0;
-    child_allocation.y = 0;
-    child_allocation.width = child_width;
-    child_allocation.height = child_height;
+    x = y = 0;
 
-    if (child_allocation.width > width) {
+    if (child_width > width) {
       GtkAlign halign = gtk_widget_get_halign (self->last_visible_child->widget);
 
       if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
-        child_allocation.x = (width - child_allocation.width) / 2;
+        x = (width - child_width) / 2;
       else if (halign == GTK_ALIGN_END)
-        child_allocation.x = (width - child_allocation.width);
+        x = (width - child_width);
     }
 
-    if (child_allocation.height > height) {
+    if (child_height > height) {
       GtkAlign valign = gtk_widget_get_valign (self->last_visible_child->widget);
 
       if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
-        child_allocation.y = (height - child_allocation.height) / 2;
+        y = (height - child_height) / 2;
       else if (valign == GTK_ALIGN_END)
-        child_allocation.y = (height - child_allocation.height);
+        y = (height - child_height);
     }
 
-    gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation, -1);
+    gtk_widget_allocate_with_inset (self->last_visible_child->widget,
+                                    child_width, child_height, -1,
+                                    gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)),
+                                    &inset);
   }
 
   if (self->visible_child) {
-    GtkAllocation child_allocation;
     int min_width;
     int min_height;
+    int x, y;
+    int child_width;
+    int child_height;
 
-    child_allocation.x = 0;
-    child_allocation.y = 0;
-    child_allocation.width = width;
-    child_allocation.height = height;
+    x = y = 0;
+    child_width = width;
+    child_height = height;
 
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
-                        height, &min_width, NULL, NULL, NULL);
+    gtk_widget_measure_with_inset (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
+                                   height, &inset, &min_width, NULL, NULL, NULL);
     width = MAX (width, min_width);
 
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
-                        child_allocation.width, &min_height, NULL, NULL, NULL);
-    child_allocation.height = MAX (child_allocation.height, min_height);
+    gtk_widget_measure_with_inset (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                                   child_width, &inset, &min_height, NULL, NULL, NULL);
+    child_height = MAX (child_height, min_height);
 
-    if (child_allocation.width > width) {
+    if (child_width > width) {
       GtkAlign halign = gtk_widget_get_halign (self->visible_child->widget);
 
       if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
-        child_allocation.x = (width - child_allocation.width) / 2;
+        x = (width - child_width) / 2;
       else if (halign == GTK_ALIGN_END)
-        child_allocation.x = (width - child_allocation.width);
+        x = (width - child_width);
     }
 
-    if (child_allocation.height > height) {
+    if (child_height > height) {
       GtkAlign valign = gtk_widget_get_valign (self->visible_child->widget);
 
       if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
-        child_allocation.y = (height - child_allocation.height) / 2;
+        y = (height - child_height) / 2;
       else if (valign == GTK_ALIGN_END)
-        child_allocation.y = (height - child_allocation.height);
+        y = (height - child_height);
     }
 
-    gtk_widget_size_allocate (self->visible_child->widget, &child_allocation, -1);
+    gtk_widget_allocate_with_inset (self->visible_child->widget,
+                                    child_width, child_height, -1,
+                                    gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)),
+                                    &inset);
   }
 }
 
 static void
-adw_view_stack_measure (GtkWidget      *widget,
-                        GtkOrientation  orientation,
-                        int             for_size,
-                        int            *minimum,
-                        int            *natural,
-                        int            *minimum_baseline,
-                        int            *natural_baseline)
+adw_view_stack_measure_with_inset (GtkWidget       *widget,
+                                   GtkOrientation   orientation,
+                                   int              for_size,
+                                   const GtkBorder *inset,
+                                   int             *minimum,
+                                   int             *natural,
+                                   int             *minimum_baseline,
+                                   int             *natural_baseline)
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
   int child_min, child_nat;
@@ -1227,10 +1235,10 @@ adw_view_stack_measure (GtkWidget      *widget,
       if (!self->homogeneous[OPPOSITE_ORIENTATION(orientation)] && self->visible_child != page) {
         int min_for_size;
 
-        gtk_widget_measure (child, OPPOSITE_ORIENTATION (orientation), -1, &min_for_size, NULL, NULL, NULL);
-        gtk_widget_measure (child, orientation, MAX (min_for_size, for_size), &child_min, &child_nat, NULL, NULL);
+        gtk_widget_measure_with_inset (child, OPPOSITE_ORIENTATION (orientation), -1, inset, &min_for_size, NULL, NULL, NULL);
+        gtk_widget_measure_with_inset (child, orientation, MAX (min_for_size, for_size), inset, &child_min, &child_nat, NULL, NULL);
       } else {
-        gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat, NULL, NULL);
+        gtk_widget_measure_with_inset (child, orientation, for_size, inset, &child_min, &child_nat, NULL, NULL);
       }
 
       *minimum = MAX (*minimum, child_min);
@@ -1363,7 +1371,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
 
   widget_class->snapshot = adw_view_stack_snapshot;
   widget_class->size_allocate = adw_view_stack_size_allocate;
-  widget_class->measure = adw_view_stack_measure;
+  widget_class->measure_with_inset = adw_view_stack_measure_with_inset;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
@@ -1495,6 +1503,8 @@ adw_view_stack_init (AdwViewStack *self)
   self->homogeneous[GTK_ORIENTATION_VERTICAL] = TRUE;
   self->homogeneous[GTK_ORIENTATION_HORIZONTAL] = TRUE;
   self->transition_duration = 200;
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) transition_cb,
                                               self, NULL);

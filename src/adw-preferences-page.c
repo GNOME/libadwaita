@@ -80,6 +80,82 @@ is_visible_group (GtkWidget *widget,
 }
 
 static void
+adw_preferences_page_measure_with_inset (GtkWidget       *widget,
+                                         GtkOrientation   orientation,
+                                         int              for_size,
+                                         const GtkBorder *inset,
+                                         int             *minimum,
+                                         int             *natural,
+                                         int             *minimum_baseline,
+                                         int             *natural_baseline)
+{
+  AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (widget);
+  AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+  GtkBorder content_inset;
+  int banner_min, banner_nat, content_min, content_nat;
+
+  if (priv->banner && gtk_widget_should_layout (priv->banner)) {
+    GtkBorder banner_inset;
+
+    banner_inset = *inset;
+    banner_inset.bottom = 0;
+
+    gtk_widget_measure_with_inset (priv->banner, orientation, for_size, &banner_inset,
+                                   &banner_min, &banner_nat, NULL, NULL);
+  } else {
+    banner_min = banner_nat = 0;
+  }
+
+  content_inset = *inset;
+  content_inset.top = banner_min;
+
+  gtk_widget_measure_with_inset (priv->scrolled_window, orientation, for_size, &content_inset,
+                                 &content_min, &content_nat, NULL, NULL);
+
+  if (minimum)
+    *minimum = MAX (banner_min, content_min);
+  if (natural)
+    *natural = MAX (banner_nat, content_nat);
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+}
+
+static void
+adw_preferences_page_size_allocate (GtkWidget *widget,
+                                    int        width,
+                                    int        height,
+                                    int        baseline)
+{
+  AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (widget);
+  AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+  GtkBorder inset, content_inset;
+
+  gtk_widget_get_inset (widget, &inset);
+
+  content_inset = inset;
+
+  if (priv->banner && gtk_widget_should_layout (priv->banner)) {
+    int banner_min, banner_nat, banner_height;
+    GtkBorder banner_inset;
+
+    banner_inset = inset;
+    banner_inset.bottom = 0;
+
+    gtk_widget_measure_with_inset (priv->banner, GTK_ORIENTATION_VERTICAL, width, &banner_inset,
+                                   &banner_min, &banner_nat, NULL, NULL);
+
+    banner_height = MAX (banner_min, MIN (banner_nat, height));
+
+    gtk_widget_allocate_with_inset (priv->banner, width, banner_height, -1, NULL, &banner_inset);
+
+    content_inset.top = banner_height;
+  }
+  gtk_widget_allocate_with_inset (priv->scrolled_window, width, height, -1, NULL, &content_inset);
+}
+
+static void
 adw_preferences_page_get_property (GObject    *object,
                                    guint       prop_id,
                                    GValue     *value,
@@ -186,6 +262,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   object_class->dispose = adw_preferences_page_dispose;
   object_class->finalize = adw_preferences_page_finalize;
 
+  widget_class->measure_with_inset = adw_preferences_page_measure_with_inset;
+  widget_class->size_allocate = adw_preferences_page_size_allocate;
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->focus = adw_widget_focus_child;
 
@@ -275,20 +353,18 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
 
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
 }
 
 static void
 adw_preferences_page_init (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
-  GtkLayoutManager *layout = gtk_widget_get_layout_manager (GTK_WIDGET (self));
-
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (layout), GTK_ORIENTATION_VERTICAL);
 
   priv->title = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void
@@ -710,7 +786,7 @@ adw_preferences_page_set_banner (AdwPreferencesPage *self,
   priv->banner = banner_widget;
 
   if (priv->banner)
-    gtk_widget_insert_after (priv->banner, GTK_WIDGET (self), NULL);
+    gtk_widget_insert_before (priv->banner, GTK_WIDGET (self), NULL);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BANNER]);
 }

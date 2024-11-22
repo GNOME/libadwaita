@@ -352,14 +352,16 @@ dismiss_cb (AdwToastOverlay *self,
 }
 
 static void
-adw_toast_overlay_measure (GtkWidget      *widget,
-                           GtkOrientation  orientation,
-                           int             for_size,
-                           int            *minimum,
-                           int            *natural,
-                           int            *minimum_baseline,
-                           int            *natural_baseline)
+adw_toast_overlay_measure_with_inset (GtkWidget       *widget,
+                                      GtkOrientation   orientation,
+                                      int              for_size,
+                                      const GtkBorder *inset,
+                                      int             *minimum,
+                                      int             *natural,
+                                      int             *minimum_baseline,
+                                      int             *natural_baseline)
 {
+  AdwToastOverlay *self = ADW_TOAST_OVERLAY (widget);
   GtkWidget *child;
 
   for (child = gtk_widget_get_first_child (widget);
@@ -373,9 +375,15 @@ adw_toast_overlay_measure (GtkWidget      *widget,
     if (!gtk_widget_should_layout (child))
       continue;
 
-    gtk_widget_measure (child, orientation, for_size,
-                        &child_min, &child_nat,
-                        &child_min_baseline, &child_nat_baseline);
+    if (child == self->child) {
+      gtk_widget_measure_with_inset (child, orientation, for_size, inset,
+                                     &child_min, &child_nat,
+                                     &child_min_baseline, &child_nat_baseline);
+    } else {
+      gtk_widget_measure (child, orientation, for_size,
+                          &child_min, &child_nat,
+                          &child_min_baseline, &child_nat_baseline);
+    }
 
     *minimum = MAX (*minimum, child_min);
     *natural = MAX (*natural, child_nat);
@@ -391,7 +399,8 @@ static void
 allocate_toast (AdwToastOverlay *self,
                 ToastInfo       *info,
                 int              width,
-                int              height)
+                int              height,
+                int              bottom_inset)
 {
   GtkRequisition size;
   GskTransform *transform;
@@ -406,13 +415,13 @@ allocate_toast (AdwToastOverlay *self,
 
   size.height = MIN (size.height, height);
 
-  x = (width - size.width) / 2;
-  y = height - size.height;
+  x = (width - size.width) / 2; // TODO account for other insets too
+  y = height - size.height - bottom_inset;
   transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y));
 
   if (info->show_animation) {
     float value = adw_animation_get_value (info->show_animation);
-    float offset = adw_lerp (size.height, 0.0f, value);
+    float offset = adw_lerp (size.height + bottom_inset, 0, value);
 
     transform = gsk_transform_translate (transform,
                                          &GRAPHENE_POINT_INIT (0, offset));
@@ -442,16 +451,19 @@ adw_toast_overlay_size_allocate (GtkWidget *widget,
                                  int        baseline)
 {
   AdwToastOverlay *self = ADW_TOAST_OVERLAY (widget);
+  GtkBorder inset;
   GList *l;
 
+  gtk_widget_get_inset (widget, &inset);
+
   if (self->child && gtk_widget_should_layout (self->child))
-    gtk_widget_allocate (self->child, width, height, baseline, NULL);
+    gtk_widget_allocate_with_inset (self->child, width, height, baseline, NULL, &inset);
 
   for (l = self->hiding_toasts; l; l = l->next)
-    allocate_toast (self, l->data, width, height);
+    allocate_toast (self, l->data, width, height, inset.bottom);
 
   if (self->current_toast)
-    allocate_toast (self, self->current_toast, width, height);
+    allocate_toast (self, self->current_toast, width, height, inset.bottom);
 }
 
 static void
@@ -525,7 +537,7 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
 
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->get_request_mode = adw_widget_get_request_mode;
-  widget_class->measure = adw_toast_overlay_measure;
+  widget_class->measure_with_inset = adw_toast_overlay_measure_with_inset;
   widget_class->size_allocate = adw_toast_overlay_size_allocate;
 
   /**
@@ -552,6 +564,7 @@ adw_toast_overlay_init (AdwToastOverlay *self)
   self->queue = g_queue_new ();
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void
