@@ -787,7 +787,7 @@ The "card" style class can be used to achieve the same style with GtkBox or simi
                 <child>
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Check Buttons</property>
-                    <property name="description" translatable="yes">The "selection-mode" style class makes can be used with GtkCheckButton to make them large and round</property>
+                    <property name="description" translatable="yes">The "selection-mode" style class can be used with GtkCheckButton to make them large and round</property>
                     <child>
                       <object class="GtkGrid">
                         <property name="row-spacing">6</property>
