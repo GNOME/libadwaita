@@ -895,7 +895,8 @@ adw_dialog_dispose (GObject *object)
     priv->floating_sheet = NULL;
     priv->child_breakpoint_bin = NULL;
     priv->child = NULL;
-  } else if (priv->window) {
+  } else if (priv->child_breakpoint_bin &&
+             gtk_widget_get_parent (priv->child_breakpoint_bin) == GTK_WIDGET (self)) {
     /* It's an window-backed dialog */
     g_clear_pointer (&priv->child_breakpoint_bin, gtk_widget_unparent);
     priv->child = NULL;
