@@ -45,6 +45,8 @@ struct _AdwFloatingSheet
   AdwAnimation *open_animation;
   double progress;
 
+  gboolean has_been_open;
+
   GFunc closing_callback;
   GFunc closed_callback;
   gpointer user_data;
@@ -423,14 +425,24 @@ adw_floating_sheet_set_open (AdwFloatingSheet *self,
 
   open = !!open;
 
-  if (self->open == open)
+  if (self->open == open) {
+    if (!self->has_been_open && !open) {
+      if (self->closing_callback)
+        self->closing_callback (self, self->user_data);
+
+      if (self->closed_callback)
+        self->closed_callback (self, self->user_data);
+    }
+
     return;
+  }
 
   self->open = open;
 
   if (open) {
     gtk_widget_set_child_visible (self->dimming, TRUE);
     gtk_widget_set_child_visible (self->sheet_bin, TRUE);
+    self->has_been_open = true;
   }
 
   gtk_widget_set_can_target (self->dimming, open);

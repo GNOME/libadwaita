@@ -185,6 +185,12 @@ map_tick_cb (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
 
+  if (priv->force_closing) {
+    priv->tick_cb_id = 0;
+    priv->ticks = 0;
+    return G_SOURCE_REMOVE;
+  }
+
   priv->ticks++;
 
   /* If we're showing a bottom sheet, it has changed after the initial map,
@@ -1876,6 +1882,11 @@ adw_dialog_close (AdwDialog *self)
   g_return_val_if_fail (ADW_IS_DIALOG (self), FALSE);
 
   priv = adw_dialog_get_instance_private (self);
+
+  if (!gtk_widget_get_parent (GTK_WIDGET (self))) {
+    g_critical ("Trying to close %s %p that's not presented", G_OBJECT_TYPE_NAME (self), self);
+    return FALSE;
+  }
 
   if (!priv->can_close) {
     g_signal_emit (self, signals[SIGNAL_CLOSE_ATTEMPT], 0);
