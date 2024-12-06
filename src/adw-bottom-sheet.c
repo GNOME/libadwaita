@@ -146,6 +146,8 @@ struct _AdwBottomSheet
   gboolean can_open;
   gboolean can_close;
 
+  gboolean has_been_open;
+
   AdwSwipeTracker *swipe_tracker;
   gboolean swipe_detected;
   gboolean swipe_active;
@@ -1628,8 +1630,17 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
 
   open = !!open;
 
-  if (self->open == open)
+  if (self->open == open) {
+    if (!self->has_been_open && !open) {
+      if (self->closing_callback)
+        self->closing_callback (self, self->user_data);
+
+      if (self->closed_callback)
+        self->closed_callback (self, self->user_data);
+    }
+
     return;
+  }
 
   self->open = open;
 
