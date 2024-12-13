@@ -5,18 +5,26 @@ option('introspection', type: 'feature', value: 'auto')
 option('vapi', type: 'boolean', value: true)
 
 # Subproject
-option('package_subdir', type: 'string',
-  description: 'Subdirectory to append to all installed files, for use as subproject'
-)
+option('package_subdir',
+       type: 'string',
+       description: 'Subdirectory to append to all installed files, for use as subproject')
 
-option('gtk_doc',
+# Documentation
+option('documentation',
        type: 'boolean', value: false,
        description: 'Whether to generate the API reference for libadwaita')
 
+option('gtk_doc',
+       type: 'boolean', value: false,
+       description: 'Whether to generate the API reference for libadwaita',
+       deprecated: 'documentation')
+
+# Tests
 option('tests',
        type: 'boolean', value: true,
        description: 'Whether to compile unit tests')
 
+# Demo and examples
 option('examples',
        type: 'boolean', value: true,
        description: 'Build and install the examples and demo applications (currently not built for MSVC builds)')

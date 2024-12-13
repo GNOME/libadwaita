@@ -20,7 +20,7 @@ ninja -C _build install
 For build options see [meson_options.txt](./meson_options.txt). E.g. to enable documentation:
 
 ```sh
-meson setup _build -Dgtk_doc=true
+meson setup _build -Ddocumentation=true
 ninja -C _build
 ```
 
@@ -40,3 +40,4 @@ The documentation can be found online
 ## Getting in Touch
 
 Matrix room: [#libadwaita:gnome.org](https://matrix.to/#/#libadwaita:gnome.org)
+
