@@ -12,7 +12,24 @@
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
-static int adw_initialized = FALSE;
+static gboolean adw_initialized = FALSE;
+static gboolean adw_adaptive_preview = FALSE;
+
+static void
+init_debug (void)
+{
+  const char *env = g_getenv ("ADW_DEBUG_ADAPTIVE_PREVIEW");
+
+  if (!env || !*env)
+    return;
+
+  if (!g_strcmp0 (env, "1"))
+    adw_adaptive_preview = TRUE;
+  else if (!g_strcmp0 (env, "0"))
+    adw_adaptive_preview = FALSE;
+  else
+    g_warning ("Invalid value for ADW_DEBUG_ADAPTIVE_PREVIEW: %s (Expected 0 or 1)", env);
+}
 
 /**
  * adw_init:
@@ -54,6 +71,8 @@ adw_init (void)
                                       10);
   }
 
+  init_debug ();
+
   adw_initialized = TRUE;
 }
 
@@ -87,4 +106,10 @@ adw_is_granite_present (void)
   }
 
   return present;
+}
+
+gboolean
+adw_is_adaptive_preview (void)
+{
+  return adw_adaptive_preview;
 }

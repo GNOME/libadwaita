@@ -12,8 +12,10 @@
 #include "adw-inspector-page-private.h"
 
 #include <adwaita.h>
+#include "adw-application-window-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-settings-private.h"
+#include "adw-window-private.h"
 
 struct _AdwInspectorPage
 {
@@ -40,6 +42,31 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static void
+set_open_adaptive_preview (gboolean open)
+{
+  GList *toplevels, *l;
+
+  toplevels = gtk_window_list_toplevels ();
+
+  for (l = toplevels; l; l = l->next) {
+    GtkWidget *toplevel = l->data;
+
+    if (ADW_IS_WINDOW (toplevel))
+      adw_window_set_adaptive_preview (ADW_WINDOW (toplevel), open);
+    else if (ADW_IS_APPLICATION_WINDOW (toplevel))
+      adw_application_window_set_adaptive_preview (ADW_APPLICATION_WINDOW (toplevel), open);
+  }
+
+  g_list_free (toplevels);
+}
+
+static void
+adaptive_preview_activated_cb (AdwInspectorPage *self)
+{
+  set_open_adaptive_preview (TRUE);
+}
 
 static void
 color_scheme_changed_cb (AdwInspectorPage *self)
@@ -304,6 +331,8 @@ adw_inspector_page_dispose (GObject *object)
     self->settings = NULL;
   }
 
+  set_open_adaptive_preview (FALSE);
+
   g_clear_object (&self->object);
 
   G_OBJECT_CLASS (adw_inspector_page_parent_class)->dispose (object);
@@ -340,6 +369,7 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_accent_colors_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, accent_color_row);
 
+  gtk_widget_class_bind_template_callback (widget_class, adaptive_preview_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_system_color_scheme_name);
   gtk_widget_class_bind_template_callback (widget_class, get_accent_color_name);
   gtk_widget_class_bind_template_callback (widget_class, accent_color_item_setup_cb);

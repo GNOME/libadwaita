@@ -7,12 +7,14 @@
 
 #include "config.h"
 
-#include "adw-application-window.h"
+#include "adw-application-window-private.h"
 
+#include "adw-adaptive-preview-private.h"
 #include "adw-breakpoint-bin-private.h"
 #include "adw-dialog-host-private.h"
 #include "adw-dialog-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-main-private.h"
 
 /**
  * AdwApplicationWindow:
@@ -55,6 +57,7 @@ typedef struct
   GtkWidget *titlebar;
   GtkWidget *bin;
   GtkWidget *dialog_host;
+  GtkWidget *adaptive_preview;
 } AdwApplicationWindowPrivate;
 
 static void adw_application_window_buildable_init (GtkBuildableIface *iface);
@@ -96,12 +99,14 @@ adw_application_window_size_allocate (GtkWidget *widget,
 {
   AdwApplicationWindow *self = ADW_APPLICATION_WINDOW (widget);
   AdwApplicationWindowPrivate *priv = adw_application_window_get_instance_private (self);
+  GtkWidget *child;
 
   /* We don't want to allow any other titlebar */
   if (gtk_window_get_titlebar (GTK_WINDOW (self)) != priv->titlebar)
     g_error ("gtk_window_set_titlebar() is not supported for AdwApplicationWindow");
 
-  if (gtk_window_get_child (GTK_WINDOW (self)) != priv->dialog_host)
+  child = gtk_window_get_child (GTK_WINDOW (self));
+  if (child != priv->dialog_host && child != priv->adaptive_preview)
     g_error ("gtk_window_set_child() is not supported for AdwApplicationWindow");
 
   GTK_WIDGET_CLASS (adw_application_window_parent_class)->size_allocate (widget,
@@ -241,6 +246,9 @@ adw_application_window_init (AdwApplicationWindow *self)
   gtk_widget_set_size_request (GTK_WIDGET (self), 360, 200);
 
   gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (self), FALSE);
+
+  if (adw_is_adaptive_preview ())
+    adw_application_window_set_adaptive_preview (self, TRUE);
 }
 
 static void
@@ -426,4 +434,42 @@ adw_application_window_get_visible_dialog (AdwApplicationWindow *self)
   priv = adw_application_window_get_instance_private (self);
 
   return adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (priv->dialog_host));
+}
+
+static void
+adaptive_preview_exit_cb (AdwApplicationWindow *self)
+{
+  adw_application_window_set_adaptive_preview (self, FALSE);
+}
+
+void
+adw_application_window_set_adaptive_preview (AdwApplicationWindow *self,
+                                             gboolean              open)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_APPLICATION_WINDOW (self));
+
+  priv = adw_application_window_get_instance_private (self);
+
+  if (open == (priv->adaptive_preview != NULL))
+    return;
+
+  g_object_ref (priv->dialog_host);
+
+  if (open) {
+    priv->adaptive_preview = adw_adaptive_preview_new ();
+    gtk_window_set_child (GTK_WINDOW (self), priv->adaptive_preview);
+    g_signal_connect_swapped (priv->adaptive_preview, "exit",
+                              G_CALLBACK (adaptive_preview_exit_cb), self);
+    adw_adaptive_preview_set_child (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview),
+                                    priv->dialog_host);
+  } else {
+    adw_adaptive_preview_set_child (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview),
+                                    NULL);
+    gtk_window_set_child (GTK_WINDOW (self), priv->dialog_host);
+    priv->adaptive_preview = NULL;
+  }
+
+  g_object_unref (priv->dialog_host);
 }

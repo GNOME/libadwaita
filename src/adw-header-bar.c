@@ -23,6 +23,7 @@
 
 #include "adw-header-bar.h"
 
+#include "adw-adaptive-preview-private.h"
 #include "adw-back-button-private.h"
 #include "adw-bin.h"
 #include "adw-bottom-sheet-private.h"
@@ -186,6 +187,7 @@ struct _AdwHeaderBar {
   GtkWidget *title_navigation_page;
   GtkWidget *dialog;
   GtkWidget *sheet;
+  GtkWidget *adaptive_preview;
 
   GSList *split_views;
 };
@@ -332,6 +334,11 @@ update_start_title_buttons (AdwHeaderBar *self)
   gboolean show = self->show_start_title_buttons;
   GSList *l;
 
+  if (self->adaptive_preview &&
+      !adw_adaptive_preview_get_window_controls (ADW_ADAPTIVE_PREVIEW (self->adaptive_preview))) {
+    show = FALSE;
+  }
+
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
 
@@ -374,6 +381,11 @@ update_end_title_buttons (AdwHeaderBar *self)
 {
   gboolean show = self->show_end_title_buttons;
   GSList *l;
+
+  if (self->adaptive_preview &&
+      !adw_adaptive_preview_get_window_controls (ADW_ADAPTIVE_PREVIEW (self->adaptive_preview))) {
+    show = FALSE;
+  }
 
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
@@ -504,11 +516,30 @@ find_sheet (GtkWidget *widget)
   return NULL;
 }
 
+static GtkWidget *
+find_adaptive_preview (GtkWidget *widget, GtkWidget **screen_view)
+{
+  GtkWidget *preview, *screen;
+
+  preview = adw_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW, TRUE, TRUE);
+  if (!preview)
+    return NULL;
+
+  screen = adw_adaptive_preview_get_screen (ADW_ADAPTIVE_PREVIEW (preview));
+
+  if (gtk_widget_is_ancestor (widget, screen)) {
+    *screen_view = screen;
+    return preview;
+  }
+
+  return NULL;
+}
+
 static void
 adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
-  GtkWidget *parent;
+  GtkWidget *parent, *screen_view = NULL;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
@@ -516,11 +547,17 @@ adw_header_bar_root (GtkWidget *widget)
     adw_widget_get_ancestor (widget, ADW_TYPE_NAVIGATION_PAGE, TRUE, TRUE);
 
   self->dialog = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG, TRUE, FALSE);
+  self->adaptive_preview = find_adaptive_preview (widget, &screen_view);
   self->sheet = find_sheet (widget);
 
   if (ADW_IS_BOTTOM_SHEET (self->sheet)) {
     g_signal_connect_swapped (self->sheet, "notify::show-drag-handle",
                               G_CALLBACK (update_title), widget);
+  }
+
+  if (self->adaptive_preview) {
+    g_signal_connect_swapped (self->adaptive_preview, "notify::window-controls",
+                              G_CALLBACK (update_title_buttons), widget);
   }
 
   if (self->title_navigation_page) {
@@ -543,8 +580,11 @@ adw_header_bar_root (GtkWidget *widget)
     GtkWidget *split_view = NULL;
     gboolean is_sidebar = FALSE;
 
-    if (GTK_IS_NATIVE (parent) || parent == self->sheet)
+    if (GTK_IS_NATIVE (parent) ||
+        parent == self->sheet ||
+        parent == screen_view) {
       break;
+    }
 
     if (ADW_IS_NAVIGATION_SPLIT_VIEW (parent)) {
       AdwNavigationPage *sidebar;
@@ -617,6 +657,11 @@ adw_header_bar_unroot (GtkWidget *widget)
   if (self->sheet) {
     g_signal_handlers_disconnect_by_func (self->sheet,
                                           update_title, widget);
+  }
+
+  if (self->adaptive_preview) {
+    g_signal_handlers_disconnect_by_func (self->adaptive_preview,
+                                          update_title_buttons, widget);
   }
 
   self->title_navigation_page = NULL;

@@ -83,6 +83,16 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwButtonRow">
+                <property name="title" translatable="yes">Adaptive Preview</property>
+                <signal name="activated" handler="adaptive_preview_activated_cb" swapped="yes"/>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </property>
   </template>

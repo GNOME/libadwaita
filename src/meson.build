@@ -276,6 +276,7 @@ src_sources = [
 
 # Files that should not be introspected
 libadwaita_private_sources += files([
+  'adw-adaptive-preview.c',
   'adw-back-button.c',
   'adw-bidi.c',
   'adw-bottom-sheet.c',

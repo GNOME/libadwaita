@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwAdaptivePreview" parent="GtkWidget">
+    <child>
+      <object class="AdwOverlaySplitView" id="content">
+        <property name="min-sidebar-width">265</property>
+        <property name="sidebar">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwPreferencesPage">
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Display</property>
+                    <child>
+                      <object class="AdwComboRow" id="device_preset_row">
+                        <property name="title" translatable="yes">Device</property>
+                        <signal name="notify::selected" handler="device_preset_cb" swapped="yes"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSpinRow" id="width_row">
+                        <property name="title" translatable="yes">Width</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="width_adj">
+                            <property name="lower">100</property>
+                            <property name="upper">4000</property>
+                            <property name="page-increment">10</property>
+                            <property name="step-increment">1</property>
+                            <signal name="notify::value" handler="screen_size_changed_cb" swapped="yes"/>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSpinRow" id="height_row">
+                        <property name="title" translatable="yes">Height</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="height_adj">
+                            <property name="lower">100</property>
+                            <property name="upper">4000</property>
+                            <property name="page-increment">10</property>
+                            <property name="step-increment">1</property>
+                            <signal name="notify::value" handler="screen_size_changed_cb" swapped="yes"/>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwActionRow">
+                        <property name="title" translatable="yes">Rotate</property>
+                        <child type="suffix">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Rotate Left</property>
+                            <property name="icon-name">object-rotate-left-symbolic</property>
+                            <property name="valign">center</property>
+                            <signal name="clicked" handler="rotate_left_cb" swapped="yes"/>
+                            <style>
+                              <class name="flat"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child type="suffix">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Rotate Right</property>
+                            <property name="icon-name">object-rotate-right-symbolic</property>
+                            <property name="valign">center</property>
+                            <signal name="clicked" handler="rotate_right_cb" swapped="yes"/>
+                            <style>
+                              <class name="flat"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Shell</property>
+                    <child>
+                      <object class="AdwComboRow" id="shell_preset_row">
+                        <property name="title" translatable="yes">Preset</property>
+                        <signal name="notify::selected" handler="shell_preset_cb" swapped="yes"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSpinRow" id="top_bar_row">
+                        <property name="title" translatable="yes">Top Bar</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="top_bar_adj">
+                            <property name="lower">0</property>
+                            <property name="upper">1000</property>
+                            <property name="page-increment">10</property>
+                            <property name="step-increment">1</property>
+                            <signal name="notify::value" handler="shell_changed_cb" swapped="yes"/>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSpinRow" id="bottom_bar_row">
+                        <property name="title" translatable="yes">Bottom Bar</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment" id="bottom_bar_adj">
+                            <property name="lower">0</property>
+                            <property name="upper">1000</property>
+                            <property name="page-increment">10</property>
+                            <property name="step-increment">1</property>
+                            <signal name="notify::value" handler="shell_changed_cb" swapped="yes"/>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSwitchRow">
+                        <property name="title" translatable="yes">Window Controls</property>
+                        <property name="active" bind-source="AdwAdaptivePreview" bind-property="window-controls" bind-flags="sync-create|bidirectional"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="content">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="show-title">False</property>
+                <child type="end">
+                  <object class="GtkButton">
+                    <signal name="clicked" handler="exit_clicked_cb" swapped="yes"/>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">application-exit</property>
+                        <property name="label" translatable="yes">Exit</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <property name="content">
+              <object class="GtkScrolledWindow">
+                <property name="child">
+                  <object class="AdwGizmo" id="screen_view">
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <style>
+                      <class name="screen-view"/>
+                    </style>
+                    <child>
+                      <object class="AdwBin" id="child_bin">
+                        <property name="overflow">hidden</property>
+                        <style>
+                          <class name="background"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwBin" id="top_bar">
+                        <style>
+                          <class name="shell-top-bar"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwBin" id="bottom_bar">
+                        <style>
+                          <class name="shell-bottom-bar"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>
