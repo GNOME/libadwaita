@@ -1,7 +1,12 @@
 include:
   - project: 'gnome/citemplates'
     file: 'flatpak/flatpak_ci_initiative.yml'
-  - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@1.0.0-alpha.3 
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      job-stage: release
+      dist-job-name: "build-flatpak"
+      tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
+  - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@1.0.0-alpha.3
 
 variables:
   APP_ID: 'org.gnome.Adwaita1.Demo'
@@ -11,11 +16,13 @@ variables:
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
   FEDORA_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/fedora:v1"
+  TARBALL_ARTIFACT_PATH: ".flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
 
 stages:
   - build
   - publish
   - deploy
+  - release
 
 api-visibility:
   stage: build
@@ -47,7 +54,7 @@ doc:
       - _doc
 
 build-flatpak:
-  extends: '.flatpak@x86_64'
+  extends: '.flatpak'
   stage: build
   before_script: []
   needs: []
@@ -79,4 +86,5 @@ refresh-doc:
 
 nightly:
   extends: '.publish_nightly'
+  dependencies: ['build-flatpak']
   needs: ['build-flatpak']
