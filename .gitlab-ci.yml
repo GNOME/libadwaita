@@ -58,6 +58,12 @@ build-flatpak:
   before_script: []
   needs: []
 
+build-flatpak-aarch64:
+  extends: '.flatpak@aarch64'
+  stage: build
+  before_script: []
+  needs: []
+
 abi-check:
   image: $FEDORA_IMAGE
   stage: build
@@ -86,3 +92,7 @@ refresh-doc:
 nightly:
   extends: '.publish_nightly'
   needs: ['build-flatpak']
+
+nightly-aarch64:
+  extends: '.publish_nightly'
+  needs: ['build-flatpak-aarch64']
