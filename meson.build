@@ -1,7 +1,7 @@
 project('libadwaita', 'c',
           version: '1.7.alpha',
           license: 'LGPL-2.1-or-later',
-    meson_version: '>= 0.59.0',
+    meson_version: '>= 0.63.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
 )
 
@@ -159,7 +159,7 @@ summary(
   {
     'Tests': get_option('tests'),
     'Examples': get_option('examples'),
-    'Documentation': get_option('gtk_doc'),
+    'Documentation': get_option('documentation'),
     'Introspection': introspection,
     'Vapi': get_option('vapi'),
   }, section: 'Options')

@@ -1,4 +1,4 @@
-if get_option('gtk_doc')
+if get_option('documentation')
 
 subdir('tools')
 
@@ -28,7 +28,7 @@ libadwaita_toml = configure_file(
 dependency('gi-docgen', version: '>= 2021.1',
            fallback: ['gi-docgen', 'dummy_dep'],
            native: true,
-           required: get_option('gtk_doc'))
+           required: get_option('documentation'))
 
 gidocgen = find_program('gi-docgen')
 

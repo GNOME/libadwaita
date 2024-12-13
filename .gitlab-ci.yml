@@ -38,7 +38,7 @@ doc:
     - flatpak
   variables:
     MESON_ARGS: >-
-      -Dgtk_doc=true
+      -Ddocumentation=true
       -Dtests=false
       -Dvapi=false
   script:
