@@ -238,10 +238,12 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
   for (child = gtk_widget_get_first_child (widget);
        child != NULL;
        child = gtk_widget_get_next_sibling (child)) {
+    int clamp_min = 0;
+    int clamp_nat = 0;
     int child_min = 0;
     int child_nat = 0;
-    int child_min_baseline = -1;
-    int child_nat_baseline = -1;
+    int min_baseline = -1;
+    int nat_baseline = -1;
 
     if (!gtk_widget_should_layout (child))
       continue;
@@ -249,24 +251,27 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
     if (self->orientation == orientation) {
       gtk_widget_measure (child, orientation, for_size,
                           &child_min, &child_nat,
-                          &child_min_baseline, &child_nat_baseline);
+                          &min_baseline, &nat_baseline);
 
-      child_nat = clamp_size_from_child (self, settings, child_min, child_nat);
+      clamp_min = child_min;
+      clamp_nat = clamp_size_from_child (self, settings, child_min, child_nat);
     } else {
       int child_size = child_size_from_clamp (self, settings, child, for_size, NULL, NULL);
 
       gtk_widget_measure (child, orientation, child_size,
                           &child_min, &child_nat,
-                          &child_min_baseline, &child_nat_baseline);
+                          &min_baseline, &nat_baseline);
+      clamp_min = child_min;
+      clamp_nat = child_nat;
     }
 
-    *minimum = MAX (*minimum, child_min);
-    *natural = MAX (*natural, child_nat);
+    *minimum = MAX (*minimum, clamp_min);
+    *natural = MAX (*natural, clamp_nat);
 
-    if (child_min_baseline > -1)
-      *minimum_baseline = MAX (*minimum_baseline, child_min_baseline);
-    if (child_nat_baseline > -1)
-      *natural_baseline = MAX (*natural_baseline, child_nat_baseline);
+    if (min_baseline > -1)
+      *minimum_baseline = MAX (*minimum_baseline, min_baseline);
+    if (nat_baseline > -1)
+      *natural_baseline = MAX (*natural_baseline, nat_baseline);
   }
 }
 
