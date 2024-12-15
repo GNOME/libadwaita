@@ -221,17 +221,6 @@ child_size_from_clamp (AdwClampLayout *self,
   return ceil (adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress)));
 }
 
-static GtkSizeRequestMode
-adw_clamp_layout_get_request_mode (GtkLayoutManager *manager,
-                                   GtkWidget        *widget)
-{
-  AdwClampLayout *self = ADW_CLAMP_LAYOUT (manager);
-
-  return self->orientation == GTK_ORIENTATION_HORIZONTAL ?
-    GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH :
-    GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT;
-}
-
 static void
 adw_clamp_layout_measure (GtkLayoutManager *manager,
                           GtkWidget        *widget,
@@ -361,7 +350,6 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   object_class->get_property = adw_clamp_layout_get_property;
   object_class->set_property = adw_clamp_layout_set_property;
 
-  layout_manager_class->get_request_mode = adw_clamp_layout_get_request_mode;
   layout_manager_class->measure = adw_clamp_layout_measure;
   layout_manager_class->allocate = adw_clamp_layout_allocate;
 
