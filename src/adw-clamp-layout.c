@@ -304,7 +304,7 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
       gtk_widget_remove_css_class (child, "medium");
       gtk_widget_remove_css_class (child, "large");
 
-      return;
+      continue;
     }
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
