@@ -254,6 +254,9 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
       continue;
 
     if (self->orientation == orientation) {
+      /* We pass all of for_size to the child, but we have to post-process
+       * its measurements.
+       */
       gtk_widget_measure (child, orientation, for_size,
                           &child_min, &child_nat,
                           &min_baseline, &nat_baseline);
@@ -265,11 +268,31 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
       if (nat_baseline > -1)
         nat_baseline += (clamp_nat - child_nat) / 2;
     } else {
-      int child_size = child_size_from_clamp (self, settings, child, for_size, NULL, NULL);
+      /* We clamp for_size, but after that, child's minimum and natural
+       * sizes in this orientation are what we report.
+       */
+      int child_maximum = 0;
+      int child_size = child_size_from_clamp (self, settings, child,
+                                              for_size, &child_maximum,
+                                              NULL);
 
       gtk_widget_measure (child, orientation, child_size,
                           &child_min, &child_nat,
                           &min_baseline, &nat_baseline);
+
+      if (for_size == -1 && child_size < child_maximum) {
+        /* For any specific for_size, we have a definite child_size that
+         * we measure the child for. When passed for_size = -1 however,
+         * we're supposed to report overall minimum size, for any
+         * potential value of for_size. For that, we have to measure the
+         * child at the maximum size we could give it. Note that we
+         * should not use this measurement for the natural size.
+         */
+        gtk_widget_measure (child, orientation, child_maximum,
+                            &child_min, NULL,
+                            &min_baseline, NULL);
+      }
+
       clamp_min = child_min;
       clamp_nat = child_nat;
     }
