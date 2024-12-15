@@ -149,10 +149,11 @@ inverse_lerp (double a,
 static int
 clamp_size_from_child (AdwClampLayout *self,
                        GtkSettings    *settings,
-                       int             min,
-                       int             nat)
+                       GtkWidget      *child,
+                       int             child_size)
 {
   double max, lower, upper, progress, maximum_size, tightening_threshold;
+  int min, nat;
 
   maximum_size = adw_length_unit_to_px (self->unit,
                                         self->maximum_size,
@@ -161,16 +162,20 @@ clamp_size_from_child (AdwClampLayout *self,
                                                 self->tightening_threshold,
                                                 settings);
 
+  gtk_widget_measure (child, self->orientation, -1, &min, &nat, NULL, NULL);
+
   lower = MAX (MIN (tightening_threshold, maximum_size), min);
   max = MAX (lower, maximum_size);
   upper = lower + ADW_EASE_OUT_TAN_CUBIC * (max - lower);
 
-  if (nat <= lower)
-    progress = 0;
-  else if (nat >= max)
-    progress = 1;
+  g_assert (child_size != -1);
+
+  if (child_size <= lower)
+    return child_size;
+  else if (child_size >= max)
+    return upper;
   else {
-    double ease = inverse_lerp (lower, max, nat);
+    double ease = inverse_lerp (lower, max, child_size);
 
     progress = 1 + cbrt (ease - 1); // inverse ease out cubic
   }
@@ -253,8 +258,12 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
                           &child_min, &child_nat,
                           &min_baseline, &nat_baseline);
 
-      clamp_min = child_min;
-      clamp_nat = clamp_size_from_child (self, settings, child_min, child_nat);
+      clamp_min = clamp_size_from_child (self, settings, child, child_min);
+      clamp_nat = clamp_size_from_child (self, settings, child, child_nat);
+      if (min_baseline > -1)
+        min_baseline += (clamp_min - child_min) / 2;
+      if (nat_baseline > -1)
+        nat_baseline += (clamp_nat - child_nat) / 2;
     } else {
       int child_size = child_size_from_clamp (self, settings, child, for_size, NULL, NULL);
 
