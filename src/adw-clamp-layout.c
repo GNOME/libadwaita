@@ -218,7 +218,7 @@ child_size_from_clamp (AdwClampLayout *self,
 
   progress = inverse_lerp (lower, upper, for_size);
 
-  return ceil (adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress)));
+  return floor (adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress)));
 }
 
 static void
