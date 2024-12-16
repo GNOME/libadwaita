@@ -543,7 +543,7 @@ adw_header_bar_root (GtkWidget *widget)
     GtkWidget *split_view = NULL;
     gboolean is_sidebar = FALSE;
 
-    if (GTK_IS_NATIVE (parent))
+    if (GTK_IS_NATIVE (parent) || parent == self->sheet)
       break;
 
     if (ADW_IS_NAVIGATION_SPLIT_VIEW (parent)) {
