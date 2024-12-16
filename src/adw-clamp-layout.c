@@ -138,12 +138,20 @@ adw_clamp_layout_set_property (GObject      *object,
   }
 }
 
+/* Given adw_lerp (a, b, t) -> r, find t. In other words: we know what sizes
+ * we're interpolating between and the current size; find the current
+ * interpolation progress.
+ *
+ * Note that this is different from the similarly named inverse_lerp function
+ * in adw-view-stack.c. That one finds b given a, r, and t, while this one
+ * finds t given a, b, and r.
+ */
 static inline double
 inverse_lerp (double a,
               double b,
-              double t)
+              double r)
 {
-  return (t - a) / (b - a);
+  return (r - a) / (b - a);
 }
 
 static int

@@ -1197,6 +1197,22 @@ adw_view_stack_size_allocate (GtkWidget *widget,
   }
 }
 
+/* Given adw_lerp (a, b, t) -> r, find b. In other words: we know what size
+ * we're interpolating *from*, the current size, and the current interpolation
+ * progress; guess which size we're interpolating *to*.
+ *
+ * Note that this is different from the similarly named inverse_lerp function
+ * in adw-clamp-layout.c. That one finds t given a, b, and r, while this one
+ * finds b given a, r, and t.
+ */
+static inline double
+inverse_lerp (int a,
+              int r,
+              double t)
+{
+  return (r - a * (1.0 - t)) / t;
+}
+
 static void
 adw_view_stack_measure (GtkWidget      *widget,
                         GtkOrientation  orientation,
@@ -1207,8 +1223,46 @@ adw_view_stack_measure (GtkWidget      *widget,
                         int            *natural_baseline)
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
-  int child_min, child_nat;
+  int child_min, child_nat, child_for_size;
+  int last_size, last_opposite_size;
+  double t;
   GList *l;
+
+  if (self->last_visible_child != NULL && !self->homogeneous[orientation]) {
+    t = adw_animation_get_value (self->animation);
+
+    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+      last_size = self->last_visible_widget_width;
+      last_opposite_size = self->last_visible_widget_height;
+    } else {
+      last_size = self->last_visible_widget_height;
+      last_opposite_size = self->last_visible_widget_width;
+    }
+
+    /* Work out which for_size we want to pass for measuring our children */
+    if (for_size == -1 || for_size == last_opposite_size ||
+        self->homogeneous[OPPOSITE_ORIENTATION(orientation)])
+      child_for_size = for_size;
+    else if (t <= 0.0)  /* avoid -Wfloat-equal */
+      /* We're going to return last_size anyway */
+      child_for_size = -1;
+    else {
+      double d = inverse_lerp (last_opposite_size, for_size, t);
+      /* inverse_lerp is numerically unstable due to its use of floating-point
+       * division, potentially by a very small value when progress is close to
+       * zero. So we sanity check the return value.
+       */
+      if (isnan (d) || isinf (d) || d < 0 || d >= G_MAXINT)
+        child_for_size = -1;
+      else
+        child_for_size = floor (d);
+    }
+  } else {
+    child_for_size = for_size;
+    /* Avoid -Wmaybe-uninitialized */
+    last_size = 0;
+    t = 1.0;
+  }
 
   *minimum = 0;
   *natural = 0;
@@ -1221,32 +1275,39 @@ adw_view_stack_measure (GtkWidget      *widget,
         self->visible_child != page)
       continue;
 
-    if (gtk_widget_get_visible (child)) {
-      if (!self->homogeneous[OPPOSITE_ORIENTATION(orientation)] && self->visible_child != page) {
-        int min_for_size;
+    if (!gtk_widget_get_visible (child))
+      continue;
 
-        gtk_widget_measure (child, OPPOSITE_ORIENTATION (orientation), -1, &min_for_size, NULL, NULL, NULL);
-        gtk_widget_measure (child, orientation, MAX (min_for_size, for_size), &child_min, &child_nat, NULL, NULL);
-      } else {
-        gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat, NULL, NULL);
+    if (!self->homogeneous[OPPOSITE_ORIENTATION(orientation)] && self->visible_child != page) {
+      int measure_for_size;
+
+      if (child_for_size == -1)
+        measure_for_size = -1;
+      else {
+        gtk_widget_measure (child, OPPOSITE_ORIENTATION (orientation),
+                            -1,
+                            &measure_for_size, NULL,
+                            NULL, NULL);
+        measure_for_size = MAX (measure_for_size, child_for_size);
       }
-
-      *minimum = MAX (*minimum, child_min);
-      *natural = MAX (*natural, child_nat);
+      gtk_widget_measure (child, orientation,
+                          measure_for_size,
+                          &child_min, &child_nat,
+                          NULL, NULL);
+    } else {
+      gtk_widget_measure (child, orientation,
+                          child_for_size,
+                          &child_min, &child_nat,
+                          NULL, NULL);
     }
+
+    *minimum = MAX (*minimum, child_min);
+    *natural = MAX (*natural, child_nat);
   }
 
   if (self->last_visible_child != NULL && !self->homogeneous[orientation]) {
-    double t = adw_animation_get_value (self->animation);
-    int last_size;
-
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      last_size = self->last_visible_widget_width;
-    else
-      last_size = self->last_visible_widget_height;
-
-    *minimum = adw_lerp (last_size, *minimum, t);
-    *natural = adw_lerp (last_size, *natural, t);
+    *minimum = ceil (adw_lerp (last_size, *minimum, t));
+    *natural = ceil (adw_lerp (last_size, *natural, t));
   }
 }
 
