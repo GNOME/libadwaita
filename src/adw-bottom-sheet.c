@@ -1647,6 +1647,7 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
   if (open) {
     gtk_widget_set_child_visible (self->dimming, self->modal);
     gtk_widget_set_child_visible (self->sheet_bin, TRUE);
+    self->has_been_open = true;
   }
 
   gtk_widget_set_can_target (self->dimming, open);
