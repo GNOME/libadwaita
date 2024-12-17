@@ -1243,7 +1243,7 @@ adw_combo_row_set_enable_search (AdwComboRow *self,
   gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
   gtk_widget_set_visible (GTK_WIDGET (priv->search_entry), enable_search);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_SUBTITLE]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLE_SEARCH]);
 }
 
 /**
