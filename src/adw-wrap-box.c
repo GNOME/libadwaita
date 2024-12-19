@@ -475,11 +475,15 @@ adw_wrap_box_class_init (AdwWrapBoxClass *klass)
   /**
    * AdwWrapBox:wrap-policy:
    *
-   * Whether wrap direction should be reversed.
+   * The policy for line wrapping.
    *
-   * By default, lines wrap downwards in a horizontal box, and towards the end
-   * in a vertical box. If set to `TRUE`, they wrap upwards or towards the start
-   * respectively.
+   + If set to `ADW_WRAP_NATURAL`, the box will wrap to the next line as soon as
+   * the previous line cannot fit any more children without shrinking them past
+   * their natural size.
+   *
+   * If set to `ADW_WRAP_MINIMUM`, the box will try to fit as many children into
+   * each line as possible, shrinking them down to their minimum size before
+   * wrapping to the next line.
    *
    * Since: 1.7
    */
