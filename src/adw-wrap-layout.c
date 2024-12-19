@@ -545,9 +545,6 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
   }
 
   if (self->orientation == orientation) {
-    min -= child_spacing;
-    nat -= child_spacing;
-
     for (child = gtk_widget_get_first_child (widget);
          child != NULL;
          child = gtk_widget_get_next_sibling (child)) {
@@ -559,9 +556,13 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
       gtk_widget_measure (child, orientation, -1,
                           &child_min, &child_nat, NULL, NULL);
 
+      /* Minimum is with one child per line. */
       min = MAX (min, child_min);
+      /* Natural is with all children on the same line. */
       nat += child_nat + child_spacing;
     }
+    /* No space after the last child. */
+    nat -= child_spacing;
 
     if (natural_line_length >= 0)
       nat = MAX (min, natural_line_length);
