@@ -556,6 +556,11 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
       gtk_widget_measure (child, orientation, -1,
                           &child_min, &child_nat, NULL, NULL);
 
+      if (for_size != -1 && natural_line_length < 0) {
+        gtk_widget_measure (child, orientation, for_size,
+                            NULL, &child_nat, NULL, NULL);
+      }
+
       /* Minimum is with one child per line. */
       min = MAX (min, child_min);
       /* Natural is with all children on the same line. */
