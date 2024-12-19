@@ -8,7 +8,7 @@
     <property name="default-height">100</property>
     <property name="height-request">-1</property>
     <property name="titlebar">
-      <object class="GtkHeaderBar"/>
+      <object class="AdwHeaderBar"/>
     </property>
     <style>
       <class name="devel"/>

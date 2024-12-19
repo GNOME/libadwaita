@@ -7,10 +7,8 @@
     <property name="default-height">100</property>
     <property name="height-request">-1</property>
     <property name="titlebar">
-      <object class="GtkHeaderBar">
-        <property name="title-widget">
-          <object class="AdwWindowTitle"/>
-        </property>
+      <object class="AdwHeaderBar">
+        <property name="show-title">False</property>
       </object>
     </property>
     <property name="child">

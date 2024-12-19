@@ -11,7 +11,7 @@
       <object class="AdwToolbarView">
         <property name="top-bar-style">raised</property>
         <child type="top">
-          <object class="GtkHeaderBar"/>
+          <object class="AdwHeaderBar"/>
         </child>
         <child type="top">
           <object class="AdwTabBar">

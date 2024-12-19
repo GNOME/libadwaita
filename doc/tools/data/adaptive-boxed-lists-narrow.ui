@@ -9,7 +9,7 @@
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
-          <object class="GtkHeaderBar"/>
+          <object class="AdwHeaderBar"/>
         </child>
         <property name="content">
           <object class="AdwPreferencesPage">
