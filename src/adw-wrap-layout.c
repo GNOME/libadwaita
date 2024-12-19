@@ -498,9 +498,37 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
                          int              *natural_baseline)
 {
   AdwWrapLayout *self = ADW_WRAP_LAYOUT (manager);
-  GtkWidget *child;
+  GtkWidget *child, *visible_child = NULL;
+  gboolean multiple_visible_children = FALSE;
   int min = 0, nat = 0, line_spacing, child_spacing, natural_line_length = -1;
   GtkSettings *settings = gtk_widget_get_settings (widget);
+
+  /* Handle the trivial cases. */
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
+
+    if (visible_child) {
+      multiple_visible_children = TRUE;
+      break;
+    }
+    visible_child = child;
+  }
+
+  if (!multiple_visible_children) {
+    if (visible_child) {
+      /* Passthrough the measurement directly. */
+      gtk_widget_measure (visible_child, orientation, for_size,
+                          minimum, natural, minimum_baseline, natural_baseline);
+    } else {
+      /* Empty. */
+      *minimum = *natural = 0;
+      *minimum_baseline = *natural_baseline = -1;
+    }
+    return;
+  }
 
   line_spacing = adw_length_unit_to_px (self->line_spacing_unit,
                                         self->line_spacing,
@@ -729,11 +757,30 @@ adw_wrap_layout_get_request_mode (GtkLayoutManager *manager,
                                   GtkWidget        *widget)
 {
   AdwWrapLayout *self = ADW_WRAP_LAYOUT (manager);
+  GtkWidget *child, *visible_child = NULL;
 
-  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-    return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (!gtk_widget_should_layout (child))
+      continue;
 
-  return GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT;
+    if (visible_child) {
+      /* Multiple visible children. */
+      if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+        return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+
+      return GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT;
+    }
+
+    visible_child = child;
+  }
+
+  /* Passthrough request mode if there's just a single child. */
+  if (visible_child)
+    return gtk_widget_get_request_mode (visible_child);
+
+  return GTK_SIZE_REQUEST_CONSTANT_SIZE;
 }
 
 static void
