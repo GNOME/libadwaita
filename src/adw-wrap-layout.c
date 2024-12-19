@@ -377,9 +377,9 @@ compute_line (AdwWrapLayout  *self,
     return n_line_children;
 
   /* Even one widget doesn't fit. Since we can't have a line with 0 widgets,
-   * we take the first one and allocate it out of bounds. Since this only
-   * happens with for_size == -1 or when allocating less than minimum width,
-   * it's acceptable. */
+   * we take the first one and allocate it out of bounds. This can happen
+   * when wrap policy is ADW_WRAP_NATURAL, but we're being allocated less
+   * than the child's natural size. */
   if (n_line_children == 0) {
     child_data[0].allocated_size = MAX (for_size, child_data[0].minimum_size);
 
