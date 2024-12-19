@@ -487,6 +487,12 @@ compute_sizes (AdwWrapLayout   *self,
   return line_data;
 }
 
+static int search_for_min_size (AdwWrapLayout   *self,
+                                GtkWidget       *widget,
+                                int              for_size,
+                                int              minimum,
+                                int              natural);
+
 static void
 adw_wrap_layout_measure (GtkLayoutManager *manager,
                          GtkWidget        *widget,
@@ -571,6 +577,14 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
 
     if (natural_line_length >= 0)
       nat = MAX (min, natural_line_length);
+
+    /* If the available size in the opposite orientation is constrained,
+     * search for the minimum size that would fit.
+     */
+    if (for_size >= 0) {
+      min = search_for_min_size (self, widget, for_size, min, nat);
+      nat = MAX (nat, min);
+    }
   } else {
     AllocationData *line_data, *child_data;
     int i, n_lines;
@@ -610,6 +624,54 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
     *minimum_baseline = -1;
   if (natural_baseline)
     *natural_baseline = -1;
+}
+
+static int
+search_for_min_size (AdwWrapLayout   *self,
+                     GtkWidget       *widget,
+                     int              for_size,
+                     int              minimum,
+                     int              natural)
+{
+  int min = minimum;
+  int max = G_MAXINT;
+  int min_opposite;
+  GtkOrientation opposite_orientation;
+
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+    opposite_orientation = GTK_ORIENTATION_VERTICAL;
+  else
+    opposite_orientation = GTK_ORIENTATION_HORIZONTAL;
+
+  while (min < max) {
+    int test;
+
+    /* We're likely to be measured for a size that matches our minimum or
+     * natural size in the opposite orientation, so start by checking around
+     * those sizes.
+     */
+    if (min == minimum + 1 && max == natural)
+      test = max - 1;
+    else if (max != G_MAXINT)
+      test = (min + max) / 2;
+    else if (min == minimum)
+      test = min;
+    else if (min == minimum + 1 && natural >= min)
+      test = natural;
+    else
+      test = min * 2;
+
+    adw_wrap_layout_measure (GTK_LAYOUT_MANAGER (self), widget,
+                             opposite_orientation, test,
+                             &min_opposite, NULL, NULL, NULL);
+
+    if (min_opposite > for_size)
+      min = test + 1;
+    else
+      max = test;
+  }
+
+  return min;
 }
 
 static void
