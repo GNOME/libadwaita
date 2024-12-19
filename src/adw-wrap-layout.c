@@ -538,7 +538,7 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
                                          self->child_spacing,
                                          settings);
 
-  if (self->natural_line_length >= -1) {
+  if (self->natural_line_length >= 0) {
     natural_line_length = adw_length_unit_to_px (self->natural_line_length_unit,
                                                  self->natural_line_length,
                                                  settings);
