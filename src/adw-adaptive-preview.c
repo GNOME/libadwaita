@@ -264,7 +264,7 @@ measure_child_bin (GtkWidget      *widget,
 {
   AdwAdaptivePreview *self =
     ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
-  int min, nat, top_min, child_min, bottom_min;
+  int min, nat, top_min, bottom_min;
   gboolean rotated;
 
   if (gtk_widget_should_layout (self->top_bar)) {
@@ -281,17 +281,10 @@ measure_child_bin (GtkWidget      *widget,
     bottom_min = 0;
   }
 
-  if (gtk_widget_should_layout (self->child_bin)) {
-    gtk_widget_measure (self->child_bin, orientation, for_size,
-                        &child_min, NULL, NULL, NULL);
-  } else {
-    child_min = 0;
-  }
-
   if (orientation == GTK_ORIENTATION_VERTICAL)
-    min = top_min + bottom_min + child_min;
+    min = top_min + bottom_min;
   else
-    min = MAX (child_min, MAX (top_min, bottom_min));
+    min = MAX (top_min, bottom_min);
 
   rotated = self->rotation == ROTATION_90DEG ||
             self->rotation == ROTATION_270DEG;
@@ -344,9 +337,21 @@ allocate_child_bin (GtkWidget *widget,
   }
 
   if (gtk_widget_should_layout (self->child_bin)) {
-    gtk_widget_allocate (self->child_bin, width,
-                         height - top_bar_height - bottom_bar_height,
-                         -1,
+    int child_width, child_height, available_height;
+
+    gtk_widget_measure (self->child_bin, GTK_ORIENTATION_HORIZONTAL, -1,
+                        &child_width, NULL, NULL, NULL);
+    gtk_widget_measure (self->child_bin, GTK_ORIENTATION_VERTICAL, -1,
+                        &child_height, NULL, NULL, NULL);
+
+    available_height = height - top_bar_height - bottom_bar_height;
+
+    if (child_width > width || child_height > available_height) {
+      g_warning ("Window contents don't fit: provided %d×%d, available %d×%d",
+                 child_width, child_height, width, available_height);
+    }
+
+    gtk_widget_allocate (self->child_bin, width, available_height, -1,
                          gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->top_bar_height)));
   }
 }
