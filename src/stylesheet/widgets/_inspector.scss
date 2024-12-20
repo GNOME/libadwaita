@@ -17,7 +17,6 @@ adaptive-preview {
                 0 3px 20px 10px RGB(0 0 0 / 5%),
                 0 6px 32px 16px RGB(0 0 0 / 2%),
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
-    margin: 20px;
 
     > .shell-top-bar,
     > .shell-bottom-bar {

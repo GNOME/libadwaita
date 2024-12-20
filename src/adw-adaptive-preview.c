@@ -16,6 +16,9 @@
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
+#define MIN_SCALE 0.25
+#define MAX_SCALE 1.0
+
 typedef enum {
   ROTATION_0DEG,
   ROTATION_90DEG,
@@ -60,6 +63,7 @@ struct _AdwAdaptivePreview
   GtkWidget parent_instance;
 
   GtkWidget *content;
+  GtkWidget *scale_bin;
   GtkWidget *screen_view;
   GtkWidget *child_bin;
   GtkWidget *top_bar;
@@ -82,6 +86,7 @@ struct _AdwAdaptivePreview
   int top_bar_height;
   int bottom_bar_height;
   ScreenRotation rotation;
+  gboolean scale_to_fit;
 
   gboolean changing_screen_size;
   gboolean changing_shell;
@@ -95,6 +100,7 @@ enum {
   PROP_0,
   PROP_CHILD,
   PROP_WINDOW_CONTROLS,
+  PROP_SCALE_TO_FIT,
   LAST_PROP
 };
 
@@ -106,6 +112,24 @@ enum {
 };
 
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+static int
+get_screen_width (AdwAdaptivePreview *self)
+{
+  gboolean rotated = self->rotation == ROTATION_90DEG ||
+                     self->rotation == ROTATION_270DEG;
+
+  return rotated ? self->screen_height : self->screen_width;
+}
+
+static int
+get_screen_height (AdwAdaptivePreview *self)
+{
+  gboolean rotated = self->rotation == ROTATION_90DEG ||
+                     self->rotation == ROTATION_270DEG;
+
+  return rotated ? self->screen_width : self->screen_height;
+}
 
 static void
 screen_size_changed_cb (AdwAdaptivePreview *self)
@@ -254,18 +278,17 @@ setup_presets (AdwAdaptivePreview *self)
 }
 
 static void
-measure_child_bin (GtkWidget      *widget,
-                   GtkOrientation  orientation,
-                   int             for_size,
-                   int            *minimum,
-                   int            *natural,
-                   int            *minimum_baseline,
-                   int            *natural_baseline)
+measure_screen_view (GtkWidget      *widget,
+                     GtkOrientation  orientation,
+                     int             for_size,
+                     int            *minimum,
+                     int            *natural,
+                     int            *minimum_baseline,
+                     int            *natural_baseline)
 {
   AdwAdaptivePreview *self =
     ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
   int min, nat, top_min, bottom_min;
-  gboolean rotated;
 
   if (gtk_widget_should_layout (self->top_bar)) {
     gtk_widget_measure (self->top_bar, orientation, for_size,
@@ -286,13 +309,10 @@ measure_child_bin (GtkWidget      *widget,
   else
     min = MAX (top_min, bottom_min);
 
-  rotated = self->rotation == ROTATION_90DEG ||
-            self->rotation == ROTATION_270DEG;
-
-  if ((orientation == GTK_ORIENTATION_HORIZONTAL) != rotated)
-    nat = self->screen_width;
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    nat = get_screen_width (self);
   else
-    nat = self->screen_height;
+    nat = get_screen_height (self);
 
   min = MAX (min, nat);
 
@@ -307,10 +327,10 @@ measure_child_bin (GtkWidget      *widget,
 }
 
 static void
-allocate_child_bin (GtkWidget *widget,
-                    int        width,
-                    int        height,
-                    int        baseline)
+allocate_screen_view (GtkWidget *widget,
+                      int        width,
+                      int        height,
+                      int        baseline)
 {
   AdwAdaptivePreview *self =
     ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
@@ -338,6 +358,7 @@ allocate_child_bin (GtkWidget *widget,
 
   if (gtk_widget_should_layout (self->child_bin)) {
     int child_width, child_height, available_height;
+    GskTransform *transform;
 
     gtk_widget_measure (self->child_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                         &child_width, NULL, NULL, NULL);
@@ -351,9 +372,77 @@ allocate_child_bin (GtkWidget *widget,
                  child_width, child_height, width, available_height);
     }
 
-    gtk_widget_allocate (self->child_bin, width, available_height, -1,
-                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->top_bar_height)));
+    transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->top_bar_height));
+
+    gtk_widget_allocate (self->child_bin, width, available_height, -1, transform);
   }
+}
+
+static void
+measure_scale_bin (GtkWidget      *widget,
+                   GtkOrientation  orientation,
+                   int             for_size,
+                   int            *minimum,
+                   int            *natural,
+                   int            *minimum_baseline,
+                   int            *natural_baseline)
+{
+  AdwAdaptivePreview *self =
+    ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
+  GtkWidget *child = gtk_widget_get_first_child (widget);
+  int nat;
+
+  if (gtk_widget_should_layout (child))
+    gtk_widget_measure (child, orientation, for_size, NULL, &nat, NULL, NULL);
+  else
+    nat = 0;
+
+  if (minimum)
+    *minimum = (int) round (nat * (self->scale_to_fit ? MIN_SCALE : 1.0));
+  if (natural)
+    *natural = nat;
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+}
+
+static void
+allocate_scale_bin (GtkWidget *widget,
+                    int        width,
+                    int        height,
+                    int        baseline)
+{
+  AdwAdaptivePreview *self =
+    ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
+  GtkWidget *child = gtk_widget_get_first_child (widget);
+  int child_width, child_height;
+  GskTransform *transform = NULL;
+  float scale;
+
+  if (!gtk_widget_should_layout (child))
+    return;
+
+  child_width = get_screen_width (self);
+  child_height = get_screen_height (self);
+
+  if (self->scale_to_fit) {
+    scale = MIN ((float) width / (float) child_width,
+                 (float) height / (float) child_height);
+    scale = CLAMP (scale, MIN_SCALE, MAX_SCALE);
+  } else {
+    scale = 1.0;
+  }
+
+  transform = gsk_transform_translate (transform,
+                                       &GRAPHENE_POINT_INIT (width / 2.0f,
+                                                             height / 2.0f));
+  transform = gsk_transform_scale (transform, scale, scale);
+  transform = gsk_transform_translate (transform,
+                                       &GRAPHENE_POINT_INIT (-child_width / 2.0f,
+                                                             -child_height / 2.0f));
+
+  gtk_widget_allocate (child, child_width, child_height, -1, transform);
 }
 
 static void
@@ -381,6 +470,9 @@ adw_adaptive_preview_get_property (GObject    *object,
   case PROP_WINDOW_CONTROLS:
     g_value_set_boolean (value, adw_adaptive_preview_get_window_controls (self));
     break;
+  case PROP_SCALE_TO_FIT:
+    g_value_set_boolean (value, adw_adaptive_preview_get_scale_to_fit (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -400,6 +492,9 @@ adw_adaptive_preview_set_property (GObject      *object,
     break;
   case PROP_WINDOW_CONTROLS:
     adw_adaptive_preview_set_window_controls (self, g_value_get_boolean (value));
+    break;
+  case PROP_SCALE_TO_FIT:
+    adw_adaptive_preview_set_scale_to_fit (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -431,6 +526,11 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  props[PROP_SCALE_TO_FIT] =
+    g_param_spec_boolean ("scale-to-fit", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
   gtk_widget_class_set_css_name (widget_class, "adaptive-preview");
 
@@ -450,6 +550,7 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-adaptive-preview.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, content);
+  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, scale_bin);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, screen_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, child_bin);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, top_bar);
@@ -478,13 +579,20 @@ static void
 adw_adaptive_preview_init (AdwAdaptivePreview *self)
 {
   self->window_controls = TRUE;
+  self->rotation = ROTATION_0DEG;
+  self->scale_to_fit = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_widget_set_layout_manager (self->screen_view,
                                  gtk_custom_layout_new (NULL,
-                                                        measure_child_bin,
-                                                        allocate_child_bin));
+                                                        measure_screen_view,
+                                                        allocate_screen_view));
+
+  gtk_widget_set_layout_manager (self->scale_bin,
+                                 gtk_custom_layout_new (NULL,
+                                                        measure_scale_bin,
+                                                        allocate_scale_bin));
 
   setup_presets (self);
 
@@ -546,6 +654,32 @@ adw_adaptive_preview_set_window_controls (AdwAdaptivePreview *self,
   self->window_controls = window_controls;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_WINDOW_CONTROLS]);
+}
+
+gboolean
+adw_adaptive_preview_get_scale_to_fit (AdwAdaptivePreview *self)
+{
+  g_return_val_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self), FALSE);
+
+  return self->scale_to_fit;
+}
+
+void
+adw_adaptive_preview_set_scale_to_fit (AdwAdaptivePreview *self,
+                                       gboolean            scale_to_fit)
+{
+  g_return_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self));
+
+  scale_to_fit = !!scale_to_fit;
+
+  if (scale_to_fit == self->scale_to_fit)
+    return;
+
+  self->scale_to_fit = scale_to_fit;
+
+  gtk_widget_queue_resize (self->scale_bin);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SCALE_TO_FIT]);
 }
 
 GtkWidget *

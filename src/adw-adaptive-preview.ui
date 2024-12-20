@@ -125,6 +125,17 @@
                     </child>
                   </object>
                 </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">View</property>
+                    <child>
+                      <object class="AdwSwitchRow">
+                        <property name="title" translatable="yes">Scale to Fit</property>
+                        <property name="active" bind-source="AdwAdaptivePreview" bind-property="scale-to-fit" bind-flags="sync-create|bidirectional"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
           </object>
@@ -150,34 +161,42 @@
             <property name="content">
               <object class="GtkScrolledWindow">
                 <property name="child">
-                  <object class="AdwGizmo" id="screen_view">
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
-                    <style>
-                      <class name="screen-view"/>
-                    </style>
+                  <object class="AdwGizmo" id="scale_bin">
+                    <property name="margin-top">24</property>
+                    <property name="margin-bottom">36</property>
+                    <property name="margin-start">36</property>
+                    <property name="margin-end">36</property>
                     <child>
-                      <object class="AdwBin" id="child_bin">
-                        <property name="overflow">hidden</property>
+                      <object class="AdwGizmo" id="screen_view">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
                         <style>
-                          <class name="background"/>
+                          <class name="screen-view"/>
                         </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwBin" id="top_bar">
-                        <style>
-                          <class name="shell-top-bar"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwBin" id="bottom_bar">
-                        <style>
-                          <class name="shell-bottom-bar"/>
-                        </style>
+                        <child>
+                          <object class="AdwBin" id="child_bin">
+                            <property name="overflow">hidden</property>
+                            <style>
+                              <class name="background"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwBin" id="top_bar">
+                            <style>
+                              <class name="shell-top-bar"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwBin" id="bottom_bar">
+                            <style>
+                              <class name="shell-bottom-bar"/>
+                            </style>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
