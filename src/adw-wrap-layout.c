@@ -212,6 +212,9 @@ count_line_children (AdwWrapLayout  *self,
   int remaining_space = for_size + spacing;
   int n_line_children = 0;
 
+  if (for_size < 0)
+    return n_children;
+
   /* Count how many widgets can fit into this line */
   while (TRUE) {
     int delta;
@@ -232,7 +235,7 @@ count_line_children (AdwWrapLayout  *self,
 
     delta += spacing;
 
-    if (for_size >= 0 && remaining_space - delta < 0)
+    if (remaining_space < delta)
       break;
 
     remaining_space -= delta;
@@ -462,7 +465,7 @@ compute_sizes (AdwWrapLayout   *self,
 
       gtk_widget_measure (line_start[j].data.widget,
                           opposite_orientation,
-                          line_start[j].allocated_size,
+                          for_size >= 0 ? line_start[j].allocated_size : -1,
                           &child_min, &child_nat, NULL, NULL);
 
       expand |= gtk_widget_compute_expand (line_start[j].data.widget,
