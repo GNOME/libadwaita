@@ -151,6 +151,13 @@
                 <style>
                   <class name="adaptive-mode-flat"/>
                 </style>
+                <child type="start">
+                  <object class="GtkToggleButton">
+                    <property name="icon-name">sidebar-show-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
+                    <property name="active" bind-source="content" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
+                  </object>
+                </child>
                 <child type="end">
                   <object class="GtkButton">
                     <signal name="clicked" handler="exit_clicked_cb" swapped="yes"/>
