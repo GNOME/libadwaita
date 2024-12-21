@@ -58,6 +58,7 @@
                           <object class="GtkButton">
                             <property name="label" translatable="yes">Rotate Left</property>
                             <property name="icon-name">object-rotate-left-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Rotate Left</property>
                             <property name="valign">center</property>
                             <signal name="clicked" handler="rotate_left_cb" swapped="yes"/>
                             <style>
@@ -69,6 +70,7 @@
                           <object class="GtkButton">
                             <property name="label" translatable="yes">Rotate Right</property>
                             <property name="icon-name">object-rotate-right-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Rotate Right</property>
                             <property name="valign">center</property>
                             <signal name="clicked" handler="rotate_right_cb" swapped="yes"/>
                             <style>
