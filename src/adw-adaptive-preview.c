@@ -361,10 +361,17 @@ allocate_screen_view (GtkWidget *widget,
     int child_width, child_height, available_height;
     GskTransform *transform;
 
-    gtk_widget_measure (self->child_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                        &child_width, NULL, NULL, NULL);
-    gtk_widget_measure (self->child_bin, GTK_ORIENTATION_VERTICAL, -1,
-                        &child_height, NULL, NULL, NULL);
+    if (gtk_widget_get_request_mode (self->child_bin) == GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH) {
+      gtk_widget_measure (self->child_bin, GTK_ORIENTATION_HORIZONTAL, -1,
+                          &child_width, NULL, NULL, NULL);
+      gtk_widget_measure (self->child_bin, GTK_ORIENTATION_VERTICAL, width,
+                          &child_height, NULL, NULL, NULL);
+    } else {
+      gtk_widget_measure (self->child_bin, GTK_ORIENTATION_HORIZONTAL, available_height,
+                          &child_width, NULL, NULL, NULL);
+      gtk_widget_measure (self->child_bin, GTK_ORIENTATION_VERTICAL, -1,
+                          &child_height, NULL, NULL, NULL);
+    }
 
     available_height = height - top_bar_height - bottom_bar_height;
 
