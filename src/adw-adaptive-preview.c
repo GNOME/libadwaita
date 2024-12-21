@@ -435,12 +435,12 @@ allocate_scale_bin (GtkWidget *widget,
   }
 
   transform = gsk_transform_translate (transform,
-                                       &GRAPHENE_POINT_INIT (width / 2.0f,
-                                                             height / 2.0f));
+                                       &GRAPHENE_POINT_INIT (round (width / 2.0f),
+                                                             round (height / 2.0f)));
   transform = gsk_transform_scale (transform, scale, scale);
   transform = gsk_transform_translate (transform,
-                                       &GRAPHENE_POINT_INIT (-child_width / 2.0f,
-                                                             -child_height / 2.0f));
+                                       &GRAPHENE_POINT_INIT (-round (child_width / 2.0f),
+                                                             -round (child_height / 2.0f)));
 
   gtk_widget_allocate (child, child_width, child_height, -1, transform);
 }
