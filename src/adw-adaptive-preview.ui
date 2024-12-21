@@ -141,10 +141,16 @@
           </object>
         </property>
         <property name="content">
-          <object class="AdwToolbarView">
-            <child type="top">
+          <!-- Intentionally not using AdwToolbarView so we don't add
+               undershoots to the window content by accident -->
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
               <object class="AdwHeaderBar">
                 <property name="show-title">False</property>
+                <style>
+                  <class name="adaptive-mode-flat"/>
+                </style>
                 <child type="end">
                   <object class="GtkButton">
                     <signal name="clicked" handler="exit_clicked_cb" swapped="yes"/>
@@ -158,8 +164,12 @@
                 </child>
               </object>
             </child>
-            <property name="content">
+            <child>
               <object class="GtkScrolledWindow">
+                <property name="vexpand">True</property>
+                <style>
+                  <class name="undershoot-top"/>
+                </style>
                 <property name="child">
                   <object class="AdwGizmo" id="scale_bin">
                     <property name="margin-top">24</property>
@@ -202,7 +212,7 @@
                   </object>
                 </property>
               </object>
-            </property>
+            </child>
           </object>
         </property>
       </object>

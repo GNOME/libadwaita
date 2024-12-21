@@ -12,6 +12,10 @@ adaptive-preview {
   background: var(--overview-bg-color);
   color: var(--overview-fg-color);
 
+  headerbar.adaptive-mode-flat {
+    @extend .flat;
+  }
+
   .screen-view {
     box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
                 0 3px 20px 10px RGB(0 0 0 / 5%),
