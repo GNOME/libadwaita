@@ -18,6 +18,8 @@ adaptive-preview {
                 0 6px 32px 16px RGB(0 0 0 / 2%),
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
 
+    --window-radius: 0px;
+
     > .shell-top-bar,
     > .shell-bottom-bar {
       background: black;
