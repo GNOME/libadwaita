@@ -29,3 +29,4 @@ src/adw-tab-thumbnail.ui
 src/adw-tab.ui
 src/adw-toast.c
 src/adw-toast-overlay.c
+src/adw-toast-widget.ui

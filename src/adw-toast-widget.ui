@@ -63,6 +63,7 @@
         <property name="valign">center</property>
         <property name="icon-name">window-close-symbolic</property>
         <property name="focus-on-click">False</property>
+        <property name="tooltip-text" translatable="yes">Dismiss</property>
         <signal name="clicked" handler="dismiss" swapped="yes"/>
         <style>
           <class name="circular"/>
