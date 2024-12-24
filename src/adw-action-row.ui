@@ -30,6 +30,7 @@
               </closure>
             </binding>
             <property name="valign">center</property>
+            <property name="accessible-role">presentation</property>
             <style>
               <class name="icon"/>
             </style>
