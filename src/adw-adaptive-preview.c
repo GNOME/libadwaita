@@ -13,6 +13,7 @@
 
 #include "adw-bin.h"
 #include "adw-combo-row.h"
+#include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 #include <math.h>
@@ -37,6 +38,9 @@ typedef struct {
   const char *name;
   int width;
   int height;
+  float scale;
+  float corners;
+  const char *notches;
 } DevicePreset;
 
 static const ShellPreset shell_presets[] = {
@@ -47,10 +51,11 @@ static const ShellPreset shell_presets[] = {
 };
 
 static const DevicePreset device_presets[] = {
-  { N_("Small Phone"), 360,  720 },
-  { N_("Large Phone"), 360,  760 },
-  { N_("Tablet"),      1280, 800 },
-  { N_("Custom"),      -1,   -1  },
+  { N_("Small Phone"), 360,  720, 2.0, 0, NULL },
+  { N_("OnePlus 6"),   360,  760, 3.0, 71, "M 357 0  A 24 24 0 0 1 381 22  A 64 64 0 0 0 445 80  L 635 80  A 64 64 0 0 0 699 22  A 24 24 0 0 1 723 0  Z" },
+  { N_("OnePlus 6T"),  360,  770, 3.0, 75, "M 355,0  h 368.34  c -9.77,0.44 -19.57,0.08 -29.28,1.24  c -20.33,1.14 -41.18,5.17 -58.62,16.24  c -16.9,10.79 -29.44,26.78 -43.44,40.81  a 72.73,72.73 0 0 1 -38.29 19.58  c -16.53,2.51 -34,1 -49.09,-6.62  c -9.85,-4.62 -17.88,-12.24 -25.21,-20.18  c -10.46,-11.27 -20.9,-22.75 -33.53,-31.66  c -11.49,-8 -24.9,-12.78 -38.53,-15.42  c -17.27,-3.18 -34.86,-3.6 -52.35,-3.99  Z" },
+  { N_("Tablet"),      1280, 800, 1.0, 0, NULL },
+  { N_("Custom"),      -1,   -1,  1.0, 0, NULL },
 };
 
 // Mobile shell
@@ -88,6 +93,9 @@ struct _AdwAdaptivePreview
   int bottom_bar_height;
   ScreenRotation rotation;
   gboolean scale_to_fit;
+  float screen_scale;
+  float screen_corners;
+  const char *notches;
 
   gboolean changing_screen_size;
   gboolean changing_shell;
@@ -171,6 +179,9 @@ device_preset_cb (AdwAdaptivePreview *self)
     gtk_adjustment_set_value (self->width_adj, preset->width);
   if (preset->height >= 0)
     gtk_adjustment_set_value (self->height_adj, preset->height);
+  self->screen_scale = preset->scale;
+  self->screen_corners = preset->corners;
+  self->notches = preset->notches;
   self->changing_screen_size = FALSE;
 
   screen_size_changed_cb (self);
@@ -229,10 +240,10 @@ shell_preset_cb (AdwAdaptivePreview *self)
 static void
 rotate_left_cb (AdwAdaptivePreview *self)
 {
-  if (self->rotation == ROTATION_270DEG)
-    self->rotation = ROTATION_0DEG;
+  if (self->rotation == ROTATION_0DEG)
+    self->rotation = ROTATION_270DEG;
   else
-    self->rotation++;
+    self->rotation--;
 
   gtk_widget_queue_resize (self->screen_view);
 }
@@ -240,10 +251,10 @@ rotate_left_cb (AdwAdaptivePreview *self)
 static void
 rotate_right_cb (AdwAdaptivePreview *self)
 {
-  if (self->rotation == ROTATION_0DEG)
-    self->rotation = ROTATION_270DEG;
+  if (self->rotation == ROTATION_270DEG)
+    self->rotation = ROTATION_0DEG;
   else
-    self->rotation--;
+    self->rotation++;
 
   gtk_widget_queue_resize (self->screen_view);
 }
@@ -276,6 +287,82 @@ setup_presets (AdwAdaptivePreview *self)
 
   adw_combo_row_set_model (self->device_preset_row, G_LIST_MODEL (devices));
   adw_combo_row_set_selected (self->device_preset_row, DEFAULT_DEVICE_PRESET);
+}
+
+static void
+snapshot_screen_view (AdwGizmo    *gizmo,
+                      GtkSnapshot *snapshot)
+{
+  AdwAdaptivePreview *self =
+    ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (GTK_WIDGET (gizmo), ADW_TYPE_ADAPTIVE_PREVIEW));
+  GskPathBuilder *builder;
+  GskPath *notch_path, *path;
+  GskRoundedRect corners_rect;
+  graphene_rect_t bounds;
+  GdkRGBA rgba;
+
+  if (!self->notches) {
+    gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
+    return;
+  }
+
+  builder = gsk_path_builder_new ();
+
+  notch_path = gsk_path_parse (self->notches);
+  g_assert (notch_path != NULL);
+
+  graphene_rect_init (&bounds, 0, 0,
+                      self->screen_width * self->screen_scale,
+                      self->screen_height * self->screen_scale);
+  gsk_rounded_rect_init_from_rect (&corners_rect, &bounds,
+                                   self->screen_corners);
+
+  gsk_path_builder_add_rounded_rect (builder, &corners_rect);
+  gsk_path_builder_add_path (builder, notch_path);
+
+  path = gsk_path_builder_free_to_path (builder);
+
+  gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_ALPHA);
+
+  switch (self->rotation) {
+  case ROTATION_0DEG:
+    break;
+  case ROTATION_90DEG:
+    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (self->screen_height, 0.0));
+    gtk_snapshot_rotate (snapshot, 90);
+    break;
+  case ROTATION_180DEG:
+    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (self->screen_width,
+                                                            self->screen_height));
+    gtk_snapshot_rotate (snapshot, 180);
+    break;
+  case ROTATION_270DEG:
+    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0.0, self->screen_width));
+    gtk_snapshot_rotate (snapshot, 270);
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  gtk_snapshot_scale (snapshot, 1.0f / self->screen_scale, 1.0f / self->screen_scale);
+
+  rgba.red = 0.0;
+  rgba.green = 0.0;
+  rgba.blue = 0.0;
+  rgba.alpha = 1.0;
+
+  gtk_snapshot_append_fill (snapshot, path, GSK_FILL_RULE_EVEN_ODD, &rgba);
+  gtk_snapshot_pop (snapshot);
+
+  gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
+  gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
+  gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
+  gtk_snapshot_pop (snapshot);
+
+  gsk_path_unref (notch_path);
+  gsk_path_unref (path);
 }
 
 static void
@@ -431,8 +518,8 @@ allocate_scale_bin (GtkWidget *widget,
   if (!gtk_widget_should_layout (child))
     return;
 
-  child_width = get_screen_width (self);
-  child_height = get_screen_height (self);
+  gtk_widget_measure (child, GTK_ORIENTATION_HORIZONTAL, -1, NULL, &child_width, NULL, NULL);
+  gtk_widget_measure (child, GTK_ORIENTATION_VERTICAL, -1, NULL, &child_height, NULL, NULL);
 
   if (self->scale_to_fit) {
     scale = MIN ((float) width / (float) child_width,
@@ -601,6 +688,8 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
                                  gtk_custom_layout_new (NULL,
                                                         measure_scale_bin,
                                                         allocate_scale_bin));
+
+  adw_gizmo_set_snapshot_func (ADW_GIZMO (self->screen_view), snapshot_screen_view);
 
   setup_presets (self);
 

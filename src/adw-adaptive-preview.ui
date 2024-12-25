@@ -186,36 +186,43 @@
                     <property name="margin-start">36</property>
                     <property name="margin-end">36</property>
                     <child>
-                      <object class="AdwGizmo" id="screen_view">
+                      <object class="AdwBin">
                         <property name="halign">center</property>
                         <property name="valign">center</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <style>
-                          <class name="screen-view"/>
+                          <class name="device-view"/>
                         </style>
-                        <child>
-                          <object class="AdwBin" id="child_bin">
-                            <property name="overflow">hidden</property>
+                        <property name="child">
+                          <object class="AdwGizmo" id="screen_view">
                             <style>
-                              <class name="background"/>
+                              <class name="screen-view"/>
                             </style>
+                            <child>
+                              <object class="AdwBin" id="child_bin">
+                                <property name="overflow">hidden</property>
+                                <style>
+                                  <class name="background"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwBin" id="top_bar">
+                                <style>
+                                  <class name="shell-top-bar"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwBin" id="bottom_bar">
+                                <style>
+                                  <class name="shell-bottom-bar"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
-                        </child>
-                        <child>
-                          <object class="AdwBin" id="top_bar">
-                            <style>
-                              <class name="shell-top-bar"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwBin" id="bottom_bar">
-                            <style>
-                              <class name="shell-bottom-bar"/>
-                            </style>
-                          </object>
-                        </child>
+                        </property>
                       </object>
                     </child>
                   </object>

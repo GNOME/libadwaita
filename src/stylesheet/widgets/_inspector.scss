@@ -16,18 +16,14 @@ adaptive-preview {
     @extend .flat;
   }
 
-  .screen-view {
+  .device-view {
+    background: black;
+    color: white;
     box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
                 0 3px 20px 10px RGB(0 0 0 / 5%),
                 0 6px 32px 16px RGB(0 0 0 / 2%),
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
 
     --window-radius: 0px;
-
-    > .shell-top-bar,
-    > .shell-bottom-bar {
-      background: black;
-      color: white;
-    }
   }
 }
