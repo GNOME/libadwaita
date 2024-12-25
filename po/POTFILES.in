@@ -6,6 +6,7 @@ src/adw-about-window.c
 src/adw-about-window.ui
 src/adw-adaptive-preview.c
 src/adw-adaptive-preview.ui
+src/adw-adaptive-preview-presets-private.h
 src/adw-alert-dialog.c
 src/adw-avatar.c
 src/adw-back-button.c
