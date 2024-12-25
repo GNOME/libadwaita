@@ -62,6 +62,8 @@ struct _AdwAdaptivePreview
   float screen_corners;
   const char *notches;
 
+  gboolean outline;
+
   gboolean changing_screen_size;
   gboolean changing_shell;
 
@@ -75,6 +77,7 @@ enum {
   PROP_CHILD,
   PROP_WINDOW_CONTROLS,
   PROP_SCALE_TO_FIT,
+  PROP_OUTLINE,
   LAST_PROP
 };
 
@@ -533,6 +536,9 @@ adw_adaptive_preview_get_property (GObject    *object,
   case PROP_SCALE_TO_FIT:
     g_value_set_boolean (value, adw_adaptive_preview_get_scale_to_fit (self));
     break;
+  case PROP_OUTLINE:
+    g_value_set_boolean (value, adw_adaptive_preview_get_outline (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -555,6 +561,9 @@ adw_adaptive_preview_set_property (GObject      *object,
     break;
   case PROP_SCALE_TO_FIT:
     adw_adaptive_preview_set_scale_to_fit (self, g_value_get_boolean (value));
+    break;
+  case PROP_OUTLINE:
+    adw_adaptive_preview_set_outline (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -589,6 +598,11 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
   props[PROP_SCALE_TO_FIT] =
     g_param_spec_boolean ("scale-to-fit", NULL, NULL,
                           TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_OUTLINE] =
+    g_param_spec_boolean ("outline", NULL, NULL,
+                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -742,6 +756,35 @@ adw_adaptive_preview_set_scale_to_fit (AdwAdaptivePreview *self,
   gtk_widget_queue_resize (self->scale_bin);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SCALE_TO_FIT]);
+}
+
+gboolean
+adw_adaptive_preview_get_outline (AdwAdaptivePreview *self)
+{
+  g_return_val_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self), FALSE);
+
+  return self->outline;
+}
+
+void
+adw_adaptive_preview_set_outline (AdwAdaptivePreview *self,
+                                  gboolean            outline)
+{
+  g_return_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self));
+
+  outline = !!outline;
+
+  if (outline == self->outline)
+    return;
+
+  self->outline = outline;
+
+  if (outline)
+    gtk_widget_add_css_class (self->screen_view, "outline");
+  else
+    gtk_widget_remove_css_class (self->screen_view, "outline");
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_OUTLINE]);
 }
 
 GtkWidget *

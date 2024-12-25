@@ -16,6 +16,13 @@ adaptive-preview {
     @extend .flat;
   }
 
+  .screen-view.outline {
+    filter: drop-shadow( 3px 0 0 var(--accent-bg-color))
+            drop-shadow(-3px 0 0 var(--accent-bg-color))
+            drop-shadow(0  3px 0 var(--accent-bg-color))
+            drop-shadow(0 -3px 0 var(--accent-bg-color));
+  }
+
   .device-view {
     background: black;
     color: white;
