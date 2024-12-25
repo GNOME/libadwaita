@@ -37,4 +37,22 @@ ADW_AVAILABLE_IN_ALL
 void       adw_bin_set_child (AdwBin    *self,
                               GtkWidget *child);
 
+ADW_AVAILABLE_IN_1_7
+GskTransform *adw_bin_get_transform (AdwBin       *self);
+ADW_AVAILABLE_IN_1_7
+void          adw_bin_set_transform (AdwBin       *self,
+                                     GskTransform *transform);
+
+ADW_AVAILABLE_IN_1_7
+float adw_bin_get_transform_origin_x (AdwBin *self);
+ADW_AVAILABLE_IN_1_7
+void  adw_bin_set_transform_origin_x (AdwBin *self,
+                                      float   origin);
+
+ADW_AVAILABLE_IN_1_7
+float adw_bin_get_transform_origin_y (AdwBin *self);
+ADW_AVAILABLE_IN_1_7
+void  adw_bin_set_transform_origin_y (AdwBin *self,
+                                      float   origin);
+
 G_END_DECLS

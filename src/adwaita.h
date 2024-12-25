@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 #include "adw-avatar.h"
 #include "adw-banner.h"
 #include "adw-bin.h"
+#include "adw-bin-layout.h"
 #include "adw-bottom-sheet.h"
 #include "adw-breakpoint.h"
 #include "adw-breakpoint-bin.h"

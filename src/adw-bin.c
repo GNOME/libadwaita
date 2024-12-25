@@ -9,6 +9,7 @@
 #include "config.h"
 #include "adw-bin.h"
 
+#include "adw-bin-layout.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -26,6 +27,11 @@
  *
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
+ *
+ * The child can optionally be transformed using the [property@Bin:transform]
+ * property. This can be used for animating the child.
+ *
+ * See also: [class@BinLayout].
  */
 
 typedef struct
@@ -44,6 +50,9 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_CHILD,
+  PROP_TRANSFORM,
+  PROP_TRANSFORM_ORIGIN_X,
+  PROP_TRANSFORM_ORIGIN_Y,
   LAST_PROP
 };
 
@@ -72,6 +81,15 @@ adw_bin_get_property (GObject    *object,
   case PROP_CHILD:
     g_value_set_object (value, adw_bin_get_child (self));
     break;
+  case PROP_TRANSFORM:
+    g_value_set_boxed (value, adw_bin_get_transform (self));
+    break;
+  case PROP_TRANSFORM_ORIGIN_X:
+    g_value_set_float (value, adw_bin_get_transform_origin_x (self));
+    break;
+  case PROP_TRANSFORM_ORIGIN_Y:
+    g_value_set_float (value, adw_bin_get_transform_origin_y (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -88,6 +106,15 @@ adw_bin_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_CHILD:
     adw_bin_set_child (self, g_value_get_object (value));
+    break;
+  case PROP_TRANSFORM:
+    adw_bin_set_transform (self, g_value_get_boxed (value));
+    break;
+  case PROP_TRANSFORM_ORIGIN_X:
+    adw_bin_set_transform_origin_x (self, g_value_get_float (value));
+    break;
+  case PROP_TRANSFORM_ORIGIN_Y:
+    adw_bin_set_transform_origin_y (self, g_value_get_float (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -117,9 +144,45 @@ adw_bin_class_init (AdwBinClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwBin:transform:
+   *
+   * The transform to apply to [property@Bin:child].
+   *
+   * Since: 1.7
+   */
+  props[PROP_TRANSFORM] =
+    g_param_spec_boxed ("transform", NULL, NULL,
+                        GSK_TYPE_TRANSFORM,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwBin:transform-origin-x:
+   *
+   * TODO
+   *
+   * Since: 1.7
+   */
+  props[PROP_TRANSFORM_ORIGIN_X] =
+    g_param_spec_float ("transform-origin-x", NULL, NULL,
+                        0.0, 1.0, 0.5,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwBin:transform-origin-y:
+   *
+   * TODO
+   *
+   * Since: 1.7
+   */
+  props[PROP_TRANSFORM_ORIGIN_Y] =
+    g_param_spec_float ("transform-origin-y", NULL, NULL,
+                        0.0, 1.0, 0.5,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  gtk_widget_class_set_layout_manager_type (widget_class, ADW_TYPE_BIN_LAYOUT);
 }
 
 static void
@@ -213,4 +276,155 @@ adw_bin_set_child (AdwBin    *self,
     gtk_widget_set_parent (priv->child, GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
+}
+
+/**
+ * adw_bin_get_transform:
+ * @self: a bin
+ *
+ * Gets the child transform of @self.
+ *
+ * Returns: (nullable) (transfer none): the transform of @self
+ *
+ * Since: 1.7
+ */
+GskTransform *
+adw_bin_get_transform (AdwBin *self)
+{
+  AdwBinLayout *layout;
+
+  g_return_val_if_fail (ADW_IS_BIN (self), NULL);
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  return adw_bin_layout_get_transform (layout);
+}
+
+/**
+ * adw_bin_set_transform:
+ * @self: a bin
+ * @transform: (nullable): the child transform
+ *
+ * Sets the transform to apply to the child widget of @self.
+ *
+ * Since: 1.7
+ */
+void
+adw_bin_set_transform (AdwBin       *self,
+                       GskTransform *transform)
+{
+  AdwBinLayout *layout;
+
+  g_return_if_fail (ADW_IS_BIN (self));
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  if (transform == adw_bin_layout_get_transform (layout))
+    return;
+
+  adw_bin_layout_set_transform (layout, transform);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSFORM]);
+}
+
+/**
+ * adw_bin_get_transform_origin_x:
+ * @self: a bin
+ *
+ * TODO
+ *
+ * Returns: the TODO of @self
+ *
+ * Since: 1.7
+ */
+float
+adw_bin_get_transform_origin_x (AdwBin *self)
+{
+  AdwBinLayout *layout;
+
+  g_return_val_if_fail (ADW_IS_BIN (self), 0.0f);
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  return adw_bin_layout_get_transform_origin_x (layout);
+}
+
+/**
+ * adw_bin_set_transform_origin_x:
+ * @self: a bin
+ * @origin: the TODO
+ *
+ * Sets the TODO of @self.
+ *
+ * Since: 1.7
+ */
+void
+adw_bin_set_transform_origin_x (AdwBin *self,
+                                float   origin)
+{
+  AdwBinLayout *layout;
+
+  g_return_if_fail (ADW_IS_BIN (self));
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  origin = CLAMP (origin, 0.0, 1.0);
+
+  if (G_APPROX_VALUE (origin, adw_bin_layout_get_transform_origin_x (layout), FLT_EPSILON))
+    return;
+
+  adw_bin_layout_set_transform_origin_x (layout, origin);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSFORM_ORIGIN_X]);
+}
+
+/**
+ * adw_bin_get_transform_origin_y:
+ * @self: a bin
+ *
+ * TODO
+ *
+ * Returns: the TODO of @self
+ *
+ * Since: 1.7
+ */
+float
+adw_bin_get_transform_origin_y (AdwBin *self)
+{
+  AdwBinLayout *layout;
+
+  g_return_val_if_fail (ADW_IS_BIN (self), 0.0f);
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  return adw_bin_layout_get_transform_origin_y (layout);
+}
+
+/**
+ * adw_bin_set_transform_origin_y:
+ * @self: a bin
+ * @origin: the TODO
+ *
+ * Sets the TODO of @self.
+ *
+ * Since: 1.7
+ */
+void
+adw_bin_set_transform_origin_y (AdwBin *self,
+                                float   origin)
+{
+  AdwBinLayout *layout;
+
+  g_return_if_fail (ADW_IS_BIN (self));
+
+  layout = ADW_BIN_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  origin = CLAMP (origin, 0.0, 1.0);
+
+  if (G_APPROX_VALUE (origin, adw_bin_layout_get_transform_origin_y (layout), FLT_EPSILON))
+    return;
+
+  adw_bin_layout_set_transform_origin_y (layout, origin);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSFORM_ORIGIN_Y]);
 }
