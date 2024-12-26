@@ -1001,6 +1001,16 @@ adw_dialog_set_property (GObject      *object,
 }
 
 static void
+adw_dialog_real_closed (AdwDialog *dialog)
+{
+}
+
+static void
+adw_dialog_real_close_attempt (AdwDialog *dialog)
+{
+}
+
+static void
 adw_dialog_class_init (AdwDialogClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1018,6 +1028,9 @@ adw_dialog_class_init (AdwDialogClass *klass)
   widget_class->grab_focus = adw_dialog_grab_focus;
   widget_class->contains = adw_widget_contains_passthrough;
   widget_class->compute_expand = adw_widget_compute_expand;
+
+  klass->closed = adw_dialog_real_closed;
+  klass->close_attempt = adw_dialog_real_close_attempt;
 
   /**
    * AdwDialog:child:
