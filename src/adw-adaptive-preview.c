@@ -59,7 +59,8 @@ struct _AdwAdaptivePreview
   ScreenRotation rotation;
   gboolean scale_to_fit;
   float screen_scale;
-  float screen_corners;
+  float top_corners;
+  float bottom_corners;
   const char *notches;
 
   gboolean outline;
@@ -148,7 +149,8 @@ device_preset_cb (AdwAdaptivePreview *self)
   if (preset->height >= 0)
     gtk_adjustment_set_value (self->height_adj, preset->height);
   self->screen_scale = preset->scale;
-  self->screen_corners = preset->corners;
+  self->top_corners = preset->top_corners;
+  self->bottom_corners = preset->bottom_corners;
   self->notches = preset->notches;
   self->changing_screen_size = FALSE;
 
@@ -284,8 +286,11 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   graphene_rect_init (&bounds, 0, 0,
                       self->screen_width * self->screen_scale,
                       self->screen_height * self->screen_scale);
-  gsk_rounded_rect_init_from_rect (&corners_rect, &bounds,
-                                   self->screen_corners);
+  gsk_rounded_rect_init (&corners_rect, &bounds,
+                         &GRAPHENE_SIZE_INIT (self->top_corners,    self->top_corners),
+                         &GRAPHENE_SIZE_INIT (self->top_corners,    self->top_corners),
+                         &GRAPHENE_SIZE_INIT (self->bottom_corners, self->bottom_corners),
+                         &GRAPHENE_SIZE_INIT (self->bottom_corners, self->bottom_corners));
 
   gsk_path_builder_add_rounded_rect (builder, &corners_rect);
   gsk_path_builder_add_path (builder, notch_path);
