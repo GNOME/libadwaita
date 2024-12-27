@@ -36,7 +36,7 @@ get_dpi (GtkSettings *settings)
 
   g_object_get (settings, "gtk-xft-dpi", &xft_dpi, NULL);
 
-  if (xft_dpi == 0)
+  if (xft_dpi <= 0)
     xft_dpi = 96 * PANGO_SCALE;
 
   return xft_dpi / PANGO_SCALE;
