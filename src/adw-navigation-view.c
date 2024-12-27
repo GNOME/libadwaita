@@ -494,6 +494,26 @@ adw_navigation_page_set_property (GObject      *object,
 }
 
 static void
+adw_navigation_page_real_showing (AdwNavigationPage *self)
+{
+}
+
+static void
+adw_navigation_page_real_shown (AdwNavigationPage *self)
+{
+}
+
+static void
+adw_navigation_page_real_hiding (AdwNavigationPage *self)
+{
+}
+
+static void
+adw_navigation_page_real_hidden (AdwNavigationPage *self)
+{
+}
+
+static void
 adw_navigation_page_class_init (AdwNavigationPageClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -506,6 +526,11 @@ adw_navigation_page_class_init (AdwNavigationPageClass *klass)
 
   widget_class->realize = adw_navigation_page_realize;
   widget_class->compute_expand = adw_widget_compute_expand;
+
+  klass->showing = adw_navigation_page_real_showing;
+  klass->shown = adw_navigation_page_real_shown;
+  klass->hiding = adw_navigation_page_real_hiding;
+  klass->hidden = adw_navigation_page_real_hidden;
 
   /**
    * AdwNavigationPage:child:
