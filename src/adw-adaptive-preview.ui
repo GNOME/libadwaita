@@ -179,6 +179,7 @@
                       <object class="AdwButtonContent">
                         <property name="icon-name">application-exit</property>
                         <property name="label" translatable="yes">Exit</property>
+                        <property name="can-shrink">True</property>
                       </object>
                     </property>
                   </object>
