@@ -17,6 +17,7 @@
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
+#include "adw-window-title.h"
 #include <math.h>
 
 #define MIN_SCALE 0.25
@@ -51,6 +52,8 @@ struct _AdwAdaptivePreview
   GtkAdjustment *top_bar_adj;
   GtkWidget *bottom_bar_row;
   GtkAdjustment *bottom_bar_adj;
+
+  AdwWindowTitle *content_title;
 
   int screen_width;
   int screen_height;
@@ -139,6 +142,8 @@ device_preset_cb (AdwAdaptivePreview *self)
 
   gtk_widget_set_sensitive (self->width_row, preset->width < 0);
   gtk_widget_set_sensitive (self->height_row, preset->height < 0);
+
+  adw_window_title_set_title (self->content_title, _(preset->name));
 
   if (preset->width < 0 && preset->height < 0)
     return;
@@ -644,6 +649,7 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, top_bar_adj);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, bottom_bar_row);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, bottom_bar_adj);
+  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, content_title);
 
   gtk_widget_class_bind_template_callback (widget_class, screen_size_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, device_preset_cb);
