@@ -69,4 +69,7 @@ gboolean adw_decoration_layout_prefers_start (const char *layout);
 
 char *adw_strip_mnemonic (const char *src);
 
+void adw_ensure_child_allocation_size (GtkWidget     *child,
+                                       GtkAllocation *allocation);
+
 G_END_DECLS

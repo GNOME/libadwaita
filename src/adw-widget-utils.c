@@ -686,3 +686,55 @@ adw_strip_mnemonic (const char *src)
 
   return new_str;
 }
+
+/*
+ * Some widgets intentionally request less size than is required to
+ * fully fit their children, and then overallocate the children. This
+ * function increases the proposed allocation to ensure the child gets
+ * at least the size that it requires.
+ */
+void
+adw_ensure_child_allocation_size (GtkWidget     *child,
+                                  GtkAllocation *allocation)
+{
+  int min, width, height;
+
+  if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT) {
+    gtk_widget_measure (child, GTK_ORIENTATION_VERTICAL, -1,
+                        &min, NULL, NULL, NULL);
+    height = MAX (allocation->height, min);
+    gtk_widget_measure (child, GTK_ORIENTATION_HORIZONTAL, height,
+                        &min, NULL, NULL, NULL);
+    width = MAX (allocation->width, min);
+  } else {
+    /* GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH or CONSTANT_SIZE */
+    gtk_widget_measure (child, GTK_ORIENTATION_HORIZONTAL, -1,
+                        &min, NULL, NULL, NULL);
+    width = MAX (allocation->width, min);
+    gtk_widget_measure (child, GTK_ORIENTATION_VERTICAL, width,
+                        &min, NULL, NULL, NULL);
+    height = MAX (allocation->height, min);
+  }
+
+  if (width > allocation->width) {
+    GtkAlign halign = gtk_widget_get_halign (child);
+
+    if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
+      allocation->x -= (width - allocation->width) / 2;
+    else if (halign == GTK_ALIGN_END)
+      allocation->x -= (width - allocation->width);
+
+    allocation->width = width;
+  }
+
+  if (height > allocation->height) {
+    GtkAlign valign = gtk_widget_get_valign (child);
+
+    if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
+      allocation->y -= (height - allocation->height) / 2;
+    else if (valign == GTK_ALIGN_END)
+      allocation->y -= (height - allocation->height);
+
+    allocation->height = height;
+  }
+}
