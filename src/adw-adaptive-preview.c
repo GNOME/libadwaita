@@ -36,6 +36,7 @@ struct _AdwAdaptivePreview
 
   GtkWidget *content;
   GtkWidget *scale_bin;
+  GtkWidget *device_view;
   GtkWidget *screen_view;
   GtkWidget *child_bin;
   GtkWidget *top_bar;
@@ -72,7 +73,11 @@ struct _AdwAdaptivePreview
   gboolean changing_shell;
 
   gboolean window_controls;
+
+  int last_device_preset;
 };
+
+static GtkCssProvider *css_provider = NULL;
 
 G_DEFINE_FINAL_TYPE (AdwAdaptivePreview, adw_adaptive_preview, GTK_TYPE_WIDGET)
 
@@ -94,22 +99,74 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-static int
-get_screen_width (AdwAdaptivePreview *self)
+static void
+generate_device_css (void)
 {
-  gboolean rotated = self->rotation == ROTATION_90DEG ||
-                     self->rotation == ROTATION_270DEG;
+  GString *string = g_string_new (NULL);
+  int i;
 
-  return rotated ? self->screen_height : self->screen_width;
+  for (i = 0; i < G_N_ELEMENTS (device_presets); i++) {
+    const DevicePreset *preset = &device_presets[i];
+
+    if (preset->width < 0 || preset->height < 0)
+      continue;
+
+    g_string_append_printf (string, "adaptive-preview .device-view.%s {\n",
+                            preset->id);
+    g_string_append_printf (string, "  --top-screen-corner-radius: %fpx;\n",
+                            preset->top_corners / preset->scale);
+    g_string_append_printf (string, "  --bottom-screen-corner-radius: %fpx;\n",
+                            preset->bottom_corners / preset->scale);
+    g_string_append (string, "}\n");
+  }
+
+  gtk_css_provider_load_from_string (css_provider, string->str);
+
+  g_string_free (string, TRUE);
 }
 
-static int
-get_screen_height (AdwAdaptivePreview *self)
+static GskTransform *
+transform_for_angle (AdwAdaptivePreview *self,
+                     GskTransform       *transform)
 {
-  gboolean rotated = self->rotation == ROTATION_90DEG ||
-                     self->rotation == ROTATION_270DEG;
+  switch (self->rotation) {
+  case ROTATION_0DEG:
+    break;
+  case ROTATION_90DEG:
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0.0, self->screen_height));
+    transform = gsk_transform_rotate (transform, 270);
+    break;
+  case ROTATION_180DEG:
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width,
+                                                                          self->screen_height));
+    transform = gsk_transform_rotate (transform, 180);
+    break;
+  case ROTATION_270DEG:
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width, 0.0));
+    transform = gsk_transform_rotate (transform, 90);
+    break;
+  default:
+    g_assert_not_reached ();
+  }
 
-  return rotated ? self->screen_width : self->screen_height;
+  return transform;
+}
+
+static float
+get_rotation_angle (AdwAdaptivePreview *self)
+{
+  switch (self->rotation) {
+  case ROTATION_0DEG:
+    return 0;
+  case ROTATION_90DEG:
+    return 90;
+  case ROTATION_180DEG:
+    return 180;
+  case ROTATION_270DEG:
+    return 270;
+  default:
+    g_assert_not_reached ();
+  }
 }
 
 static void
@@ -144,6 +201,19 @@ device_preset_cb (AdwAdaptivePreview *self)
   gtk_widget_set_sensitive (self->height_row, preset->height < 0);
 
   adw_window_title_set_title (self->content_title, _(preset->name));
+
+  if (self->last_device_preset >= 0) {
+    const DevicePreset *last_preset;
+
+    g_assert (self->last_device_preset < G_N_ELEMENTS (device_presets));
+
+    last_preset = &device_presets[self->last_device_preset];
+
+    gtk_widget_remove_css_class (self->device_view, last_preset->id);
+  }
+
+  gtk_widget_add_css_class (self->device_view, preset->id);
+  self->last_device_preset = selected;
 
   if (preset->width < 0 && preset->height < 0)
     return;
@@ -262,6 +332,8 @@ setup_presets (AdwAdaptivePreview *self)
 
   adw_combo_row_set_model (self->device_preset_row, G_LIST_MODEL (devices));
   adw_combo_row_set_selected (self->device_preset_row, DEFAULT_DEVICE_PRESET);
+
+  self->last_device_preset = DEFAULT_DEVICE_PRESET;
 }
 
 static void
@@ -272,11 +344,10 @@ snapshot_screen_view (AdwGizmo    *gizmo,
     ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (GTK_WIDGET (gizmo), ADW_TYPE_ADAPTIVE_PREVIEW));
   GskPathBuilder *builder;
   GskPath *notch_path, *path;
-  GskRoundedRect corners_rect;
   graphene_rect_t bounds;
   GdkRGBA rgba;
 
-  if (!self->notches && self->top_corners <= 0 && self->bottom_corners <= 0) {
+  if (!self->notches) {
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
@@ -285,51 +356,19 @@ snapshot_screen_view (AdwGizmo    *gizmo,
 
   builder = gsk_path_builder_new ();
 
-  if (self->notches) {
-    notch_path = gsk_path_parse (self->notches);
-    g_assert (notch_path != NULL);
-  } else {
-    notch_path = NULL;
-  }
+  notch_path = gsk_path_parse (self->notches);
+  g_assert (notch_path != NULL);
 
   graphene_rect_init (&bounds, 0, 0,
                       self->screen_width * self->screen_scale,
                       self->screen_height * self->screen_scale);
-  gsk_rounded_rect_init (&corners_rect, &bounds,
-                         &GRAPHENE_SIZE_INIT (self->top_corners,    self->top_corners),
-                         &GRAPHENE_SIZE_INIT (self->top_corners,    self->top_corners),
-                         &GRAPHENE_SIZE_INIT (self->bottom_corners, self->bottom_corners),
-                         &GRAPHENE_SIZE_INIT (self->bottom_corners, self->bottom_corners));
 
-  gsk_path_builder_add_rounded_rect (builder, &corners_rect);
-
-  if (self->notches)
-    gsk_path_builder_add_path (builder, notch_path);
+  gsk_path_builder_add_rect (builder, &bounds);
+  gsk_path_builder_add_path (builder, notch_path);
 
   path = gsk_path_builder_free_to_path (builder);
 
   gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_ALPHA);
-
-  switch (self->rotation) {
-  case ROTATION_0DEG:
-    break;
-  case ROTATION_90DEG:
-    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (self->screen_height, 0.0));
-    gtk_snapshot_rotate (snapshot, 90);
-    break;
-  case ROTATION_180DEG:
-    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (self->screen_width,
-                                                            self->screen_height));
-    gtk_snapshot_rotate (snapshot, 180);
-    break;
-  case ROTATION_270DEG:
-    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0.0, self->screen_width));
-    gtk_snapshot_rotate (snapshot, 270);
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-
   gtk_snapshot_scale (snapshot, 1.0f / self->screen_scale, 1.0f / self->screen_scale);
 
   rgba.red = 0.0;
@@ -345,8 +384,7 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
   gtk_snapshot_pop (snapshot);
 
-  if (self->notches)
-    gsk_path_unref (notch_path);
+  gsk_path_unref (notch_path);
   gsk_path_unref (path);
 }
 
@@ -383,9 +421,9 @@ measure_screen_view (GtkWidget      *widget,
     min = MAX (top_min, bottom_min);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    nat = get_screen_width (self);
+    nat = self->screen_width;
   else
-    nat = get_screen_height (self);
+    nat = self->screen_height;
 
   min = MAX (min, nat);
 
@@ -408,30 +446,40 @@ allocate_screen_view (GtkWidget *widget,
   AdwAdaptivePreview *self =
     ADW_ADAPTIVE_PREVIEW (gtk_widget_get_ancestor (widget, ADW_TYPE_ADAPTIVE_PREVIEW));
   int top_bar_height = 0, bottom_bar_height = 0;
+  gboolean rotated = self->rotation == ROTATION_90DEG ||
+                     self->rotation == ROTATION_270DEG;
+
+  if (rotated) {
+    int tmp = width;
+    width = height;
+    height = tmp;
+  }
 
   if (gtk_widget_should_layout (self->top_bar)) {
     gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
                         &top_bar_height, NULL, NULL, NULL);
-    gtk_widget_allocate (self->top_bar, width, top_bar_height, -1, NULL);
+    gtk_widget_allocate (self->top_bar, width, top_bar_height, -1,
+                         transform_for_angle (self, NULL));
   }
 
   if (gtk_widget_should_layout (self->bottom_bar)) {
     int bottom_bar_y;
-    GskTransform *transform;
+    GskTransform *transform = NULL;
 
     gtk_widget_measure (self->bottom_bar, GTK_ORIENTATION_VERTICAL, -1,
                         &bottom_bar_height, NULL, NULL, NULL);
 
     bottom_bar_y = height - bottom_bar_height;
 
-    transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, bottom_bar_y));
+    transform = transform_for_angle (self, transform);
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, bottom_bar_y));
 
     gtk_widget_allocate (self->bottom_bar, width, bottom_bar_height, -1, transform);
   }
 
   if (gtk_widget_should_layout (self->child_bin)) {
     int child_width, child_height, available_height;
-    GskTransform *transform;
+    GskTransform *transform = NULL;
 
     available_height = height - top_bar_height - bottom_bar_height;
 
@@ -452,7 +500,8 @@ allocate_screen_view (GtkWidget *widget,
                  child_width, child_height, width, available_height);
     }
 
-    transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->top_bar_height));
+    transform = transform_for_angle (self, transform);
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, self->top_bar_height));
 
     gtk_widget_allocate (self->child_bin, width, available_height, -1, transform);
   }
@@ -507,8 +556,17 @@ allocate_scale_bin (GtkWidget *widget,
   gtk_widget_measure (child, GTK_ORIENTATION_VERTICAL, -1, NULL, &child_height, NULL, NULL);
 
   if (self->scale_to_fit) {
-    scale = MIN ((float) width / (float) child_width,
-                 (float) height / (float) child_height);
+    int w = child_width;
+    int h = child_height;
+
+    if (self->rotation == ROTATION_90DEG || self->rotation == ROTATION_270DEG) {
+      int tmp = w;
+      w = h;
+      h = tmp;
+    }
+
+    scale = MIN ((float) width / (float) w,
+                 (float) height / (float) h);
     scale = CLAMP (scale, MIN_SCALE, MAX_SCALE);
   } else {
     scale = 1.0;
@@ -518,6 +576,7 @@ allocate_scale_bin (GtkWidget *widget,
                                        &GRAPHENE_POINT_INIT (roundf (width / 2.0f),
                                                              roundf (height / 2.0f)));
   transform = gsk_transform_scale (transform, scale, scale);
+  transform = gsk_transform_rotate (transform, get_rotation_angle (self));
   transform = gsk_transform_translate (transform,
                                        &GRAPHENE_POINT_INIT (-roundf (child_width / 2.0f),
                                                              -roundf (child_height / 2.0f)));
@@ -642,6 +701,7 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-adaptive-preview.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, content);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, scale_bin);
+  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, device_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, screen_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, child_bin);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, top_bar);
@@ -673,6 +733,7 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
   self->window_controls = TRUE;
   self->rotation = ROTATION_0DEG;
   self->scale_to_fit = TRUE;
+  self->last_device_preset = -1;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -692,6 +753,14 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
 
   gtk_adjustment_set_value (self->width_adj, 360);
   gtk_adjustment_set_value (self->height_adj, 720);
+
+  if (!css_provider) {
+    css_provider = gtk_css_provider_new ();
+    gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                                GTK_STYLE_PROVIDER (css_provider),
+                                                GTK_STYLE_PROVIDER_PRIORITY_THEME + 1);
+    generate_device_css ();
+  }
 }
 
 GtkWidget *

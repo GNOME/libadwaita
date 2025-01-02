@@ -199,16 +199,18 @@
                     <property name="margin-start">36</property>
                     <property name="margin-end">36</property>
                     <child>
-                      <object class="AdwBin">
+                      <object class="AdwBin" id="device_view">
                         <property name="halign">center</property>
                         <property name="valign">center</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
+                        <property name="overflow">hidden</property>
                         <style>
                           <class name="device-view"/>
                         </style>
                         <property name="child">
                           <object class="AdwGizmo" id="screen_view">
+                            <property name="overflow">hidden</property>
                             <style>
                               <class name="screen-view"/>
                             </style>

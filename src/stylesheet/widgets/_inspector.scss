@@ -9,18 +9,8 @@
 }
 
 adaptive-preview {
-  background: var(--overview-bg-color);
-  color: var(--overview-fg-color);
-
   headerbar.adaptive-mode-flat {
     @extend .flat;
-  }
-
-  .screen-view.outline {
-    filter: drop-shadow( 3px 0 0 var(--accent-bg-color))
-            drop-shadow(-3px 0 0 var(--accent-bg-color))
-            drop-shadow(0  3px 0 var(--accent-bg-color))
-            drop-shadow(0 -3px 0 var(--accent-bg-color));
   }
 
   .device-view {
@@ -32,5 +22,19 @@ adaptive-preview {
                 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
 
     --window-radius: 0px;
+
+    .screen-view {
+      border-radius: var(--top-screen-corner-radius)
+                     var(--top-screen-corner-radius)
+                     var(--bottom-screen-corner-radius)
+                     var(--bottom-screen-corner-radius);
+
+      &.outline {
+        filter: drop-shadow( 3px 0 0 var(--accent-bg-color))
+                drop-shadow(-3px 0 0 var(--accent-bg-color))
+                drop-shadow(0  3px 0 var(--accent-bg-color))
+                drop-shadow(0 -3px 0 var(--accent-bg-color));
+      }
+    }
   }
 }
