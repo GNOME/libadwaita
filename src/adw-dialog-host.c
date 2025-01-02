@@ -260,6 +260,14 @@ adw_dialog_host_unmap (GtkWidget *widget)
                             self->dialogs_closed_during_unmap->len);
 }
 
+static GtkSizeRequestMode
+adw_dialog_host_get_request_mode (GtkWidget *widget)
+{
+  AdwDialogHost *self = ADW_DIALOG_HOST (widget);
+
+  return gtk_widget_get_request_mode (self->bin);
+}
+
 static void
 adw_dialog_host_measure (GtkWidget      *widget,
                          GtkOrientation  orientation,
@@ -271,6 +279,10 @@ adw_dialog_host_measure (GtkWidget      *widget,
 {
   AdwDialogHost *self = ADW_DIALOG_HOST (widget);
 
+  /* Only measure the child, not any dialogs. In case a dialog is too
+   * large to fit the screen (e.g. on a phone), we'd rather clip the
+   * dialog than have the whole window request a large size and overflow.
+   */
   gtk_widget_measure (self->bin, orientation, for_size,
                       minimum, natural, minimum_baseline, natural_baseline);
 }
@@ -286,14 +298,10 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
   for (child = gtk_widget_get_first_child (widget);
        child;
        child = gtk_widget_get_next_sibling (child)) {
-    GtkRequisition min;
+    GtkAllocation child_allocation = { 0, 0, width, height };
 
-    gtk_widget_get_preferred_size (child, &min, NULL);
-
-    width = MAX (width, min.width);
-    height = MAX (height, min.height);
-
-    gtk_widget_allocate (child, width, height, baseline, NULL);
+    adw_ensure_child_allocation_size (child, &child_allocation);
+    gtk_widget_size_allocate (child, &child_allocation, -1);
   }
 }
 
@@ -393,7 +401,7 @@ adw_dialog_host_class_init (AdwDialogHostClass *klass)
   widget_class->unmap = adw_dialog_host_unmap;
   widget_class->measure = adw_dialog_host_measure;
   widget_class->size_allocate = adw_dialog_host_size_allocate;
-  widget_class->get_request_mode = adw_widget_get_request_mode;
+  widget_class->get_request_mode = adw_dialog_host_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   props[PROP_CHILD] =
