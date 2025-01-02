@@ -283,9 +283,40 @@ adw_toolbar_view_measure (GtkWidget      *widget,
   gtk_widget_measure (self->bottom_bar, orientation, -1,
                       &bottom_min, &bottom_nat, NULL, NULL);
 
-  if (self->content)
-    gtk_widget_measure (self->content, orientation, for_size,
-                        &content_min, &content_nat, NULL, NULL);
+  if (self->content) {
+    if (for_size < 0 || orientation == GTK_ORIENTATION_VERTICAL ||
+        (self->extend_content_to_top_edge && self->extend_content_to_bottom_edge)) {
+      gtk_widget_measure (self->content, orientation, for_size,
+                          &content_min, &content_nat, NULL, NULL);
+    } else {
+      int top_min_height, bottom_min_height;
+      int top_nat_height, bottom_nat_height;
+      int for_size_min, for_size_nat;
+
+      gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
+                          &top_min_height, &top_nat_height, NULL, NULL);
+      gtk_widget_measure (self->bottom_bar, GTK_ORIENTATION_VERTICAL, -1,
+                          &bottom_min_height, &bottom_nat_height, NULL, NULL);
+
+      for_size_min = for_size_nat = for_size;
+      if (!self->extend_content_to_top_edge) {
+        for_size_min -= top_min_height;
+        for_size_nat -= top_nat_height;
+      }
+      if (!self->extend_content_to_bottom_edge) {
+        for_size_min -= bottom_min_height;
+        for_size_nat -= bottom_nat_height;
+      }
+
+      gtk_widget_measure (self->content, GTK_ORIENTATION_HORIZONTAL, for_size_min,
+                          &content_min, &content_nat, NULL, NULL);
+      if (for_size_nat != for_size_min) {
+        gtk_widget_measure (self->content, GTK_ORIENTATION_HORIZONTAL, for_size_nat,
+                            NULL, &content_nat, NULL, NULL);
+      }
+    }
+
+  }
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     if (minimum)
@@ -333,13 +364,13 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
   int top_height, bottom_height;
   int content_height, content_offset;
 
-  gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
+  gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, width,
                       &top_min, &top_nat, NULL, NULL);
-  gtk_widget_measure (self->bottom_bar, GTK_ORIENTATION_VERTICAL, -1,
+  gtk_widget_measure (self->bottom_bar, GTK_ORIENTATION_VERTICAL, width,
                       &bottom_min, &bottom_nat, NULL, NULL);
 
   if (self->content)
-    gtk_widget_measure (self->content, GTK_ORIENTATION_VERTICAL, -1,
+    gtk_widget_measure (self->content, GTK_ORIENTATION_VERTICAL, width,
                         &content_min, NULL, NULL, NULL);
 
   if (self->extend_content_to_top_edge)
