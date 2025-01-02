@@ -276,7 +276,7 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   graphene_rect_t bounds;
   GdkRGBA rgba;
 
-  if (!self->notches) {
+  if (!self->notches && self->top_corners <= 0 && self->bottom_corners <= 0) {
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
@@ -285,8 +285,12 @@ snapshot_screen_view (AdwGizmo    *gizmo,
 
   builder = gsk_path_builder_new ();
 
-  notch_path = gsk_path_parse (self->notches);
-  g_assert (notch_path != NULL);
+  if (self->notches) {
+    notch_path = gsk_path_parse (self->notches);
+    g_assert (notch_path != NULL);
+  } else {
+    notch_path = NULL;
+  }
 
   graphene_rect_init (&bounds, 0, 0,
                       self->screen_width * self->screen_scale,
@@ -298,7 +302,9 @@ snapshot_screen_view (AdwGizmo    *gizmo,
                          &GRAPHENE_SIZE_INIT (self->bottom_corners, self->bottom_corners));
 
   gsk_path_builder_add_rounded_rect (builder, &corners_rect);
-  gsk_path_builder_add_path (builder, notch_path);
+
+  if (self->notches)
+    gsk_path_builder_add_path (builder, notch_path);
 
   path = gsk_path_builder_free_to_path (builder);
 
@@ -339,7 +345,8 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
   gtk_snapshot_pop (snapshot);
 
-  gsk_path_unref (notch_path);
+  if (self->notches)
+    gsk_path_unref (notch_path);
   gsk_path_unref (path);
 }
 
