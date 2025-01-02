@@ -63,8 +63,6 @@ struct _AdwAdaptivePreview
   ScreenRotation rotation;
   gboolean scale_to_fit;
   float screen_scale;
-  float top_corners;
-  float bottom_corners;
   const char *notches;
 
   gboolean outline;
@@ -99,6 +97,13 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
+static inline float
+get_dpi (const DevicePreset *preset)
+{
+  return sqrtf (preset->width * preset->width +
+                preset->height * preset->height) / preset->screen_diagonal;
+}
+
 static void
 generate_device_css (void)
 {
@@ -107,16 +112,25 @@ generate_device_css (void)
 
   for (i = 0; i < G_N_ELEMENTS (device_presets); i++) {
     const DevicePreset *preset = &device_presets[i];
-
-    if (preset->width < 0 || preset->height < 0)
-      continue;
+    float dpi = get_dpi (preset);
 
     g_string_append_printf (string, "adaptive-preview .device-view.%s {\n",
                             preset->id);
     g_string_append_printf (string, "  --top-screen-corner-radius: %fpx;\n",
-                            preset->top_corners / preset->scale);
+                            preset->top_screen_corners / preset->scale_factor);
     g_string_append_printf (string, "  --bottom-screen-corner-radius: %fpx;\n",
-                            preset->bottom_corners / preset->scale);
+                            preset->bottom_screen_corners / preset->scale_factor);
+
+    g_string_append_printf (string, "  --top-device-corner-radius: %fpx;\n",
+                            preset->top_device_corners * dpi / preset->scale_factor);
+    g_string_append_printf (string, "  --bottom-device-corner-radius: %fpx;\n",
+                            preset->bottom_device_corners * dpi / preset->scale_factor);
+    g_string_append_printf (string, "  --top-bezel: %fpx;\n",
+                            preset->top_bezel * dpi / preset->scale_factor);
+    g_string_append_printf (string, "  --side-bezel: %fpx;\n",
+                            preset->side_bezel * dpi / preset->scale_factor);
+    g_string_append_printf (string, "  --bottom-bezel: %fpx;\n",
+                            preset->bottom_bezel * dpi / preset->scale_factor);
     g_string_append (string, "}\n");
   }
 
@@ -211,22 +225,18 @@ device_preset_cb (AdwAdaptivePreview *self)
 
     gtk_widget_remove_css_class (self->device_view, last_preset->id);
   }
+  self->changing_screen_size = TRUE;
+
+  if (preset->width >= 0)
+    gtk_adjustment_set_value (self->width_adj, preset->width / preset->scale_factor);
+  if (preset->height >= 0)
+    gtk_adjustment_set_value (self->height_adj, preset->height / preset->scale_factor);
+  self->screen_scale = preset->scale_factor;
+  self->notches = preset->notches;
 
   gtk_widget_add_css_class (self->device_view, preset->id);
   self->last_device_preset = selected;
 
-  if (preset->width < 0 && preset->height < 0)
-    return;
-
-  self->changing_screen_size = TRUE;
-  if (preset->width >= 0)
-    gtk_adjustment_set_value (self->width_adj, preset->width);
-  if (preset->height >= 0)
-    gtk_adjustment_set_value (self->height_adj, preset->height);
-  self->screen_scale = preset->scale;
-  self->top_corners = preset->top_corners;
-  self->bottom_corners = preset->bottom_corners;
-  self->notches = preset->notches;
   self->changing_screen_size = FALSE;
 
   screen_size_changed_cb (self);

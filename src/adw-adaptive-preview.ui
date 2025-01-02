@@ -204,7 +204,6 @@
                         <property name="valign">center</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
-                        <property name="overflow">hidden</property>
                         <style>
                           <class name="device-view"/>
                         </style>

@@ -16,12 +16,22 @@ adaptive-preview {
   .device-view {
     background: black;
     color: white;
-    box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
-                0 3px 20px 10px RGB(0 0 0 / 5%),
-                0 6px 32px 16px RGB(0 0 0 / 2%),
-                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+    padding: var(--top-bezel) var(--side-bezel) var(--bottom-bezel);
+    border-radius: var(--top-device-corner-radius)
+                   var(--top-device-corner-radius)
+                   var(--bottom-device-corner-radius)
+                   var(--bottom-device-corner-radius);
 
     --window-radius: 0px;
+
+    &.custom {
+      padding: 0;
+      border-radius: 0;
+      box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
+                  0 3px 20px 10px RGB(0 0 0 / 5%),
+                  0 6px 32px 16px RGB(0 0 0 / 2%),
+                  0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+    }
 
     .screen-view {
       border-radius: var(--top-screen-corner-radius)
