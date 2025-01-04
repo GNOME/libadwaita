@@ -12,16 +12,21 @@
 #include "adw-adaptive-preview-private.h"
 #include "adw-adaptive-preview-presets-private.h"
 
+#include "adw-animation.h"
+#include "adw-animation-util.h"
 #include "adw-bin.h"
 #include "adw-combo-row.h"
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
+#include "adw-spring-animation.h"
 #include "adw-widget-utils-private.h"
 #include "adw-window-title.h"
 #include <math.h>
 
 #define MIN_SCALE 0.25
 #define MAX_SCALE 1.0
+
+#define DEG_TO_RAD(x) ((x) * G_PI / 180)
 
 typedef enum {
   ROTATION_0DEG,
@@ -73,6 +78,7 @@ struct _AdwAdaptivePreview
   gboolean window_controls;
 
   int last_device_preset;
+  AdwAnimation *rotate_animation;
 };
 
 static GtkCssProvider *css_provider = NULL;
@@ -167,9 +173,9 @@ transform_for_angle (AdwAdaptivePreview *self,
 }
 
 static float
-get_rotation_angle (AdwAdaptivePreview *self)
+get_rotation_angle (ScreenRotation rotation)
 {
-  switch (self->rotation) {
+  switch (rotation) {
   case ROTATION_0DEG:
     return 0;
   case ROTATION_90DEG:
@@ -293,25 +299,47 @@ shell_preset_cb (AdwAdaptivePreview *self)
 }
 
 static void
+rotate_to (AdwAdaptivePreview *self,
+           ScreenRotation      rotation)
+{
+  double angle = adw_animation_get_value (self->rotate_animation);
+  double new_angle = get_rotation_angle (rotation);
+  self->rotation = rotation;
+
+  while (angle < 0)
+    angle += 360;
+  while (angle >= 360)
+    angle -= 360;
+
+  if (ABS (angle - new_angle) > (360 - ABS (angle - new_angle))) {
+      if (angle < new_angle)
+        new_angle -= 360;
+      else
+        new_angle += 360;
+  }
+
+  adw_animation_pause (self->rotate_animation);
+  adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->rotate_animation), angle);
+  adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->rotate_animation), new_angle);
+  adw_animation_play (self->rotate_animation);
+}
+
+static void
 rotate_left_cb (AdwAdaptivePreview *self)
 {
   if (self->rotation == ROTATION_0DEG)
-    self->rotation = ROTATION_270DEG;
+    rotate_to (self, ROTATION_270DEG);
   else
-    self->rotation--;
-
-  gtk_widget_queue_resize (self->screen_view);
+    rotate_to (self, self->rotation - 1);
 }
 
 static void
 rotate_right_cb (AdwAdaptivePreview *self)
 {
   if (self->rotation == ROTATION_270DEG)
-    self->rotation = ROTATION_0DEG;
+    rotate_to (self, ROTATION_0DEG);
   else
-    self->rotation++;
-
-  gtk_widget_queue_resize (self->screen_view);
+    rotate_to (self, self->rotation + 1);
 }
 
 static void
@@ -566,18 +594,18 @@ allocate_scale_bin (GtkWidget *widget,
   gtk_widget_measure (child, GTK_ORIENTATION_VERTICAL, -1, NULL, &child_height, NULL, NULL);
 
   if (self->scale_to_fit) {
-    int w = child_width;
-    int h = child_height;
+    double a = adw_animation_get_value (self->rotate_animation);
+    double t = 2 * ABS ((a / 180 - floor (a / 180 + 0.5))); /* Triangle wave */
 
-    if (self->rotation == ROTATION_90DEG || self->rotation == ROTATION_270DEG) {
-      int tmp = w;
-      w = h;
-      h = tmp;
-    }
+    double scale1 = MIN ((float) width / (float) child_width,
+                         (float) height / (float) child_height);
+    double scale2 = MIN ((float) width / (float) child_height,
+                         (float) height / (float) child_width);
 
-    scale = MIN ((float) width / (float) w,
-                 (float) height / (float) h);
-    scale = CLAMP (scale, MIN_SCALE, MAX_SCALE);
+    scale1 = CLAMP (scale1, MIN_SCALE, MAX_SCALE);
+    scale2 = CLAMP (scale2, MIN_SCALE, MAX_SCALE);
+
+    scale = adw_lerp (scale1, scale2, t);
   } else {
     scale = 1.0;
   }
@@ -586,7 +614,7 @@ allocate_scale_bin (GtkWidget *widget,
                                        &GRAPHENE_POINT_INIT (roundf (width / 2.0f),
                                                              roundf (height / 2.0f)));
   transform = gsk_transform_scale (transform, scale, scale);
-  transform = gsk_transform_rotate (transform, get_rotation_angle (self));
+  transform = gsk_transform_rotate (transform, adw_animation_get_value (self->rotate_animation));
   transform = gsk_transform_translate (transform,
                                        &GRAPHENE_POINT_INIT (-roundf (child_width / 2.0f),
                                                              -roundf (child_height / 2.0f)));
@@ -600,6 +628,8 @@ adw_adaptive_preview_dispose (GObject *object)
   AdwAdaptivePreview *self = ADW_ADAPTIVE_PREVIEW (object);
 
   gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_ADAPTIVE_PREVIEW);
+
+  g_clear_object (&self->rotate_animation);
 
   G_OBJECT_CLASS (adw_adaptive_preview_parent_class)->dispose (object);
 }
@@ -738,8 +768,17 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
 }
 
 static void
+rotate_animation_cb (double              value,
+                     AdwAdaptivePreview *self)
+{
+  gtk_widget_queue_resize (self->screen_view);
+}
+
+static void
 adw_adaptive_preview_init (AdwAdaptivePreview *self)
 {
+  AdwAnimationTarget *target;
+
   self->window_controls = TRUE;
   self->rotation = ROTATION_0DEG;
   self->scale_to_fit = TRUE;
@@ -771,6 +810,16 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
                                                 GTK_STYLE_PROVIDER_PRIORITY_THEME + 1);
     generate_device_css ();
   }
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) rotate_animation_cb,
+                                              self,
+                                              NULL);
+
+  self->rotate_animation =
+    adw_spring_animation_new (GTK_WIDGET (self),
+                              0, 1,
+                              adw_spring_params_new (1, 1, 800),
+                              target);
 }
 
 GtkWidget *
