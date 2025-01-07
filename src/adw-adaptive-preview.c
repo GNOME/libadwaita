@@ -19,6 +19,8 @@
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-spring-animation.h"
+#include "adw-toast.h"
+#include "adw-toast-overlay.h"
 #include "adw-widget-utils-private.h"
 #include "adw-window-title.h"
 #include <math.h>
@@ -39,8 +41,9 @@ struct _AdwAdaptivePreview
 {
   GtkWidget parent_instance;
 
-  GtkWidget *content;
+  AdwToastOverlay *toast_overlay;
   GtkWidget *scale_bin;
+  GtkWidget *device_container;
   GtkWidget *device_view;
   GtkWidget *screen_view;
   GtkWidget *child_bin;
@@ -147,14 +150,20 @@ generate_device_css (void)
 
 static GskTransform *
 transform_for_angle (AdwAdaptivePreview *self,
-                     GskTransform       *transform)
+                     GskTransform       *transform,
+                     gboolean            inverted)
 {
   switch (self->rotation) {
   case ROTATION_0DEG:
     break;
   case ROTATION_90DEG:
-    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0.0, self->screen_height));
-    transform = gsk_transform_rotate (transform, 270);
+    if (inverted) {
+      transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0.0, self->screen_height));
+      transform = gsk_transform_rotate (transform, -90);
+    } else {
+      transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width, 0.0));
+      transform = gsk_transform_rotate (transform, 90);
+    }
     break;
   case ROTATION_180DEG:
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width,
@@ -162,8 +171,13 @@ transform_for_angle (AdwAdaptivePreview *self,
     transform = gsk_transform_rotate (transform, 180);
     break;
   case ROTATION_270DEG:
-    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width, 0.0));
-    transform = gsk_transform_rotate (transform, 90);
+    if (inverted) {
+      transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (self->screen_width, 0.0));
+      transform = gsk_transform_rotate (transform, -270);
+    } else {
+      transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0.0, self->screen_height));
+      transform = gsk_transform_rotate (transform, 270);
+    }
     break;
   default:
     g_assert_not_reached ();
@@ -349,6 +363,51 @@ exit_clicked_cb (AdwAdaptivePreview *self)
 }
 
 static void
+copy_texture (AdwAdaptivePreview *self,
+              GdkTexture         *texture)
+{
+  GdkDisplay *display = gtk_widget_get_display (GTK_WIDGET (self));
+  GdkClipboard *clipboard = gdk_display_get_clipboard (display);
+  AdwToast *toast = adw_toast_new (_("Screenshot Copied to Clipboard"));
+
+  gdk_clipboard_set_texture (clipboard, texture);
+
+  adw_toast_overlay_add_toast (self->toast_overlay, toast);
+}
+
+static void
+screenshot_clicked_cb (AdwAdaptivePreview *self)
+{
+  int width = gtk_widget_get_width (self->device_container);
+  int height = gtk_widget_get_height (self->device_container);
+  GskTransform *transform = transform_for_angle (self, NULL, FALSE);
+  GtkSnapshot *snapshot = gtk_snapshot_new ();
+  GskRenderNode *node;
+  GdkPaintable *paintable;
+  GskRenderer *renderer;
+  GdkTexture *texture;
+  graphene_rect_t bounds;
+
+  gtk_snapshot_transform (snapshot, transform);
+
+  paintable = gtk_widget_paintable_new (self->device_container);
+  gdk_paintable_snapshot (paintable, snapshot, width, height);
+
+  node = gtk_snapshot_free_to_node (snapshot);
+
+  gsk_render_node_get_bounds (node, &bounds);
+
+  renderer = gtk_native_get_renderer (gtk_widget_get_native (GTK_WIDGET (self)));
+  texture = gsk_renderer_render_texture (renderer, node, &bounds);
+
+  copy_texture (self, texture);
+
+  gsk_transform_unref (transform);
+  gsk_render_node_unref (node);
+  g_object_unref (paintable);
+}
+
+static void
 setup_presets (AdwAdaptivePreview *self)
 {
   GtkStringList *shells = gtk_string_list_new (NULL);
@@ -497,7 +556,7 @@ allocate_screen_view (GtkWidget *widget,
     gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, -1,
                         &top_bar_height, NULL, NULL, NULL);
     gtk_widget_allocate (self->top_bar, width, top_bar_height, -1,
-                         transform_for_angle (self, NULL));
+                         transform_for_angle (self, NULL, TRUE));
   }
 
   if (gtk_widget_should_layout (self->bottom_bar)) {
@@ -509,7 +568,7 @@ allocate_screen_view (GtkWidget *widget,
 
     bottom_bar_y = height - bottom_bar_height;
 
-    transform = transform_for_angle (self, transform);
+    transform = transform_for_angle (self, transform, TRUE);
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, bottom_bar_y));
 
     gtk_widget_allocate (self->bottom_bar, width, bottom_bar_height, -1, transform);
@@ -538,7 +597,7 @@ allocate_screen_view (GtkWidget *widget,
                  child_width, child_height, width, available_height);
     }
 
-    transform = transform_for_angle (self, transform);
+    transform = transform_for_angle (self, transform, TRUE);
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, self->top_bar_height));
 
     gtk_widget_allocate (self->child_bin, width, available_height, -1, transform);
@@ -739,8 +798,9 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-adaptive-preview.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, content);
+  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, toast_overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, scale_bin);
+  gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, device_container);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, device_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, screen_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAdaptivePreview, child_bin);
@@ -765,6 +825,7 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, rotate_left_cb);
   gtk_widget_class_bind_template_callback (widget_class, rotate_right_cb);
   gtk_widget_class_bind_template_callback (widget_class, exit_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, screenshot_clicked_cb);
 }
 
 static void
