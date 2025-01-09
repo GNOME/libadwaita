@@ -36,9 +36,9 @@ gboolean adw_adaptive_preview_get_scale_to_fit (AdwAdaptivePreview *self);
 void     adw_adaptive_preview_set_scale_to_fit (AdwAdaptivePreview *self,
                                                 gboolean            scale_to_fit);
 
-gboolean adw_adaptive_preview_get_outline (AdwAdaptivePreview *self);
-void     adw_adaptive_preview_set_outline (AdwAdaptivePreview *self,
-                                           gboolean            outline);
+gboolean adw_adaptive_preview_get_highlight_bezel (AdwAdaptivePreview *self);
+void     adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
+                                                   gboolean            highlight_bezel);
 
 GtkWidget *adw_adaptive_preview_get_screen (AdwAdaptivePreview *self);
 

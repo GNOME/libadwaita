@@ -144,8 +144,8 @@
                         </child>
                         <child>
                           <object class="AdwSwitchRow">
-                            <property name="title" translatable="yes">Show Outline</property>
-                            <property name="active" bind-source="AdwAdaptivePreview" bind-property="outline" bind-flags="sync-create|bidirectional"/>
+                            <property name="title" translatable="yes">Highlight Bezel</property>
+                            <property name="active" bind-source="AdwAdaptivePreview" bind-property="highlight-bezel" bind-flags="sync-create|bidirectional"/>
                           </object>
                         </child>
                       </object>
