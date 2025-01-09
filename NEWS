@@ -1,3 +1,117 @@
+=================
+Version 1.7.alpha
+=================
+
+- Add AdwToggleGroup and AdwInlineViewSwitcher
+- Add AdwWrapBox and AdwWrapLayout
+- Add adaptive preview in inspector
+- Use EASE easing for timed animations instead of EASE_OUT_CUBIC
+- Don't warn when setting child in bin-like widgets to itself
+- Fix meson syntax in readme
+- Add doc guidelines to HACKING
+- Build
+  - Drop pre-built docs and styles
+  - Rename -Dgtk_doc to -Ddocumentation, deprecate the old option
+- AdwAboutDialog
+  - Add Other Apps section
+  - Fix natural width
+- AdwAboutWindow
+  - Fix natural width
+- AdwActionRow
+  - Set accessible role to presentation for the icon
+- AdwAlertDialog
+  - Fix a crash when setting content-width/height before present()
+- AdwAvatar
+  - Set accessible role and label
+- AdwBanner
+  - Start-align the title earlier
+  - Tone down visuals
+  - Add :style to allow to make button suggested
+- AdwBottomSheet
+  - Add :reveal-bottom-bar
+  - Fix natural height
+  - Fix criticals in dispose in some cases
+- AdwBreakpointBin
+  - Fix natural size
+- AdwButtonRow
+  - Set accessible role to presentation for icons
+- AdwClamp
+  - Fix get/set_unit() version
+- AdwClampLayout
+  - Fix layout with multiple children
+  - Fix height-for-width measuring
+- AdwComboRow
+  - Fix a property noficiation
+- AdwDialog
+  - Fix accessible role critical when using window-backed dialogs
+  - Handle close() before and right after present()
+  - Don't crash when chaining up in vfuncs
+- AdwEasing
+  - Add EASE, EASE_IN, EASE_OUT and EASE_IN_OUT
+- AdwExpanderRow
+  - Make suffix spacing match action rows and entry rows
+- AdwHeaderBar
+  - Ignore split views outside sheets
+- AdwLengthUnit
+  - Fix pt and sp unit values when gtk-xft-dpi = -1
+- AdwMessageDialog
+  - Fix a typo in adw_message_dialog_response() deprecation message
+- AdwNavigationSplitView
+  - Support :sidebar-position
+  - Stop reporting baseline
+- AdwNavigationView
+  - Addw :h/vhomogeneous
+  - Add :visible-page-tag
+  - Don't crash when chaining up in vfuncs
+- AdwOverlaySplitView
+  - Don't allow focusing hidden sidebar
+- AdwPreferencesPage
+  - Add :banner
+- AdwStyleManager
+  - Fix initial color scheme value on Windows
+- AdwTabBar
+  - Only handle middle clicks started and ended on the same tab
+  - Don't select tabs when clicking close or indicator buttons
+- AdwTabOverview
+  - Darken background color
+  - Only handle middle clicks started and ended on the same thumbnail
+- AdwToastOverlay
+  - Add dismiss_all()
+  - Add tooltip to the dismiss button
+- AdwToolbarView
+  - Fix height-for-width measurements
+- AdwViewSwitcher
+  - Have a minimum height outside header bars
+  - Always focus active toggle when entering focus
+- AdwViewStack
+  - Add an optional crossfade transition
+  - Rework adjusting child allocation
+- AdwWindow, AdwApplicationWindow
+  - Fix allocating children
+- Docs
+  - Indicate and explain out of gamut colors on CSS variables page
+  - Update deprecated meson syntax
+  - Link clamp/layout/scrollable docs between each other
+  - Force GTK_FONT_RENDERING_MANUAL for screenshots
+  - Typo fixes
+- Stylesheet
+  - Increase border radii of various widgets
+  - Tint gray colors to make them colder
+  - Add hover and active transition to switch, check, radio and slider
+  - Increase scrollbar padding to match the new window radius
+  - Add .dimmed and deprecate .dim-label
+  - Make preferences group .labels style more specific
+- Translation updates
+  - Belarusian
+  - Catalan
+  - Chinese (China)
+  - Dutch
+  - Hebrew
+  - Russian
+  - Serbian
+  - Slovenian
+  - Thai
+
 =============
 Version 1.6.0
 =============
