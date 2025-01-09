@@ -14,7 +14,7 @@ adaptive-preview {
   }
 
   .device-view {
-    background: black;
+    background: #101011;
     color: white;
     padding: var(--top-bezel) var(--side-bezel) var(--bottom-bezel);
     border-radius: var(--top-device-corner-radius)
@@ -44,6 +44,10 @@ adaptive-preview {
                 drop-shadow(-3px 0 0 var(--accent-bg-color))
                 drop-shadow(0  3px 0 var(--accent-bg-color))
                 drop-shadow(0 -3px 0 var(--accent-bg-color));
+      }
+
+      .shell-top-bar, .shell-bottom-bar {
+        background: black;
       }
     }
   }
