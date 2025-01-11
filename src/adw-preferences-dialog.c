@@ -36,6 +36,12 @@
  * The `AdwPreferencesDialog` widget presents an application's preferences
  * gathered into pages and groups. The preferences are searchable by the user.
  *
+ * ## Actions
+ *
+ * `AdwPrefencesDialog` defines the `navigation.pop` action, it doesn't take any
+ * parameters and pops the current subpage from the navigation stack, equivalent
+ * to calling [method@PreferencesDialog.pop_subpage].
+ *
  * ## CSS nodes
  *
  * `AdwPreferencesDialog` has a main CSS node with the name `dialog` and the
