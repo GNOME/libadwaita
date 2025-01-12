@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2025-01-11 11:49+0000\n"
-"PO-Revision-Date: 2025-01-12 17:01+0100\n"
+"PO-Revision-Date: 2025-01-12 17:04+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -267,7 +267,7 @@ msgstr "Prilagodljiv predogled"
 
 #: src/adw-adaptive-preview.ui:25
 msgid "Display"
-msgstr ""
+msgstr "Zaslon"
 
 #: src/adw-adaptive-preview.ui:28
 msgid "Device"
@@ -283,7 +283,7 @@ msgstr "Višina"
 
 #: src/adw-adaptive-preview.ui:62
 msgid "Rotate"
-msgstr ""
+msgstr "Zasukaj"
 
 #: src/adw-adaptive-preview.ui:65 src/adw-adaptive-preview.ui:67
 msgid "Rotate Left"
@@ -319,11 +319,11 @@ msgstr "Pogled"
 
 #: src/adw-adaptive-preview.ui:141
 msgid "Scale to Fit"
-msgstr ""
+msgstr "Umeri na zaslon"
 
 #: src/adw-adaptive-preview.ui:147
 msgid "Highlight Bezel"
-msgstr ""
+msgstr "Poudari rob"
 
 #: src/adw-adaptive-preview.ui:173
 msgid "Toggle Sidebar"
@@ -346,7 +346,6 @@ msgid "Mobile Shell"
 msgstr "Mobilna lupina"
 
 #: src/adw-adaptive-preview-presets-private.h:26
-#, fuzzy
 msgid "Phosh"
 msgstr "Phosh"
 
@@ -361,11 +360,11 @@ msgstr "Po meri"
 
 #: src/adw-adaptive-preview-presets-private.h:90
 msgid "Generic Phone"
-msgstr ""
+msgstr "Splošen telefon"
 
 #: src/adw-adaptive-preview-presets-private.h:99
 msgid "Generic Tablet"
-msgstr ""
+msgstr "Splošna tablica"
 
 #: src/adw-adaptive-preview-presets-private.h:108
 msgid "OnePlus 6"
