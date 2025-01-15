@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-09-30 14:13+0000\n"
-"PO-Revision-Date: 2024-10-01 15:05+0300\n"
+"POT-Creation-Date: 2025-01-13 01:58+0000\n"
+"PO-Revision-Date: 2025-01-13 17:10+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -19,98 +19,98 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:212 src/adw-about-window.c:207
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public License, версии 2 или позднее"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public License, версии 3 или позднее"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public License, версии 2.1 или позднее"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License, версии 3 или позднее"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause License"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "The MIT License (MIT)"
 msgstr "The MIT License (MIT)"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "Artistic License 2.0"
 msgstr "Artistic License 2.0"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public License, только версии 2"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public License, только версии 3"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License, только версии 2.1"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License, только версии 3"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License, версии 3 или позднее"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, только версии 3"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause License"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "Apache License, Version 2.0"
 msgstr "Apache License, версии 2.0"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
-#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:570
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
 msgid "Design by"
 msgstr "Проект"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Artwork by"
 msgstr "Художественная работа"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Documentation by"
 msgstr "Документация"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Translated by"
 msgstr "Перевод"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:610 src/adw-about-window.c:603
+#: src/adw-about-dialog.c:611 src/adw-about-window.c:603
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,47 +119,47 @@ msgstr ""
 "Это приложение распространяется без каких-либо гарантий. Подробнее в <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:688 src/adw-about-window.c:681
+#: src/adw-about-dialog.c:689 src/adw-about-window.c:681
 msgid "This Application"
 msgstr "Данное приложение"
 
-#: src/adw-about-dialog.c:990 src/adw-about-window.c:983
+#: src/adw-about-dialog.c:991 src/adw-about-window.c:983
 #, c-format
 msgid "Version %s"
 msgstr "Версия %s"
 
-#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1009
+#: src/adw-about-dialog.c:1017 src/adw-about-window.c:1009
 msgid "Unable to parse release notes:"
 msgstr "Невозможно разобрать примечания к выпуску:"
 
-#: src/adw-about-dialog.c:1022 src/adw-about-window.c:1015
+#: src/adw-about-dialog.c:1023 src/adw-about-window.c:1015
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Строка: %d, символ: %d"
 
-#: src/adw-about-dialog.c:1308 src/adw-about-window.c:1301
+#: src/adw-about-dialog.c:1309 src/adw-about-window.c:1301
 msgid "Copied to clipboard"
 msgstr "Скопировано в буфер обмена"
 
-#: src/adw-about-dialog.c:1335 src/adw-about-window.c:1329
+#: src/adw-about-dialog.c:1336 src/adw-about-window.c:1329
 msgid "Unable to save debugging information"
 msgstr "Невозможно сохранить отладочную информацию"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1334
+#: src/adw-about-dialog.c:1341 src/adw-about-window.c:1334
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/adw-about-dialog.c:1357 src/adw-about-window.c:1350
+#: src/adw-about-dialog.c:1358 src/adw-about-window.c:1350
 msgid "Save debugging information"
 msgstr "Сохранить отладочную информацию"
 
-#: src/adw-about-dialog.c:2295
+#: src/adw-about-dialog.c:2296
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Другие приложения от %s"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 msgid "Other Apps"
 msgstr "Другие приложения"
 
@@ -255,6 +255,123 @@ msgstr "Правовые сведения"
 msgid "Acknowledgements"
 msgstr "Благодарности"
 
+#: src/adw-adaptive-preview.c:371
+msgid "Screenshot Copied to Clipboard"
+msgstr "Снимок экрана скопирован в буфер обмена"
+
+#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.ui:90
+msgid "Adaptive Preview"
+msgstr "Адаптивный предпросмотр"
+
+#: src/adw-adaptive-preview.ui:25
+msgid "Display"
+msgstr "Дисплей"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Device"
+msgstr "Устройство"
+
+#: src/adw-adaptive-preview.ui:34
+msgid "Width"
+msgstr "Ширина"
+
+#: src/adw-adaptive-preview.ui:48
+msgid "Height"
+msgstr "Высота"
+
+#: src/adw-adaptive-preview.ui:62
+msgid "Rotate"
+msgstr "Повернуть"
+
+#: src/adw-adaptive-preview.ui:65 src/adw-adaptive-preview.ui:67
+msgid "Rotate Left"
+msgstr "Повернуть влево"
+
+#: src/adw-adaptive-preview.ui:77 src/adw-adaptive-preview.ui:79
+msgid "Rotate Right"
+msgstr "Повернуть вправо"
+
+#: src/adw-adaptive-preview.ui:93
+msgid "Shell"
+msgstr "Оболочка"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Preset"
+msgstr "Предустановка"
+
+#: src/adw-adaptive-preview.ui:102
+msgid "Top Bar"
+msgstr "Верхняя панель"
+
+#: src/adw-adaptive-preview.ui:116
+msgid "Bottom Bar"
+msgstr "Нижняя панель"
+
+#: src/adw-adaptive-preview.ui:130
+msgid "Window Controls"
+msgstr "Кнопки окна"
+
+#: src/adw-adaptive-preview.ui:138
+msgid "View"
+msgstr "Вид"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "Scale to Fit"
+msgstr "Подогнать по размеру"
+
+#: src/adw-adaptive-preview.ui:147
+msgid "Highlight Bezel"
+msgstr "Подсвечивать рамку"
+
+#: src/adw-adaptive-preview.ui:173
+msgid "Toggle Sidebar"
+msgstr "Переключить боковую панель"
+
+#: src/adw-adaptive-preview.ui:183
+msgid "Exit"
+msgstr "Выйти"
+
+#: src/adw-adaptive-preview.ui:193
+msgid "Screenshot"
+msgstr "Снимок экрана"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgid "Desktop Shell"
+msgstr "Настольная"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgid "Mobile Shell"
+msgstr "Мобильная"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgid "Phosh"
+msgstr "Phosh"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgid "Fullscreen"
+msgstr "Полноэкранная"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+#: src/adw-adaptive-preview-presets-private.h:126
+msgid "Custom"
+msgstr "Пользовательское(-ая)"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgid "Generic Phone"
+msgstr "Обычный телефон"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgid "Generic Tablet"
+msgstr "Обычный планшет"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgid "OnePlus 6"
+msgstr "OnePlus 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgid "OnePlus 6T"
+msgstr "OnePlus 6T"
+
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
@@ -275,56 +392,56 @@ msgstr "Найти"
 msgid "Apply"
 msgstr "Применить"
 
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:125
 msgid "No Preference"
 msgstr "Без предпочтений"
 
-#: src/adw-inspector-page.c:100
+#: src/adw-inspector-page.c:127
 msgid "Prefer Dark"
 msgstr "Предпочитать темную"
 
-#: src/adw-inspector-page.c:102
+#: src/adw-inspector-page.c:129
 msgid "Prefer Light"
 msgstr "Предпочитать светлую"
 
-#: src/adw-inspector-page.c:115
+#: src/adw-inspector-page.c:142
 msgid "Blue"
 msgstr "Синий"
 
-#: src/adw-inspector-page.c:117
+#: src/adw-inspector-page.c:144
 msgid "Teal"
 msgstr "Бирюзовый"
 
-#: src/adw-inspector-page.c:119
+#: src/adw-inspector-page.c:146
 msgid "Green"
 msgstr "Зеленый"
 
-#: src/adw-inspector-page.c:121
+#: src/adw-inspector-page.c:148
 msgid "Yellow"
 msgstr "Желтый"
 
-#: src/adw-inspector-page.c:123
+#: src/adw-inspector-page.c:150
 msgid "Orange"
 msgstr "Оранжевый"
 
-#: src/adw-inspector-page.c:125
+#: src/adw-inspector-page.c:152
 msgid "Red"
 msgstr "Красный"
 
-#: src/adw-inspector-page.c:127
+#: src/adw-inspector-page.c:154
 msgid "Pink"
 msgstr "Розовый"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:156
 msgid "Purple"
 msgstr "Фиолетовый"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:158
 msgid "Slate"
 msgstr "Серо-голубой"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:270
+#: src/adw-inspector-page.c:297
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -400,7 +517,7 @@ msgstr "Поиск параметров"
 msgid "No Results Found"
 msgstr "Результатов не найдено"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Попробуйте другой поисковый запрос"
 
@@ -429,23 +546,23 @@ msgstr[0] "%u вкладка"
 msgstr[1] "%u вкладки"
 msgstr[2] "%u вкладок"
 
-#: src/adw-tab-overview.ui:21
+#: src/adw-tab-overview.ui:20
 msgid "Search Tabs"
 msgstr "Поиск вкладок"
 
-#: src/adw-tab-overview.ui:51
+#: src/adw-tab-overview.ui:50
 msgid "Search tabs"
 msgstr "Поиск вкладок"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:96
 msgid "No Open Tabs"
 msgstr "Нет открытых вкладок"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:109
 msgid "No Tabs Found"
 msgstr "Вкладки не найдены"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:130
 msgid "New _Tab"
 msgstr "Новая _вкладка"
 
@@ -453,24 +570,28 @@ msgstr "Новая _вкладка"
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
 
-#: src/adw-toast-overlay.c:275
+#: src/adw-toast-overlay.c:278
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Появился тост: %s, кнопка: %s"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:281
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Появился тост: %s"
 
-#: src/adw-toast-overlay.c:280
+#: src/adw-toast-overlay.c:283
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Появился тост, кнопка: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:286
 msgid "A toast appeared"
 msgstr "Появился тост"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "Отклонить"
 
 #~ msgid "Search…"
 #~ msgstr "Поиск…"
