@@ -94,6 +94,11 @@
  * too small, set the [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] properties manually.
  *
+ * ## Adaptive Preview
+ *
+ * `AdwWindow` has a debug tool called adaptive preview. It can be opened from
+ * GTK Inspector or by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>,
+ * and controlled via the [property@Window:adaptive-preview] property.
  */
 
 typedef struct
