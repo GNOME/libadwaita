@@ -8,6 +8,10 @@
         <attribute name="label" translatable="yes">_Inspector</attribute>
         <attribute name="action">app.inspector</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">A_daptive Preview</attribute>
+        <attribute name="action">window.adaptive-preview</attribute>
+      </item>
     </section>
     <section>
       <item>

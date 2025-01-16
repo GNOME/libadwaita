@@ -83,6 +83,14 @@ toast_undo_cb (AdwDemoWindow *self)
 }
 
 static void
+adaptive_preview_cb (AdwDemoWindow *self)
+{
+  gboolean open = adw_application_window_get_adaptive_preview (ADW_APPLICATION_WINDOW (self));
+
+  adw_application_window_set_adaptive_preview (ADW_APPLICATION_WINDOW (self), !open);
+}
+
+static void
 adw_demo_window_class_init (AdwDemoWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -104,6 +112,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
 
   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
+  gtk_widget_class_install_action (widget_class, "window.adaptive-preview", NULL, (GtkWidgetActionActivateFunc) adaptive_preview_cb);
 }
 
 static void
