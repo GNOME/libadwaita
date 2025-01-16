@@ -738,3 +738,25 @@ adw_ensure_child_allocation_size (GtkWidget     *child,
     allocation->height = height;
   }
 }
+
+gboolean
+adw_get_inspector_keybinding_enabled (void)
+{
+  GSettingsSchema *schema;
+  gboolean enabled;
+
+  enabled = TRUE;
+
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (),
+                                            "org.gtk.gtk4.Settings.Debug",
+                                            TRUE);
+
+  if (schema) {
+    GSettings *settings = g_settings_new_full (schema, NULL, NULL);
+    enabled = g_settings_get_boolean (settings, "enable-inspector-keybinding");
+    g_object_unref (settings);
+    g_settings_schema_unref (schema);
+  }
+
+  return enabled;
+}

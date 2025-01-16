@@ -15,6 +15,7 @@
 #include "adw-dialog-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-main-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwApplicationWindow:
@@ -90,6 +91,25 @@ static void
 notify_visible_dialog_cb (AdwApplicationWindow *self)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_DIALOG]);
+}
+
+static void
+adaptive_preview_exit_cb (AdwApplicationWindow *self)
+{
+  adw_application_window_set_adaptive_preview (self, FALSE);
+}
+
+static gboolean
+toggle_adaptive_preview_cb (AdwApplicationWindow *self)
+{
+  if (!adw_get_inspector_keybinding_enabled ())
+    return GDK_EVENT_PROPAGATE;
+
+  gboolean open = adw_application_window_get_adaptive_preview (self);
+
+  adw_application_window_set_adaptive_preview (self, !open);
+
+  return GDK_EVENT_STOP;
 }
 
 static void
@@ -250,6 +270,8 @@ static void
 adw_application_window_init (AdwApplicationWindow *self)
 {
   AdwApplicationWindowPrivate *priv = adw_application_window_get_instance_private (self);
+  GtkEventController *shortcut_controller;
+  GtkShortcut *shortcut;
 
   priv->titlebar = adw_gizmo_new_with_role ("nothing", GTK_ACCESSIBLE_ROLE_PRESENTATION,
                                             NULL, NULL, NULL, NULL, NULL, NULL);
@@ -276,6 +298,14 @@ adw_application_window_init (AdwApplicationWindow *self)
 
   if (adw_is_adaptive_preview ())
     adw_application_window_set_adaptive_preview (self, TRUE);
+
+  shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_M, GDK_CONTROL_MASK | GDK_SHIFT_MASK),
+                               gtk_callback_action_new ((GtkShortcutFunc) toggle_adaptive_preview_cb, self, NULL));
+
+  shortcut_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (shortcut_controller), GTK_SHORTCUT_SCOPE_GLOBAL);
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (shortcut_controller), shortcut);
+  gtk_widget_add_controller (GTK_WIDGET (self), shortcut_controller);
 }
 
 static void
@@ -461,12 +491,6 @@ adw_application_window_get_visible_dialog (AdwApplicationWindow *self)
   priv = adw_application_window_get_instance_private (self);
 
   return adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (priv->dialog_host));
-}
-
-static void
-adaptive_preview_exit_cb (AdwApplicationWindow *self)
-{
-  adw_application_window_set_adaptive_preview (self, FALSE);
 }
 
 /**

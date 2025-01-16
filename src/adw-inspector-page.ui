@@ -86,7 +86,7 @@
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Adaptive Preview</property>
-            <property name="description" translatable="yes">Test the app at specific screen sizes to simulate a mobile environment</property>
+            <property name="description" translatable="yes">Test the app at specific screen sizes to simulate a mobile environment. Open the preview directly on any supported window using Shift+Ctrl+M</property>
             <child>
               <object class="GtkListBox" id="windows_list">
                 <property name="selection-mode">none</property>

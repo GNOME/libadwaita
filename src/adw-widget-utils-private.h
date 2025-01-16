@@ -72,4 +72,6 @@ char *adw_strip_mnemonic (const char *src);
 void adw_ensure_child_allocation_size (GtkWidget     *child,
                                        GtkAllocation *allocation);
 
+gboolean adw_get_inspector_keybinding_enabled (void);
+
 G_END_DECLS

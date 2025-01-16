@@ -773,6 +773,23 @@ ensure_focus (AdwDialog *self)
   return TRUE;
 }
 
+static gboolean
+toggle_adaptive_preview_cb (AdwDialog *self)
+{
+  GtkRoot *root;
+  gboolean open;
+
+  if (!adw_get_inspector_keybinding_enabled ())
+    return GDK_EVENT_PROPAGATE;
+
+  root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  g_object_get (root, "adaptive-preview", &open, NULL);
+  g_object_set (root, "adaptive-preview", !open, NULL);
+
+  return GDK_EVENT_STOP;
+}
+
 static void
 adw_dialog_root (GtkWidget *widget)
 {
@@ -1259,6 +1276,8 @@ adw_dialog_class_init (AdwDialogClass *klass)
                                 (GtkShortcutFunc) open_inspector_cb, "b", FALSE);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                                 (GtkShortcutFunc) open_inspector_cb, "b", TRUE);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_M, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                                (GtkShortcutFunc) toggle_adaptive_preview_cb, NULL);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "dialog");
