@@ -85,10 +85,14 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Adaptive Preview</property>
+            <property name="description" translatable="yes">Test the app at specific screen sizes to simulate a mobile environment</property>
             <child>
-              <object class="AdwButtonRow">
-                <property name="title" translatable="yes">Adaptive Preview</property>
-                <signal name="activated" handler="adaptive_preview_activated_cb" swapped="yes"/>
+              <object class="GtkListBox" id="windows_list">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="boxed-list"/>
+                </style>
               </object>
             </child>
           </object>

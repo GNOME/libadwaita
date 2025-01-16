@@ -26,8 +26,11 @@ struct _AdwInspectorPage
   AdwSwitchRow *high_contrast_row;
   AdwSwitchRow *support_accent_colors_row;
   AdwComboRow *accent_color_row;
+  GtkListBox *windows_list;
 
   GObject *object;
+
+  gboolean realized;
 };
 
 G_DEFINE_FINAL_TYPE (AdwInspectorPage, adw_inspector_page, ADW_TYPE_BIN)
@@ -41,29 +44,32 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-static void
-set_open_adaptive_preview (gboolean open)
+static gboolean
+is_window_compatible (GObject *item)
 {
-  GList *toplevels, *l;
-
-  toplevels = gtk_window_list_toplevels ();
-
-  for (l = toplevels; l; l = l->next) {
-    GtkWidget *toplevel = l->data;
-
-    if (ADW_IS_WINDOW (toplevel))
-      adw_window_set_adaptive_preview (ADW_WINDOW (toplevel), open);
-    else if (ADW_IS_APPLICATION_WINDOW (toplevel))
-      adw_application_window_set_adaptive_preview (ADW_APPLICATION_WINDOW (toplevel), open);
-  }
-
-  g_list_free (toplevels);
+  return ADW_IS_WINDOW (item) || ADW_IS_APPLICATION_WINDOW (item);
 }
 
-static void
-adaptive_preview_activated_cb (AdwInspectorPage *self)
+static GtkWidget *
+create_window_row_cb (GtkWindow        *window,
+                      AdwInspectorPage *self)
 {
-  set_open_adaptive_preview (TRUE);
+  GtkWidget *row, *btn;
+
+  row = adw_action_row_new ();
+  g_object_bind_property (window, "title", row, "title", G_BINDING_SYNC_CREATE);
+  adw_action_row_set_subtitle (ADW_ACTION_ROW (row), G_OBJECT_TYPE_NAME (window));
+
+  btn = gtk_toggle_button_new ();
+  gtk_button_set_icon_name (GTK_BUTTON (btn), "adw-adaptive-preview-symbolic");
+  gtk_widget_set_tooltip_text (btn, _("Adaptive Preview"));
+  gtk_widget_set_valign (btn, GTK_ALIGN_CENTER);
+  gtk_widget_add_css_class (btn, "flat");
+  g_object_bind_property (window, "adaptive-preview", btn, "active",
+                          G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+  adw_action_row_add_suffix (ADW_ACTION_ROW (row), btn);
+
+  return row;
 }
 
 static void
@@ -329,11 +335,23 @@ adw_inspector_page_dispose (GObject *object)
     self->settings = NULL;
   }
 
-  set_open_adaptive_preview (FALSE);
-
   g_clear_object (&self->object);
 
   G_OBJECT_CLASS (adw_inspector_page_parent_class)->dispose (object);
+}
+
+static void
+adw_inspector_page_realize (GtkWidget *widget)
+{
+  AdwInspectorPage *self = ADW_INSPECTOR_PAGE (widget);
+
+  GTK_WIDGET_CLASS (adw_inspector_page_parent_class)->realize (widget);
+
+  if (!self->realized) {
+    gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (gtk_widget_get_display (GTK_WIDGET (self))),
+                                    "/org/gnome/Adwaita/icons");
+    self->realized = TRUE;
+  }
 }
 
 static void
@@ -345,6 +363,8 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   object_class->get_property = adw_inspector_page_get_property;
   object_class->set_property = adw_inspector_page_set_property;
   object_class->dispose = adw_inspector_page_dispose;
+
+  widget_class->realize = adw_inspector_page_realize;
 
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -366,8 +386,8 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, high_contrast_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_accent_colors_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, accent_color_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, windows_list);
 
-  gtk_widget_class_bind_template_callback (widget_class, adaptive_preview_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_system_color_scheme_name);
   gtk_widget_class_bind_template_callback (widget_class, get_accent_color_name);
   gtk_widget_class_bind_template_callback (widget_class, accent_color_item_setup_cb);
@@ -386,6 +406,8 @@ adw_inspector_page_init (AdwInspectorPage *self)
   AdwSystemColorScheme color_scheme;
   AdwAccentColor accent_color;
   gboolean supports, hc;
+  GtkFilter *filter;
+  GtkFilterListModel *windows;
 
   self->settings = adw_settings_get_default ();
 
@@ -407,4 +429,15 @@ adw_inspector_page_init (AdwInspectorPage *self)
 
   supports = adw_settings_get_system_supports_accent_colors (self->settings);
   adw_switch_row_set_active (self->support_accent_colors_row, supports);
+
+  filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) is_window_compatible, NULL, NULL));
+  windows = gtk_filter_list_model_new (g_object_ref (gtk_window_get_toplevels ()), filter);
+
+  gtk_list_box_bind_model (self->windows_list,
+                           G_LIST_MODEL (windows),
+                           (GtkListBoxCreateWidgetFunc) create_window_row_cb,
+                           self,
+                           NULL);
+
+  g_object_unref (windows);
 }
