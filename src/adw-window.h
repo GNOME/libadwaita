@@ -54,4 +54,10 @@ GListModel *adw_window_get_dialogs (AdwWindow *self);
 ADW_AVAILABLE_IN_1_5
 AdwDialog *adw_window_get_visible_dialog (AdwWindow *self);
 
+ADW_AVAILABLE_IN_1_7
+gboolean adw_window_get_adaptive_preview (AdwWindow *self);
+ADW_AVAILABLE_IN_1_7
+void     adw_window_set_adaptive_preview (AdwWindow *self,
+                                          gboolean   adaptive_preview);
+
 G_END_DECLS

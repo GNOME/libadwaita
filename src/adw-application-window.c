@@ -7,7 +7,7 @@
 
 #include "config.h"
 
-#include "adw-application-window-private.h"
+#include "adw-application-window.h"
 
 #include "adw-adaptive-preview-private.h"
 #include "adw-breakpoint-bin-private.h"
@@ -74,6 +74,7 @@ enum {
   PROP_CURRENT_BREAKPOINT,
   PROP_DIALOGS,
   PROP_VISIBLE_DIALOG,
+  PROP_ADAPTIVE_PREVIEW,
   LAST_PROP,
 };
 
@@ -136,6 +137,9 @@ adw_application_window_get_property (GObject    *object,
   case PROP_VISIBLE_DIALOG:
     g_value_set_object (value, adw_application_window_get_visible_dialog (self));
     break;
+  case PROP_ADAPTIVE_PREVIEW:
+    g_value_set_boolean (value, adw_application_window_get_adaptive_preview (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -152,6 +156,9 @@ adw_application_window_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_CONTENT:
     adw_application_window_set_content (self, g_value_get_object (value));
+    break;
+  case PROP_ADAPTIVE_PREVIEW:
+    adw_application_window_set_adaptive_preview (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -215,6 +222,26 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
     g_param_spec_object ("visible-dialog", NULL, NULL,
                          ADW_TYPE_DIALOG,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwApplicationWindow:adaptive-preview:
+   *
+   * Whether adaptive preview is currently open.
+   *
+   * Adaptive preview is a debugging tool used for testing the window
+   * contents at specific screen sizes, simulating mobile environment.
+   *
+   * Adaptive preview can always be accessed from inspector. This function
+   * allows applications to open it manually.
+   *
+   * Most applications should not use this property.
+   *
+   * Since: 1.7
+   */
+  props[PROP_ADAPTIVE_PREVIEW] =
+    g_param_spec_boolean ("adaptive-preview", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -442,9 +469,48 @@ adaptive_preview_exit_cb (AdwApplicationWindow *self)
   adw_application_window_set_adaptive_preview (self, FALSE);
 }
 
+/**
+ * adw_application_window_get_adaptive_preview:
+ * @self: an application window
+ *
+ * Gets whether adaptive preview for @self is currently open.
+ *
+ * Returns: whether adaptive preview is open.
+ *
+ * Since: 1.7
+ */
+gboolean
+adw_application_window_get_adaptive_preview (AdwApplicationWindow *self)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_APPLICATION_WINDOW (self), FALSE);
+
+  priv = adw_application_window_get_instance_private (self);
+
+  return priv->adaptive_preview != NULL;
+}
+
+/**
+ * adw_application_window_set_adaptive_preview:
+ * @self: an application window
+ * @adaptive_preview: whether to open adaptive preview
+ *
+ * Sets whether adaptive preview for @self is currently open.
+ *
+ * Adaptive preview is a debugging tool used for testing the window
+ * contents at specific screen sizes, simulating mobile environment.
+ *
+ * Adaptive preview can always be accessed from inspector. This function
+ * allows applications to open it manually.
+ *
+ * Most applications should not use this function.
+ *
+ * Since: 1.7
+ */
 void
 adw_application_window_set_adaptive_preview (AdwApplicationWindow *self,
-                                             gboolean              open)
+                                             gboolean              adaptive_preview)
 {
   AdwApplicationWindowPrivate *priv;
 
@@ -452,12 +518,12 @@ adw_application_window_set_adaptive_preview (AdwApplicationWindow *self,
 
   priv = adw_application_window_get_instance_private (self);
 
-  if (open == (priv->adaptive_preview != NULL))
+  if (adaptive_preview == adw_application_window_get_adaptive_preview (self))
     return;
 
   g_object_ref (priv->dialog_host);
 
-  if (open) {
+  if (adaptive_preview) {
     priv->adaptive_preview = adw_adaptive_preview_new ();
     gtk_window_set_child (GTK_WINDOW (self), priv->adaptive_preview);
     g_signal_connect_swapped (priv->adaptive_preview, "exit",
@@ -472,4 +538,6 @@ adw_application_window_set_adaptive_preview (AdwApplicationWindow *self,
   }
 
   g_object_unref (priv->dialog_host);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ADAPTIVE_PREVIEW]);
 }

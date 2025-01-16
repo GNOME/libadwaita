@@ -12,10 +12,8 @@
 #include "adw-inspector-page-private.h"
 
 #include <adwaita.h>
-#include "adw-application-window-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-settings-private.h"
-#include "adw-window-private.h"
 
 struct _AdwInspectorPage
 {
