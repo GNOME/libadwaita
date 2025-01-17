@@ -942,6 +942,9 @@ scroll_to_tab_full (AdwTabBox *self,
   if (info->appear_animation)
     tab_width = info->final_width;
 
+  if (tab_width == 0)
+    tab_width = predict_tab_width (self, info, FALSE);
+
   value = gtk_adjustment_get_value (self->adjustment);
   page_size = gtk_adjustment_get_page_size (self->adjustment);
 
@@ -1910,10 +1913,19 @@ page_attached_cb (AdwTabBox  *self,
 
   adw_animation_play (info->appear_animation);
 
-  if (page == adw_tab_view_get_selected_page (self->view))
+  if (page == adw_tab_view_get_selected_page (self->view)) {
     adw_tab_box_select_page (self, page);
-  else
-    scroll_to_tab_full (self, info, -1, OPEN_ANIMATION_DURATION, TRUE);
+  } else {
+    int pos = -1;
+
+    if (l && l->next && l->next->data) {
+      TabInfo *next_info = l->next->data;
+
+      pos = next_info->final_pos;
+    }
+
+    scroll_to_tab_full (self, info, pos, OPEN_ANIMATION_DURATION, TRUE);
+  }
 
   update_separators (self);
 }
