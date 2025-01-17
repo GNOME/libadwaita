@@ -103,6 +103,9 @@ $osd_bg_color: RGB(0 0 0 / 70%);
 $osd_link_color: color-mix(in srgb, var(--accent-bg-color) 50%, white);
 $osd_link_visited_color: color-mix(in srgb, var(--accent-bg-color) 75%, white);
 
+$toast_bg_color: #505053;
+$toast_fg_color: white;
+
 $tooltip_border_color: RGB(255 255 255 / 10%);
 
 $drop_target_color: var(--accent-bg-color);

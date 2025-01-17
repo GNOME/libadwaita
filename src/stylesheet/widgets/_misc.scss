@@ -36,7 +36,18 @@ separator {
  **********/
 
 toast {
-  @extend %osd;
+  background: $toast_bg_color;
+  color: $toast_fg_color;
+  box-shadow: 0 1px 3px 1px RGB(0 0 6 / 7%),
+              0 2px 6px 2px RGB(0 0 6 / 3%);
+
+  --standalone-color-oklab: #{$standalone-color-oklab-dark};
+
+  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+  --destructive-color: oklab(from var(--destructive-bg-color) var(--standalone-color-oklab));
+  --success-color: oklab(from var(--success-bg-color) var(--standalone-color-oklab));
+  --warning-color: oklab(from var(--warning-bg-color) var(--standalone-color-oklab));
+  --error-color: oklab(from var(--error-bg-color) var(--standalone-color-oklab));
 
   margin: 12px;
   margin-bottom: 24px;
