@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the libhandy package.
 #
 # Matej Urbančič <mateju@src.gnome.org>, 2020–2024.
+# Martin Srebotnjak <miles@filmsi.net>, 2024,2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-01-11 11:49+0000\n"
-"PO-Revision-Date: 2025-01-12 17:04+0100\n"
+"POT-Creation-Date: 2025-01-16 16:47+0000\n"
+"PO-Revision-Date: 2025-01-17 11:47+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
-"com>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -261,7 +261,8 @@ msgstr "Priznanja vlog"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Posnetek zaslona je kopiran v odložišče"
 
-#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.ui:90
+#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.c:65
+#: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Prilagodljiv predogled"
 
@@ -394,56 +395,56 @@ msgstr "Poišči"
 msgid "Apply"
 msgstr "Uveljavi"
 
-#: src/adw-inspector-page.c:125
+#: src/adw-inspector-page.c:129
 msgid "No Preference"
 msgstr "Izbira ni navedena"
 
-#: src/adw-inspector-page.c:127
+#: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
 msgstr "Prednostno uporabi temno"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:133
 msgid "Prefer Light"
 msgstr "Prednostno uporabi svetlo"
 
-#: src/adw-inspector-page.c:142
+#: src/adw-inspector-page.c:146
 msgid "Blue"
 msgstr "Modra"
 
-#: src/adw-inspector-page.c:144
+#: src/adw-inspector-page.c:148
 msgid "Teal"
 msgstr "Zelenomodra"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:150
 msgid "Green"
 msgstr "Zelena"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:152
 msgid "Yellow"
 msgstr "Rumena"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:154
 msgid "Orange"
 msgstr "Oranžna"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:156
 msgid "Red"
 msgstr "Rdeča"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:158
 msgid "Pink"
 msgstr "Rožnata"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:160
 msgid "Purple"
 msgstr "Vijolična"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:162
 msgid "Slate"
 msgstr "Skrilasto modra"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:297
+#: src/adw-inspector-page.c:301
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -485,6 +486,15 @@ msgstr "Dostopnost"
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "Visok kontrast"
+
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"Preskusite aplikacijo pri določenih velikostih zaslona, da simulirate "
+"mobilno okolje. Odprite predogled neposredno v katerem koli podprtem oknu s "
+"tipkami dvigalka+krmilka+M"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
