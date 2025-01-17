@@ -185,12 +185,18 @@ adw_tab_view_demo_page_new (const char *title)
 AdwTabViewDemoPage *
 adw_tab_view_demo_page_new_duplicate (AdwTabViewDemoPage *self)
 {
+  AdwTabViewDemoPage *page;
+
   g_return_val_if_fail (ADW_IS_TAB_VIEW_DEMO_PAGE (self), NULL);
 
-  return g_object_new (ADW_TYPE_TAB_VIEW_DEMO_PAGE,
+  page = g_object_new (ADW_TYPE_TAB_VIEW_DEMO_PAGE,
                        "title", self->title,
                        "icon", self->icon,
                        NULL);
+
+  set_color (page, self->color);
+
+  return page;
 }
 
 void
