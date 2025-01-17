@@ -113,6 +113,17 @@ get_dpi (const DevicePreset *preset)
                 preset->height * preset->height) / preset->screen_diagonal;
 }
 
+static inline void
+append_variable (GString    *string,
+                 const char *name,
+                 float       value)
+{
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  g_ascii_dtostr (buf, sizeof (buf), value);
+
+  g_string_append_printf (string, "  %s: %spx;\n", name, buf);
+}
+
 static void
 generate_device_css (void)
 {
@@ -125,21 +136,24 @@ generate_device_css (void)
 
     g_string_append_printf (string, "adaptive-preview .device-view.%s {\n",
                             preset->id);
-    g_string_append_printf (string, "  --top-screen-corner-radius: %fpx;\n",
-                            preset->top_screen_corners / preset->scale_factor);
-    g_string_append_printf (string, "  --bottom-screen-corner-radius: %fpx;\n",
-                            preset->bottom_screen_corners / preset->scale_factor);
 
-    g_string_append_printf (string, "  --top-device-corner-radius: %fpx;\n",
-                            preset->top_device_corners * dpi / preset->scale_factor);
-    g_string_append_printf (string, "  --bottom-device-corner-radius: %fpx;\n",
-                            preset->bottom_device_corners * dpi / preset->scale_factor);
-    g_string_append_printf (string, "  --top-bezel: %fpx;\n",
-                            preset->top_bezel * dpi / preset->scale_factor);
-    g_string_append_printf (string, "  --side-bezel: %fpx;\n",
-                            preset->side_bezel * dpi / preset->scale_factor);
-    g_string_append_printf (string, "  --bottom-bezel: %fpx;\n",
-                            preset->bottom_bezel * dpi / preset->scale_factor);
+    append_variable (string, "--top-screen-corner-radius",
+                     preset->top_screen_corners / preset->scale_factor);
+    append_variable (string, "--bottom-screen-corner-radius",
+                     preset->bottom_screen_corners / preset->scale_factor);
+
+    append_variable (string, "--top-device-corner-radius",
+                     preset->top_device_corners * dpi / preset->scale_factor);
+    append_variable (string, "--bottom-device-corner-radius",
+                     preset->bottom_device_corners * dpi / preset->scale_factor);
+
+    append_variable (string, "--top-bezel",
+                     preset->top_bezel * dpi / preset->scale_factor);
+    append_variable (string, "--side-bezel",
+                     preset->side_bezel * dpi / preset->scale_factor);
+    append_variable (string, "--bottom-bezel",
+                     preset->bottom_bezel * dpi / preset->scale_factor);
+
     g_string_append (string, "}\n");
   }
 
