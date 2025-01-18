@@ -148,11 +148,11 @@ generate_device_css (void)
                      preset->bottom_device_corners * dpi / preset->scale_factor);
 
     append_variable (string, "--top-bezel",
-                     preset->top_bezel * dpi / preset->scale_factor);
+                     round (preset->top_bezel * dpi / preset->scale_factor));
     append_variable (string, "--side-bezel",
-                     preset->side_bezel * dpi / preset->scale_factor);
+                     round (preset->side_bezel * dpi / preset->scale_factor));
     append_variable (string, "--bottom-bezel",
-                     preset->bottom_bezel * dpi / preset->scale_factor);
+                     round (preset->bottom_bezel * dpi / preset->scale_factor));
 
     g_string_append (string, "}\n");
   }
