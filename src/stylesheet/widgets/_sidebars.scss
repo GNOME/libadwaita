@@ -32,8 +32,8 @@
 }
 
 /* Middle pane in three-pane setups */
-.content-pane .sidebar-pane,
-.sidebar-pane .content-pane {
+:not(.isolated) > .content-pane :not(.isolated) > .sidebar-pane,
+:not(.isolated) > .sidebar-pane :not(.isolated) > .content-pane {
   background-color: var(--secondary-sidebar-bg-color);
   color: var(--secondary-sidebar-fg-color);
 
