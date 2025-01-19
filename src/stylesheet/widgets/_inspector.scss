@@ -16,6 +16,8 @@ adaptive-preview {
   .device-view {
     background: #101011;
     color: white;
+    box-shadow: 0 0 0 2px RGB(255 255 255 / 15%);
+    margin: 2px;
     padding: var(--top-bezel) var(--side-bezel) var(--bottom-bezel);
     border-radius: var(--top-device-corner-radius)
                    var(--top-device-corner-radius)
@@ -27,6 +29,7 @@ adaptive-preview {
     &.custom {
       padding: 0;
       border-radius: 0;
+      margin: 0;
       box-shadow: 0 2px 8px 2px RGB(0 0 0 / 7%),
                   0 3px 20px 10px RGB(0 0 0 / 5%),
                   0 6px 32px 16px RGB(0 0 0 / 2%),
@@ -35,6 +38,7 @@ adaptive-preview {
 
     &.highlight {
       background: oklab(from var(--accent-bg-color) 0.5 a b);
+      box-shadow: none;
 
       .screen-view .shell-top-bar,
       .screen-view .shell-bottom-bar {
