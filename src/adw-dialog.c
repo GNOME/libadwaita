@@ -1894,8 +1894,15 @@ adw_dialog_close (AdwDialog *self)
   }
 
   if (priv->window) {
-    gtk_window_close (GTK_WINDOW (priv->window));
+    GtkWidget *window = priv->window;
     priv->window = NULL;
+
+    if (priv->closing_callback)
+      priv->closing_callback (self, priv->user_data);
+
+    g_signal_emit (self, signals[SIGNAL_CLOSED], 0);
+
+    gtk_window_close (GTK_WINDOW (window));
   } else {
     adw_dialog_force_close (self);
   }
