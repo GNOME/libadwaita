@@ -393,10 +393,22 @@ menubutton {
     > button { @extend %osd_button; }
   }
 
+  &:disabled {
+    filter: opacity($disabled_opacity);
+  }
+
+  > button:disabled:not(:checked) {
+    filter: none;
+  }
+
   &.circular > button { @extend %circular_button; }
   &.flat > button { @extend %button_basic_flat; }
   &.pill > button { @extend %pill_button; }
   &.destructive-action > button { @extend %destructive_button; }
+
+  &.flat:disabled {
+    filter: none;
+  }
 
   &.suggested-action {
     background-color: var(--accent-bg-color);
@@ -497,7 +509,7 @@ splitbutton {
   &:disabled {
     filter: Opacity(var(--disabled-opacity));
 
-    > button, > menubutton > button {
+    > button, > menubutton, > menubutton > button {
       filter: none;
     }
   }

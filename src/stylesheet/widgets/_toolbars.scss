@@ -8,6 +8,10 @@
   }
 
   menubutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    &:disabled {
+      filter: none;
+    }
+
     &.image-button > button {
       @extend %button_basic_flat;
     }
@@ -21,11 +25,17 @@
     }
   }
 
-  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-    &.arrow-button,
-    &.image-button,
-    &.image-text-button {
-      @extend %button_basic_raised;
+  menubutton.raised {
+    > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+      &.arrow-button,
+      &.image-button,
+      &.image-text-button {
+        @extend %button_basic_raised;
+
+        &:disabled:not(:checked) {
+          filter: none;
+        }
+      }
     }
   }
 
@@ -36,11 +46,19 @@
 
       color: inherit;
       background-color: transparent;
+
+      &:disabled:not(:checked) {
+        filter: none;
+      }
     }
   }
 
   menubutton.destructive-action > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     @extend %destructive_button;
+
+    &:disabled:not(:checked) {
+      filter: none;
+    }
   }
 
   splitbutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
