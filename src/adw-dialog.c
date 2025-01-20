@@ -312,11 +312,14 @@ set_focus (AdwDialog *self,
                                           focus_widget_notify_visible_cb, self);
     g_signal_handlers_disconnect_by_func (priv->focus_widget,
                                           focus_widget_notify_parent_cb, self);
+    g_clear_weak_pointer (&priv->focus_widget);
   }
 
   priv->focus_widget = focus;
 
   if (priv->focus_widget) {
+    g_object_add_weak_pointer (G_OBJECT (priv->focus_widget), (gpointer *) &priv->focus_widget);
+
     g_signal_connect_swapped (priv->focus_widget, "hide",
                               G_CALLBACK (unset_focus_widget), self);
     g_signal_connect_swapped (priv->focus_widget, "notify::visible",
@@ -884,7 +887,7 @@ adw_dialog_dispose (GObject *object)
                                           focus_widget_notify_visible_cb, self);
     g_signal_handlers_disconnect_by_func (priv->focus_widget,
                                           focus_widget_notify_parent_cb, self);
-    priv->focus_widget = NULL;
+    g_clear_weak_pointer (&priv->focus_widget);
   }
 
   g_clear_weak_pointer (&priv->last_focus);
