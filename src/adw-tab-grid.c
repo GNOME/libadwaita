@@ -1957,7 +1957,7 @@ close_animation_done_cb (TabInfo *info)
     self->reordered_tab = NULL;
 
   if (self->middle_clicked_tab == info)
-    self->pressed_tab = NULL;
+    self->middle_clicked_tab = NULL;
 
   remove_and_free_tab_info (info);
 
