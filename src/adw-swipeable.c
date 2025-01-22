@@ -71,7 +71,7 @@ adw_swipeable_get_distance (AdwSwipeable *self)
  * Each snap point represents a progress value that is considered acceptable to
  * end the swipe on.
  *
- * Returns: (array length=n_snap_points) (transfer full): the snap points
+ * Returns: (nullable) (array length=n_snap_points) (transfer full): the snap points
  */
 double *
 adw_swipeable_get_snap_points (AdwSwipeable *self,
