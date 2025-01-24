@@ -1664,9 +1664,6 @@ adw_flap_get_snap_points (AdwSwipeable *swipeable,
   gboolean can_close = self->reveal_progress < 1 || self->swipe_to_close || self->swipe_active;
   double *points;
 
-  if (!can_open && !can_close)
-    return NULL;
-
   if (can_open && can_close) {
     points = g_new0 (double, 2);
 

@@ -1224,9 +1224,6 @@ adw_overlay_split_view_get_snap_points (AdwSwipeable *swipeable,
   gboolean can_close = self->show_progress < 1 || self->enable_hide_gesture || self->swipe_active;
   double *points;
 
-  if (!can_open && !can_close)
-    return NULL;
-
   if (can_open && can_close) {
     points = g_new0 (double, 2);
 
