@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-01-13 01:58+0000\n"
-"PO-Revision-Date: 2025-01-13 17:10+0300\n"
+"POT-Creation-Date: 2025-01-18 15:26+0000\n"
+"PO-Revision-Date: 2025-01-20 15:24+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -255,11 +255,12 @@ msgstr "Правовые сведения"
 msgid "Acknowledgements"
 msgstr "Благодарности"
 
-#: src/adw-adaptive-preview.c:371
+#: src/adw-adaptive-preview.c:385
 msgid "Screenshot Copied to Clipboard"
 msgstr "Снимок экрана скопирован в буфер обмена"
 
-#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.ui:90
+#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.c:65
+#: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Адаптивный предпросмотр"
 
@@ -392,56 +393,56 @@ msgstr "Найти"
 msgid "Apply"
 msgstr "Применить"
 
-#: src/adw-inspector-page.c:125
+#: src/adw-inspector-page.c:129
 msgid "No Preference"
 msgstr "Без предпочтений"
 
-#: src/adw-inspector-page.c:127
+#: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
 msgstr "Предпочитать темную"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:133
 msgid "Prefer Light"
 msgstr "Предпочитать светлую"
 
-#: src/adw-inspector-page.c:142
+#: src/adw-inspector-page.c:146
 msgid "Blue"
 msgstr "Синий"
 
-#: src/adw-inspector-page.c:144
+#: src/adw-inspector-page.c:148
 msgid "Teal"
 msgstr "Бирюзовый"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:150
 msgid "Green"
 msgstr "Зеленый"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:152
 msgid "Yellow"
 msgstr "Желтый"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:154
 msgid "Orange"
 msgstr "Оранжевый"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:156
 msgid "Red"
 msgstr "Красный"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:158
 msgid "Pink"
 msgstr "Розовый"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:160
 msgid "Purple"
 msgstr "Фиолетовый"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:162
 msgid "Slate"
 msgstr "Серо-голубой"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:297
+#: src/adw-inspector-page.c:301
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -485,6 +486,15 @@ msgstr "Специальные возможности"
 msgid "High Contrast"
 msgstr "Высокая контрастность"
 
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"Тестирование приложения при определенных размерах экрана для имитации "
+"мобильной среды. Откройте предпросмотр непосредственно в любом "
+"поддерживаемом окне с помощью Shift+Ctrl+M"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "Скрыть пароль"
@@ -501,7 +511,7 @@ msgstr "Caps Lock включен"
 msgid "_Show Password"
 msgstr "_Показать пароль"
 
-#: src/adw-preferences-dialog.c:212 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:218 src/adw-preferences-window.c:217
 msgid "Untitled page"
 msgstr "Безымянная страница"
 
