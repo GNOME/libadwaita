@@ -71,7 +71,8 @@ label {
 }
 
 .monospace {
-  font-family: monospace;
+  font-family: var(--monospace-font-family);
+  font-size: var(--monospace-font-size);
 }
 
 .numeric {
@@ -86,3 +87,4 @@ editablelabel > stack > text {
   color: var(--view-fg-color);
   background-color: var(--view-bg-color);
 }
+

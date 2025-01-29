@@ -172,9 +172,11 @@ row {
 
   &.property.monospace {
     font-family: inherit;
+    font-size: inherit;
 
     & > box.header > box.title > .subtitle {
-      font-family: monospace;
+      font-family: var(--monospace-font-family);
+      font-size: var(--monospace-font-size);
     }
   }
 }
@@ -235,9 +237,11 @@ row.entry {
 
   &.monospace {
     font-family: inherit;
+    font-size: inherit;
 
     text {
-      font-family: monospace;
+      font-family: var(--monospace-font-family);
+      font-size: var(--monospace-font-size);
     }
   }
 }
@@ -424,7 +428,8 @@ row.expander {
   }
 
   &.property.monospace > box > list > row > box.header > box.title > .subtitle {
-    font-family: monospace;
+    font-family: var(--monospace-font-family);
+    font-size: var(--monospace-font-size);
   }
 }
 

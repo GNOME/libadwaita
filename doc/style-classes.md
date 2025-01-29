@@ -304,8 +304,9 @@ the regular body style.
   <img src="typography-monospace.png" alt="typography-monospace">
 </picture>
 
-The `.monospace` style class makes the widget use a monospace font. This can be
-useful when displaying code, logs or shell commands.
+The `.monospace` style class makes the widget use the
+[monospace font](css-variables.html#monospace-font). This can be useful when
+displaying code, logs or shell commands.
 
 For [class@EntryRow], it only makes the editable part monospace, but not title
 or any extra widgets. To make everything in the row monospace, apply

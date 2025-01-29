@@ -1002,6 +1002,9 @@ Name                             | Example Value
 
 Monospace font should be used for displaying code, logs or shell commands.
 
+It's used for the [`.monospace`](style-classes.html#typography-styles)
+style class.
+
 Name                             | Example Value
 -------------------------------- | -------------
 <tt>--monospace-font-family</tt> | Monospace
