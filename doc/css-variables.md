@@ -974,6 +974,38 @@ opacity tuned to be well visible on top of `--window-bg-color`.
 `--scrollbar-outline-color` is used by [class@Gtk.Scrollbar] to ensure that
 overlay scrollbars are visible regardless of the content color. It should always
 be the opposite of the scrollbar color - light with a dark scrollbar and dark
+otherwise.
+
+# Fonts
+
+These variables allow to access system fonts. For each font, two variables are
+defined, corresponding to the font family and size. Most of the time, they
+should be used together, as follows:
+
+```css
+.my-content {
+  font-family: var(--monospace-font-family);
+  font-size: var(--monospace-font-size);
+}
+```
+
+## Document Font
+
+Document font should be used in articles, messages and other content.
+
+Name                             | Example Value
+-------------------------------- | -------------
+<tt>--document-font-family</tt>  | Sans
+<tt>--document-font-size</tt>    | 10pt
+
+## Monospace Font
+
+Monospace font should be used for displaying code, logs or shell commands.
+
+Name                             | Example Value
+-------------------------------- | -------------
+<tt>--monospace-font-family</tt> | Monospace
+<tt>--monospace-font-size</tt>   | 10pt
 
 # Helpers
 

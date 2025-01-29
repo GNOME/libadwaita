@@ -47,19 +47,34 @@
  * preferences exists.
  */
 
+#define DEFAULT_DOCUMENT_FONT_FAMILY "Sans"
+#define DEFAULT_DOCUMENT_FONT_SIZE 10
+#define DEFAULT_DOCUMENT_FONT_SIZE_STR "10"
+
+#define DEFAULT_MONOSPACE_FONT_FAMILY "Monospace"
+#define DEFAULT_MONOSPACE_FONT_SIZE 10
+#define DEFAULT_MONOSPACE_FONT_SIZE_STR "10"
+
+#define DEFAULT_DOCUMENT_FONT (DEFAULT_DOCUMENT_FONT_FAMILY " " DEFAULT_DOCUMENT_FONT_SIZE_STR)
+#define DEFAULT_MONOSPACE_FONT (DEFAULT_MONOSPACE_FONT_FAMILY " " DEFAULT_MONOSPACE_FONT_SIZE_STR)
+
 struct _AdwStyleManager
 {
   GObject parent_instance;
 
   GdkDisplay *display;
   AdwSettings *settings;
+  GtkSettings *gtk_settings;
   GtkCssProvider *provider;
   GtkCssProvider *colors_provider;
   GtkCssProvider *accent_provider;
+  GtkCssProvider *fonts_provider;
 
   AdwColorScheme color_scheme;
   gboolean dark;
   gboolean setting_dark;
+  char *document_font_name;
+  char *monospace_font_name;
 
   GtkCssProvider *animations_provider;
   guint animation_timeout_id;
@@ -77,6 +92,8 @@ enum {
   PROP_SYSTEM_SUPPORTS_ACCENT_COLORS,
   PROP_ACCENT_COLOR,
   PROP_ACCENT_COLOR_RGBA,
+  PROP_DOCUMENT_FONT_NAME,
+  PROP_MONOSPACE_FONT_NAME,
   LAST_PROP,
 };
 
@@ -89,7 +106,8 @@ typedef enum {
   UPDATE_BASE         = 1 << 0,
   UPDATE_COLOR_SCHEME = 1 << 1,
   UPDATE_ACCENT_COLOR = 1 << 2,
-  UPDATE_ALL = UPDATE_BASE | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR
+  UPDATE_FONTS        = 1 << 3,
+  UPDATE_ALL = UPDATE_BASE | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR | UPDATE_FONTS
 } StylesheetUpdateFlags;
 
 static void
@@ -159,16 +177,65 @@ generate_accent_css (AdwStyleManager *self)
   return g_string_free (str, FALSE);
 }
 
+static char*
+generate_fonts_css (AdwStyleManager *self)
+{
+  PangoFontDescription *document_desc = pango_font_description_from_string (self->document_font_name);
+  PangoFontDescription *monospace_desc = pango_font_description_from_string (self->monospace_font_name);
+  GString *str = g_string_new ("");
+
+  g_string_append (str, ":root {\n");
+
+  if (document_desc && (pango_font_description_get_set_fields (document_desc) & (PANGO_FONT_MASK_FAMILY)) != 0) {
+    const char *family = pango_font_description_get_family (document_desc);
+    g_string_append_printf (str, "  --document-font-family: %s;\n", family);
+  } else {
+    g_string_append_printf (str, "  --document-font-family: %s;\n", DEFAULT_DOCUMENT_FONT_FAMILY);
+  }
+
+  if (document_desc && (pango_font_description_get_set_fields (document_desc) & (PANGO_FONT_MASK_SIZE)) != 0) {
+    int size = pango_font_description_get_size (document_desc);
+
+    if (pango_font_description_get_size_is_absolute (document_desc))
+      g_string_append_printf (str, "  --document-font-size: %lfpx;\n", (double) size / PANGO_SCALE);
+    else
+      g_string_append_printf (str, "  --document-font-size: %lfpt;\n", (double) size / PANGO_SCALE);
+  } else {
+    g_string_append_printf (str, "  --document-font-size: %dpt;\n", DEFAULT_DOCUMENT_FONT_SIZE);
+  }
+
+  if (monospace_desc && (pango_font_description_get_set_fields (monospace_desc) & (PANGO_FONT_MASK_FAMILY)) != 0) {
+    const char *family = pango_font_description_get_family (monospace_desc);
+    g_string_append_printf (str, "  --monospace-font-family: %s;\n", family);
+  } else {
+    g_string_append_printf (str, "  --monospace-font-family: %s;\n", DEFAULT_MONOSPACE_FONT_FAMILY);
+  }
+
+  if (monospace_desc && (pango_font_description_get_set_fields (monospace_desc) & (PANGO_FONT_MASK_SIZE)) != 0) {
+    int size = pango_font_description_get_size (monospace_desc);
+
+    if (pango_font_description_get_size_is_absolute (monospace_desc))
+      g_string_append_printf (str, "  --monospace-font-size: %lfpx;\n", (double) size / PANGO_SCALE);
+    else
+      g_string_append_printf (str, "  --monospace-font-size: %lfpt;\n", (double) size / PANGO_SCALE);
+  } else {
+    g_string_append_printf (str, "  --monospace-font-size: %dpt;\n", DEFAULT_MONOSPACE_FONT_SIZE);
+  }
+
+  pango_font_description_free (document_desc);
+  pango_font_description_free (monospace_desc);
+
+  g_string_append (str, "}");
+
+  return g_string_free (str, FALSE);
+}
+
 static void
 update_stylesheet (AdwStyleManager       *self,
                    StylesheetUpdateFlags  flags)
 {
-  GtkSettings *gtk_settings;
-
   if (!self->display)
     return;
-
-  gtk_settings = gtk_settings_get_for_display (self->display);
 
   if (self->animation_timeout_id)
     g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
@@ -180,7 +247,7 @@ update_stylesheet (AdwStyleManager       *self,
   if (flags & UPDATE_COLOR_SCHEME) {
     self->setting_dark = TRUE;
 
-    g_object_set (gtk_settings,
+    g_object_set (self->gtk_settings,
                   "gtk-application-prefer-dark-theme", self->dark,
                   NULL);
 
@@ -209,6 +276,12 @@ update_stylesheet (AdwStyleManager       *self,
     char *accent_css = generate_accent_css (self);
     gtk_css_provider_load_from_string (self->accent_provider, accent_css);
     g_free (accent_css);
+  }
+
+  if (flags & UPDATE_FONTS && self->fonts_provider) {
+    char *fonts_css = generate_fonts_css (self);
+    gtk_css_provider_load_from_string (self->fonts_provider, fonts_css);
+    g_free (fonts_css);
   }
 
   self->animation_timeout_id =
@@ -256,6 +329,74 @@ update_dark (AdwStyleManager *self)
 }
 
 static void
+update_fonts (AdwStyleManager *self)
+{
+  gboolean document_changed = FALSE;
+  gboolean monospace_changed = FALSE;
+
+  const char *new_document_font_name = adw_settings_get_document_font_name (self->settings);
+  const char *new_monospace_font_name = adw_settings_get_monospace_font_name (self->settings);
+
+  if (new_document_font_name) {
+    if (g_set_str (&self->document_font_name, new_document_font_name))
+      document_changed = TRUE;
+  } else {
+    char *font_name = NULL;
+
+    g_object_get (self->gtk_settings, "gtk-font-name", &font_name, NULL);
+
+    if (!font_name)
+      font_name = g_strdup (DEFAULT_DOCUMENT_FONT);
+
+    if (g_set_str (&self->document_font_name, font_name))
+      document_changed = TRUE;
+
+    g_free (font_name);
+  }
+
+  if (new_monospace_font_name) {
+    if (g_set_str (&self->monospace_font_name, new_monospace_font_name))
+      monospace_changed = TRUE;
+  } else {
+    char *font_name = NULL;
+    PangoFontDescription *desc = NULL;
+
+    g_object_get (self->gtk_settings, "gtk-font-name", &font_name, NULL);
+
+    if (font_name)
+      desc = pango_font_description_from_string (font_name);
+
+    if (desc) {
+      char *new_str;
+
+      pango_font_description_set_family (desc, DEFAULT_MONOSPACE_FONT_FAMILY);
+
+      new_str = pango_font_description_to_string (desc);
+
+      if (g_set_str (&self->monospace_font_name, new_str))
+        monospace_changed = TRUE;
+
+      g_free (new_str);
+    } else {
+      if (g_set_str (&self->monospace_font_name, DEFAULT_MONOSPACE_FONT))
+        monospace_changed = TRUE;
+    }
+
+    pango_font_description_free (desc);
+    g_free (font_name);
+  }
+
+  if (document_changed || monospace_changed)
+    update_stylesheet (self, UPDATE_FONTS);
+
+  if (document_changed)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DOCUMENT_FONT_NAME]);
+
+  if (monospace_changed)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MONOSPACE_FONT_NAME]);
+}
+
+static void
 notify_system_supports_color_schemes_cb (AdwStyleManager *self)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES]);
@@ -292,24 +433,25 @@ adw_style_manager_constructed (GObject *object)
   G_OBJECT_CLASS (adw_style_manager_parent_class)->constructed (object);
 
   if (self->display) {
-    GtkSettings *settings = gtk_settings_get_for_display (self->display);
     gboolean prefer_dark_theme;
 
-    g_object_get (settings,
+    self->gtk_settings = gtk_settings_get_for_display (self->display);
+
+    g_object_get (self->gtk_settings,
                   "gtk-application-prefer-dark-theme", &prefer_dark_theme,
                   NULL);
 
     if (prefer_dark_theme)
       warn_prefer_dark_theme (self);
 
-    g_signal_connect_object (settings,
+    g_signal_connect_object (self->gtk_settings,
                              "notify::gtk-application-prefer-dark-theme",
                              G_CALLBACK (warn_prefer_dark_theme),
                              self,
                              G_CONNECT_SWAPPED);
 
     if (!adw_is_granite_present () && !g_getenv ("GTK_THEME")) {
-      g_object_set (gtk_settings_get_for_display (self->display),
+      g_object_set (self->gtk_settings,
                     "gtk-theme-name", "Adwaita-empty",
                     NULL);
 
@@ -327,12 +469,24 @@ adw_style_manager_constructed (GObject *object)
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->accent_provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
+
+      self->fonts_provider = gtk_css_provider_new ();
+      gtk_style_context_add_provider_for_display (self->display,
+                                                  GTK_STYLE_PROVIDER (self->fonts_provider),
+                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
     }
 
     self->animations_provider = gtk_css_provider_new ();
     gtk_css_provider_load_from_string (self->animations_provider,
                                        "* { transition: none; }");
+  } else {
+    self->gtk_settings = gtk_settings_get_default ();
   }
+
+  g_signal_connect_object (self->gtk_settings, "notify::gtk-font-name",
+                           G_CALLBACK (update_fonts),
+                           self,
+                           G_CONNECT_SWAPPED);
 
   self->settings = adw_settings_get_default ();
 
@@ -361,8 +515,19 @@ adw_style_manager_constructed (GObject *object)
                            G_CALLBACK (notify_high_contrast_cb),
                            self,
                            G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->settings,
+                           "notify::document-font-name",
+                           G_CALLBACK (update_fonts),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->settings,
+                           "notify::monospace-font-name",
+                           G_CALLBACK (update_fonts),
+                           self,
+                           G_CONNECT_SWAPPED);
 
   update_dark (self);
+  update_fonts (self);
   update_stylesheet (self, UPDATE_ALL);
 }
 
@@ -376,6 +541,9 @@ adw_style_manager_dispose (GObject *object)
   g_clear_object (&self->colors_provider);
   g_clear_object (&self->animations_provider);
   g_clear_object (&self->accent_provider);
+  g_clear_object (&self->fonts_provider);
+  g_clear_pointer (&self->document_font_name, g_free);
+  g_clear_pointer (&self->monospace_font_name, g_free);
 
   G_OBJECT_CLASS (adw_style_manager_parent_class)->dispose (object);
 }
@@ -419,6 +587,14 @@ adw_style_manager_get_property (GObject    *object,
 
   case PROP_ACCENT_COLOR_RGBA:
     g_value_take_boxed (value, adw_style_manager_get_accent_color_rgba (self));
+    break;
+
+  case PROP_DOCUMENT_FONT_NAME:
+    g_value_set_string (value, adw_style_manager_get_document_font_name (self));
+    break;
+
+  case PROP_MONOSPACE_FONT_NAME:
+    g_value_set_string (value, adw_style_manager_get_monospace_font_name (self));
     break;
 
   default:
@@ -602,6 +778,36 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
     g_param_spec_boxed ("accent-color-rgba", NULL, NULL,
                         GDK_TYPE_RGBA,
                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwStyleManager:document-font-name:
+   *
+   * The system document font.
+   *
+   * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
+   * e.g. "Sans 10".
+   *
+   * Since: 1.7
+   */
+  props[PROP_DOCUMENT_FONT_NAME] =
+    g_param_spec_string ("document-font-name", NULL, NULL,
+                         DEFAULT_DOCUMENT_FONT,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwStyleManager:monospace-font-name:
+   *
+   * The system monospace font.
+   *
+   * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
+   * e.g. "Monospace 10".
+   *
+   * Since: 1.7
+   */
+  props[PROP_MONOSPACE_FONT_NAME] =
+    g_param_spec_string ("monospace-font-name", NULL, NULL,
+                         DEFAULT_MONOSPACE_FONT,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -920,4 +1126,52 @@ adw_style_manager_get_accent_color_rgba (AdwStyleManager *self)
   adw_accent_color_to_rgba (color, &rgba);
 
   return gdk_rgba_copy (&rgba);
+}
+
+/**
+ * adw_style_manager_get_document_font_name:
+ * @self: a style manager
+ *
+ * Gets the system document font.
+ *
+ * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
+ * e.g. "Sans 10".
+ *
+ * Returns: the system document font
+ *
+ * Since: 1.7
+ */
+const char *
+adw_style_manager_get_document_font_name (AdwStyleManager *self)
+{
+  g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), NULL);
+
+  if (!self->document_font_name)
+    return DEFAULT_DOCUMENT_FONT;
+
+  return self->document_font_name;
+}
+
+/**
+ * adw_style_manager_get_monospace_font_name:
+ * @self: a style manager
+ *
+ * Gets the system monospace font.
+ *
+ * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
+ * e.g. "Monospace 10".
+ *
+ * Returns: the system monospace font
+ *
+ * Since: 1.7
+ */
+const char *
+adw_style_manager_get_monospace_font_name (AdwStyleManager *self)
+{
+  g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), NULL);
+
+  if (!self->document_font_name)
+    return DEFAULT_MONOSPACE_FONT;
+
+  return self->monospace_font_name;
 }

@@ -46,6 +46,12 @@ gboolean adw_settings_get_system_supports_accent_colors (AdwSettings *self);
 ADW_AVAILABLE_IN_1_6
 AdwAccentColor adw_settings_get_accent_color (AdwSettings *self);
 
+ADW_AVAILABLE_IN_1_7
+const char *adw_settings_get_document_font_name (AdwSettings *self);
+
+ADW_AVAILABLE_IN_1_7
+const char *adw_settings_get_monospace_font_name (AdwSettings *self);
+
 ADW_AVAILABLE_IN_ALL
 void adw_settings_start_override (AdwSettings *self);
 ADW_AVAILABLE_IN_ALL

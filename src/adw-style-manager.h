@@ -65,4 +65,10 @@ AdwAccentColor adw_style_manager_get_accent_color (AdwStyleManager *self);
 ADW_AVAILABLE_IN_1_6
 GdkRGBA *adw_style_manager_get_accent_color_rgba (AdwStyleManager *self);
 
+ADW_AVAILABLE_IN_1_7
+const char *adw_style_manager_get_document_font_name (AdwStyleManager *self);
+
+ADW_AVAILABLE_IN_1_7
+const char *adw_style_manager_get_monospace_font_name (AdwStyleManager *self);
+
 G_END_DECLS

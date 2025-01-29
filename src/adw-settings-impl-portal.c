@@ -34,6 +34,9 @@ struct _AdwSettingsImplPortal
   } high_contrast_portal_state;
 
   gboolean found_accent_colors;
+
+  gboolean found_document_font_name;
+  gboolean found_monospace_font_name;
 };
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplPortal, adw_settings_impl_portal, ADW_TYPE_SETTINGS_IMPL)
@@ -185,9 +188,28 @@ changed_cb (GDBusProxy            *proxy,
 
   if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
       !g_strcmp0 (name, "high-contrast") &&
-      self->high_contrast_portal_state == HIGH_CONTRAST_STATE_GNOME ) {
+      self->high_contrast_portal_state == HIGH_CONTRAST_STATE_GNOME) {
     adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
                                          g_variant_get_boolean (value));
+
+    g_variant_unref (value);
+    return;
+  }
+
+  if (!g_strcmp0 (namespace, "org.gnome.desktop.interface")) {
+    if (!g_strcmp0 (name, "document-font-name")) {
+      adw_settings_impl_set_document_font_name (ADW_SETTINGS_IMPL (self),
+                                                g_variant_get_string (value, NULL));
+      g_variant_unref (value);
+      return;
+    }
+
+    if (!g_strcmp0 (name, "monospace-font-name")) {
+      adw_settings_impl_set_monospace_font_name (ADW_SETTINGS_IMPL (self),
+                                                 g_variant_get_string (value, NULL));
+      g_variant_unref (value);
+      return;
+    }
   }
 
   g_variant_unref (value);
@@ -216,10 +238,22 @@ adw_settings_impl_portal_init (AdwSettingsImplPortal *self)
 {
 }
 
+static gboolean
+is_running_in_flatpak (void)
+{
+#ifndef G_OS_WIN32
+  return g_file_test ("/.flatpak-info", G_FILE_TEST_EXISTS);
+#else
+  return FALSE;
+#endif
+}
+
 AdwSettingsImpl *
 adw_settings_impl_portal_new (gboolean enable_color_scheme,
                               gboolean enable_high_contrast,
-                              gboolean enable_accent_colors)
+                              gboolean enable_accent_colors,
+                              gboolean enable_document_font_name,
+                              gboolean enable_monospace_font_name)
 {
   AdwSettingsImplPortal *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_PORTAL, NULL);
   GError *error = NULL;
@@ -265,7 +299,7 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
 
       g_variant_unref (variant);
     } else if (read_setting (self, "org.gnome.desktop.a11y.interface",
-                    "high-contrast", "b", &variant)) {
+               "high-contrast", "b", &variant)) {
       self->high_contrast_portal_state = HIGH_CONTRAST_STATE_GNOME;
 
       adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
@@ -285,14 +319,42 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
     g_variant_unref (variant);
   }
 
+  if (is_running_in_flatpak ()) {
+    if (enable_document_font_name &&
+        read_setting (self, "org.gnome.desktop.interface",
+                      "document-font-name", "s", &variant)) {
+      self->found_document_font_name = TRUE;
+
+      adw_settings_impl_set_document_font_name (ADW_SETTINGS_IMPL (self),
+                                                g_variant_get_string (variant, NULL));
+
+      g_variant_unref (variant);
+    }
+
+    if (enable_monospace_font_name &&
+        read_setting (self, "org.gnome.desktop.interface",
+                      "monospace-font-name", "s", &variant)) {
+      self->found_monospace_font_name = TRUE;
+
+      adw_settings_impl_set_monospace_font_name (ADW_SETTINGS_IMPL (self),
+                                                 g_variant_get_string (variant, NULL));
+
+      g_variant_unref (variant);
+    }
+  }
+
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   self->found_color_scheme,
                                   self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE,
-                                  self->found_accent_colors);
+                                  self->found_accent_colors,
+                                  self->found_document_font_name,
+                                  self->found_monospace_font_name);
 
   if (self->found_color_scheme ||
       self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE ||
-      self->found_accent_colors) {
+      self->found_accent_colors ||
+      self->found_document_font_name ||
+      self->found_monospace_font_name) {
     g_signal_connect (self->settings_portal, "g-signal",
                       G_CALLBACK (changed_cb), self);
   }

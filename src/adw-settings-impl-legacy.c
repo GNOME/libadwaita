@@ -63,30 +63,30 @@ adw_settings_impl_legacy_init (AdwSettingsImplLegacy *self)
 AdwSettingsImpl *
 adw_settings_impl_legacy_new (gboolean enable_color_scheme,
                               gboolean enable_high_contrast,
-                              gboolean enable_accent_colors)
+                              gboolean enable_accent_colors,
+                              gboolean enable_document_font_name,
+                              gboolean enable_monospace_font_name)
 {
   AdwSettingsImplLegacy *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_LEGACY, NULL);
-  GdkDisplay *display;
 
-  if (!enable_high_contrast)
-    return ADW_SETTINGS_IMPL (self);
+  if (enable_high_contrast) {
+    GdkDisplay *display = gdk_display_get_default ();
 
-  display = gdk_display_get_default ();
+    g_signal_connect_swapped (display,
+                              "setting-changed",
+                              G_CALLBACK (display_setting_changed_cb),
+                              self);
 
-  if (!display)
-    return ADW_SETTINGS_IMPL (self);
+    adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
+                                         is_theme_high_contrast (display));
+  }
 
-  adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
-                                       is_theme_high_contrast (display));
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   /* has_color_scheme */ FALSE,
-                                  /* has_high_contrast */ TRUE,
-                                  /* has_accent_colors */ FALSE);
-
-  g_signal_connect_swapped (display,
-                            "setting-changed",
-                            G_CALLBACK (display_setting_changed_cb),
-                            self);
+                                  enable_high_contrast,
+                                  /* has_accent_colors */ FALSE,
+                                  /* has_document_font_name */ FALSE,
+                                  /* has_monospace_font_name */ FALSE);
 
   return ADW_SETTINGS_IMPL (self);
 }

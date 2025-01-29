@@ -14,6 +14,9 @@
 
 #include <gtk/gtk.h>
 
+#define DEFAULT_DOCUMENT_FONT "Sans 10"
+#define DEFAULT_MONOSPACE_FONT "Monospace 10"
+
 struct _AdwSettings
 {
   GObject parent_instance;
@@ -27,6 +30,8 @@ struct _AdwSettings
   gboolean system_supports_color_schemes;
   AdwAccentColor accent_color;
   gboolean system_supports_accent_colors;
+  char *document_font_name;
+  char *monospace_font_name;
 
   gboolean override;
   gboolean system_supports_color_schemes_override;
@@ -45,6 +50,8 @@ enum {
   PROP_HIGH_CONTRAST,
   PROP_SYSTEM_SUPPORTS_ACCENT_COLORS,
   PROP_ACCENT_COLOR,
+  PROP_DOCUMENT_FONT_NAME,
+  PROP_MONOSPACE_FONT_NAME,
   LAST_PROP,
 };
 
@@ -89,6 +96,26 @@ set_accent_color (AdwSettings    *self,
 
   if (!self->override)
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACCENT_COLOR]);
+}
+
+static void
+set_document_font_name (AdwSettings *self,
+                        const char  *document_font_name)
+{
+  if (!g_set_str (&self->document_font_name, document_font_name))
+    return;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DOCUMENT_FONT_NAME]);
+}
+
+static void
+set_monospace_font_name (AdwSettings *self,
+                         const char  *monospace_font_name)
+{
+  if (!g_set_str (&self->monospace_font_name, monospace_font_name))
+    return;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MONOSPACE_FONT_NAME]);
 }
 
 static void
@@ -159,7 +186,9 @@ register_impl (AdwSettings     *self,
                AdwSettingsImpl *impl,
                gboolean        *found_color_scheme,
                gboolean        *found_high_contrast,
-               gboolean        *found_accent_colors)
+               gboolean        *found_accent_colors,
+               gboolean        *found_document_font_name,
+               gboolean        *found_monospace_font_name)
 {
   if (adw_settings_impl_get_has_color_scheme (impl)) {
     *found_color_scheme = TRUE;
@@ -187,6 +216,24 @@ register_impl (AdwSettings     *self,
     g_signal_connect_swapped (impl, "accent-color-changed",
                               G_CALLBACK (set_accent_color), self);
   }
+
+  if (adw_settings_impl_get_has_document_font_name (impl)) {
+    *found_document_font_name = TRUE;
+
+    set_document_font_name (self, adw_settings_impl_get_document_font_name (impl));
+
+    g_signal_connect_swapped (impl, "document-font-name-changed",
+                              G_CALLBACK (set_document_font_name), self);
+  }
+
+  if (adw_settings_impl_get_has_monospace_font_name (impl)) {
+    *found_monospace_font_name = TRUE;
+
+    set_monospace_font_name (self, adw_settings_impl_get_monospace_font_name (impl));
+
+    g_signal_connect_swapped (impl, "monospace-font-name-changed",
+                              G_CALLBACK (set_monospace_font_name), self);
+  }
 }
 
 static void
@@ -196,6 +243,8 @@ adw_settings_constructed (GObject *object)
   gboolean found_color_scheme = FALSE;
   gboolean found_high_contrast = FALSE;
   gboolean found_accent_colors = FALSE;
+  gboolean found_document_font_name = FALSE;
+  gboolean found_monospace_font_name = FALSE;
 
   G_OBJECT_CLASS (adw_settings_parent_class)->constructed (object);
 
@@ -205,35 +254,52 @@ adw_settings_constructed (GObject *object)
 #ifdef __APPLE__
     self->platform_impl = adw_settings_impl_macos_new (!found_color_scheme,
                                                        !found_high_contrast,
-                                                       !found_accent_colors);
+                                                       !found_accent_colors,
+                                                       !found_document_font_name,
+                                                       !found_monospace_font_name);
 #elif defined(G_OS_WIN32)
     self->platform_impl = adw_settings_impl_win32_new (!found_color_scheme,
                                                        !found_high_contrast,
-                                                       !found_accent_colors);
+                                                       !found_accent_colors,
+                                                       !found_document_font_name,
+                                                       !found_monospace_font_name);
 #else
     self->platform_impl = adw_settings_impl_portal_new (!found_color_scheme,
                                                         !found_high_contrast,
-                                                        !found_accent_colors);
+                                                        !found_accent_colors,
+                                                        !found_document_font_name,
+                                                        !found_monospace_font_name);
 #endif
 
     register_impl (self, self->platform_impl, &found_color_scheme,
-                   &found_high_contrast, &found_accent_colors);
+                   &found_high_contrast, &found_accent_colors,
+                   &found_document_font_name, &found_monospace_font_name);
   }
 
-  if (!found_color_scheme || !found_high_contrast || !found_accent_colors) {
+  if (!found_color_scheme ||
+      !found_high_contrast ||
+      !found_accent_colors ||
+      !found_document_font_name ||
+      !found_monospace_font_name) {
     self->gsettings_impl = adw_settings_impl_gsettings_new (!found_color_scheme,
                                                             !found_high_contrast,
-                                                            !found_accent_colors);
+                                                            !found_accent_colors,
+                                                            !found_document_font_name,
+                                                            !found_monospace_font_name);
     register_impl (self, self->gsettings_impl, &found_color_scheme,
-                   &found_high_contrast, &found_accent_colors);
+                   &found_high_contrast, &found_accent_colors,
+                   &found_document_font_name, &found_monospace_font_name);
   }
 
   if (!found_color_scheme || !found_high_contrast || !found_accent_colors) {
     self->legacy_impl = adw_settings_impl_legacy_new (!found_color_scheme,
                                                       !found_high_contrast,
-                                                      !found_accent_colors);
+                                                      !found_accent_colors,
+                                                      !found_document_font_name,
+                                                      !found_monospace_font_name);
     register_impl (self, self->legacy_impl, &found_color_scheme,
-                   &found_high_contrast, &found_accent_colors);
+                   &found_high_contrast, &found_accent_colors,
+                   &found_document_font_name, &found_monospace_font_name);
   }
 
   self->system_supports_color_schemes = found_color_scheme;
@@ -248,6 +314,8 @@ adw_settings_dispose (GObject *object)
   g_clear_object (&self->platform_impl);
   g_clear_object (&self->gsettings_impl);
   g_clear_object (&self->legacy_impl);
+  g_clear_pointer (&self->document_font_name, g_free);
+  g_clear_pointer (&self->monospace_font_name, g_free);
 
   G_OBJECT_CLASS (adw_settings_parent_class)->dispose (object);
 }
@@ -279,6 +347,14 @@ adw_settings_get_property (GObject    *object,
 
   case PROP_ACCENT_COLOR:
     g_value_set_enum (value, adw_settings_get_accent_color (self));
+    break;
+
+  case PROP_DOCUMENT_FONT_NAME:
+    g_value_set_string (value, adw_settings_get_document_font_name (self));
+    break;
+
+  case PROP_MONOSPACE_FONT_NAME:
+    g_value_set_string (value, adw_settings_get_monospace_font_name (self));
     break;
 
   default:
@@ -321,6 +397,16 @@ adw_settings_class_init (AdwSettingsClass *klass)
                        ADW_TYPE_ACCENT_COLOR,
                        ADW_ACCENT_COLOR_BLUE,
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  props[PROP_DOCUMENT_FONT_NAME] =
+    g_param_spec_string ("document-font-name", NULL, NULL,
+                         NULL,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  props[PROP_MONOSPACE_FONT_NAME] =
+    g_param_spec_string ("monospace-font-name", NULL, NULL,
+                         NULL,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -392,6 +478,22 @@ adw_settings_get_accent_color (AdwSettings *self)
     return self->accent_color_override;
 
   return self->accent_color;
+}
+
+const char *
+adw_settings_get_document_font_name (AdwSettings *self)
+{
+  g_return_val_if_fail (ADW_IS_SETTINGS (self), NULL);
+
+  return self->document_font_name;
+}
+
+const char *
+adw_settings_get_monospace_font_name (AdwSettings *self)
+{
+  g_return_val_if_fail (ADW_IS_SETTINGS (self), NULL);
+
+  return self->monospace_font_name;
 }
 
 void

@@ -136,7 +136,9 @@ adw_settings_impl_macos_init (AdwSettingsImplMacOS *self)
 AdwSettingsImpl *
 adw_settings_impl_macos_new (gboolean enable_color_scheme,
                              gboolean enable_high_contrast,
-                             gboolean enable_accent_colors)
+                             gboolean enable_accent_colors,
+                             gboolean enable_document_font_name,
+                             gboolean enable_monospace_font_name)
 {
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
@@ -154,7 +156,7 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
 
       [observer appDidChangeAccentColor:nil];
     } else {
-      enable_accent_colors = false;
+      enable_accent_colors = FALSE;
     }
   }
 
@@ -172,14 +174,16 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
 
       [observer appDidChangeTheme:nil];
     } else {
-      enable_color_scheme = false;
+      enable_color_scheme = FALSE;
     }
   }
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   enable_color_scheme,
                                   enable_high_contrast,
-                                  enable_accent_colors);
+                                  enable_accent_colors,
+                                  FALSE,
+                                  FALSE);
 
   return ADW_SETTINGS_IMPL (self);
 }
