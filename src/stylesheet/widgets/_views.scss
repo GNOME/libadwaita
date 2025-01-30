@@ -23,17 +23,15 @@ textview {
   > text {
     @extend %view;
 
-    background-color: transparent;
+    &, &:disabled {
+      background-color: transparent;
+    }
   }
 
   &.inline {
-    background-color: transparent;
-
-    // GtkSourceView has its own color schemes, so we want to keep text color
-    &:not(.sourceview) {
-      &, > text {
-        color: inherit;
-      }
+    &, &:disabled, > text {
+      background-color: transparent;
+      color: inherit;
     }
   }
 

@@ -587,10 +587,8 @@ backgrounds and can be used in different contexts instead.
 When used with `GtkTextView`, it allows it to e.g. be put into a card while
 following its styles.
 
-::: note
-    When used with `GtkSourceView`, it only changes its background color, but
-    not text color, so the application is responsible for changing its style
-    scheme appropriately.
+:::note
+    The `.inline` style class cannot be used with `GtkSourceView`.
 
 # Undershoot Indicators
 
