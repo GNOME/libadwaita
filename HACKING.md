@@ -642,8 +642,13 @@ to [`doc/libadwaita.toml.in`](./doc/libadwaita.toml.in).
 
 #### Regenerating Screenshots
 
-Make sure your system has Cantarell and Noto Sans Mono fonts installed on your
+Make sure your system has Adwaita Sans and Adwaita Mono fonts installed on your
 system, otherwise the screenshots may have wrong fonts.
+
+Make sure your system document and monospace fonts are set to:
+
+- `org.gnome.desktop.interface` `document-font-name`: `Adwaita Sans 11`
+- `org.gnome.desktop.interface` `monospace-font-name`: `Adwaita Mono 11`
 
 To regenerate all screenshots, run:
 

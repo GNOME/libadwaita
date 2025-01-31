@@ -995,8 +995,8 @@ Document font should be used in articles, messages and other content.
 
 Name                             | Example Value
 -------------------------------- | -------------
-<tt>--document-font-family</tt>  | Sans
-<tt>--document-font-size</tt>    | 10pt
+<tt>--document-font-family</tt>  | Adwaita Sans
+<tt>--document-font-size</tt>    | 11pt
 
 ## Monospace Font
 
@@ -1007,8 +1007,8 @@ style class.
 
 Name                             | Example Value
 -------------------------------- | -------------
-<tt>--monospace-font-family</tt> | Monospace
-<tt>--monospace-font-size</tt>   | 10pt
+<tt>--monospace-font-family</tt> | Adwaita Mono
+<tt>--monospace-font-size</tt>   | 11pt
 
 # Helpers
 

@@ -785,7 +785,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The system document font.
    *
    * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
-   * e.g. "Sans 10".
+   * e.g. "Adwaita Sans 11".
    *
    * Since: 1.7
    */
@@ -800,7 +800,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The system monospace font.
    *
    * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
-   * e.g. "Monospace 10".
+   * e.g. "Adwaita Mono 11".
    *
    * Since: 1.7
    */
@@ -1135,7 +1135,7 @@ adw_style_manager_get_accent_color_rgba (AdwStyleManager *self)
  * Gets the system document font.
  *
  * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
- * e.g. "Sans 10".
+ * e.g. "Adwaita Sans 11".
  *
  * Returns: the system document font
  *
@@ -1159,7 +1159,7 @@ adw_style_manager_get_document_font_name (AdwStyleManager *self)
  * Gets the system monospace font.
  *
  * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
- * e.g. "Monospace 10".
+ * e.g. "Adwaita Mono 11".
  *
  * Returns: the system monospace font
  *
