@@ -1,3 +1,48 @@
+================
+Version 1.7.beta
+================
+- AdwApplicationWindow, AdwWindow
+  - Add a public property for toggling adaptive preview
+  - Open adaptive preview with Ctrl+Shift+M
+- AdwBreakpoint
+  - Fix to_string() with locales using comma as decimal separator
+- AdwComboRow
+  - Fix very short strings not being displayed
+- AdwDialog
+  - Fix ::closed emission with window-backed dialogs
+  - Fix a focus-related crash
+- AdwOverlaySplitView, AdwFlap
+  - Remove an unreachable check
+- AdwPreferencesDialog
+  - Document navigation.pop action
+- AdwTabBox, AdwTabGrid
+  - Fix scrolling to newly appearing tabs
+  - Fix a copy-paste error
+- AdwToast
+  - Use a lighter opaque style
+- Adaptive Preview
+  - Add an outline around the device
+  - Round bezel sizes
+  - Fix bezels with locales using comma as decimal separator
+  - Prevent secondary sidebar style leak into the previewed app
+- Demo
+  - Allow opening adaptive preview from menu
+  - Inherit page background color when duplicating tabs
+- Docs
+  - Switch to Adwaita Sans/Mono 11pt for doc screenshots
+- Inspector
+  - Provide a list of windows instead of a single button for adaptive preview
+- Stylesheet
+  - Add --document-font-family/size and --monospace-font-family/size
+  - Use --monospace-font-family/size for .monospace
+  - Fix disabled style for raised/suggested/destructive menubuttons in toolbars
+  - Drop GtkSourceView support for textview.inline as it didn't work anyway
+- Translation updates
+  - Italian
+  - Russian
+  - Slovenian
+  - Turkish
+
 =================
 Version 1.7.alpha
 =================
