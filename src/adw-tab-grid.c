@@ -1918,10 +1918,19 @@ page_attached_cb (AdwTabGrid *self,
 
   calculate_tab_layout (self);
 
-  if (page == adw_tab_view_get_selected_page (self->view))
+  if (page == adw_tab_view_get_selected_page (self->view)) {
     adw_tab_grid_select_page (self, page);
-  else
-    scroll_to_tab_full (self, info, -1, OPEN_ANIMATION_DURATION, TRUE);
+  } else {
+    int pos = -1;
+
+    if (l && l->next && l->next->data) {
+      TabInfo *next_info = l->next->data;
+
+      pos = next_info->final_y;
+
+      scroll_to_tab_full (self, info, pos, OPEN_ANIMATION_DURATION, TRUE);
+    }
+  }
 }
 
 /* Closing */
