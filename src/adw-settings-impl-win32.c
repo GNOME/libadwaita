@@ -410,7 +410,7 @@ adw_settings_impl_win32_new (gboolean enable_color_scheme,
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   enable_color_scheme,
                                   enable_high_contrast,
-                                  enable_accent_colors
+                                  enable_accent_colors,
                                   FALSE,
                                   FALSE);
 
