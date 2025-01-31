@@ -285,6 +285,7 @@ setup_item (GtkSignalListItemFactory *factory,
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
   gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
   gtk_label_set_max_width_chars (GTK_LABEL (label), 20);
+  gtk_label_set_width_chars (GTK_LABEL (label), 1);
   gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
   gtk_box_append (GTK_BOX (box), label);
 
