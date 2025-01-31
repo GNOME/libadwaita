@@ -878,6 +878,8 @@ adw_dialog_dispose (GObject *object)
     priv->focus_widget = NULL;
   }
 
+  g_clear_weak_pointer (&priv->last_focus);
+
   if (priv->default_widget) {
     g_signal_handlers_disconnect_by_func (priv->default_widget,
                                           unset_default_widget, self);
