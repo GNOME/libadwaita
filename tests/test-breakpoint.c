@@ -63,6 +63,10 @@ test_adw_breakpoint_condition_to_string (void)
                                                         200,
                                                         ADW_LENGTH_UNIT_PT),
                    "min-height: 200pt");
+  check_to_string (adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MIN_HEIGHT,
+                                                        200.5,
+                                                        ADW_LENGTH_UNIT_PT),
+                   "min-height: 200.5pt");
 
   check_to_string (adw_breakpoint_condition_new_ratio (ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO,
                                                        4, 3),
