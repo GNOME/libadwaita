@@ -195,11 +195,14 @@ generate_fonts_css (AdwStyleManager *self)
 
   if (document_desc && (pango_font_description_get_set_fields (document_desc) & (PANGO_FONT_MASK_SIZE)) != 0) {
     int size = pango_font_description_get_size (document_desc);
+    char buf[G_ASCII_DTOSTR_BUF_SIZE];
+
+    g_ascii_dtostr (buf, sizeof (buf), (double) size / PANGO_SCALE);
 
     if (pango_font_description_get_size_is_absolute (document_desc))
-      g_string_append_printf (str, "  --document-font-size: %lfpx;\n", (double) size / PANGO_SCALE);
+      g_string_append_printf (str, "  --document-font-size: %spx;\n", buf);
     else
-      g_string_append_printf (str, "  --document-font-size: %lfpt;\n", (double) size / PANGO_SCALE);
+      g_string_append_printf (str, "  --document-font-size: %spt;\n", buf);
   } else {
     g_string_append_printf (str, "  --document-font-size: %dpt;\n", DEFAULT_DOCUMENT_FONT_SIZE);
   }
@@ -213,11 +216,14 @@ generate_fonts_css (AdwStyleManager *self)
 
   if (monospace_desc && (pango_font_description_get_set_fields (monospace_desc) & (PANGO_FONT_MASK_SIZE)) != 0) {
     int size = pango_font_description_get_size (monospace_desc);
+    char buf[G_ASCII_DTOSTR_BUF_SIZE];
+
+    g_ascii_dtostr (buf, sizeof (buf), (double) size / PANGO_SCALE);
 
     if (pango_font_description_get_size_is_absolute (monospace_desc))
-      g_string_append_printf (str, "  --monospace-font-size: %lfpx;\n", (double) size / PANGO_SCALE);
+      g_string_append_printf (str, "  --monospace-font-size: %spx;\n", buf);
     else
-      g_string_append_printf (str, "  --monospace-font-size: %lfpt;\n", (double) size / PANGO_SCALE);
+      g_string_append_printf (str, "  --monospace-font-size: %spt;\n", buf);
   } else {
     g_string_append_printf (str, "  --monospace-font-size: %dpt;\n", DEFAULT_MONOSPACE_FONT_SIZE);
   }
