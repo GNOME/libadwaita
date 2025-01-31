@@ -1,4 +1,21 @@
 =============
+Version 1.5.7
+=============
+
+- AdwBreakpoint
+  - Fix to_string() with locales using comma as decimal separator
+- AdwComboRow
+  - Fix very short strings not being displayed
+- AdwDialog
+  - Fix ::closed emission with window-backed dialogs
+  - Fix a focus-related crash
+- AdwPreferencesDialog
+  - Document navigation.pop action
+- AdwTabBox, AdwTabGrid
+  - Fix scrolling to newly appearing tabs
+  - Fix a copy-paste error
+
+=============
 Version 1.5.6
 =============
 
