@@ -5,7 +5,7 @@
   <object class="AdwWrapBox" id="widget">
     <property name="line-spacing">6</property>
     <property name="child-spacing">6</property>
-    <property name="natural-line-length">250</property>
+    <property name="natural-line-length">280</property>
     <style>
       <class name="tags"/>
     </style>
