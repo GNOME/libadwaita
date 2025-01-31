@@ -849,6 +849,8 @@ adw_breakpoint_condition_parse (const char *str)
 char *
 adw_breakpoint_condition_to_string (AdwBreakpointCondition *self)
 {
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+
   g_return_val_if_fail (self != NULL, NULL);
 
   /* Example: "max-width: 400px" */
@@ -886,7 +888,9 @@ adw_breakpoint_condition_to_string (AdwBreakpointCondition *self)
       g_assert_not_reached ();
     }
 
-    return g_strdup_printf ("%s: %g%s", type, self->data.length.value, unit);
+    g_ascii_dtostr (buf, sizeof (buf), self->data.length.value);
+
+    return g_strdup_printf ("%s: %s%s", type, buf, unit);
   }
 
   /* Example: "max-aspect-ratio: 4/3" */
