@@ -71,8 +71,6 @@ typedef struct
 
   GtkFilter *filter;
   GtkFilterListModel *filter_model;
-
-  int n_pages;
 } AdwPreferencesDialogPrivate;
 
 static void adw_preferences_dialog_buildable_init (GtkBuildableIface *iface);
@@ -310,10 +308,11 @@ update_view_switcher (AdwPreferencesDialog *self)
   AdwPreferencesDialogPrivate *priv = adw_preferences_dialog_get_instance_private (self);
   AdwBreakpoint *breakpoint;
   AdwBreakpointCondition *main_condition, *fallback_condition, *condition;
+  int n_pages = get_n_pages (self);
 
   main_condition =
     adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
-                                         VIEW_SWITCHER_PAGE_THRESHOLD * MAX (1, priv->n_pages),
+                                         VIEW_SWITCHER_PAGE_THRESHOLD * MAX (1, n_pages),
                                          ADW_LENGTH_UNIT_PT);
   fallback_condition =
     adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
@@ -326,7 +325,7 @@ update_view_switcher (AdwPreferencesDialog *self)
 
   breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->breakpoint_bin));
 
-  if (!breakpoint && priv->n_pages > 1)
+  if (!breakpoint && n_pages > 1)
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->view_switcher);
   else
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->title);
@@ -679,8 +678,10 @@ adw_preferences_dialog_add (AdwPreferencesDialog *self,
   g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "name", stack_page, "name", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "visible", stack_page, "visible", G_BINDING_SYNC_CREATE);
 
-  priv->n_pages++;
+  g_signal_connect_swapped (stack_page, "notify::visible", G_CALLBACK (update_view_switcher), self);
+
   update_view_switcher (self);
 }
 
@@ -709,7 +710,6 @@ adw_preferences_dialog_remove (AdwPreferencesDialog *self,
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
 
-  priv->n_pages--;
   update_view_switcher (self);
 }
 
