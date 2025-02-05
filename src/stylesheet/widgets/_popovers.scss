@@ -32,16 +32,31 @@ popover {
     }
   }
 
+  .solid-csd & {
+    background: var(--popover-bg-color);
+    color: var(--popover-fg-color);
+    border: 1px solid var(--border-color);
+
+    > arrow,
+    > contents {
+      box-shadow: none;
+      border-radius: 0;
+      background-clip: border-box;
+      border: none;
+    }
+  }
+
   .osd &,
   &.touch-selection,
   &.magnifier {
     background-color: transparent;
+    color: $osd_fg_color;
 
     > arrow,
     > contents {
       @extend %osd;
 
-      border: 1px solid RGB(255 255 255 / 10%);
+      border-color: RGB(255 255 255 / 10%);
       box-shadow: none;
     }
   }
