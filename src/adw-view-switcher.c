@@ -11,6 +11,7 @@
 #include "config.h"
 
 #include "adw-enums.h"
+#include "adw-marshalers.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-button-private.h"
 #include "adw-widget-utils-private.h"
@@ -103,6 +104,13 @@ enum {
   LAST_PROP,
 };
 
+enum {
+  SIGNAL_VISIBLE_CLICKED,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 struct _AdwViewSwitcher
 {
   GtkWidget parent_instance;
@@ -122,13 +130,16 @@ G_DEFINE_FINAL_TYPE (AdwViewSwitcher, adw_view_switcher, GTK_TYPE_WIDGET)
 
 static void
 on_button_toggled (GtkWidget       *button,
-                   GParamSpec      *pspec,
                    AdwViewSwitcher *self)
 {
   gboolean active;
   guint index;
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
+
+  if (active && self->active_button == button)
+    g_signal_emit (G_OBJECT (self), signals[SIGNAL_VISIBLE_CLICKED], 0);
+
   index = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (button), "child-index"));
 
   if (active) {
@@ -216,7 +227,7 @@ add_child (AdwViewSwitcher *self,
   gtk_orientable_set_orientation (GTK_ORIENTABLE (button),
                                   self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL);
 
-  g_signal_connect (button, "notify::active", G_CALLBACK (on_button_toggled), self);
+  g_signal_connect (button, "toggled", G_CALLBACK (on_button_toggled), self);
   g_signal_connect (page, "notify", G_CALLBACK (on_page_updated), self);
 
   g_hash_table_insert (self->buttons, g_object_ref (page), button);
@@ -458,6 +469,27 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
+
+  /**
+   * AdwViewSwitcher::visible-clicked:
+   *
+   * Emitted after the button corresponding to the visible page has been clicked.
+   *
+   * It can be used to perform actions like scrolling up.
+   *
+   * Since: 1.8
+   */
+  signals[SIGNAL_VISIBLE_CLICKED] =
+    g_signal_new ("visible-clicked",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
+  g_signal_set_va_marshaller (signals[SIGNAL_VISIBLE_CLICKED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_set_css_name (widget_class, "viewswitcher");
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
