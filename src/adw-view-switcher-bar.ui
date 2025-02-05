@@ -6,6 +6,7 @@
       <object class="GtkActionBar" id="action_bar">
         <child type="center">
           <object class="AdwViewSwitcher" id="view_switcher">
+            <signal name="visible-clicked" handler="visible_clicked_cb" swapped="yes"/>
             <property name="margin-start">10</property>
             <property name="margin-end">10</property>
             <property name="policy">narrow</property>

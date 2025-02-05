@@ -9,6 +9,7 @@
 
 #include "adw-enums.h"
 #include "adw-breakpoint-bin-private.h"
+#include "adw-marshalers.h"
 #include "adw-view-switcher-bar.h"
 
 /**
@@ -82,6 +83,13 @@ enum {
   LAST_PROP,
 };
 
+enum {
+  SIGNAL_VISIBLE_CLICKED,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 struct _AdwViewSwitcherBar
 {
   GtkWidget parent_instance;
@@ -96,6 +104,12 @@ struct _AdwViewSwitcherBar
 static GParamSpec *props[LAST_PROP];
 
 G_DEFINE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, GTK_TYPE_WIDGET)
+
+static void
+visible_clicked_cb (AdwViewSwitcherBar *self)
+{
+  g_signal_emit (G_OBJECT (self), signals[SIGNAL_VISIBLE_CLICKED], 0);
+}
 
 static void
 update_bar_revealed (AdwViewSwitcherBar *self)
@@ -257,6 +271,27 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  /**
+   * AdwViewSwitcherBar::visible-clicked:
+   *
+   * Emitted after the button corresponding to the visible page has been clicked.
+   *
+   * It can be used to perform actions like scrolling up.
+   *
+   * Since: 1.8
+   */
+  signals[SIGNAL_VISIBLE_CLICKED] =
+    g_signal_new ("visible-clicked",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
+  g_signal_set_va_marshaller (signals[SIGNAL_VISIBLE_CLICKED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
+
   gtk_widget_class_set_css_name (widget_class, "viewswitcherbar");
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 
@@ -264,6 +299,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-view-switcher-bar.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherBar, action_bar);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherBar, view_switcher);
+  gtk_widget_class_bind_template_callback (widget_class, visible_clicked_cb);
 }
 
 static void
