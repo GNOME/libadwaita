@@ -428,11 +428,10 @@ libadwaita_dep = declare_dependency(
 )
 
 if get_option('tests')
-  libadwaita_internal = library(
+  libadwaita_internal = static_library(
     'adwaita-' + apiversion + '-internal',
     libadwaita_sources,
 
-                soversion: soversion,
                    c_args: libadwaita_c_args,
              dependencies: libadwaita_deps,
       include_directories: [ root_inc, src_inc ],
@@ -444,7 +443,7 @@ if get_option('tests')
   libadwaita_internal_dep = declare_dependency(
                 sources: libadwaita_generated_headers,
            dependencies: libadwaita_public_deps,
-              link_with: libadwaita_internal,
+              link_whole: libadwaita_internal,
     include_directories: include_directories('.'),
   )
 endif
