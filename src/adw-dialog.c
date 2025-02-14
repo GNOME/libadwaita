@@ -144,14 +144,17 @@ typedef struct
   gpointer user_data;
 
   GtkWidget *window;
+  GtkEventController *window_close_controller;
   gboolean force_closing;
 } AdwDialogPrivate;
 
 static void adw_dialog_buildable_init (GtkBuildableIface *iface);
+static void adw_dialog_shortcut_manager_init (GtkShortcutManagerInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (AdwDialog, adw_dialog, GTK_TYPE_WIDGET,
                          G_ADD_PRIVATE (AdwDialog)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_dialog_buildable_init))
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_dialog_buildable_init)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SHORTCUT_MANAGER, adw_dialog_shortcut_manager_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -603,7 +606,6 @@ present_as_window (AdwDialog *self,
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   GtkWidget *titlebar;
-  GtkEventController *shortcut_controller;
   GtkShortcut *shortcut;
 
   if (priv->window) {
@@ -622,9 +624,10 @@ present_as_window (AdwDialog *self,
   shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Escape, 0),
                                gtk_callback_action_new ((GtkShortcutFunc) maybe_close_cb, self, NULL));
 
-  shortcut_controller = gtk_shortcut_controller_new ();
-  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (shortcut_controller), shortcut);
-  gtk_widget_add_controller (priv->window, shortcut_controller);
+  priv->window_close_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (priv->window_close_controller), GTK_SHORTCUT_SCOPE_MANAGED);
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (priv->window_close_controller), shortcut);
+  gtk_widget_add_controller (GTK_WIDGET (self), priv->window_close_controller);
 
   if (parent) {
     GtkRoot *root = gtk_widget_get_root (parent);
@@ -1302,6 +1305,8 @@ adw_dialog_init (AdwDialog *self)
   priv->follows_content_size = FALSE;
   priv->presentation_mode = ADW_DIALOG_AUTO;
 
+  gtk_widget_set_limit_events (GTK_WIDGET (self), TRUE);
+
   priv->child_breakpoint_bin = adw_breakpoint_bin_new ();
   gtk_widget_set_overflow (priv->child_breakpoint_bin, GTK_OVERFLOW_VISIBLE);
   adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),
@@ -1335,6 +1340,11 @@ adw_dialog_buildable_init (GtkBuildableIface *iface)
   parent_buildable_iface = g_type_interface_peek_parent (iface);
 
   iface->add_child = adw_dialog_buildable_add_child;
+}
+
+static void
+adw_dialog_shortcut_manager_init (GtkShortcutManagerInterface *iface)
+{
 }
 
 /**
@@ -1933,6 +1943,9 @@ adw_dialog_close (AdwDialog *self)
   if (priv->window) {
     GtkWidget *window = priv->window;
     priv->window = NULL;
+
+    gtk_widget_remove_controller (GTK_WIDGET (self), priv->window_close_controller);
+    priv->window_close_controller = NULL;
 
     if (priv->closing_callback)
       priv->closing_callback (self, priv->user_data);
