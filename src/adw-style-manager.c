@@ -793,6 +793,8 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
    * e.g. "Adwaita Sans 11".
    *
+   * Use [func@Pango.FontDescription.to_string] to parse it.
+   *
    * Since: 1.7
    */
   props[PROP_DOCUMENT_FONT_NAME] =
@@ -807,6 +809,8 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
    * e.g. "Adwaita Mono 11".
+   *
+   * Use [func@Pango.FontDescription.to_string] to parse it.
    *
    * Since: 1.7
    */
@@ -1143,6 +1147,8 @@ adw_style_manager_get_accent_color_rgba (AdwStyleManager *self)
  * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
  * e.g. "Adwaita Sans 11".
  *
+ * Use [func@Pango.FontDescription.to_string] to parse it.
+ *
  * Returns: the system document font
  *
  * Since: 1.7
@@ -1166,6 +1172,8 @@ adw_style_manager_get_document_font_name (AdwStyleManager *self)
  *
  * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
  * e.g. "Adwaita Mono 11".
+ *
+ * Use [func@Pango.FontDescription.to_string] to parse it.
  *
  * Returns: the system monospace font
  *
