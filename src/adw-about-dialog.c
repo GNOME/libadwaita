@@ -17,6 +17,7 @@
 #include "adw-alert-dialog.h"
 #include "adw-navigation-view.h"
 #include "adw-preferences-group.h"
+#include "adw-style-manager.h"
 #include "adw-toast-overlay.h"
 
 /**
@@ -1914,7 +1915,11 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
 static void
 adw_about_dialog_init (AdwAboutDialog *self)
 {
+  GdkDisplay *display = gtk_widget_get_display (GTK_WIDGET (self));
+  AdwStyleManager *manager = adw_style_manager_get_for_display (display);
+  GtkTextTag *code_tag;
   GtkAdjustment *adj;
+
   self->application_icon = g_strdup ("");
   self->application_name = g_strdup ("");
   self->developer_name = g_strdup ("");
@@ -1936,9 +1941,7 @@ adw_about_dialog_init (AdwAboutDialog *self)
   gtk_text_buffer_create_tag (self->release_notes_buffer, "em",
                               "style", PANGO_STYLE_ITALIC,
                               NULL);
-  gtk_text_buffer_create_tag (self->release_notes_buffer, "code",
-                              "family", "monospace",
-                              NULL);
+  code_tag = gtk_text_buffer_create_tag (self->release_notes_buffer, "code", NULL);
   gtk_text_buffer_create_tag (self->release_notes_buffer, "bullet",
                               "font-features", "tnum=1",
                               "left-margin", 24,
@@ -1950,6 +1953,8 @@ adw_about_dialog_init (AdwAboutDialog *self)
   gtk_text_buffer_create_tag (self->release_notes_buffer, "heading",
                               "weight", PANGO_WEIGHT_BOLD,
                               NULL);
+
+  g_object_bind_property (manager, "monospace-font-name", code_tag, "font", G_BINDING_SYNC_CREATE);
 
   adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
 
@@ -3567,3 +3572,4 @@ adw_show_about_dialog_from_appdata (GtkWidget  *parent,
 
   adw_dialog_present (dialog, parent);
 }
+
