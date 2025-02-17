@@ -82,6 +82,8 @@ struct _AdwAdaptivePreview
 
   int last_device_preset;
   AdwAnimation *rotate_animation;
+
+  GdkPaintable *device_paintable;
 };
 
 static GtkCssProvider *css_provider = NULL;
@@ -397,15 +399,13 @@ screenshot_clicked_cb (AdwAdaptivePreview *self)
   GskTransform *transform = transform_for_angle (self, NULL, FALSE);
   GtkSnapshot *snapshot = gtk_snapshot_new ();
   GskRenderNode *node;
-  GdkPaintable *paintable;
   GskRenderer *renderer;
   GdkTexture *texture;
   graphene_rect_t bounds;
 
   gtk_snapshot_transform (snapshot, transform);
 
-  paintable = gtk_widget_paintable_new (self->device_container);
-  gdk_paintable_snapshot (paintable, snapshot, width, height);
+  gdk_paintable_snapshot (self->device_paintable, snapshot, width, height);
 
   node = gtk_snapshot_free_to_node (snapshot);
 
@@ -418,7 +418,6 @@ screenshot_clicked_cb (AdwAdaptivePreview *self)
 
   gsk_transform_unref (transform);
   gsk_render_node_unref (node);
-  g_object_unref (paintable);
 }
 
 static void
@@ -703,6 +702,7 @@ adw_adaptive_preview_dispose (GObject *object)
   gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_ADAPTIVE_PREVIEW);
 
   g_clear_object (&self->rotate_animation);
+  g_clear_object (&self->device_paintable);
 
   G_OBJECT_CLASS (adw_adaptive_preview_parent_class)->dispose (object);
 }
@@ -895,6 +895,8 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
                               0, 1,
                               adw_spring_params_new (1, 1, 800),
                               target);
+
+  self->device_paintable = gtk_widget_paintable_new (self->device_container);
 }
 
 GtkWidget *
