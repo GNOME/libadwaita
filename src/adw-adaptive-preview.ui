@@ -194,7 +194,7 @@
                       <object class="GtkButton">
                         <signal name="clicked" handler="screenshot_clicked_cb" swapped="yes"/>
                         <property name="icon-name">camera-photo-symbolic</property>
-                        <property name="tooltip-text" translatable="yes">Screenshot</property>
+                        <property name="tooltip-text" translatable="yes">Take Screenshot</property>
                       </object>
                     </child>
                   </object>
