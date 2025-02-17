@@ -26,6 +26,9 @@ adaptive-preview {
 
     --window-radius: 0px;
 
+    /* Hack to make GtkGraphicsOffload disable offload in this case */
+    opacity: 99.9999999999999%;
+
     &.custom {
       padding: 0;
       border-radius: 0;
