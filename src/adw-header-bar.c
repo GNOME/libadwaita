@@ -268,7 +268,12 @@ recreate_start_controls (AdwHeaderBar *self)
   if (self->sheet)
     controls = adw_sheet_controls_new (GTK_PACK_START);
   else
-    controls = gtk_window_controls_new (GTK_PACK_START);
+    {
+      controls = gtk_window_controls_new (GTK_PACK_START);
+
+      gtk_window_controls_set_use_native_controls (GTK_WINDOW_CONTROLS (controls),
+                                                   self->adaptive_preview == NULL);
+    }
 
   g_object_bind_property (controls, "empty",
                           controls, "visible",
@@ -301,7 +306,12 @@ recreate_end_controls (AdwHeaderBar *self)
   if (self->sheet)
     controls = adw_sheet_controls_new (GTK_PACK_END);
   else
-    controls = gtk_window_controls_new (GTK_PACK_END);
+    {
+      controls = gtk_window_controls_new (GTK_PACK_END);
+
+      gtk_window_controls_set_use_native_controls (GTK_WINDOW_CONTROLS (controls),
+                                                   self->adaptive_preview == NULL);
+    }
 
   g_object_bind_property (controls, "empty",
                           controls, "visible",
