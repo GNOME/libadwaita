@@ -4,14 +4,14 @@
 #
 # Translators:
 # Silence Zhou <silence_zhou@126.com>, 2021
-# lumingzh <lumingzh@qq.com>, 2021-2024.
+# lumingzh <lumingzh@qq.com>, 2021-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-09-30 14:13+0000\n"
-"PO-Revision-Date: 2024-10-11 19:37+0800\n"
+"POT-Creation-Date: 2025-02-22 12:13+0000\n"
+"PO-Revision-Date: 2025-02-28 09:06+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -19,147 +19,147 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 47.0\n"
+"X-Generator: Gtranslator 47.1\n"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU 通用公共许可证，第 2 版及以上"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU 通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU 宽松通用公共许可证，第 2.1 版及以上"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU 宽松通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause 许可证"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "The MIT License (MIT)"
 msgstr "MIT 许可证"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "Artistic License 2.0"
 msgstr "艺术许可证第 2.0 版"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU 通用公共许可证，仅限第 2 版"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU 通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU 宽松通用公共许可证，仅限第 2.1 版"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU 宽松通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero 通用公共许可证，第 3 版及以上"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero 通用公共许可证，仅限第 3 版"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause 许可证"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "Apache License, Version 2.0"
 msgstr "Apache 许可证第 2.0 版"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla 公用许可证第 2.0 版"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "BSD Zero-Clause License"
 msgstr "BSD 0-Clause 许可证"
 
-#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
 msgid "Code by"
 msgstr "编程"
 
-#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Design by"
 msgstr "设计"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Artwork by"
 msgstr "美工"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Documentation by"
 msgstr "文档"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Translated by"
 msgstr "翻译"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:610 src/adw-about-window.c:603
+#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 msgstr "本程序不作任何担保。详情请见 <a href=\"%s\">%s</a>。"
 
-#: src/adw-about-dialog.c:688 src/adw-about-window.c:681
+#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
 msgid "This Application"
 msgstr "本应用程序"
 
-#: src/adw-about-dialog.c:990 src/adw-about-window.c:983
+#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
 #, c-format
 msgid "Version %s"
 msgstr "版本 %s"
 
-#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1009
+#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
 msgid "Unable to parse release notes:"
 msgstr "无法解析发行注记："
 
-#: src/adw-about-dialog.c:1022 src/adw-about-window.c:1015
+#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "行：%d，字符：%d"
 
-#: src/adw-about-dialog.c:1308 src/adw-about-window.c:1301
+#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
-#: src/adw-about-dialog.c:1335 src/adw-about-window.c:1329
+#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
 msgid "Unable to save debugging information"
 msgstr "无法保存调试信息"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1334
+#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "关闭"
 
-#: src/adw-about-dialog.c:1357 src/adw-about-window.c:1350
+#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
 msgid "Save debugging information"
 msgstr "保存调试信息"
 
-#: src/adw-about-dialog.c:2295
+#: src/adw-about-dialog.c:2301
 #, c-format
 msgid "Other Apps by %s"
 msgstr "%s 的其它应用"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2307
 msgid "Other Apps"
 msgstr "其它应用"
 
@@ -253,6 +253,124 @@ msgstr "法律信息"
 msgid "Acknowledgements"
 msgstr "致谢"
 
+#: src/adw-adaptive-preview.c:387
+msgid "Screenshot Copied to Clipboard"
+msgstr "截图已复制到剪贴板"
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr "适应性预览"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr "显示"
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr "设备"
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr "宽度"
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr "高度"
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr "旋转"
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr "向左旋转"
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr "向右旋转"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr "Shell"
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr "预设"
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr "顶栏"
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr "底栏"
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr "窗口控制"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr "视图"
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr "缩放至合适大小"
+
+#: src/adw-adaptive-preview.ui:150
+msgid "Highlight Bezel"
+msgstr "高亮边框"
+
+#: src/adw-adaptive-preview.ui:176
+msgid "Toggle Sidebar"
+msgstr "开关侧边栏"
+
+#: src/adw-adaptive-preview.ui:186
+msgid "Exit"
+msgstr "退出"
+
+#: src/adw-adaptive-preview.ui:196
+msgid "Screenshot"
+msgstr "截图"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgid "Desktop Shell"
+msgstr "桌面 Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgid "Mobile Shell"
+msgstr "移动 Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgid "Phosh"
+msgstr "Phosh"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgid "Fullscreen"
+msgstr "全屏"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+#: src/adw-adaptive-preview-presets-private.h:126
+msgid "Custom"
+msgstr "自定义"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgid "Generic Phone"
+msgstr "常规手机"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgid "Generic Tablet"
+msgstr "常规平板"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgid "OnePlus 6"
+msgstr "一加 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgid "OnePlus 6T"
+msgstr "一加 6T"
+
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
@@ -273,56 +391,56 @@ msgstr "搜索"
 msgid "Apply"
 msgstr "应用"
 
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:129
 msgid "No Preference"
 msgstr "无首选项"
 
-#: src/adw-inspector-page.c:100
+#: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
 msgstr "首选暗色"
 
-#: src/adw-inspector-page.c:102
+#: src/adw-inspector-page.c:133
 msgid "Prefer Light"
 msgstr "首选亮色"
 
-#: src/adw-inspector-page.c:115
+#: src/adw-inspector-page.c:146
 msgid "Blue"
 msgstr "蓝色"
 
-#: src/adw-inspector-page.c:117
+#: src/adw-inspector-page.c:148
 msgid "Teal"
 msgstr "蓝绿"
 
-#: src/adw-inspector-page.c:119
+#: src/adw-inspector-page.c:150
 msgid "Green"
 msgstr "绿色"
 
-#: src/adw-inspector-page.c:121
+#: src/adw-inspector-page.c:152
 msgid "Yellow"
 msgstr "黄色"
 
-#: src/adw-inspector-page.c:123
+#: src/adw-inspector-page.c:154
 msgid "Orange"
 msgstr "橙色"
 
-#: src/adw-inspector-page.c:125
+#: src/adw-inspector-page.c:156
 msgid "Red"
 msgstr "红色"
 
-#: src/adw-inspector-page.c:127
+#: src/adw-inspector-page.c:158
 msgid "Pink"
 msgstr "粉红"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:160
 msgid "Purple"
 msgstr "紫色"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:162
 msgid "Slate"
 msgstr "岩灰"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:270
+#: src/adw-inspector-page.c:301
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -364,6 +482,14 @@ msgstr "无障碍"
 msgid "High Contrast"
 msgstr "高对比度"
 
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"测试应用在指定屏幕大小的表现以模拟移动设备环境。使用 Shift+Ctrl+M 可在任意支"
+"持窗口上直接打开预览"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "隐藏密码"
@@ -380,7 +506,7 @@ msgstr "大写锁定已开启"
 msgid "_Show Password"
 msgstr "显示密码(_S)"
 
-#: src/adw-preferences-dialog.c:212 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
 msgid "Untitled page"
 msgstr "无标题页面"
 
@@ -396,7 +522,7 @@ msgstr "搜索首选项"
 msgid "No Results Found"
 msgstr "没有找到结果"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "尝试不同的搜索"
 
@@ -423,23 +549,23 @@ msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%u 个标签页"
 
-#: src/adw-tab-overview.ui:21
+#: src/adw-tab-overview.ui:20
 msgid "Search Tabs"
 msgstr "搜索标签页"
 
-#: src/adw-tab-overview.ui:51
+#: src/adw-tab-overview.ui:50
 msgid "Search tabs"
 msgstr "搜索标签页"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:96
 msgid "No Open Tabs"
 msgstr "无打开的标签页"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:109
 msgid "No Tabs Found"
 msgstr "未找到标签页"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:130
 msgid "New _Tab"
 msgstr "新建标签页(_T)"
 
@@ -447,24 +573,28 @@ msgstr "新建标签页(_T)"
 msgid "Close Tab"
 msgstr "关闭标签页"
 
-#: src/adw-toast-overlay.c:275
+#: src/adw-toast-overlay.c:278
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Toast 提示已出现：%s，具有按钮：%s"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:281
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Toast 提示已出现：%s"
 
-#: src/adw-toast-overlay.c:280
+#: src/adw-toast-overlay.c:283
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Toast 提示已出现，具有按钮：%s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:286
 msgid "A toast appeared"
 msgstr "Toast 提示已出现"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "拒绝"
 
 #~ msgid "Search…"
 #~ msgstr "搜索…"
