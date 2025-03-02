@@ -1,6 +1,49 @@
+==============
+Version 1.7.rc
+==============
+
+- Fix build failures on win32
+- Bump minimum GTK and GLib versions
+- Adaptive preview
+  - Fix screenshotting GtkGraphicsOffload
+  - Add a missing translators comment
+- AdwAboutDialog/Window
+  - Use system monospace font for `<code>` in release notes
+- AdwDialog
+  - Fix parent window shortcuts propagating into dialogs
+- AdwPreferencesDialog
+  - Hide pages with visible=false
+- AdwStyleManager
+  - Document how to handle font names
+- Stylesheet
+  - Fix popovers in non-composited environments
+  - Fix GtkPaned drag area
+- Translation updates
+  - Basque
+  - Brazilian Portuguese
+  - Bulgarian
+  - Catalan
+  - Chinese (China)
+  - Czech
+  - Finnish
+  - Galician
+  - Georgian
+  - Hebrew
+  - Indonesian
+  - Korean
+  - Lithuanian
+  - Norwegian Bokmål
+  - Occitan
+  - Persian
+  - Polish
+  - Portuguese
+  - Turkish
+  - Ukrainian
+
 ================
 Version 1.7.beta
 ================
+
 - AdwApplicationWindow, AdwWindow
   - Add a public property for toggling adaptive preview
   - Open adaptive preview with Ctrl+Shift+M
