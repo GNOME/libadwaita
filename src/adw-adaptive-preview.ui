@@ -147,6 +147,7 @@
                         </child>
                         <child>
                           <object class="AdwSwitchRow">
+                            <!-- Translators: screen bezel, e.g. on a phone -->
                             <property name="title" translatable="yes">Highlight Bezel</property>
                             <property name="active" bind-source="AdwAdaptivePreview" bind-property="highlight-bezel" bind-flags="sync-create|bidirectional"/>
                           </object>
