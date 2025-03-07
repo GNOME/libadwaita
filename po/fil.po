@@ -1,0 +1,594 @@
+# Filipino translation for libadwaita.
+# Copyright (C) 2025 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# Iverson Briones <ivercoder@proton.me>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2025-03-07 06:58+0000\n"
+"PO-Revision-Date: 2025-03-07 20:47+0800\n"
+"Last-Translator: \n"
+"Language-Team: Filipino <fil@li.org>\n"
+"Language: fil\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, bersyon 2 o mas bago"
+
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, bersyon 3 o mas bago"
+
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, bersyon 2.1 o mas bago"
+
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, bersyon 3 o mas bago"
+
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause License"
+
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+msgid "The MIT License (MIT)"
+msgstr "Ang MIT License (MIT)"
+
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, bersyon 2 lamang"
+
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, bersyon 3 lamang"
+
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, bersyon 2.1 lamang"
+
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, bersyon 3 lamang"
+
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, bersyon 3 o mas bago"
+
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, bersyon 3 lamang"
+
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause License"
+
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, Bersyon 2.0"
+
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+msgid "BSD Zero-Clause License"
+msgstr "BSD Zero-Clause License"
+
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+msgid "Code by"
+msgstr "Code ni(na)/ng"
+
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+msgid "Design by"
+msgstr "Disenyo ni(na)/ng"
+
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+msgid "Artwork by"
+msgstr "Guhit ni(na)/ng"
+
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+msgid "Documentation by"
+msgstr "Dokumentasyon ni(na)/ng"
+
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+msgid "Translated by"
+msgstr "Isinalin ni(na)/ng"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Walang anumang warranty na kasama sa aplikasyong ito. Sumangguni sa <a "
+"href=\"%s\">%s</a> para sa higit pang detalye."
+
+#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+msgid "This Application"
+msgstr "Aplikasyong Ito"
+
+#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#, c-format
+msgid "Version %s"
+msgstr "Bersyon %s"
+
+#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+msgid "Unable to parse release notes:"
+msgstr "Hindi maproseso ang mga tala sa release:"
+
+#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Linya: %d, karakter: %d"
+
+#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+msgid "Copied to clipboard"
+msgstr "Kinopya sa clipboard"
+
+#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+msgid "Unable to save debugging information"
+msgstr "Hindi ma-save ang impormasyon sa pag-debug"
+
+#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-sheet-controls.c:127
+msgid "Close"
+msgstr "Isara"
+
+#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+msgid "Save debugging information"
+msgstr "I-save ang impormasyon sa pag-debug"
+
+#: src/adw-about-dialog.c:2301
+#, c-format
+msgid "Other Apps by %s"
+msgstr "Iba pang App ni(na)/ng %s"
+
+#: src/adw-about-dialog.c:2307
+msgid "Other Apps"
+msgstr "Iba pang App"
+
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+msgid "About"
+msgstr "Tungkol"
+
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
+msgid "_What’s New"
+msgstr "Ano'ng _Bago"
+
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
+msgid "_Details"
+msgstr "Mga _Detalye"
+
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+msgid "_Website"
+msgstr "_Website"
+
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+msgid "_Support Questions"
+msgstr "Mga Tanong Pang_suporta"
+
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+msgid "_Report an Issue"
+msgstr "Mag-_ulat ng Problema"
+
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+msgid "_Troubleshooting"
+msgstr "Pag-_troubleshoot"
+
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+msgid "_Credits"
+msgstr "_Credits"
+
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+msgid "_Legal"
+msgstr "_Ligal"
+
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+msgid "_Acknowledgements"
+msgstr "Pasa_salamat"
+
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+msgid "What’s New"
+msgstr "Ano'ng Bago"
+
+#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+msgid "Details"
+msgstr "Mga Detalye"
+
+#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+msgid "Troubleshooting"
+msgstr "Pag-troubleshoot"
+
+#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+
+#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+msgid "_Debugging Information"
+msgstr ""
+
+#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+msgid "Debugging Information"
+msgstr ""
+
+#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+msgid "_Copy Text"
+msgstr ""
+
+#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+msgid "_Save As…"
+msgstr ""
+
+#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+msgid "Credits"
+msgstr ""
+
+#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+msgid "Legal"
+msgstr ""
+
+#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+msgid "Acknowledgements"
+msgstr ""
+
+#: src/adw-adaptive-preview.c:387
+msgid "Screenshot Copied to Clipboard"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr ""
+
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
+msgid "Highlight Bezel"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:177
+msgid "Toggle Sidebar"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:187
+msgid "Exit"
+msgstr ""
+
+#: src/adw-adaptive-preview.ui:197
+msgid "Screenshot"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgid "Desktop Shell"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgid "Mobile Shell"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgid "Phosh"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgid "Fullscreen"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:28
+#: src/adw-adaptive-preview-presets-private.h:126
+msgid "Custom"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgid "Generic Phone"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgid "Generic Tablet"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgid "OnePlus 6"
+msgstr ""
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgid "OnePlus 6T"
+msgstr ""
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr ""
+
+#: src/adw-back-button.c:311 src/adw-back-button.c:409
+#: src/adw-back-button.c:519
+msgid "Back"
+msgstr ""
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr ""
+
+#: src/adw-entry-row.ui:96
+msgid "Apply"
+msgstr ""
+
+#: src/adw-inspector-page.c:129
+msgid "No Preference"
+msgstr ""
+
+#: src/adw-inspector-page.c:131
+msgid "Prefer Dark"
+msgstr ""
+
+#: src/adw-inspector-page.c:133
+msgid "Prefer Light"
+msgstr ""
+
+#: src/adw-inspector-page.c:146
+msgid "Blue"
+msgstr ""
+
+#: src/adw-inspector-page.c:148
+msgid "Teal"
+msgstr ""
+
+#: src/adw-inspector-page.c:150
+msgid "Green"
+msgstr ""
+
+#: src/adw-inspector-page.c:152
+msgid "Yellow"
+msgstr ""
+
+#: src/adw-inspector-page.c:154
+msgid "Orange"
+msgstr ""
+
+#: src/adw-inspector-page.c:156
+msgid "Red"
+msgstr ""
+
+#: src/adw-inspector-page.c:158
+msgid "Pink"
+msgstr ""
+
+#: src/adw-inspector-page.c:160
+msgid "Purple"
+msgstr ""
+
+#: src/adw-inspector-page.c:162
+msgid "Slate"
+msgstr ""
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:301
+msgid "Adwaita"
+msgstr ""
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr ""
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr ""
+
+#: src/adw-inspector-page.ui:20
+msgid "Preferred Color Scheme"
+msgstr ""
+
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr ""
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr ""
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr ""
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr ""
+
+#: src/adw-inspector-page.ui:80
+msgid "High Contrast"
+msgstr ""
+
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr ""
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr ""
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr ""
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr ""
+
+#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+msgid "Untitled page"
+msgstr ""
+
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr ""
+
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr ""
+
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+msgid "No Results Found"
+msgstr ""
+
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+msgid "Try a different search"
+msgstr ""
+
+#: src/adw-preferences-window.ui:164
+msgid "Try a different search."
+msgstr ""
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr ""
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+msgid "More Options"
+msgstr ""
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr ""
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:931
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/adw-tab-overview.ui:20
+msgid "Search Tabs"
+msgstr ""
+
+#: src/adw-tab-overview.ui:50
+msgid "Search tabs"
+msgstr ""
+
+#: src/adw-tab-overview.ui:96
+msgid "No Open Tabs"
+msgstr ""
+
+#: src/adw-tab-overview.ui:109
+msgid "No Tabs Found"
+msgstr ""
+
+#: src/adw-tab-overview.ui:130
+msgid "New _Tab"
+msgstr ""
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
+msgid "Close Tab"
+msgstr ""
+
+#: src/adw-toast-overlay.c:278
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:281
+#, c-format
+msgid "A toast appeared: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:283
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr ""
+
+#: src/adw-toast-overlay.c:286
+msgid "A toast appeared"
+msgstr ""
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr ""
