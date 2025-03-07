@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-03-02 14:50+0100\n"
+"POT-Creation-Date: 2025-03-02 20:32+0000\n"
+"PO-Revision-Date: 2025-03-07 17:15+0100\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -308,7 +308,7 @@ msgstr "Bunnlinje"
 
 #: src/adw-adaptive-preview.ui:133
 msgid "Window Controls"
-msgstr "Vindukontroller"
+msgstr "Vinduskontroller"
 
 #: src/adw-adaptive-preview.ui:141
 msgid "View"
@@ -318,19 +318,20 @@ msgstr "Visning"
 msgid "Scale to Fit"
 msgstr "Tilpass vindu"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Fremhev ramme"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Sidelinje"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Avslutt"
 
-#: src/adw-adaptive-preview.ui:196
+#: src/adw-adaptive-preview.ui:197
 msgid "Screenshot"
 msgstr "Ta skjermbilde"
 
