@@ -455,6 +455,7 @@ if introspection
    libadwaita_gir_extra_args = [
      '--c-include=adwaita.h',
      '--quiet',
+     '--doc-format=gi-docgen',
      '-DADWAITA_COMPILATION',
    ]
 
