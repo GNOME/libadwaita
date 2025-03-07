@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-05-02 11:16+0000\n"
-"PO-Revision-Date: 2022-05-09 10:37+0545\n"
+"POT-Creation-Date: 2025-02-22 12:13+0000\n"
+"PO-Revision-Date: 2025-03-07 12:41+0545\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ne\n"
@@ -16,22 +16,428 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.5\n"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU सामान्य सार्वजनिक लाइसेन्स, संस्करण २ वा पछिल्लो"
+
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU सामान्य सार्वजनिक लाइसेन्स, संस्करण ३ वा पछिल्लो"
+
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU कम्ति साधारण सार्वजनिक इजाजतपत्र, संस्करण २. १ वा पछिल्लो"
+
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU कम्ति साधारण सार्वजनिक इजाजतपत्र, संस्करण ३ वा पछिल्लो"
+
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+msgid "BSD 2-Clause License"
+msgstr "BSD २ बुदे अनुमतिपत्र"
+
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+msgid "The MIT License (MIT)"
+msgstr "MIT इजाजतपत्र (MIT)"
+
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+msgid "Artistic License 2.0"
+msgstr "Artistic अनुमतीपत्र २.०"
+
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU सामान्य सार्वजनिक लाइसेन्स, संस्करण २ मात्र"
+
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU सामान्य सार्वजनिक लाइसेन्स, संस्करण ३ मात्र"
+
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU कम्ति साधारण सार्वजनिक इजाजतपत्र, संस्करण २. १ मात्र"
+
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU कम्ति साधारण सार्वजनिक इजाजतपत्र, संस्करण ३ मात्र"
+
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero सामान्य सार्वजनिक ईजाजतपत्र संस्करण ३ वा पछिल्लो"
+
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero सामान्य सार्वजनिक ईजाजतपत्र संस्करण ३ मात्र"
+
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+msgid "BSD 3-Clause License"
+msgstr "BSD ३ बुदे अनुमतिपत्र"
+
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, Version 2.0"
+
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+msgid "Mozilla Public License 2.0"
+msgstr "मोजिला सार्वजनिक अनुमतीपत्र २.०"
+
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+msgid "BSD Zero-Clause License"
+msgstr "बीएसडी जीरो-क्लॉज लाइसेंस"
+
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+msgid "Code by"
+msgstr "बाट सङ्केतन"
+
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+msgid "Design by"
+msgstr "डिजाइन गर्ने"
+
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+msgid "Artwork by"
+msgstr "कलाकारिता"
+
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+msgid "Documentation by"
+msgstr "मिसिलिकरण"
+
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+msgid "Translated by"
+msgstr "अनुवाद"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">%s</a> for "
+"details."
+msgstr ""
+"यो एप्लिकेशन बिल्कुल कुनै वारेन्टीको साथ आउँदछ। विस्तृत जानकारीको लागि <ए एचआरईएफ=\"%s\">%s "
+"हेर्नुहोस्</a>।."
+
+#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+msgid "This Application"
+msgstr "यो अनुप्रयोग"
+
+#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#, c-format
+msgid "Version %s"
+msgstr "%s संस्करण"
+
+#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+msgid "Unable to parse release notes:"
+msgstr "रिलीज टिपोट पद वर्णन गर्न अक्षम:"
+
+#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "रेखा: %d, वर्ण: %d"
+
+#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+msgid "Copied to clipboard"
+msgstr "क्लिपबोर्डमा प्रतिलिपि"
+
+#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+msgid "Unable to save debugging information"
+msgstr "डिबगिङ सूचना बचत गर्न अक्षम"
+
+#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335 src/adw-sheet-controls.c:127
+msgid "Close"
+msgstr "बन्दगर्नुहोस्"
+
+#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+msgid "Save debugging information"
+msgstr "डिबुगिङ सूचना बचत गर्नुहोस्"
+
+#: src/adw-about-dialog.c:2301
+#, c-format
+msgid "Other Apps by %s"
+msgstr "अन्य अनुप्रयोगहरू %s द्वारा"
+
+#: src/adw-about-dialog.c:2307
+msgid "Other Apps"
+msgstr "अन्य अनुप्रयोग देखाउनुहोस्"
+
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+msgid "About"
+msgstr "बारेमा"
+
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
+msgid "_What’s New"
+msgstr "नयाँ के हो"
+
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
+msgid "_Details"
+msgstr "विस्तृत"
+
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345 src/adw-about-window.ui:123
+#: src/adw-about-window.ui:343
+msgid "_Website"
+msgstr "वेबसाइट"
+
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+msgid "_Support Questions"
+msgstr "समर्थन प्रश्नहरू"
+
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+msgid "_Report an Issue"
+msgstr "एउटा मुद्दा रिपोर्ट गर्नुहोस्"
+
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+msgid "_Troubleshooting"
+msgstr "समस्या निवारण"
+
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+msgid "_Credits"
+msgstr "श्रेयहरू"
+
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+msgid "_Legal"
+msgstr "कानूनी"
+
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+msgid "_Acknowledgements"
+msgstr "स्वीकार गरेको जानकारी दिने"
+
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+msgid "What’s New"
+msgstr "नयाँ के हो"
+
+#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+msgid "Details"
+msgstr "विवरण"
+
+#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+msgid "Troubleshooting"
+msgstr "समस्या निवारण"
+
+#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. Providing this "
+"information to the application developers can help diagnose any problems you encounter "
+"when you report an issue."
+msgstr ""
+"समस्या निवारणमा सहयोग गर्न, तपाईँले आफ्नो डिबगिङ जानकारी हेर्न सक्नुहुन्छ । अनुप्रयोग विकासकर्ताहरूलाई "
+"यो जानकारी प्रदान गर्दा तपाईंले कुनै समस्याको रिपोर्ट गर्दा सामना गर्नुपर्ने कुनै पनि समस्याहरूको निदान "
+"गर्न मद्दत गर्न सक्छ।."
+
+#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+msgid "_Debugging Information"
+msgstr "डिबगिङ सूचना देखाउनुहोस्"
+
+#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+msgid "Debugging Information"
+msgstr "डिबगिङ सूचना देखाउनुहोस्"
+
+#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+msgid "_Copy Text"
+msgstr "पाठ प्रतिलिपि बनाउनुहोस्"
+
+#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+msgid "_Save As…"
+msgstr "यस रूपमा बचत गर्नुहोस्…"
+
+#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+msgid "Credits"
+msgstr "श्रेयहरू"
+
+#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+msgid "Legal"
+msgstr "कानूनी"
+
+#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+msgid "Acknowledgements"
+msgstr "स्वीकार गरेको जानकारी दिने"
+
+#: src/adw-adaptive-preview.c:387
+msgid "Screenshot Copied to Clipboard"
+msgstr "क्लिपबोर्डमा स्क्रिनसट प्रतिलिपि गरियो"
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65 src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr "अनुकूल पूर्वावलोकन"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr "प्रदर्शन गर्नुहोस्"
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr "यन्त्र"
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr "चौडाइ"
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr "उचाइ"
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr "घुमाउनुहोस्"
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr "बायाँ घुमाउनुहोस्"
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr "दायाँ घुमाउनुहोस्"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr "शेल"
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr "पूर्व निर्धारित"
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr "माथिल्लो पट्टी"
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr "तलपट्टी"
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr "सञ्झ्याल नियन्त्रण"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr "दृश्य"
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr "मिलान गर्न स्केल गर्नुहोस्"
+
+#: src/adw-adaptive-preview.ui:150
+msgid "Highlight Bezel"
+msgstr "हाइलाइट बेजेल"
+
+#: src/adw-adaptive-preview.ui:176
+msgid "Toggle Sidebar"
+msgstr "साइडबार टगल गर्नुहोस्"
+
+#: src/adw-adaptive-preview.ui:186
+msgid "Exit"
+msgstr "बाहिरिनुस्"
+
+#: src/adw-adaptive-preview.ui:196
+msgid "Screenshot"
+msgstr "स्क्रिनसट"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgid "Desktop Shell"
+msgstr "डेस्कटप शेल"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgid "Mobile Shell"
+msgstr "मोबाइल शेल"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgid "Phosh"
+msgstr "फोश"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgid "Fullscreen"
+msgstr "पूरा पर्दा"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+#: src/adw-adaptive-preview-presets-private.h:126
+msgid "Custom"
+msgstr "अनुकूल"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgid "Generic Phone"
+msgstr "सामान्य फोन"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgid "Generic Tablet"
+msgstr "सामान्य ट्याब्लेट"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgid "OnePlus 6"
+msgstr "वनप्लस ६"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgid "OnePlus 6T"
+msgstr "वनप्लस ६टि"
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr "%s को अवतार"
+
+#: src/adw-back-button.c:311 src/adw-back-button.c:409 src/adw-back-button.c:519
+msgid "Back"
+msgstr "पछाडि"
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "खोज्नुहोस्"
+
+#: src/adw-entry-row.ui:96
+msgid "Apply"
+msgstr "लागु गर्ने"
+
+#: src/adw-inspector-page.c:129
 msgid "No Preference"
 msgstr "प्राथमिकता छैन"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
 msgstr "अध्यारो लाई प्राथमिकता दिनुहोस"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:133
 msgid "Prefer Light"
 msgstr "प्रकाश प्राथमिकता"
 
+#: src/adw-inspector-page.c:146
+msgid "Blue"
+msgstr "नीलो"
+
+#: src/adw-inspector-page.c:148
+msgid "Teal"
+msgstr "गाढा नीलो"
+
+#: src/adw-inspector-page.c:150
+msgid "Green"
+msgstr "हरियो"
+
+#: src/adw-inspector-page.c:152
+msgid "Yellow"
+msgstr "पहेँलो"
+
+#: src/adw-inspector-page.c:154
+msgid "Orange"
+msgstr "सुन्तला"
+
+#: src/adw-inspector-page.c:156
+msgid "Red"
+msgstr "रातो"
+
+#: src/adw-inspector-page.c:158
+msgid "Pink"
+msgstr "गुलाबि"
+
+#: src/adw-inspector-page.c:160
+msgid "Purple"
+msgstr "बैजनी"
+
+#: src/adw-inspector-page.c:162
+msgid "Slate"
+msgstr "पाटी"
+
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:301
 msgid "Adwaita"
 msgstr "अडवैत"
 
@@ -41,39 +447,148 @@ msgstr "प्रणाली देखावट"
 
 #: src/adw-inspector-page.ui:11
 msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-"यस अनुप्रयोगका लागि सेटिङ अधिरोहण गर्नुहोस् । निरीक्षक बन्द गर्दा तिनीहरू रिसेट हुनेछन्।"
+"Override settings for this application. They will be reset upon closing the inspector."
+msgstr "यस अनुप्रयोगका लागि सेटिङ अधिरोहण गर्नुहोस् । निरीक्षक बन्द गर्दा तिनीहरू रिसेट हुनेछन्।."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
 msgstr "प्रणालीले रङ योजना समर्थन गर्दछ"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
 msgstr "रूचाइएका रङ योजना"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "उच्चारण रङ"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "प्रणालीले उच्चारण रङ समर्थन गर्दछ"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "प्राथमिकता प्राप्त उच्चारण रङ"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "पहुँचता"
+
+#: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "उच्च व्यतिरेक"
 
-#: src/adw-preferences-window.c:226
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open the "
+"preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"मोबाइल वातावरण अनुकरण गर्न विशिष्ट स्क्रिन साइजमा अनुप्रयोग परीक्षण गर्नुहोस्। SHIFT+Ctrl+M प्रयोग "
+"गरेर कुनै पनि समर्थित सञ्झ्यालमा पूर्वावलोकन सीधै खोल्नुहोस्"
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "पासवर्ड लुकाउनुहोस्"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "पासवर्ड देखाउनुहोस्"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "क्यप्स लक अन छ"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "पासवर्ड देखाउनुहोस्"
+
+#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
 msgid "Untitled page"
 msgstr "शीर्षक विहिन पृष्ठ"
 
-#: src/adw-preferences-window.ui:8
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
 msgid "Preferences"
 msgstr "अभिरुचीहरू"
 
-#: src/adw-preferences-window.ui:69
-msgid "Search"
-msgstr "खोज्नुहोस्"
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "प्राथमिकताहरू खोजी गर्नुहोस्"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "नतिजा भेटिएन"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+msgid "Try a different search"
+msgstr "फरक खोजी कोशिश गर्नुहोस्"
+
+#: src/adw-preferences-window.ui:164
 msgid "Try a different search."
 msgstr "फरक खोज कोशिश गर्नुहोस् ।."
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "सञ्झ्याल बन्द गर्नुहोस्"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+msgid "More Options"
+msgstr "थप विकल्पहरू"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "खुलेका ट्याबहरु हेर्नुहोस्"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:931
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u ट्याब"
+msgstr[1] "%u ट्याबहरू"
+
+#: src/adw-tab-overview.ui:20
+msgid "Search Tabs"
+msgstr "ट्याब खोजी गर्नुहोस्"
+
+#: src/adw-tab-overview.ui:50
+msgid "Search tabs"
+msgstr "ट्याब खोजी गर्नुहोस्"
+
+#: src/adw-tab-overview.ui:96
+msgid "No Open Tabs"
+msgstr "खुलेका ट्याबहरू छैन"
+
+#: src/adw-tab-overview.ui:109
+msgid "No Tabs Found"
+msgstr "ट्याब फेला परेन"
+
+#: src/adw-tab-overview.ui:130
+msgid "New _Tab"
+msgstr "नयाँ ट्याब"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
+msgid "Close Tab"
+msgstr "ट्याब बन्द गर्नुहोस्"
+
+#: src/adw-toast-overlay.c:278
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "एउटा टोस्ट देखा पर्यो: %s, एउटा बटन छ: %s"
+
+#: src/adw-toast-overlay.c:281
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "एक टोस्ट प्रकट भयो: %s"
+
+#: src/adw-toast-overlay.c:283
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "टोस्ट देखा पर्यो, एउटा बटन छ: %s"
+
+#: src/adw-toast-overlay.c:286
+msgid "A toast appeared"
+msgstr "टोस्ट देखा पर्यो"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "खारेज"
