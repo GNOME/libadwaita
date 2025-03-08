@@ -5,17 +5,16 @@
 # Translators:
 # Assumpta, 2020
 # Jaume Jorba <jaume.jorba@gmail.com>, 2020
-# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2022-2024
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2022-2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-02-23 22:27+0100\n"
+"POT-Creation-Date: 2025-03-02 20:32+0000\n"
+"PO-Revision-Date: 2025-03-08 22:27+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
-"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
-"ca/)\n"
+"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,15 +113,14 @@ msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
-#.
 #: src/adw-about-dialog.c:612 src/adw-about-window.c:604
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu la <a href=\"%s\">"
-"%s</a> per a més detalls."
+"Aquesta aplicació no té absolutament cap garantia. Vegeu la <a "
+"href=\"%s\">%s</a> per a més detalls."
 
 #: src/adw-about-dialog.c:690 src/adw-about-window.c:682
 msgid "This Application"
@@ -303,7 +301,7 @@ msgstr "Intèrpret d'ordres"
 
 #: src/adw-adaptive-preview.ui:99
 msgid "Preset"
-msgstr ""
+msgstr "Predefinit"
 
 #: src/adw-adaptive-preview.ui:105
 msgid "Top Bar"
@@ -325,19 +323,20 @@ msgstr "Vista"
 msgid "Scale to Fit"
 msgstr "Escala a la mida"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
-msgstr ""
+msgstr "Ressaltat del bisell"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Commuta la barra lateral"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Surt"
 
-#: src/adw-adaptive-preview.ui:196
+#: src/adw-adaptive-preview.ui:197
 msgid "Screenshot"
 msgstr "Captura de pantalla"
 
@@ -388,7 +387,8 @@ msgstr "Avatar de %s"
 msgid "Back"
 msgstr "Enrere"
 
-#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#. Translators: This is a placeholder text of the search entry from
+#. AdwComboRow. It should be phrased as a verb.
 #: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
 #: src/adw-preferences-window.ui:96
 msgid "Search"
@@ -493,8 +493,8 @@ msgstr "Contrast alt"
 
 #: src/adw-inspector-page.ui:89
 msgid ""
-"Test the app at specific screen sizes to simulate a mobile environment. Open "
-"the preview directly on any supported window using Shift+Ctrl+M"
+"Test the app at specific screen sizes to simulate a mobile environment. Open"
+" the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
 "Proveu l'aplicació amb dimensions de pantalla específiques per simular un "
 "entorn mòbil. Obriu la previsualització directament en qualsevol finestra "
@@ -606,6 +606,3 @@ msgstr "Ha aparegut una notificació"
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Descarta"
-
-#~ msgid "Search…"
-#~ msgstr "Cerca…"
