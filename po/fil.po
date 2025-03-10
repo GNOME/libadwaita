@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2025-03-07 06:58+0000\n"
-"PO-Revision-Date: 2025-03-07 20:47+0800\n"
+"PO-Revision-Date: 2025-03-10 17:43+0800\n"
 "Last-Translator: \n"
 "Language-Team: Filipino <fil@li.org>\n"
 "Language: fil\n"
@@ -221,374 +221,382 @@ msgid ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
+"Para makatulong sa pag-troubleshoot, pwede mong makita ang impormasyon pang-"
+"debug. Nakatutulong ang impormasyong ito para masuri ng mga developer ang "
+"anumang problemang naranasan mo kapag nag-ulat ka ng problema."
 
 #: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
 msgid "_Debugging Information"
-msgstr ""
+msgstr "Impormasyon sa Pag-_debug"
 
 #: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
 msgid "Debugging Information"
-msgstr ""
+msgstr "Impormasyon sa Pag-debug"
 
 #: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
 msgid "_Copy Text"
-msgstr ""
+msgstr "_Kopyahin ang Teksto"
 
 #: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
 msgid "_Save As…"
-msgstr ""
+msgstr "I-_save Bilang…"
 
 #: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 #: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
 msgid "Legal"
-msgstr ""
+msgstr "Ligal"
 
 #: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
 msgid "Acknowledgements"
-msgstr ""
+msgstr "Pasasalamat"
 
 #: src/adw-adaptive-preview.c:387
 msgid "Screenshot Copied to Clipboard"
-msgstr ""
+msgstr "Kinopya sa Clipboard ang Screenshot"
 
 #: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
-msgstr ""
+msgstr "Adaptive na Pasilip"
 
 #: src/adw-adaptive-preview.ui:28
 msgid "Display"
-msgstr ""
+msgstr "Display"
 
 #: src/adw-adaptive-preview.ui:31
 msgid "Device"
-msgstr ""
+msgstr "Device"
 
 #: src/adw-adaptive-preview.ui:37
 msgid "Width"
-msgstr ""
+msgstr "Lapad"
 
 #: src/adw-adaptive-preview.ui:51
 msgid "Height"
-msgstr ""
+msgstr "Taas"
 
 #: src/adw-adaptive-preview.ui:65
 msgid "Rotate"
-msgstr ""
+msgstr "Ikutin"
 
 #: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
 msgid "Rotate Left"
-msgstr ""
+msgstr "Ikutin Pakaliwa"
 
 #: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
 msgid "Rotate Right"
-msgstr ""
+msgstr "Ikutin Pakanan"
 
 #: src/adw-adaptive-preview.ui:96
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: src/adw-adaptive-preview.ui:99
 msgid "Preset"
-msgstr ""
+msgstr "Preset"
 
 #: src/adw-adaptive-preview.ui:105
 msgid "Top Bar"
-msgstr ""
+msgstr "Bar sa Itaas"
 
 #: src/adw-adaptive-preview.ui:119
 msgid "Bottom Bar"
-msgstr ""
+msgstr "Bar sa Ibaba"
 
 #: src/adw-adaptive-preview.ui:133
 msgid "Window Controls"
-msgstr ""
+msgstr "Kontrol sa Window"
 
 #: src/adw-adaptive-preview.ui:141
 msgid "View"
-msgstr ""
+msgstr "Tingin"
 
 #: src/adw-adaptive-preview.ui:144
 msgid "Scale to Fit"
-msgstr ""
+msgstr "I-scale para Magkasya"
 
 #. Translators: screen bezel, e.g. on a phone
 #: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
-msgstr ""
+msgstr "I-highlight ang Bezel"
 
 #: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "I-toggle ang Sidebar"
 
 #: src/adw-adaptive-preview.ui:187
 msgid "Exit"
-msgstr ""
+msgstr "Umalis"
 
 #: src/adw-adaptive-preview.ui:197
 msgid "Screenshot"
-msgstr ""
+msgstr "Screenshot"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
-msgstr ""
+msgstr "Shell Pang-Desktop"
 
 #: src/adw-adaptive-preview-presets-private.h:25
 msgid "Mobile Shell"
-msgstr ""
+msgstr "Shell Pang-Mobile"
 
 #: src/adw-adaptive-preview-presets-private.h:26
 msgid "Phosh"
-msgstr ""
+msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
 msgid "Fullscreen"
-msgstr ""
+msgstr "Buong Screen"
 
 #: src/adw-adaptive-preview-presets-private.h:28
 #: src/adw-adaptive-preview-presets-private.h:126
 msgid "Custom"
-msgstr ""
+msgstr "Pasadya"
 
 #: src/adw-adaptive-preview-presets-private.h:90
 msgid "Generic Phone"
-msgstr ""
+msgstr "Generikong Cellphone"
 
 #: src/adw-adaptive-preview-presets-private.h:99
 msgid "Generic Tablet"
-msgstr ""
+msgstr "Generikong Tablet"
 
 #: src/adw-adaptive-preview-presets-private.h:108
 msgid "OnePlus 6"
-msgstr ""
+msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
 msgid "OnePlus 6T"
-msgstr ""
+msgstr "OnePlus 6T"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
-msgstr ""
+msgstr "Avatar ni/ng %s"
 
 #: src/adw-back-button.c:311 src/adw-back-button.c:409
 #: src/adw-back-button.c:519
 msgid "Back"
-msgstr ""
+msgstr "Bumalik"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
 #: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
 #: src/adw-preferences-window.ui:96
 msgid "Search"
-msgstr ""
+msgstr "Maghanap"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
-msgstr ""
+msgstr "I-apply"
 
 #: src/adw-inspector-page.c:129
 msgid "No Preference"
-msgstr ""
+msgstr "Walang Kagustuhan"
 
 #: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
-msgstr ""
+msgstr "Mas Gustuhin ang Madilim"
 
 #: src/adw-inspector-page.c:133
 msgid "Prefer Light"
-msgstr ""
+msgstr "Mas Gustuhin ang Maliwanag"
 
 #: src/adw-inspector-page.c:146
 msgid "Blue"
-msgstr ""
+msgstr "Asul"
 
 #: src/adw-inspector-page.c:148
 msgid "Teal"
-msgstr ""
+msgstr "Teal"
 
 #: src/adw-inspector-page.c:150
 msgid "Green"
-msgstr ""
+msgstr "Berde"
 
 #: src/adw-inspector-page.c:152
 msgid "Yellow"
-msgstr ""
+msgstr "Dilaw"
 
 #: src/adw-inspector-page.c:154
 msgid "Orange"
-msgstr ""
+msgstr "Kahel"
 
 #: src/adw-inspector-page.c:156
 msgid "Red"
-msgstr ""
+msgstr "Pula"
 
 #: src/adw-inspector-page.c:158
 msgid "Pink"
-msgstr ""
+msgstr "Pink"
 
 #: src/adw-inspector-page.c:160
 msgid "Purple"
-msgstr ""
+msgstr "Lila"
 
 #: src/adw-inspector-page.c:162
 msgid "Slate"
-msgstr ""
+msgstr "Slate"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:301
 msgid "Adwaita"
-msgstr ""
+msgstr "Adwaita"
 
 #: src/adw-inspector-page.ui:10
 msgid "System Appearance"
-msgstr ""
+msgstr "Hitsura ng System"
 
 #: src/adw-inspector-page.ui:11
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
 msgstr ""
+"I-override ang mga setting para sa aplikasyong ito. Mare-reset sila pagka-"
+"close ng inspektor."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
-msgstr ""
+msgstr "Sinusuportahan ng System ang mga Color Scheme"
 
 #: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
-msgstr ""
+msgstr "Gustong Color Sheme"
 
 #: src/adw-inspector-page.ui:39
 msgid "Accent Color"
-msgstr ""
+msgstr "Kulay ng Accent"
 
 #: src/adw-inspector-page.ui:42
 msgid "System Supports Accent Colors"
-msgstr ""
+msgstr "Sinusuportahan ng System ang Kulay ng Accent"
 
 #: src/adw-inspector-page.ui:48
 msgid "Preferred Accent Color"
-msgstr ""
+msgstr "Gustong Kulay ng Accent"
 
 #: src/adw-inspector-page.ui:77
 msgid "Accessibility"
-msgstr ""
+msgstr "Accessibility"
 
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
-msgstr ""
+msgstr "Mataas na Contrast"
 
 #: src/adw-inspector-page.ui:89
 msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
+"Subukan ang app sa mga nakatakdang laki ng screen para ma-simulate ang isang "
+"cellphone. Diretsong buksan ang pasilip sa anumang suportadong window gamit "
+"ang Shift+Ctrl+M"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
-msgstr ""
+msgstr "Itago ang Password"
 
 #: src/adw-password-entry-row.c:74
 msgid "Show Password"
-msgstr ""
+msgstr "Ipakita ang Password"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
-msgstr ""
+msgstr "Naka-on ang Caps Lock"
 
 #: src/adw-password-entry-row.c:176
 msgid "_Show Password"
-msgstr ""
+msgstr "Ipa_kita ang Password"
 
 #: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
 msgid "Untitled page"
-msgstr ""
+msgstr "Pahinang walang pangalan"
 
 #: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
 msgid "Preferences"
-msgstr ""
+msgstr "Mga kagustuhan"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr ""
+msgstr "Mga kagustuhan sa paghahanap"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
-msgstr ""
+msgstr "Walang Nahanap na Resulta"
 
 #: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
 msgid "Try a different search"
-msgstr ""
+msgstr "Subukang maghanap ng iba"
 
 #: src/adw-preferences-window.ui:164
 msgid "Try a different search."
-msgstr ""
+msgstr "Subukang maghanap ng iba."
 
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
-msgstr ""
+msgstr "Isarado ang window"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
-msgstr ""
+msgstr "Higit pang Opsyon"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
-msgstr ""
+msgstr "Ipakita ang mga Bukas na Tab"
 
 #. Translators: Tab overview title, %u is the number of open tabs
 #: src/adw-tab-overview.c:931
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u Tab"
+msgstr[1] "%u Tab"
 
 #: src/adw-tab-overview.ui:20
 msgid "Search Tabs"
-msgstr ""
+msgstr "Maghanap ng Tab"
 
 #: src/adw-tab-overview.ui:50
 msgid "Search tabs"
-msgstr ""
+msgstr "Maghanap ng tab"
 
 #: src/adw-tab-overview.ui:96
 msgid "No Open Tabs"
-msgstr ""
+msgstr "Walang Bukas na Tab"
 
 #: src/adw-tab-overview.ui:109
 msgid "No Tabs Found"
-msgstr ""
+msgstr "Walang Nahanap na Tab"
 
 #: src/adw-tab-overview.ui:130
 msgid "New _Tab"
-msgstr ""
+msgstr "Bagong _Tab"
 
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
 msgid "Close Tab"
-msgstr ""
+msgstr "Isara ang Tab"
 
 #: src/adw-toast-overlay.c:278
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
-msgstr ""
+msgstr "May lumabas na toast: %s, may pindutan: %s"
 
 #: src/adw-toast-overlay.c:281
 #, c-format
 msgid "A toast appeared: %s"
-msgstr ""
+msgstr "May lumabas na toast: %s"
 
 #: src/adw-toast-overlay.c:283
 #, c-format
 msgid "A toast appeared, has a button: %s"
-msgstr ""
+msgstr "May lumabas na toast, may pindutan: %s"
 
 #: src/adw-toast-overlay.c:286
 msgid "A toast appeared"
-msgstr ""
+msgstr "May lumabas na toast"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
-msgstr ""
+msgstr "Alisin"
