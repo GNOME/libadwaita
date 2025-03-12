@@ -453,7 +453,6 @@ meson.override_dependency(package_api_name, libadwaita_dep)
 if introspection
 
    libadwaita_gir_extra_args = [
-     '--c-include=adwaita.h',
      '--quiet',
      '--doc-format=gi-docgen',
      '-DADWAITA_COMPILATION',
@@ -467,6 +466,7 @@ if introspection
            symbol_prefix: 'adw',
        identifier_prefix: 'Adw',
                link_with: libadwaita,
+                  header: 'adwaita.h',
                 includes: ['Gio-2.0', 'Gtk-4.0'],
                  install: true,
          install_dir_gir: girdir,
