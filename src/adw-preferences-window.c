@@ -64,7 +64,8 @@ typedef struct
   gboolean search_enabled;
   gboolean can_navigate_back;
 
-  GtkFilter *filter;
+  GtkFilter *row_filter;
+  GtkFilter *page_filter;
   GtkFilterListModel *filter_model;
 
   int n_pages;
@@ -349,6 +350,8 @@ update_view_switcher (AdwPreferencesWindow *self)
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->title);
 
   adw_breakpoint_condition_free (condition);
+
+  gtk_filter_changed (priv->page_filter, GTK_FILTER_CHANGE_DIFFERENT);
 }
 
 static void
@@ -420,7 +423,7 @@ search_changed_cb (AdwPreferencesWindow *self)
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   guint n;
 
-  gtk_filter_changed (priv->filter, GTK_FILTER_CHANGE_DIFFERENT);
+  gtk_filter_changed (priv->row_filter, GTK_FILTER_CHANGE_DIFFERENT);
 
   n = g_list_model_get_n_items (G_LIST_MODEL (priv->filter_model));
 
@@ -673,17 +676,19 @@ adw_preferences_window_init (AdwPreferencesWindow *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  priv->filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) filter_search_results, self, NULL));
+  priv->row_filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) filter_search_results, self, NULL));
+
   expr = gtk_property_expression_new (ADW_TYPE_VIEW_STACK_PAGE, NULL, "visible");
+  priv->page_filter = GTK_FILTER (gtk_bool_filter_new (expr));
 
   model = G_LIST_MODEL (adw_view_stack_get_pages (priv->pages_stack));
-  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, priv->page_filter));
   model = G_LIST_MODEL (gtk_map_list_model_new (model,
                                                 (GtkMapListModelMapFunc) preferences_page_to_rows,
                                                 NULL,
                                                 NULL));
   model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
-  priv->filter_model = gtk_filter_list_model_new (model, priv->filter);
+  priv->filter_model = gtk_filter_list_model_new (model, priv->row_filter);
 
   gtk_search_entry_set_key_capture_widget (priv->search_entry, GTK_WIDGET (self));
 }
