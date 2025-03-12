@@ -175,6 +175,12 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
+static void
+child_breakpoint_bin_notify_current_breakpoint_cb (AdwDialog *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CURRENT_BREAKPOINT]);
+}
+
 static gboolean
 map_tick_cb (AdwDialog *self)
 {
@@ -1290,6 +1296,10 @@ adw_dialog_init (AdwDialog *self)
   g_object_bind_property (self, "height-request",
                           priv->child_breakpoint_bin, "height-request",
                           G_BINDING_DEFAULT);
+  g_signal_connect_swapped (priv->child_breakpoint_bin,
+                            "notify::current-breakpoint",
+                            G_CALLBACK (child_breakpoint_bin_notify_current_breakpoint_cb),
+                            self);
 }
 
 static void
