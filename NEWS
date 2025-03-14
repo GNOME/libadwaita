@@ -1,3 +1,26 @@
+=============
+Version 1.7.0
+=============
+
+- Build
+  - Specify --doc-format for GIR data
+- AdwDialog
+  - Fix :current-breakpoint notifications
+- AdwPreferencesDialog/Window
+  - Exclude hidden pages from search too
+  - Fix the search filter expression
+- Translation updates
+  - Belarusian
+  - Catalan
+  - Danish
+  - Filipino
+  - French
+  - Hungarian
+  - Nepali
+  - Norwegian Bokmål
+  - Spanish
+  - Swedish
+
 ==============
 Version 1.7.rc
 ==============
