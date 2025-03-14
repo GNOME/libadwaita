@@ -1,4 +1,13 @@
 =============
+Version 1.6.5
+=============
+
+- AdwDialog
+  - Fix :current-breakpoint notifications
+- AdwPreferencesDialog/Window
+  - Fix the search filter expression
+
+=============
 Version 1.6.4
 =============
 
