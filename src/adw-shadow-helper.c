@@ -20,6 +20,9 @@ struct _AdwShadowHelper
   GtkWidget *shadow;
   GtkWidget *border;
   GtkWidget *outline;
+
+  GtkPanDirection last_direction;
+  gboolean last_direction_valid;
 };
 
 G_DEFINE_FINAL_TYPE (AdwShadowHelper, adw_shadow_helper, G_TYPE_OBJECT);
@@ -162,6 +165,12 @@ set_style_classes (AdwShadowHelper *self,
                    GtkPanDirection  direction)
 {
   const char *classes[2];
+
+  /* Avoid needlessly reassigning the CSS classes. */
+  if (self->last_direction_valid && self->last_direction == direction)
+    return;
+  self->last_direction_valid = TRUE;
+  self->last_direction = direction;
 
   switch (direction) {
   case GTK_PAN_DIRECTION_LEFT:
