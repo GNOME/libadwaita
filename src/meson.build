@@ -425,9 +425,7 @@ if get_option('tests')
                    c_args: libadwaita_c_args,
              dependencies: libadwaita_deps,
       include_directories: [ root_inc, src_inc ],
-                  install: true,
                 link_args: libadwaita_link_args,
-              install_dir: adwaita_libdir,
   )
 
   libadwaita_internal_dep = declare_dependency(
