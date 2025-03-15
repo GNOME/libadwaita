@@ -9,109 +9,109 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-08-21 12:56+0000\n"
-"PO-Revision-Date: 2024-08-22 15:41+0100\n"
-"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"POT-Creation-Date: 2025-03-14 20:41+0000\n"
+"PO-Revision-Date: 2025-03-15 19:57+0000\n"
+"Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en@li.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: src/adw-about-dialog.c:207 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public Licence, version 2 or later"
 
-#: src/adw-about-dialog.c:208 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:209 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public Licence, version 2.1 or later"
 
-#: src/adw-about-dialog.c:210 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:211 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause Licence"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "The MIT License (MIT)"
 msgstr "The MIT Licence (MIT)"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "Artistic License 2.0"
 msgstr "Artistic Licence 2.0"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public Licence, version 2 only"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public Licence, version 2.1 only"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause Licence"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "Apache License, Version 2.0"
 msgstr "Apache Licence, Version 2.0"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public Licence 2.0"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause Licence"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
 msgid "Code by"
 msgstr "Code by"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Design by"
 msgstr "Design by"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Artwork by"
 msgstr "Artwork by"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Documentation by"
 msgstr "Documentation by"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:563
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Translated by"
 msgstr "Translated by"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:592
+#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -120,95 +120,104 @@ msgstr ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:670
+#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
 msgid "This Application"
 msgstr "This Application"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:972
+#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:998
+#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
 msgid "Unable to parse release notes:"
 msgstr "Unable to parse release notes:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1004
+#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Line: %d, character: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1290
+#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1318
+#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
 msgid "Unable to save debugging information"
 msgstr "Unable to save debugging information"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1323
+#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Close"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1339
+#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
 msgid "Save debugging information"
 msgstr "Save debugging information"
+
+#: src/adw-about-dialog.c:2301
+#, c-format
+msgid "Other Apps by %s"
+msgstr "Other Apps by %s"
+
+#: src/adw-about-dialog.c:2307
+msgid "Other Apps"
+msgstr "Other Apps"
 
 #: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
 msgid "About"
 msgstr "About"
 
-#: src/adw-about-dialog.ui:89 src/adw-about-window.ui:92
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
 msgid "_What’s New"
 msgstr "_What’s New"
 
-#: src/adw-about-dialog.ui:105 src/adw-about-window.ui:108
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "_Details"
 
-#: src/adw-about-dialog.ui:121 src/adw-about-dialog.ui:341
-#: src/adw-about-window.ui:124 src/adw-about-window.ui:344
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
 msgid "_Website"
 msgstr "_Website"
 
-#: src/adw-about-dialog.ui:145 src/adw-about-window.ui:148
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Support Questions"
 msgstr "_Support Questions"
 
-#: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
 msgid "_Report an Issue"
 msgstr "_Report an Issue"
 
-#: src/adw-about-dialog.ui:178 src/adw-about-window.ui:181
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
 msgid "_Troubleshooting"
 msgstr "_Troubleshooting"
 
-#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
 msgid "_Credits"
 msgstr "_Credits"
 
-#: src/adw-about-dialog.ui:214 src/adw-about-window.ui:217
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
 msgid "_Legal"
 msgstr "_Legal"
 
-#: src/adw-about-dialog.ui:230 src/adw-about-window.ui:233
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
 msgid "_Acknowledgements"
 msgstr "_Acknowledgements"
 
-#: src/adw-about-dialog.ui:260 src/adw-about-window.ui:263
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
 msgid "What’s New"
 msgstr "What’s New"
 
-#: src/adw-about-dialog.ui:303 src/adw-about-window.ui:306
+#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
 msgid "Details"
 msgstr "Details"
 
-#: src/adw-about-dialog.ui:369 src/adw-about-window.ui:372
+#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
 msgid "Troubleshooting"
 msgstr "Troubleshooting"
 
-#: src/adw-about-dialog.ui:392 src/adw-about-window.ui:395
+#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -218,36 +227,162 @@ msgstr ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 
-#: src/adw-about-dialog.ui:403 src/adw-about-window.ui:406
+#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
 msgid "_Debugging Information"
 msgstr "_Debugging Information"
 
-#: src/adw-about-dialog.ui:430 src/adw-about-window.ui:433
+#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
 msgid "Debugging Information"
 msgstr "Debugging Information"
 
-#: src/adw-about-dialog.ui:475 src/adw-about-window.ui:478
+#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
 msgid "_Copy Text"
 msgstr "_Copy Text"
 
-#: src/adw-about-dialog.ui:483 src/adw-about-window.ui:486
+#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
 msgid "_Save As…"
 msgstr "_Save As…"
 
-#: src/adw-about-dialog.ui:496 src/adw-about-window.ui:499
+#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
 msgid "Credits"
 msgstr "Credits"
 
-#: src/adw-about-dialog.ui:527 src/adw-about-window.ui:530
+#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
 msgid "Legal"
 msgstr "Legal"
 
-#: src/adw-about-dialog.ui:559 src/adw-about-window.ui:562
+#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
 msgid "Acknowledgements"
 msgstr "Acknowledgements"
 
-#: src/adw-back-button.c:330 src/adw-back-button.c:428
-#: src/adw-back-button.c:538
+#: src/adw-adaptive-preview.c:387
+#| msgid "Copied to clipboard"
+msgid "Screenshot Copied to Clipboard"
+msgstr "Screenshot Copied to Clipboard"
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr "Adaptive Preview"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr "Display"
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr "Device"
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr "Width"
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr "Height"
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr "Rotate"
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr "Rotate Left"
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr "Rotate Right"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr "Shell"
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr "Preset"
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr "Top Bar"
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr "Bottom Bar"
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr "Window Controls"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr "View"
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr "Scale to Fit"
+
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
+msgid "Highlight Bezel"
+msgstr "Highlight Bezel"
+
+#: src/adw-adaptive-preview.ui:177
+msgid "Toggle Sidebar"
+msgstr "Toggle Sidebar"
+
+#: src/adw-adaptive-preview.ui:187
+msgid "Exit"
+msgstr "Exit"
+
+#: src/adw-adaptive-preview.ui:197
+msgid "Screenshot"
+msgstr "Screenshot"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgid "Desktop Shell"
+msgstr "Desktop Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgid "Mobile Shell"
+msgstr "Mobile Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgid "Phosh"
+msgstr "Phosh"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+#: src/adw-adaptive-preview-presets-private.h:126
+#| msgid "Custom Title"
+msgid "Custom"
+msgstr "Custom"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgid "Generic Phone"
+msgstr "Generic Phone"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgid "Generic Tablet"
+msgstr "Generic Tablet"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgid "OnePlus 6"
+msgstr "OnePlus 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgid "OnePlus 6T"
+msgstr "OnePlus 6T"
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr "Avatar of %s"
+
+#: src/adw-back-button.c:311 src/adw-back-button.c:409
+#: src/adw-back-button.c:519
 msgid "Back"
 msgstr "Back"
 
@@ -261,56 +396,56 @@ msgstr "Search"
 msgid "Apply"
 msgstr "Apply"
 
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:129
 msgid "No Preference"
 msgstr "No Preference"
 
-#: src/adw-inspector-page.c:100
+#: src/adw-inspector-page.c:131
 msgid "Prefer Dark"
 msgstr "Prefer Dark"
 
-#: src/adw-inspector-page.c:102
+#: src/adw-inspector-page.c:133
 msgid "Prefer Light"
 msgstr "Prefer Light"
 
-#: src/adw-inspector-page.c:115
+#: src/adw-inspector-page.c:146
 msgid "Blue"
 msgstr "Blue"
 
-#: src/adw-inspector-page.c:117
+#: src/adw-inspector-page.c:148
 msgid "Teal"
 msgstr "Teal"
 
-#: src/adw-inspector-page.c:119
+#: src/adw-inspector-page.c:150
 msgid "Green"
 msgstr "Green"
 
-#: src/adw-inspector-page.c:121
+#: src/adw-inspector-page.c:152
 msgid "Yellow"
 msgstr "Yellow"
 
-#: src/adw-inspector-page.c:123
+#: src/adw-inspector-page.c:154
 msgid "Orange"
 msgstr "Orange"
 
-#: src/adw-inspector-page.c:125
+#: src/adw-inspector-page.c:156
 msgid "Red"
 msgstr "Red"
 
-#: src/adw-inspector-page.c:127
+#: src/adw-inspector-page.c:158
 msgid "Pink"
 msgstr "Pink"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:160
 msgid "Purple"
 msgstr "Purple"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:162
 msgid "Slate"
 msgstr "Slate"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:270
+#: src/adw-inspector-page.c:301
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -339,12 +474,10 @@ msgid "Accent Color"
 msgstr "Accent Colour"
 
 #: src/adw-inspector-page.ui:42
-#| msgid "System Supports Color Schemes"
 msgid "System Supports Accent Colors"
 msgstr "System Supports Accent Colours"
 
 #: src/adw-inspector-page.ui:48
-#| msgid "Preferred Color Scheme"
 msgid "Preferred Accent Color"
 msgstr "Preferred Accent Colour"
 
@@ -355,6 +488,14 @@ msgstr "Accessibility"
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
 msgstr "High Contrast"
+
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -372,7 +513,7 @@ msgstr "Caps Lock is on"
 msgid "_Show Password"
 msgstr "_Show Password"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:261
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Untitled page"
 
@@ -388,8 +529,7 @@ msgstr "Search preferences"
 msgid "No Results Found"
 msgstr "No Results Found"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:111
-#| msgid "Try a different search."
+#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Try a different search"
 
@@ -401,7 +541,7 @@ msgstr "Try a different search."
 msgid "Close the window"
 msgstr "Close the window"
 
-#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
 msgstr "More Options"
 
@@ -410,30 +550,30 @@ msgid "View Open Tabs"
 msgstr "View Open Tabs"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:928
+#: src/adw-tab-overview.c:931
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%u Tab"
 msgstr[1] "%u Tabs"
 
-#: src/adw-tab-overview.ui:21
+#: src/adw-tab-overview.ui:20
 msgid "Search Tabs"
 msgstr "Search Tabs"
 
-#: src/adw-tab-overview.ui:51
+#: src/adw-tab-overview.ui:50
 msgid "Search tabs"
 msgstr "Search tabs"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:96
 msgid "No Open Tabs"
 msgstr "No Open Tabs"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:109
 msgid "No Tabs Found"
 msgstr "No Tabs Found"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:130
 msgid "New _Tab"
 msgstr "New _Tab"
 
@@ -441,24 +581,28 @@ msgstr "New _Tab"
 msgid "Close Tab"
 msgstr "Close Tab"
 
-#: src/adw-toast-overlay.c:271
+#: src/adw-toast-overlay.c:278
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "A toast appeared: %s, has a button: %s"
 
-#: src/adw-toast-overlay.c:274
+#: src/adw-toast-overlay.c:281
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "A toast appeared: %s"
 
-#: src/adw-toast-overlay.c:276
+#: src/adw-toast-overlay.c:283
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "A toast appeared, has a button: %s"
 
-#: src/adw-toast-overlay.c:279
+#: src/adw-toast-overlay.c:286
 msgid "A toast appeared"
 msgstr "A toast appeared"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "Dismiss"
 
 #~ msgid "Hide Text"
 #~ msgstr "Hide Text"
@@ -718,9 +862,6 @@ msgstr "A toast appeared"
 
 #~ msgid "The subtitle to display"
 #~ msgstr "The subtitle to display"
-
-#~ msgid "Custom Title"
-#~ msgstr "Custom Title"
 
 #~ msgid "Custom title widget to display"
 #~ msgstr "Custom title widget to display"
