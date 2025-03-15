@@ -450,11 +450,17 @@ meson.override_dependency(package_api_name, libadwaita_dep)
 
 if introspection
 
+   gir_dep = dependency('gobject-introspection-1.0')
    libadwaita_gir_extra_args = [
      '--quiet',
-     '--doc-format=gi-docgen',
      '-DADWAITA_COMPILATION',
    ]
+   if gir_dep.version().version_compare('>=1.83.2')
+     libadwaita_gir_extra_args += [
+       '--doc-format=gi-docgen',
+     ]
+   endif
+
 
    libadwaita_gir = gnome.generate_gir(libadwaita,
                  sources: libadwaita_generated_headers + libadwaita_public_headers + libadwaita_public_sources,
