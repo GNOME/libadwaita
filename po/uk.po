@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-02-24 16:09+0200\n"
+"POT-Creation-Date: 2025-03-15 14:08+0000\n"
+"PO-Revision-Date: 2025-03-15 22:01+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -257,7 +257,6 @@ msgid "Acknowledgements"
 msgstr "Відомості"
 
 #: src/adw-adaptive-preview.c:387
-#| msgid "Copied to clipboard"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Знімок вікна скопійовано до буфера"
 
@@ -322,21 +321,23 @@ msgstr "Перегляд"
 msgid "Scale to Fit"
 msgstr "Умістити на сторінці"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Фаска підсвічування"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Увімкнути або вимкнути бічну панель"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Вийти"
 
-#: src/adw-adaptive-preview.ui:196
-msgid "Screenshot"
-msgstr "Знімок вікна"
+#: src/adw-adaptive-preview.ui:197
+#| msgid "Screenshot"
+msgid "Take Screenshot"
+msgstr "Зробити знімок"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -356,7 +357,6 @@ msgstr "На весь екран"
 
 #: src/adw-adaptive-preview-presets-private.h:28
 #: src/adw-adaptive-preview-presets-private.h:126
-#| msgid "Custom Title"
 msgid "Custom"
 msgstr "Нетиповий"
 
@@ -494,9 +494,9 @@ msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
-"Перевірити програму з використанням певних розмірів екрана з метою"
-" імітування мобільного середовища. Відкрийте попередній перегляд"
-" безпосередньо на будь-якому підтримуваному вікні за допомогою Shift+Ctrl+M"
+"Перевірити програму з використанням певних розмірів екрана з метою "
+"імітування мобільного середовища. Відкрийте попередній перегляд "
+"безпосередньо на будь-якому підтримуваному вікні за допомогою Shift+Ctrl+M"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -514,7 +514,7 @@ msgstr "Caps Lock увімкнено"
 msgid "_Show Password"
 msgstr "_Показати пароль"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Сторінка без назви"
 
