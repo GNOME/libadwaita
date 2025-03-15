@@ -9,160 +9,160 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-01-16 16:47+0000\n"
-"PO-Revision-Date: 2025-01-17 11:47+0100\n"
+"POT-Creation-Date: 2025-03-15 14:08+0000\n"
+"PO-Revision-Date: 2025-03-15 22:38+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
-#: src/adw-about-dialog.c:212 src/adw-about-window.c:207
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
 msgstr "Splošno javno dovoljenje GNU, različice 2 ali kasnejše"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 3 or later"
 msgstr "Splošno javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Manj splošno javno dovoljenje GNU, različice 2.1 ali kasnejše"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Manj splošno javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "BSD 2-Clause License"
 msgstr "Dovoljenje BSD 2-Clause"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "The MIT License (MIT)"
 msgstr "Dovoljenje MIT"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "Artistic License 2.0"
 msgstr "Umetniško dovoljenje 2.0"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "GNU General Public License, version 2 only"
 msgstr "Splošno javno dovoljenje GNU, le različice 2"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 3 only"
 msgstr "Splošno javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Manj splošno javno dovoljenje GNU, le različice 2.1"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Manj splošno javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Splošno javno dovoljenje Affero GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Splošno javno dovoljenje GNU Affero, le različica 3"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "BSD 3-Clause License"
 msgstr "Dovoljenje BSD 3-Clause"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "Apache License, Version 2.0"
 msgstr "Dovoljenje Apache, različica 2.0"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Mozilla Public License 2.0"
 msgstr "Javno dovoljenje Mozilla 2.0"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "BSD Zero-Clause License"
 msgstr "Dovoljenje BSD Zero-Clause"
 
-#: src/adw-about-dialog.c:578 src/adw-about-window.c:570
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
 msgid "Code by"
 msgstr "Programiranje:"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Design by"
 msgstr "Oblikovanje:"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Artwork by"
 msgstr "Grafična podoba:"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Documentation by"
 msgstr "Dokumentacija:"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Translated by"
 msgstr "Prevod:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:611 src/adw-about-window.c:603
+#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
 "Ta program je objavljen brez vsakršnega jamstva. Več podrobnosti je "
 "zapisanih v datoteki <a href=\"%s\">%s</a>"
 
-#: src/adw-about-dialog.c:689 src/adw-about-window.c:681
+#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
 msgid "This Application"
 msgstr "Program"
 
-#: src/adw-about-dialog.c:991 src/adw-about-window.c:983
+#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
 #, c-format
 msgid "Version %s"
 msgstr "Različica %s"
 
-#: src/adw-about-dialog.c:1017 src/adw-about-window.c:1009
+#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
 msgid "Unable to parse release notes:"
 msgstr "Ni mogoče razčleniti opomb k izdaji:"
 
-#: src/adw-about-dialog.c:1023 src/adw-about-window.c:1015
+#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Vrstica: %d, znak: %d"
 
-#: src/adw-about-dialog.c:1309 src/adw-about-window.c:1301
+#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
 msgid "Copied to clipboard"
 msgstr "Kopirano v odložišče"
 
-#: src/adw-about-dialog.c:1336 src/adw-about-window.c:1329
+#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
 msgid "Unable to save debugging information"
 msgstr "Podrobnosti razhroščevanja ni mogoče shraniti."
 
-#: src/adw-about-dialog.c:1341 src/adw-about-window.c:1334
+#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Zapri"
 
-#: src/adw-about-dialog.c:1358 src/adw-about-window.c:1350
+#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
 msgid "Save debugging information"
 msgstr "Shrani podrobnosti razhroščevanja"
 
-#: src/adw-about-dialog.c:2296
+#: src/adw-about-dialog.c:2301
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Drugi programi avtorjev %s"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2307
 msgid "Other Apps"
 msgstr "Drugi programi"
 
@@ -257,86 +257,87 @@ msgstr "Pravna opomba"
 msgid "Acknowledgements"
 msgstr "Priznanja vlog"
 
-#: src/adw-adaptive-preview.c:371
+#: src/adw-adaptive-preview.c:387
 msgid "Screenshot Copied to Clipboard"
 msgstr "Posnetek zaslona je kopiran v odložišče"
 
-#: src/adw-adaptive-preview.ui:16 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Prilagodljiv predogled"
 
-#: src/adw-adaptive-preview.ui:25
+#: src/adw-adaptive-preview.ui:28
 msgid "Display"
 msgstr "Zaslon"
 
-#: src/adw-adaptive-preview.ui:28
+#: src/adw-adaptive-preview.ui:31
 msgid "Device"
 msgstr "Naprava"
 
-#: src/adw-adaptive-preview.ui:34
+#: src/adw-adaptive-preview.ui:37
 msgid "Width"
 msgstr "Širina"
 
-#: src/adw-adaptive-preview.ui:48
+#: src/adw-adaptive-preview.ui:51
 msgid "Height"
 msgstr "Višina"
 
-#: src/adw-adaptive-preview.ui:62
+#: src/adw-adaptive-preview.ui:65
 msgid "Rotate"
 msgstr "Zasukaj"
 
-#: src/adw-adaptive-preview.ui:65 src/adw-adaptive-preview.ui:67
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
 msgid "Rotate Left"
 msgstr "Zasukaj levo"
 
-#: src/adw-adaptive-preview.ui:77 src/adw-adaptive-preview.ui:79
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
 msgid "Rotate Right"
 msgstr "Zasukaj desno"
 
-#: src/adw-adaptive-preview.ui:93
+#: src/adw-adaptive-preview.ui:96
 msgid "Shell"
 msgstr "Lupina"
 
-#: src/adw-adaptive-preview.ui:96
+#: src/adw-adaptive-preview.ui:99
 msgid "Preset"
 msgstr "Prednastavitev"
 
-#: src/adw-adaptive-preview.ui:102
+#: src/adw-adaptive-preview.ui:105
 msgid "Top Bar"
 msgstr "Vrhnja vrstica"
 
-#: src/adw-adaptive-preview.ui:116
+#: src/adw-adaptive-preview.ui:119
 msgid "Bottom Bar"
 msgstr "Spodnja vrstica"
 
-#: src/adw-adaptive-preview.ui:130
+#: src/adw-adaptive-preview.ui:133
 msgid "Window Controls"
 msgstr "Kontrolniki oken"
 
-#: src/adw-adaptive-preview.ui:138
+#: src/adw-adaptive-preview.ui:141
 msgid "View"
 msgstr "Pogled"
 
-#: src/adw-adaptive-preview.ui:141
+#: src/adw-adaptive-preview.ui:144
 msgid "Scale to Fit"
 msgstr "Umeri na zaslon"
 
-#: src/adw-adaptive-preview.ui:147
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Poudari rob"
 
-#: src/adw-adaptive-preview.ui:173
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Preklopi stransko vrstico"
 
-#: src/adw-adaptive-preview.ui:183
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Izhod"
 
-#: src/adw-adaptive-preview.ui:193
-msgid "Screenshot"
-msgstr "Zaslonska slika"
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Zajemi zaslonsko sliko"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -512,7 +513,7 @@ msgstr "Tipka Caps Lock je vključena"
 msgid "_Show Password"
 msgstr "Pokaži _geslo"
 
-#: src/adw-preferences-dialog.c:212 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Neimenovana stran"
 
