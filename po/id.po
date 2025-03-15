@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-02-25 10:28+0700\n"
+"POT-Creation-Date: 2025-03-15 14:08+0000\n"
+"PO-Revision-Date: 2025-03-15 22:16+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -325,21 +325,22 @@ msgstr "Tampilan"
 msgid "Scale to Fit"
 msgstr "Paskan Skala"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Sorot Bezel"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Jungkitkan Bilah Sisi"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Keluar"
 
-#: src/adw-adaptive-preview.ui:196
-msgid "Screenshot"
-msgstr "Cuplikan Layar"
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Ambil Cuplikan Layar"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -516,7 +517,7 @@ msgstr "Caps Lock menyala"
 msgid "_Show Password"
 msgstr "Tampilkan Kata _Sandi"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Halaman tanpa judul"
 
