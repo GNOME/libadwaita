@@ -3603,6 +3603,8 @@ adw_about_dialog_set_other_apps_title (AdwAboutDialog *self,
  *
  * This can be used to link to your other applications if you have multiple.
  *
+ * This function does nothing on Windows, macOS and Android systems.
+ *
  * Example:
  *
  * ```c
@@ -3628,6 +3630,7 @@ adw_about_dialog_add_other_app (AdwAboutDialog *self,
   g_return_if_fail (name != NULL);
   g_return_if_fail (summary != NULL);
 
+#if defined(G_OS_UNIX) && !defined(GDK_WINDOWING_ANDROID) && !defined(__APPLE__)
   url = g_strconcat ("appstream:", appid, NULL);
 
   row = adw_link_row_new ();
@@ -3651,6 +3654,7 @@ adw_about_dialog_add_other_app (AdwAboutDialog *self,
   gtk_widget_set_visible (self->other_apps_group, TRUE);
 
   g_free (url);
+#endif
 }
 
 /**
