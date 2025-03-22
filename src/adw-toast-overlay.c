@@ -63,7 +63,7 @@
  *
  * ## Accessibility
  *
- * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
+ * `AdwToastOverlay` uses the [enum@Gtk.AccessibleRole.GROUP] role.
  */
 
 typedef struct {
