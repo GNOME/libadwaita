@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-03-02 20:32+0000\n"
-"PO-Revision-Date: 2025-03-07 15:53+0300\n"
+"POT-Creation-Date: 2025-03-23 19:39+0000\n"
+"PO-Revision-Date: 2025-03-24 17:42+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -337,8 +337,8 @@ msgid "Exit"
 msgstr "Выйсці"
 
 #: src/adw-adaptive-preview.ui:197
-msgid "Screenshot"
-msgstr "Здымак экрана"
+msgid "Take Screenshot"
+msgstr "Зрабіць здымак экрана"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -515,7 +515,7 @@ msgstr "Caps Lock уключаны"
 msgid "_Show Password"
 msgstr "_Паказваць пароль"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Неназваная старонка"
 
@@ -525,7 +525,7 @@ msgstr "Параметры"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Параметры пошуку"
+msgstr "Пошук параметраў"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
 msgid "No Results Found"
