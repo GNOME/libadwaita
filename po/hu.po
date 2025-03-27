@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-03-02 20:32+0000\n"
-"PO-Revision-Date: 2025-03-06 18:45+0100\n"
+"POT-Creation-Date: 2025-03-23 19:39+0000\n"
+"PO-Revision-Date: 2025-03-27 01:37+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -256,7 +256,6 @@ msgid "Acknowledgements"
 msgstr "Köszönetnyilvánítás"
 
 #: src/adw-adaptive-preview.c:387
-#| msgid "Copied to clipboard"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Képernyőkép a vágólapra másolva"
 
@@ -335,8 +334,9 @@ msgid "Exit"
 msgstr "Kilépés"
 
 #: src/adw-adaptive-preview.ui:197
-msgid "Screenshot"
-msgstr "Képernyőkép"
+#| msgid "Screenshot"
+msgid "Take Screenshot"
+msgstr "Képernyőkép készítése"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -493,9 +493,9 @@ msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
-"Tesztelje az alkalmazást meghatározott képernyőméreteken a mobil környezet"
-" szimulálása érdekében. Nyissa meg az előnézetet közvetlenül bármely"
-" támogatott ablakban a Shift+Ctrl+M billentyűkombináció használatával."
+"Tesztelje az alkalmazást meghatározott képernyőméreteken a mobil környezet "
+"szimulálása érdekében. Nyissa meg az előnézetet közvetlenül bármely "
+"támogatott ablakban a Shift+Ctrl+M billentyűkombináció használatával."
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -513,7 +513,7 @@ msgstr "Caps Lock bekapcsolva"
 msgid "_Show Password"
 msgstr "Jelszó _megjelenítése"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Névtelen lap"
 
@@ -603,3 +603,4 @@ msgstr "Előugró üzenet jelent meg"
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Eltüntetés"
+
