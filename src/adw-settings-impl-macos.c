@@ -68,17 +68,6 @@ get_ns_color_scheme (void)
   NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
   NSString *style = [userDefaults stringForKey:@"AppleInterfaceStyle"];
   BOOL isDark = [style isEqualToString:@"Dark"];
-#if 0
-    BOOL isAuto = [userDefaults boolForKey:@"AppleInterfaceStyleSwitchesAutomatically"];
-    BOOL isHighContrast = NO;
-
-    /* We can get HighContrast using [NSAppearance currentAppearance] and
-     * checking for the variants with HighContrast in their name, however
-     * those do not update when the notifications come in (or ever it
-     * seems unless a NSView changes them while drawing. If we can monitor
-     * a NSView, we could watch for effectiveAppearance changes.
-     */
-#endif
 
   return isDark ?
     ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK :
@@ -89,6 +78,14 @@ get_ns_color_scheme (void)
 {
   if (self->impl != NULL)
     adw_settings_impl_set_color_scheme (self->impl, get_ns_color_scheme ());
+}
+
+-(void)appDidChangeHighContrast:(NSNotification *)notification
+{
+  if (self->impl != NULL) {
+    gboolean high_contrast = [[NSWorkspace sharedWorkspace] accessibilityDisplayShouldIncreaseContrast];
+    adw_settings_impl_set_high_contrast (self->impl, high_contrast);
+  }
 }
 @end
 
@@ -123,6 +120,16 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
           object:nil];
 
     [observer appDidChangeAccentColor:nil];
+  }
+
+  if (enable_high_contrast) {
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+    addObserver:observer
+      selector:@selector(appDidChangeHighContrast:)
+          name:@"NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification"
+        object:nil];
+
+    [observer appDidChangeHighContrast:nil];
   }
 
   if (enable_color_scheme) {
