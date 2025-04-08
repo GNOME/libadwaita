@@ -41,23 +41,19 @@ G_DEFINE_FINAL_TYPE (AdwSettingsImplMacOS, adw_settings_impl_macos, ADW_TYPE_SET
 static AdwAccentColor
 get_accent_color (void)
 {
-  if (@available(*, macOS 10.14)) {
-    GdkRGBA rgba;
-    NSColor *accentColor = [NSColor.controlAccentColor colorUsingColorSpace:[
-                            NSColorSpace sRGBColorSpace]];
+  GdkRGBA rgba;
+  NSColor *accentColor = [NSColor.controlAccentColor colorUsingColorSpace:[
+                          NSColorSpace sRGBColorSpace]];
 
-    CGFloat red, green, blue, alpha;
-    [accentColor getRed:&red green:&green blue:&blue alpha:&alpha];
+  CGFloat red, green, blue, alpha;
+  [accentColor getRed:&red green:&green blue:&blue alpha:&alpha];
 
-    rgba.red = red;
-    rgba.green = green;
-    rgba.blue = blue;
-    rgba.alpha = alpha;
+  rgba.red = red;
+  rgba.green = green;
+  rgba.blue = blue;
+  rgba.alpha = alpha;
 
-    return adw_accent_color_nearest_from_rgba (&rgba);
-  }
-
-  return ADW_ACCENT_COLOR_BLUE;
+  return adw_accent_color_nearest_from_rgba (&rgba);
 }
 
 -(void)appDidChangeAccentColor:(NSNotification *)notification
@@ -92,10 +88,9 @@ get_accent_color (void)
 static AdwSystemColorScheme
 get_ns_color_scheme (void)
 {
-  if (@available(*, macOS 10.14)) {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *style = [userDefaults stringForKey:@"AppleInterfaceStyle"];
-    BOOL isDark = [style isEqualToString:@"Dark"];
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString *style = [userDefaults stringForKey:@"AppleInterfaceStyle"];
+  BOOL isDark = [style isEqualToString:@"Dark"];
 #if 0
     BOOL isAuto = [userDefaults boolForKey:@"AppleInterfaceStyleSwitchesAutomatically"];
     BOOL isHighContrast = NO;
@@ -108,12 +103,9 @@ get_ns_color_scheme (void)
      */
 #endif
 
-    return isDark ?
-      ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK :
-      ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
-  }
-
-  return ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
+  return isDark ?
+    ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK :
+    ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
 }
 
 -(void)appDidChangeTheme:(NSNotification *)notification
@@ -143,39 +135,31 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
   if (enable_accent_colors) {
-    if (@available(*, macOS 10.14)) {
-      static AccentColorChangedObserver *observer;
+    static AccentColorChangedObserver *observer;
 
-      observer = [[AccentColorChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+    observer = [[AccentColorChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
 
-      [[NSDistributedNotificationCenter defaultCenter]
-        addObserver:observer
-          selector:@selector(appDidChangeAccentColor:)
-              name:@"AppleColorPreferencesChangedNotification"
-            object:nil];
+    [[NSDistributedNotificationCenter defaultCenter]
+      addObserver:observer
+        selector:@selector(appDidChangeAccentColor:)
+            name:@"AppleColorPreferencesChangedNotification"
+          object:nil];
 
-      [observer appDidChangeAccentColor:nil];
-    } else {
-      enable_accent_colors = FALSE;
-    }
+    [observer appDidChangeAccentColor:nil];
   }
 
   if (enable_color_scheme) {
-    if (@available(*, macOS 10.14)) {
-      static ThemeChangedObserver *observer;
+    static ThemeChangedObserver *observer;
 
-      observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+    observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
 
-      [[NSDistributedNotificationCenter defaultCenter]
-      addObserver:observer
-        selector:@selector(appDidChangeTheme:)
-            name:@"AppleInterfaceThemeChangedNotification"
-          object:nil];
+    [[NSDistributedNotificationCenter defaultCenter]
+    addObserver:observer
+      selector:@selector(appDidChangeTheme:)
+          name:@"AppleInterfaceThemeChangedNotification"
+        object:nil];
 
-      [observer appDidChangeTheme:nil];
-    } else {
-      enable_color_scheme = FALSE;
-    }
+    [observer appDidChangeTheme:nil];
   }
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
