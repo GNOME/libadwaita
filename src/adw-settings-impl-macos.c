@@ -17,13 +17,13 @@ struct _AdwSettingsImplMacOS
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplMacOS, adw_settings_impl_macos, ADW_TYPE_SETTINGS_IMPL)
 
-@interface AccentColorChangedObserver : NSObject
+@interface SettingsChangedObserver : NSObject
 {
   AdwSettingsImpl *impl;
 }
 @end
 
-@implementation AccentColorChangedObserver
+@implementation SettingsChangedObserver
 
 -(instancetype)initWithSettings:(AdwSettingsImpl *)_impl
 {
@@ -60,29 +60,6 @@ get_accent_color (void)
 {
   if (self->impl != NULL)
     adw_settings_impl_set_accent_color (self->impl, get_accent_color ());
-}
-
-@end
-
-@interface ThemeChangedObserver : NSObject
-{
-  AdwSettingsImpl *impl;
-}
-@end
-
-@implementation ThemeChangedObserver
-
--(instancetype)initWithSettings:(AdwSettingsImpl *)_impl
-{
-  [self init];
-  g_set_weak_pointer (&self->impl, _impl);
-  return self;
-}
-
--(void)dealloc
-{
-  g_clear_weak_pointer (&self->impl);
-  [super dealloc];
 }
 
 static AdwSystemColorScheme
@@ -132,13 +109,13 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
                              gboolean enable_document_font_name,
                              gboolean enable_monospace_font_name)
 {
+  static SettingsChangedObserver *observer;
+
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
+  observer = [[SettingsChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+
   if (enable_accent_colors) {
-    static AccentColorChangedObserver *observer;
-
-    observer = [[AccentColorChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
-
     [[NSDistributedNotificationCenter defaultCenter]
       addObserver:observer
         selector:@selector(appDidChangeAccentColor:)
@@ -149,10 +126,6 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
   }
 
   if (enable_color_scheme) {
-    static ThemeChangedObserver *observer;
-
-    observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
-
     [[NSDistributedNotificationCenter defaultCenter]
     addObserver:observer
       selector:@selector(appDidChangeTheme:)
