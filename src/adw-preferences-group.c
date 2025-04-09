@@ -174,7 +174,8 @@ row_has_title (AdwPreferencesRow *row,
 {
   const char *title;
 
-  g_assert (ADW_IS_PREFERENCES_ROW (row));
+  if (!ADW_IS_PREFERENCES_ROW (row))
+    return false;
 
   if (!gtk_widget_get_visible (GTK_WIDGET (row)))
     return FALSE;
@@ -407,7 +408,7 @@ adw_preferences_group_add (AdwPreferencesGroup *self,
 
   priv = adw_preferences_group_get_instance_private (self);
 
-  if (ADW_IS_PREFERENCES_ROW (child))
+  if (GTK_IS_LIST_BOX_ROW (child))
     gtk_list_box_append (priv->listbox, child);
   else
     gtk_box_append (priv->listbox_box, child);
