@@ -664,6 +664,39 @@ adw_preferences_group_set_separate_rows (AdwPreferencesGroup *self,
 }
 
 /**
+ * adw_preferences_group_bind_model:
+ * @self: a preferences group
+ * @model: (nullable): a list model to bind
+ * @create_row_func: (nullable) (scope notified) (closure user_data) (destroy user_data_free_func):
+ *     a function creating a row for each item, or `NULL` in case @model is `NULL`
+ * @user_data: user data passed to @create_row_func
+ * @user_data_free_func: function for freeing @user_data
+ *
+ * Binds @model to @self.
+ *
+ * See [method@Gtk.ListBox.bind_model].
+ *
+ * Since: 1.8
+ */
+void
+adw_preferences_group_bind_model (AdwPreferencesGroup        *self,
+                                  GListModel                 *model,
+                                  GtkListBoxCreateWidgetFunc  create_row_func,
+                                  gpointer                    user_data,
+                                  GDestroyNotify              user_data_free_func)
+{
+  AdwPreferencesGroupPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
+  g_return_if_fail (model == NULL || G_IS_LIST_MODEL (model));
+  g_return_if_fail (model == NULL || create_row_func != NULL);
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  gtk_list_box_bind_model (priv->listbox, model, create_row_func, user_data, user_data_free_func);
+}
+
+/**
  * adw_preferences_group_get_rows:
  * @self: a preferences group
  *
@@ -690,4 +723,3 @@ adw_preferences_group_get_rows (AdwPreferencesGroup *self)
 
   return model;
 }
-

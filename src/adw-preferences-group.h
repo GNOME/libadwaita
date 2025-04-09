@@ -67,4 +67,11 @@ ADW_AVAILABLE_IN_1_6
 void     adw_preferences_group_set_separate_rows (AdwPreferencesGroup *self,
                                                   gboolean             separate_rows);
 
+ADW_AVAILABLE_IN_1_8
+void adw_preferences_group_bind_model (AdwPreferencesGroup        *self,
+                                       GListModel                 *model,
+                                       GtkListBoxCreateWidgetFunc  create_row_func,
+                                       gpointer                    user_data,
+                                       GDestroyNotify              user_data_free_func);
+
 G_END_DECLS
