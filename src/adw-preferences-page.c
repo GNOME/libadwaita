@@ -46,6 +46,8 @@ typedef struct
   char *name;
 
   gboolean use_underline;
+
+  GPtrArray *groups;
 } AdwPreferencesPagePrivate;
 
 static void adw_preferences_page_buildable_init (GtkBuildableIface *iface);
@@ -171,6 +173,7 @@ adw_preferences_page_finalize (GObject *object)
   g_clear_pointer (&priv->icon_name, g_free);
   g_clear_pointer (&priv->title, g_free);
   g_clear_pointer (&priv->name, g_free);
+  g_clear_pointer (&priv->groups, g_ptr_array_unref);
 
   G_OBJECT_CLASS (adw_preferences_page_parent_class)->finalize (object);
 }
@@ -287,6 +290,7 @@ adw_preferences_page_init (AdwPreferencesPage *self)
   gtk_orientable_set_orientation (GTK_ORIENTABLE (layout), GTK_ORIENTATION_VERTICAL);
 
   priv->title = g_strdup ("");
+  priv->groups = g_ptr_array_new ();
 
   gtk_widget_init_template (GTK_WIDGET (self));
 }
@@ -344,6 +348,7 @@ adw_preferences_page_add (AdwPreferencesPage  *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
+  g_ptr_array_add (priv->groups, group);
   gtk_box_append (priv->box, GTK_WIDGET (group));
 }
 
@@ -365,10 +370,42 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
-    gtk_box_remove (priv->box, GTK_WIDGET (group));
-  else
+  if (gtk_widget_get_parent (GTK_WIDGET (group)) != GTK_WIDGET (priv->box)) {
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, group);
+    return;
+  }
+
+  g_ptr_array_remove (priv->groups, group);
+  gtk_box_remove (priv->box, GTK_WIDGET (group));
+}
+
+/**
+ * adw_preferences_page_get_group:
+ * @self: a preferences page
+ * @index: a group index
+ *
+ * Gets the group at @index.
+ *
+ * Can return `NULL` if @index is larger than the number of groups in the page.
+ *
+ * Returns: (transfer none) (nullable): the group at @index
+ *
+ * Since: 1.8
+ */
+AdwPreferencesGroup *
+adw_preferences_page_get_group (AdwPreferencesPage *self,
+                                guint               index)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  if (index >= priv->groups->len)
+    return NULL;
+
+  return g_ptr_array_index (priv->groups, index);
 }
 
 /**
