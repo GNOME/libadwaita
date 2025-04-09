@@ -45,6 +45,10 @@ ADW_AVAILABLE_IN_ALL
 void adw_preferences_page_remove (AdwPreferencesPage  *self,
                                   AdwPreferencesGroup *group);
 
+ADW_AVAILABLE_IN_1_8
+AdwPreferencesGroup *adw_preferences_page_get_group (AdwPreferencesPage *self,
+                                                     guint               index);
+
 ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
