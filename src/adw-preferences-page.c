@@ -380,6 +380,48 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 }
 
 /**
+ * adw_preferences_page_insert:
+ * @self: a preferences page
+ * @group: the group to add
+ * @index: the index to insert @group a
+ *
+ * Inserts a preferences group to @self at @index.
+ *
+ * If @index is negative or larger than the number of groups, appends the group,
+ * same as [method@PreferencesPage.add].
+ *
+ * Since: 1.8
+ */
+void
+adw_preferences_page_insert (AdwPreferencesPage  *self,
+                             AdwPreferencesGroup *group,
+                             int                  index)
+{
+  AdwPreferencesPagePrivate *priv;
+  GtkWidget *prev_group;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (group));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  if (index < 0 || index >= priv->groups->len) {
+    adw_preferences_page_add (self, group);
+    return;
+  }
+
+  g_ptr_array_insert (priv->groups, index, group);
+
+  if (index == 0) {
+    gtk_box_prepend (priv->box, GTK_WIDGET (group));
+    return;
+  }
+
+  prev_group = g_ptr_array_index (priv->groups, index - 1);
+  gtk_box_insert_child_after (priv->box, GTK_WIDGET (group), prev_group);
+}
+
+/**
  * adw_preferences_page_get_group:
  * @self: a preferences page
  * @index: a group index

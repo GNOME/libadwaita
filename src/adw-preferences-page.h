@@ -46,6 +46,11 @@ void adw_preferences_page_remove (AdwPreferencesPage  *self,
                                   AdwPreferencesGroup *group);
 
 ADW_AVAILABLE_IN_1_8
+void adw_preferences_page_insert (AdwPreferencesPage  *self,
+                                  AdwPreferencesGroup *group,
+                                  int                  index);
+
+ADW_AVAILABLE_IN_1_8
 AdwPreferencesGroup *adw_preferences_page_get_group (AdwPreferencesPage *self,
                                                      guint               index);
 
