@@ -444,6 +444,32 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
 }
 
 /**
+ * adw_preferences_group_get_row:
+ * @self: a preferences group
+ * @index: a row index
+ *
+ * Gets the row at @index.
+ *
+ * Can return `NULL` if @index is larger than the number of rows in the group.
+ *
+ * Returns: (transfer none) (nullable): the row at @index
+ *
+ * Since: 1.8
+ */
+GtkWidget *
+adw_preferences_group_get_row (AdwPreferencesGroup *self,
+                               guint                index)
+{
+  AdwPreferencesGroupPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_GROUP (self), NULL);
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  return GTK_WIDGET (gtk_list_box_get_row_at_index (priv->listbox, index));
+}
+
+/**
  * adw_preferences_group_get_title:
  * @self: a preferences group
  *
