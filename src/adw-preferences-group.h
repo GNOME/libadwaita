@@ -43,6 +43,10 @@ ADW_AVAILABLE_IN_ALL
 void adw_preferences_group_remove (AdwPreferencesGroup *self,
                                    GtkWidget           *child);
 
+ADW_AVAILABLE_IN_1_8
+GtkWidget *adw_preferences_group_get_row (AdwPreferencesGroup *self,
+                                          guint                index);
+
 ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_group_get_title (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
