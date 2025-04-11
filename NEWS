@@ -1,4 +1,16 @@
 =============
+Version 1.6.6
+=============
+
+- Build
+  - Don't install internal static library
+- Avoid needlessly reassigning CSS classes for swipe shadows
+- AdwAboutDialog/Window
+  - Clarify :translator-credits docs
+- AdwToastOverlay
+  - Fix accessible role in documentation
+
+=============
 Version 1.6.5
 =============
 
