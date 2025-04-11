@@ -3046,7 +3046,8 @@ adw_about_dialog_get_translator_credits (AdwAboutDialog *self)
  * should be marked as translatable.
  *
  * The string may contain email addresses and URLs, see the introduction for
- * more details.
+ * more details. When there is more than one translator, they must be
+ * separated by a newline in the same string.
  *
  * See also:
  *
