@@ -1,4 +1,26 @@
 =============
+Version 1.7.1
+=============
+
+- Build
+  - Don't install internal static library
+  - Fix build with older gobject-introspection versions
+- Avoid needlessly reassigning CSS classes for swipe shadows
+- AdwAboutDialog/Window
+  - Clarify :translator-credits docs
+- AdwNavigationView
+  - fix :visible-page-tag notifications
+- AdwStyleManager
+  - Fix font name docs
+- AdwToastOverlay
+  - Fix accessible role in documentation
+- Translation updates
+  - Belarusian
+  - British English
+  - German
+  - Romanian
+
+=============
 Version 1.7.0
 =============
 
