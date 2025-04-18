@@ -1,6 +1,6 @@
-# Portuguese translation for libhandy.
-# Copyright (C) 2020-2025 libhandy's COPYRIGHT HOLDER
-# This file is distributed under the same license as the libhandy package.
+# Portuguese translation for libadwaita.
+# Copyright (C) 2025 libadwaita COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
 # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024, 2025.
 # João Carvalhinho <joao.carvalhinho@gmail.com>, 2024, 2025.
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-24 14:11+0000\n"
-"PO-Revision-Date: 2025-02-27 20:14+0000\n"
+"POT-Creation-Date: 2025-04-11 13:15+0000\n"
+"PO-Revision-Date: 2025-04-18 21:43+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -118,7 +118,7 @@ msgid ""
 "href=\"%s\">%s</a> for details."
 msgstr ""
 "Esta aplicação vem sem absolutamente nenhuma garantia. Clique em <a "
-"href=“%s”>%s</a> para ver os detalhes."
+"href=\"%s\">%s</a> para ver os detalhes."
 
 #: src/adw-about-dialog.c:690 src/adw-about-window.c:682
 msgid "This Application"
@@ -321,19 +321,20 @@ msgstr "Ver"
 msgid "Scale to Fit"
 msgstr "Adaptar à dimensão"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Moldura de foco"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Ativar/desativar barra lateral"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Sair"
 
-#: src/adw-adaptive-preview.ui:196
+#: src/adw-adaptive-preview.ui:197
 msgid "Screenshot"
 msgstr "Captura de ecrã"
 
@@ -512,7 +513,7 @@ msgstr "O Caps Lock está ligado"
 msgid "_Show Password"
 msgstr "_Mostrar palavra-passe"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Página sem título"
 
