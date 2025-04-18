@@ -2,15 +2,15 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024, 2025.
 # João Carvalhinho <joao.carvalhinho@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2024-05-01 14:54+0000\n"
-"PO-Revision-Date: 2024-05-06 22:36+0100\n"
+"POT-Creation-Date: 2025-04-11 04:42+0000\n"
+"PO-Revision-Date: 2025-04-18 23:01+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/adw-about-dialog.c:207 src/adw-about-window.c:206
 msgid "GNU General Public License, version 2 or later"
@@ -88,69 +88,70 @@ msgstr "Licença Pública Mozilla 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "Licença BSD Zero-Cláusulas"
 
-#: src/adw-about-dialog.c:560 src/adw-about-window.c:558
+#: src/adw-about-dialog.c:571 src/adw-about-window.c:569
 msgid "Code by"
 msgstr "Código por"
 
-#: src/adw-about-dialog.c:561 src/adw-about-window.c:559
+#: src/adw-about-dialog.c:572 src/adw-about-window.c:570
 msgid "Design by"
 msgstr "Design por"
 
-#: src/adw-about-dialog.c:562 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:573 src/adw-about-window.c:571
 msgid "Artwork by"
 msgstr "Arte gráfica por"
 
-#: src/adw-about-dialog.c:563 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:572
 msgid "Documentation by"
 msgstr "Documentação por"
 
-#: src/adw-about-dialog.c:564 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:573
 msgid "Translated by"
 msgstr "Traduzido por"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:593 src/adw-about-window.c:591
+#: src/adw-about-dialog.c:604 src/adw-about-window.c:602
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 msgstr ""
 "Esta aplicação vem sem absolutamente nenhuma garantia. Clique em <a "
-"href=“%s”>%s</a> para ver os detalhes."
+"href=\"%s\">%s</a> para ver os detalhes."
 
-#: src/adw-about-dialog.c:671 src/adw-about-window.c:669
+#: src/adw-about-dialog.c:682 src/adw-about-window.c:680
 msgid "This Application"
 msgstr "Esta aplicação"
 
-#: src/adw-about-dialog.c:973 src/adw-about-window.c:971
+#: src/adw-about-dialog.c:984 src/adw-about-window.c:982
 #, c-format
 msgid "Version %s"
 msgstr "Versão %s"
 
-#: src/adw-about-dialog.c:999 src/adw-about-window.c:997
+#: src/adw-about-dialog.c:1010 src/adw-about-window.c:1008
 msgid "Unable to parse release notes:"
 msgstr "Não foi possível analisar as notas de lançamento:"
 
-#: src/adw-about-dialog.c:1005 src/adw-about-window.c:1003
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1014
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linha: %d, carácter: %d"
 
-#: src/adw-about-dialog.c:1291 src/adw-about-window.c:1289
+#: src/adw-about-dialog.c:1302 src/adw-about-window.c:1300
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
-#: src/adw-about-dialog.c:1318 src/adw-about-window.c:1317
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1328
 msgid "Unable to save debugging information"
 msgstr "Não foi possível guardar a informação de depuração"
 
-#: src/adw-about-dialog.c:1323 src/adw-about-window.c:1322
+#: src/adw-about-dialog.c:1334 src/adw-about-window.c:1333
+#: src/adw-sheet-controls.c:127 src/adw-sheet-controls.c:129
 msgid "Close"
 msgstr "Fechar"
 
-#: src/adw-about-dialog.c:1340 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1351 src/adw-about-window.c:1349
 msgid "Save debugging information"
 msgstr "Guardar informação de depuração"
 
@@ -246,8 +247,8 @@ msgstr "Aviso legal"
 msgid "Acknowledgements"
 msgstr "Agradecimentos"
 
-#: src/adw-back-button.c:347 src/adw-back-button.c:445
-#: src/adw-back-button.c:555
+#: src/adw-back-button.c:327 src/adw-back-button.c:425
+#: src/adw-back-button.c:535
 msgid "Back"
 msgstr "Recuar"
 
@@ -318,7 +319,7 @@ msgstr "O Caps Lock está ligado"
 msgid "_Show Password"
 msgstr "_Mostrar palavra-passe"
 
-#: src/adw-preferences-dialog.c:256 src/adw-preferences-window.c:259
+#: src/adw-preferences-dialog.c:262 src/adw-preferences-window.c:259
 msgid "Untitled page"
 msgstr "Página sem título"
 
