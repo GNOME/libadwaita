@@ -57,6 +57,7 @@ create_window_row_cb (GtkWindow        *window,
   GtkWidget *row, *btn;
 
   row = adw_action_row_new ();
+  adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (row), FALSE);
   g_object_bind_property (window, "title", row, "title", G_BINDING_SYNC_CREATE);
   adw_action_row_set_subtitle (ADW_ACTION_ROW (row), G_OBJECT_TYPE_NAME (window));
 
