@@ -13,6 +13,7 @@
 
 #include <adwaita.h>
 #include "adw-gizmo-private.h"
+#include "adw-preferences-group.h"
 #include "adw-settings-private.h"
 
 struct _AdwInspectorPage
@@ -26,7 +27,7 @@ struct _AdwInspectorPage
   AdwSwitchRow *high_contrast_row;
   AdwSwitchRow *support_accent_colors_row;
   AdwComboRow *accent_color_row;
-  GtkListBox *windows_list;
+  AdwPreferencesGroup *adaptive_preview_group;
 
   GObject *object;
 
@@ -387,7 +388,7 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, high_contrast_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_accent_colors_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, accent_color_row);
-  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, windows_list);
+  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, adaptive_preview_group);
 
   gtk_widget_class_bind_template_callback (widget_class, get_system_color_scheme_name);
   gtk_widget_class_bind_template_callback (widget_class, get_accent_color_name);
@@ -434,11 +435,11 @@ adw_inspector_page_init (AdwInspectorPage *self)
   filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) is_window_compatible, NULL, NULL));
   windows = gtk_filter_list_model_new (g_object_ref (gtk_window_get_toplevels ()), filter);
 
-  gtk_list_box_bind_model (self->windows_list,
-                           G_LIST_MODEL (windows),
-                           (GtkListBoxCreateWidgetFunc) create_window_row_cb,
-                           self,
-                           NULL);
+  adw_preferences_group_bind_model (self->adaptive_preview_group,
+                                    G_LIST_MODEL (windows),
+                                    (GtkListBoxCreateWidgetFunc) create_window_row_cb,
+                                    self,
+                                    NULL);
 
   g_object_unref (windows);
 }

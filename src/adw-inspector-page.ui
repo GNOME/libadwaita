@@ -84,17 +84,9 @@
           </object>
         </child>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="AdwPreferencesGroup" id="adaptive_preview_group">
             <property name="title" translatable="yes">Adaptive Preview</property>
             <property name="description" translatable="yes">Test the app at specific screen sizes to simulate a mobile environment. Open the preview directly on any supported window using Shift+Ctrl+M</property>
-            <child>
-              <object class="GtkListBox" id="windows_list">
-                <property name="selection-mode">none</property>
-                <style>
-                  <class name="boxed-list"/>
-                </style>
-              </object>
-            </child>
           </object>
         </child>
       </object>
