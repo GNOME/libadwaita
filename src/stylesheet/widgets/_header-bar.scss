@@ -56,6 +56,10 @@ headerbar {
         min-height: 22px;
         min-width: 22px;
         padding: 4px;
+
+        > image {
+          padding: 3px;
+        }
       }
 
       > .icon {
