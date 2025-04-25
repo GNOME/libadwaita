@@ -555,7 +555,7 @@ measure_heading (GtkWidget      *widget,
 {
   AdwMessageDialog *self = ADW_MESSAGE_DIALOG (gtk_widget_get_root (widget));
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
-  int large_min, large_nat, small_min, small_nat;
+  int large_min, large_nat, small_min, small_nat, for_size_large_label;
 
   if (gtk_widget_has_css_class (GTK_WIDGET (self), "short")) {
     gtk_widget_measure (priv->heading_label_small, orientation, for_size,
@@ -569,7 +569,14 @@ measure_heading (GtkWidget      *widget,
     return;
   }
 
-  gtk_widget_measure (priv->heading_label, orientation, for_size,
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    gtk_widget_measure (priv->heading_label, GTK_ORIENTATION_HORIZONTAL, -1,
+                        &for_size_large_label, NULL, NULL, NULL);
+  } else {
+    for_size_large_label = -1;
+  }
+
+  gtk_widget_measure (priv->heading_label, orientation, for_size_large_label,
                       &large_min, &large_nat, NULL, NULL);
   gtk_widget_measure (priv->heading_label_small, orientation, for_size,
                       &small_min, &small_nat, NULL, NULL);
