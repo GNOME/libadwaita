@@ -196,6 +196,10 @@ $treeview_borders_opaque: color-mix(in srgb, currentColor if($contrast == 'high'
 treeview.view {
   @extend columnview;
 
+  &:disabled {
+    color: color-mix(in srgb, var(--view-fg-color) var(--disabled-opacity), transparent);
+  }
+
   &:not(:selected) {
     // Hack to make it update colors when accent changes. The percentage is
     // small enough that background color is unaffected, but GTK will still

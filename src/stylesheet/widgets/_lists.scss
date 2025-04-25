@@ -9,6 +9,10 @@ list {
   background-clip: padding-box;
   border-color: $border_color;
 
+  &.view:disabled {
+    color: var(--view-fg-color);
+  }
+
   > row {
     padding: 2px;
     background-clip: padding-box;

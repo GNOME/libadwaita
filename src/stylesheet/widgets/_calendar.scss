@@ -4,6 +4,10 @@ calendar {
   border: 1px solid $border_color;
   font-feature-settings: "tnum";
 
+  &.view:disabled {
+    color: var(--view-fg-color);
+  }
+
   > header {
     border-bottom: 1px solid $border_color;
 
