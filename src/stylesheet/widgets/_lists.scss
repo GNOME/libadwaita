@@ -157,28 +157,6 @@ row {
       &:dir(rtl) { margin-left: 6px; }
     }
   }
-
-  &.property > box.header > box.title > {
-    .title {
-      font-size: smaller;
-      @extend .dimmed;
-    }
-
-    .subtitle {
-      font-size: inherit;
-      opacity: 1;
-    }
-  }
-
-  &.property.monospace {
-    font-family: inherit;
-    font-size: inherit;
-
-    & > box.header > box.title > .subtitle {
-      font-family: var(--monospace-font-family);
-      font-size: var(--monospace-font-size);
-    }
-  }
 }
 
 /******************************
@@ -422,14 +400,37 @@ row.expander {
   .osd &:checked image.expander-row-arrow:not(:disabled) {
     color: inherit;
   }
+}
 
-  &.property > box > list > row {
-    @extend .property;
+/*****************
+ * Property rows *
+ *****************/
+
+row.property {
+  &, &.expander > box > list > row.header {
+    > box.header > box.title {
+      > .title {
+        font-size: smaller;
+        @extend .dimmed;
+      }
+
+      > .subtitle {
+        font-size: inherit;
+        opacity: 1;
+      }
+    }
   }
 
-  &.property.monospace > box > list > row > box.header > box.title > .subtitle {
-    font-family: var(--monospace-font-family);
-    font-size: var(--monospace-font-size);
+  &.monospace {
+    &, &.expander > box > list > row.header {
+      font-family: inherit;
+      font-size: inherit;
+
+      > box.header > box.title > .subtitle {
+        font-family: var(--monospace-font-family);
+        font-size: var(--monospace-font-size);
+      }
+    }
   }
 }
 
