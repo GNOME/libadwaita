@@ -1,6 +1,10 @@
 columnview {
   @include focus-ring();
 
+  &.view:disabled {
+    color: var(--view-fg-color);
+  }
+
   &:drop(active) {
     box-shadow: none;
   }

@@ -4,7 +4,7 @@
   background-color: var(--view-bg-color);
 
   &:disabled {
-    color: color-mix(in srgb, currentColor 5%, transparent);
+    color: color-mix(in srgb, var(--view-fg-color) var(--disabled-opacity), transparent);
     background-color: color-mix(in srgb, var(--window-bg-color) 60%, var(--view-bg-color));
   }
 
@@ -83,3 +83,8 @@ gridview > child.activatable {
   }
 }
 
+flowbox, gridview {
+  &.view:disabled {
+    color: var(--view-fg-color);
+  }
+}
