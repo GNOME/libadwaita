@@ -21,11 +21,11 @@ typedef struct {
 } ShellPreset;
 
 static const ShellPreset shell_presets[] = {
-  { N_("Desktop Shell"), 32, 0  },
-  { N_("Mobile Shell"),  32, 18 },
-  { N_("Phosh"),         32, 15 },
-  { N_("Fullscreen"),    0,  0 },
-  { N_("Custom"),        -1, -1 },
+  { NC_("Shell preset", "Desktop Shell"), 32, 0  },
+  { NC_("Shell preset", "Mobile Shell"),  32, 18 },
+  { NC_("Shell preset", "Phosh"),         32, 15 },
+  { NC_("Shell preset", "Fullscreen"),    0,  0 },
+  { NC_("Shell preset", "Custom"),        -1, -1 },
 };
 
 // Mobile shell
@@ -59,7 +59,7 @@ static const DevicePreset device_presets[] = {
 /* These are too similar to expose each of them
   {
     "librem5",
-    N_("Librem 5"),
+    NC_("Device preset", "Librem 5"),
     720, 1440,
     5.7, 2.0,
     0, 0,
@@ -68,7 +68,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "pinephone",
-    N_("PinePhone"),
+    NC_("Device preset", "PinePhone"),
     720, 1440,
     5.95, 2.0,
     0, 0,
@@ -77,7 +77,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "pinephone-pro",
-    N_("PinePhone Pro"),
+    NC_("Device preset", "PinePhone Pro"),
     720, 1440,
     6.0, 2.0,
     0, 0,
@@ -87,7 +87,7 @@ static const DevicePreset device_presets[] = {
 */
   {
     "generic-phone",
-    N_("Generic Phone"),
+    NC_("Device preset", "Generic Phone"),
     720, 1440,
     5.85, 2.0,
     0, 0,
@@ -96,7 +96,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "generic-tablet",
-    N_("Generic Tablet"),
+    NC_("Device preset", "Generic Tablet"),
     1280, 800,
     10.0, 1.0,
     0, 0,
@@ -105,7 +105,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "oneplus6",
-    N_("OnePlus 6"),
+    NC_("Device preset", "OnePlus 6"),
     1080, 2280,
     6.28, 3.0,
     80, 60,
@@ -114,7 +114,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "oneplus6t",
-    N_("OnePlus 6T"),
+    NC_("Device preset", "OnePlus 6T"),
     1080, 2340,
     6.41, 3.0,
     120, 120,
@@ -123,7 +123,7 @@ static const DevicePreset device_presets[] = {
   },
   {
     "custom",
-    N_("Custom"),
+    NC_("Device preset", "Custom"),
     -1, -1,
     1.0, 1.0,
     0, 0, NULL,
