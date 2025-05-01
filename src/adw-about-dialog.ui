@@ -85,7 +85,7 @@
                                         <child>
                                           <object class="AdwActionRow" id="whats_new_row">
                                             <property name="visible">False</property>
-                                            <property name="title" translatable="yes">_What’s New</property>
+                                            <property name="title" translatable="yes">What’s _New</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
                                             <property name="action-name">navigation.push</property>
