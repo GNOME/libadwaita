@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-04-26 00:14+0000\n"
-"PO-Revision-Date: 2025-04-27 10:09+0200\n"
+"POT-Creation-Date: 2025-05-01 15:40+0000\n"
+"PO-Revision-Date: 2025-05-02 12:50+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -171,8 +171,8 @@ msgid "About"
 msgstr "O programu"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-msgid "_What’s New"
-msgstr "_Kaj je novega"
+msgid "What’s _New"
+msgstr "Kaj je _novega"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
