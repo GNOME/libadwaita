@@ -30,6 +30,11 @@ list {
   &.separators:not(.horizontal) > row:not(.separator) {
     border-bottom: 1px solid $border_color;
   }
+
+  &:drop(active):focus,
+  &:drop(active) {
+    box-shadow: none;
+  }
 }
 
 listview > header {
@@ -546,6 +551,14 @@ list.boxed-list-separate {
 
   > row {
     @extend %card;
+
+    &:drop(active):focus,
+    &:drop(active) {
+      box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, RGB(0 0 6 / 3%)),
+                  0 1px 3px 1px RGB(0 0 6 / 7%),
+                  0 2px 6px 2px RGB(0 0 6 / 3%),
+                  inset 0 0 0 1px $drop_target_color;
+    }
 
     &:selected {
       background-color: var(--card-bg-color);
