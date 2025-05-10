@@ -617,6 +617,9 @@ adw_decoration_layout_prefers_start (const char *layout)
   char **sides;
   int i;
 
+  if (!layout || !strchr (layout, ':'))
+    return FALSE;
+
   sides = g_strsplit (layout, ":", 2);
 
   for (i = 0; i < 2; i++) {
