@@ -6,20 +6,22 @@
 # Jun Oyamada <oyamadajun[@]outlook.jp>, 2024.
 # Ryo Nakano <ryonakaknock3@gmail.com>, 2024.
 # Kusano Takayuki <gnome-l10n@tkusano.jp>, 2025.
+# Seiji Iizuka <seiji@iizuka.dev>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-05-02 10:51+0000\n"
-"PO-Revision-Date: 2025-05-06 11:43+0900\n"
-"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"POT-Creation-Date: 2025-05-07 02:26+0000\n"
+"PO-Revision-Date: 2025-05-10 23:10+0900\n"
+"Last-Translator: Seiji Iizuka <seiji@iizuka.dev>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -159,11 +161,11 @@ msgstr "デバッグ情報を保存"
 #: src/adw-about-dialog.c:2301
 #, c-format
 msgid "Other Apps by %s"
-msgstr ""
+msgstr "%sの他のアプリ"
 
 #: src/adw-about-dialog.c:2307
 msgid "Other Apps"
-msgstr ""
+msgstr "他のアプリ"
 
 #: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
 msgid "About"
@@ -263,135 +265,135 @@ msgstr "スクリーンショットをクリップボードにコピーしまし
 #: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
-msgstr ""
+msgstr "自動調整プレビュー"
 
 #: src/adw-adaptive-preview.ui:28
 msgid "Display"
-msgstr ""
+msgstr "ディスプレイ"
 
 #: src/adw-adaptive-preview.ui:31
 msgid "Device"
-msgstr ""
+msgstr "デバイス"
 
 #: src/adw-adaptive-preview.ui:37
 msgid "Width"
-msgstr ""
+msgstr "幅"
 
 #: src/adw-adaptive-preview.ui:51
 msgid "Height"
-msgstr ""
+msgstr "高さ"
 
 #: src/adw-adaptive-preview.ui:65
 msgid "Rotate"
-msgstr ""
+msgstr "回転"
 
 #: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
 msgid "Rotate Left"
-msgstr ""
+msgstr "左に回転"
 
 #: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
 msgid "Rotate Right"
-msgstr ""
+msgstr "右に回転"
 
 #: src/adw-adaptive-preview.ui:96
 msgid "Shell"
-msgstr ""
+msgstr "シェル"
 
 #: src/adw-adaptive-preview.ui:99
 msgid "Preset"
-msgstr ""
+msgstr "プリセット"
 
 #: src/adw-adaptive-preview.ui:105
 msgid "Top Bar"
-msgstr ""
+msgstr "トップバー"
 
 #: src/adw-adaptive-preview.ui:119
 msgid "Bottom Bar"
-msgstr ""
+msgstr "ボトムバー"
 
 #: src/adw-adaptive-preview.ui:133
 msgid "Window Controls"
-msgstr ""
+msgstr "ウィンドウコントロール"
 
 #: src/adw-adaptive-preview.ui:141
 msgid "View"
-msgstr ""
+msgstr "ビュー"
 
 #: src/adw-adaptive-preview.ui:144
 msgid "Scale to Fit"
-msgstr ""
+msgstr "画面に合わせる"
 
 #. Translators: screen bezel, e.g. on a phone
 #: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
-msgstr ""
+msgstr "ベゼルを強調表示"
 
 #: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "サイドバーを切り替える"
 
 #: src/adw-adaptive-preview.ui:187
 msgid "Exit"
-msgstr ""
+msgstr "終了"
 
 #: src/adw-adaptive-preview.ui:197
 msgid "Take Screenshot"
-msgstr ""
+msgstr "スクリーンショットを撮る"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgctxt "Shell preset"
 msgid "Desktop Shell"
-msgstr ""
+msgstr "デスクトップシェル"
 
 #: src/adw-adaptive-preview-presets-private.h:25
 msgctxt "Shell preset"
 msgid "Mobile Shell"
-msgstr ""
+msgstr "モバイルシェル"
 
 #: src/adw-adaptive-preview-presets-private.h:26
 msgctxt "Shell preset"
 msgid "Phosh"
-msgstr ""
+msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
 msgctxt "Shell preset"
 msgid "Fullscreen"
-msgstr ""
+msgstr "全画面"
 
 #: src/adw-adaptive-preview-presets-private.h:28
 msgctxt "Shell preset"
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
 #: src/adw-adaptive-preview-presets-private.h:90
 msgctxt "Device preset"
 msgid "Generic Phone"
-msgstr ""
+msgstr "一般的なスマホ"
 
 #: src/adw-adaptive-preview-presets-private.h:99
 msgctxt "Device preset"
 msgid "Generic Tablet"
-msgstr ""
+msgstr "一般的なタブレット"
 
 #: src/adw-adaptive-preview-presets-private.h:108
 msgctxt "Device preset"
 msgid "OnePlus 6"
-msgstr ""
+msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
 msgctxt "Device preset"
 msgid "OnePlus 6T"
-msgstr ""
+msgstr "OnePlus 6T"
 
 #: src/adw-adaptive-preview-presets-private.h:126
 msgctxt "Device preset"
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
-msgstr ""
+msgstr "%sのアバター"
 
 #: src/adw-back-button.c:311 src/adw-back-button.c:409
 #: src/adw-back-button.c:519
@@ -422,39 +424,39 @@ msgstr "明るくする"
 
 #: src/adw-inspector-page.c:148
 msgid "Blue"
-msgstr ""
+msgstr "青"
 
 #: src/adw-inspector-page.c:150
 msgid "Teal"
-msgstr ""
+msgstr "青緑"
 
 #: src/adw-inspector-page.c:152
 msgid "Green"
-msgstr ""
+msgstr "緑"
 
 #: src/adw-inspector-page.c:154
 msgid "Yellow"
-msgstr ""
+msgstr "黄"
 
 #: src/adw-inspector-page.c:156
 msgid "Orange"
-msgstr ""
+msgstr "橙"
 
 #: src/adw-inspector-page.c:158
 msgid "Red"
-msgstr ""
+msgstr "赤"
 
 #: src/adw-inspector-page.c:160
 msgid "Pink"
-msgstr ""
+msgstr "桃"
 
 #: src/adw-inspector-page.c:162
 msgid "Purple"
-msgstr ""
+msgstr "紫"
 
 #: src/adw-inspector-page.c:164
 msgid "Slate"
-msgstr ""
+msgstr "濃灰"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:303
@@ -483,21 +485,19 @@ msgstr "カラースキームの指定"
 
 #: src/adw-inspector-page.ui:39
 msgid "Accent Color"
-msgstr ""
+msgstr "アクセントカラー"
 
 #: src/adw-inspector-page.ui:42
-#, fuzzy
 msgid "System Supports Accent Colors"
-msgstr "システムがサポートするカラースキーム"
+msgstr "システムがサポートするアクセントカラー"
 
 #: src/adw-inspector-page.ui:48
-#, fuzzy
 msgid "Preferred Accent Color"
-msgstr "カラースキームの指定"
+msgstr "好みのアクセントカラー"
 
 #: src/adw-inspector-page.ui:77
 msgid "Accessibility"
-msgstr ""
+msgstr "アクセシビリティ"
 
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
@@ -508,6 +508,9 @@ msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
+"アプリを特定の画面サイズでテストして、モバイル環境をシミュレートします。"
+"Shift+Ctrl+Mを押すとサポートされているウィンドウでプレビューが直接開かれま"
+"す。"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -551,7 +554,7 @@ msgstr "他のキーワードを試してください。"
 
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
-msgstr ""
+msgstr "ウィンドウを閉じる"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -595,25 +598,25 @@ msgstr "タブを閉じる"
 #: src/adw-toast-overlay.c:278
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
-msgstr ""
+msgstr "トーストが表示されました: %s、ボタンがあります: %s"
 
 #: src/adw-toast-overlay.c:281
 #, c-format
 msgid "A toast appeared: %s"
-msgstr ""
+msgstr "トーストが表示されました: %s"
 
 #: src/adw-toast-overlay.c:283
 #, c-format
 msgid "A toast appeared, has a button: %s"
-msgstr ""
+msgstr "トーストが表示されました、ボタン有り: %s"
 
 #: src/adw-toast-overlay.c:286
 msgid "A toast appeared"
-msgstr ""
+msgstr "トーストが表示されました"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
-msgstr ""
+msgstr "消す"
 
 #~ msgid "_What’s New"
 #~ msgstr "新機能(_W)"
