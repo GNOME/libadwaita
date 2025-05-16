@@ -1049,7 +1049,7 @@ the high contrast mode automatically.
 
 Name                     | Value
 ------------------------ | -----
-<tt>--window-radius</tt> | 12px
+<tt>--window-radius</tt> | 15px
 
 Matches the current window radius, whether it's floating or maximized. Can be
 used for e.g. rounding focus rings next to the edge of the window while
