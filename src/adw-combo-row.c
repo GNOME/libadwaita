@@ -315,7 +315,7 @@ selected_item_changed (AdwComboRow *self,
   box = gtk_list_item_get_child (list_item);
   icon = gtk_widget_get_last_child (box);
 
-  if (adw_combo_row_get_selected (self) == gtk_list_item_get_position (list_item))
+  if (adw_combo_row_get_selected_item (self) == gtk_list_item_get_item (list_item))
     gtk_widget_set_opacity (icon, 1.0);
   else
     gtk_widget_set_opacity (icon, 0.0);
