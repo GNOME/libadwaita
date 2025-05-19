@@ -157,6 +157,7 @@ typedef struct
   int natural_width;
   int natural_height;
 
+  GtkWidget *last_focus;
   GArray *delayed_focus;
 } AdwBreakpointBinPrivate;
 
@@ -269,6 +270,11 @@ breakpoint_changed_tick_cb (GtkWidget        *widget,
   g_clear_pointer (&priv->old_node, gsk_render_node_unref);
   gtk_widget_set_child_visible (priv->child, TRUE);
   gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  if (priv->last_focus) {
+    gtk_widget_grab_focus (priv->last_focus);
+    g_clear_weak_pointer (&priv->last_focus);
+  }
 
   for (i = 0; i < priv->delayed_focus->len; i++) {
     DelayedFocus *focus = &g_array_index (priv->delayed_focus, DelayedFocus, i);
@@ -413,6 +419,18 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
   }
 
   if (!priv->first_allocation) {
+    GtkRoot *root = gtk_widget_get_root (widget);
+
+    if (root) {
+      GtkWidget *focus = gtk_root_get_focus (root);
+
+      if (focus && !gtk_widget_is_ancestor (focus, widget))
+        focus = NULL;
+
+      if (focus)
+        g_object_add_weak_pointer (G_OBJECT (focus), (gpointer *) &priv->last_focus);
+    }
+
     priv->block_warnings = TRUE;
     allocate_child (self, width, height, baseline);
     priv->block_warnings = FALSE;
@@ -468,6 +486,9 @@ adw_breakpoint_bin_focus (GtkWidget        *widget,
 
     g_array_append_val (priv->delayed_focus, focus);
 
+    if (priv->last_focus)
+      g_clear_weak_pointer (&priv->last_focus);
+
     return FALSE;
   }
 
@@ -487,6 +508,9 @@ adw_breakpoint_bin_grab_focus (GtkWidget *widget)
     focus.direction = 0;
 
     g_array_append_val (priv->delayed_focus, focus);
+
+    if (priv->last_focus)
+      g_clear_weak_pointer (&priv->last_focus);
 
     return FALSE;
   }
