@@ -114,6 +114,15 @@ keynav_failed_cb (AdwExpanderRow   *self,
                                  GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
 }
 
+static gboolean
+adw_expander_row_grab_focus (GtkWidget *widget)
+{
+  AdwExpanderRow *self = ADW_EXPANDER_ROW (widget);
+  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
+
+  return gtk_widget_grab_focus (GTK_WIDGET (priv->action_row));
+}
+
 static void
 adw_expander_row_get_property (GObject    *object,
                                guint       prop_id,
@@ -194,7 +203,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
   object_class->set_property = adw_expander_row_set_property;
 
   widget_class->focus = adw_widget_focus_child;
-  widget_class->grab_focus = adw_widget_grab_focus_child;
+  widget_class->grab_focus = adw_expander_row_grab_focus;
 
   /**
    * AdwExpanderRow:subtitle:
