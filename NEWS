@@ -1,4 +1,18 @@
 =============
+Version 1.6.7
+=============
+
+- Fix a crash with empty window layouts
+- AdwExpanderRow
+  - Fix grab_focus() behavior
+- AdwSettings
+  - Move yellow/green boundary for accent color
+- Docs
+  - Fix missing AdwCarouselIndicatorLines image
+- Translation updates
+  - Portuguese
+
+=============
 Version 1.6.6
 =============
 
