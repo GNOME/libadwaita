@@ -26,7 +26,7 @@
  * A lines indicator for [class@Carousel].
  *
  * <picture>
- *   <source srcset="carousel-indicator-dots-lines.png" media="(prefers-color-scheme: dark)">
+ *   <source srcset="carousel-indicator-lines-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="carousel-indicator-lines.png" alt="carousel-indicator-lines">
  * </picture>
  *
