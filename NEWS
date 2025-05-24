@@ -1,4 +1,27 @@
 =============
+Version 1.7.3
+=============
+
+- Fix a crash with empty window layouts
+- AdwExpanderRow
+  - Fix grab_focus() behavior
+- AdwSettings
+  - Move yellow/green boundary for accent color
+- Docs
+  - Fix window radius value
+  - Fix missing AdwCarouselIndicatorLines image
+- Inspector
+  - Disable markup on window rows
+- Stylesheet
+  - Fix icon padding for .default-decoration too
+  - Fix .property for expander rows
+  - Fix disabled styles for various .view widgets
+- Translation updates
+  - Japanese
+  - Latvian
+  - Portuguese
+
+=============
 Version 1.7.2
 =============
 
