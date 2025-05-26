@@ -77,7 +77,6 @@ struct _AdwCarousel
   double position_shift;
 
   guint scroll_timeout_id;
-  gboolean can_scroll;
   gboolean is_being_allocated;
 };
 
@@ -470,7 +469,7 @@ update_orientation (AdwCarousel *self)
 static void
 scroll_timeout_cb (AdwCarousel *self)
 {
-  self->can_scroll = TRUE;
+  self->scroll_timeout_id = 0;
 }
 
 static gboolean
@@ -489,7 +488,7 @@ scroll_cb (AdwCarousel              *self,
   if (!self->allow_scroll_wheel)
     return GDK_EVENT_PROPAGATE;
 
-  if (!self->can_scroll)
+  if (self->scroll_timeout_id > 0)
     return GDK_EVENT_PROPAGATE;
 
   if (!adw_carousel_get_interactive (self))
@@ -534,7 +533,6 @@ scroll_cb (AdwCarousel              *self,
 
   scroll_to (self, adw_carousel_get_nth_page (self, index), 0);
 
-  self->can_scroll = FALSE;
   self->scroll_timeout_id =
    g_timeout_add_once (SCROLL_TIMEOUT_DURATION,
                        (GSourceOnceFunc) scroll_timeout_cb,
@@ -1049,7 +1047,6 @@ adw_carousel_init (AdwCarousel *self)
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->reveal_duration = 0;
-  self->can_scroll = TRUE;
 
   self->tracker = adw_swipe_tracker_new (ADW_SWIPEABLE (self));
   adw_swipe_tracker_set_allow_mouse_drag (self->tracker, TRUE);
