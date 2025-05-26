@@ -1,4 +1,10 @@
 =============
+Version 1.7.4
+=============
+
+- Fix a critical when disposing AdwCarousel after scrolling with mouse wheel
+
+=============
 Version 1.7.3
 =============
 
