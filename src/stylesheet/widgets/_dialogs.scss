@@ -75,10 +75,9 @@ floating-sheet {
 
   > sheet {
     border-radius: $dialog_radius;
-    box-shadow: 0 2px 8px 2px RGB(0 0 6 / 7%),
-                0 3px 20px 9px RGB(0 0 6 / 5%),
-                0 6px 30px 13px RGB(0 0 6 / 2%),
-                0 0 0 1px RGB(0 0 6 / #{if($contrast == 'high', 80%, 5%)});
+    box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
+                0 0 5px 2px RGB(0 0 6 / 10%),
+                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
     outline: 1px solid $window_outline_color;
     outline-offset: -1px;
   }
