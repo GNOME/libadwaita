@@ -485,6 +485,11 @@ adw_style_manager_constructed (GObject *object)
     self->animations_provider = gtk_css_provider_new ();
     gtk_css_provider_load_from_string (self->animations_provider,
                                        "* { transition: none; }");
+
+    g_object_set (self->gtk_settings,
+                  "gtk-font-rendering", GTK_FONT_RENDERING_MANUAL,
+                  "gtk-hint-font-metrics", TRUE,
+                  NULL);
   } else {
     self->gtk_settings = gtk_settings_get_default ();
   }
