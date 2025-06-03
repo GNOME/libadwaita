@@ -752,6 +752,7 @@ adw_avatar_set_size (AdwAvatar *self,
 
   gtk_widget_set_size_request (self->gizmo, size, size);
   gtk_image_set_pixel_size (self->icon, size / 2);
+  gtk_image_set_pixel_size (self->custom_image, size);
 
   if (size < 25)
     gtk_widget_add_css_class (self->gizmo, "contrasted");
