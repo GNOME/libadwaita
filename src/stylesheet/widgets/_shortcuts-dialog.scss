@@ -1,0 +1,37 @@
+dialog.shortcuts .shortcuts-box {
+  margin: 24px 12px;
+  border-spacing: 24px;
+}
+
+.shortcuts-section {
+  padding-top: 6px;
+
+  > row {
+    margin: 0 6px 6px 6px;
+    border-radius: $card_radius - 6px;
+    min-height: 32px;
+    padding: 0 9px;
+
+    > box {
+      border-spacing: 9px;
+    }
+  }
+
+  > separator {
+    background: if($contrast == 'high', $border_color, var(--card-shade-color));
+    margin-bottom: 6px;
+  }
+}
+
+shortcut-label {
+  border-spacing: 6px;
+
+  .keycap {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+    border-radius: 6px;
+    padding: 6px;
+    min-width: 20px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+}
