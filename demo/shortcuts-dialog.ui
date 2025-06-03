@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <property name="shortcuts">
+      <menu>
+        <section>
+          <attribute name="title" translatable="yes">Deletion</attribute>
+          <item>
+            <attribute name="label" translatable="yes">Delete from cursor to word start</attribute>
+            <attribute name="accel" translatable="yes">&lt;Control&gt;BackSpace</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Delete from cursor to word end</attribute>
+            <attribute name="accel" translatable="yes">&lt;Control&gt;Delete</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Delete the current line</attribute>
+            <attribute name="accel" translatable="yes">&lt;Control&gt;D</attribute>
+          </item>
+        </section>
+        <section>
+          <attribute name="title" translatable="yes">Windows</attribute>
+          <section>
+            <item>
+              <attribute name="label" translatable="yes">New window</attribute>
+              <attribute name="accel" translatable="yes">&lt;Control&gt;N</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Move document to new window</attribute>
+              <attribute name="accel" translatable="yes">&lt;Shift&gt;&lt;Control&gt;N</attribute>
+            </item>
+          </section>
+          <section>
+            <item>
+              <attribute name="label" translatable="yes">Move to next tab</attribute>
+              <attribute name="accel" translatable="yes">&lt;Control&gt;Page_Up &lt;Control&gt;Tab</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Move to previous tab</attribute>
+              <attribute name="accel" translatable="yes">&lt;Control&gt;Page_Down &lt;Control&gt;&lt;Shift&gt;Tab</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Move to tab</attribute>
+              <attribute name="accel" translatable="yes">&lt;alt&gt;1...&lt;alt&gt;9</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Move to tab</attribute>
+              <attribute name="accel" translatable="yes">Control_L&amp;Control_R</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Move to tab</attribute>
+              <attribute name="accel" translatable="yes">&lt;ctl&gt;c+&lt;ctl&gt;x</attribute>
+            </item>
+          </section>
+        </section>
+      </menu>
+    </property>
+  </object>
+</interface>

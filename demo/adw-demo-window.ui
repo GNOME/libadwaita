@@ -19,6 +19,10 @@
         <attribute name="action">app.preferences</attribute>
       </item>
       <item>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="action">app.shortcuts</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">_About Adwaita Demo</attribute>
         <attribute name="action">app.about</attribute>
       </item>
