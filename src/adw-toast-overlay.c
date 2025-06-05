@@ -249,7 +249,14 @@ show_toast (AdwToastOverlay *self,
   const char *title, *button_label;
   char *announcement;
 
-  g_assert (!info->widget);
+  if (info->widget) {
+    /* The toast's hide animation is currently playing. Complete it immediately.
+     * hide_done_cb() will clear the widget.
+     */
+    g_assert (info->hide_animation);
+    adw_animation_skip (info->hide_animation);
+    g_assert (!info->widget);
+  }
 
   self->current_toast = info;
 
