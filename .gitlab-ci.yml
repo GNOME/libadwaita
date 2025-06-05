@@ -5,7 +5,6 @@ include:
     inputs:
       job-stage: deploy
       dist-job-name: "build-flatpak"
-      tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
   - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@master
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
@@ -18,7 +17,6 @@ variables:
   MANIFEST_PATH: 'demo/org.gnome.Adwaita1.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
-  TARBALL_ARTIFACT_PATH: ".flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
   # Instead of -nightly, -48 can be used for stable
   GNOMEOS_IMAGE_VERSION: "nightly"
   GNOMEOS_IMAGE: "quay.io/gnome_infrastructure/gnome-build-meta:core-$GNOMEOS_IMAGE_VERSION"
