@@ -296,7 +296,8 @@ parse_sequence (AdwShortcutLabel *self,
   accels = g_strsplit (str, "+", 0);
   for (k = 0; accels[k]; k++) {
     if (k > 0)
-      gtk_widget_set_parent (dim_label (","), GTK_WIDGET (self));
+      // TODO if we're going with an arrow, need to reverse it for RTL
+      gtk_widget_set_parent (dim_label ("→"), GTK_WIDGET (self));
 
     if (!parse_combination (self, accels[k])) {
       retval = FALSE;

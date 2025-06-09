@@ -3,7 +3,6 @@
   <requires lib="gtk" version="4.0"/>
   <template class="AdwShortcutsDialog" parent="AdwDialog">
     <property name="content-width">600</property>
-    <property name="content-height">600</property>
     <style>
       <class name="shortcuts"/>
     </style>
@@ -27,6 +26,7 @@
         <property name="content">
           <object class="GtkScrolledWindow">
             <property name="hscrollbar-policy">never</property>
+            <property name="propagate-natural-height">True</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="child">
