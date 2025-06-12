@@ -304,6 +304,44 @@ view_destroy_cb (AdwTabBar *self)
 }
 
 static gboolean
+handle_action_bin_focus (AdwTabBar        *self,
+                         AdwBin           *focused_bin,
+                         GtkDirectionType  dir,
+                         gboolean          dir_towards_tabs)
+{
+  if (gtk_widget_child_focus (GTK_WIDGET (focused_bin), dir))
+    return GDK_EVENT_STOP;
+
+  if (dir == GTK_DIR_UP || dir == GTK_DIR_DOWN)
+    return GDK_EVENT_PROPAGATE;
+
+  if (dir_towards_tabs) {
+    AdwTabPage *selected_page = adw_tab_view_get_selected_page (self->view);
+
+    if (!selected_page) {
+      GtkWidget *other_bin;
+
+      if (focused_bin == self->start_action_bin)
+        other_bin = GTK_WIDGET (self->end_action_bin);
+      else
+        other_bin = GTK_WIDGET (self->start_action_bin);
+
+      if (gtk_widget_child_focus (other_bin, dir))
+        return GDK_EVENT_STOP;
+
+      return gtk_widget_keynav_failed (GTK_WIDGET (self), dir);
+    }
+
+    if (adw_tab_page_get_pinned (selected_page))
+      return gtk_widget_child_focus (GTK_WIDGET (self->pinned_box), dir);
+
+    return gtk_widget_child_focus (GTK_WIDGET (self->box), dir);
+  }
+
+  return gtk_widget_keynav_failed (GTK_WIDGET (self), dir);
+}
+
+static gboolean
 adw_tab_bar_focus (GtkWidget        *widget,
                    GtkDirectionType  direction)
 {
@@ -314,23 +352,65 @@ adw_tab_bar_focus (GtkWidget        *widget,
   if (!adw_tab_bar_get_tabs_revealed (self))
     return GDK_EVENT_PROPAGATE;
 
-  if (!gtk_widget_get_focus_child (widget))
-    return gtk_widget_child_focus (GTK_WIDGET (self->pinned_box), direction) ||
-           gtk_widget_child_focus (GTK_WIDGET (self->box), direction);
-
   is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
   start = is_rtl ? GTK_DIR_RIGHT : GTK_DIR_LEFT;
   end = is_rtl ? GTK_DIR_LEFT : GTK_DIR_RIGHT;
 
+  if (!gtk_widget_get_focus_child (widget)) {
+    if (direction == start || direction == GTK_DIR_TAB_BACKWARD || direction == GTK_DIR_UP) {
+      return gtk_widget_child_focus (GTK_WIDGET (self->end_action_bin), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->box), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->pinned_box), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->start_action_bin), direction);
+    } else {
+      return gtk_widget_child_focus (GTK_WIDGET (self->start_action_bin), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->pinned_box), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->box), direction) ||
+             gtk_widget_child_focus (GTK_WIDGET (self->end_action_bin), direction);
+    }
+  }
+
+  if (gtk_widget_get_focus_child (GTK_WIDGET (self->start_action_bin))) {
+    return handle_action_bin_focus (self,
+                                    self->start_action_bin,
+                                    direction,
+                                    direction == end || direction == GTK_DIR_TAB_FORWARD);
+  }
+
+  if (gtk_widget_get_focus_child (GTK_WIDGET (self->end_action_bin))) {
+    return handle_action_bin_focus (self,
+                                    self->end_action_bin,
+                                    direction,
+                                    direction == start || direction == GTK_DIR_TAB_BACKWARD);
+  }
+
+  /* If the focus is not in either action_bin, then it must be in the tabs */
+
   if (direction == start) {
-    if (adw_tab_view_select_previous_page (self->view))
+    if (adw_tab_view_select_previous_page (self->view) ||
+        gtk_widget_child_focus (GTK_WIDGET (self->start_action_bin), direction))
       return GDK_EVENT_STOP;
 
     return gtk_widget_keynav_failed (widget, direction);
   }
 
   if (direction == end) {
-    if (adw_tab_view_select_next_page (self->view))
+    if (adw_tab_view_select_next_page (self->view) ||
+        gtk_widget_child_focus (GTK_WIDGET (self->end_action_bin), direction))
+      return GDK_EVENT_STOP;
+
+    return gtk_widget_keynav_failed (widget, direction);
+  }
+
+  if (direction == GTK_DIR_TAB_BACKWARD) {
+    if (gtk_widget_child_focus (GTK_WIDGET (self->start_action_bin), direction))
+      return GDK_EVENT_STOP;
+
+    return gtk_widget_keynav_failed (widget, direction);
+  }
+
+  if (direction == GTK_DIR_TAB_FORWARD) {
+    if (gtk_widget_child_focus (GTK_WIDGET (self->end_action_bin), direction))
       return GDK_EVENT_STOP;
 
     return gtk_widget_keynav_failed (widget, direction);
