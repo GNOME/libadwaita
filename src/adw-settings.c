@@ -250,31 +250,29 @@ adw_settings_constructed (GObject *object)
 
   init_debug (self, &found_color_scheme, &found_high_contrast, &found_accent_colors);
 
-  if (!found_color_scheme || !found_high_contrast || !found_accent_colors) {
 #ifdef __APPLE__
-    self->platform_impl = adw_settings_impl_macos_new (!found_color_scheme,
-                                                       !found_high_contrast,
-                                                       !found_accent_colors,
-                                                       !found_document_font_name,
-                                                       !found_monospace_font_name);
+  self->platform_impl = adw_settings_impl_macos_new (!found_color_scheme,
+                                                     !found_high_contrast,
+                                                     !found_accent_colors,
+                                                     !found_document_font_name,
+                                                     !found_monospace_font_name);
 #elif defined(G_OS_WIN32)
-    self->platform_impl = adw_settings_impl_win32_new (!found_color_scheme,
-                                                       !found_high_contrast,
-                                                       !found_accent_colors,
-                                                       !found_document_font_name,
-                                                       !found_monospace_font_name);
+  self->platform_impl = adw_settings_impl_win32_new (!found_color_scheme,
+                                                     !found_high_contrast,
+                                                     !found_accent_colors,
+                                                     !found_document_font_name,
+                                                     !found_monospace_font_name);
 #else
-    self->platform_impl = adw_settings_impl_portal_new (!found_color_scheme,
-                                                        !found_high_contrast,
-                                                        !found_accent_colors,
-                                                        !found_document_font_name,
-                                                        !found_monospace_font_name);
+  self->platform_impl = adw_settings_impl_portal_new (!found_color_scheme,
+                                                      !found_high_contrast,
+                                                      !found_accent_colors,
+                                                      !found_document_font_name,
+                                                      !found_monospace_font_name);
 #endif
 
-    register_impl (self, self->platform_impl, &found_color_scheme,
-                   &found_high_contrast, &found_accent_colors,
-                   &found_document_font_name, &found_monospace_font_name);
-  }
+  register_impl (self, self->platform_impl, &found_color_scheme,
+                 &found_high_contrast, &found_accent_colors,
+                 &found_document_font_name, &found_monospace_font_name);
 
   if (!found_color_scheme ||
       !found_high_contrast ||
