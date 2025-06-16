@@ -473,6 +473,41 @@ scroll_timeout_cb (AdwCarousel *self)
 }
 
 static gboolean
+navigate_to_direction (AdwCarousel            *self,
+                       AdwNavigationDirection  direction)
+{
+  guint index;
+  guint n_pages;
+
+  n_pages = adw_carousel_get_n_pages (self);
+  if (n_pages == 0)
+    return FALSE;
+
+  index = round (self->position);
+
+  switch (direction) {
+  case ADW_NAVIGATION_DIRECTION_BACK:
+    if (index > 0)
+      index--;
+    else
+      return FALSE;
+    break;
+  case ADW_NAVIGATION_DIRECTION_FORWARD:
+    if (index < n_pages - 1)
+      index++;
+    else
+      return FALSE;
+    break;
+  default:
+    g_assert_not_reached();
+  }
+
+  scroll_to (self, adw_carousel_get_nth_page (self, index), 0);
+
+  return TRUE;
+}
+
+static gboolean
 scroll_cb (AdwCarousel              *self,
            double                    dx,
            double                    dy,
@@ -537,6 +572,103 @@ scroll_cb (AdwCarousel              *self,
    g_timeout_add_once (SCROLL_TIMEOUT_DURATION,
                        (GSourceOnceFunc) scroll_timeout_cb,
                        self);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+keynav_cb (AdwCarousel *self,
+           GVariant    *args)
+{
+  guint n_pages;
+  gboolean is_rtl;
+  AdwNavigationDirection direction;
+  GtkDirectionType direction_type;
+
+  if (!adw_carousel_get_interactive (self))
+    return GDK_EVENT_PROPAGATE;
+
+  n_pages = adw_carousel_get_n_pages (self);
+  if (n_pages == 0)
+    return GDK_EVENT_PROPAGATE;
+
+  g_variant_get (args, "u", &direction_type);
+
+  switch (direction_type) {
+  case GTK_DIR_UP:
+  case GTK_DIR_DOWN:
+    if (self->orientation != GTK_ORIENTATION_VERTICAL)
+      return GDK_EVENT_PROPAGATE;
+    break;
+  case GTK_DIR_LEFT:
+  case GTK_DIR_RIGHT:
+    if (self->orientation != GTK_ORIENTATION_HORIZONTAL)
+      return GDK_EVENT_PROPAGATE;
+    break;
+  case GTK_DIR_TAB_BACKWARD:
+  case GTK_DIR_TAB_FORWARD:
+    break;
+  default:
+    g_assert_not_reached();
+  }
+
+  is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+
+  switch (direction_type) {
+  case GTK_DIR_LEFT:
+    direction = is_rtl ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
+    break;
+  case GTK_DIR_RIGHT:
+    direction = is_rtl ? ADW_NAVIGATION_DIRECTION_BACK : ADW_NAVIGATION_DIRECTION_FORWARD;
+    break;
+  case GTK_DIR_UP:
+  case GTK_DIR_TAB_BACKWARD:
+    direction = ADW_NAVIGATION_DIRECTION_BACK;
+    break;
+  case GTK_DIR_DOWN:
+  case GTK_DIR_TAB_FORWARD:
+    direction = ADW_NAVIGATION_DIRECTION_FORWARD;
+    break;
+  default:
+    g_assert_not_reached();
+  }
+
+  navigate_to_direction (self, direction);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+keynav_bounds_cb (AdwCarousel *self,
+                  GVariant    *args)
+{
+  guint n_pages;
+  GtkDirectionType direction;
+
+  if (!adw_carousel_get_interactive (self))
+    return GDK_EVENT_PROPAGATE;
+
+  n_pages = adw_carousel_get_n_pages (self);
+  if (n_pages == 0)
+    return GDK_EVENT_PROPAGATE;
+
+  g_variant_get (args, "u", &direction);
+
+  switch (direction) {
+  case GTK_DIR_TAB_BACKWARD:
+    scroll_to (self, adw_carousel_get_nth_page (self, 0), 0);
+    break;
+  case GTK_DIR_TAB_FORWARD:
+    scroll_to (self, adw_carousel_get_nth_page (self, n_pages - 1), 0);
+    break;
+  case GTK_DIR_DOWN:
+  case GTK_DIR_LEFT:
+  case GTK_DIR_RIGHT:
+  case GTK_DIR_UP:
+    return GDK_EVENT_PROPAGATE;
+  default:
+    g_assert_not_reached();
+  }
 
   return GDK_EVENT_STOP;
 }
@@ -1031,6 +1163,31 @@ adw_carousel_class_init (AdwCarouselClass *klass)
   g_signal_set_va_marshaller (signals[SIGNAL_PAGE_CHANGED],
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__UINTv);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Up, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_UP);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Down, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_DOWN);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Left, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_LEFT);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Right, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_RIGHT);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Page_Up, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_TAB_BACKWARD);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Page_Down, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_cb,
+                                "u", GTK_DIR_TAB_FORWARD);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Home, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_bounds_cb,
+                                "u", GTK_DIR_TAB_BACKWARD);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_End, GDK_NO_MODIFIER_MASK,
+                                (GtkShortcutFunc) keynav_bounds_cb,
+                                "u", GTK_DIR_TAB_FORWARD);
 
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }
