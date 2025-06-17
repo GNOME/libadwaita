@@ -9,8 +9,8 @@
 
 The Adwaita theme comes in 4 variants: light, dark, hc (highcontrast) and
 hc-dark (highcontrast inverse). The generated CSS files for the variants
-are called Adwaita-$variant.css. For technical reasons, GTK adds one level
-of include wrappers around these, which are called gtk-$variant.css.
+are called `Adwaita-$variant.css`. For technical reasons, GTK adds one level
+of include wrappers around these, which are called `gtk-$variant.css`.
 
 ## How to Tweak the Theme
 
