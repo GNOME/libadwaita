@@ -66,7 +66,6 @@ struct _AdwStyleManager
   AdwSettings *settings;
   GtkSettings *gtk_settings;
   GtkCssProvider *provider;
-  GtkCssProvider *colors_provider;
   GtkCssProvider *accent_provider;
   GtkCssProvider *fonts_provider;
 
@@ -156,6 +155,28 @@ enable_animations_cb (AdwStyleManager *self)
                                                  GTK_STYLE_PROVIDER (self->animations_provider));
 
   self->animation_timeout_id = 0;
+}
+
+static void
+update_media_features (AdwStyleManager *self)
+{
+  const char *prefers_color_scheme;
+  const char *prefers_contrast;
+
+  if (self->dark)
+    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_DARK;
+  else
+    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_LIGHT;
+
+  if (adw_settings_get_high_contrast (self->settings))
+    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_MORE;
+  else
+    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_NO_PREFERENCE;
+
+  gtk_css_provider_update_discrete_media_features (self->provider,
+                                                  2,
+                                                  (const char *[]) { GTK_CSS_PREFERS_COLOR_SCHEME, GTK_CSS_PREFERS_CONTRAST },
+                                                  (const char *[]) { prefers_color_scheme, prefers_contrast });
 }
 
 static char*
@@ -258,24 +279,10 @@ update_stylesheet (AdwStyleManager       *self,
                   NULL);
 
     self->setting_dark = FALSE;
-}
-
-  if (flags & UPDATE_BASE && self->provider) {
-    if (adw_settings_get_high_contrast (self->settings))
-      gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/base-hc.css");
-    else
-      gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/base.css");
   }
 
-  if (flags & UPDATE_COLOR_SCHEME && self->colors_provider) {
-    if (self->dark)
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-dark.css");
-    else
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-light.css");
+  if (flags & (UPDATE_BASE | UPDATE_COLOR_SCHEME) && self->provider) {
+    update_media_features (self);
   }
 
   if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
@@ -438,6 +445,10 @@ adw_style_manager_constructed (GObject *object)
 
   G_OBJECT_CLASS (adw_style_manager_parent_class)->constructed (object);
 
+  self->settings = adw_settings_get_default ();
+
+  update_dark (self);
+
   if (self->display) {
     gboolean prefer_dark_theme;
 
@@ -462,14 +473,12 @@ adw_style_manager_constructed (GObject *object)
                     NULL);
 
       self->provider = gtk_css_provider_new ();
+      update_media_features (self);
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
-
-      self->colors_provider = gtk_css_provider_new ();
-      gtk_style_context_add_provider_for_display (self->display,
-                                                  GTK_STYLE_PROVIDER (self->colors_provider),
-                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
+      gtk_css_provider_load_from_resource (self->provider,
+                                          "/org/gnome/Adwaita/styles/adwaita.css");
 
       self->accent_provider = gtk_css_provider_new ();
       gtk_style_context_add_provider_for_display (self->display,
@@ -493,8 +502,6 @@ adw_style_manager_constructed (GObject *object)
                            G_CALLBACK (update_fonts),
                            self,
                            G_CONNECT_SWAPPED);
-
-  self->settings = adw_settings_get_default ();
 
   g_signal_connect_object (self->settings,
                            "notify::system-supports-color-schemes",
@@ -532,7 +539,6 @@ adw_style_manager_constructed (GObject *object)
                            self,
                            G_CONNECT_SWAPPED);
 
-  update_dark (self);
   update_fonts (self);
   update_stylesheet (self, UPDATE_ALL);
 }
@@ -544,7 +550,6 @@ adw_style_manager_dispose (GObject *object)
 
   g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
   g_clear_object (&self->provider);
-  g_clear_object (&self->colors_provider);
   g_clear_object (&self->animations_provider);
   g_clear_object (&self->accent_provider);
   g_clear_object (&self->fonts_provider);
