@@ -81,7 +81,7 @@ remains legible in both appearances:
 * If that's not possible, use the [property@StyleManager:dark] property to check
   the current appearance and vary the drawing accordingly.
 
-* [class@Application] allows loading additional styles for dark appearance via
+* (Deprecated) [class@Application] allows loading additional styles for dark appearance via
   the `style-dark.css` resource.
 
 ## Accent Color
@@ -96,7 +96,7 @@ color instead of hardcoding blue:
 * Use [property@StyleManager:accent-color-rgba] to get the background accent
   color programmatically.
 
-* Use [property@StyleManager:accent-color] and 
+* Use [property@StyleManager:accent-color] and
   [func@AccentColor.to_standalone_rgba] to get the standalone accent color
   programmatically.
 
@@ -165,9 +165,12 @@ it manually.
 The following resources will automatically be loaded if present:
 
 - `style.css` contains styles that are always used.
-- `style-dark.css` contains styles only used with the dark appearance.
+- `style-dark.css` contains styles only used with the dark appearance).
 - `style-hc.css` contains styles used with the high contrast appearance.
 - `style-hc-dark.css` contains styles used when both dark and high contrast
+
+``style-dark.css`, `style-hc.css`, and `style-hc-dark.css` are deprecated. Instead use
+CSS media queries (e.g. `@media (prefers-color-scheme: dark) and (prefers-contrast: more) {}`).
 
 Styles are stacked on top of each other: when using dark appearance, both
 `style.css` and `style-dark.css` are loaded, and so on.

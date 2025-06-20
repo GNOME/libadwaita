@@ -88,3 +88,19 @@ stacksidebar {
 .toolbar-demo {
   border-radius: 15px;
 }
+
+
+@media (prefers-color-scheme: dark) {
+
+.tab-page {
+  --accent-bg-color: rgb(255 255 255 / 60%);
+  --accent-fg-color: rgb(0 0 0 / 80%);
+  --accent-color: rgb(255 255 255 / 75%);
+  background: hsl(from var(--hue) h s 20%);
+}
+
+.tab-page-color-8 {
+  background: #363636;
+}
+
+}

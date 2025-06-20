@@ -4,6 +4,5 @@
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
 
     <file compressed="true">style.css</file>
-    <file compressed="true">style-dark.css</file>
   </gresource>
 </gresources>
