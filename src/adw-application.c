@@ -147,16 +147,41 @@ style_provider_set_enabled (GtkStyleProvider *provider,
 }
 
 static void
+update_media_features (GtkCssProvider *css_provider)
+{
+  AdwStyleManager *manager = adw_style_manager_get_default ();
+  const char *prefers_color_scheme;
+  const char *prefers_contrast;
+
+  if (adw_style_manager_get_dark (manager))
+    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_DARK;
+  else
+    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_LIGHT;
+
+  if (adw_style_manager_get_high_contrast (manager))
+    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_MORE;
+  else
+    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_NO_PREFERENCE;
+
+  gtk_css_provider_update_discrete_media_features (css_provider,
+                                                   2,
+                                                   (const char *[]) { GTK_CSS_PREFERS_COLOR_SCHEME, GTK_CSS_PREFERS_CONTRAST },
+                                                   (const char *[]) { prefers_color_scheme, prefers_contrast });
+}
+
+static void
 update_stylesheet (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
   AdwStyleManager *manager = adw_style_manager_get_default ();
   gboolean is_dark, is_hc;
 
+  if (priv->base_style_provider != NULL)
+    update_media_features (GTK_CSS_PROVIDER (priv->base_style_provider));
+
   is_dark = adw_style_manager_get_dark (manager);
   is_hc = adw_style_manager_get_high_contrast (manager);
 
-  // TODO: gtk_css_provider_update_discrete_media_features ()
   if (priv->dark_style_provider)
     style_provider_set_enabled (priv->dark_style_provider, is_dark);
 
@@ -167,19 +192,21 @@ update_stylesheet (AdwApplication *self)
     style_provider_set_enabled (priv->hc_dark_style_provider, is_hc && is_dark);
 }
 
-static void
+static gboolean
 init_provider_from_file (GtkStyleProvider **provider,
                          GFile             *file)
 {
   if (!g_file_query_exists (file, NULL)) {
     g_clear_object (&file);
-    return;
+    return FALSE;
   }
 
   *provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
+  update_media_features (GTK_CSS_PROVIDER (*provider));
   gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (*provider), file);
 
   g_clear_object (&file);
+  return TRUE;
 }
 
 static void
@@ -194,12 +221,18 @@ init_providers (AdwApplication *self)
   if (!adw_is_granite_present ()) {
     init_provider_from_file (&priv->base_style_provider,
                              g_file_get_child (base_file, "style.css"));
-    init_provider_from_file (&priv->dark_style_provider,
-                             g_file_get_child (base_file, "style-dark.css"));
-    init_provider_from_file (&priv->hc_style_provider,
-                             g_file_get_child (base_file, "style-hc.css"));
-    init_provider_from_file (&priv->hc_dark_style_provider,
-                             g_file_get_child (base_file, "style-hc-dark.css"));
+
+    if (init_provider_from_file (&priv->dark_style_provider,
+                                 g_file_get_child (base_file, "style-dark.css")))
+      g_message ("style-dark.css is deprecated. Use style.css with media queries instead.");
+
+    if (init_provider_from_file (&priv->hc_style_provider,
+                                 g_file_get_child (base_file, "style-hc.css")))
+      g_message ("style-hc.css is deprecated. Use style.css with media queries instead.");
+
+    if (init_provider_from_file (&priv->hc_dark_style_provider,
+                                 g_file_get_child (base_file, "style-hc-dark.css")))
+      g_message ("style-hc-dark.css is deprecated. Use style.css with media queries instead.");
   }
 
   g_object_unref (base_file);
