@@ -43,7 +43,6 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
     <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
     <file compressed="true">style.css</file>
-    <file compressed="true">style-dark.css</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita1/Demo/ui">
     <file preprocess="xml-stripblanks">pages/about/adw-demo-page-about.ui</file>
