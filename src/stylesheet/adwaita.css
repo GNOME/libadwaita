@@ -1,0 +1,15 @@
+@media (prefers-contrast: no-preference) {
+  @import url("resource:///org/gnome/Adwaita/styles/base.css");
+}
+
+@media (prefers-contrast: more) {
+  @import url("resource:///org/gnome/Adwaita/styles/base-hc.css");
+}
+
+@media (prefers-color-scheme: light) {
+  @import url("resource:///org/gnome/Adwaita/styles/defaults-light.css");
+}
+
+@media (prefers-color-scheme: dark) {
+  @import url("resource:///org/gnome/Adwaita/styles/defaults-dark.css");
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita/styles">
+    <file>adwaita.css</file>
     <file>base.css</file>
     <file>base-hc.css</file>
     <file>defaults-light.css</file>

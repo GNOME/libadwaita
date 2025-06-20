@@ -156,6 +156,7 @@ update_stylesheet (AdwApplication *self)
   is_dark = adw_style_manager_get_dark (manager);
   is_hc = adw_style_manager_get_high_contrast (manager);
 
+  // TODO: gtk_css_provider_update_discrete_media_features ()
   if (priv->dark_style_provider)
     style_provider_set_enabled (priv->dark_style_provider, is_dark);
 
