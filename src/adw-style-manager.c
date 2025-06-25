@@ -157,28 +157,6 @@ enable_animations_cb (AdwStyleManager *self)
   self->animation_timeout_id = 0;
 }
 
-static void
-update_media_features (AdwStyleManager *self)
-{
-  const char *prefers_color_scheme;
-  const char *prefers_contrast;
-
-  if (self->dark)
-    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_DARK;
-  else
-    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_LIGHT;
-
-  if (adw_settings_get_high_contrast (self->settings))
-    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_MORE;
-  else
-    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_NO_PREFERENCE;
-
-  gtk_css_provider_update_discrete_media_features (self->provider,
-                                                  2,
-                                                  (const char *[]) { GTK_CSS_PREFERS_COLOR_SCHEME, GTK_CSS_PREFERS_CONTRAST },
-                                                  (const char *[]) { prefers_color_scheme, prefers_contrast });
-}
-
 static char*
 generate_accent_css (AdwStyleManager *self)
 {
@@ -282,7 +260,7 @@ update_stylesheet (AdwStyleManager       *self,
   }
 
   if (flags & (UPDATE_BASE | UPDATE_COLOR_SCHEME) && self->provider) {
-    update_media_features (self);
+    adw_style_manager_update_media_features (self, self->provider);
   }
 
   if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
@@ -473,7 +451,7 @@ adw_style_manager_constructed (GObject *object)
                     NULL);
 
       self->provider = gtk_css_provider_new ();
-      update_media_features (self);
+      adw_style_manager_update_media_features (self, self->provider);
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
@@ -860,6 +838,29 @@ adw_style_manager_ensure (void)
                     NULL);
 
   g_slist_free (displays);
+}
+
+void
+adw_style_manager_update_media_features (AdwStyleManager *self,
+                                         GtkCssProvider  *css_provider)
+{
+  const char *prefers_color_scheme;
+  const char *prefers_contrast;
+
+  if (self->dark)
+    prefers_color_scheme = "dark";
+  else
+    prefers_color_scheme = "light";
+
+  if (adw_settings_get_high_contrast (self->settings))
+    prefers_contrast = "more";
+  else
+    prefers_contrast = "no-preference";
+
+  gtk_css_provider_update_discrete_media_features (css_provider,
+                                                  2,
+                                                  (const char *[]) { "prefers-color-scheme", "prefers-contrast" },
+                                                  (const char *[]) { prefers_color_scheme, prefers_contrast });
 }
 
 /**

@@ -8,6 +8,7 @@
 #include "adw-application.h"
 #include "adw-dialog.h"
 #include "adw-main-private.h"
+#include "adw-style-manager-private.h"
 
 /**
  * AdwApplication:
@@ -147,29 +148,6 @@ style_provider_set_enabled (GtkStyleProvider *provider,
 }
 
 static void
-update_media_features (GtkCssProvider *css_provider)
-{
-  AdwStyleManager *manager = adw_style_manager_get_default ();
-  const char *prefers_color_scheme;
-  const char *prefers_contrast;
-
-  if (adw_style_manager_get_dark (manager))
-    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_DARK;
-  else
-    prefers_color_scheme = GTK_CSS_PREFERS_COLOR_SCHEME_LIGHT;
-
-  if (adw_style_manager_get_high_contrast (manager))
-    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_MORE;
-  else
-    prefers_contrast = GTK_CSS_PREFERS_CONTRAST_NO_PREFERENCE;
-
-  gtk_css_provider_update_discrete_media_features (css_provider,
-                                                   2,
-                                                   (const char *[]) { GTK_CSS_PREFERS_COLOR_SCHEME, GTK_CSS_PREFERS_CONTRAST },
-                                                   (const char *[]) { prefers_color_scheme, prefers_contrast });
-}
-
-static void
 update_stylesheet (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
@@ -177,7 +155,7 @@ update_stylesheet (AdwApplication *self)
   gboolean is_dark, is_hc;
 
   if (priv->base_style_provider != NULL)
-    update_media_features (GTK_CSS_PROVIDER (priv->base_style_provider));
+    adw_style_manager_update_media_features (manager, GTK_CSS_PROVIDER (priv->base_style_provider));
 
   is_dark = adw_style_manager_get_dark (manager);
   is_hc = adw_style_manager_get_high_contrast (manager);
@@ -196,13 +174,15 @@ static gboolean
 init_provider_from_file (GtkStyleProvider **provider,
                          GFile             *file)
 {
+  AdwStyleManager *manager = adw_style_manager_get_default ();
+
   if (!g_file_query_exists (file, NULL)) {
     g_clear_object (&file);
     return FALSE;
   }
 
   *provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
-  update_media_features (GTK_CSS_PROVIDER (*provider));
+  adw_style_manager_update_media_features (manager, GTK_CSS_PROVIDER (*provider));
   gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (*provider), file);
 
   g_clear_object (&file);
