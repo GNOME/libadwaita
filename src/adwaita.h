@@ -72,6 +72,7 @@ G_BEGIN_DECLS
 #include "adw-preferences-page.h"
 #include "adw-preferences-row.h"
 #include "adw-preferences-window.h"
+#include "adw-shortcut-label.h"
 #include "adw-spin-row.h"
 #include "adw-spinner.h"
 #include "adw-spinner-paintable.h"

@@ -72,6 +72,7 @@ test_names = [
   'test-preferences-page',
   'test-preferences-row',
   'test-preferences-window',
+  'test-shortcut-label',
   'test-spinner',
   'test-spinner-paintable',
   'test-spin-row',

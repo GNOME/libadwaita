@@ -22,6 +22,7 @@ src/adw-preferences-dialog.ui
 src/adw-preferences-window.c
 src/adw-preferences-window.ui
 src/adw-sheet-controls.c
+src/adw-shortcut-label.c
 src/adw-split-button.c
 src/adw-tab-button.ui
 src/adw-tab-overview.c

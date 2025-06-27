@@ -40,6 +40,13 @@ Slug: widget-gallery
   <img src="avatar.png" alt="avatar">
 </picture>](class.Avatar.html)
 
+## Shortcut Label
+
+[<picture>
+  <source srcset="shortcut-label.png" media="(prefers-color-scheme: dark)">
+  <img src="shortcut-label.png" alt="shortcut-label">
+</picture>](class.ShortcutLabel.html)
+
 # Controls
 
 ## Toggle Group
