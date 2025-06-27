@@ -100,6 +100,9 @@
  *   <img src="shortcuts-dialog-example.png" alt="shortcuts-dialog-example">
  * </picture>
  *
+ * The recommended way to use `AdwShortcutsDialog` is via [class@Application]'s
+ * automatic resource loading.
+ *
  * See also: [class@ShortcutLabel].
  *
  * Since: 1.8

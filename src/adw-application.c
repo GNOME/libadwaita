@@ -6,6 +6,7 @@
 
 #include "config.h"
 #include "adw-application.h"
+#include "adw-dialog.h"
 #include "adw-main-private.h"
 
 /**
@@ -20,6 +21,15 @@
  * any Adwaita or GTK API.
  *
  * ## Automatic Resources
+ *
+ * ### Shortcuts Dialog
+ *
+ * If there's a resource located at `shortcuts-dialog.ui` which defines an
+ * [class@ShortcutsDialog] with the ID `shortcuts_dialog`, `AdwApplication`
+ * will set up an `app.shortcuts` action that creates and presents this dialog,
+ * as well as a <kbd>Ctrl</kbd><kbd>?</kbd> accelerator for it.
+ *
+ * ### Stylesheet
  *
  * `AdwApplication` will automatically load stylesheets located in the
  * application's resource base path (see
@@ -45,6 +55,7 @@ typedef struct
   GtkStyleProvider *dark_style_provider;
   GtkStyleProvider *hc_style_provider;
   GtkStyleProvider *hc_dark_style_provider;
+  char *shortcuts_dialog_path;
 } AdwApplicationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwApplication, adw_application, GTK_TYPE_APPLICATION)
@@ -56,6 +67,71 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static GFile *
+get_resource_base_path_file (AdwApplication *self)
+{
+  const char *base_path;
+  char *base_uri;
+  GFile *base_file;
+
+  base_path = g_application_get_resource_base_path (G_APPLICATION (self));
+
+  if (base_path == NULL)
+    return NULL;
+
+  base_uri = g_strconcat ("resource://", base_path, NULL);
+  base_file = g_file_new_for_uri (base_uri);
+
+  g_free (base_uri);
+
+  return base_file;
+}
+
+static void
+disable_shortcuts_action (AdwApplication *self)
+{
+  GAction *action = g_action_map_lookup_action (G_ACTION_MAP (self), "shortcuts");
+
+  g_assert (G_IS_SIMPLE_ACTION (action));
+
+  g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
+}
+
+static void
+shortcuts_action_cb (AdwApplication *self)
+{
+  AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
+  GtkBuilder *builder;
+  GError *error = NULL;
+  GObject *dialog;
+  GtkWindow *window;
+
+  builder = gtk_builder_new ();
+
+  gtk_builder_add_from_resource (builder, priv->shortcuts_dialog_path, &error);
+
+  if (error) {
+    g_critical ("Failed to create shortcuts window: %s", error->message);
+    disable_shortcuts_action (self);
+    g_error_free (error);
+    g_object_unref (builder);
+    return;
+  }
+
+  dialog = gtk_builder_get_object (builder, "shortcuts_dialog");
+  if (!ADW_IS_DIALOG (dialog)) {
+    disable_shortcuts_action (self);
+    g_object_unref (builder);
+    return;
+  }
+
+  window = gtk_application_get_active_window (GTK_APPLICATION (self));
+
+  adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (window));
+
+  g_object_unref (builder);
+}
 
 static inline void
 style_provider_set_enabled (GtkStyleProvider *provider,
@@ -109,17 +185,10 @@ static void
 init_providers (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
-  const char *base_path;
-  char *base_uri;
-  GFile *base_file;
+  GFile *base_file = get_resource_base_path_file (self);
 
-  base_path = g_application_get_resource_base_path (G_APPLICATION (self));
-
-  if (base_path == NULL)
+  if (base_file == NULL)
     return;
-
-  base_uri = g_strconcat ("resource://", base_path, NULL);
-  base_file = g_file_new_for_uri (base_uri);
 
   if (!adw_is_granite_present ()) {
     init_provider_from_file (&priv->base_style_provider,
@@ -133,7 +202,6 @@ init_providers (AdwApplication *self)
   }
 
   g_object_unref (base_file);
-  g_free (base_uri);
 }
 
 static void
@@ -169,6 +237,53 @@ init_styling (AdwApplication *self)
 }
 
 static void
+init_shortcuts_dialog (AdwApplication *self)
+{
+  AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
+  GFile *base_file, *ui_file;
+  GSimpleAction *action;
+  char *uri;
+
+#ifdef __APPLE__
+  const char * const accels[] = { "<Meta>question", NULL };
+#else
+  const char * const accels[] = { "<Control>question", NULL };
+#endif
+
+  /* An app.shortcuts action already exists, so we don't add ours */
+  if (g_action_map_lookup_action (G_ACTION_MAP (self), "shortcuts") != NULL)
+    return;
+
+  base_file = get_resource_base_path_file (self);
+  if (base_file == NULL)
+    return;
+
+  ui_file = g_file_get_child (base_file, "shortcuts-dialog.ui");
+
+  if (!g_file_query_exists (ui_file, NULL)) {
+    g_object_unref (base_file);
+    g_object_unref (ui_file);
+    return;
+  }
+
+  uri = g_file_get_uri (ui_file);
+
+  /* Trim "resource://" to get a resource path */
+  priv->shortcuts_dialog_path = g_strdup (&uri[11]);
+
+  action = g_simple_action_new ("shortcuts", NULL);
+  g_signal_connect_swapped (action, "activate", G_CALLBACK (shortcuts_action_cb), self);
+  g_action_map_add_action (G_ACTION_MAP (self), G_ACTION (action));
+
+  gtk_application_set_accels_for_action (GTK_APPLICATION (self), "app.shortcuts", accels);
+
+  g_free (uri);
+  g_object_unref (base_file);
+  g_object_unref (ui_file);
+  g_object_unref (action);
+}
+
+static void
 adw_application_startup (GApplication *application)
 {
   AdwApplication *self = ADW_APPLICATION (application);
@@ -179,6 +294,7 @@ adw_application_startup (GApplication *application)
 
   init_providers (self);
   init_styling (self);
+  init_shortcuts_dialog (self);
 }
 
 static void
@@ -193,6 +309,17 @@ adw_application_dispose (GObject *object)
   g_clear_object (&priv->hc_dark_style_provider);
 
   G_OBJECT_CLASS (adw_application_parent_class)->dispose (object);
+}
+
+static void
+adw_application_finalize (GObject *object)
+{
+  AdwApplication *self = ADW_APPLICATION (object);
+  AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
+
+  g_free (priv->shortcuts_dialog_path);
+
+  G_OBJECT_CLASS (adw_application_parent_class)->finalize (object);
 }
 
 static void
@@ -220,6 +347,7 @@ adw_application_class_init (AdwApplicationClass *klass)
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
   object_class->dispose = adw_application_dispose;
+  object_class->finalize = adw_application_finalize;
   object_class->get_property = adw_application_get_property;
 
   application_class->startup = adw_application_startup;
