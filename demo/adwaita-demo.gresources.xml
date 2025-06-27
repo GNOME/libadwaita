@@ -41,6 +41,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
     <file compressed="true">style.css</file>
     <file compressed="true">style-dark.css</file>
   </gresource>

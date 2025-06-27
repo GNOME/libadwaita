@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Open Menu</property>
+            <property name="accelerator">F10</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Preferences</property>
+            <property name="action-name">app.preferences</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Keyboard Shortcuts</property>
+            <property name="action-name">app.shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Close Current Window</property>
+            <property name="accelerator">&lt;Control&gt;W</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Quit</property>
+            <property name="action-name">app.quit</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes">Tab View</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">New Tab</property>
+            <property name="accelerator">&lt;Control&gt;T</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">New Window</property>
+            <property name="accelerator">&lt;Control&gt;N</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Close Tab</property>
+            <property name="accelerator">&lt;Control&gt;W</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Previous Tab</property>
+            <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Tab &lt;Ctrl&gt;Page_Up</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Next Tab</property>
+            <property name="accelerator">&lt;Ctrl&gt;Tab &lt;Ctrl&gt;Page_Down</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">First Tab</property>
+            <property name="accelerator">&lt;Ctrl&gt;Home</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Last Tab</property>
+            <property name="accelerator">&lt;Ctrl&gt;End</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Move Tab Left</property>
+            <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+            <property name="direction">ltr</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Move Tab Right</property>
+            <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+            <property name="direction">ltr</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Move Tab Right</property>
+            <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+            <property name="direction">rtl</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Move Tab Left</property>
+            <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+            <property name="direction">rtl</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Switch to Tab 1–9</property>
+            <property name="accelerator">&lt;Alt&gt;1...9</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Switch to Tab 10</property>
+            <property name="accelerator">&lt;Alt&gt;0</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
