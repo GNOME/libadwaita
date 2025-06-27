@@ -106,6 +106,7 @@ main (int    argc,
     { "about", show_about, NULL, NULL, NULL },
     { "quit", quit_app, NULL, NULL, NULL },
   };
+  const char *preferences_accels[2] = { "<Ctrl>comma", NULL };
   const char *quit_accels[2] = { "<Ctrl>Q", NULL };
 
   app = adw_application_new ("org.gnome.Adwaita1.Demo", G_APPLICATION_NON_UNIQUE);
@@ -113,6 +114,7 @@ main (int    argc,
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    app);
 
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app), "app.preferences", preferences_accels);
   gtk_application_set_accels_for_action (GTK_APPLICATION (app), "app.quit", quit_accels);
 
   g_signal_connect (app, "activate", G_CALLBACK (show_window), NULL);
