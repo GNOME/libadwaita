@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="window">
+    <property name="default-width">650</property>
+    <property name="default-height">650</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="AdwShortcutsDialog" id="widget">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes">Section</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 1</property>
+            <property name="accelerator">&lt;Control&gt;1</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 2</property>
+            <property name="accelerator">&lt;Control&gt;2</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 3</property>
+            <property name="accelerator">&lt;Control&gt;3</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 4</property>
+            <property name="accelerator">&lt;Control&gt;4</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+          <property name="title" translatable="yes">Section</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 5</property>
+            <property name="accelerator">&lt;Control&gt;5</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 6</property>
+            <property name="accelerator">&lt;Control&gt;6</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 7</property>
+            <property name="accelerator">&lt;Control&gt;7</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes">Shortcut 8</property>
+            <property name="accelerator">&lt;Control&gt;8</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

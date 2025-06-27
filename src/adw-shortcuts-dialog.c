@@ -1,0 +1,433 @@
+/*
+ * Copyright (C) 2025 GNOME Foundation Inc.
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
+ * Author: Alice Mikhaylenko <alicem@gnome.org>
+ */
+
+#include "config.h"
+
+#include "adw-shortcuts-dialog.h"
+
+#include "adw-preferences-group.h"
+#include "adw-preferences-page.h"
+#include "adw-shortcut-row-private.h"
+#include "adw-view-stack.h"
+#include "adw-widget-utils-private.h"
+
+/**
+ * AdwShortcutsDialog:
+ *
+ * A dialog that displays application's keyboard shortcuts.
+ *
+ * <picture>
+ *   <source srcset="shortcuts-dialog.png" media="(prefers-color-scheme: dark)">
+ *   <img src="shortcuts-dialog.png" alt="shortcuts-dialog">
+ * </picture>
+ *
+ * Shortcuts are grouped into sections, represented by [class@ShortcutsSection]
+ * objects. Each section has one or more items, represented by
+ * [class@ShortcutsItem] objects.
+ *
+ * To add a section to the dialog, use [method@ShortcutsDialog.add], or add it
+ * as a child when using UI files.
+ *
+ * Sections without titles can be used to further subdivide each section into
+ * groups.
+ *
+ * Example of an `AdwShortcutsDialog` UI definition:
+ *
+ * ```xml
+ * <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+ *   <child>
+ *     <object class="AdwShortcutsSection">
+ *       <property name="title" translatable="yes">General</property>
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Open Menu</property>
+ *           <property name="accelerator">F10</property>
+ *         </object>
+ *       </child>
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Quit</property>
+ *           <property name="action-name">app.quit</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </child>
+ *   <child>
+ *     <object class="AdwShortcutsSection">
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Move Tab Left</property>
+ *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+ *           <property name="direction">ltr</property>
+ *         </object>
+ *       </child>
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Move Tab Right</property>
+ *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+ *           <property name="direction">ltr</property>
+ *         </object>
+ *       </child>
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Move Tab Right</property>
+ *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Up</property>
+ *           <property name="direction">rtl</property>
+ *         </object>
+ *       </child>
+ *       <child>
+ *         <object class="AdwShortcutsItem">
+ *           <property name="title" translatable="yes">Move Tab Left</property>
+ *           <property name="accelerator">&lt;Shift&gt;&lt;Ctrl&gt;Page_Down</property>
+ *           <property name="direction">rtl</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </child>
+ * </object>
+ * ```
+ *
+ * If the `app.quit` action has the <kbd>Ctrl</kbd><kbd>Q</kbd> accelerator
+ * associated with it, the result will look as follows:
+ *
+ * <picture>
+ *   <source srcset="shortcuts-dialog-example.png" media="(prefers-color-scheme: dark)">
+ *   <img src="shortcuts-dialog-example.png" alt="shortcuts-dialog-example">
+ * </picture>
+ *
+ * See also: [class@ShortcutLabel].
+ *
+ * Since: 1.8
+ */
+
+struct _AdwShortcutsDialog
+{
+  AdwDialog parent_instance;
+
+  GtkSearchEntry *search_entry;
+  AdwViewStack *stack;
+  AdwPreferencesPage *contents;
+  AdwPreferencesPage *search;
+  GtkListBox *search_list;
+  GtkWidget *empty;
+
+  GtkCustomFilter *direction_filter;
+  GtkStringFilter *title_filter;
+  GtkStringFilter *subtitle_filter;
+  GtkMapListModel *filtered_sections;
+  GtkFilterListModel *search_model;
+
+  GListStore *sections;
+};
+
+static void adw_shortcuts_dialog_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwShortcutsDialog, adw_shortcuts_dialog, ADW_TYPE_DIALOG,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_shortcuts_dialog_buildable_init))
+
+static void
+update_stack (AdwShortcutsDialog *self)
+{
+  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->search_entry));
+
+  if (text && *text) {
+    if (g_list_model_get_n_items (G_LIST_MODEL (self->search_model)) > 0)
+      adw_view_stack_set_visible_child (self->stack, GTK_WIDGET (self->search));
+    else
+      adw_view_stack_set_visible_child (self->stack, GTK_WIDGET (self->empty));
+  } else {
+    adw_view_stack_set_visible_child (self->stack, GTK_WIDGET (self->contents));
+  }
+}
+
+static void
+stop_search (AdwShortcutsDialog *self)
+{
+  gtk_editable_set_text (GTK_EDITABLE (self->search_entry), "");
+  gtk_string_filter_set_search (self->title_filter, "");
+  gtk_string_filter_set_search (self->subtitle_filter, "");
+  update_stack (self);
+}
+
+static void
+search_row_activated_cb (AdwShortcutsDialog *self,
+                         GtkListBoxRow      *row)
+{
+  GtkWidget *source_row = g_object_get_data (G_OBJECT (row),
+                                             "-adw-shortcut-search-source");
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  stop_search (self);
+
+  gtk_widget_grab_focus (source_row);
+
+  if (GTK_IS_WINDOW (root))
+    gtk_window_set_focus_visible (GTK_WINDOW (root), TRUE);
+}
+
+static void
+search_started_cb (AdwShortcutsDialog *self)
+{
+  gtk_widget_grab_focus (GTK_WIDGET (self->search_entry));
+  gtk_editable_set_position (GTK_EDITABLE (self->search_entry), -1);
+}
+
+static void
+search_changed_cb (AdwShortcutsDialog *self)
+{
+  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->search_entry));
+
+  gtk_string_filter_set_search (self->title_filter, text);
+  gtk_string_filter_set_search (self->subtitle_filter, text);
+
+  update_stack (self);
+}
+
+static void
+stop_search_cb (AdwShortcutsDialog *self)
+{
+  if (adw_view_stack_get_visible_child (self->stack) != GTK_WIDGET (self->contents)) {
+    stop_search (self);
+    return;
+  }
+
+  adw_dialog_close (ADW_DIALOG (self));
+}
+
+static GtkWidget *
+create_row (AdwShortcutsItem   *item,
+            AdwShortcutsDialog *self)
+{
+  return adw_shortcut_row_new (item);
+}
+
+static AdwPreferencesGroup *
+create_section (AdwShortcutsDialog  *self,
+                AdwShortcutsSection *section,
+                GListModel          *items)
+{
+  GtkWidget *group = adw_preferences_group_new ();
+
+  g_object_bind_property (section, "title", group, "title", G_BINDING_SYNC_CREATE);
+
+  adw_preferences_group_bind_model (ADW_PREFERENCES_GROUP (group), items,
+                                    (GtkListBoxCreateWidgetFunc) create_row,
+                                    self, NULL);
+
+  return ADW_PREFERENCES_GROUP (group);
+}
+
+static void
+sections_changed_cb (AdwShortcutsDialog *self,
+                     guint               index,
+                     guint               removed,
+                     guint               added,
+                     GListModel         *sections)
+{
+  guint i;
+
+  for (i = 0; i < removed; i++) {
+    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, i);
+
+    adw_preferences_page_remove (self->contents, group);
+  }
+
+  for (i = 0; i < added; i++) {
+    GListModel *items = g_list_model_get_item (sections, index + i);
+    GListModel *model = gtk_filter_list_model_get_model (GTK_FILTER_LIST_MODEL (items));
+    AdwShortcutsSection *section = ADW_SHORTCUTS_SECTION (model);
+    AdwPreferencesGroup *group = create_section (self, section, items);
+
+    adw_preferences_page_insert (self->contents, group, index + added);
+
+    g_object_unref (section);
+  }
+}
+
+static void
+adw_shortcuts_dialog_root (GtkWidget *widget)
+{
+  GTK_WIDGET_CLASS (adw_shortcuts_dialog_parent_class)->root (widget);
+
+  /* The previous size was calculated with empty content, so recalculate it */
+  adw_dialog_set_content_height (ADW_DIALOG (widget), -1);
+}
+
+static void
+adw_shortcuts_dialog_direction_changed (GtkWidget        *widget,
+                                        GtkTextDirection  previous_direction)
+{
+  AdwShortcutsDialog *self = ADW_SHORTCUTS_DIALOG (widget);
+
+  gtk_filter_changed (GTK_FILTER (self->direction_filter), GTK_FILTER_CHANGE_DIFFERENT);
+}
+
+static void
+adw_shortcuts_dialog_dispose (GObject *object)
+{
+  AdwShortcutsDialog *self = ADW_SHORTCUTS_DIALOG (object);
+
+  g_clear_object (&self->sections);
+  g_clear_object (&self->search_model);
+  g_clear_object (&self->direction_filter);
+  self->title_filter = NULL;
+  self->subtitle_filter = NULL;
+  self->filtered_sections = NULL;
+
+  G_OBJECT_CLASS (adw_shortcuts_dialog_parent_class)->dispose (object);
+}
+
+static void
+adw_shortcuts_dialog_class_init (AdwShortcutsDialogClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->dispose = adw_shortcuts_dialog_dispose;
+
+  widget_class->root = adw_shortcuts_dialog_root;
+  widget_class->direction_changed = adw_shortcuts_dialog_direction_changed;
+
+  gtk_widget_class_set_template_from_resource (widget_class,
+                                               "/org/gnome/Adwaita/ui/adw-shortcuts-dialog.ui");
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search_entry);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, contents);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search_list);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, empty);
+  gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
+  gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_row_activated_cb);
+}
+
+static GObject *
+section_to_filter_model (AdwShortcutsSection *section,
+                         AdwShortcutsDialog  *self)
+{
+  GListModel *model = G_LIST_MODEL (g_object_ref (section));
+  GtkFilter *filter = GTK_FILTER (g_object_ref (self->direction_filter));
+
+  return G_OBJECT (gtk_filter_list_model_new (model, filter));
+}
+
+static gboolean
+direction_filter_func (AdwShortcutsItem   *item,
+                       AdwShortcutsDialog *self)
+{
+  GtkTextDirection dir = adw_shortcuts_item_get_direction (item);
+
+  if (dir == GTK_TEXT_DIR_NONE)
+    return TRUE;
+
+  return dir == gtk_widget_get_direction (GTK_WIDGET (self));
+}
+
+static void
+adw_shortcuts_dialog_init (AdwShortcutsDialog *self)
+{
+  GtkExpression *title_expr, *subtitle_expr;
+  GtkFilter *filter;
+  GtkFlattenListModel *all_rows;
+
+  gtk_widget_init_template (GTK_WIDGET (self));
+
+  self->sections = g_list_store_new (ADW_TYPE_SHORTCUTS_SECTION);
+
+  gtk_search_entry_set_key_capture_widget (self->search_entry, GTK_WIDGET (self));
+
+  title_expr = gtk_property_expression_new (ADW_TYPE_SHORTCUTS_ITEM,
+                                            NULL, "title");
+  subtitle_expr = gtk_property_expression_new (ADW_TYPE_SHORTCUTS_ITEM,
+                                               NULL, "subtitle");
+
+  self->title_filter = gtk_string_filter_new (title_expr);
+  self->subtitle_filter = gtk_string_filter_new (subtitle_expr);
+  self->direction_filter = gtk_custom_filter_new ((GtkCustomFilterFunc) direction_filter_func,
+                                                  self, NULL);
+
+  filter = GTK_FILTER (gtk_any_filter_new ());
+  gtk_multi_filter_append (GTK_MULTI_FILTER (filter), GTK_FILTER (self->title_filter));
+  gtk_multi_filter_append (GTK_MULTI_FILTER (filter), GTK_FILTER (self->subtitle_filter));
+
+  self->filtered_sections = gtk_map_list_model_new (G_LIST_MODEL (g_object_ref (self->sections)),
+                                                    (GtkMapListModelMapFunc) section_to_filter_model,
+                                                    self, NULL);
+  all_rows = gtk_flatten_list_model_new (G_LIST_MODEL (self->filtered_sections));
+  self->search_model = gtk_filter_list_model_new (G_LIST_MODEL (all_rows), filter);
+
+  g_signal_connect_object (self->filtered_sections, "items-changed",
+                           G_CALLBACK (sections_changed_cb), self,
+                           G_CONNECT_SWAPPED);
+
+  gtk_list_box_bind_model (self->search_list,
+                           G_LIST_MODEL (self->search_model),
+                           (GtkListBoxCreateWidgetFunc) create_row,
+                           self,
+                           NULL);
+
+  g_signal_connect_swapped (self->search_model, "notify::n-items",
+                            G_CALLBACK (update_stack), self);
+}
+
+static void
+adw_shortcuts_dialog_add_child (GtkBuildable *buildable,
+                                GtkBuilder   *builder,
+                                GObject      *child,
+                                const char   *type)
+{
+  AdwShortcutsDialog *self = ADW_SHORTCUTS_DIALOG (buildable);
+
+  if (ADW_IS_SHORTCUTS_SECTION (child)) {
+    adw_shortcuts_dialog_add (self, g_object_ref (ADW_SHORTCUTS_SECTION (child)));
+  } else {
+    g_warning ("Cannot add an object of type %s to AdwShortcutsDialog",
+               g_type_name (G_OBJECT_TYPE (child)));
+  }
+}
+
+static void
+adw_shortcuts_dialog_buildable_init (GtkBuildableIface *iface)
+{
+  iface->add_child = adw_shortcuts_dialog_add_child;
+}
+
+/**
+ * adw_shortcuts_dialog_new:
+ *
+ * Creates a new `AdwShortcutsDialog`.
+ *
+ * Returns: the newly created `AdwShortcutsDialog`
+ *
+ * Since: 1.8
+ */
+AdwDialog *
+adw_shortcuts_dialog_new (void)
+{
+  return g_object_new (ADW_TYPE_SHORTCUTS_DIALOG, NULL);
+}
+
+/**
+ * adw_shortcuts_dialog_add:
+ * @self: a shortcuts dialog
+ * @section: (transfer full): the section to add
+ *
+ * Adds @section to @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_shortcuts_dialog_add (AdwShortcutsDialog  *self,
+                          AdwShortcutsSection *section)
+{
+  g_return_if_fail (ADW_IS_SHORTCUTS_DIALOG (self));
+  g_return_if_fail (ADW_IS_SHORTCUTS_SECTION (section));
+
+  g_list_store_append (self->sections, section);
+}

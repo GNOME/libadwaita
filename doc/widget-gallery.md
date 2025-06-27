@@ -83,6 +83,13 @@ Slug: widget-gallery
   <img src="about-dialog.png" alt="about-dialog">
 </picture>](class.AboutDialog.html)
 
+## Shortcuts Dialog
+
+[<picture>
+  <source srcset="shortcuts-dialog.png" media="(prefers-color-scheme: dark)">
+  <img src="shortcuts-dialog.png" alt="shortcuts-dialog">
+</picture>](class.ShortcutsDialog.html)
+
 # Boxed Lists
 
 ## Action Row

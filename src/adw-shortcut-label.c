@@ -87,6 +87,8 @@
  *
  * `AdwShortcutLabel` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
+ * See also: [class@ShortcutsDialog].
+ *
  * Since: 1.8
  */
 
