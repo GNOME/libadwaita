@@ -20,7 +20,7 @@ Version 1.8.alpha
   - Preserve focus when switching breakpoints
 - AdwCarousel
   - Support keyboard navigation
-  - Fix a crash with wheel scroll timeout
+  - Fix a critical when disposing it after scrolling with mouse wheel
 - AdwExpanderRow
   - Fix grab_focus() behavior
 - AdwHeaderBar
