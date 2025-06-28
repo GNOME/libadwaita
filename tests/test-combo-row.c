@@ -39,10 +39,12 @@ test_adw_combo_row_set_for_enum (void)
   item = g_list_model_get_item (model, 0);
   g_assert_true (ADW_IS_ENUM_LIST_ITEM (item));
   g_assert_cmpstr (adw_enum_list_item_get_nick (item), ==, "horizontal");
+  g_object_unref (item);
 
   item = g_list_model_get_item (model, 1);
   g_assert_true (ADW_IS_ENUM_LIST_ITEM (item));
   g_assert_cmpstr (adw_enum_list_item_get_nick (item), ==, "vertical");
+  g_object_unref (item);
 
   g_assert_finalize_object (row);
 }
