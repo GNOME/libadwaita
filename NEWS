@@ -1,4 +1,19 @@
 =============
+Version 1.6.8
+=============
+
+- AdwAboutDialog/AdwAboutWindow
+  - Fix a leak
+- AdwAvatar
+  - Fix custom image size with GTK 4.19.2
+- AdwCarousel
+  - Fix a critical when disposing it after scrolling with mouse wheel
+- AdwToastOverlay
+  - Fix a critical when showing a toast while hiding it
+- Tests
+  - Fix a leak
+
+=============
 Version 1.6.7
 =============
 
