@@ -7,6 +7,9 @@ include:
       dist-job-name: "build-flatpak"
       tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
   - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@master
+  - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
+    inputs:
+      meson-options: "-Ddocumentation=true"
 
 variables:
   APP_ID: 'org.gnome.Adwaita1.Demo'
