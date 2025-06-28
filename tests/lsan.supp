@@ -1,0 +1,16 @@
+# Ignore fontconfig leaks
+leak:FcConfigValues
+leak:FcFontRenderPrepare
+leak:FcPatternObjectAddWithBinding
+leak:FcPatternObjectInsertElt
+leak:FcValueSave
+leak:XML_ParseBuffer
+
+# Ignore mesa leaks
+leak:mesa_cache_db_open
+
+# Ignore pango leaks
+leak:pango_layout_get_empty_extents_and_height_at_index
+
+# Ignore the GTK leak from calling gtk_button_set_label()
+leak:gtk_widget_list_mnemonic_labels
