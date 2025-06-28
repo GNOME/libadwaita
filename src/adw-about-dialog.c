@@ -366,6 +366,7 @@ static void
 free_legal_section (LegalSection *section)
 {
   g_free (section->title);
+  g_free (section->copyright);
   g_free (section->license);
   g_free (section);
 }
