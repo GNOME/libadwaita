@@ -8,7 +8,7 @@ include:
   - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@master
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
-      meson-options: "-Ddocumentation=true"
+      meson-options: "-Dgtk_doc=true"
       lsan-options: "suppressions=${CI_PROJECT_DIR}/tests/lsan.supp"
 
 variables:
