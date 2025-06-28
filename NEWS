@@ -1,3 +1,88 @@
+=================
+Version 1.8.alpha
+=================
+
+- Add AdwShortcutsDialog
+- Add AdwShortcutLabel
+- Fix a crash with empty window layouts
+- Avoid needlessly resassigning CSS classes for dynamic shadows
+- AdwAboutDialog/AdwAboutWindow
+  - Fix a leak
+  - Fix mnemonics
+  - Clarify :translator-credits docs
+- AdwAlertDialog/AdwMessageDialog
+  - Fix a warning with long headings
+- AdwApplication
+  - Automatically set up app.shortcuts action if shortcuts-dialog.ui is present
+- AdwAvatar
+  - Fix custom image size with GTK 4.19.2
+- AdwBreakpointBin
+  - Preserve focus when switching breakpoints
+- AdwCarousel
+  - Support keyboard navigation
+  - Fix a critical when disposing it after scrolling with mouse wheel
+- AdwExpanderRow
+  - Fix grab_focus() behavior
+- AdwHeaderBar
+  - Add support for native window controls in macOS
+- AdwNavigationView
+  - fix :visible-page-tag notifications
+- AdwPreferencesGroup
+  - Add bind_model()
+  - Add get_row()
+  - Allow rows that aren't AdwPreferencesRow
+- AdwPreferencesPage
+  - Add insert()
+  - Add get_group()
+- AdwStyleManager
+  - Fix font name docs
+  - Fix loading font names when debug variables are set
+  - Move yellow/green boundary for accent color
+  - Support high contrast on macOS
+- AdwTabOverview
+  - Update window radius
+- AdwToastOverlay
+  - Fix a critical when showing a toast while hiding it
+  - Fix accessible role in documentation
+- Adaptive preview
+  - Add context to shell and device preset translatable strings
+  - Change screenshot tooltip
+- Build
+  - Don't install internal static library
+  - Fix build with older gobject-introspection versions
+- Demo
+  - Add a shortcut for opening preferences
+- Docs
+  - Fix window radius value
+  - Fix missing AdwCarouselIndicatorLines image
+- Inspector
+  - Disable markup on window rows
+- Stylesheet
+  - Adjust GtkWindowControls styles for GTK 4.18.4 changes
+  - Optimize window and dialog shadows
+  - Fix disabled styles for various .view widgets
+  - Fix list DND styles
+  - Fix .property for expander rows
+- Tests
+  - Fix a leak
+- Translation updates
+  - Belarusian
+  - Brazilian Portuguese
+  - British English
+  - Catalan
+  - Friulian
+  - German
+  - Hebrew
+  - Hungarian
+  - Indonesian
+  - Japanese
+  - Latvian
+  - Portuguese
+  - Romanian
+  - Russian
+  - Slovenian
+  - Ukrainian
+
 =============
 Version 1.7.0
 =============
