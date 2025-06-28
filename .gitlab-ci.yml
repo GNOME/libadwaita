@@ -9,6 +9,7 @@ include:
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
       meson-options: "-Ddocumentation=true"
+      lsan-options: "suppressions=${CI_PROJECT_DIR}/tests/lsan.supp"
 
 variables:
   APP_ID: 'org.gnome.Adwaita1.Demo'
