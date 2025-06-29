@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-05-01 15:40+0000\n"
-"PO-Revision-Date: 2025-05-02 12:50+0200\n"
+"POT-Creation-Date: 2025-06-28 23:22+0000\n"
+"PO-Revision-Date: 2025-06-29 12:43+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -90,30 +90,30 @@ msgstr "Javno dovoljenje Mozilla 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "Dovoljenje BSD Zero-Clause"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Programiranje:"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Oblikovanje:"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Grafična podoba:"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Dokumentacija:"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Prevod:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
@@ -122,47 +122,47 @@ msgstr ""
 "Ta program je objavljen brez vsakršnega jamstva. Več podrobnosti je "
 "zapisanih v datoteki <a href=\"%s\">%s</a>"
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Program"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Različica %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Ni mogoče razčleniti opomb k izdaji:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Vrstica: %d, znak: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Kopirano v odložišče"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Podrobnosti razhroščevanja ni mogoče shraniti."
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Zapri"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "Shrani podrobnosti razhroščevanja"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Drugi programi avtorjev %s"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Drugi programi"
 
@@ -539,10 +539,12 @@ msgid "Search preferences"
 msgstr "Možnosti iskanja"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:55
 msgid "No Results Found"
 msgstr "Ni najdenih zadetkov."
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:56
+#: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
@@ -553,6 +555,38 @@ msgstr "Poskusite z drugačnim iskalnim nizom."
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Zapri okno"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "L"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "D"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovne bližnjice"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Poišči tipkovno bližnjico"
+
+#: src/adw-shortcut-row.c:243
+msgid "No Shortcut"
+msgstr "Brez bližnjice"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -596,22 +630,22 @@ msgstr "Nov _zavihek"
 msgid "Close Tab"
 msgstr "Zapri zavihek"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Pojavila se je zdravica: %s, ima gumb: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Pojavila se je zdravica: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Pojavila se je zdravica, ima gumb: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "Pojavila se je zdravica"
 
