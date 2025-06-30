@@ -27,4 +27,6 @@ G_DECLARE_FINAL_TYPE (AdwShortcutRow, adw_shortcut_row, ADW, SHORTCUT_ROW, AdwPr
 
 GtkWidget *adw_shortcut_row_new (AdwShortcutsItem *item) G_GNUC_WARN_UNUSED_RESULT;
 
+AdwShortcutsItem *adw_shortcut_row_get_item (AdwShortcutRow *self);
+
 G_END_DECLS

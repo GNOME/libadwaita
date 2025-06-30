@@ -262,3 +262,11 @@ adw_shortcut_row_new (AdwShortcutsItem *item)
 
   return g_object_new (ADW_TYPE_SHORTCUT_ROW, "item", item, NULL);
 }
+
+AdwShortcutsItem *
+adw_shortcut_row_get_item (AdwShortcutRow *self)
+{
+  g_return_val_if_fail (ADW_IS_SHORTCUT_ROW (self), NULL);
+
+  return self->item;
+}

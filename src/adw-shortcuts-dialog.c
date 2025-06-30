@@ -157,20 +157,70 @@ stop_search (AdwShortcutsDialog *self)
   update_stack (self);
 }
 
+static GtkWidget *
+find_row (AdwShortcutsDialog *self,
+          AdwShortcutsItem   *the_item)
+{
+  guint i, j, n, m;
+  gboolean found = FALSE;
+  AdwPreferencesGroup *group;
+  GtkWidget *row;
+
+  n = g_list_model_get_n_items (G_LIST_MODEL (self->filtered_sections));
+
+  for (i = 0; i < n; i++) {
+    GListModel *section;
+
+    section = g_list_model_get_item (G_LIST_MODEL (self->filtered_sections), i);
+    m = g_list_model_get_n_items (section);
+
+    for (j = 0; j < m; j++) {
+      AdwShortcutsItem *item = g_list_model_get_item (section, j);
+
+      if (item == the_item)
+        found = TRUE;
+
+      g_object_unref (item);
+
+      if (found)
+        break;
+    }
+
+    g_object_unref (section);
+
+    if (found)
+      break;
+  }
+
+  if (!found)
+    return NULL;
+
+  group = adw_preferences_page_get_group (self->contents, i);
+  g_assert (group != NULL);
+
+  row = adw_preferences_group_get_row (group, j);
+  g_assert (row != NULL);
+
+  return row;
+}
+
 static void
 search_row_activated_cb (AdwShortcutsDialog *self,
                          GtkListBoxRow      *row)
 {
-  GtkWidget *source_row = g_object_get_data (G_OBJECT (row),
-                                             "-adw-shortcut-search-source");
-  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+  AdwShortcutsItem *item = adw_shortcut_row_get_item (ADW_SHORTCUT_ROW (row));
+  GtkWidget *source_row = find_row (self, item);
 
   stop_search (self);
 
-  gtk_widget_grab_focus (source_row);
+  if (source_row) {
+    GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
 
-  if (GTK_IS_WINDOW (root))
-    gtk_window_set_focus_visible (GTK_WINDOW (root), TRUE);
+    gtk_widget_grab_focus (source_row);
+
+    if (GTK_IS_WINDOW (root))
+      gtk_window_set_focus_visible (GTK_WINDOW (root), TRUE);
+  }
 }
 
 static void
@@ -205,6 +255,17 @@ stop_search_cb (AdwShortcutsDialog *self)
 static GtkWidget *
 create_row (AdwShortcutsItem   *item,
             AdwShortcutsDialog *self)
+{
+  GtkWidget *row = adw_shortcut_row_new (item);
+
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), FALSE);
+
+  return row;
+}
+
+static GtkWidget *
+create_search_row (AdwShortcutsItem   *item,
+                   AdwShortcutsDialog *self)
 {
   return adw_shortcut_row_new (item);
 }
@@ -371,7 +432,7 @@ adw_shortcuts_dialog_init (AdwShortcutsDialog *self)
 
   gtk_list_box_bind_model (self->search_list,
                            G_LIST_MODEL (self->search_model),
-                           (GtkListBoxCreateWidgetFunc) create_row,
+                           (GtkListBoxCreateWidgetFunc) create_search_row,
                            self,
                            NULL);
 
