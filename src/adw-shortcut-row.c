@@ -66,9 +66,19 @@ update_accel (AdwShortcutRow *self)
 
     if (GTK_IS_WINDOW (root)) {
       GtkApplication *app = gtk_window_get_application (GTK_WINDOW (root));
-      char **action_accels = gtk_application_get_accels_for_action (app, action_name);
 
-      g_set_str (&action_accel, g_strjoinv (" ", action_accels));
+      if (!GTK_IS_APPLICATION (app)) {
+        GtkWindow *transient_for = gtk_window_get_transient_for (GTK_WINDOW (root));
+
+        if (GTK_IS_WINDOW (transient_for))
+          app = gtk_window_get_application (GTK_WINDOW (transient_for));
+      }
+
+      if (GTK_IS_APPLICATION (app)) {
+        char **action_accels = gtk_application_get_accels_for_action (app, action_name);
+
+        g_set_str (&action_accel, g_strjoinv (" ", action_accels));
+      }
     }
   }
 
