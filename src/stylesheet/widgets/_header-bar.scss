@@ -167,7 +167,13 @@ windowcontrols {
   > button {
     min-width: 24px;
     padding: 5px;
-    box-shadow: none;
+
+    &:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque).image-button {
+      &, &:hover, &:active {
+        background: none;
+        box-shadow: none;
+      }
+    }
 
     > image {
       background-color: $button_color;
@@ -177,10 +183,6 @@ windowcontrols {
       @if $contrast == 'high' {
         box-shadow: inset 0 0 0 1px $border_color;
       }
-    }
-
-    &, &:hover, &:active {
-      background: none;
     }
 
     &:hover > image { background-color: $button_hover_color; }
