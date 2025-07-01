@@ -270,6 +270,22 @@ create_search_row (AdwShortcutsItem   *item,
   return adw_shortcut_row_new (item);
 }
 
+static gboolean
+escape_markup (GBinding     *binding,
+               const GValue *from_value,
+               GValue       *to_value,
+               gpointer      user_data)
+{
+  const char *str = g_value_get_string (from_value);
+
+  if (str && *str)
+    g_value_take_string (to_value, g_markup_escape_text (str, -1));
+  else
+    g_value_take_string (to_value, g_strdup (""));
+
+  return TRUE;
+}
+
 static AdwPreferencesGroup *
 create_section (AdwShortcutsDialog  *self,
                 AdwShortcutsSection *section,
@@ -277,7 +293,8 @@ create_section (AdwShortcutsDialog  *self,
 {
   GtkWidget *group = adw_preferences_group_new ();
 
-  g_object_bind_property (section, "title", group, "title", G_BINDING_SYNC_CREATE);
+  g_object_bind_property_full (section, "title", group, "title", G_BINDING_SYNC_CREATE,
+                               escape_markup, NULL, NULL, NULL);
 
   adw_preferences_group_bind_model (ADW_PREFERENCES_GROUP (group), items,
                                     (GtkListBoxCreateWidgetFunc) create_row,
