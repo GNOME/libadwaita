@@ -330,6 +330,18 @@ sections_changed_cb (AdwShortcutsDialog *self,
   }
 }
 
+static gboolean
+search_shortcut_cb (GtkWidget *widget,
+                    GVariant  *args,
+                    gpointer   user_data)
+{
+  AdwShortcutsDialog *self = ADW_SHORTCUTS_DIALOG (widget);
+
+  gtk_widget_grab_focus (GTK_WIDGET (self->search_entry));
+
+  return GDK_EVENT_STOP;
+}
+
 static void
 adw_shortcuts_dialog_root (GtkWidget *widget)
 {
@@ -386,6 +398,8 @@ adw_shortcuts_dialog_class_init (AdwShortcutsDialogClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_row_activated_cb);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_CONTROL_MASK, search_shortcut_cb, NULL);
 }
 
 static GObject *
