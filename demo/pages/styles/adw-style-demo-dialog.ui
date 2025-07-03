@@ -547,6 +547,20 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             <property name="hexpand">True</property>
                             <child>
                               <object class="GtkLabel">
+                                <property name="label" translatable="yes">This is a document paragraph. It should be used for the app's main content.</property>
+                                <property name="use-markup">True</property>
+                                <property name="xalign">0</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap-mode">word-char</property>
+                                <property name="max-width-chars">25</property>
+                                <property name="tooltip-text">document</property>
+                                <style>
+                                  <class name="document"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
                                 <property name="label" translatable="yes">Heading</property>
                                 <property name="xalign">0</property>
                                 <property name="ellipsize">end</property>
@@ -558,7 +572,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             </child>
                             <child>
                               <object class="GtkLabel">
-                                <property name="label" translatable="yes">This is a paragraph of a body copy. You would use this style for most text in interfaces. It can also include &lt;b&gt;styling&lt;/b&gt; or &lt;a href="https://os.gnome.org/">links&lt;/a&gt;.</property>
+                                <property name="label" translatable="yes">This is a paragraph of a body copy, to be used for medium-long text such as descriptions in the UI.</property>
                                 <property name="use-markup">True</property>
                                 <property name="xalign">0</property>
                                 <property name="wrap">True</property>

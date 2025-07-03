@@ -58,6 +58,7 @@ label {
 
 .body {
   font-weight: 400;
+  line-height: 140%;
 }
 
 .caption-heading {
@@ -68,6 +69,13 @@ label {
 .caption {
   font-weight: 400;
   font-size: 82%;
+  line-height: 140%;
+}
+
+.document {
+  font-family: var(--document-font-family);
+  font-size: var(--document-font-size);
+  line-height: 140%;
 }
 
 .monospace {
@@ -87,4 +95,3 @@ editablelabel > stack > text {
   color: var(--view-fg-color);
   background-color: var(--view-bg-color);
 }
-

@@ -791,7 +791,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The system document font.
    *
    * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
-   * e.g. "Adwaita Sans 11".
+   * e.g. "Adwaita Sans 12".
    *
    * Use [func@Pango.FontDescription.from_string] to parse it.
    *
@@ -1145,7 +1145,7 @@ adw_style_manager_get_accent_color_rgba (AdwStyleManager *self)
  * Gets the system document font.
  *
  * The font is in the same format as [property@Gtk.Settings:gtk-font-name],
- * e.g. "Adwaita Sans 11".
+ * e.g. "Adwaita Sans 12".
  *
  * Use [func@Pango.FontDescription.from_string] to parse it.
  *

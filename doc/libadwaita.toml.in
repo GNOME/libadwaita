@@ -344,6 +344,8 @@ content_images = [
   "images/typography-body-dark.png",
   "images/typography-captions.png",
   "images/typography-captions-dark.png",
+  "images/typography-document.png",
+  "images/typography-document-dark.png",
   "images/typography-heading.png",
   "images/typography-heading-dark.png",
   "images/typography-large-title.png",

@@ -993,10 +993,13 @@ should be used together, as follows:
 
 Document font should be used in articles, messages and other content.
 
+It's used for the [`.document`](style-classes.html#typography-styles)
+style class.
+
 Name                             | Example Value
 -------------------------------- | -------------
 <tt>--document-font-family</tt>  | Adwaita Sans
-<tt>--document-font-size</tt>    | 11pt
+<tt>--document-font-size</tt>    | 12pt
 
 ## Monospace Font
 

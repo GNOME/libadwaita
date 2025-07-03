@@ -289,6 +289,9 @@
                                     <property name="enable-undo">False</property>
                                   </object>
                                 </property>
+                                <style>
+                                  <class name="body"/>
+                                </style>
                                 <accessibility>
                                   <relation name="labelled-by">whatsnew_page</relation>
                                 </accessibility>
@@ -460,6 +463,9 @@
                                     <property name="text" bind-source="AdwAboutDialog" bind-property="debug-info" bind-flags="sync-create"/>
                                   </object>
                                 </property>
+                                <style>
+                                  <class name="body"/>
+                                </style>
                                 <accessibility>
                                   <relation name="labelled-by">debug_info_page</relation>
                                 </accessibility>

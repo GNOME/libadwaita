@@ -284,11 +284,28 @@ The `.heading` style class is the standard style for UI headings using the
 default text size, such as window titles or boxed list labels.
 
 <picture>
+  <source srcset="typography-document-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="typography-document.png" alt="typography-document">
+</picture>
+
+The `.document` style class makes the widget use the
+[document font](css-variables.html#document-font). This increases the font size
+and line height to help make large amounts of text more readable. It should be
+used for the app's main content, such as messages in a chat app. For other long
+text, use `.body` instead.
+
+<picture>
   <source srcset="typography-body-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-body.png" alt="typography-body">
 </picture>
 
-The `.body` style class is the default text style.
+The `.body` style class increases line height to make text more readable. It
+should be used for text within the UI, such as descriptions or dialog body, to
+make it more legible. For the main content, use `.document` instead.
+
+Avoid using `.body` for non-wrapping text.
+
+## Captions
 
 <picture>
   <source srcset="typography-captions-dark.png" media="(prefers-color-scheme: dark)">
