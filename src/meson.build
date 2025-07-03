@@ -317,22 +317,9 @@ libadwaita_public_sources += files(src_sources)
 
 install_headers(src_headers, subdir: libadwaita_header_subdir)
 
-glib_min_version = '>= 2.80.0'
-gtk_min_version = '>= 4.17.5'
-
-gio_dep = dependency('gio-2.0', version: glib_min_version)
-gtk_dep = dependency('gtk4', version: gtk_min_version)
-appstream_dep = dependency('appstream',
-  fallback : ['appstream', 'appstream_dep'],
-  default_options : [
-    'systemd=false', 'apidocs=false', 'install-docs=false',
-    'stemming=false', 'svg-support=false', 'gir=false',
-  ],
-)
-
 libadwaita_deps = [
-  dependency('glib-2.0', version: glib_min_version),
-  dependency('fribidi'),
+  glib_dep,
+  fribidi_dep,
   gio_dep,
   gtk_dep,
   appstream_dep,
@@ -361,21 +348,13 @@ else
 endif
 
 if target_system == 'darwin'
-  appleframework_modules = [
-    'AppKit',
-    'Foundation',
-  ]
-  libadwaita_deps += [
-    dependency('appleframeworks', modules: appleframework_modules),
-  ]
+  libadwaita_deps += appleframeworks_dep
   libadwaita_private_sources += [
     'adw-settings-impl-macos.c',
   ]
   libadwaita_c_args += ['-xobjective-c']
 elif target_system == 'windows'
-  libadwaita_deps += [
-    dependency('gtk4-win32', version: gtk_min_version),
-  ]
+  libadwaita_deps += gtk_win32_dep
   libadwaita_private_sources += [
     'adw-settings-impl-win32.c',
   ]
@@ -459,12 +438,11 @@ meson.override_dependency(package_api_name, libadwaita_dep)
 
 if introspection
 
-   gir_dep = dependency('gobject-introspection-1.0')
    libadwaita_gir_extra_args = [
      '--quiet',
      '-DADWAITA_COMPILATION',
    ]
-   if gir_dep.version().version_compare('>=1.83.2')
+   if gi_scanner.version().version_compare('>=1.83.2')
      libadwaita_gir_extra_args += [
        '--doc-format=gi-docgen',
      ]

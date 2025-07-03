@@ -33,6 +33,35 @@ libversion = '0.8.0'
 # The so major version of the library
 soversion = 0
 
+glib_min_version = '>= 2.80.0'
+gtk_min_version = '>= 4.17.5'
+
+glib_dep = dependency('glib-2.0', version: glib_min_version)
+gio_dep = dependency('gio-2.0', version: glib_min_version)
+gtk_dep = dependency('gtk4', version: gtk_min_version)
+fribidi_dep = dependency('fribidi')
+appstream_dep = dependency('appstream',
+  fallback : ['appstream', 'appstream_dep'],
+  default_options : [
+    'systemd=false', 'apidocs=false', 'install-docs=false',
+    'stemming=false', 'svg-support=false', 'gir=false',
+  ],
+)
+
+target_system = host_machine.system()
+if target_system == 'darwin'
+  appleframework_modules = [
+    'AppKit',
+    'Foundation',
+  ]
+  appleframeworks_dep = dependency('appleframeworks', modules: appleframework_modules)
+elif target_system == 'windows'
+  gtk_win32_dep = dependency('gtk4-win32', version: gtk_min_version)
+endif
+
+gi_scanner = find_program('g-ir-scanner', required: get_option('introspection'))
+introspection = gi_scanner.found()
+
 add_project_arguments([
   '-DHAVE_CONFIG_H',
   '-DADWAITA_COMPILATION',
@@ -45,8 +74,6 @@ cc = meson.get_compiler('c')
 
 global_c_args = []
 test_c_args = []
-
-target_system = target_machine.system()
 
 has_winrt = target_system == 'windows' \
   and cc.check_header('roapi.h') \
@@ -134,9 +161,6 @@ else
   typelibdir = get_option('libdir')  / 'girepository-1.0'
   vapidir    = get_option('datadir') / 'vala' / 'vapi'
 endif
-
-introspection_feature = get_option('introspection')
-introspection = introspection_feature.enabled() or introspection_feature.auto()
 
 gnome = import('gnome')
 
