@@ -299,6 +299,16 @@ The `.caption-heading` and `.caption` style classes make text smaller. They
 are intended to be used to differentiate sub-text which accompanies text in
 the regular body style.
 
+
+<picture>
+  <source srcset="typography-document-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="typography-document.png" alt="typography-document">
+</picture>
+
+The `.document` style class makes the widget use the
+[document font](css-variables.html#document-font). This increases the font size and
+line-height of text to help make large amounts of text more readable.
+
 <picture>
   <source srcset="typography-monospace-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-monospace.png" alt="typography-monospace">
