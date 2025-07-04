@@ -127,4 +127,7 @@ ADW_AVAILABLE_IN_1_7
 void adw_wrap_box_remove  (AdwWrapBox *self,
                            GtkWidget  *child);
 
+ADW_AVAILABLE_IN_1_8
+void adw_wrap_box_remove_all (AdwWrapBox *self);
+
 G_END_DECLS

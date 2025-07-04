@@ -1391,3 +1391,22 @@ adw_wrap_box_remove (AdwWrapBox *self,
 
   gtk_widget_unparent (child);
 }
+
+/**
+ * adw_wrap_box_remove_all:
+ * @self: a wrap box
+ *
+ * Removes all children from @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_wrap_box_remove_all (AdwWrapBox *self)
+{
+  GtkWidget *widget;
+
+  g_return_if_fail (ADW_IS_WRAP_BOX (self));
+
+  while ((widget = gtk_widget_get_first_child (GTK_WIDGET (self))))
+    adw_wrap_box_remove (self, widget);
+}
