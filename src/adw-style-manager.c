@@ -844,23 +844,23 @@ void
 adw_style_manager_update_media_features (AdwStyleManager *self,
                                          GtkCssProvider  *css_provider)
 {
-  const char *prefers_color_scheme;
-  const char *prefers_contrast;
+  GtkInterfaceColorScheme prefers_color_scheme;
+  GtkInterfaceContrast prefers_contrast;
 
   if (self->dark)
-    prefers_color_scheme = "dark";
+    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
   else
-    prefers_color_scheme = "light";
+    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
 
   if (adw_settings_get_high_contrast (self->settings))
-    prefers_contrast = "more";
+    prefers_contrast = GTK_INTERFACE_CONTRAST_MORE;
   else
-    prefers_contrast = "no-preference";
+    prefers_contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
 
-  gtk_css_provider_update_discrete_media_features (css_provider,
-                                                  2,
-                                                  (const char *[]) { "prefers-color-scheme", "prefers-contrast" },
-                                                  (const char *[]) { prefers_color_scheme, prefers_contrast });
+  g_object_set (css_provider,
+                "prefers-color-scheme", prefers_color_scheme,
+                "prefers-contrast", prefers_contrast,
+                NULL);
 }
 
 /**
