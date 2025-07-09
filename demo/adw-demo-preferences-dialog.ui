@@ -150,7 +150,7 @@
               <object class="AdwPreferencesRow">
                 <property name="title" translatable="yes">Ctrl + F</property>
                 <child>
-                  <object class="GtkShortcutLabel">
+                  <object class="AdwShortcutLabel">
                     <property name="accelerator">&lt;ctrl&gt;f</property>
                     <property name="margin-top">12</property>
                     <property name="margin-bottom">12</property>
