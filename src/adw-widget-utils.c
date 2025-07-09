@@ -610,6 +610,28 @@ adw_widget_get_ancestor (GtkWidget *widget,
   return widget;
 }
 
+GtkWidget *
+adw_widget_get_nth_child (GtkWidget *widget,
+                          guint      index)
+{
+  GtkWidget *child;
+  guint i;
+
+  g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
+
+  child = gtk_widget_get_first_child (GTK_WIDGET (widget));
+  if (!child)
+    return NULL;
+
+  for (i = 0; i < index; i++) {
+    child = gtk_widget_get_next_sibling (child);
+    if (!child)
+      return NULL;
+  }
+
+  return child;
+}
+
 gboolean
 adw_decoration_layout_prefers_start (const char *layout)
 {

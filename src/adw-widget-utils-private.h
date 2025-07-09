@@ -65,6 +65,9 @@ GtkWidget *adw_widget_get_ancestor (GtkWidget *widget,
                                     gboolean   same_native,
                                     gboolean   same_sheet);
 
+GtkWidget *adw_widget_get_nth_child (GtkWidget *widget,
+                                     guint      index);
+
 gboolean adw_decoration_layout_prefers_start (const char *layout);
 
 char *adw_strip_mnemonic (const char *src);
