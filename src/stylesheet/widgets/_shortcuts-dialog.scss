@@ -7,6 +7,15 @@ dialog.shortcuts {
     }
   }
 
+  .navigation-box {
+    margin-top: -12px;
+
+    > button {
+      border-radius: 99px;
+      padding: 3px 12px;
+    }
+  }
+
   .shortcut-row {
     padding: 9px 12px;
     min-height: 36px;

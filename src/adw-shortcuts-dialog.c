@@ -15,6 +15,11 @@
 #include "adw-shortcut-row-private.h"
 #include "adw-view-stack.h"
 #include "adw-widget-utils-private.h"
+#include "adw-wrap-box.h"
+
+#define N_BUILTIN_WIDGETS 1
+#define N_MIN_SECTIONS 4
+#define N_MIN_SHORTCUTS 20
 
 /**
  * AdwShortcutsDialog:
@@ -114,24 +119,116 @@ struct _AdwShortcutsDialog
 
   GtkSearchEntry *search_entry;
   AdwViewStack *stack;
+  AdwPreferencesGroup *nav_group;
+  AdwWrapBox *nav_box;
   AdwPreferencesPage *contents;
   AdwPreferencesPage *search;
   GtkListBox *search_list;
   GtkWidget *empty;
 
+  GListStore *sections;
+
   GtkCustomFilter *direction_filter;
+  GtkMapListModel *filtered_sections;
+
+  GtkFilterListModel *title_sections;
+
+  GListModel *all_rows;
   GtkStringFilter *title_filter;
   GtkStringFilter *subtitle_filter;
-  GtkMapListModel *filtered_sections;
   GtkFilterListModel *search_model;
 
-  GListStore *sections;
+  AdwShortcutsSection *selected_section;
+  GtkWidget *selected_button;
 };
 
 static void adw_shortcuts_dialog_buildable_init (GtkBuildableIface *iface);
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwShortcutsDialog, adw_shortcuts_dialog, ADW_TYPE_DIALOG,
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_shortcuts_dialog_buildable_init))
+
+static void
+select_section (AdwShortcutsDialog  *self,
+                AdwShortcutsSection *section)
+{
+  guint start, end, i, n = g_list_model_get_n_items (G_LIST_MODEL (self->sections));
+
+  self->selected_section = section;
+
+  start = end = GTK_INVALID_LIST_POSITION;
+
+  if (self->selected_section) {
+    for (i = 0; i < n; i++) {
+      AdwShortcutsSection *s = g_list_model_get_item (G_LIST_MODEL (self->sections), i);
+
+      if (start == GTK_INVALID_LIST_POSITION) {
+        if (s == section) {
+          start = i;
+          end = i;
+          continue;
+        }
+      } else {
+        const char *title = adw_shortcuts_section_get_title (s);
+        if (title && *title)
+          break;
+
+        end = i;
+      }
+    }
+  }
+
+  for (i = 0; i < n; i++) {
+    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, i + N_BUILTIN_WIDGETS);
+
+    if (section)
+      gtk_widget_set_visible (GTK_WIDGET (group), i >= start && i <= end);
+    else
+      gtk_widget_set_visible (GTK_WIDGET (group), true);
+  }
+}
+
+static void
+unselect_section (AdwShortcutsDialog *self)
+{
+  select_section (self, NULL);
+
+  if (self->selected_button) {
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->selected_button), FALSE);
+    self->selected_button = NULL;
+  }
+}
+
+static void
+nav_button_clicked_cb (AdwShortcutsDialog *self,
+                       GtkWidget          *button)
+{
+  AdwShortcutsSection *section = g_object_get_data (G_OBJECT (button), "-adw-nav-button-section");
+
+  if (self->selected_section != section) {
+    select_section (self, section);
+
+    if (self->selected_button) {
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->selected_button), FALSE);
+      self->selected_button = NULL;
+    }
+    self->selected_button = button;
+  } else {
+    unselect_section (self);
+  }
+}
+
+static void
+update_nav_visibility (AdwShortcutsDialog *self)
+{
+  gboolean has_many_sections = g_list_model_get_n_items (G_LIST_MODEL (self->title_sections)) >= N_MIN_SECTIONS;
+  gboolean has_many_shortcuts = g_list_model_get_n_items (self->all_rows) >= N_MIN_SHORTCUTS;
+  gboolean is_search = adw_view_stack_get_visible_child (self->stack) != GTK_WIDGET (self->contents);
+
+  gtk_widget_set_visible (GTK_WIDGET (self->nav_group), has_many_sections && has_many_shortcuts);
+
+  if (is_search && self->selected_section)
+    unselect_section (self);
+}
 
 static void
 update_stack (AdwShortcutsDialog *self)
@@ -146,6 +243,8 @@ update_stack (AdwShortcutsDialog *self)
   } else {
     adw_view_stack_set_visible_child (self->stack, GTK_WIDGET (self->contents));
   }
+
+  update_nav_visibility (self);
 }
 
 static void
@@ -195,7 +294,7 @@ find_row (AdwShortcutsDialog *self,
   if (!found)
     return NULL;
 
-  group = adw_preferences_page_get_group (self->contents, i);
+  group = adw_preferences_page_get_group (self->contents, i + N_BUILTIN_WIDGETS);
   g_assert (group != NULL);
 
   row = adw_preferences_group_get_row (group, j);
@@ -303,6 +402,21 @@ create_section (AdwShortcutsDialog  *self,
   return ADW_PREFERENCES_GROUP (group);
 }
 
+static GtkWidget *
+create_nav_button (AdwShortcutsDialog  *self,
+                   AdwShortcutsSection *section)
+{
+  GtkWidget *button = gtk_toggle_button_new ();
+
+  g_object_bind_property (section, "title", button, "label", G_BINDING_SYNC_CREATE);
+
+  g_object_set_data (G_OBJECT (button), "-adw-nav-button-section", section);
+
+  g_signal_connect_swapped (button, "clicked", G_CALLBACK (nav_button_clicked_cb), self);
+
+  return button;
+}
+
 static void
 sections_changed_cb (AdwShortcutsDialog *self,
                      guint               index,
@@ -313,7 +427,7 @@ sections_changed_cb (AdwShortcutsDialog *self,
   guint i;
 
   for (i = 0; i < removed; i++) {
-    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, i);
+    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, i + N_BUILTIN_WIDGETS);
 
     adw_preferences_page_remove (self->contents, group);
   }
@@ -324,10 +438,57 @@ sections_changed_cb (AdwShortcutsDialog *self,
     AdwShortcutsSection *section = ADW_SHORTCUTS_SECTION (model);
     AdwPreferencesGroup *group = create_section (self, section, items);
 
-    adw_preferences_page_insert (self->contents, group, index + added);
+    adw_preferences_page_insert (self->contents, group, index + added + N_BUILTIN_WIDGETS);
 
     g_object_unref (section);
   }
+}
+
+static void
+titles_changed_cb (AdwShortcutsDialog *self,
+                   guint               index,
+                   guint               removed,
+                   guint               added,
+                   GListModel         *sections)
+{
+  GtkWidget *sibling = NULL;
+  guint i;
+
+  update_nav_visibility (self);
+
+  if (index > 0)
+    sibling = adw_widget_get_nth_child (GTK_WIDGET (self->nav_box), index - 1);
+
+  for (i = 0; i < removed; i++) {
+    if (sibling)
+      adw_wrap_box_remove (self->nav_box, gtk_widget_get_next_sibling (sibling));
+    else
+      adw_wrap_box_remove (self->nav_box, gtk_widget_get_first_child (GTK_WIDGET (self->nav_box)));
+  }
+
+  for (i = 0; i < added; i++) {
+    AdwShortcutsSection *section = ADW_SHORTCUTS_SECTION (g_list_model_get_item (sections, index + i));
+    GtkWidget *button = create_nav_button (self, section);
+
+    adw_wrap_box_insert_child_after (self->nav_box, button, sibling);
+    sibling = button;
+
+    g_object_unref (section);
+  }
+}
+
+static gboolean
+unselect_section_cb (GtkWidget *widget,
+                     GVariant  *args,
+                     gpointer   user_data)
+{
+  AdwShortcutsDialog *self = ADW_SHORTCUTS_DIALOG (widget);
+
+  if (!self->selected_section)
+    return GDK_EVENT_PROPAGATE;
+
+  unselect_section (self);
+  return GDK_EVENT_STOP;
 }
 
 static gboolean
@@ -340,6 +501,14 @@ search_shortcut_cb (GtkWidget *widget,
   gtk_widget_grab_focus (GTK_WIDGET (self->search_entry));
 
   return GDK_EVENT_STOP;
+}
+
+static void
+title_changed_cb (AdwShortcutsDialog *self)
+{
+  GtkFilter *filter = gtk_filter_list_model_get_filter (self->title_sections);
+
+  gtk_filter_changed (filter, GTK_FILTER_CHANGE_DIFFERENT);
 }
 
 static void
@@ -367,7 +536,9 @@ adw_shortcuts_dialog_dispose (GObject *object)
 
   g_clear_object (&self->sections);
   g_clear_object (&self->search_model);
+  g_clear_object (&self->title_sections);
   g_clear_object (&self->direction_filter);
+  self->all_rows = NULL;
   self->title_filter = NULL;
   self->subtitle_filter = NULL;
   self->filtered_sections = NULL;
@@ -390,6 +561,8 @@ adw_shortcuts_dialog_class_init (AdwShortcutsDialogClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-shortcuts-dialog.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search_entry);
   gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, nav_group);
+  gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, nav_box);
   gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, contents);
   gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search);
   gtk_widget_class_bind_template_child (widget_class, AdwShortcutsDialog, search_list);
@@ -413,6 +586,14 @@ section_to_filter_model (AdwShortcutsSection *section,
 }
 
 static gboolean
+section_title_filter_func (AdwShortcutsSection *item)
+{
+  const char *title = adw_shortcuts_section_get_title (item);
+
+  return title && *title;
+}
+
+static gboolean
 direction_filter_func (AdwShortcutsItem   *item,
                        AdwShortcutsDialog *self)
 {
@@ -428,8 +609,7 @@ static void
 adw_shortcuts_dialog_init (AdwShortcutsDialog *self)
 {
   GtkExpression *title_expr, *subtitle_expr;
-  GtkFilter *filter;
-  GtkFlattenListModel *all_rows;
+  GtkFilter *filter, *section_title_filter;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -451,11 +631,20 @@ adw_shortcuts_dialog_init (AdwShortcutsDialog *self)
   gtk_multi_filter_append (GTK_MULTI_FILTER (filter), GTK_FILTER (self->title_filter));
   gtk_multi_filter_append (GTK_MULTI_FILTER (filter), GTK_FILTER (self->subtitle_filter));
 
+  section_title_filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) section_title_filter_func,
+                                                            NULL, NULL));
+  self->title_sections = gtk_filter_list_model_new (G_LIST_MODEL (g_object_ref (self->sections)),
+                                                    section_title_filter);
+
+  g_signal_connect_object (self->title_sections, "items-changed",
+                           G_CALLBACK (titles_changed_cb), self,
+                           G_CONNECT_SWAPPED);
+
   self->filtered_sections = gtk_map_list_model_new (G_LIST_MODEL (g_object_ref (self->sections)),
                                                     (GtkMapListModelMapFunc) section_to_filter_model,
                                                     self, NULL);
-  all_rows = gtk_flatten_list_model_new (G_LIST_MODEL (self->filtered_sections));
-  self->search_model = gtk_filter_list_model_new (G_LIST_MODEL (all_rows), filter);
+  self->all_rows = G_LIST_MODEL (gtk_flatten_list_model_new (G_LIST_MODEL (self->filtered_sections)));
+  self->search_model = gtk_filter_list_model_new (self->all_rows, filter);
 
   g_signal_connect_object (self->filtered_sections, "items-changed",
                            G_CALLBACK (sections_changed_cb), self,
@@ -469,6 +658,19 @@ adw_shortcuts_dialog_init (AdwShortcutsDialog *self)
 
   g_signal_connect_swapped (self->search_model, "notify::n-items",
                             G_CALLBACK (update_stack), self);
+
+  GtkShortcut *shortcut;
+  GtkEventController *controller;
+
+  /* Esc to close */
+  shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Escape, 0),
+                               gtk_callback_action_new ((GtkShortcutFunc) unselect_section_cb, self, NULL));
+
+  controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (controller), GTK_SHORTCUT_SCOPE_MANAGED);
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (controller), shortcut);
+  gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_CAPTURE);
+  gtk_widget_add_controller (GTK_WIDGET (self), controller);
 }
 
 static void
@@ -525,4 +727,6 @@ adw_shortcuts_dialog_add (AdwShortcutsDialog  *self,
   g_return_if_fail (ADW_IS_SHORTCUTS_SECTION (section));
 
   g_list_store_append (self->sections, section);
+
+  g_signal_connect_swapped (section, "notify::title", G_CALLBACK (title_changed_cb), self);
 }

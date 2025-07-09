@@ -30,7 +30,26 @@
         <property name="content">
           <object class="AdwViewStack" id="stack">
             <child>
-              <object class="AdwPreferencesPage" id="contents"/>
+              <object class="AdwPreferencesPage" id="contents">
+                <style>
+                  <class name="contents"/>
+                </style>
+                <child>
+                  <object class="AdwPreferencesGroup" id="nav_group">
+                    <child>
+                      <object class="AdwWrapBox" id="nav_box">
+                        <property name="halign">center</property>
+                        <property name="child-spacing">6</property>
+                        <property name="line-spacing">6</property>
+                        <property name="align">0.5</property>
+                        <style>
+                          <class name="navigation-box"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
             </child>
             <child>
               <object class="AdwPreferencesPage" id="search">
