@@ -264,20 +264,27 @@ find_response (AdwAlertDialog *self,
   return g_hash_table_lookup (priv->id_to_response, id);
 }
 
-static void
-button_clicked_cb (ResponseInfo *info)
+
+static inline void
+emit_response (AdwAlertDialog *self, GQuark response)
 {
-  AdwAlertDialog *self = info->dialog;
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
 
   g_object_ref (self);
   priv->block_close_response = TRUE;
 
   adw_dialog_close (ADW_DIALOG (self));
-  g_signal_emit (self, signals[SIGNAL_RESPONSE], info->id, g_quark_to_string (info->id));
+  g_signal_emit (self, signals[SIGNAL_RESPONSE], response, g_quark_to_string (response));
 
   priv->block_close_response = FALSE;
   g_object_unref (self);
+}
+
+
+static void
+button_clicked_cb (ResponseInfo *info)
+{
+  emit_response (info->dialog, info->id);
 }
 
 static GtkWidget *
@@ -2447,8 +2454,9 @@ choose_cancelled_cb (GCancellable *cancellable,
                      GTask        *task)
 {
   AdwAlertDialog *self = g_task_get_source_object (task);
+  AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
 
-  choose_response_cb (self, adw_alert_dialog_get_close_response (self), task);
+  emit_response (self, priv->close_response);
 }
 
 /**
