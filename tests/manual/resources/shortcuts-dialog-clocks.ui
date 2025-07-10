@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original: https://gitlab.gnome.org/GNOME/gnome-clocks/-/blob/main/data/shortcuts-dialog.ui -->
+<interface>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F1</property>
+            <property name="title" translatable="yes" context="shortcut window">Show Help</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F10</property>
+            <property name="title" translatable="yes" context="shortcut window">Open Menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;question</property>
+            <property name="title" translatable="yes" context="shortcut window">Keyboard Shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;q</property>
+            <property name="title" translatable="yes" context="shortcut window">Quit</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;&lt;Alt&gt;Page_Down</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the Next Section</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;&lt;Alt&gt;Page_Up</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the Previous Section</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;1</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the World Section</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;2</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the Alarms Section</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;3</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the Stopwatch Section</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;4</property>
+            <property name="title" translatable="yes" context="shortcut window">Go to the Timer Section</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">World Clocks</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;n</property>
+            <property name="title" translatable="yes" context="shortcut window">Add a World Clock</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Alarm</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;n</property>
+            <property name="title" translatable="yes" context="shortcut window">Add an Alarm</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Stopwatch</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">Escape</property>
+            <property name="title" translatable="yes" context="shortcut window">Pause All</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Timer</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">Escape</property>
+            <property name="title" translatable="yes" context="shortcut window">Reset</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Control&gt;n</property>
+            <property name="title" translatable="yes" context="shortcut window">New Timer</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

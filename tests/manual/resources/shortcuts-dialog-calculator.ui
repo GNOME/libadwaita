@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original: https://gitlab.gnome.org/GNOME/gnome-calculator/-/blob/main/src/ui/math-shortcuts.ui -->
+<interface>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcuts dialog">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;N</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Open a new window</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;W</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Close current window</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;Q</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Quit the application</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F1</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Show help</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F10</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Open menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;comma</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Show preferences</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;question</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Keyboard shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;Escape</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Clear history</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcuts dialog">Switching Modes</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;B</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Basic mode</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;A</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Advanced mode</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;F</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Financial mode</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;P</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Programming mode</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;k</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Keyboard mode</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;t</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Keyboard mode (alt.)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;alt&gt;C</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Conversion mode</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcuts dialog">Keyboard Entry</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">asterisk</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Multiply (×)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">slash</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Divide (÷)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;2</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Square (²)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;R</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Square root (√)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;I</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Inverse (⁻¹)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;P</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Pi (π)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;T</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Tau (τ)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;apostrophe</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Degree (°)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;bracketleft+bracketright</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Floor (⌊⌋)</property>
+            <property name="direction">ltr</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;bracketleft+bracketright</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Ceiling (⌈⌉)</property>
+            <property name="direction">ltr</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;bracketright+bracketleft</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Floor (⌊⌋)</property>
+            <property name="direction">rtl</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;bracketright+bracketleft</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Ceiling (⌈⌉)</property>
+            <property name="direction">rtl</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;E</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Enter numbers in scientific format</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;0...9</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Enter subscript numbers</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;0...9</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Enter superscript numbers</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;minus</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Enter superscript minus sign</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcuts dialog">Programming Mode</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;B</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to binary</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;O</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to octal</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;D</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to decimal</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;H</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Switch to hexadecimal</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcuts dialog">Equation</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;C</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Copy</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;V</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Paste</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;Z</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Undo</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;control&gt;&lt;shift&gt;Z</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Redo</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;Left</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Previous equation</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;Right</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Next equation</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">Escape</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Clear display</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;F</property>
+            <property name="title" translatable="yes" context="shortcuts dialog">Factorize</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

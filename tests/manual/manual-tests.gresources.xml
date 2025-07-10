@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Adwaita1/Test">
+    <file preprocess="xml-stripblanks">resources/shortcuts-dialog-calculator.ui</file>
+    <file preprocess="xml-stripblanks">resources/shortcuts-dialog-clocks.ui</file>
+  </gresource>
+</gresources>
