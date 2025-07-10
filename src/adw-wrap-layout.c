@@ -350,6 +350,9 @@ box_allocate_homogeneous (AllocationData *child_data,
 {
   int child_size, i;
 
+  if (n_children == 0)
+    return;
+
   g_assert (for_size >= 0);
 
   for_size -= (n_children - 1) * spacing;
@@ -533,8 +536,14 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
                           minimum, natural, minimum_baseline, natural_baseline);
     } else {
       /* Empty. */
-      *minimum = *natural = 0;
-      *minimum_baseline = *natural_baseline = -1;
+      if (minimum)
+        *minimum = 0;
+      if (natural)
+        *natural = 0;
+      if (minimum_baseline)
+        *minimum_baseline = -1;
+      if (natural_baseline)
+        *natural_baseline = -1;
     }
     return;
   }

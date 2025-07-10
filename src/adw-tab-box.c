@@ -3312,7 +3312,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     adw_animation_reset (self->scroll_animation);
   }
 
-  for (l = self->tabs; l; l = l->next) {
+  for (l = self->tabs; l && l->data; l = l->next) {
     TabInfo *info = l->data;
     GtkAllocation separator_allocation;
     int separator_width;

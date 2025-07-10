@@ -229,6 +229,8 @@ pop_to_page_cb (AdwBackButton *self,
   pop_data.target_page = target_page;
   pop_data.pop_before = NULL;
   pop_data.pop_after = NULL;
+  pop_data.outer_view.view = NULL;
+  pop_data.outer_view.page = NULL;
 
   for (l = self->navigation_views; l; l = l->next) {
     NavigationViewData *data = l->data;
