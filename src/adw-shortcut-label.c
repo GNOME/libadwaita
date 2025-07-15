@@ -322,6 +322,8 @@ display_shortcut (GtkWidget       *self,
   int i;
   guint n_mods;
 
+  gtk_widget_set_direction (GTK_WIDGET (box), GTK_TEXT_DIR_LTR);
+
   keys = get_labels (key, modifier, &n_mods);
   for (i = 0; keys[i]; i++) {
     GtkWidget *disp = gtk_label_new (keys[i]);
@@ -563,8 +565,6 @@ adw_shortcut_label_init (AdwShortcutLabel *self)
 {
   self->accelerator = g_strdup ("");
   self->disabled_text = g_strdup ("");
-
-  gtk_widget_set_direction (GTK_WIDGET (self), GTK_TEXT_DIR_LTR);
 
   rebuild (self);
 }
