@@ -437,15 +437,6 @@ released_cb (GtkGestureClick     *gesture,
   adw_overlay_split_view_set_show_sidebar (self, FALSE);
 }
 
-static inline void
-get_preferred_size (GtkWidget      *widget,
-                    GtkOrientation  orientation,
-                    int            *min,
-                    int            *nat)
-{
-  gtk_widget_measure (widget, orientation, -1, min, nat, NULL, NULL);
-}
-
 static int
 get_sidebar_width (AdwOverlaySplitView *self,
                    int                  width,
