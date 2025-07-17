@@ -18,7 +18,4 @@ G_BEGIN_DECLS
 
 void adw_style_manager_ensure (void);
 
-void adw_style_manager_update_media_features (AdwStyleManager *self,
-                                              GtkCssProvider  *css_provider);
-
 G_END_DECLS

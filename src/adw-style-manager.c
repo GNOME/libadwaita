@@ -157,6 +157,28 @@ enable_animations_cb (AdwStyleManager *self)
   self->animation_timeout_id = 0;
 }
 
+static void
+update_media_features (AdwStyleManager *self)
+{
+  GtkInterfaceColorScheme prefers_color_scheme;
+  GtkInterfaceContrast prefers_contrast;
+
+  if (self->dark)
+    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
+  else
+    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+
+  if (adw_settings_get_high_contrast (self->settings))
+    prefers_contrast = GTK_INTERFACE_CONTRAST_MORE;
+  else
+    prefers_contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+
+  g_object_set (self->gtk_settings,
+                "gtk-interface-color-scheme", prefers_color_scheme,
+                "gtk-interface-contrast", prefers_contrast,
+                NULL);
+}
+
 static char*
 generate_accent_css (AdwStyleManager *self)
 {
@@ -259,8 +281,8 @@ update_stylesheet (AdwStyleManager       *self,
     self->setting_dark = FALSE;
   }
 
-  if (flags & (UPDATE_BASE | UPDATE_COLOR_SCHEME) && self->provider) {
-    adw_style_manager_update_media_features (self, self->provider);
+  if (flags & (UPDATE_BASE | UPDATE_COLOR_SCHEME) && self->gtk_settings) {
+    update_media_features (self);
   }
 
   if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
@@ -451,7 +473,14 @@ adw_style_manager_constructed (GObject *object)
                     NULL);
 
       self->provider = gtk_css_provider_new ();
-      adw_style_manager_update_media_features (self, self->provider);
+
+      g_object_bind_property (self->gtk_settings, "gtk-interface-color-scheme",
+                              self->provider, "prefers-color-scheme",
+                              G_BINDING_SYNC_CREATE);
+      g_object_bind_property (self->gtk_settings, "gtk-interface-contrast",
+                              self->provider, "prefers-contrast",
+                              G_BINDING_SYNC_CREATE);
+
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
@@ -838,29 +867,6 @@ adw_style_manager_ensure (void)
                     NULL);
 
   g_slist_free (displays);
-}
-
-void
-adw_style_manager_update_media_features (AdwStyleManager *self,
-                                         GtkCssProvider  *css_provider)
-{
-  GtkInterfaceColorScheme prefers_color_scheme;
-  GtkInterfaceContrast prefers_contrast;
-
-  if (self->dark)
-    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-  else
-    prefers_color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
-
-  if (adw_settings_get_high_contrast (self->settings))
-    prefers_contrast = GTK_INTERFACE_CONTRAST_MORE;
-  else
-    prefers_contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
-
-  g_object_set (css_provider,
-                "prefers-color-scheme", prefers_color_scheme,
-                "prefers-contrast", prefers_contrast,
-                NULL);
 }
 
 /**

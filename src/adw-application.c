@@ -154,9 +154,6 @@ update_stylesheet (AdwApplication *self)
   AdwStyleManager *manager = adw_style_manager_get_default ();
   gboolean is_dark, is_hc;
 
-  if (priv->base_style_provider != NULL)
-    adw_style_manager_update_media_features (manager, GTK_CSS_PROVIDER (priv->base_style_provider));
-
   is_dark = adw_style_manager_get_dark (manager);
   is_hc = adw_style_manager_get_high_contrast (manager);
 
@@ -172,17 +169,25 @@ update_stylesheet (AdwApplication *self)
 
 static gboolean
 init_provider_from_file (GtkStyleProvider **provider,
-                         GFile             *file)
+                         GFile             *file,
+                         GtkSettings       *settings)
 {
-  AdwStyleManager *manager = adw_style_manager_get_default ();
-
   if (!g_file_query_exists (file, NULL)) {
     g_clear_object (&file);
     return FALSE;
   }
 
   *provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
-  adw_style_manager_update_media_features (manager, GTK_CSS_PROVIDER (*provider));
+
+  if (settings != NULL) {
+    g_object_bind_property (settings, "gtk-interface-color-scheme",
+                            *provider, "prefers-color-scheme",
+                            G_BINDING_SYNC_CREATE);
+    g_object_bind_property (settings, "gtk-interface-contrast",
+                            *provider, "prefers-contrast",
+                            G_BINDING_SYNC_CREATE);
+  }
+
   gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (*provider), file);
 
   g_clear_object (&file);
@@ -200,18 +205,22 @@ init_providers (AdwApplication *self)
 
   if (!adw_is_granite_present ()) {
     init_provider_from_file (&priv->base_style_provider,
-                             g_file_get_child (base_file, "style.css"));
+                             g_file_get_child (base_file, "style.css"),
+                             gtk_settings_get_default ());
 
     if (init_provider_from_file (&priv->dark_style_provider,
-                                 g_file_get_child (base_file, "style-dark.css")))
+                                 g_file_get_child (base_file, "style-dark.css"),
+                                 NULL))
       g_message ("style-dark.css is deprecated. Use style.css with media queries instead.");
 
     if (init_provider_from_file (&priv->hc_style_provider,
-                                 g_file_get_child (base_file, "style-hc.css")))
+                                 g_file_get_child (base_file, "style-hc.css"),
+                                 NULL))
       g_message ("style-hc.css is deprecated. Use style.css with media queries instead.");
 
     if (init_provider_from_file (&priv->hc_dark_style_provider,
-                                 g_file_get_child (base_file, "style-hc-dark.css")))
+                                 g_file_get_child (base_file, "style-hc-dark.css"),
+                                 NULL))
       g_message ("style-hc-dark.css is deprecated. Use style.css with media queries instead.");
   }
 
