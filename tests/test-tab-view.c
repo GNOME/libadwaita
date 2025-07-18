@@ -818,6 +818,8 @@ test_adw_tab_view_close_signal (void)
   assert_page_positions (view, pages, 5, 1,
                          2, 4, 5, 6, 8);
 
+  g_signal_handler_disconnect (view, handler);
+
   g_assert_finalize_object (view);
 }
 

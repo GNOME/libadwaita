@@ -3052,7 +3052,7 @@ adw_tab_grid_size_allocate (GtkWidget *widget,
 
   calculate_tab_layout (self);
 
-  for (l = self->tabs; l; l = l->next) {
+  for (l = self->tabs; l && l->data; l = l->next) {
     TabInfo *info = l->data;
     GskTransform *transform = NULL;
     int x, y, w, h;

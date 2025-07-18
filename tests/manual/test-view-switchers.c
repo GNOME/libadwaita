@@ -6,11 +6,11 @@ create_stack (void)
   AdwViewStack *stack = ADW_VIEW_STACK (adw_view_stack_new ());
   AdwViewStackPage *page;
 
-  page = adw_view_stack_add_titled_with_icon (stack,
-                                              adw_bin_new (),
-                                              NULL,
-                                              "Page 1",
-                                              "adw-tab-icon-missing-symbolic");
+  adw_view_stack_add_titled_with_icon (stack,
+                                       adw_bin_new (),
+                                       NULL,
+                                       "Page 1",
+                                       "adw-tab-icon-missing-symbolic");
 
   page = adw_view_stack_add_titled_with_icon (stack,
                                               adw_bin_new (),

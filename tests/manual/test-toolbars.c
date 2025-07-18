@@ -185,11 +185,12 @@ create_content (void)
 
     stack = adw_view_stack_new ();
 
-    page = adw_view_stack_add_titled_with_icon (ADW_VIEW_STACK (stack),
-                                                gtk_label_new ("Page 1"),
-                                                NULL,
-                                                "Page 1",
-                                                "emblem-system-symbolic");
+    adw_view_stack_add_titled_with_icon (ADW_VIEW_STACK (stack),
+                                         gtk_label_new ("Page 1"),
+                                         NULL,
+                                         "Page 1",
+                                         "emblem-system-symbolic");
+
     page = adw_view_stack_add_titled_with_icon (ADW_VIEW_STACK (stack),
                                                 gtk_label_new ("Page 2"),
                                                 NULL,
@@ -197,11 +198,12 @@ create_content (void)
                                                 "emblem-system-symbolic");
     adw_view_stack_page_set_needs_attention (page, TRUE);
     adw_view_stack_page_set_badge_number (page, 3);
-    page = adw_view_stack_add_titled_with_icon (ADW_VIEW_STACK (stack),
-                                                gtk_label_new ("Page 3"),
-                                                NULL,
-                                                "Page 3",
-                                                "emblem-system-symbolic");
+
+    adw_view_stack_add_titled_with_icon (ADW_VIEW_STACK (stack),
+                                         gtk_label_new ("Page 3"),
+                                         NULL,
+                                         "Page 3",
+                                         "emblem-system-symbolic");
 
     adw_toolbar_view_set_content (ADW_TOOLBAR_VIEW (toolbar_view), stack);
   }
