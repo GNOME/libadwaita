@@ -14,3 +14,6 @@ leak:pango_layout_get_empty_extents_and_height_at_index
 
 # Ignore the GTK leak from calling gtk_button_set_label()
 leak:gtk_widget_list_mnemonic_labels
+
+# Ignore another GTK leak
+leak:stash_desktop_autostart_id
