@@ -6,13 +6,6 @@
     <file>defaults-light.css</file>
     <file>defaults-dark.css</file>
 
-    <file>assets/bullet-symbolic.symbolic.png</file>
-    <file>assets/bullet@2-symbolic.symbolic.png</file>
-    <file>assets/check-symbolic.symbolic.png</file>
-    <file>assets/check@2-symbolic.symbolic.png</file>
-    <file>assets/dash-symbolic.symbolic.png</file>
-    <file>assets/dash@2-symbolic.symbolic.png</file>
-
     <file>assets/bullet-symbolic.svg</file>
     <file>assets/check-symbolic.svg</file>
     <file>assets/dash-symbolic.svg</file>
