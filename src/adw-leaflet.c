@@ -1653,12 +1653,10 @@ adw_leaflet_measure (GtkWidget      *widget,
 {
   AdwLeaflet *self = ADW_LEAFLET (widget);
   GList *l;
-  int visible_children;
   int child_min, max_min, visible_min, last_visible_min;
   int child_nat, max_nat, sum_nat;
   gboolean same_orientation;
 
-  visible_children = 0;
   child_min = max_min = visible_min = last_visible_min = 0;
   child_nat = max_nat = sum_nat = 0;
   for (l = self->children; l; l = l->next) {
@@ -1666,8 +1664,6 @@ adw_leaflet_measure (GtkWidget      *widget,
 
     if (page->widget == NULL || !gtk_widget_get_visible (page->widget))
       continue;
-
-    visible_children++;
 
     gtk_widget_measure (page->widget, orientation, for_size,
                         &child_min, &child_nat, NULL, NULL);
