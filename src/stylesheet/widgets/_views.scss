@@ -65,6 +65,7 @@ gridview > child {
   }
 }
 
+flowbox > flowboxchild,
 gridview > child.activatable {
   &:hover { background-color: $view_hover_color; }
 
