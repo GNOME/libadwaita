@@ -340,6 +340,8 @@ box_allocate (AllocationData *child_data,
     else
       child_data[i].allocated_size = available_size;
   }
+
+  g_free (sizes);
 }
 
 static void
