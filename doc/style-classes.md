@@ -300,6 +300,8 @@ and line height to help make large amounts of text more readable. It should be
 used for the app's main content, such as messages in a chat app. For other long
 text, use `.body` instead.
 
+Since: 1.8
+
 ## Body
 
 <picture>
