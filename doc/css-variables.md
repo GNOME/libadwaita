@@ -993,7 +993,7 @@ should be used together, as follows:
 
 Document font should be used in articles, messages and other content.
 
-It's used for the [`.document`](style-classes.html#typography-styles)
+It's used for the [`.document`](style-classes.html#document)
 style class.
 
 Name                             | Example Value
@@ -1005,7 +1005,7 @@ Name                             | Example Value
 
 Monospace font should be used for displaying code, logs or shell commands.
 
-It's used for the [`.monospace`](style-classes.html#typography-styles)
+It's used for the [`.monospace`](style-classes.html#monospace)
 style class.
 
 Name                             | Example Value

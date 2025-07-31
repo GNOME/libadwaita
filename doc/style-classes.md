@@ -260,10 +260,12 @@ if the style class cannot be used directly.
 
 Since: 1.7
 
-# Typography Styles
+# Typography
 
 These style classes can be applied to any widgets, but are mostly used for
 [class@Gtk.Label] or other widgets that contain them.
+
+## Titles
 
 <picture>
   <source srcset="typography-titles-dark.png" media="(prefers-color-scheme: dark)">
@@ -275,6 +277,8 @@ of title styles, indicating hierarchy. The specific use heavily depends on
 context. Generally, the larger styles are intended to be used in bigger views
 with plenty of whitespace around them.
 
+## Heading
+
 <picture>
   <source srcset="typography-heading-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-heading.png" alt="typography-heading">
@@ -282,6 +286,8 @@ with plenty of whitespace around them.
 
 The `.heading` style class is the standard style for UI headings using the
 default text size, such as window titles or boxed list labels.
+
+## Document
 
 <picture>
   <source srcset="typography-document-dark.png" media="(prefers-color-scheme: dark)">
@@ -293,6 +299,8 @@ The `.document` style class makes the widget use the
 and line height to help make large amounts of text more readable. It should be
 used for the app's main content, such as messages in a chat app. For other long
 text, use `.body` instead.
+
+## Body
 
 <picture>
   <source srcset="typography-body-dark.png" media="(prefers-color-scheme: dark)">
@@ -316,6 +324,8 @@ The `.caption-heading` and `.caption` style classes make text smaller. They
 are intended to be used to differentiate sub-text which accompanies text in
 the regular body style.
 
+## Monospace
+
 <picture>
   <source srcset="typography-monospace-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-monospace.png" alt="typography-monospace">
@@ -328,6 +338,8 @@ displaying code, logs or shell commands.
 For [class@EntryRow], it only makes the editable part monospace, but not title
 or any extra widgets. To make everything in the row monospace, apply
 `.monospace` to the [class@Gtk.ListBox] around the row.
+
+## Numeric
 
 <picture>
   <source srcset="typography-numeric-dark.png" media="(prefers-color-scheme: dark)">
@@ -712,7 +724,7 @@ The `.large-title` style class makes text large and thin. It's the largest
 style, infrequently used for display headings in greeters or assistants. It
 should only be used in conjunction with large amounts of whitespace.
 
-The [`.title-1`](#typography-styles) style class should be used instead.
+The [`.title-1`](#titles) style class should be used instead.
 
 Deprecated since: 1.2
 
