@@ -1778,7 +1778,7 @@ adw_dialog_set_focus (AdwDialog *self,
   if (priv->focus_widget == focus)
     return;
 
-  if (!gtk_widget_get_can_focus (priv->bin)) {
+  if (!priv->bin || !gtk_widget_get_can_focus (priv->bin)) {
     g_set_weak_pointer (&priv->last_focus, priv->focus_widget);
     set_focus (self, focus);
     return;
