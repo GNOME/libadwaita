@@ -1,5 +1,25 @@
 =============
+Version 1.7.6
+=============
+
+- AdwAlertDialog/AdwMessageDialog
+  - Emit ::response when cancelled after calling choose()
+- AdwDialog
+  - Fix widget activation in window-backed dialogs
+  - Fix set_focus() in window-backed dialogs
+- AdwLayoutSlot
+  - Error out if ID is not set
+- AdwNavigationView
+ - Defer swipe start to ::begin-swipe
+- AdwTabOverview
+  - Make button hitboxes larger
+- AdwWrapLayout
+  - Fix a memory leak
+- Various fixes
+
+=============
 Version 1.7.5
+=============
 
 - AdwAboutDialog/AdwAboutWindow
   - Fix a leak
