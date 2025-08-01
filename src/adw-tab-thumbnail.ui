@@ -45,7 +45,6 @@
                       <property name="measure">True</property>
                     </layout>
                     <style>
-                      <class name="circular"/>
                       <class name="tab-close-button"/>
                     </style>
                   </object>
@@ -78,7 +77,6 @@
                       <property name="measure">True</property>
                     </layout>
                     <style>
-                      <class name="circular"/>
                       <class name="tab-indicator"/>
                       <class name="image-button"/>
                     </style>
