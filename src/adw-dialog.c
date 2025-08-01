@@ -661,13 +661,7 @@ present_as_window (AdwDialog *self,
 static gboolean
 activate_focus_cb (AdwDialog *self)
 {
-  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
-  GtkRoot *root;
-
-  if (priv->window)
-    return GDK_EVENT_PROPAGATE;
-
-  root = gtk_widget_get_root (GTK_WIDGET (self));
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
 
   if (!GTK_IS_WINDOW (root))
     return GDK_EVENT_PROPAGATE;
@@ -680,13 +674,7 @@ activate_focus_cb (AdwDialog *self)
 static gboolean
 activate_default_cb (AdwDialog *self)
 {
-  AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
-  GtkRoot *root;
-
-  if (priv->window)
-    return GDK_EVENT_PROPAGATE;
-
-  root = gtk_widget_get_root (GTK_WIDGET (self));
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
 
   if (!GTK_IS_WINDOW (root))
     return GDK_EVENT_PROPAGATE;
