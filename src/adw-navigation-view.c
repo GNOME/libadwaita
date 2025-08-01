@@ -277,6 +277,7 @@ struct _AdwNavigationView
   gboolean transition_cancel;
   double transition_progress;
   gboolean gesture_active;
+  AdwNavigationDirection swipe_direction;
 
   AdwShadowHelper *shadow_helper;
   AdwSwipeTracker *swipe_tracker;
@@ -1210,21 +1211,40 @@ prepare_cb (AdwSwipeTracker        *tracker,
             AdwNavigationDirection  direction,
             AdwNavigationView      *self)
 {
+  if (!adw_navigation_view_get_visible_page (self))
+    return;
+
+  self->swipe_direction = ADW_NAVIGATION_DIRECTION_BACK;
+}
+
+static void
+begin_swipe_cb (AdwSwipeTracker   *tracker,
+                AdwNavigationView *self)
+{
   AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
   AdwNavigationPage *new_page;
   gboolean remove_on_pop = FALSE;
 
-  if (!visible_page)
+  if (self->swipe_direction < 0)
     return;
 
-  if (direction == ADW_NAVIGATION_DIRECTION_BACK) {
-    if (!adw_navigation_page_get_can_pop (visible_page))
+  if (!visible_page) {
+    self->swipe_direction = -1;
+    return;
+  }
+
+  if (self->swipe_direction == ADW_NAVIGATION_DIRECTION_BACK) {
+    if (!adw_navigation_page_get_can_pop (visible_page)) {
+      self->swipe_direction = -1;
       return;
+    }
 
     new_page = adw_navigation_view_get_previous_page (self, visible_page);
 
-    if (!new_page)
+    if (!new_page) {
+      self->swipe_direction = -1;
       return;
+    }
 
   } else {
     new_page = get_next_page (self);
@@ -1242,9 +1262,9 @@ prepare_cb (AdwSwipeTracker        *tracker,
   self->showing_page = new_page;
   self->hiding_page = g_object_ref (visible_page);
 
-  self->transition_pop = (direction == ADW_NAVIGATION_DIRECTION_BACK);
+  self->transition_pop = (self->swipe_direction == ADW_NAVIGATION_DIRECTION_BACK);
 
-  if (direction == ADW_NAVIGATION_DIRECTION_BACK) {
+  if (self->swipe_direction == ADW_NAVIGATION_DIRECTION_BACK) {
     g_object_ref (new_page);
   } else {
     if (remove_on_pop)
@@ -1269,6 +1289,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
   adw_swipe_tracker_set_upper_overshoot (self->swipe_tracker, TRUE);
+
+  self->swipe_direction = -1;
 }
 
 static void
@@ -1294,6 +1316,8 @@ end_swipe_cb (AdwSwipeTracker   *tracker,
               AdwNavigationView *self)
 {
   gboolean animate;
+
+  self->swipe_direction = -1;
 
   if (!self->gesture_active)
     return;
@@ -1911,10 +1935,14 @@ adw_navigation_view_init (AdwNavigationView *self)
 
   g_signal_connect (self->swipe_tracker, "prepare",
                     G_CALLBACK (prepare_cb), self);
+  g_signal_connect (self->swipe_tracker, "begin-swipe",
+                    G_CALLBACK (begin_swipe_cb), self);
   g_signal_connect (self->swipe_tracker, "update-swipe",
                     G_CALLBACK (update_swipe_cb), self);
   g_signal_connect (self->swipe_tracker, "end-swipe",
                     G_CALLBACK (end_swipe_cb), self);
+
+  self->swipe_direction = -1;
 
   self->shield = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
   gtk_widget_set_child_visible (self->shield, FALSE);
