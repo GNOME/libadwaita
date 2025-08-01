@@ -408,6 +408,8 @@ create_nav_button (AdwShortcutsDialog  *self,
 {
   GtkWidget *button = gtk_toggle_button_new ();
 
+  gtk_button_set_can_shrink (GTK_BUTTON (button), TRUE);
+
   g_object_bind_property (section, "title", button, "label", G_BINDING_SYNC_CREATE);
 
   g_object_set_data (G_OBJECT (button), "-adw-nav-button-section", section);
