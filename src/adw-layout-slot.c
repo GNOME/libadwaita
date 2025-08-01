@@ -59,6 +59,17 @@ adw_layout_slot_root (GtkWidget *widget)
 }
 
 static void
+adw_layout_slot_constructed (GObject *object)
+{
+  AdwLayoutSlot *self = ADW_LAYOUT_SLOT (object);
+
+  G_OBJECT_CLASS (adw_layout_slot_parent_class)->constructed (object);
+
+  if (!self->id)
+    g_error ("AdwLayoutSlot %p created without an ID", self);
+}
+
+static void
 adw_layout_slot_finalize (GObject *object)
 {
   AdwLayoutSlot *self = ADW_LAYOUT_SLOT (object);
@@ -108,6 +119,7 @@ adw_layout_slot_class_init (AdwLayoutSlotClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->constructed = adw_layout_slot_constructed;
   object_class->finalize = adw_layout_slot_finalize;
   object_class->get_property = adw_layout_slot_get_property;
   object_class->set_property = adw_layout_slot_set_property;

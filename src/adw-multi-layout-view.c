@@ -685,6 +685,10 @@ adw_multi_layout_view_register_slot (AdwMultiLayoutView *self,
                                      const char         *id,
                                      GtkWidget          *slot)
 {
+  g_return_if_fail (ADW_IS_MULTI_LAYOUT_VIEW (self));
+  g_return_if_fail (id != NULL);
+  g_return_if_fail (GTK_IS_WIDGET (slot));
+
   if (!self->accepting_slots)
     return;
 
