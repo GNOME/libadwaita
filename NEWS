@@ -1,3 +1,51 @@
+================
+Version 1.8.beta
+================
+
+- AdwAlertDialog/AdwMessageDialog
+  - Emit ::response when cancelled after calling choose()
+- AdwDialog
+  - Fix widget activation in window-backed dialogs
+  - Fix set_focus() in window-backed dialogs
+- AdwLayoutSlot
+  - Error out if ID is not set
+- AdwNavigationView
+ - Defer swipe start to ::begin-swipe
+- AdwShortcutLabel
+  - Differentiate keypad keys better (same as in GtkShortcutLabel)
+- AdwShortcutsDialog
+  - Show navigation pills for large dialogs
+  - Set a title
+  - Focus search bar with Ctrl+F
+  - Fix action-name fetching when presented as a window
+  - Fix search row activation
+  - Fix markup handling
+- AdwTabBar
+  - Fix focusing start/end action widgets
+- AdwTabOverview
+  - Make button hitboxes larger
+- AdwWrapBox
+  - Add remove_all()
+- AdwWrapLayout
+  - Fix a memory leak
+- Build
+  - Evaluate dependencies early
+- Demo
+  - Switch to AdwShortcutLabel
+- Stylesheet
+  - Add .document style class using the document font
+  - Increase line height for .body and .caption
+  - Add hover/active styles to GtkFlowBox children
+  - Stop shipping symbolic PNG assets
+  - Fix .devel striping with new GTK
+  - Adapt window controls styles to GTK styles
+- Various fixes
+- Translation updates
+  - Belarusian
+  - Hebrew
+  - Romanian
+  - Slovenian
+
 =================
 Version 1.8.alpha
 =================
