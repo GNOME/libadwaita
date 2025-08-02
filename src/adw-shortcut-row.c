@@ -76,8 +76,12 @@ update_accel (AdwShortcutRow *self)
 
       if (GTK_IS_APPLICATION (app)) {
         char **action_accels = gtk_application_get_accels_for_action (app, action_name);
+        char *new_action_accels = g_strjoinv (" ", action_accels);
 
-        g_set_str (&action_accel, g_strjoinv (" ", action_accels));
+        g_free (action_accel);
+        action_accel = new_action_accels;
+
+        g_strfreev (action_accels);
       }
     }
   }
