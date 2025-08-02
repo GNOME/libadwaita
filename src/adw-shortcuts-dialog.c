@@ -27,7 +27,7 @@
  * A dialog that displays application's keyboard shortcuts.
  *
  * <picture>
- *   <source srcset="shortcuts-dialog.png" media="(prefers-color-scheme: dark)">
+ *   <source srcset="shortcuts-dialog-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="shortcuts-dialog.png" alt="shortcuts-dialog">
  * </picture>
  *
@@ -101,7 +101,7 @@
  * associated with it, the result will look as follows:
  *
  * <picture>
- *   <source srcset="shortcuts-dialog-example.png" media="(prefers-color-scheme: dark)">
+ *   <source srcset="shortcuts-dialog-example-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="shortcuts-dialog-example.png" alt="shortcuts-dialog-example">
  * </picture>
  *

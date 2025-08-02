@@ -27,7 +27,7 @@
  * A widget that displays a keyboard shortcut.
  *
  * <picture>
- *   <source srcset="shortcut-label.png" media="(prefers-color-scheme: dark)">
+ *   <source srcset="shortcut-label-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="shortcut-label.png" alt="shortcut-label">
  * </picture>
  *
@@ -42,35 +42,35 @@
  * - A single shortcut in [func@Gtk.accelerator_parse] format, e.g. `<Control>C`:
 
  *     <picture>
- *       <source srcset="shortcut-label-single.png" media="(prefers-color-scheme: dark)">
+ *       <source srcset="shortcut-label-single-dark.png" media="(prefers-color-scheme: dark)">
  *       <img src="shortcut-label-single.png" alt="shortcut-label-single">
  *     </picture>
  *
  * - Multiple alternative shortcuts, separated with spaces, e.g. `<Shift>A Home`:
  *
  *     <picture>
- *       <source srcset="shortcut-label-alternative.png" media="(prefers-color-scheme: dark)">
+ *       <source srcset="shortcut-label-alternative-dark.png" media="(prefers-color-scheme: dark)">
  *       <img src="shortcut-label-alternative.png" alt="shortcut-label-alternative">
  *     </picture>
  *
  * - A range of shortcuts, separated with `...`, e.g. `<Alt>1...9`:
  *
  *     <picture>
- *       <source srcset="shortcut-label-range.png" media="(prefers-color-scheme: dark)">
+ *       <source srcset="shortcut-label-range-dark.png" media="(prefers-color-scheme: dark)">
  *       <img src="shortcut-label-range.png" alt="shortcut-label-range">
  *     </picture>
  *
  * - Multiple keys pressed at once, separated with `&`, e.g. `Control_L&Control_R`:
  *
  *     <picture>
- *       <source srcset="shortcut-label-multiple.png" media="(prefers-color-scheme: dark)">
+ *       <source srcset="shortcut-label-multiple-dark.png" media="(prefers-color-scheme: dark)">
  *       <img src="shortcut-label-multiple.png" alt="shortcut-label-multiple">
  *     </picture>
  *
  * - Multiple shortcuts or keys, pressed sequentially, separated with `+`, e.g. `<Control>C+<Control>X`:
  *
  *     <picture>
- *       <source srcset="shortcut-label-sequence.png" media="(prefers-color-scheme: dark)">
+ *       <source srcset="shortcut-label-sequence-dark.png" media="(prefers-color-scheme: dark)">
  *       <img src="shortcut-label-sequence.png" alt="shortcut-label-sequence">
  *     </picture>
  *
