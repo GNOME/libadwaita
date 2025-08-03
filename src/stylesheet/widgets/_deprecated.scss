@@ -383,6 +383,13 @@ window.shortcuts:not(.ssd-frame) {
 
 // The following styles are deprecated in libadwaita and should be removed in 2.x
 
+/* Transition shadows */
+
+flap,
+leaflet {
+  @include transition-shadows();
+}
+
 // Deprecated: use .boxed-list instead
 list.content {
   @extend .boxed-list;
