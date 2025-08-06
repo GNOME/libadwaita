@@ -103,11 +103,11 @@ static GHashTable *display_style_managers = NULL;
 static AdwStyleManager *default_instance = NULL;
 
 typedef enum {
-  UPDATE_BASE         = 1 << 0,
+  UPDATE_CONTRAST         = 1 << 0,
   UPDATE_COLOR_SCHEME = 1 << 1,
   UPDATE_ACCENT_COLOR = 1 << 2,
   UPDATE_FONTS        = 1 << 3,
-  UPDATE_ALL = UPDATE_BASE | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR | UPDATE_FONTS
+  UPDATE_ALL = UPDATE_CONTRAST | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR | UPDATE_FONTS
 } StylesheetUpdateFlags;
 
 static void
@@ -258,9 +258,9 @@ update_stylesheet (AdwStyleManager       *self,
                   NULL);
 
     self->setting_dark = FALSE;
-}
+  }
 
-  if (flags & UPDATE_BASE && self->provider) {
+  if (flags & UPDATE_CONTRAST && self->provider) {
     if (adw_settings_get_high_contrast (self->settings))
       gtk_css_provider_load_from_resource (self->provider,
                                            "/org/gnome/Adwaita/styles/base-hc.css");
@@ -288,6 +288,34 @@ update_stylesheet (AdwStyleManager       *self,
     char *fonts_css = generate_fonts_css (self);
     gtk_css_provider_load_from_string (self->fonts_provider, fonts_css);
     g_free (fonts_css);
+  }
+
+  if (flags & UPDATE_COLOR_SCHEME) {
+    GtkInterfaceColorScheme color_scheme;
+
+    if (self->dark)
+      color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
+    else
+      color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+
+    if (self->provider)
+      g_object_set (self->provider, "prefers-color-scheme", color_scheme, NULL);
+    if (self->colors_provider)
+      g_object_set (self->colors_provider, "prefers-color-scheme", color_scheme, NULL);
+  }
+
+  if (flags & UPDATE_CONTRAST) {
+    GtkInterfaceContrast contrast;
+
+    if (adw_settings_get_high_contrast (self->settings))
+      contrast = GTK_INTERFACE_CONTRAST_MORE;
+    else
+      contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+
+    if (self->provider)
+      g_object_set (self->provider, "prefers-contrast", contrast, NULL);
+    if (self->colors_provider)
+      g_object_set (self->colors_provider, "prefers-contrast", contrast, NULL);
   }
 
   self->animation_timeout_id =
@@ -426,7 +454,7 @@ notify_system_supports_accent_colors_cb (AdwStyleManager *self)
 static void
 notify_high_contrast_cb (AdwStyleManager *self)
 {
-  update_stylesheet (self, UPDATE_BASE);
+  update_stylesheet (self, UPDATE_CONTRAST);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
 }
