@@ -164,6 +164,47 @@ update_stylesheet (AdwApplication *self)
 
   if (priv->hc_dark_style_provider)
     style_provider_set_enabled (priv->hc_dark_style_provider, is_hc && is_dark);
+
+  GtkInterfaceColorScheme color_scheme;
+  GtkInterfaceContrast contrast;
+
+  if (is_dark)
+    color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
+  else
+    color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+
+  if (is_hc)
+    contrast = GTK_INTERFACE_CONTRAST_MORE;
+  else
+    contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+
+  if (priv->base_style_provider) {
+    g_object_set (priv->base_style_provider,
+                  "prefers-color-scheme", color_scheme,
+                  "prefers-contrast", contrast,
+                  NULL);
+  }
+
+  if (priv->dark_style_provider) {
+    g_object_set (priv->dark_style_provider,
+                  "prefers-color-scheme", color_scheme,
+                  "prefers-contrast", contrast,
+                  NULL);
+  }
+
+  if (priv->hc_style_provider) {
+    g_object_set (priv->hc_style_provider,
+                  "prefers-color-scheme", color_scheme,
+                  "prefers-contrast", contrast,
+                  NULL);
+  }
+
+  if (priv->hc_dark_style_provider) {
+    g_object_set (priv->hc_dark_style_provider,
+                  "prefers-color-scheme", color_scheme,
+                  "prefers-contrast", contrast,
+                  NULL);
+  }
 }
 
 static void
