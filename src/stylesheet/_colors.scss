@@ -1,7 +1,101 @@
-$border_opacity: if($contrast == 'high', 50%, 15%);
-$focus_border_opacity: if($contrast == 'high', 80%, 50%);
+/* GTK NAMED COLORS
+   ----------------
+   use responsibly! */
 
-// Colors from _defaults.scss
+// Sass thinks we're using the colors in the variables as strings and may shoot
+// warning, it's innocuous and can be defeated by using #{$var}.
+
+// These are the colors apps can override. We define the defaults here and
+// define variables for them in _colors.scss
+
+// destructive-action buttons
+@define-color destructive_bg_color light-dark(@red_3, @red_4);
+@define-color destructive_fg_color white;
+
+// Levelbars, entries, labels and infobars. These don't need text colors
+@define-color success_bg_color light-dark(@green_4, @green_5);
+@define-color success_fg_color white;
+
+@define-color warning_bg_color light-dark(@yellow_5, #cd9309);
+@define-color warning_fg_color RGB(0 0 0 / 80%);
+
+@define-color error_bg_color light-dark(@red_3, @red_4);
+@define-color error_fg_color white;
+
+@define-color accent_color oklab(from @accent_bg_color min(l, 0.5) a b);
+@define-color destructive_color oklab(from @destructive_bg_color min(l, 0.5) a b);
+@define-color success_color oklab(from @success_bg_color min(l, 0.5) a b);
+@define-color warning_color oklab(from @warning_bg_color min(l, 0.5) a b);
+@define-color error_color oklab(from @error_bg_color min(l, 0.5) a b);
+
+@media (prefers-color-scheme: dark) {
+  @define-color accent_color oklab(from @accent_bg_color max(l, 0.85) a b);
+  @define-color destructive_color oklab(from @destructive_bg_color max(l, 0.85) a b);
+  @define-color success_color oklab(from @success_bg_color max(l, 0.85) a b);
+  @define-color warning_color oklab(from @warning_bg_color max(l, 0.85) a b);
+  @define-color error_color oklab(from @error_bg_color max(l, 0.85) a b);
+}
+
+// Window
+@define-color window_bg_color light-dark(#fafafb, #222226);
+@define-color window_fg_color light-dark(RGB(0 0 6 / 80%), white);
+
+// Views - e.g. text view or tree view
+@define-color view_bg_color light-dark(#ffffff, #1d1d20);
+@define-color view_fg_color light-dark(RGB(0 0 6 / 80%), white);
+
+// Header bar, search bar, tab bar
+@define-color headerbar_bg_color light-dark(#ffffff, #2e2e32);
+@define-color headerbar_fg_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color headerbar_border_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color headerbar_backdrop_color @window_bg_color;
+@define-color headerbar_shade_color light-dark(RGB(0 0 6 / 12%), RGB(0 0 6 / 36%));
+@define-color headerbar_darker_shade_color light-dark(RGB(0 0 6 / 12%), RGB(0 0 12 / 90%));
+
+// Split pane views
+@define-color sidebar_bg_color light-dark(#ebebed, #2e2e32);
+@define-color sidebar_fg_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color sidebar_backdrop_color light-dark(#f2f2f4, #28282c);
+@define-color sidebar_shade_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 25%));
+@define-color sidebar_border_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 36%));
+
+@define-color secondary_sidebar_bg_color light-dark(#f3f3f5, #28282c);
+@define-color secondary_sidebar_fg_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color secondary_sidebar_backdrop_color light-dark(#f6f6fa, #252529);
+@define-color secondary_sidebar_shade_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 25%));
+@define-color secondary_sidebar_border_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 36%));
+
+// Cards, boxed lists
+@define-color card_bg_color light-dark(#ffffff, RGB(255 255 255 / 8%));
+@define-color card_fg_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color card_shade_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 36%));
+
+// Dialogs
+@define-color dialog_bg_color light-dark(#fafafb, #36363a);
+@define-color dialog_fg_color light-dark(RGB(0 0 6 / 80%), white);
+
+// Popovers
+@define-color popover_bg_color light-dark(#ffffff, #36363a);
+@define-color popover_fg_color light-dark(RGB(0 0 6 / 80%), white);
+@define-color popover_shade_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 25%));
+
+// Thumbnails
+@define-color thumbnail_bg_color light-dark(#ffffff, #39393d);
+@define-color thumbnail_fg_color light-dark(RGB(0 0 6 / 80%), white);
+
+// Miscellaneous
+@define-color shade_color light-dark(RGB(0 0 6 / 7%), RGB(0 0 6 / 25%));
+@define-color scrollbar_outline_color light-dark(white, RGB(0 0 12 / 95%));
+
+:root {
+  --standalone-color-oklab: min(l, 0.5) a b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --standalone-color-oklab: max(l, 0.85) a b;
+  }
+}
 
 :root {
   --accent-blue: #3584e4;
@@ -16,18 +110,33 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
   --accent-bg-color: @accent_bg_color;
   --accent-fg-color: @accent_fg_color;
+  --accent-color: oklab(
+    from var(--accent-bg-color) var(--standalone-color-oklab)
+  );
 
   --destructive-bg-color: @destructive_bg_color;
   --destructive-fg-color: @destructive_fg_color;
+  --destructive-color: oklab(
+    from var(--destructive-bg-color) var(--standalone-color-oklab)
+  );
 
   --success-bg-color: @success_bg_color;
   --success-fg-color: @success_fg_color;
+  --success-color: oklab(
+    from var(--success-bg-color) var(--standalone-color-oklab)
+  );
 
   --warning-bg-color: @warning_bg_color;
   --warning-fg-color: @warning_fg_color;
+  --warning-color: oklab(
+    from var(--warning-bg-color) var(--standalone-color-oklab)
+  );
 
   --error-bg-color: @error_bg_color;
   --error-fg-color: @error_fg_color;
+  --error-color: oklab(
+    from var(--error-bg-color) var(--standalone-color-oklab)
+  );
 
   --window-bg-color: @window_bg_color;
   --window-fg-color: @window_fg_color;
@@ -70,9 +179,18 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
   --shade-color: @shade_color;
   --scrollbar-outline-color: @scrollbar_outline_color;
+
+  --active-toggle-bg-color: light-dark(#ffffff, rgb(255 255 255 / 20%));
+  --active-toggle-fg-color: light-dark(rgb(0 0 6 / 80%), #ffffff);
+
+  --overview-bg-color: light-dark(#f3f3f5, #28282c);
+  --overview-fg-color: light-dark(rgb(0 0 6 / 80%), #ffffff);
 }
 
 // Other colors
+
+$border_opacity: if($contrast == 'high', 50%, 15%);
+$focus_border_opacity: if($contrast == 'high', 80%, 50%);
 
 $border_color: color-mix(in srgb, currentColor var(--border-opacity), transparent);
 $headerbar_border_color: color-mix(in srgb, var(--headerbar-border-color) var(--border-opacity), transparent);

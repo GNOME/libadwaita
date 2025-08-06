@@ -15,7 +15,6 @@ if sassc.found()
     '_colors.scss',
     '_common.scss',
     '_compat-colors.scss',
-    '_defaults.scss',
     '_drawing.scss',
     '_palette.scss',
     '_widgets.scss',
@@ -70,8 +69,6 @@ if sassc.found()
   scss_files = [
     'base',
     'base-hc',
-    'defaults-light',
-    'defaults-dark',
   ]
 
   foreach scss: scss_files

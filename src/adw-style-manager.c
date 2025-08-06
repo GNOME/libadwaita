@@ -66,7 +66,6 @@ struct _AdwStyleManager
   AdwSettings *settings;
   GtkSettings *gtk_settings;
   GtkCssProvider *provider;
-  GtkCssProvider *colors_provider;
   GtkCssProvider *accent_provider;
   GtkCssProvider *fonts_provider;
 
@@ -269,15 +268,6 @@ update_stylesheet (AdwStyleManager       *self,
                                            "/org/gnome/Adwaita/styles/base.css");
   }
 
-  if (flags & UPDATE_COLOR_SCHEME && self->colors_provider) {
-    if (self->dark)
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-dark.css");
-    else
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-light.css");
-  }
-
   if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
     char *accent_css = generate_accent_css (self);
     gtk_css_provider_load_from_string (self->accent_provider, accent_css);
@@ -300,8 +290,6 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-color-scheme", color_scheme, NULL);
-    if (self->colors_provider)
-      g_object_set (self->colors_provider, "prefers-color-scheme", color_scheme, NULL);
   }
 
   if (flags & UPDATE_CONTRAST) {
@@ -314,8 +302,6 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-contrast", contrast, NULL);
-    if (self->colors_provider)
-      g_object_set (self->colors_provider, "prefers-contrast", contrast, NULL);
   }
 
   self->animation_timeout_id =
@@ -494,11 +480,6 @@ adw_style_manager_constructed (GObject *object)
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
 
-      self->colors_provider = gtk_css_provider_new ();
-      gtk_style_context_add_provider_for_display (self->display,
-                                                  GTK_STYLE_PROVIDER (self->colors_provider),
-                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
-
       self->accent_provider = gtk_css_provider_new ();
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->accent_provider),
@@ -572,7 +553,6 @@ adw_style_manager_dispose (GObject *object)
 
   g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
   g_clear_object (&self->provider);
-  g_clear_object (&self->colors_provider);
   g_clear_object (&self->animations_provider);
   g_clear_object (&self->accent_provider);
   g_clear_object (&self->fonts_provider);
