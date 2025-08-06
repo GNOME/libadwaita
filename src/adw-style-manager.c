@@ -71,7 +71,7 @@ struct _AdwStyleManager
 
   AdwColorScheme color_scheme;
   gboolean dark;
-  gboolean setting_dark;
+  gboolean changing_gtk_settings;
   char *document_font_name;
   char *monospace_font_name;
 
@@ -112,7 +112,7 @@ typedef enum {
 static void
 warn_prefer_dark_theme (AdwStyleManager *self)
 {
-  if (self->setting_dark)
+  if (self->changing_gtk_settings)
     return;
 
   g_warning ("Using GtkSettings:gtk-application-prefer-dark-theme with "
@@ -249,16 +249,6 @@ update_stylesheet (AdwStyleManager       *self,
                                               GTK_STYLE_PROVIDER (self->animations_provider),
                                               10000);
 
-  if (flags & UPDATE_COLOR_SCHEME) {
-    self->setting_dark = TRUE;
-
-    g_object_set (self->gtk_settings,
-                  "gtk-application-prefer-dark-theme", self->dark,
-                  NULL);
-
-    self->setting_dark = FALSE;
-  }
-
   if (flags & UPDATE_CONTRAST && self->provider) {
     if (adw_settings_get_high_contrast (self->settings))
       gtk_css_provider_load_from_resource (self->provider,
@@ -290,6 +280,18 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-color-scheme", color_scheme, NULL);
+
+    self->changing_gtk_settings = TRUE;
+
+    g_object_set (self->gtk_settings,
+                  "gtk-application-prefer-dark-theme", self->dark,
+                  NULL);
+
+    g_object_set (self->gtk_settings,
+                  "gtk-interface-color-scheme", color_scheme,
+                  NULL);
+
+    self->changing_gtk_settings = FALSE;
   }
 
   if (flags & UPDATE_CONTRAST) {
@@ -302,6 +304,14 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-contrast", contrast, NULL);
+
+    self->changing_gtk_settings = TRUE;
+
+    g_object_set (self->gtk_settings,
+                  "gtk-interface-contrast", contrast,
+                  NULL);
+
+    self->changing_gtk_settings = FALSE;
   }
 
   self->animation_timeout_id =
