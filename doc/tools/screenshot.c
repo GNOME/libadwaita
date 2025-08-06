@@ -54,7 +54,6 @@ typedef struct {
   GdkPaintable *paintable;
   char *name;
   GtkCssProvider *provider;
-  GtkCssProvider *provider_dark;
 } ScreenshotData;
 
 static void
@@ -63,7 +62,6 @@ screenshot_data_free (ScreenshotData *data)
   g_object_unref (data->paintable);
   gtk_window_destroy (GTK_WINDOW (gtk_widget_get_root (data->widget)));
   g_object_unref (data->provider);
-  g_clear_object (&data->provider_dark);
   g_free (data->name);
   g_free (data);
 }
@@ -407,10 +405,12 @@ take_screenshot (const char *name,
   data->name = g_file_get_path (output_file);
   data->provider = load_css ("style");
 
-  gtk_widget_set_can_target (data->window, FALSE);
-
   if (dark)
-    data->provider_dark = load_css ("style-dark");
+    g_object_set (data->provider, "prefers-color-scheme", GTK_INTERFACE_COLOR_SCHEME_DARK, NULL);
+  else
+    g_object_set (data->provider, "prefers-color-scheme", GTK_INTERFACE_COLOR_SCHEME_LIGHT, NULL);
+
+  gtk_widget_set_can_target (data->window, FALSE);
 
   if (hover_widget)
     data->hover_widget = GTK_WIDGET (hover_widget);

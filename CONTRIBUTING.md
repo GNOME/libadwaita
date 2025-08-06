@@ -641,8 +641,8 @@ onto it.
 If the widget needs special treatment - for example, it's a `GtkPopover` - it
 should be special-cased in `screenshot.c` based on its type.
 
-If you need special styles, add them to [`doc/tools/style.css`](./doc/tools/style.css)
-and/or [`doc/tools/style-dark.css`](./doc/tools/style-dark.css).
+If you need special styles, add them to
+[`doc/tools/style.css`](./doc/tools/style.css).
 
 When demoing widgets that don't have a background and may look confusing in the
 middle of a doc page, use the `.docs-background` CSS class. It will add a faint
