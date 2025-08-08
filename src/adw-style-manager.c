@@ -249,15 +249,6 @@ update_stylesheet (AdwStyleManager       *self,
                                               GTK_STYLE_PROVIDER (self->animations_provider),
                                               10000);
 
-  if (flags & UPDATE_CONTRAST && self->provider) {
-    if (adw_settings_get_high_contrast (self->settings))
-      gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/base-hc.css");
-    else
-      gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/base.css");
-  }
-
   if (flags & UPDATE_ACCENT_COLOR && self->accent_provider) {
     char *accent_css = generate_accent_css (self);
     gtk_css_provider_load_from_string (self->accent_provider, accent_css);
@@ -486,6 +477,8 @@ adw_style_manager_constructed (GObject *object)
                     NULL);
 
       self->provider = gtk_css_provider_new ();
+      gtk_css_provider_load_from_resource (self->provider,
+                                           "/org/gnome/Adwaita/styles/main.css");
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);

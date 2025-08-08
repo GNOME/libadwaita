@@ -67,8 +67,8 @@ if sassc.found()
   ])
 
   scss_files = [
-    'base',
-    'base-hc',
+    'default',
+    'high-contrast',
   ]
 
   foreach scss: scss_files

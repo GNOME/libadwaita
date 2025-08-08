@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita/styles">
-    <file>base.css</file>
-    <file>base-hc.css</file>
+    <file>default.css</file>
+    <file>high-contrast.css</file>
+    <file>main.css</file>
 
     <file>assets/bullet-symbolic.svg</file>
     <file>assets/check-symbolic.svg</file>
