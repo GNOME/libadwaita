@@ -47,6 +47,14 @@
  *
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
+ *
+ * :::note
+ *     `style.css` can contain styles for dark and high contrast appearance as
+ *     well, using media queries:
+ *
+ *     - `prefers-color-scheme: dark` for styles used only for dark appearance.
+ *     - `prefers-contrast: more` for styles used only when the system high
+ *       contrast preference is enabled.
  */
 
 typedef struct

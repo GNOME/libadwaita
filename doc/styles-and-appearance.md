@@ -81,8 +81,11 @@ remains legible in both appearances:
 * If that's not possible, use the [property@StyleManager:dark] property to check
   the current appearance and vary the drawing accordingly.
 
-* [class@Application] allows loading additional styles for dark appearance via
-  the `style-dark.css` resource.
+* The `prefers-color-scheme: dark` CSS media query can be used to add custom
+  styles specific to dark appearance.
+
+* Alternatively, [class@Application] allows loading additional styles for dark
+  appearance via the `style-dark.css` resource.
 
 ## Accent Color
 
@@ -153,8 +156,11 @@ it manually.
 * The [property@StyleManager:high-contrast] property can be used to check the
   current appearance.
 
-* [class@Application] allows loading additional styles for high contrast
-  appearance via the `style-hc.css` and `style-hc-dark.css` resources.
+* The `prefers-contrast: more` CSS media query can be used to add custom styles
+  specific to high contrast.
+
+* Alternatively, [class@Application] allows loading additional styles for high
+  contrast appearance via the `style-hc.css` and `style-hc-dark.css` resources.
 
 ## Custom Styles
 
@@ -171,6 +177,13 @@ The following resources will automatically be loaded if present:
 
 Styles are stacked on top of each other: when using dark appearance, both
 `style.css` and `style-dark.css` are loaded, and so on.
+
+:::note
+    `style.css` can contain styles for dark and high contrast appearance as
+    well, using media queries:
+
+    - `prefers-color-scheme: dark` for styles used only with dark appearance.
+    - `prefers-contrast: more` for styles used only with high contrast appearance.
 
 ## See Also
 
