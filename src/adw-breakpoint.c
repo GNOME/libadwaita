@@ -70,7 +70,7 @@
  */
 
 /**
- * AdwBreakpointCondition:
+ * AdwBreakpointCondition: (copy-func adw_breakpoint_condition_copy) (free-func adw_breakpoint_condition_free)
  *
  * Describes condition for an [class@Breakpoint].
  *

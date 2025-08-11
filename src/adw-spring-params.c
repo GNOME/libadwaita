@@ -14,7 +14,7 @@ G_DEFINE_BOXED_TYPE (AdwSpringParams, adw_spring_params,
                      adw_spring_params_ref, adw_spring_params_unref)
 
 /**
- * AdwSpringParams:
+ * AdwSpringParams: (copy-func adw_spring_params_ref) (free-func adw_spring_params_unref)
  *
  * Physical parameters of a spring for [class@SpringAnimation].
  *
