@@ -1,7 +1,7 @@
 @media not (prefers-contrast: more) {
-  @import url("resource:///org/gnome/Adwaita/styles/default.css");
+  @import url("default.css");
 }
 
 @media (prefers-contrast: more) {
-  @import url("resource:///org/gnome/Adwaita/styles/high-contrast.css");
+  @import url("high-contrast.css");
 }
