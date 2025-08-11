@@ -713,7 +713,7 @@ allocate_line (AdwWrapLayout  *self,
     allocated_length = spacing * (n_children - 1);
 
     for (i = 0; i < n_children; i++)
-      allocated_length += line_child_data[i].available_size;
+      allocated_length += line_child_data[i].allocated_size;
 
     if (!justify_line) {
       int length_delta = available_length - allocated_length;
@@ -741,7 +741,7 @@ allocate_line (AdwWrapLayout  *self,
     int x, y, w, h;
 
     if ((is_rtl && horiz) != reverse_line)
-      widget_offset -= available_size + spacing;
+      widget_offset -= allocated_size + spacing;
 
     if (horiz) {
       x = widget_offset;
@@ -773,7 +773,7 @@ allocate_line (AdwWrapLayout  *self,
     gtk_widget_allocate (widget, w, h, -1, transform);
 
     if ((!is_rtl || !horiz) != reverse_line)
-      widget_offset += available_size + spacing;
+      widget_offset += allocated_size + spacing;
   }
 }
 
