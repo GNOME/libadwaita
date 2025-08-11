@@ -102,6 +102,8 @@ action_clicked_cb (AdwToastWidget *self)
 {
   end_timeout (self);
 
+  gtk_widget_set_sensitive (self->action_button, FALSE);
+
   g_signal_emit_by_name (self->toast, "button-clicked");
 
   /* Keep the widget alive through the idle. Otherwise it may be immediately
