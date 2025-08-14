@@ -2,10 +2,10 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <!-- FIXME: GtkBuilder needs to support having them inline -->
-  <object class="AdwSpinnerPaintable" id="spinner"/>
   <object class="GtkImage" id="widget">
     <property name="pixel-size">64</property>
-    <property name="paintable">spinner</property>
+    <property name="paintable">
+      <object class="AdwSpinnerPaintable"/>
+    </property>
   </object>
 </interface>
