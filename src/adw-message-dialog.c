@@ -1086,10 +1086,13 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
    *
    * The response ID of the default response.
    *
-   * If set, pressing <kbd>Enter</kbd> will activate the corresponding button.
+   * The button corresponding to this response will be set as the default widget
+   * of the dialog.
    *
-   * If set to `NULL` or a non-existent response ID, pressing <kbd>Enter</kbd>
-   * will do nothing.
+   * If not set, the default widget will not be set, and the last added response
+   * will be focused by default.
+   *
+   * See [property@Gtk.Window:default-widget].
    *
    * Since: 1.2
    * Deprecated: 1.6: Use [class@AlertDialog].
@@ -2391,10 +2394,13 @@ adw_message_dialog_get_default_response (AdwMessageDialog *self)
  *
  * Sets the ID of the default response of @self.
  *
- * If set, pressing <kbd>Enter</kbd> will activate the corresponding button.
+ * The button corresponding to this response will be set as the default widget
+ * of @self.
  *
- * If set to `NULL` or to a non-existent response ID, pressing <kbd>Enter</kbd>
- * will do nothing.
+ * If not set, the default widget will not be set, and the last added response
+ * will be focused by default.
+ *
+ * See [property@Gtk.Widget:default-widget].
  *
  * Since: 1.2
  * Deprecated: 1.6: Use [class@AlertDialog].
