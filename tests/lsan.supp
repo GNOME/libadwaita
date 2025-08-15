@@ -1,10 +1,5 @@
 # Ignore fontconfig leaks
-leak:FcConfigValues
-leak:FcFontRenderPrepare
-leak:FcPatternObjectAddWithBinding
-leak:FcPatternObjectInsertElt
-leak:FcValueSave
-leak:XML_ParseBuffer
+leak:libfontconfig.so.1
 
 # Ignore mesa leaks
 leak:mesa_cache_db_open
