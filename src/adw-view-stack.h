@@ -72,6 +72,18 @@ ADW_AVAILABLE_IN_ALL
 void     adw_view_stack_page_set_visible (AdwViewStackPage *self,
                                           gboolean          visible);
 
+ADW_AVAILABLE_IN_1_9
+gboolean adw_view_stack_page_get_starts_section (AdwViewStackPage *self);
+ADW_AVAILABLE_IN_1_9
+void     adw_view_stack_page_set_starts_section (AdwViewStackPage *self,
+                                                 gboolean          starts_section);
+
+ADW_AVAILABLE_IN_1_9
+const char *adw_view_stack_page_get_section_title (AdwViewStackPage *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_view_stack_page_set_section_title (AdwViewStackPage *self,
+                                                   const char       *section_title);
+
 #define ADW_TYPE_VIEW_STACK (adw_view_stack_get_type())
 
 ADW_AVAILABLE_IN_ALL

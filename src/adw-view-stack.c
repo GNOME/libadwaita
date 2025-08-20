@@ -128,6 +128,9 @@ struct _AdwViewStackPage {
   gboolean visible;
   gboolean use_underline;
   gboolean in_destruction;
+
+  gboolean starts_section;
+  char *section_title;
 };
 
 static void adw_view_stack_page_accessible_init (GtkAccessibleInterface *iface);
@@ -145,6 +148,8 @@ enum {
   PAGE_PROP_NEEDS_ATTENTION,
   PAGE_PROP_BADGE_NUMBER,
   PAGE_PROP_VISIBLE,
+  PAGE_PROP_STARTS_SECTION,
+  PAGE_PROP_SECTION_TITLE,
   LAST_PAGE_PROP,
   PAGE_PROP_ACCESSIBLE_ROLE
 };
@@ -230,6 +235,12 @@ adw_view_stack_page_get_property (GObject      *object,
   case PAGE_PROP_VISIBLE:
     g_value_set_boolean (value, adw_view_stack_page_get_visible (self));
     break;
+  case PAGE_PROP_STARTS_SECTION:
+    g_value_set_boolean (value, adw_view_stack_page_get_starts_section (self));
+    break;
+  case PAGE_PROP_SECTION_TITLE:
+    g_value_set_string (value, adw_view_stack_page_get_section_title (self));
+    break;
   case PAGE_PROP_ACCESSIBLE_ROLE:
     g_value_set_enum (value, GTK_ACCESSIBLE_ROLE_TAB_PANEL);
     break;
@@ -275,6 +286,12 @@ adw_view_stack_page_set_property (GObject      *object,
   case PAGE_PROP_VISIBLE:
     adw_view_stack_page_set_visible (self, g_value_get_boolean (value));
     break;
+  case PAGE_PROP_STARTS_SECTION:
+    adw_view_stack_page_set_starts_section (self, g_value_get_boolean (value));
+    break;
+  case PAGE_PROP_SECTION_TITLE:
+    adw_view_stack_page_set_section_title (self, g_value_get_string (value));
+    break;
   case PAGE_PROP_ACCESSIBLE_ROLE:
     break;
   default:
@@ -304,6 +321,7 @@ adw_view_stack_page_finalize (GObject *object)
   g_clear_pointer (&self->name, g_free);
   g_clear_pointer (&self->title, g_free);
   g_clear_pointer (&self->icon_name, g_free);
+  g_clear_pointer (&self->section_title, g_free);
   g_clear_weak_pointer (&self->last_focus);
 
   G_OBJECT_CLASS (adw_view_stack_page_parent_class)->finalize (object);
@@ -408,6 +426,38 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
     g_param_spec_boolean ("visible", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStackPage:starts-section:
+   *
+   * Whether this page starts a section.
+   *
+   * If set to `TRUE`, [property@ViewStack:pages] will have a section starting
+   * from this page.
+   *
+   * If [property@ViewStackPage:section-title] is set, it should be used as a
+   * title for the section.
+   *
+   * Since: 1.9
+   */
+  page_props[PAGE_PROP_STARTS_SECTION] =
+    g_param_spec_boolean ("starts-section", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStackPage:section-title:
+   *
+   * Section title for this page.
+   *
+   * Does nothing unless [property@ViewStackPage:starts-section] is set.
+   *
+   * Since: 1.9
+   */
+  page_props[PAGE_PROP_SECTION_TITLE] =
+    g_param_spec_string ("section-title", NULL, NULL,
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 
@@ -552,6 +602,58 @@ adw_view_stack_pages_list_model_init (GListModelInterface *iface)
   iface->get_item = adw_view_stack_pages_get_item;
 }
 
+static void
+adw_view_stack_pages_get_section (GtkSectionModel *model,
+                                  guint            position,
+                                  guint           *out_start,
+                                  guint           *out_end)
+{
+  AdwViewStackPages *self = ADW_VIEW_STACK_PAGES (model);
+  GList *l = g_list_nth (self->stack->children, position);
+  guint start, end;
+
+  if (!l->data) {
+    start = 0;
+    end = g_list_model_get_n_items (G_LIST_MODEL (model));
+  } else {
+    GList *start_iter = l, *end_iter = l->next;
+
+    start = position;
+    end = position + 1;
+
+    while (start > 0 && start_iter && start_iter->data) {
+      AdwViewStackPage *page = start_iter->data;
+
+      if (adw_view_stack_page_get_starts_section (page))
+        break;
+
+      start--;
+      start_iter = start_iter->prev;
+    }
+
+    while (end_iter && end_iter->data) {
+      AdwViewStackPage *page = end_iter->data;
+
+      if (adw_view_stack_page_get_starts_section (page))
+        break;
+
+      end++;
+      end_iter = end_iter->next;
+    }
+  }
+
+  if (out_start)
+    *out_start = start;
+  if (out_end)
+    *out_end = end;
+}
+
+static void
+adw_view_stack_pages_section_model_init (GtkSectionModelInterface *iface)
+{
+  iface->get_section = adw_view_stack_pages_get_section;
+}
+
 static gboolean
 adw_view_stack_pages_is_selected (GtkSelectionModel *model,
                                   guint              position)
@@ -588,6 +690,7 @@ adw_view_stack_pages_selection_model_init (GtkSelectionModelInterface *iface)
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStackPages, adw_view_stack_pages, G_TYPE_OBJECT,
                                G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_view_stack_pages_list_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SECTION_MODEL, adw_view_stack_pages_section_model_init)
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_view_stack_pages_selection_model_init))
 
 /**
@@ -950,6 +1053,17 @@ update_child_visible (AdwViewStack     *self,
   gtk_accessible_update_state (GTK_ACCESSIBLE (page),
                                GTK_ACCESSIBLE_STATE_HIDDEN, !visible,
                                -1);
+}
+
+static void
+section_changed (AdwViewStack     *self,
+                 AdwViewStackPage *page)
+{
+  if (self->pages) {
+    guint n_pages = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
+
+    gtk_section_model_sections_changed (GTK_SECTION_MODEL (self->pages), 0, n_pages);
+  }
 }
 
 static void
@@ -1480,9 +1594,13 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    *
    * A selection model with the stack's pages.
    *
-   * This can be used to keep an up-to-date view. The model also implements
-   * [iface@Gtk.SelectionModel] and can be used to track and change the visible
-   * page.
+   * This can be used to keep an up-to-date view.
+   *
+   * The model implements [iface@Gtk.SectionModel] and creates sections based on
+   * [property@ViewStackPage:starts-section] values.
+   *
+   * The model also implements [iface@Gtk.SelectionModel] and can be used to
+   * track and change the visible page.
    */
   props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
@@ -1848,7 +1966,7 @@ adw_view_stack_page_get_visible (AdwViewStackPage *self)
  * @self: a view stack page
  * @visible: whether @self is visible
  *
- * Sets whether @page is visible in its `AdwViewStack`.
+ * Sets whether @self is visible in its `AdwViewStack`.
  *
  * This is independent from the [property@Gtk.Widget:visible] property of
  * [property@ViewStackPage:child].
@@ -1870,6 +1988,99 @@ adw_view_stack_page_set_visible (AdwViewStackPage *self,
     update_child_visible (ADW_VIEW_STACK (gtk_widget_get_parent (self->widget)), self);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_VISIBLE]);
+}
+
+/**
+ * adw_view_stack_page_get_starts_section:
+ * @self: a view stack page
+ *
+ * Gets whether @self starts a section.
+ *
+ * Returns: whether @self starts a section
+ *
+ * Since: 1.9
+ */
+gboolean
+adw_view_stack_page_get_starts_section (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), FALSE);
+
+  return self->starts_section;
+}
+
+/**
+ * adw_view_stack_page_set_starts_section:
+ * @self: a view stack page
+ * @starts_section: whether @self starts a section
+ *
+ * Sets whether @self starts a section.
+ *
+ * If set to `TRUE`, [property@ViewStack:pages] will have a section starting
+ * from this page.
+ *
+ * If [property@ViewStackPage:section-title] is set, it should be used as a
+ * title for the section.
+ *
+ * Since: 1.9
+ */
+void
+adw_view_stack_page_set_starts_section (AdwViewStackPage *self,
+                                        gboolean          starts_section)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  starts_section = !!starts_section;
+
+  if (starts_section == self->starts_section)
+    return;
+
+  self->starts_section = starts_section;
+
+  if (self->widget && gtk_widget_get_parent (self->widget))
+    section_changed (ADW_VIEW_STACK (gtk_widget_get_parent (self->widget)), self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_STARTS_SECTION]);
+}
+
+/**
+ * adw_view_stack_page_get_section_title:
+ * @self: a view stack page
+ *
+ * Gets the section title for @self.
+ *
+ * Returns: (nullable): the section title
+ *
+ * Since: 1.9
+ */
+const char *
+adw_view_stack_page_get_section_title (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), NULL);
+
+  return self->section_title;
+}
+
+/**
+ * adw_view_stack_page_set_section_title:
+ * @self: a view stack page
+ * @section_title: (nullable): the section title
+ *
+ * Sets the section title for @self.
+ *
+ * Does nothing unless [property@ViewStackPage:starts-section] is set.
+ *
+ * Since: 1.9
+ */
+void
+adw_view_stack_page_set_section_title (AdwViewStackPage *self,
+                                       const char       *section_title)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  if (!g_set_str (&self->section_title, section_title))
+    return;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_SECTION_TITLE]);
 }
 
 /**
@@ -2380,9 +2591,13 @@ adw_view_stack_get_transition_running (AdwViewStack *self)
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of the stack.
  *
- * This can be used to keep an up-to-date view. The model also implements
- * [iface@Gtk.SelectionModel] and can be used to track and change the visible
- * page.
+ * This can be used to keep an up-to-date view.
+ *
+ * The model implements [iface@Gtk.SectionModel] and creates sections based on
+ * [property@ViewStackPage:starts-section] values.
+ *
+ * The model also implements [iface@Gtk.SelectionModel] and can be used to track
+ * and change the visible page.
  *
  * Returns: (transfer full): a `GtkSelectionModel` for the stack's children
  */
