@@ -1506,9 +1506,43 @@ adw_tab_pages_selection_model_init (GtkSelectionModelInterface *iface)
   iface->select_item = adw_tab_pages_select_item;
 }
 
+static void
+adw_tab_pages_get_section (GtkSectionModel *model,
+                           guint            position,
+                           guint           *out_start,
+                           guint           *out_end)
+{
+  AdwTabPages *self = ADW_TAB_PAGES (model);
+  guint start, end;
+
+  if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view))) {
+    start = end = 0;
+  } else {
+    if (position < self->view->n_pinned_pages) {
+      start = 0;
+      end = self->view->n_pinned_pages;
+    } else {
+      start = self->view->n_pinned_pages;
+      end = self->view->n_pages;
+    }
+  }
+
+  if (out_start)
+    *out_start = start;
+  if (out_end)
+    *out_end = end;
+}
+
+static void
+adw_tab_pages_section_model_init (GtkSectionModelInterface *iface)
+{
+  iface->get_section = adw_tab_pages_get_section;
+}
+
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabPages, adw_tab_pages, G_TYPE_OBJECT,
                                G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_tab_pages_list_model_init)
-                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_tab_pages_selection_model_init))
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_tab_pages_selection_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SECTION_MODEL, adw_tab_pages_section_model_init))
 
 static void
 adw_tab_pages_init (AdwTabPages *self)
@@ -2521,11 +2555,15 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   /**
    * AdwTabView:pages:
    *
-   * A selection model with the tab view's pages.
+   * A list model with the tab view's pages.
    *
-   * This can be used to keep an up-to-date view. The model also implements
-   * [iface@Gtk.SelectionModel] and can be used to track and change the selected
-   * page.
+   * This can be used to keep an up-to-date view.
+   *
+   * The model implements [iface@Gtk.SectionModel], with one section for pinned
+   * pages and one for the rest of the pages.
+   *
+   * It also implements [iface@Gtk.SelectionModel] and can be used to track and
+   * change the selected page.
    */
   props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
@@ -4663,9 +4701,13 @@ adw_tab_view_transfer_page (AdwTabView *self,
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of @self.
  *
- * This can be used to keep an up-to-date view. The model also implements
- * [iface@Gtk.SelectionModel] and can be used to track and change the selected
- * page.
+ * This can be used to keep an up-to-date view.
+ *
+ * The model implements [iface@Gtk.SectionModel], with one section for pinned
+ * pages and one for the rest of the pages.
+ *
+ * It also implements [iface@Gtk.SelectionModel] and can be used to track and
+ * change the selected page.
  *
  * Returns: (transfer full): a `GtkSelectionModel` for the pages of @self
  */
