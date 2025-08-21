@@ -23,20 +23,20 @@ G_BEGIN_DECLS
 typedef struct _AdwSidebarItem AdwSidebarItem;
 
 /**
- * AdwSidebarCreateItemFunc:
+ * AdwSidebarSectionCreateItemFunc:
  * @item: (type GObject): the item from the model for which to create an item for
  * @user_data: (closure): user data
  *
  * Called for sidebars that are bound to a [iface@Gio.ListModel] with
- * [method@Sidebar.bind_model] or [method@SidebarSection.bind_model] for each
+ * [method@SidebarSection.bind_model] for each
  * item that gets added to the model.
  *
  * Returns: (transfer full): an `AdwSidebarItem` that represents @item
  *
  * Since: 1.8
  */
-typedef AdwSidebarItem * (*AdwSidebarCreateItemFunc) (gpointer item,
-                                                      gpointer user_data);
+typedef AdwSidebarItem * (*AdwSidebarSectionCreateItemFunc) (gpointer item,
+                                                             gpointer user_data);
 
 #define ADW_TYPE_SIDEBAR_SECTION (adw_sidebar_section_get_type ())
 
@@ -78,10 +78,10 @@ ADW_AVAILABLE_IN_1_8
 void adw_sidebar_section_remove_all (AdwSidebarSection *self);
 
 ADW_AVAILABLE_IN_1_8
-void adw_sidebar_section_bind_model (AdwSidebarSection        *self,
-                                     GListModel               *model,
-                                     AdwSidebarCreateItemFunc  create_item_func,
-                                     gpointer                  user_data,
-                                     GDestroyNotify            user_data_free_func);
+void adw_sidebar_section_bind_model (AdwSidebarSection               *self,
+                                     GListModel                      *model,
+                                     AdwSidebarSectionCreateItemFunc  create_item_func,
+                                     gpointer                         user_data,
+                                     GDestroyNotify                   user_data_free_func);
 
 G_END_DECLS

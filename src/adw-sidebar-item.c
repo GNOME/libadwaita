@@ -26,6 +26,7 @@ typedef struct
 
   char *title;
   char *subtitle;
+  gboolean use_underline;
   char *icon_name;
   GdkPaintable *icon_paintable;
   GtkWidget *suffix;
@@ -41,6 +42,7 @@ enum {
   PROP_0,
   PROP_TITLE,
   PROP_SUBTITLE,
+  PROP_USE_UNDERLINE,
   PROP_ICON_NAME,
   PROP_ICON_PAINTABLE,
   PROP_SUFFIX,
@@ -104,6 +106,9 @@ adw_sidebar_item_get_property (GObject    *object,
   case PROP_SUBTITLE:
     g_value_set_string (value, adw_sidebar_item_get_subtitle (self));
     break;
+  case PROP_USE_UNDERLINE:
+    g_value_set_boolean (value, adw_sidebar_item_get_use_underline (self));
+    break;
   case PROP_ICON_NAME:
     g_value_set_string (value, adw_sidebar_item_get_icon_name (self));
     break;
@@ -139,6 +144,9 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_SUBTITLE:
     adw_sidebar_item_set_subtitle (self, g_value_get_string (value));
+    break;
+  case PROP_USE_UNDERLINE:
+    adw_sidebar_item_set_use_underline (self, g_value_get_boolean (value));
     break;
   case PROP_ICON_NAME:
     adw_sidebar_item_set_icon_name (self, g_value_get_string (value));
@@ -191,6 +199,18 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
     g_param_spec_string ("subtitle", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSidebarItem:use-underline:
+   *
+   * TODO
+   *
+   * Since: 1.8
+   */
+  props[PROP_USE_UNDERLINE] =
+    g_param_spec_boolean ("use-underline", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSidebarItem:icon-name:
@@ -303,7 +323,7 @@ adw_sidebar_item_get_title (AdwSidebarItem *self)
 /**
  * adw_sidebar_item_set_title:
  * @self: a sidebar item
- * @title: TODO
+ * @title: (nullable): TODO
  *
  * TODO
  *
@@ -346,7 +366,7 @@ adw_sidebar_item_get_subtitle (AdwSidebarItem *self)
 /**
  * adw_sidebar_item_set_subtitle:
  * @self: a sidebar item
- * @subtitle: TODO
+ * @subtitle: (nullable): TODO
  *
  * TODO
  *
@@ -364,6 +384,53 @@ adw_sidebar_item_set_subtitle (AdwSidebarItem *self,
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE]);
+}
+
+/**
+ * adw_sidebar_item_get_use_underline:
+ * @self: a sidebar item
+ *
+ * TODO
+ *
+ * Returns: TODO
+ *
+ * Since: 1.8
+ */
+gboolean
+adw_sidebar_item_get_use_underline (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), FALSE);
+
+  return priv->use_underline;
+}
+
+/**
+ * adw_sidebar_item_set_use_underline:
+ * @self: a sidebar item
+ * @use_underline: TODO
+ *
+ * TODO
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_item_set_use_underline (AdwSidebarItem *self,
+                                    gboolean        use_underline)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+
+  use_underline = !!use_underline;
+
+  if (use_underline == priv->use_underline)
+    return;
+
+  priv->use_underline = use_underline;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
 /**

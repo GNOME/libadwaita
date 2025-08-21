@@ -26,25 +26,6 @@ typedef enum {
   ADW_SIDEBAR_MODE_PAGE,
 } AdwSidebarMode;
 
-/**
- * AdwSidebarCreateSectionFunc:
- * @item: (type GObject): the first item in the section
- * @start: start of the section
- * @n_items: number of items in this section
- * @user_data: (closure): user data
- *
- * Called for sidebars that are bound to a [iface@Gtk.SectionModel] with
- * [method@Sidebar.bind_model] for each section within the model.
- *
- * Returns: (transfer full): an `AdwSidebarSection` that represents @section
- *
- * Since: 1.8
- */
-typedef AdwSidebarSection * (*AdwSidebarCreateSectionFunc) (gpointer item,
-                                                            guint    start,
-                                                            guint    n_items,
-                                                            gpointer user_data);
-
 #define ADW_TYPE_SIDEBAR (adw_sidebar_get_type ())
 
 ADW_AVAILABLE_IN_1_8

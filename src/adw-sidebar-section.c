@@ -32,7 +32,7 @@ struct _AdwSidebarSection
   guint first_index;
 
   GListModel *bound_model;
-  AdwSidebarCreateItemFunc create_item_func;
+  AdwSidebarSectionCreateItemFunc create_item_func;
   gpointer create_item_func_data;
   GDestroyNotify create_item_func_data_destroy;
 };
@@ -101,6 +101,9 @@ adw_sidebar_section_items_get_n_items (GListModel *model)
 {
   AdwSidebarSectionItems *self = ADW_SIDEBAR_SECTION_ITEMS (model);
 
+  if (!self->section)
+    return 0;
+
   return self->section->items->len;
 }
 
@@ -110,6 +113,9 @@ adw_sidebar_section_items_get_item (GListModel *model,
 {
   AdwSidebarSectionItems *self = ADW_SIDEBAR_SECTION_ITEMS (model);
   AdwSidebarItem *item;
+
+  if (!self->section)
+    return NULL;
 
   if (position >= g_list_model_get_n_items (model))
     return NULL;
@@ -577,11 +583,11 @@ adw_sidebar_section_remove_all (AdwSidebarSection *self)
  * Since: 1.8
  */
 void
-adw_sidebar_section_bind_model (AdwSidebarSection        *self,
-                                GListModel               *model,
-                                AdwSidebarCreateItemFunc  create_item_func,
-                                gpointer                  user_data,
-                                GDestroyNotify            user_data_free_func)
+adw_sidebar_section_bind_model (AdwSidebarSection               *self,
+                                GListModel                      *model,
+                                AdwSidebarSectionCreateItemFunc  create_item_func,
+                                gpointer                         user_data,
+                                GDestroyNotify                   user_data_free_func)
 {
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
   g_return_if_fail (model == NULL || G_IS_LIST_MODEL (model));
@@ -612,6 +618,8 @@ adw_sidebar_section_bind_model (AdwSidebarSection        *self,
 guint
 adw_sidebar_section_get_n_items (AdwSidebarSection *self)
 {
+  g_return_val_if_fail (ADW_IS_SIDEBAR_SECTION (self), 0);
+
   return self->items->len;
 }
 

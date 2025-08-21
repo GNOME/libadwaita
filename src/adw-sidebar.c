@@ -415,6 +415,7 @@ create_row (AdwSidebarItem *item)
   gtk_label_set_xalign (GTK_LABEL (title), 0.0);
   gtk_widget_add_css_class (title, "title");
   g_object_bind_property (item, "title", title, "label", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "use-underline", title, "use-underline", G_BINDING_SYNC_CREATE);
   g_object_bind_property_full (item, "title", title, "visible", G_BINDING_SYNC_CREATE,
                                string_is_not_empty, NULL, NULL, NULL);
   gtk_box_append (GTK_BOX (title_box), title);
@@ -656,6 +657,7 @@ create_boxed_row (AdwSidebarItem *item,
   g_object_bind_property (item, "enabled", row, "sensitive", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "title", row, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "subtitle", row, "subtitle", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "use-underline", row, "use-underline", G_BINDING_SYNC_CREATE);
 
   icon = g_object_new (GTK_TYPE_IMAGE,
                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
@@ -694,7 +696,10 @@ escape_markup (GBinding     *binding,
 {
   const char *str = g_value_get_string (from_value);
 
-  g_value_take_string (to_value, g_markup_escape_text (str, -1));
+  if (str)
+    g_value_take_string (to_value, g_markup_escape_text (str, -1));
+  else
+    g_value_take_string (to_value, NULL);
 
   return TRUE;
 }
@@ -1275,8 +1280,6 @@ adw_sidebar_set_selected (AdwSidebar *self,
 
   g_return_if_fail (ADW_IS_SIDEBAR (self));
 
-  g_print ("WTF? %u %u\n", selected, self->n_items);
-
   if (selected >= self->n_items)
     selected = GTK_INVALID_LIST_POSITION;
 
@@ -1296,8 +1299,10 @@ adw_sidebar_set_selected (AdwSidebar *self,
       gtk_selection_model_selection_changed (GTK_SELECTION_MODEL (self->items_model),
                                              selected, 1);
     } else if (selected == GTK_INVALID_LIST_POSITION) {
-      gtk_selection_model_selection_changed (GTK_SELECTION_MODEL (self->items_model),
-                                             old_selected, 1);
+      if (old_selected < g_list_model_get_n_items (self->items_model)) {
+        gtk_selection_model_selection_changed (GTK_SELECTION_MODEL (self->items_model),
+                                               old_selected, 1);
+      }
     } else {
       guint start = MIN (old_selected, selected);
       guint end = MAX (old_selected, selected);
@@ -1598,9 +1603,13 @@ adw_sidebar_remove (AdwSidebar        *self,
     return;
   }
 
+  g_object_ref (section);
+
   g_ptr_array_remove_index (self->sections, index);
 
   g_list_model_items_changed (self->sections_model, index, 1, 0);
+
+  g_object_unref (section);
 }
 
 /**
@@ -1614,24 +1623,17 @@ adw_sidebar_remove (AdwSidebar        *self,
 void
 adw_sidebar_remove_all (AdwSidebar *self)
 {
+  GPtrArray *old_sections;
   guint len;
 
   g_return_if_fail (ADW_IS_SIDEBAR (self));
 
   len = self->sections->len;
 
-  g_ptr_array_remove_range (self->sections, 0, len);
+  old_sections = self->sections;
+  self->sections = g_ptr_array_new_with_free_func (g_object_unref);
+
   g_list_model_items_changed (self->sections_model, 0, len, 0);
+
+  g_ptr_array_unref (old_sections);
 }
-
-/*
-void
-adw_sidebar_bind_model (AdwSidebar                  *self,
-                        GtkSectionModel             *model,
-                        AdwSidebarCreateSectionFunc  create_section_func,
-                        AdwSidebarCreateItemFunc     create_item_func,
-                        gpointer                     user_data,
-                        GDestroyNotify               user_data_free_func)
-{
-
-}*/

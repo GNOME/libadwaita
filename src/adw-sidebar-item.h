@@ -55,6 +55,12 @@ void        adw_sidebar_item_set_subtitle (AdwSidebarItem *self,
                                            const char     *subtitle);
 
 ADW_AVAILABLE_IN_1_8
+gboolean adw_sidebar_item_get_use_underline (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_8
+void     adw_sidebar_item_set_use_underline (AdwSidebarItem *self,
+                                             gboolean        use_underline);
+
+ADW_AVAILABLE_IN_1_8
 const char *adw_sidebar_item_get_icon_name (AdwSidebarItem *self);
 ADW_AVAILABLE_IN_1_8
 void        adw_sidebar_item_set_icon_name (AdwSidebarItem *self,
