@@ -29,7 +29,7 @@ struct _AdwDemoWindow
   GtkWidget *color_scheme_button;
   AdwNavigationSplitView *split_view;
   AdwNavigationPage *content_page;
-  GtkStack *stack;
+  AdwViewStack *stack;
   AdwDemoPageToasts *toasts_page;
 };
 
@@ -68,11 +68,16 @@ notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
 static void
 notify_visible_child_cb (AdwDemoWindow *self)
 {
-  GtkWidget *child = gtk_stack_get_visible_child (self->stack);
-  GtkStackPage *page = gtk_stack_get_page (self->stack, child);
+  GtkWidget *child = adw_view_stack_get_visible_child (self->stack);
+  AdwViewStackPage *page = adw_view_stack_get_page (self->stack, child);
 
   adw_navigation_page_set_title (self->content_page,
-                                 gtk_stack_page_get_title (page));
+                                 adw_view_stack_page_get_title (page));
+}
+
+static void
+sidebar_activated_cb (AdwDemoWindow *self)
+{
   adw_navigation_split_view_set_show_content (self->split_view, TRUE);
 }
 
@@ -109,6 +114,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, sidebar_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
 
   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
