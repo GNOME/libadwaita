@@ -36,6 +36,7 @@
       <object class="AdwBreakpoint">
         <condition>max-width: 500sp</condition>
         <setter object="split_view" property="collapsed">True</setter>
+        <setter object="sidebar" property="mode">page</setter>
       </object>
     </child>
     <property name="content">
@@ -75,8 +76,9 @@
                       </object>
                     </child>
                     <property name="content">
-                      <object class="GtkStackSidebar">
+                      <object class="AdwViewSwitcherSidebar" id="sidebar">
                         <property name="stack">stack</property>
+                        <signal name="activated" handler="sidebar_activated_cb" swapped="yes"/>
                       </object>
                     </property>
                   </object>
@@ -86,36 +88,40 @@
             <property name="content">
               <object class="AdwNavigationPage" id="content_page">
                 <property name="child">
-                  <object class="GtkStack" id="stack">
+                  <object class="AdwViewStack" id="stack">
                     <property name="vhomogeneous">False</property>
                     <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="yes"/>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Welcome</property>
+                        <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageWelcome"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Navigation View</property>
+                        <property name="icon-name">widget-navigation-view-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageNavigationView"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Clamp</property>
+                        <property name="icon-name">widget-clamp-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageClamp"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Lists</property>
+                        <property name="icon-name">widget-list-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageLists">
                             <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
@@ -124,64 +130,72 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">View Switcher</property>
+                        <property name="icon-name">widget-view-switcher-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageViewSwitcher"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Carousel</property>
+                        <property name="icon-name">widget-carousel-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageCarousel"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Avatar</property>
+                        <property name="icon-name">avatar-default-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageAvatar"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Split Views</property>
+                        <property name="icon-name">widget-split-views-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageSplitViews"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Tab View</property>
+                        <property name="icon-name">widget-tab-view-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageTabView"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Buttons</property>
+                        <property name="icon-name">image-missing-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageButtons"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Style Classes</property>
+                        <property name="icon-name">style-classes-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageStyles"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Toasts</property>
+                        <property name="icon-name">widget-toast-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageToasts" id="toasts_page">
                             <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
@@ -191,16 +205,18 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Animations</property>
+                        <property name="icon-name">image-missing-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageAnimations"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Alert Dialog</property>
+                        <property name="icon-name">widget-dialog-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageAlerts">
                             <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
@@ -209,16 +225,18 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">About Dialog</property>
+                        <property name="icon-name">widget-about-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageAbout"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Banner</property>
+                        <property name="icon-name">widget-banner-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageBanners">
                             <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
@@ -227,40 +245,45 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Bottom Sheet</property>
+                        <property name="icon-name">widget-bottom-sheet-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageBottomSheets"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Multi-Layout View</property>
+                        <property name="icon-name">image-missing-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageMultiLayout"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Spinner</property>
+                        <property name="icon-name">image-missing-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageSpinner"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Toggle Groups</property>
+                        <property name="icon-name">widget-toggle-group-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageToggles"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackPage">
+                      <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Wrap Box</property>
+                        <property name="icon-name">image-missing-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageWrapBox"/>
                         </property>
