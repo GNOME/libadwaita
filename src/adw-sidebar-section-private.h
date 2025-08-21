@@ -16,6 +16,8 @@
 
 G_BEGIN_DECLS
 
+guint adw_sidebar_section_get_n_items (AdwSidebarSection *self);
+
 guint adw_sidebar_section_get_first_index (AdwSidebarSection *self);
 void  adw_sidebar_section_set_first_index (AdwSidebarSection *self,
                                            guint              index);

@@ -56,6 +56,8 @@ struct _AdwSidebar
   guint n_items;
 
   gboolean in_dispose;
+
+  int block_row_selected;
 };
 
 static void adw_sidebar_buildable_init (GtkBuildableIface *iface);
@@ -578,7 +580,7 @@ row_selected_cb (AdwSidebar    *self,
   AdwSidebarItem *item;
   guint index;
 
-  if (!row)
+  if (!row || self->block_row_selected)
     return;
 
   item = ADW_SIDEBAR_ITEM (g_object_get_data (G_OBJECT (row), "-adw-sidebar-item"));
@@ -893,14 +895,10 @@ items_changed_cb (AdwSidebar *self,
   /* Update first index for each section */
   for (i = 0; i < self->sections->len; i++) {
     AdwSidebarSection *section = g_ptr_array_index (self->sections, i);
-    guint section_start, section_end;
 
-    gtk_section_model_get_section (GTK_SECTION_MODEL (self->items_model),
-                                   current, &section_start, &section_end);
+    adw_sidebar_section_set_first_index (section, current);
 
-    adw_sidebar_section_set_first_index (section, section_start);
-
-    current = section_end;
+    current += adw_sidebar_section_get_n_items (section);
   }
 
   /* Select the first item when adding them */
@@ -914,7 +912,7 @@ items_changed_cb (AdwSidebar *self,
     return;
   }
 
-  if (index < selected) {
+  if (index <= selected) {
     adw_sidebar_set_selected (self, selected + added - removed);
     return;
   }
@@ -1145,10 +1143,10 @@ adw_sidebar_init (AdwSidebar *self)
   self->sections_model = G_LIST_MODEL (adw_sidebar_sections_new (self));
   self->items_model = G_LIST_MODEL (adw_sidebar_items_new (self));
 
+  self->filtered_items = gtk_filter_list_model_new (self->items_model, NULL);
+
   g_signal_connect_swapped (self->items_model, "items-changed",
                             G_CALLBACK (items_changed_cb), self);
-
-  self->filtered_items = gtk_filter_list_model_new (self->items_model, NULL);
 
   g_signal_connect_swapped (self->filtered_items, "items-changed",
                             G_CALLBACK (update_placeholder), self);
@@ -1277,6 +1275,8 @@ adw_sidebar_set_selected (AdwSidebar *self,
 
   g_return_if_fail (ADW_IS_SIDEBAR (self));
 
+  g_print ("WTF? %u %u\n", selected, self->n_items);
+
   if (selected >= self->n_items)
     selected = GTK_INVALID_LIST_POSITION;
 
@@ -1287,7 +1287,9 @@ adw_sidebar_set_selected (AdwSidebar *self,
 
   self->selected = selected;
 
+  self->block_row_selected++;
   update_list_selection (self);
+  self->block_row_selected--;
 
   if (self->items_model) {
     if (old_selected == GTK_INVALID_LIST_POSITION) {
@@ -1301,6 +1303,8 @@ adw_sidebar_set_selected (AdwSidebar *self,
       guint end = MAX (old_selected, selected);
       gtk_selection_model_selection_changed (GTK_SELECTION_MODEL (self->items_model),
                                              start, end - start + 1);
+
+      // TODO listview crashes if we bind get_items() to it with last item selected and adding an item above it
     }
   }
 

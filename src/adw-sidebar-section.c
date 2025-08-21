@@ -30,6 +30,11 @@ struct _AdwSidebarSection
   GListModel *items_model;
 
   guint first_index;
+
+  GListModel *bound_model;
+  AdwSidebarCreateItemFunc create_item_func;
+  gpointer create_item_func_data;
+  GDestroyNotify create_item_func_data_destroy;
 };
 
 static void adw_sidebar_section_buildable_init (GtkBuildableIface *iface);
@@ -134,6 +139,38 @@ adw_sidebar_section_items_new (AdwSidebarSection *section)
 }
 
 static void
+bound_model_changed_cb (AdwSidebarSection *self,
+                        guint              position,
+                        guint              removed,
+                        guint              added)
+{
+  guint i;
+
+  g_ptr_array_remove_range (self->items, position, removed);
+
+  for (i = 0; i < added; i++) {
+    GObject *model_item = g_list_model_get_item (self->bound_model, position + i);
+    AdwSidebarItem *item = self->create_item_func (model_item, self->create_item_func_data);
+
+    g_ptr_array_insert (self->items, position + i, item);
+
+    adw_sidebar_item_set_section (item, self);
+
+    g_object_unref (model_item);
+  }
+
+  /* Update index on the subsequent items */
+  for (i = position; i < self->items->len; i++) {
+    AdwSidebarItem *item2 = g_ptr_array_index (self->items, i);
+
+    adw_sidebar_item_set_index (item2, i);
+  }
+
+  if (self->items_model)
+    g_list_model_items_changed (self->items_model, position, removed, added);
+}
+
+static void
 adw_sidebar_section_dispose (GObject *object)
 {
   AdwSidebarSection *self = ADW_SIDEBAR_SECTION (object);
@@ -141,6 +178,14 @@ adw_sidebar_section_dispose (GObject *object)
   if (self->items_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->items_model),
                                 0, self->items->len, 0);
+  }
+
+  if (self->bound_model) {
+    if (self->create_item_func_data_destroy)
+      self->create_item_func_data_destroy (self->create_item_func_data);
+
+    g_signal_handlers_disconnect_by_func (self->bound_model, bound_model_changed_cb, self);
+    g_clear_object (&self->bound_model);
   }
 
   g_clear_pointer (&self->items, g_ptr_array_unref);
@@ -414,16 +459,36 @@ adw_sidebar_section_insert (AdwSidebarSection *self,
                             AdwSidebarItem    *item,
                             int                position)
 {
+  guint i;
+
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
   g_return_if_fail (ADW_IS_SIDEBAR_ITEM (item));
+  g_return_if_fail (self->bound_model == NULL);
 
   if (position < 0 || position >= self->items->len) {
     g_ptr_array_add (self->items, item);
-    g_list_model_items_changed (self->items_model, self->items->len - 1, 0, 1);
-  } else {
-    g_ptr_array_insert (self->items, position, item);
-    g_list_model_items_changed (self->items_model, position, 0, 1);
+
+    adw_sidebar_item_set_section (item, self);
+    adw_sidebar_item_set_index (item, self->items->len - 1);
+
+    if (self->items_model)
+      g_list_model_items_changed (self->items_model, self->items->len - 1, 0, 1);
+
+    return;
   }
+
+  adw_sidebar_item_set_section (item, self);
+  g_ptr_array_insert (self->items, position, item);
+
+  /* Update index on the subsequent items since we removed one */
+  for (i = position; i < self->items->len; i++) {
+    AdwSidebarItem *item2 = g_ptr_array_index (self->items, i);
+
+    adw_sidebar_item_set_index (item2, i);
+  }
+
+  if (self->items_model)
+    g_list_model_items_changed (self->items_model, position, 0, 1);
 }
 
 /**
@@ -443,6 +508,7 @@ adw_sidebar_section_remove (AdwSidebarSection *self,
 
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
   g_return_if_fail (ADW_IS_SIDEBAR_ITEM (item));
+  g_return_if_fail (self->bound_model == NULL);
 
   index = adw_sidebar_item_get_index (item) - self->first_index;
 
@@ -473,11 +539,80 @@ adw_sidebar_section_remove_all (AdwSidebarSection *self)
   guint len;
 
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
+  g_return_if_fail (self->bound_model == NULL);
 
   len = self->items->len;
 
   g_ptr_array_remove_range (self->items, 0, len);
   g_list_model_items_changed (self->items_model, 0, len, 0);
+}
+
+/**
+ * adw_sidebar_section_bind_model:
+ * @self: a sidebar section
+ * @model: (nullable): the model to be bound
+ * @create_item_func: (nullable) (scope notified) (closure user_data) (destroy user_data_free_func):
+ *     a function that creates [class@SidebarItem] for model items, or `NULL` in
+ *     case @model is also `NULL`
+ * @user_data: user data passed to @create_widget_func
+ * @user_data_free_func: function for freeing @user_data
+ *
+ * Binds @model to @self.
+ *
+ * If @self was already bound to a model, that previous binding is
+ * destroyed.
+ *
+ * The contents of @self are cleared and then filled with items that
+ * represent items from @model. @self is updated whenever @model changes.
+ *
+ * If @model is `NULL`, @self is left empty.
+ *
+ * Calling [method@SidebarSection.prepend], [method@SidebarSection.insert],
+ * [method@SidebarSection.append], [method@SidebarSection.remove] or
+ * [method@SidebarSection.remove_all] while a model is bound is not allowed.
+ *
+ * Accessing items and modifying them is allowed, but the changes will be erased
+ * whenever that part of the model changes, so it's not recommended.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_section_bind_model (AdwSidebarSection        *self,
+                                GListModel               *model,
+                                AdwSidebarCreateItemFunc  create_item_func,
+                                gpointer                  user_data,
+                                GDestroyNotify            user_data_free_func)
+{
+  g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
+  g_return_if_fail (model == NULL || G_IS_LIST_MODEL (model));
+  g_return_if_fail (model == NULL || create_item_func != NULL);
+
+  if (self->bound_model) {
+    if (self->create_item_func_data_destroy)
+      self->create_item_func_data_destroy (self->create_item_func_data);
+
+    g_signal_handlers_disconnect_by_func (self->bound_model, bound_model_changed_cb, self);
+    g_clear_object (&self->bound_model);
+  }
+
+  adw_sidebar_section_remove_all (self);
+
+  if (!model)
+    return;
+
+  self->bound_model = g_object_ref (model);
+  self->create_item_func = create_item_func;
+  self->create_item_func_data = user_data;
+  self->create_item_func_data_destroy = user_data_free_func;
+
+  g_signal_connect_swapped (model, "items-changed", G_CALLBACK (bound_model_changed_cb), self);
+  bound_model_changed_cb (self, 0, 0, g_list_model_get_n_items (model));
+}
+
+guint
+adw_sidebar_section_get_n_items (AdwSidebarSection *self)
+{
+  return self->items->len;
 }
 
 guint
