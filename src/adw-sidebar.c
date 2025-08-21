@@ -1459,7 +1459,7 @@ adw_sidebar_get_sections (AdwSidebar *self)
 /**
  * adw_sidebar_get_item:
  * @self: a sidebar
- * @index: TODO
+ * @position: TODO
  *
  * TODO
  *
@@ -1469,13 +1469,13 @@ adw_sidebar_get_sections (AdwSidebar *self)
  */
 AdwSidebarItem *
 adw_sidebar_get_item (AdwSidebar *self,
-                      guint       index)
+                      guint       position)
 {
   AdwSidebarItem *ret;
 
   g_return_val_if_fail (ADW_IS_SIDEBAR (self), NULL);
 
-  ret = g_list_model_get_item (self->items_model, index);
+  ret = g_list_model_get_item (self->items_model, position);
 
   if (ret)
     g_object_unref (ret);
@@ -1486,7 +1486,7 @@ adw_sidebar_get_item (AdwSidebar *self,
 /**
  * adw_sidebar_get_section:
  * @self: a sidebar
- * @index: TODO
+ * @position: TODO
  *
  * TODO
  *
@@ -1496,22 +1496,22 @@ adw_sidebar_get_item (AdwSidebar *self,
  */
 AdwSidebarSection *
 adw_sidebar_get_section (AdwSidebar *self,
-                         guint       index)
+                         guint       position)
 {
   g_return_val_if_fail (ADW_IS_SIDEBAR (self), NULL);
 
-  if (index >= self->sections->len)
+  if (position >= self->sections->len)
     return NULL;
 
-  return g_ptr_array_index (self->sections, index);
+  return g_ptr_array_index (self->sections, position);
 }
 
 /**
  * adw_sidebar_append:
  * @self: a sidebar
- * @section: (transfer full): an section to append
+ * @section: (transfer full): a section to append
  *
- * TODO
+ * Appends @section to @self.
  *
  * Since: 1.8
  */
@@ -1519,10 +1519,115 @@ void
 adw_sidebar_append (AdwSidebar        *self,
                     AdwSidebarSection *section)
 {
+  adw_sidebar_insert (self, section, -1);
+}
+
+/**
+ * adw_sidebar_prepend:
+ * @self: a sidebar
+ * @section: (transfer full): a section to prepend
+ *
+ * Prepends @section to @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_prepend (AdwSidebar        *self,
+                     AdwSidebarSection *section)
+{
+  adw_sidebar_insert (self, section, 0);
+}
+
+/**
+ * adw_sidebar_insert:
+ * @self: a sidebar
+ * @section: (transfer full): a section to insert
+ * @position: position to insert @section at
+ *
+ * Inserts @section at @position to @self.
+ *
+ * If @position is -1, or larger than the total number of sections in @self,
+ * the section will be appended to the end.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_insert (AdwSidebar        *self,
+                    AdwSidebarSection *section,
+                    int                position)
+{
   g_return_if_fail (ADW_IS_SIDEBAR (self));
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (section));
 
-  g_ptr_array_add (self->sections, section);
-
-  g_list_model_items_changed (self->sections_model, self->sections->len - 1, 0, 1);
+  if (position < 0 || position >= self->sections->len) {
+    g_ptr_array_add (self->sections, section);
+    g_list_model_items_changed (self->sections_model, self->sections->len - 1, 0, 1);
+  } else {
+    g_ptr_array_insert (self->sections, position, section);
+    g_list_model_items_changed (self->sections_model, position, 0, 1);
+  }
 }
+
+/**
+ * adw_sidebar_remove:
+ * @self: a sidebar
+ * @section: a section to remove
+ *
+ * Removes @section from @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_remove (AdwSidebar        *self,
+                    AdwSidebarSection *section)
+{
+  guint index;
+
+  g_return_if_fail (ADW_IS_SIDEBAR (self));
+  g_return_if_fail (ADW_IS_SIDEBAR_SECTION (section));
+
+  if (!g_ptr_array_find (self->sections, section, &index)) {
+    g_critical ("Attempting to remove %s %p, but it's not in %s %p",
+                G_OBJECT_TYPE_NAME (section), section,
+                G_OBJECT_TYPE_NAME (self), self);
+
+    return;
+  }
+
+  g_ptr_array_remove_index (self->sections, index);
+
+  g_list_model_items_changed (self->sections_model, index, 1, 0);
+}
+
+/**
+ * adw_sidebar_remove_all:
+ * @self: a sidebar
+ *
+ * Removes all sections from @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_remove_all (AdwSidebar *self)
+{
+  guint len;
+
+  g_return_if_fail (ADW_IS_SIDEBAR (self));
+
+  len = self->sections->len;
+
+  g_ptr_array_remove_range (self->sections, 0, len);
+  g_list_model_items_changed (self->sections_model, 0, len, 0);
+}
+
+/*
+void
+adw_sidebar_bind_model (AdwSidebar                  *self,
+                        GtkSectionModel             *model,
+                        AdwSidebarCreateSectionFunc  create_section_func,
+                        AdwSidebarCreateItemFunc     create_item_func,
+                        gpointer                     user_data,
+                        GDestroyNotify               user_data_free_func)
+{
+
+}*/

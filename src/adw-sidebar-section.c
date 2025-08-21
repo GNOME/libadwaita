@@ -344,7 +344,7 @@ adw_sidebar_section_get_items (AdwSidebarSection *self)
 /**
  * adw_sidebar_section_get_item:
  * @self: a sidebar section
- * @index: TODO
+ * @position: TODO
  *
  * TODO
  *
@@ -354,14 +354,14 @@ adw_sidebar_section_get_items (AdwSidebarSection *self)
  */
 AdwSidebarItem *
 adw_sidebar_section_get_item (AdwSidebarSection *self,
-                              guint              index)
+                              guint              position)
 {
   g_return_val_if_fail (ADW_IS_SIDEBAR_SECTION (self), NULL);
 
-  if (index >= self->items->len)
+  if (position >= self->items->len)
     return NULL;
 
-  return g_ptr_array_index (self->items, index);
+  return g_ptr_array_index (self->items, position);
 }
 
 /**
@@ -377,20 +377,53 @@ void
 adw_sidebar_section_append (AdwSidebarSection *self,
                             AdwSidebarItem    *item)
 {
-  guint index;
+  adw_sidebar_section_insert (self, item, -1);
+}
 
+/**
+ * adw_sidebar_section_prepend:
+ * @self: a sidebar section
+ * @item: (transfer full): an item to prepend
+ *
+ * TODO
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_section_prepend (AdwSidebarSection *self,
+                             AdwSidebarItem    *item)
+{
+  adw_sidebar_section_insert (self, item, 0);
+}
+
+/**
+ * adw_sidebar_section_insert:
+ * @self: a sidebar section
+ * @item: (transfer full): an item to insert
+ * @position: position to insert @item at
+ *
+ * Inserts @item at @position to @self.
+ *
+ * If @position is -1, or larger than the total number of items in @self,
+ * the item will be appended to the end.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_section_insert (AdwSidebarSection *self,
+                            AdwSidebarItem    *item,
+                            int                position)
+{
   g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
   g_return_if_fail (ADW_IS_SIDEBAR_ITEM (item));
 
-  g_ptr_array_add (self->items, item);
-
-  index = self->items->len - 1;
-
-  adw_sidebar_item_set_section (item, self);
-  adw_sidebar_item_set_index (item, index);
-
-  if (self->items_model)
-    g_list_model_items_changed (self->items_model, index, 0, 1);
+  if (position < 0 || position >= self->items->len) {
+    g_ptr_array_add (self->items, item);
+    g_list_model_items_changed (self->items_model, self->items->len - 1, 0, 1);
+  } else {
+    g_ptr_array_insert (self->items, position, item);
+    g_list_model_items_changed (self->items_model, position, 0, 1);
+  }
 }
 
 /**
@@ -424,6 +457,27 @@ adw_sidebar_section_remove (AdwSidebarSection *self,
 
   if (self->items_model)
     g_list_model_items_changed (self->items_model, index, 1, 0);
+}
+
+/**
+ * adw_sidebar_section_remove_all:
+ * @self: a sidebar section
+ *
+ * Removes all items from @self.
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_section_remove_all (AdwSidebarSection *self)
+{
+  guint len;
+
+  g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
+
+  len = self->items->len;
+
+  g_ptr_array_remove_range (self->items, 0, len);
+  g_list_model_items_changed (self->items_model, 0, len, 0);
 }
 
 guint

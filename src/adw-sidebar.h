@@ -68,14 +68,28 @@ GListModel        *adw_sidebar_get_sections (AdwSidebar *self);
 
 ADW_AVAILABLE_IN_1_8
 AdwSidebarItem *adw_sidebar_get_item (AdwSidebar *self,
-                                      guint       index);
+                                      guint       position);
 
 ADW_AVAILABLE_IN_1_8
 AdwSidebarSection *adw_sidebar_get_section (AdwSidebar *self,
-                                            guint       index);
+                                            guint       position);
 
 ADW_AVAILABLE_IN_1_8
-void adw_sidebar_append (AdwSidebar        *self,
+void adw_sidebar_append  (AdwSidebar        *self,
+                          AdwSidebarSection *section);
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_prepend (AdwSidebar        *self,
+                          AdwSidebarSection *section);
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_insert  (AdwSidebar        *self,
+                          AdwSidebarSection *section,
+                          int                position);
+
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_remove (AdwSidebar        *self,
                          AdwSidebarSection *section);
+
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_remove_all (AdwSidebar *self);
 
 G_END_DECLS

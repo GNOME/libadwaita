@@ -44,11 +44,21 @@ AdwSidebarItem *adw_sidebar_section_get_item (AdwSidebarSection *self,
                                               guint              index);
 
 ADW_AVAILABLE_IN_1_8
-void adw_sidebar_section_append (AdwSidebarSection *self,
-                                 AdwSidebarItem    *item);
+void adw_sidebar_section_append  (AdwSidebarSection *self,
+                                  AdwSidebarItem    *item);
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_section_prepend (AdwSidebarSection *self,
+                                  AdwSidebarItem    *item);
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_section_insert  (AdwSidebarSection *self,
+                                  AdwSidebarItem    *item,
+                                  int                position);
 
 ADW_AVAILABLE_IN_1_8
 void adw_sidebar_section_remove (AdwSidebarSection *self,
                                  AdwSidebarItem    *item);
+
+ADW_AVAILABLE_IN_1_8
+void adw_sidebar_section_remove_all (AdwSidebarSection *self);
 
 G_END_DECLS
