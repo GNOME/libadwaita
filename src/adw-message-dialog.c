@@ -2400,7 +2400,7 @@ adw_message_dialog_get_default_response (AdwMessageDialog *self)
  * If not set, the default widget will not be set, and the last added response
  * will be focused by default.
  *
- * See [property@Gtk.Widget:default-widget].
+ * See [property@Gtk.Window:default-widget].
  *
  * Since: 1.2
  * Deprecated: 1.6: Use [class@AlertDialog].
