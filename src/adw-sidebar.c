@@ -389,6 +389,7 @@ create_row (AdwSidebarItem *item)
 
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-item", item);
 
+  g_object_bind_property (item, "visible", row, "visible", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "enabled", row, "sensitive", G_BINDING_SYNC_CREATE);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
@@ -594,7 +595,13 @@ static void
 row_activated_cb (AdwSidebar    *self,
                   GtkListBoxRow *row)
 {
-  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
+  AdwSidebarItem *item;
+  guint index;
+
+  item = ADW_SIDEBAR_ITEM (g_object_get_data (G_OBJECT (row), "-adw-sidebar-item"));
+  index = adw_sidebar_item_get_index (item);
+
+  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0, index);
 }
 
 static void
@@ -637,7 +644,7 @@ boxed_row_activated_cb (AdwSidebar   *self,
   index = adw_sidebar_item_get_index (item);
 
   adw_sidebar_set_selected (self, index);
-  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
+  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0, index);
 }
 
 static GtkWidget *
@@ -654,6 +661,7 @@ create_boxed_row (AdwSidebarItem *item,
 
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
 
+  g_object_bind_property (item, "visible", row, "visible", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "enabled", row, "sensitive", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "title", row, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "subtitle", row, "subtitle", G_BINDING_SYNC_CREATE);
@@ -858,9 +866,9 @@ recreate_ui (AdwSidebar *self)
     update_list_selection (self);
 
     g_signal_connect_swapped (self->listbox, "row-selected",
-                             G_CALLBACK (row_selected_cb), self);
+                              G_CALLBACK (row_selected_cb), self);
     g_signal_connect_swapped (self->listbox, "row-activated",
-                             G_CALLBACK (row_activated_cb), self);
+                              G_CALLBACK (row_activated_cb), self);
 
     gtk_widget_set_parent (self->swindow, GTK_WIDGET (self));
   } else {
@@ -1117,6 +1125,8 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
 
   /**
    * AdwSidebar::activated:
+   * @self: a sidebar
+   * @index: the item index
    *
    * TODO
    *
@@ -1128,12 +1138,13 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
                   G_SIGNAL_RUN_LAST,
                   0,
                   NULL, NULL,
-                  adw_marshal_VOID__VOID,
+                  adw_marshal_VOID__UINT,
                   G_TYPE_NONE,
-                  0);
+                  1,
+                  G_TYPE_UINT);
   g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATED],
                               G_TYPE_FROM_CLASS (klass),
-                              adw_marshal_VOID__VOIDv);
+                              adw_marshal_VOID__UINTv);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "sidebar");

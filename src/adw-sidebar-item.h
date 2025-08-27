@@ -79,6 +79,12 @@ void       adw_sidebar_item_set_suffix (AdwSidebarItem *self,
                                         GtkWidget      *suffix);
 
 ADW_AVAILABLE_IN_1_8
+gboolean adw_sidebar_item_get_visible (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_8
+void     adw_sidebar_item_set_visible (AdwSidebarItem *self,
+                                       gboolean        visible);
+
+ADW_AVAILABLE_IN_1_8
 gboolean adw_sidebar_item_get_enabled (AdwSidebarItem *self);
 ADW_AVAILABLE_IN_1_8
 void     adw_sidebar_item_set_enabled (AdwSidebarItem *self,

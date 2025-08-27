@@ -30,6 +30,7 @@ typedef struct
   char *icon_name;
   GdkPaintable *icon_paintable;
   GtkWidget *suffix;
+  gboolean visible;
   gboolean enabled;
 
   AdwSidebarSection *section;
@@ -46,6 +47,7 @@ enum {
   PROP_ICON_NAME,
   PROP_ICON_PAINTABLE,
   PROP_SUFFIX,
+  PROP_VISIBLE,
   PROP_ENABLED,
   PROP_SECTION,
   LAST_PROP
@@ -118,6 +120,9 @@ adw_sidebar_item_get_property (GObject    *object,
   case PROP_SUFFIX:
     g_value_set_object (value, adw_sidebar_item_get_suffix (self));
     break;
+  case PROP_VISIBLE:
+    g_value_set_boolean (value, adw_sidebar_item_get_visible (self));
+    break;
   case PROP_ENABLED:
     g_value_set_boolean (value, adw_sidebar_item_get_enabled (self));
     break;
@@ -156,6 +161,9 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_SUFFIX:
     adw_sidebar_item_set_suffix (self, g_value_get_object (value));
+    break;
+  case PROP_VISIBLE:
+    adw_sidebar_item_set_visible (self, g_value_get_boolean (value));
     break;
   case PROP_ENABLED:
     adw_sidebar_item_set_enabled (self, g_value_get_boolean (value));
@@ -249,6 +257,18 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwSidebarItem:visible:
+   *
+   * TODO
+   *
+   * Since: 1.8
+   */
+  props[PROP_VISIBLE] =
+    g_param_spec_boolean ("visible", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwSidebarItem:enabled:
    *
    * TODO
@@ -282,6 +302,7 @@ adw_sidebar_item_init (AdwSidebarItem *self)
 
   priv->title = g_strdup ("");
   priv->subtitle = g_strdup ("");
+  priv->visible = TRUE;
   priv->enabled = TRUE;
 }
 
@@ -590,6 +611,53 @@ adw_sidebar_item_set_suffix (AdwSidebarItem *self,
     g_object_ref_sink (priv->suffix);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUFFIX]);
+}
+
+/**
+ * adw_sidebar_item_get_visible:
+ * @self: a sidebar item
+ *
+ * TODO
+ *
+ * Returns: TODO
+ *
+ * Since: 1.8
+ */
+gboolean
+adw_sidebar_item_get_visible (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), FALSE);
+
+  return priv->visible;
+}
+
+/**
+ * adw_sidebar_item_set_visible:
+ * @self: a sidebar item
+ * @visible: TODO
+ *
+ * TODO
+ *
+ * Since: 1.8
+ */
+void
+adw_sidebar_item_set_visible (AdwSidebarItem *self,
+                              gboolean        visible)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+
+  visible = !!visible;
+
+  if (visible == priv->visible)
+    return;
+
+  priv->visible = visible;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE]);
 }
 
 /**

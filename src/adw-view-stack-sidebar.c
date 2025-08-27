@@ -51,13 +51,9 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
-activated_cb (AdwViewStackSidebar *self)
+activated_cb (AdwViewStackSidebar *self,
+              guint                index)
 {
-  AdwSidebarItem *item = adw_sidebar_get_selected_item (ADW_SIDEBAR (self->sidebar));
-  guint index;
-
-  index = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), "child-index"));
-
   gtk_selection_model_select_item (GTK_SELECTION_MODEL (self->pages), index, TRUE);
 
   g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
@@ -150,13 +146,10 @@ add_item (AdwViewStackSidebar *self,
 
   g_hash_table_insert (self->items, page, g_object_ref (item));
 
-  g_object_set_data (G_OBJECT (item), "switcher", self);
-  g_object_set_data (G_OBJECT (item), "sidebar", self->sidebar);
-  g_object_set_data (G_OBJECT (item), "child-index", GUINT_TO_POINTER (index));
-
   g_object_bind_property (page, "title", item, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "icon-name", item, "icon-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "use-underline", item, "use-underline", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "visible", item, "visible", G_BINDING_SYNC_CREATE);
 
   g_signal_connect_object (page, "notify::needs-attention", G_CALLBACK (update_badge), item, 0);
   g_signal_connect_object (page, "notify::badge-number", G_CALLBACK (update_badge), item, 0);
@@ -186,11 +179,7 @@ populate_sidebar (AdwViewStackSidebar *self)
       g_object_bind_property (page, "section-title", section, "title", G_BINDING_SYNC_CREATE);
     }
 
-    /* page ownership is passed into add_item() */
-    if (adw_view_stack_page_get_visible (page))
-      add_item (self, section, page, i);
-    else
-      g_object_unref (page);
+    add_item (self, section, page, i);
   }
 
   if (section)
@@ -198,12 +187,11 @@ populate_sidebar (AdwViewStackSidebar *self)
 
   visible_child = adw_view_stack_get_visible_child (self->stack);
   if (visible_child) {
-    page = adw_view_stack_get_page (self->stack, visible_child);
+    AdwSidebarItem *item;
 
-    if (adw_view_stack_page_get_visible (page)) {
-      AdwSidebarItem *item = g_hash_table_lookup (self->items, page);
-      index = adw_sidebar_item_get_index (item);
-    }
+    page = adw_view_stack_get_page (self->stack, visible_child);
+    item = g_hash_table_lookup (self->items, page);
+    index = adw_sidebar_item_get_index (item);
   }
 
   adw_sidebar_set_selected (ADW_SIDEBAR (self->sidebar), index);
@@ -217,45 +205,16 @@ repopulate_sidebar (AdwViewStackSidebar *self)
 }
 
 static void
-items_changed_cb (AdwViewStackSidebar *self,
-                  guint                  position,
-                  guint                  removed,
-                  guint                  added,
-                  GListModel            *model)
-{
-  guint i;
-
-  for (i = position; i < position + added; i++) {
-    AdwViewStackPage *page = g_list_model_get_item (model, i);
-
-    g_signal_connect_swapped (page, "notify::visible", G_CALLBACK (repopulate_sidebar), self);
-
-    g_object_unref (page);
-  }
-
-  repopulate_sidebar (self);
-}
-
-static void
-sections_changed_cb (AdwViewStackSidebar *self,
-                     guint                position,
-                     guint                n_items,
-                     GListModel          *model)
-{
-  repopulate_sidebar (self);
-}
-
-static void
 selection_changed_cb (AdwViewStackSidebar *self,
                       guint                  position,
                       guint                  n_items,
                       GtkSelectionModel     *model)
 {
   GtkWidget *visible_child = adw_view_stack_get_visible_child (self->stack);
-  AdwViewStackPage *page = adw_view_stack_get_page (self->stack, visible_child);
   guint index = GTK_INVALID_LIST_POSITION;
 
-  if (adw_view_stack_page_get_visible (page)) {
+  if (visible_child) {
+    AdwViewStackPage *page = adw_view_stack_get_page (self->stack, visible_child);
     AdwSidebarItem *item = g_hash_table_lookup (self->items, page);
     index = adw_sidebar_item_get_index (item);
   }
@@ -287,8 +246,8 @@ set_stack (AdwViewStackSidebar *self,
     g_object_unref (page);
   }
 
-  g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (items_changed_cb), self);
-  g_signal_connect_swapped (self->pages, "sections-changed", G_CALLBACK (sections_changed_cb), self);
+  g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (repopulate_sidebar), self);
+  g_signal_connect_swapped (self->pages, "sections-changed", G_CALLBACK (repopulate_sidebar), self);
   g_signal_connect_swapped (self->pages, "selection-changed", G_CALLBACK (selection_changed_cb), self);
 }
 
@@ -312,8 +271,7 @@ unset_stack (AdwViewStackSidebar *self)
     g_object_unref (page);
   }
 
-  g_signal_handlers_disconnect_by_func (self->pages, items_changed_cb, self);
-  g_signal_handlers_disconnect_by_func (self->pages, sections_changed_cb, self);
+  g_signal_handlers_disconnect_by_func (self->pages, repopulate_sidebar, self);
   g_signal_handlers_disconnect_by_func (self->pages, selection_changed_cb, self);
   g_clear_object (&self->pages);
   g_clear_object (&self->stack);
