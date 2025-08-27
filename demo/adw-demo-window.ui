@@ -183,7 +183,7 @@
                     <child>
                       <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Buttons</property>
-                        <property name="icon-name">image-missing-symbolic</property>
+                        <property name="icon-name">widget-buttons-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageButtons"/>
                         </property>
@@ -271,7 +271,7 @@
                     <child>
                       <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Wrap Box</property>
-                        <property name="icon-name">image-missing-symbolic</property>
+                        <property name="icon-name">widget-wrap-box-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageWrapBox"/>
                         </property>
@@ -280,7 +280,7 @@
                     <child>
                       <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Multi-Layout View</property>
-                        <property name="icon-name">image-missing-symbolic</property>
+                        <property name="icon-name">widget-multi-layout-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageMultiLayout"/>
                         </property>
@@ -301,7 +301,7 @@
                     <child>
                       <object class="AdwViewStackPage">
                         <property name="title" translatable="yes">Animations</property>
-                        <property name="icon-name">image-missing-symbolic</property>
+                        <property name="icon-name">animations-symbolic</property>
                         <property name="child">
                           <object class="AdwDemoPageAnimations"/>
                         </property>

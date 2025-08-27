@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-view-switcher-symbolic</property>
+            <property name="icon-name">widget-wrap-box-symbolic</property>
             <property name="title" translatable="yes">Wrap Box</property>
             <property name="description" translatable="yes">A box-like widget that can wrap into multiple lines.</property>
             <property name="child">

@@ -4,6 +4,7 @@
     <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Adwaita1.Demo.svg">data/org.gnome.Adwaita1.Demo.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/symbolic/apps/org.gnome.Adwaita1.Demo-symbolic.svg">data/org.gnome.Adwaita1.Demo-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="org.gnome.Adwaita1.Demo.metainfo.xml">data/org.gnome.Adwaita1.Demo.metainfo.xml</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/animations-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-delete-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-save-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-alarm-symbolic.svg</file>
@@ -23,11 +24,13 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-about-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-banner-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-buttons-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-bottom-sheet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-dialog-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-multi-layout-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-navigation-view-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic-rtl.svg</file>
@@ -35,6 +38,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toast-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toggle-group-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.example.Typeset.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>

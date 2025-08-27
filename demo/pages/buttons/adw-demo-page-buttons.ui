@@ -27,6 +27,7 @@
           <object class="AdwStatusPage">
             <property name="title" translatable="yes">Buttons</property>
             <property name="description" translatable="yes">Button helper widgets</property>
+            <property name="icon-name">widget-buttons-symbolic</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="maximum-size">400</property>
