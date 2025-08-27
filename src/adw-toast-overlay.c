@@ -699,7 +699,7 @@ adw_toast_overlay_add_toast (AdwToastOverlay *self,
   info = g_new0 (ToastInfo, 1);
   info->overlay = self;
   info->toast = toast;
-  info-> dismissed_id =
+  info->dismissed_id =
     g_signal_connect_swapped (info->toast, "dismissed",
                               G_CALLBACK (dismissed_cb), info);
 
@@ -742,6 +742,8 @@ adw_toast_overlay_dismiss_all (AdwToastOverlay *self)
 {
   g_return_if_fail (ADW_IS_TOAST_OVERLAY (self));
 
-  g_clear_pointer (&self->current_toast, dismiss_and_free_toast_info);
   g_queue_clear_full (self->queue, (GDestroyNotify) dismiss_and_free_toast_info);
+
+  if (self->current_toast)
+    adw_toast_dismiss (self->current_toast->toast);
 }
