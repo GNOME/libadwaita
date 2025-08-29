@@ -1,3 +1,38 @@
+==============
+Version 1.8.rc
+==============
+
+- Add copy-func and free-func annotations to boxed types
+- AdwAlertDialog/AdwMessageDialog:
+  - Clarify behavior around :default-response
+- AdwApplication
+  - Enable support for CSS media queries in the autoloaded styles
+- AdwShortcutLabel
+  - Fix RTL layout
+- AdwShortcutsDialog
+  - Fix 2 memory leaks
+- AdwToastOverlay
+  - Fix disappear animation not playing on dismiss_all()
+  - Make the action button in toasts insensitive after a click
+- AdwWrapLayout
+  - Fx allocation of a single child in RTL languages or with align > 0
+- Build
+  - Require GTK 4.19.4
+- Docs
+  - Fix AdwShortcutLabel and AdwShortcutsDialog screenshots in dark
+  - Fix close button style on screenshots
+- Stylesheet
+  - Update GtkShortcutLabel style to match AdwShortcutLabel
+  - Switch to media queries instead of separate CSS variants
+- Translation updates
+  - Brazilian Portuguese
+  - Galician
+  - Interlingua
+  - Japanese
+  - Persian
+  - Polish
+  - Russian
+
 ================
 Version 1.8.beta
 ================
