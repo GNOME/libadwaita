@@ -20,6 +20,10 @@
 #include "adw-bottom-sheet-private.h"
 #include "adw-floating-sheet-private.h"
 
+#ifdef GDK_WINDOWING_MACOS
+#include <gdk/macos/gdkmacos.h>
+#endif
+
 typedef struct _CompareInfo CompareInfo;
 
 enum Axis {
@@ -638,6 +642,11 @@ adw_decoration_layout_prefers_start (const char *layout)
   int counts[2];
   char **sides;
   int i;
+
+#ifdef GDK_WINDOWING_MACOS
+  if (GDK_IS_MACOS_DISPLAY (gdk_display_get_default ()))
+    return TRUE;
+#endif
 
   if (!layout || !strchr (layout, ':'))
     return FALSE;
