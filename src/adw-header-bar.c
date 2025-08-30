@@ -28,6 +28,7 @@
 #include "adw-bin.h"
 #include "adw-bottom-sheet-private.h"
 #include "adw-dialog.h"
+#include "adw-dialog-host-private.h"
 #include "adw-enums.h"
 #include "adw-floating-sheet-private.h"
 #include "adw-gizmo-private.h"
@@ -36,6 +37,10 @@
 #include "adw-overlay-split-view.h"
 #include "adw-sheet-controls-private.h"
 #include "adw-widget-utils-private.h"
+
+#ifdef GDK_WINDOWING_MACOS
+#include <gdk/macos/gdkmacos.h>
+#endif
 
 /**
  * AdwHeaderBar:
@@ -188,6 +193,7 @@ struct _AdwHeaderBar {
   GtkWidget *dialog;
   GtkWidget *sheet;
   GtkWidget *adaptive_preview;
+  GtkWidget *dialog_host;
 
   GSList *split_views;
 };
@@ -231,6 +237,25 @@ update_box_visibility (GtkWidget *box)
   gtk_widget_set_visible (box, has_visible);
 }
 
+static const char*
+effective_decoration_layout (AdwHeaderBar *self)
+{
+#ifdef GDK_WINDOWING_MACOS
+  /* macOS window controls are always visible on top of our window.
+   * They're not hidden, but greyed out. To disable the window
+   * controls when an in-window dialog is visible, we return an
+   * empty decoration layout.
+   */
+  if (GDK_IS_MACOS_DISPLAY (gdk_display_get_default ())
+      && self->dialog_host
+      && adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (self->dialog_host))) {
+    return ":";
+  }
+#endif
+
+  return self->decoration_layout;
+}
+
 static void
 update_decoration_layout (AdwHeaderBar *self,
                           gboolean      start,
@@ -238,13 +263,13 @@ update_decoration_layout (AdwHeaderBar *self,
 {
   if (start && self->start_controls) {
     g_object_set (self->start_controls,
-                  "decoration-layout", self->decoration_layout,
+                  "decoration-layout", effective_decoration_layout (self),
                   NULL);
   }
 
   if (end && self->end_controls) {
     g_object_set (self->end_controls,
-                  "decoration-layout", self->decoration_layout,
+                  "decoration-layout", effective_decoration_layout (self),
                   NULL);
   }
 }
@@ -442,6 +467,14 @@ update_title_buttons (AdwHeaderBar *self)
 }
 
 static void
+update_visible_dialog (AdwHeaderBar  *self)
+{
+#ifdef GDK_WINDOWING_MACOS
+  update_decoration_layout (self, TRUE, FALSE);
+#endif
+}
+
+static void
 update_title (AdwHeaderBar *self)
 {
   const char *title = NULL;
@@ -560,6 +593,14 @@ adw_header_bar_root (GtkWidget *widget)
   self->adaptive_preview = find_adaptive_preview (widget, &screen_view);
   self->sheet = find_sheet (widget);
 
+  if (!self->dialog && !self->adaptive_preview && !self->sheet)
+    self->dialog_host = adw_widget_get_ancestor (widget, ADW_TYPE_DIALOG_HOST, TRUE, FALSE);
+
+  if (ADW_IS_DIALOG_HOST (self->dialog_host)) {
+      g_signal_connect_swapped (self->dialog_host, "notify::visible-dialog",
+                                G_CALLBACK (update_visible_dialog), widget);
+  }
+
   if (ADW_IS_BOTTOM_SHEET (self->sheet)) {
     g_signal_connect_swapped (self->sheet, "notify::show-drag-handle",
                               G_CALLBACK (update_title), widget);
@@ -674,9 +715,15 @@ adw_header_bar_unroot (GtkWidget *widget)
                                           update_title_buttons, widget);
   }
 
+  if (self->dialog_host) {
+    g_signal_handlers_disconnect_by_func (self->dialog_host,
+                                          update_visible_dialog, widget);
+  }
+
   self->title_navigation_page = NULL;
   self->dialog = NULL;
-  self->sheet = FALSE;
+  self->sheet = NULL;
+  self->dialog_host = NULL;
 
   for (l = self->split_views; l; l = l->next) {
     SplitViewData *data = l->data;
