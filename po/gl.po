@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-08-02 01:49+0000\n"
-"PO-Revision-Date: 2025-08-04 00:52+0200\n"
+"POT-Creation-Date: 2025-08-30 10:53+0000\n"
+"PO-Revision-Date: 2025-08-30 23:28+0200\n"
 "Last-Translator: Fran Dieguez <fran.dieguez@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-DL-Module: libadwaita\n"
 "X-DL-State: None\n"
 "X-DL-Team: gl\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -568,7 +568,7 @@ msgstr "Pechar a xanela"
 #: src/adw-shortcut-label.c:133
 msgctxt "keyboard side marker"
 msgid "L"
-msgstr ""
+msgstr "E"
 
 #. Translators: This string is used to mark left/right variants of modifier
 #. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
@@ -578,7 +578,7 @@ msgstr ""
 #: src/adw-shortcut-label.c:146
 msgctxt "keyboard side marker"
 msgid "R"
-msgstr ""
+msgstr "D"
 
 #: src/adw-shortcuts-dialog.ui:5
 msgid "Keyboard Shortcuts"
@@ -588,7 +588,7 @@ msgstr "Atallos de teclado"
 msgid "Search shortcuts"
 msgstr "Buscar atallos"
 
-#: src/adw-shortcut-row.c:253
+#: src/adw-shortcut-row.c:257
 msgid "No Shortcut"
 msgstr "Non hai atallo"
 
