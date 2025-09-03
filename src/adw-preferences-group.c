@@ -694,7 +694,7 @@ adw_preferences_group_set_separate_rows (AdwPreferencesGroup *self,
  * @self: a preferences group
  * @model: (nullable): a list model to bind
  * @create_row_func: (nullable) (scope notified) (closure user_data) (destroy user_data_free_func):
- *     a function creating a row for each item, or `NULL` in case @model is `NULL`
+ *   a function creating a row for each item, or `NULL` in case @model is `NULL`
  * @user_data: user data passed to @create_row_func
  * @user_data_free_func: function for freeing @user_data
  *
