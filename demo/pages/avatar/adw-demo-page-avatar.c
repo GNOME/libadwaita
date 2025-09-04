@@ -134,6 +134,8 @@ avatar_open_cb (AdwDemoPageAvatar *self)
                         NULL,
                         (GAsyncReadyCallback) avatar_open_dialog_cb,
                         self);
+
+  g_object_unref (dialog);
 }
 
 static void
@@ -176,6 +178,8 @@ avatar_save_cb (AdwDemoPageAvatar *self)
                         NULL,
                         (GAsyncReadyCallback) avatar_save_dialog_cb,
                         self);
+
+  g_object_unref (dialog);
 }
 
 static void
