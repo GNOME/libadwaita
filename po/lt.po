@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-02-26 23:09+0200\n"
+"POT-Creation-Date: 2025-09-05 03:00+0000\n"
+"PO-Revision-Date: 2025-09-05 22:54+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.7\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -87,30 +87,30 @@ msgstr "Mozilla viešoji licencija 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "BSD nulio dalių licencija"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Kodas"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Dizainas"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Menas"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Dokumentacija"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Vertimas"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,47 +119,47 @@ msgstr ""
 "Ši programa pateikiama be jokios garantijos. Daugiau informacijos adresu <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Ši programa"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Versija %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Nepavyko išanalizuoti leidimo naujienų:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Eilutė %d, simbolis: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Nukopijuota į iškarpinę"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Nepavyko įrašyti derinimo informacijos"
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Užverti"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "Įrašyti derinimo informaciją"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Kitos %s programos"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Kitos programos"
 
@@ -168,15 +168,15 @@ msgid "About"
 msgstr "Apie"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-msgid "_What’s New"
-msgstr "_Naujienos"
+msgid "What’s _New"
+msgstr "Naujienos"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "_Detali informacija"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
 msgid "_Website"
 msgstr "_Tinklalapis"
 
@@ -208,15 +208,15 @@ msgstr "Pa_dėkos"
 msgid "What’s New"
 msgstr "Naujienos"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
 msgid "Details"
 msgstr "Detali informacija"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
 msgid "Troubleshooting"
 msgstr "Problemų sprendimas"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -226,31 +226,31 @@ msgstr ""
 "informacijos pateikimas programos kūrėjams gali padėti diagnozuoti jūsų "
 "problemas, kai apie jas pranešate."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
 msgid "_Debugging Information"
 msgstr "_Derinimo informacija"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
 msgid "Debugging Information"
 msgstr "Derinimo informacija"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
 msgid "_Copy Text"
 msgstr "_Kopijuoti tekstą"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "Į_rašyti taip…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
 msgid "Credits"
 msgstr "Autoriai"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Legal"
 msgstr "Teisinė informacija"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
 msgid "Acknowledgements"
 msgstr "Padėkos"
 
@@ -258,7 +258,7 @@ msgstr "Padėkos"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Ekrano vaizdas nukopijuotas į iškarpinę"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Adaptivi peržiūra"
@@ -319,66 +319,80 @@ msgstr "Rodinys"
 msgid "Scale to Fit"
 msgstr "Pritaikyti dydį"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Paryškinti juostą"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Perjungti šoninę juostą"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Išeiti"
 
-#: src/adw-adaptive-preview.ui:196
-msgid "Screenshot"
-msgstr "Ekrano vaizdas"
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Fotografuoti ekraną"
 
 #: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
 msgid "Desktop Shell"
 msgstr "Darbastalio apvalkalas"
 
 #: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Mobilusis apvalkalas"
 
 #: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
 msgid "Phosh"
 msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Visame ekrane"
 
 #: src/adw-adaptive-preview-presets-private.h:28
-#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Pasirinktinis"
 
 #: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Bendrinis telefonas"
 
 #: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Bendrinė planšetė"
 
 #: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "Pasirinktinis"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
 msgstr "%s atvaizdas"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Grįžti"
 
@@ -392,56 +406,56 @@ msgstr "Ieškoti"
 msgid "Apply"
 msgstr "Pritaikyti"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:131
 msgid "No Preference"
 msgstr "Nesvarbu"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:133
 msgid "Prefer Dark"
 msgstr "Pageidauti tamsios"
 
-#: src/adw-inspector-page.c:133
+#: src/adw-inspector-page.c:135
 msgid "Prefer Light"
 msgstr "Pageidauti šviesios"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:148
 msgid "Blue"
 msgstr "Mėlyna"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:150
 msgid "Teal"
 msgstr "Žalsva"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:152
 msgid "Green"
 msgstr "Žalia"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:154
 msgid "Yellow"
 msgstr "Geltona"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:156
 msgid "Orange"
 msgstr "Oranžinė"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:158
 msgid "Red"
 msgstr "Raudona"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:160
 msgid "Pink"
 msgstr "Rožinė"
 
-#: src/adw-inspector-page.c:160
+#: src/adw-inspector-page.c:162
 msgid "Purple"
 msgstr "Purpurinė"
 
-#: src/adw-inspector-page.c:162
+#: src/adw-inspector-page.c:164
 msgid "Slate"
 msgstr "Žydra"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:301
+#: src/adw-inspector-page.c:303
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -509,7 +523,7 @@ msgstr "Įjungto didžiosios raidės"
 msgid "_Show Password"
 msgstr "_Rodyti slaptažodį"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Nepavadintas puslapis"
 
@@ -522,10 +536,12 @@ msgid "Search preferences"
 msgstr "Paieškos nuostatos"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:74
 msgid "No Results Found"
 msgstr "Nerasta rezultatų"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Bandykite kitą paiešką"
 
@@ -536,6 +552,38 @@ msgstr "Bandykite kitą paiešką."
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Užverti langą"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "L"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "R"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Klaviatūros trumpiniai"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Paieškos trumpiniai"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "Nėra trumpinio"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -578,28 +626,31 @@ msgstr "Nauja kor_telė"
 msgid "Close Tab"
 msgstr "Užverti kortelę"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Pasirodė pranešimas: %s, turi mygtuką: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Pasirodė pranešimas: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Pasirodė pranešimas, turi mygtuką: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "Pasirodė pranešimas"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Atmesti"
+
+#~ msgid "_What’s New"
+#~ msgstr "_Naujienos"
 
 #~ msgid "Search…"
 #~ msgstr "Ieškoti…"
