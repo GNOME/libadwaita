@@ -237,39 +237,35 @@ update_box_visibility (GtkWidget *box)
   gtk_widget_set_visible (box, has_visible);
 }
 
-static const char*
-effective_decoration_layout (AdwHeaderBar *self)
-{
-#ifdef GDK_WINDOWING_MACOS
-  /* macOS window controls are always visible on top of our window.
-   * They're not hidden, but greyed out. To disable the window
-   * controls when an in-window dialog is visible, we return an
-   * empty decoration layout.
-   */
-  if (GDK_IS_MACOS_DISPLAY (gdk_display_get_default ())
-      && self->dialog_host
-      && adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (self->dialog_host))) {
-    return ":";
-  }
-#endif
-
-  return self->decoration_layout;
-}
-
 static void
 update_decoration_layout (AdwHeaderBar *self,
                           gboolean      start,
                           gboolean      end)
 {
+  const char *decoration_layout = self->decoration_layout;
+
+#ifdef GDK_WINDOWING_MACOS
+  /* macOS window controls are always visible on top of our window.
+   * They're not hidden, but greyed out. To disable the window
+   * controls when an in-window dialog is visible, we set an
+   * empty decoration layout.
+   */
+  if (GDK_IS_MACOS_DISPLAY (gdk_display_get_default ())
+      && self->dialog_host
+      && adw_dialog_host_get_visible_dialog (ADW_DIALOG_HOST (self->dialog_host))) {
+    decoration_layout = ":";
+  }
+#endif
+
   if (start && self->start_controls) {
     g_object_set (self->start_controls,
-                  "decoration-layout", effective_decoration_layout (self),
+                  "decoration-layout", decoration_layout,
                   NULL);
   }
 
   if (end && self->end_controls) {
     g_object_set (self->end_controls,
-                  "decoration-layout", effective_decoration_layout (self),
+                  "decoration-layout", decoration_layout,
                   NULL);
   }
 }
