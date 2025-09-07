@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-22 12:13+0000\n"
-"PO-Revision-Date: 2025-03-01 13:15+0200\n"
+"POT-Creation-Date: 2025-09-06 13:55+0000\n"
+"PO-Revision-Date: 2025-09-07 21:25+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.7\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -86,30 +86,30 @@ msgstr "Mozilla Public -lisenssi 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "0-lausekkeinen BSD-lisenssi"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Koodaus"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Suunnittelu"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Taiteellinen työ"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Dokumentaatio"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Käännös"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -118,47 +118,47 @@ msgstr ""
 "Tämä sovellus ei sisällä minkäänlaista takuuta. Lisätietoja <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Tämä sovellus"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Versio %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Julkaisutietoja ei voitu jäsentää:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Rivi: %d, merkki: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Kopioitu leikepöydälle"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Vianjäljitystietoja ei voitu tallentaa"
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Sulje"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "Tallenna vianjäljitystiedot"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Muut kehittäjän %s sovellukset"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Muut sovellukset"
 
@@ -167,15 +167,15 @@ msgid "About"
 msgstr "Tietoja"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-msgid "_What’s New"
+msgid "What’s _New"
 msgstr "_Mitä uutta"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "_Tiedot"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
 msgid "_Website"
 msgstr "_Verkkosivusto"
 
@@ -207,15 +207,15 @@ msgstr "Tu_nnustukset"
 msgid "What’s New"
 msgstr "Mitä uutta"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
 msgid "Details"
 msgstr "Tiedot"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
 msgid "Troubleshooting"
 msgstr "Ongelmanratkaisu"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -225,31 +225,31 @@ msgstr ""
 "tietojen toimittaminen sovelluskehittäjille voi auttaa mahdollisten "
 "ongelmien selvittämisessä."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
 msgid "_Debugging Information"
 msgstr "_Vianjäljitystiedot"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
 msgid "Debugging Information"
 msgstr "Vianjäljitystiedot"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
 msgid "_Copy Text"
 msgstr "_Kopioi teksti"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "_Tallenna nimellä…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
 msgid "Credits"
 msgstr "Tekijät"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Legal"
 msgstr "Lainopillinen"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
 msgid "Acknowledgements"
 msgstr "Tunnustukset"
 
@@ -257,7 +257,7 @@ msgstr "Tunnustukset"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Kuvakaappaus kopioitu leikepöydälle"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Adaptiivinen esikatselu"
@@ -318,66 +318,82 @@ msgstr "Näytä"
 msgid "Scale to Fit"
 msgstr "Skaalaa sopimaan"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Korosta reunus"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Sivupalkki päällä/pois"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Lopeta"
 
-#: src/adw-adaptive-preview.ui:196
-msgid "Screenshot"
-msgstr "Kuvakaappaus"
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Ota kuvakaappaus"
 
 #: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
 msgid "Desktop Shell"
-msgstr "Työpöytänäkymä"
+msgstr "Shell-työpöytäversio"
 
 #: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
 msgid "Mobile Shell"
-msgstr "Mobiilinäkymä"
+msgstr "Shell-mobiiliversio"
 
 #: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
 msgid "Phosh"
 msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Koko näyttö"
 
 #: src/adw-adaptive-preview-presets-private.h:28
-#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Mukautettu"
 
 #: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Yleinen puhelin"
 
 #: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Yleinen tabletti"
 
 #: src/adw-adaptive-preview-presets-private.h:108
+#| msgid "OnePlus 6"
+msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
+#| msgid "OnePlus 6T"
+msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "Mukautettu"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
 msgstr "Käyttäjän %s profiilikuva"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Takaisin"
 
@@ -391,56 +407,56 @@ msgstr "Etsi"
 msgid "Apply"
 msgstr "Toteuta"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:131
 msgid "No Preference"
 msgstr "Ei suosimista"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:133
 msgid "Prefer Dark"
 msgstr "Suosi tummaa"
 
-#: src/adw-inspector-page.c:133
+#: src/adw-inspector-page.c:135
 msgid "Prefer Light"
 msgstr "Suosi vaaleaa"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:148
 msgid "Blue"
 msgstr "Sininen"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:150
 msgid "Teal"
 msgstr "Sinivihreä"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:152
 msgid "Green"
 msgstr "Vihreä"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:154
 msgid "Yellow"
 msgstr "Keltainen"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:156
 msgid "Orange"
 msgstr "Oranssi"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:158
 msgid "Red"
 msgstr "Punainen"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:160
 msgid "Pink"
 msgstr "Pinkki"
 
-#: src/adw-inspector-page.c:160
+#: src/adw-inspector-page.c:162
 msgid "Purple"
 msgstr "Violetti"
 
-#: src/adw-inspector-page.c:162
+#: src/adw-inspector-page.c:164
 msgid "Slate"
 msgstr "Harmaasävy"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:301
+#: src/adw-inspector-page.c:303
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -509,7 +525,7 @@ msgstr "Caps Lock on päällä"
 msgid "_Show Password"
 msgstr "_Näytä salasana"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Nimetön sivu"
 
@@ -522,10 +538,12 @@ msgid "Search preferences"
 msgstr "Etsi asetuksia"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:74
 msgid "No Results Found"
 msgstr "Tuloksia ei löytynyt"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Kokeile eri hakuehtoja"
 
@@ -536,6 +554,38 @@ msgstr "Kokeile eri hakuehtoja."
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Sulje ikkuna"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "V"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "O"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Pikanäppäimet"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Etsi pikanäppäimiä"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "Ei pikanäppäintä"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -577,28 +627,31 @@ msgstr "Uusi _välilehti"
 msgid "Close Tab"
 msgstr "Sulje välilehti"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Sovelluksen sisäinen ilmoitus ilmestyi: %s, siinä on painike: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Sovelluksen sisäinen ilmoitus ilmestyi: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Sovelluksen sisäinen ilmoitus ilmestyi, siinä on painike: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "Sovelluksen sisäinen ilmoitus ilmestyi"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Hylkää"
+
+#~ msgid "_What’s New"
+#~ msgstr "_Mitä uutta"
 
 #~ msgid "Search…"
 #~ msgstr "Etsi…"
