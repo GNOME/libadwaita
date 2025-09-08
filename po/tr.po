@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-02-19 13:32+0000\n"
-"PO-Revision-Date: 2025-02-27 08:00+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2025-08-27 16:02+0000\n"
+"PO-Revision-Date: 2025-08-28 13:52+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -89,30 +89,30 @@ msgstr "Mozilla Kamu Lisansı 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause Lisansı"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Kodlayan"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Tasarlayan"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Grafikler"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Belgelendiren"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Çeviren"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -121,47 +121,47 @@ msgstr ""
 "Bu uygulama kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a "
 "href=\"%s\">%s</a> bağlantısına bakın."
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Bu Uygulama"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Sürüm %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Sürüm notları ayrıştırılamadı:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Satır: %d, karakter: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Panoya kopyalandı"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Hata ayıklama bilgisi kaydedilemedi"
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Kapat"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "Hata ayıklama bilgisini kaydet"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Diğer %s Uygulamaları"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Diğer Uygulamalar"
 
@@ -170,15 +170,15 @@ msgid "About"
 msgstr "Hakkında"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-msgid "_What’s New"
-msgstr "Ye_nilikler"
+msgid "What’s _New"
+msgstr "Neler _Yeni"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "_Ayrıntılar"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
 msgid "_Website"
 msgstr "_Web Sitesi"
 
@@ -210,15 +210,15 @@ msgstr "_Teşekkürler"
 msgid "What’s New"
 msgstr "Yenilikler"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
 msgid "Troubleshooting"
 msgstr "Sorun Giderme"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -229,31 +229,31 @@ msgstr ""
 "geliştiricilerine vermeniz durumunda sorunların saptanmasına yardımcı "
 "olursunuz."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
 msgid "_Debugging Information"
 msgstr "_Hata Ayıklama Bilgisi"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
 msgid "Debugging Information"
 msgstr "Hata Ayıklama Bilgisi"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
 msgid "_Copy Text"
 msgstr "_Metni Kopyala"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "Farklı K_aydet…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
 msgid "Credits"
 msgstr "Oluşturanlar"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Legal"
 msgstr "Yasal"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
 msgid "Acknowledgements"
 msgstr "Teşekkürler"
 
@@ -261,7 +261,7 @@ msgstr "Teşekkürler"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Ekran Görüntüsü Panoya Kopyalandı"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Uyarlanır Ön İzleme"
@@ -322,66 +322,80 @@ msgstr "Görünüm"
 msgid "Scale to Fit"
 msgstr "Sığdırmak İçin Ölçekle"
 
-#: src/adw-adaptive-preview.ui:150
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Çerçeveyi Vurgula"
 
-#: src/adw-adaptive-preview.ui:176
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Kenar Çubuğunu Aç/Kapa"
 
-#: src/adw-adaptive-preview.ui:186
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Çık"
 
-#: src/adw-adaptive-preview.ui:196
-msgid "Screenshot"
-msgstr "Ekran Görüntüsü"
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Ekran Görüntüsü Al"
 
 #: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
 msgid "Desktop Shell"
 msgstr "Masaüstü Kabuğu"
 
 #: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Mobil Kabuk"
 
 #: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
 msgid "Phosh"
 msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Tam Ekran"
 
 #: src/adw-adaptive-preview-presets-private.h:28
-#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Özel"
 
 #: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Genel Telefon"
 
 #: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Genel Tablet"
 
 #: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "Özel"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
 msgstr "%s avatarı"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Geri"
 
@@ -395,56 +409,56 @@ msgstr "Ara"
 msgid "Apply"
 msgstr "Uygula"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:131
 msgid "No Preference"
 msgstr "Yeğsiz"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:133
 msgid "Prefer Dark"
 msgstr "Koyu Yeğle"
 
-#: src/adw-inspector-page.c:133
+#: src/adw-inspector-page.c:135
 msgid "Prefer Light"
 msgstr "Açık Yeğle"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:148
 msgid "Blue"
 msgstr "Mavi"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:150
 msgid "Teal"
 msgstr "Deniz Mavisi"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:152
 msgid "Green"
 msgstr "Yeşil"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:154
 msgid "Yellow"
 msgstr "Sarı"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:156
 msgid "Orange"
 msgstr "Turuncu"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:158
 msgid "Red"
 msgstr "Kırmızı"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:160
 msgid "Pink"
 msgstr "Pembe"
 
-#: src/adw-inspector-page.c:160
+#: src/adw-inspector-page.c:162
 msgid "Purple"
 msgstr "Mor"
 
-#: src/adw-inspector-page.c:162
+#: src/adw-inspector-page.c:164
 msgid "Slate"
 msgstr "Kayrak"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:301
+#: src/adw-inspector-page.c:303
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -492,8 +506,8 @@ msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
-"Mobil ortamı öykünmek için uygulamayı belirli ekran boyutlarında "
-"sına. Ön izlemeyi, desteklenen herhangi bir pencerede doğrudan açmak için "
+"Mobil ortamı öykünmek için uygulamayı belirli ekran boyutlarında sına. Ön "
+"izlemeyi, desteklenen herhangi bir pencerede doğrudan açmak için "
 "Shift+Ctrl+M tuşlarını kullan"
 
 #: src/adw-password-entry-row.c:70
@@ -512,7 +526,7 @@ msgstr "Caps Lock açık"
 msgid "_Show Password"
 msgstr "Parolayı _Göster"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Başlıksız sayfa"
 
@@ -525,10 +539,12 @@ msgid "Search preferences"
 msgstr "Tercihleri ara"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:74
 msgid "No Results Found"
 msgstr "Sonuç Bulunamadı"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Başka arama dene"
 
@@ -539,6 +555,38 @@ msgstr "Başka arama deneyin."
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Pencereyi kapat"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "Sl"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "Sğ"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Kısayolları ara"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "Kısayol Yok"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -579,25 +627,28 @@ msgstr "Yeni _Sekme"
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Bildirim gösterildi: %s, düğmesi var: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Bildirim gösterildi: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Bildirim gösterildi, düğmesi var: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "Bildirim gösterildi"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Kapat"
+
+#~ msgid "_What’s New"
+#~ msgstr "Ye_nilikler"
