@@ -69,7 +69,7 @@ are automatically derived from the background color, so it's not necesssary to
 override them manually when setting app-wide accent color.
 
 However, when overriding the background colors for specific widgets, the
-standalone colors must overridden too, as follows:
+standalone colors must be overridden too, as follows:
 
 ```css
 my-widget {
@@ -1297,7 +1297,7 @@ as the following set of variables:
 
 # Compatibility Colors
 
-A number of colors has been available in Adwaita in GTK3. They are aliases of
+A number of colors have been available in Adwaita in GTK3. They are aliases of
 UI colors or otherwise derived from them. These colors use the older
 GTK-specific syntax for named colors rather than CSS variables, and don't pick
 up overridden colors. As such, it's recommended to avoid using these colors
@@ -1323,4 +1323,3 @@ Name                                            | Value
 <tt>&#64;theme_unfocused_selected_fg_color</tt> | [<tt>&#64;accent_fg_color</tt>](#accent-colors)
 <tt>&#64;unfocused_insensitive_color</tt>       | <tt>&#64;insensitive_bg_color</tt>
 <tt>&#64;unfocused_borders</tt>                 | <tt>&#64;borders</tt>
-
