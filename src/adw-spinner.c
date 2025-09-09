@@ -50,6 +50,10 @@
  * `AdwSpinner` has a single node with the name `image` and the style class
  * `.spinner`.
  *
+ * ## Accessibility
+ *
+ * `AdwSpinner` uses the [enum@Gtk.AccessibleRole.progress-bar] role.
+ *
  * Since: 1.6
  */
 
@@ -117,6 +121,7 @@ adw_spinner_class_init (AdwSpinnerClass *klass)
   widget_class->snapshot = adw_spinner_snapshot;
 
   gtk_widget_class_set_css_name (widget_class, "image");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_PROGRESS_BAR);
 }
 
 static void
@@ -130,6 +135,10 @@ adw_spinner_init (AdwSpinner *self)
                             G_CALLBACK (gtk_widget_queue_resize), self);
   g_signal_connect_swapped (self->paintable, "invalidate-contents",
                             G_CALLBACK (gtk_widget_queue_draw), self);
+
+  gtk_accessible_update_state (GTK_ACCESSIBLE (self),
+                               GTK_ACCESSIBLE_STATE_BUSY, TRUE,
+                               -1);
 }
 
 /**
