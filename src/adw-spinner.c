@@ -52,7 +52,7 @@
  *
  * ## Accessibility
  *
- * `AdwSpinner` uses the [enum@Gtk.AccessibleRole.progress-bar] role.
+ * `AdwSpinner` uses the [enum@Gtk.AccessibleRole.progress_bar] role.
  *
  * Since: 1.6
  */
