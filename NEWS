@@ -1,4 +1,26 @@
 =============
+Version 1.7.7
+=============
+
+- AdwAlertDialog/AdwMessageDialog:
+  - Clarify behavior around :default-response
+- AdwSpinner
+  - Switch to progressbar accessible role
+- AdwSwipeTracker
+  - Fix memory leak
+- AdwToastOverlay
+  - Fix disappear animation not playing on dismiss_all()
+  - Make the action button in toasts insensitive after a click
+- AdwWrapLayout
+  - Fx allocation of a single child in RTL languages or with align > 0
+- Demo
+  - Fix 2 memory leaks
+- Docs
+  - Typo fixes
+- Translation updates
+  - Slovak
+
+=============
 Version 1.7.6
 =============
 
