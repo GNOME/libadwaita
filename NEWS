@@ -1,3 +1,20 @@
+==============
+Version 1.6.10
+==============
+
+- AdwAlertDialog/AdwMessageDialog:
+  - Clarify behavior around :default-response
+- AdwSpinner
+  - Switch to progressbar accessible role
+- AdwSwipeTracker
+  - Fix memory leak
+- AdwToastOverlay
+  - Make the action button in toasts insensitive after a click
+- Demo
+  - Fix 2 memory leaks
+- Docs
+  - Typo fixes
+
 =============
 Version 1.6.9
 =============
