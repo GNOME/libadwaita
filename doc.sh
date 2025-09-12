@@ -6,9 +6,10 @@ main
 libadwaita-1-5
 libadwaita-1-6
 libadwaita-1-7
+libadwaita-1-8
 "
 
-LATEST_STABLE_1=1.7
+LATEST_STABLE_1=1.8
 
 IFS='
 '
