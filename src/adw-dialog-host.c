@@ -14,12 +14,6 @@
 #include "adw-dialog-private.h"
 #include "adw-widget-utils-private.h"
 
-#ifdef GDK_WINDOWING_MACOS
-#import <AppKit/AppKit.h>
-
-#include <gdk/macos/gdkmacos.h>
-#endif
-
 struct _AdwDialogHost
 {
   GtkWidget parent_instance;
@@ -35,12 +29,6 @@ struct _AdwDialogHost
   GtkWidget *last_focus;
 
   GtkWidget *proxy;
-
-#ifdef GDK_WINDOWING_MACOS
-  guint close_enabled: 1;
-  guint minimize_enabled: 1;
-  guint maximize_enabled: 1;
-#endif
 };
 
 static void adw_dialog_host_buildable_init (GtkBuildableIface *iface);
@@ -195,16 +183,6 @@ dialog_closing_cb (AdwDialog     *dialog,
 
     adw_dialog_set_shadowed (next_dialog, FALSE);
   }
-
-  #ifdef GDK_WINDOWING_MACOS
-  if (self->dialogs->len == 0 && GDK_IS_MACOS_DISPLAY (gdk_display_get_default ())) {
-    NSWindow *nswindow = (NSWindow*) gdk_macos_surface_get_native_window (GDK_MACOS_SURFACE (gtk_native_get_surface (GTK_NATIVE (root))));
-
-    [[nswindow standardWindowButton:NSWindowCloseButton] setEnabled:self->close_enabled];
-    [[nswindow standardWindowButton:NSWindowMiniaturizeButton] setEnabled:self->minimize_enabled];
-    [[nswindow standardWindowButton:NSWindowZoomButton] setEnabled:self->maximize_enabled];
-  }
-#endif
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_DIALOG]);
 }
@@ -446,12 +424,6 @@ adw_dialog_host_init (AdwDialogHost *self)
 
   self->bin = adw_bin_new ();
   gtk_widget_set_parent (self->bin, GTK_WIDGET (self));
-
-#ifdef GDK_WINDOWING_MACOS
-  self->close_enabled = TRUE;
-  self->minimize_enabled = TRUE;
-  self->maximize_enabled = TRUE;
-#endif
 }
 
 static void
@@ -589,20 +561,6 @@ adw_dialog_host_present_dialog (AdwDialogHost *self,
 
     gtk_widget_insert_before (GTK_WIDGET (dialog), GTK_WIDGET (self), NULL);
   }
-
-#ifdef GDK_WINDOWING_MACOS
-  if (self->dialogs->len == 0 && GDK_IS_MACOS_DISPLAY (gdk_display_get_default ())) {
-    NSWindow *nswindow = (NSWindow*) gdk_macos_surface_get_native_window (GDK_MACOS_SURFACE (gtk_native_get_surface (GTK_NATIVE (root))));
-
-    self->close_enabled = [[nswindow standardWindowButton:NSWindowCloseButton] isEnabled];
-    self->minimize_enabled = [[nswindow standardWindowButton:NSWindowMiniaturizeButton] isEnabled];
-    self->maximize_enabled = [[nswindow standardWindowButton:NSWindowZoomButton] isEnabled];
-
-    [[nswindow standardWindowButton:NSWindowCloseButton] setEnabled:NO];
-    [[nswindow standardWindowButton:NSWindowMiniaturizeButton] setEnabled:NO];
-    [[nswindow standardWindowButton:NSWindowZoomButton] setEnabled:NO];
-  }
-#endif
 
   g_ptr_array_add (self->dialogs, dialog);
 
