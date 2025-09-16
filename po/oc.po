@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-09-14 11:19+0000\n"
-"PO-Revision-Date: 2025-09-15 13:30+0200\n"
+"POT-Creation-Date: 2025-09-16 17:28+0000\n"
+"PO-Revision-Date: 2025-09-16 19:47+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <totenoc@gmail.com>\n"
 "Language: oc\n"
@@ -322,7 +322,7 @@ msgstr "Escala adaptativa"
 #. Translators: screen bezel, e.g. on a phone
 #: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
-msgstr ""
+msgstr "Susbrilhança del quadre"
 
 #: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
@@ -339,12 +339,12 @@ msgstr "Prendre una captura d’ecran"
 #: src/adw-adaptive-preview-presets-private.h:24
 msgctxt "Shell preset"
 msgid "Desktop Shell"
-msgstr ""
+msgstr "Consòla burèu"
 
 #: src/adw-adaptive-preview-presets-private.h:25
 msgctxt "Shell preset"
 msgid "Mobile Shell"
-msgstr ""
+msgstr "Consòla mobile"
 
 #: src/adw-adaptive-preview-presets-private.h:26
 msgctxt "Shell preset"
@@ -504,6 +504,9 @@ msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 msgstr ""
+"Testatz l'aplicacion a de talhas d'ecran especificas per simular un "
+"environament mobil. Dobrissètz la previsualizacion dirèctament sus quina que "
+"siá fenèstra suportada en utilizant Maj+Ctrl+M"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -559,7 +562,7 @@ msgstr "Tampar la fenèstra"
 #: src/adw-shortcut-label.c:133
 msgctxt "keyboard side marker"
 msgid "L"
-msgstr ""
+msgstr "E"
 
 #. Translators: This string is used to mark left/right variants of modifier
 #. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
@@ -569,7 +572,7 @@ msgstr ""
 #: src/adw-shortcut-label.c:146
 msgctxt "keyboard side marker"
 msgid "R"
-msgstr ""
+msgstr "D"
 
 #: src/adw-shortcuts-dialog.ui:5
 msgid "Keyboard Shortcuts"
