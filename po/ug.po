@@ -1,0 +1,625 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2025-09-10 21:02+0000\n"
+"PO-Revision-Date: 2025-09-17 18:01-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
+"Language-Team: \n"
+"Language: ug\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 2-نەشرى ياكى يېڭىسى"
+
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3-نەشرى ياكى يېڭىسى"
+
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 1.‏2‎‏-نەشرى ياكى يېڭىسى"
+
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرى ياكى يېڭىسى"
+
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause ئىجازەتنامىسى"
+
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+msgid "The MIT License (MIT)"
+msgstr "MIT ئىجازەتنامىسى (MIT يەنى ماسساچۇسېتس تېخنولوگىيە ئۇنىۋېرسىتېتى)"
+
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+msgid "Artistic License 2.0"
+msgstr "سەنئەت ئىجازەتنامىسى ‪2.0"
+
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 2-نەشرىلا"
+
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3-نەشرىلا"
+
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى ‪ 2.‏‬‎1‎-نەشرىلا"
+
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎-نەشرىلا"
+
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرى ياكى يېڭىسى"
+
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرىلا"
+
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+msgid "BSD 3-Clause License"
+msgstr "‪BSD 3-Clause ‬ئىجازەتنامىسى"
+
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+msgid "Apache License, Version 2.0"
+msgstr "Apache ئىجازەتنامىسى، ‪2.0 ‬نەشرى"
+
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla ئاممىۋى ئىجازەتنامىسى ‪2.0"
+
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+msgid "BSD Zero-Clause License"
+msgstr "BSD نۆل ماددىلىق ئىجازەتنامە"
+
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+msgid "Code by"
+msgstr "كود يازغۇچى"
+
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+msgid "Design by"
+msgstr "لايىھەلىگۈچى"
+
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+msgid "Artwork by"
+msgstr "گۈزەل سەنئەت تەھرىرى"
+
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+msgid "Documentation by"
+msgstr "پۈتۈكچى"
+
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+msgid "Translated by"
+msgstr "تەرجىمان"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#, c-format
+msgid "This application comes with absolutely no warranty. See the <a href=\"%s\">%s</a> for details."
+msgstr "بۇ پىروگراممىنىڭ ھېچقانداق كاپالىتى يوق. تەپسىلاتىنى <a href=\"%s\">%s</a> دىن كۆرۈڭ."
+
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+msgid "This Application"
+msgstr "بۇ پىروگرامما"
+
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#, c-format
+msgid "Version %s"
+msgstr "نەشر %s"
+
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+msgid "Unable to parse release notes:"
+msgstr "تارقىتىش ئىزاھاتىنى يېشەلمىدى:"
+
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "قۇر: %d ھەرپ: %d"
+
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+msgid "Copied to clipboard"
+msgstr "چاپلاش تاختىسىغا كۆچۈرۈلدى"
+
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+msgid "Unable to save debugging information"
+msgstr "سازلاش ئۇچۇرىنى ساقلىيالمايدۇ"
+
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336 src/adw-sheet-controls.c:127
+msgid "Close"
+msgstr "ياپ"
+
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+msgid "Save debugging information"
+msgstr "سازلاش ئۇچۇرىنى ساقلا"
+
+#: src/adw-about-dialog.c:2302
+#, c-format
+msgid "Other Apps by %s"
+msgstr "%s نىڭ باشقا پىروگراممىلىرى"
+
+#: src/adw-about-dialog.c:2308
+msgid "Other Apps"
+msgstr "باشقا پىروگرامما"
+
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+msgid "About"
+msgstr "ھەققىدە"
+
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
+msgid "What’s _New"
+msgstr "نېمە يېڭىلىق بار(_N)"
+
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
+msgid "_Details"
+msgstr "تەپسىلاتى(_D)"
+
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348 src/adw-about-window.ui:123 src/adw-about-window.ui:346
+msgid "_Website"
+msgstr "تور بېكەت(_W)"
+
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+msgid "_Support Questions"
+msgstr "قوللاش سوئالى(_S)"
+
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+msgid "_Report an Issue"
+msgstr "مەسىلە مەلۇم قىل(_R)"
+
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+msgid "_Troubleshooting"
+msgstr "مەسىلە ھەل قىل(_T)"
+
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+msgid "_Credits"
+msgstr "تۆھپىكارلار(_C)"
+
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+msgid "_Legal"
+msgstr "قانۇن ئۇچۇرى(_L)"
+
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+msgid "_Acknowledgements"
+msgstr "تەشەككۈر(_A)"
+
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+msgid "What’s New"
+msgstr "نېمە يېڭىلىق بار"
+
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+msgid "Details"
+msgstr "تەپسىلاتى"
+
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+msgid "Troubleshooting"
+msgstr "مەسىلە ھەل قىلىش"
+
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. Providing this information to the application developers can help diagnose any problems you encounter when you report an "
+"issue."
+msgstr "سازلاش ئۇچۇرىنى كۆزدىن كەچۈرۈپ مەسىلە ھەل قىلىشقا ياردەملىشىڭ. مەسىلە مەلۇم قىلغاندا بۇ ئۇچۇرلارنى ئىجادكارلارغا تەمىنلەپ يولۇققان ھەر قانداق مەسىلىگە دىياگنوز قويۇشقا ياردەم بېرەلەيسىز."
+
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+msgid "_Debugging Information"
+msgstr "سازلاش ئۇچۇرى(_D)"
+
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+msgid "Debugging Information"
+msgstr "سازلاش ئۇچۇرى"
+
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+msgid "_Copy Text"
+msgstr "تېكىست كۆچۈر(_C)"
+
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+msgid "_Save As…"
+msgstr "باشقا ئاتتا ساقلا(_S)…"
+
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+msgid "Credits"
+msgstr "تۆھپىكارلار"
+
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+msgid "Legal"
+msgstr "قانۇن ئۇچۇرى"
+
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+msgid "Acknowledgements"
+msgstr "تەشەككۈر"
+
+#: src/adw-adaptive-preview.c:387
+msgid "Screenshot Copied to Clipboard"
+msgstr "ئېكران كۆرۈنۈشى چاپلاش تاختىسىغا كۆچۈرۈلدى"
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67 src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr "ماسلىشىشچانلىق ئالدىن كۆزىتىشى"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr "كۆرسەتكۈچ"
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr "ئۈسكۈنە"
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr "كەڭلىك"
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr "ئېگىزلىك"
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr "ئايلاندۇر"
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr "سولغا ئايلاندۇر"
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr "ئوڭغا ئايلاندۇر"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr "Shell"
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr "ئالدىن تەڭشەك"
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr "چوققا بالداق"
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr "ئاستى بالداق"
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr "كۆزنەك تىزگىنى"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr "كۆرۈنۈش"
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr "چوڭلۇقىغا ماسلاشتۇر"
+
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
+msgid "Highlight Bezel"
+msgstr "قاسقاننى يورۇت"
+
+#: src/adw-adaptive-preview.ui:177
+msgid "Toggle Sidebar"
+msgstr "يان بالداق ئالماشتۇر"
+
+#: src/adw-adaptive-preview.ui:187
+msgid "Exit"
+msgstr "چېكىن"
+
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "ئېكران كۆرۈنۈشى تۇت"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
+msgid "Desktop Shell"
+msgstr "ئۈستەلئۈستى Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
+msgid "Mobile Shell"
+msgstr "كۆچمە Shell"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
+msgid "Phosh"
+msgstr "Phosh"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
+msgid "Fullscreen"
+msgstr "پۈتۈن ئېكران"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+msgctxt "Shell preset"
+msgid "Custom"
+msgstr "ئىختىيارى"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
+msgid "Generic Phone"
+msgstr "ئادەتتىكى تېلېفون"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
+msgid "Generic Tablet"
+msgstr "ئادەتتىكى تاختا كومپيۇتېر"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
+msgid "OnePlus 6"
+msgstr "OnePlus 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
+msgid "OnePlus 6T"
+msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "ئىختىيارى"
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr "%s نىڭ سىماسى"
+
+#: src/adw-back-button.c:313 src/adw-back-button.c:411 src/adw-back-button.c:521
+msgid "Back"
+msgstr "قايت"
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85 src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "ئىزدە"
+
+#: src/adw-entry-row.ui:96
+msgid "Apply"
+msgstr "قوللان"
+
+#: src/adw-inspector-page.c:131
+msgid "No Preference"
+msgstr "مايىللىق يوق"
+
+#: src/adw-inspector-page.c:133
+msgid "Prefer Dark"
+msgstr "مايىللىق قاراڭغۇ"
+
+#: src/adw-inspector-page.c:135
+msgid "Prefer Light"
+msgstr "مايىللىق يورۇق"
+
+#: src/adw-inspector-page.c:148
+msgid "Blue"
+msgstr "كۆك"
+
+#: src/adw-inspector-page.c:150
+msgid "Teal"
+msgstr "توق كۆك"
+
+#: src/adw-inspector-page.c:152
+msgid "Green"
+msgstr "يېشىل"
+
+#: src/adw-inspector-page.c:154
+msgid "Yellow"
+msgstr "سېرىق"
+
+#: src/adw-inspector-page.c:156
+msgid "Orange"
+msgstr "قىزغۇچ سېرىق"
+
+#: src/adw-inspector-page.c:158
+msgid "Red"
+msgstr "قىزىل"
+
+#: src/adw-inspector-page.c:160
+msgid "Pink"
+msgstr "ھالرەڭ"
+
+#: src/adw-inspector-page.c:162
+msgid "Purple"
+msgstr "بىنەپشە"
+
+#: src/adw-inspector-page.c:164
+msgid "Slate"
+msgstr "توق كۈلرەڭ"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:303
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "سىستېما قىياپىتى"
+
+#: src/adw-inspector-page.ui:11
+msgid "Override settings for this application. They will be reset upon closing the inspector."
+msgstr "بۇ پىروگراممىنىڭ تەڭشىكىنى قاپلايدۇ. ئۇلار تەكشۈرگۈچنى تاقىغاندا ئەسلىگە قايتۇرىدۇ."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "سىستېما رەڭ لايىھەسىنى قوللايدۇ"
+
+#: src/adw-inspector-page.ui:20
+msgid "Preferred Color Scheme"
+msgstr "رەڭ لايىھە مايىللىقى"
+
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "روشەن رەڭ"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "سىستېما خاس رەڭنى قوللايدۇ"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "خاس رەڭ مايىللىقى"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "ياردەم ئىقتىدارى"
+
+#: src/adw-inspector-page.ui:80
+msgid "High Contrast"
+msgstr "يۇقىرى سېلىشتۇرما"
+
+#: src/adw-inspector-page.ui:89
+msgid "Test the app at specific screen sizes to simulate a mobile environment. Open the preview directly on any supported window using Shift+Ctrl+M"
+msgstr "پىروگراممىنى بەلگىلەنگەن ئېكران چوڭلۇقىدىكى ئىپادىسىنى سىناپ كۆچمە ئۈسكۈنە مۇھىتىنى تەقلىدلەيدۇ. Shift+Ctrl+M ئارقىلىق قوللايدىغان خالىغان ئېكراندا ئالدىن كۆزىتىشنى بىۋاسىتە ئاچقىلى بولىدۇ"
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "ئىم يوشۇر"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "ئىم كۆرسەت"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Caps Lock ئوچۇق"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "ئىمنى كۆرسەت(_S)"
+
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
+msgid "Untitled page"
+msgstr "ماۋزۇسىز بەت"
+
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "مايىللىق"
+
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "ئىزدەش مايىللىقى"
+
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163 src/adw-shortcuts-dialog.ui:74
+msgid "No Results Found"
+msgstr "ھېچقانداق نەتىجە تېپىلمىدى"
+
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75 src/adw-tab-overview.ui:110
+msgid "Try a different search"
+msgstr "باشقا بىر پەرقلىق ئىزدەشنى سىناڭ"
+
+#: src/adw-preferences-window.ui:164
+msgid "Try a different search."
+msgstr "باشقا بىر پەرقلىق ئىزدەشنى سىناڭ."
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "كۆزنەكنى ياپ"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "سول"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "ئوڭ"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسى"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "ئىزدەش تېزلەتمىسى"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "تېزلەتمە يوق"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+msgid "More Options"
+msgstr "تېخىمۇ كۆپ تاللانما"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "ئوچۇق بەتكۈچنى كۆرسەت"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:931
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u بەتكۈچ"
+msgstr[1] "%u بەتكۈچ"
+
+#: src/adw-tab-overview.ui:20
+msgid "Search Tabs"
+msgstr "بەتكۈچ ئىزدەيدۇ"
+
+#: src/adw-tab-overview.ui:50
+msgid "Search tabs"
+msgstr "بەتكۈچ ئىزدەيدۇ"
+
+#: src/adw-tab-overview.ui:96
+msgid "No Open Tabs"
+msgstr "ئوچۇق بەتكۈچ يوق"
+
+#: src/adw-tab-overview.ui:109
+msgid "No Tabs Found"
+msgstr "بەتكۈچ تاپالمىدى"
+
+#: src/adw-tab-overview.ui:130
+msgid "New _Tab"
+msgstr "يېڭى بەتكۈچ(_T)"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
+msgid "Close Tab"
+msgstr "بەتكۈچ ياپ"
+
+#: src/adw-toast-overlay.c:285
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Toast ئەسكەرتىشى كۆرۈندى: %s، بار توپچىسى: %s"
+
+#: src/adw-toast-overlay.c:288
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Toast ئەسكەرتىشى كۆرۈندى: %s‎‏"
+
+#: src/adw-toast-overlay.c:290
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Toast ئەسكەرتىشى كۆرۈندى‎‏، بار توپچىسى: %s"
+
+#: src/adw-toast-overlay.c:293
+msgid "A toast appeared"
+msgstr "Toast ئەسكەرتىشى كۆرۈندى"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "پەرۋا قىلما"
