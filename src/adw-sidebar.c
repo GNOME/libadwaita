@@ -26,7 +26,7 @@
  *
  * Determines how an [class@Sidebar] should look and behave.
  *
- * See [property@Sidebar:mode].
+ * See [property@Sidebar:mode] and [property@ViewSwitcherSidebar:mode].
  *
  * Since: 1.9
  */
@@ -69,6 +69,8 @@
  * Connect to the [signal@Sidebar::activated] signal to run code when an item
  * has been activated. This can be used to toggle the visible pane when used in
  * a split view.
+ *
+ * See also: [class@ViewSwitcherSidebar].
  *
  * ## Modes
  *

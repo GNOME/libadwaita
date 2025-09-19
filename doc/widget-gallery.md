@@ -238,10 +238,19 @@ Slug: widget-gallery
   <img src="view-switcher-bar.png" alt="view-switcher-bar">
 </picture>](class.ViewSwitcherBar.html)
 
+### Inline View Switcher
+
 [<picture>
   <source srcset="inline-view-switcher-dark.png" media="(prefers-color-scheme: dark)">
   <img src="inline-view-switcher.png" alt="inline-view-switcher">
 </picture>](class.InlineViewSwitcher.html)
+
+### View Switcher Sidebar
+
+[<picture>
+  <source srcset="view-switcher-sidebar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="view-switcher-sidebar.png" alt="view-switcher-sidebar">
+</picture>](class.ViewSwitcherSidebar.html)
 
 ## Tabs
 
@@ -350,3 +359,4 @@ See also: [class@ApplicationWindow]
   <source srcset="button-content-dark.png" media="(prefers-color-scheme: dark)">
   <img src="button-content.png" alt="button-content">
 </picture>](class.ButtonContent.html)
+

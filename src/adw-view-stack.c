@@ -28,7 +28,8 @@
  * It is typically used to hold an application's main views.
  *
  * It doesn't provide a way to transition between pages.
- * Instead, a separate widget such as [class@ViewSwitcher] can be used with
+ * Instead, a separate widget such as [class@ViewSwitcher],
+ * [class@InlineViewSwitcher] or [class@ViewSwitcherSidebar] can be used with
  * `AdwViewStack` to provide this functionality.
  *
  * `AdwViewStack` pages can have a title, an icon, an attention request, and a
@@ -37,6 +38,11 @@
  * [property@ViewStackPage:icon-name],
  * [property@ViewStackPage:needs-attention], and
  * [property@ViewStackPage:badge-number] properties.
+ *
+ * `AdwViewStack` pages can also be grouped into sections, using the
+ * [property@ViewStackPage:starts-section] and
+ * [property@ViewStackPage:section-title] properties. Currently, only
+ * [class@ViewSwitcherSidebar] displays groups.
  *
  * Unlike [class@Gtk.Stack], transitions between views can only be animated via
  * a crossfade and size changes are always interpolated. Animations are disabled
@@ -2614,3 +2620,4 @@ adw_view_stack_get_pages (AdwViewStack *self)
 
   return self->pages;
 }
+

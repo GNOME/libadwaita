@@ -73,6 +73,9 @@
  * ## CSS nodes
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
+ *
+ * See also: [class@ViewSwitcher], [class@InlineViewSwitcher],
+ * [class@ViewSwitcherSidebar].
  */
 
 enum {

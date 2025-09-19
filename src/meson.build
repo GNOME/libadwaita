@@ -182,6 +182,7 @@ src_headers = [
   'adw-view-stack.h',
   'adw-view-switcher.h',
   'adw-view-switcher-bar.h',
+  'adw-view-switcher-sidebar.h',
   'adw-view-switcher-title.h',
   'adw-window.h',
   'adw-window-title.h',
@@ -282,6 +283,7 @@ src_sources = [
   'adw-view-stack.c',
   'adw-view-switcher.c',
   'adw-view-switcher-bar.c',
+  'adw-view-switcher-sidebar.c',
   'adw-view-switcher-title.c',
   'adw-window.c',
   'adw-window-title.c',
@@ -497,3 +499,4 @@ pkgg.generate(
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
+

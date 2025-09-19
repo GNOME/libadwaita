@@ -95,6 +95,7 @@ test_names = [
   'test-toolbar-view',
   'test-view-switcher',
   'test-view-switcher-bar',
+  'test-view-switcher-sidebar',
   'test-window',
   'test-window-title',
   'test-wrap-layout',

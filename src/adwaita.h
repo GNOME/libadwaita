@@ -103,6 +103,7 @@ G_BEGIN_DECLS
 #include "adw-view-stack.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-bar.h"
+#include "adw-view-switcher-sidebar.h"
 #include "adw-view-switcher-title.h"
 #include "adw-window.h"
 #include "adw-window-title.h"

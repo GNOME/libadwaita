@@ -86,6 +86,9 @@
  *
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
+ *
+ * See also: [class@ViewSwitcherBar], [class@InlineViewSwitcher],
+ * [class@ViewSwitcherSidebar].
  */
 
 /**
