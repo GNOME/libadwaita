@@ -93,6 +93,7 @@ test_names = [
   'test-toast-overlay',
   'test-toggle-group',
   'test-toolbar-view',
+  'test-view-stack-sidebar',
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',

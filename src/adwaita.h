@@ -101,6 +101,7 @@ G_BEGIN_DECLS
 #include "adw-toggle-group.h"
 #include "adw-toolbar-view.h"
 #include "adw-view-stack.h"
+#include "adw-view-stack-sidebar.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-bar.h"
 #include "adw-view-switcher-title.h"
