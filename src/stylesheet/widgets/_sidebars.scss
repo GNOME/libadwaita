@@ -125,10 +125,21 @@ stacksidebar row {
     }
   }
 
-  padding: $menu-margin 0; //only vertical padding. horizontal row size would clip
+  padding: $menu_margin 0; //only vertical padding. horizontal row size would clip
 
-  > separator {
-    margin: $menu-margin;
+  > separator,
+  > .header > separator {
+    margin: $menu_margin;
+  }
+
+
+  > .header > .heading {
+    margin: $menu_margin + 6px;
+  }
+
+  /* No top margin on the first header */
+  > .header.first > .heading {
+    margin-top: 0;
   }
 
   @if $contrast == 'high' {
@@ -164,4 +175,33 @@ stacksidebar row {
 
 gridview.navigation-sidebar, flowbox.navigation-sidebar {
   padding: 3px;
+}
+
+/**************
+ * AdwSidebar *
+ **************/
+
+sidebar {
+  .navigation-sidebar > row {
+    > box {
+      padding: 3px 6px;
+      min-height: 36px;
+      border-spacing: 12px;
+
+      > .icon:disabled {
+        opacity: var(--disabled-opacity);
+      }
+    }
+  }
+
+  .boxed-list {
+    .icon:disabled,
+    .arrow:disabled {
+      opacity: var(--disabled-opacity);
+    }
+  }
+
+  &:not(.page).empty statuspage {
+    @extend .compact;
+  }
 }
