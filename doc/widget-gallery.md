@@ -202,6 +202,13 @@ Slug: widget-gallery
   <img src="overlay-split-view-collapsed.png" alt="overlay-split-view-collapsed">
 </picture>](class.OverlaySplitView.html)
 
+## Sidebar
+
+[<picture>
+  <source srcset="sidebar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="sidebar.png" alt="sidebar">
+</picture>](class.Sidebar.html)
+
 ## Carousel
 
 [<picture>

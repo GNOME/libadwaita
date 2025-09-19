@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwSidebar" id="widget">
+    <property name="width-request">200</property>
+    <style>
+      <class name="docs-background"/>
+    </style>
+    <child>
+      <object class="AdwSidebarSection">
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Recent</property>
+            <property name="icon-name">document-open-recent-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Starred</property>
+            <property name="icon-name">starred-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwSidebarSection">
+        <property name="title" translatable="yes">Places</property>
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Music</property>
+            <property name="icon-name">folder-music-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Pictures</property>
+            <property name="icon-name">folder-pictures-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Videos</property>
+            <property name="icon-name">folder-videos-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwSidebarSection">
+        <child>
+          <object class="AdwSidebarItem">
+            <property name="title" translatable="yes">Trash</property>
+            <property name="icon-name">user-trash-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
