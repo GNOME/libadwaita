@@ -159,18 +159,25 @@ selection_item_changed (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
 
-  if (priv->use_subtitle) {
-    if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
-      GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
-      char *repr = get_item_representation (self, item);
+  if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
+    GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
+    char *repr = get_item_representation (self, item);
 
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT, repr,
+                                    -1);
+
+    if (priv->use_subtitle)
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
 
-      g_free (repr);
-      g_object_unref (item);
-    } else {
+    g_free (repr);
+    g_object_unref (item);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self),
+                                   GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT);
+
+    if (priv->use_subtitle)
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
-    }
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_ITEM]);
