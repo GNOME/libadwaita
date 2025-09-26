@@ -6,6 +6,9 @@ static GMainLoop *loop;
 static char *option_image = NULL;
 static gboolean option_list = FALSE;
 
+static GdkPixbuf *background_light = NULL;
+static GdkPixbuf *background_dark = NULL;
+
 static GOptionEntry entries[] =
 {
   { "image", 'i', 0, G_OPTION_ARG_STRING, &option_image, "Generate only one image", "NAME" },
@@ -54,6 +57,7 @@ typedef struct {
   GdkPaintable *paintable;
   char *name;
   GtkCssProvider *provider;
+  gboolean dark;
 } ScreenshotData;
 
 static void
@@ -64,6 +68,16 @@ screenshot_data_free (ScreenshotData *data)
   g_object_unref (data->provider);
   g_free (data->name);
   g_free (data);
+}
+
+static void
+ensure_backgrounds (void)
+{
+  if (!background_light)
+    background_light = gdk_pixbuf_new_from_resource (RESOURCE_PATH "adwaita-l.png", NULL);
+
+  if (!background_dark)
+    background_dark = gdk_pixbuf_new_from_resource (RESOURCE_PATH "adwaita-d.png", NULL);
 }
 
 static GdkPixbuf *
@@ -157,6 +171,37 @@ crop_alpha (GdkPixbuf *pixbuf)
   return gdk_pixbuf_new_subpixbuf (pixbuf, left, top, right - left, bottom - top);
 }
 
+static GdkPixbuf *
+apply_background (GdkPixbuf *pixbuf,
+                  gboolean   dark)
+{
+  GdkPixbuf *bg, *bg_copy;
+  int x, y, w, h;
+
+  ensure_backgrounds ();
+
+  bg = dark ? background_dark : background_light;
+
+  w = gdk_pixbuf_get_width (pixbuf);
+  h = gdk_pixbuf_get_height (pixbuf);
+  x = (gdk_pixbuf_get_width (bg) - w) / 2;
+  y = (gdk_pixbuf_get_height (bg) - h) / 2;
+
+  bg_copy = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, w, h);
+  gdk_pixbuf_copy_area (bg, x, y, w, h, bg_copy, 0, 0);
+
+  gdk_pixbuf_composite (pixbuf,
+                        bg_copy,
+                        0, 0,
+                        gdk_pixbuf_get_width (pixbuf),
+                        gdk_pixbuf_get_height (pixbuf),
+                        0, 0, 1, 1,
+                        GDK_INTERP_BILINEAR,
+                        255);
+
+  return bg_copy;
+}
+
 static void
 draw_paintable_cb (ScreenshotData *data)
 {
@@ -212,9 +257,11 @@ draw_paintable_cb (ScreenshotData *data)
   if (GTK_IS_NATIVE (data->widget)) {
     GdkPixbuf *pixbuf = create_pixbuf_from_texture (texture);
     GdkPixbuf *cropped_pixbuf = crop_alpha (pixbuf);
+    GdkPixbuf *bg_pixbuf = apply_background (cropped_pixbuf, data->dark);
 
-    gdk_pixbuf_save (cropped_pixbuf, data->name, "png", NULL, NULL);
+    gdk_pixbuf_save (bg_pixbuf, data->name, "png", NULL, NULL);
 
+    g_object_unref (bg_pixbuf);
     g_object_unref (cropped_pixbuf);
     g_object_unref (pixbuf);
   } else {
@@ -404,6 +451,7 @@ take_screenshot (const char *name,
   data->paintable = gtk_widget_paintable_new (data->widget);
   data->name = g_file_get_path (output_file);
   data->provider = load_css ("style");
+  data->dark = dark;
 
   if (dark)
     g_object_set (data->provider, "prefers-color-scheme", GTK_INTERFACE_COLOR_SCHEME_DARK, NULL);
@@ -663,6 +711,9 @@ main (int    argc,
     g_object_unref (output_dir);
 
   g_object_unref (input_dir);
+
+  g_clear_object (&background_light);
+  g_clear_object (&background_dark);
 
   return (!result);
 }
