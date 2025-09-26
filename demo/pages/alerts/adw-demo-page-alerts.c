@@ -11,13 +11,6 @@ struct _AdwDemoPageAlerts
 
 G_DEFINE_FINAL_TYPE (AdwDemoPageAlerts, adw_demo_page_alerts, ADW_TYPE_BIN)
 
-enum {
-  SIGNAL_ADD_TOAST,
-  SIGNAL_LAST_SIGNAL,
-};
-
-static guint signals[SIGNAL_LAST_SIGNAL];
-
 static void
 toast_dismissed_cb (AdwToast          *toast,
                     AdwDemoPageAlerts *self)
@@ -31,15 +24,15 @@ alert_cb (AdwAlertDialog    *dialog,
           GAsyncResult      *result,
           AdwDemoPageAlerts *self)
 {
+  GtkWidget *toast_overlay = gtk_widget_get_ancestor (GTK_WIDGET (self), ADW_TYPE_TOAST_OVERLAY);
   const char *response = adw_alert_dialog_choose_finish (dialog, result);
   AdwToast *toast = adw_toast_new_format (_("Dialog response: %s"), response);
   g_signal_connect_object (toast, "dismissed", G_CALLBACK (toast_dismissed_cb), self, 0);
 
-  if (self->last_toast)
-    adw_toast_dismiss (self->last_toast);
+  g_clear_pointer (&self->last_toast, adw_toast_dismiss);
   self->last_toast = toast;
 
-  g_signal_emit (self, signals[SIGNAL_ADD_TOAST], 0, toast);
+  adw_toast_overlay_add_toast (ADW_TOAST_OVERLAY (toast_overlay), toast);
 }
 
 static void
@@ -74,15 +67,6 @@ static void
 adw_demo_page_alerts_class_init (AdwDemoPageAlertsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-  signals[SIGNAL_ADD_TOAST] =
-    g_signal_new ("add-toast",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1,
-                  ADW_TYPE_TOAST);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/alerts/adw-demo-page-alerts.ui");
 

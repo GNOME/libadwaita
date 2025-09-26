@@ -76,237 +76,191 @@
                       </object>
                     </child>
                     <property name="content">
-                      <object class="AdwViewSwitcherSidebar" id="sidebar">
-                        <property name="stack">stack</property>
+                      <object class="AdwSidebar" id="sidebar">
                         <signal name="activated" handler="sidebar_activated_cb" swapped="yes"/>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Welcome</property>
+                                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                                <property name="page-type">AdwDemoPageWelcome</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Navigation</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Navigation View</property>
+                                <property name="icon-name">widget-navigation-view-symbolic</property>
+                                <property name="page-type">AdwDemoPageNavigationView</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Split Views</property>
+                                <property name="icon-name">widget-split-views-symbolic</property>
+                                <property name="page-type">AdwDemoPageSplitViews</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">View Switcher</property>
+                                <property name="icon-name">widget-view-switcher-symbolic</property>
+                                <property name="page-type">AdwDemoPageViewSwitcher</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Tab View</property>
+                                <property name="icon-name">widget-tab-view-symbolic</property>
+                                <property name="page-type">AdwDemoPageTabView</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Bottom Sheet</property>
+                                <property name="icon-name">widget-bottom-sheet-symbolic</property>
+                                <property name="page-type">AdwDemoPageBottomSheets</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Carousel</property>
+                                <property name="icon-name">widget-carousel-symbolic</property>
+                                <property name="page-type">AdwDemoPageCarousel</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Controls</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Lists</property>
+                                <property name="icon-name">widget-list-symbolic</property>
+                                <property name="page-type">AdwDemoPageLists</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Toggle Groups</property>
+                                <property name="icon-name">widget-toggle-group-symbolic</property>
+                                <property name="page-type">AdwDemoPageToggles</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Buttons</property>
+                                <property name="icon-name">widget-buttons-symbolic</property>
+                                <property name="page-type">AdwDemoPageButtons</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Display</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Banner</property>
+                                <property name="icon-name">widget-banner-symbolic</property>
+                                <property name="page-type">AdwDemoPageBanners</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Toasts</property>
+                                <property name="icon-name">widget-toast-symbolic</property>
+                                <property name="page-type">AdwDemoPageToasts</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Spinner</property>
+                                <property name="icon-name">image-missing-symbolic</property>
+                                <property name="page-type">AdwDemoPageSpinner</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Avatar</property>
+                                <property name="icon-name">avatar-default-symbolic</property>
+                                <property name="page-type">AdwDemoPageAvatar</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Dialogs</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Alert Dialog</property>
+                                <property name="icon-name">widget-dialog-symbolic</property>
+                                <property name="page-type">AdwDemoPageAlerts</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">About Dialog</property>
+                                <property name="icon-name">widget-about-symbolic</property>
+                                <property name="page-type">AdwDemoPageAbout</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Layout</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Clamp</property>
+                                <property name="icon-name">widget-clamp-symbolic</property>
+                                <property name="page-type">AdwDemoPageClamp</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Wrap Box</property>
+                                <property name="icon-name">widget-wrap-box-symbolic</property>
+                                <property name="page-type">AdwDemoPageWrapBox</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Multi-Layout View</property>
+                                <property name="icon-name">widget-multi-layout-symbolic</property>
+                                <property name="page-type">AdwDemoPageMultiLayout</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarSection">
+                            <property name="title" translatable="yes">Miscellaneous</property>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Style Classes</property>
+                                <property name="icon-name">style-classes-symbolic</property>
+                                <property name="page-type">AdwDemoPageStyles</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwDemoSidebarItem">
+                                <property name="title" translatable="yes">Animations</property>
+                                <property name="icon-name">animations-symbolic</property>
+                                <property name="page-type">AdwDemoPageAnimations</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </property>
-                  </object>
-                </property>
-              </object>
-            </property>
-            <property name="content">
-              <object class="AdwNavigationPage" id="content_page">
-                <property name="child">
-                  <object class="AdwViewStack" id="stack">
-                    <property name="vhomogeneous">False</property>
-                    <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="yes"/>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Welcome</property>
-                        <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageWelcome"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Navigation View</property>
-                        <property name="icon-name">widget-navigation-view-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Navigation</property>
-                        <property name="child">
-                          <object class="AdwDemoPageNavigationView"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Split Views</property>
-                        <property name="icon-name">widget-split-views-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageSplitViews"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">View Switcher</property>
-                        <property name="icon-name">widget-view-switcher-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageViewSwitcher"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Tab View</property>
-                        <property name="icon-name">widget-tab-view-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageTabView"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Bottom Sheet</property>
-                        <property name="icon-name">widget-bottom-sheet-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageBottomSheets"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Carousel</property>
-                        <property name="icon-name">widget-carousel-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageCarousel"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Lists</property>
-                        <property name="icon-name">widget-list-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Controls</property>
-                        <property name="child">
-                          <object class="AdwDemoPageLists">
-                            <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Toggle Groups</property>
-                        <property name="icon-name">widget-toggle-group-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageToggles"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Buttons</property>
-                        <property name="icon-name">widget-buttons-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageButtons"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Banner</property>
-                        <property name="icon-name">widget-banner-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Display</property>
-                        <property name="child">
-                          <object class="AdwDemoPageBanners">
-                            <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Toasts</property>
-                        <property name="icon-name">widget-toast-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageToasts" id="toasts_page">
-                            <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
-                            <signal name="dismiss-all" handler="adw_toast_overlay_dismiss_all" object="toast_overlay" swapped="yes"/>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Spinner</property>
-                        <property name="icon-name">image-missing-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageSpinner"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Avatar</property>
-                        <property name="icon-name">avatar-default-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageAvatar"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Alert Dialog</property>
-                        <property name="icon-name">widget-dialog-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Dialogs</property>
-                        <property name="child">
-                          <object class="AdwDemoPageAlerts">
-                            <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">About Dialog</property>
-                        <property name="icon-name">widget-about-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageAbout"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Clamp</property>
-                        <property name="icon-name">widget-clamp-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Layout</property>
-                        <property name="child">
-                          <object class="AdwDemoPageClamp"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Wrap Box</property>
-                        <property name="icon-name">widget-wrap-box-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageWrapBox"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Multi-Layout View</property>
-                        <property name="icon-name">widget-multi-layout-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageMultiLayout"/>
-                        </property>
-                      </object>
-                    </child>
-
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Style Classes</property>
-                        <property name="icon-name">style-classes-symbolic</property>
-                        <property name="starts-section">True</property>
-                        <property name="section-title" translatable="yes">Miscellaneous</property>
-                        <property name="child">
-                          <object class="AdwDemoPageStyles"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwViewStackPage">
-                        <property name="title" translatable="yes">Animations</property>
-                        <property name="icon-name">animations-symbolic</property>
-                        <property name="child">
-                          <object class="AdwDemoPageAnimations"/>
-                        </property>
-                      </object>
-                    </child>
                   </object>
                 </property>
               </object>

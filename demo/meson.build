@@ -59,6 +59,7 @@ adwaita_demo_sources = [
   'adwaita-demo.c',
   'adw-demo-debug-info.c',
   'adw-demo-preferences-dialog.c',
+  'adw-demo-sidebar-item.c',
   'adw-demo-window.c',
   demo_config_h,
   libadwaita_generated_headers,

@@ -1,5 +1,7 @@
 #include "adw-demo-window.h"
 
+#include "adw-demo-sidebar-item.h"
+
 #include "pages/about/adw-demo-page-about.h"
 #include "pages/alerts/adw-demo-page-alerts.h"
 #include "pages/animations/adw-demo-page-animations.h"
@@ -28,9 +30,7 @@ struct _AdwDemoWindow
 
   GtkWidget *color_scheme_button;
   AdwNavigationSplitView *split_view;
-  AdwNavigationPage *content_page;
-  AdwViewStack *stack;
-  AdwDemoPageToasts *toasts_page;
+  AdwSidebar *sidebar;
 };
 
 G_DEFINE_FINAL_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -66,25 +66,36 @@ notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
 }
 
 static void
-notify_visible_child_cb (AdwDemoWindow *self)
+update_content (AdwDemoWindow *self)
 {
-  GtkWidget *child = adw_view_stack_get_visible_child (self->stack);
-  AdwViewStackPage *page = adw_view_stack_get_page (self->stack, child);
+  AdwSidebarItem *item = adw_sidebar_get_selected_item (self->sidebar);
+  GType type;
+  GtkWidget *child;
+  const char *title;
 
-  adw_navigation_page_set_title (self->content_page,
-                                 adw_view_stack_page_get_title (page));
+  if (!item) {
+    adw_navigation_split_view_set_content (self->split_view,
+                                           adw_navigation_page_new (NULL, ""));
+
+    return;
+  }
+
+  g_assert (ADW_IS_DEMO_SIDEBAR_ITEM (item));
+
+  type = adw_demo_sidebar_item_get_page_type (ADW_DEMO_SIDEBAR_ITEM (item));
+  child = g_object_new (type, NULL);
+  title = adw_sidebar_item_get_title (item);
+
+  adw_navigation_split_view_set_content (self->split_view,
+                                         adw_navigation_page_new (child, title));
 }
 
 static void
-sidebar_activated_cb (AdwDemoWindow *self)
+sidebar_activated_cb (AdwDemoWindow *self,
+                      guint          index)
 {
+  update_content (self);
   adw_navigation_split_view_set_show_content (self->split_view, TRUE);
-}
-
-static void
-toast_undo_cb (AdwDemoWindow *self)
-{
-  adw_demo_page_toasts_undo (self->toasts_page);
 }
 
 static void
@@ -109,15 +120,11 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, split_view);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_page);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, sidebar_activated_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
 
-  gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
   gtk_widget_class_install_action (widget_class, "window.adaptive-preview", NULL, (GtkWidgetActionActivateFunc) adaptive_preview_cb);
 }
 
@@ -125,6 +132,8 @@ static void
 adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
+
+  g_type_ensure (ADW_TYPE_DEMO_SIDEBAR_ITEM);
 
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ABOUT);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ALERTS);
@@ -158,7 +167,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   notify_system_supports_color_schemes_cb (self);
 
-  notify_visible_child_cb (self);
+  update_content (self);
 }
 
 GtkWindow *

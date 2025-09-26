@@ -10,21 +10,28 @@ struct _AdwDemoPageToasts
   int toast_undo_items;
 };
 
-enum {
-  SIGNAL_ADD_TOAST,
-  SIGNAL_DISMISS_ALL,
-  SIGNAL_LAST_SIGNAL,
-};
-
-static guint signals[SIGNAL_LAST_SIGNAL];
-
 G_DEFINE_FINAL_TYPE (AdwDemoPageToasts, adw_demo_page_toasts, ADW_TYPE_BIN)
 
 static void
 add_toast (AdwDemoPageToasts *self,
            AdwToast          *toast)
 {
-  g_signal_emit (self, signals[SIGNAL_ADD_TOAST], 0, toast);
+  GtkWidget *toast_overlay = gtk_widget_get_ancestor (GTK_WIDGET (self), ADW_TYPE_TOAST_OVERLAY);
+
+  adw_toast_overlay_add_toast (ADW_TOAST_OVERLAY (toast_overlay), toast);
+}
+
+static void
+toast_clicked_cb (AdwDemoPageToasts *self)
+{
+  AdwToast *toast =
+    adw_toast_new_format (ngettext ("Undoing deleting <span font_features='tnum=1'>%d</span> item…",
+                                    "Undoing deleting <span font_features='tnum=1'>%d</span> items…",
+                                    self->toast_undo_items), self->toast_undo_items);
+
+  adw_toast_set_priority (toast, ADW_TOAST_PRIORITY_HIGH);
+
+  add_toast (self, toast);
 }
 
 static void
@@ -64,8 +71,8 @@ toast_add_with_button_cb (AdwDemoPageToasts *self)
 
     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
-    adw_toast_set_action_name (self->undo_toast, "toast.undo");
 
+    g_signal_connect_swapped (self->undo_toast, "button-clicked", G_CALLBACK (toast_clicked_cb), self);
     g_signal_connect_swapped (self->undo_toast, "dismissed", G_CALLBACK (dismissed_cb), self);
 
     add_toast (self, self->undo_toast);
@@ -94,7 +101,10 @@ toast_dismiss_cb (AdwDemoPageToasts *self)
 static void
 toast_dismiss_all_cb (AdwDemoPageToasts *self)
 {
-  g_signal_emit (self, signals[SIGNAL_DISMISS_ALL], 0);
+  GtkWidget *toast_overlay = gtk_widget_get_ancestor (GTK_WIDGET (self), ADW_TYPE_TOAST_OVERLAY);
+
+  adw_toast_overlay_dismiss_all (ADW_TOAST_OVERLAY (toast_overlay));
+
   self->undo_toast = NULL;
 }
 
@@ -102,24 +112,6 @@ static void
 adw_demo_page_toasts_class_init (AdwDemoPageToastsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-  signals[SIGNAL_ADD_TOAST] =
-    g_signal_new ("add-toast",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1,
-                  ADW_TYPE_TOAST);
-
-  signals[SIGNAL_DISMISS_ALL] =
-    g_signal_new ("dismiss-all",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 0);
-
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/toasts/adw-demo-page-toasts.ui");
 
@@ -136,20 +128,4 @@ adw_demo_page_toasts_init (AdwDemoPageToasts *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", FALSE);
-}
-
-void
-adw_demo_page_toasts_undo (AdwDemoPageToasts *self)
-{
-  char *title =
-    g_strdup_printf (ngettext ("Undoing deleting <span font_features='tnum=1'>%d</span> item…",
-                               "Undoing deleting <span font_features='tnum=1'>%d</span> items…",
-                               self->toast_undo_items), self->toast_undo_items);
-  AdwToast *toast = adw_toast_new (title);
-
-  adw_toast_set_priority (toast, ADW_TOAST_PRIORITY_HIGH);
-
-  add_toast (self, toast);
-
-  g_free (title);
 }
