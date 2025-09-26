@@ -43,7 +43,7 @@ Slug: widget-gallery
 ## Shortcut Label
 
 [<picture>
-  <source srcset="shortcut-label.png" media="(prefers-color-scheme: dark)">
+  <source srcset="shortcut-label-dark.png" media="(prefers-color-scheme: dark)">
   <img src="shortcut-label.png" alt="shortcut-label">
 </picture>](class.ShortcutLabel.html)
 
@@ -86,7 +86,7 @@ Slug: widget-gallery
 ## Shortcuts Dialog
 
 [<picture>
-  <source srcset="shortcuts-dialog.png" media="(prefers-color-scheme: dark)">
+  <source srcset="shortcuts-dialog-dark.png" media="(prefers-color-scheme: dark)">
   <img src="shortcuts-dialog.png" alt="shortcuts-dialog">
 </picture>](class.ShortcutsDialog.html)
 
