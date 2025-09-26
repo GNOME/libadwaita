@@ -3,6 +3,8 @@
   <gresource prefix="/org/gnome/Adwaita/Screenshot">
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
 
+    <file compressed="true">adwaita-d.png</file>
+    <file compressed="true">adwaita-l.png</file>
     <file compressed="true">style.css</file>
   </gresource>
 </gresources>
