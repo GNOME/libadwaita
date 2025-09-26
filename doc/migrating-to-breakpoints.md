@@ -112,24 +112,8 @@ using [method@Gtk.Widget.set_size_request], or the
 [property@Gtk.Widget:width-request] and [property@Gtk.Widget:height-request]
 properties.
 
-The target window size that would work on phones both in portrait and landscape
-orientations is 360x294 pixels:
-
-```xml
-<object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">294</property>
-  <property name="content">
-    <object class="AdwToolbarView">
-      <child type="top">
-        <!-- titlebar -->
-      </child>
-      <property name="content">
-        <!-- content -->
-    </object>
-  </property>
-</object>
-```
+`AdwWindow` has a default size: 360×200, which should work well for most use
+cases, but if it doesn't, change it to something else.
 
 The child widget must completely fit into your minimum size. If it doesn't, then
 as soon as you add a breakpoint and resize the window to that size, the contents
@@ -629,8 +613,6 @@ A typical `AdwViewSwitcherTitle` use looks as follows:
 
 ```xml
 <object class="AdwWindow">
-  <property name="width-request">360</property>
-  <property name="height-request">294</property>
   <property name="content">
     <object class="AdwToolbarView">
       <child type="top">
