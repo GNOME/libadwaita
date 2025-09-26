@@ -65,6 +65,65 @@ test_adw_view_switcher_sidebar_mode (void)
   g_assert_finalize_object (sidebar);
 }
 
+static void
+test_adw_view_switcher_sidebar_filter (void)
+{
+  AdwViewSwitcherSidebar *sidebar = g_object_ref_sink (ADW_VIEW_SWITCHER_SIDEBAR (adw_view_switcher_sidebar_new ()));
+  GtkFilter *filter = NULL;
+  int notified = 0;
+
+  g_assert_nonnull (sidebar);
+
+  g_signal_connect_swapped (sidebar, "notify::filter", G_CALLBACK (increment), &notified);
+
+  g_object_get (sidebar, "filter", &filter, NULL);
+  g_assert_null (filter);
+
+  adw_view_switcher_sidebar_set_filter (sidebar, NULL);
+  g_assert_cmpint (notified, ==, 0);
+
+  filter = GTK_FILTER (gtk_bool_filter_new (NULL));
+  adw_view_switcher_sidebar_set_filter (sidebar, filter);
+  g_assert_true (adw_view_switcher_sidebar_get_filter (sidebar) == filter);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (sidebar, "filter", NULL, NULL);
+  g_assert_null (adw_view_switcher_sidebar_get_filter (sidebar));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (sidebar);
+  g_assert_finalize_object (filter);
+}
+
+static void
+test_adw_view_switcher_sidebar_placeholder (void)
+{
+  AdwViewSwitcherSidebar *sidebar = g_object_ref_sink (ADW_VIEW_SWITCHER_SIDEBAR (adw_view_switcher_sidebar_new ()));
+  GtkWidget *placeholder = NULL;
+  int notified = 0;
+
+  g_assert_nonnull (sidebar);
+
+  g_signal_connect_swapped (sidebar, "notify::placeholder", G_CALLBACK (increment), &notified);
+
+  g_object_get (sidebar, "placeholder", &placeholder, NULL);
+  g_assert_null (placeholder);
+
+  adw_view_switcher_sidebar_set_placeholder (sidebar, NULL);
+  g_assert_cmpint (notified, ==, 0);
+
+  placeholder = gtk_button_new ();
+  adw_view_switcher_sidebar_set_placeholder (sidebar, placeholder);
+  g_assert_true (adw_view_switcher_sidebar_get_placeholder (sidebar) == placeholder);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (sidebar, "placeholder", NULL, NULL);
+  g_assert_null (adw_view_switcher_sidebar_get_placeholder (sidebar));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (sidebar);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -74,6 +133,8 @@ main (int   argc,
 
   g_test_add_func("/Adwaita/ViewSwitcherSidebar/stack", test_adw_view_switcher_sidebar_stack);
   g_test_add_func("/Adwaita/ViewSwitcherSidebar/mode", test_adw_view_switcher_sidebar_mode);
+  g_test_add_func("/Adwaita/ViewSwitcherSidebar/filter", test_adw_view_switcher_sidebar_filter);
+  g_test_add_func("/Adwaita/ViewSwitcherSidebar/placeholder", test_adw_view_switcher_sidebar_placeholder);
 
   return g_test_run();
 }

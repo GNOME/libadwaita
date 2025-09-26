@@ -46,6 +46,13 @@
  * an item has been activated. This can be used to toggle the visible pane when
  * used in a split view.
  *
+ * Like `AdwSidebar`, `AdwViewSwitcherSidebar` supports filtering items via the
+ * [property@ViewSwitcherSidebar:filter] property.
+ *
+ * Use [property@ViewSwitcherSidebar:placeholder] to provide an empty state
+ * widget. It will be shown when all items have been filtered out, or the
+ * sidebar has no items otherwise.
+ *
  * ## CSS nodes
  *
  * `AdwViewSwitcherSidebar` has a single CSS node with name
@@ -74,6 +81,8 @@ enum {
   PROP_0,
   PROP_STACK,
   PROP_MODE,
+  PROP_FILTER,
+  PROP_PLACEHOLDER,
   LAST_PROP,
 };
 
@@ -328,6 +337,12 @@ adw_view_switcher_sidebar_get_property (GObject    *object,
   case PROP_MODE:
     g_value_set_enum (value, adw_view_switcher_sidebar_get_mode (self));
     break;
+  case PROP_FILTER:
+    g_value_set_object (value, adw_view_switcher_sidebar_get_filter (self));
+    break;
+  case PROP_PLACEHOLDER:
+    g_value_set_object (value, adw_view_switcher_sidebar_get_placeholder (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -347,6 +362,12 @@ adw_view_switcher_sidebar_set_property (GObject      *object,
     break;
   case PROP_MODE:
     adw_view_switcher_sidebar_set_mode (self, g_value_get_enum (value));
+    break;
+  case PROP_FILTER:
+    adw_view_switcher_sidebar_set_filter (self, g_value_get_object (value));
+    break;
+  case PROP_PLACEHOLDER:
+    adw_view_switcher_sidebar_set_placeholder (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -416,6 +437,41 @@ adw_view_switcher_sidebar_class_init (AdwViewSwitcherSidebarClass *klass)
                        ADW_TYPE_SIDEBAR_MODE,
                        ADW_SIDEBAR_MODE_SIDEBAR,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewSwitcherSidebar:filter:
+   *
+   * The item filter.
+   *
+   * Can be used to implement search within the sidebar.
+   *
+   * Use [property@ViewSwitcherSidebar:placeholder] to provide an empty state.
+   *
+   * See [property@Sidebar:filter].
+   *
+   * Since: 1.9
+   */
+  props[PROP_FILTER] =
+    g_param_spec_object ("filter", NULL, NULL,
+                         GTK_TYPE_FILTER,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewSwitcherSidebar:placeholder:
+   *
+   * The placeholder widget.
+   *
+   * This widget will be shown if the sidebar has no items, or all of its items
+   * have been filtered out by [property@ViewSwitcherSidebar:filter].
+   *
+   * See [property@Sidebar:placeholder].
+   *
+   * Since: 1.9
+   */
+  props[PROP_PLACEHOLDER] =
+    g_param_spec_object ("placeholder", NULL, NULL,
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -572,4 +628,99 @@ adw_view_switcher_sidebar_set_mode (AdwViewSwitcherSidebar *self,
   adw_sidebar_set_mode (ADW_SIDEBAR (self->sidebar), mode);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MODE]);
+}
+
+/**
+ * adw_view_switcher_sidebar_get_filter:
+ * @self: a view switcher sidebar
+ *
+ * Gets the item filter for @self.
+ *
+ * Returns: (transfer none) (nullable): the item filter
+ *
+ * Since: 1.9
+ */
+GtkFilter *
+adw_view_switcher_sidebar_get_filter (AdwViewSwitcherSidebar *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_SIDEBAR (self), NULL);
+
+  return adw_sidebar_get_filter (ADW_SIDEBAR (self->sidebar));
+}
+
+/**
+ * adw_view_switcher_sidebar_set_filter:
+ * @self: a view switcher sidebar
+ * @filter: (transfer none) (nullable): the item filter
+ *
+ * Sets the item filter for @self.
+ *
+ * Can be used to implement search within the sidebar.
+ *
+ * Use [property@ViewSwitcherSidebar:placeholder] to provide an empty state.
+ *
+ * See [method@Sidebar.set_filter].
+ *
+ * Since: 1.9
+ */
+void
+adw_view_switcher_sidebar_set_filter (AdwViewSwitcherSidebar *self,
+                                      GtkFilter              *filter)
+{
+  g_return_if_fail (ADW_IS_VIEW_SWITCHER_SIDEBAR (self));
+  g_return_if_fail (filter == NULL || GTK_IS_FILTER (filter));
+
+  if (filter == adw_view_switcher_sidebar_get_filter (self))
+    return;
+
+  adw_sidebar_set_filter (ADW_SIDEBAR (self->sidebar), filter);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FILTER]);
+}
+
+/**
+ * adw_view_switcher_sidebar_get_placeholder:
+ * @self: a view switcher sidebar
+ *
+ * Gets the placeholder widget for @self.
+ *
+ * Returns: (transfer none) (nullable): the placeholder widget
+ *
+ * Since: 1.9
+ */
+GtkWidget *
+adw_view_switcher_sidebar_get_placeholder (AdwViewSwitcherSidebar *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_SIDEBAR (self), NULL);
+
+  return adw_sidebar_get_placeholder (ADW_SIDEBAR (self->sidebar));
+}
+
+/**
+ * adw_view_switcher_sidebar_set_placeholder:
+ * @self: a view switcher sidebar
+ * @placeholder: (transfer none) (nullable): the placeholder widget
+ *
+ * Sets the placeholder widget for @self.
+ *
+ * This widget will be shown if @self has no items, or all of its items have
+ * been filtered out by [property@ViewSwitcherSidebar:filter].
+ *
+ * See [method@Sidebar.set_placeholder].
+ *
+ * Since: 1.9
+ */
+void
+adw_view_switcher_sidebar_set_placeholder (AdwViewSwitcherSidebar *self,
+                                           GtkWidget              *placeholder)
+{
+  g_return_if_fail (ADW_IS_VIEW_SWITCHER_SIDEBAR (self));
+  g_return_if_fail (placeholder == NULL || GTK_IS_WIDGET (placeholder));
+
+  if (placeholder == adw_view_switcher_sidebar_get_placeholder (self))
+    return;
+
+  adw_sidebar_set_placeholder (ADW_SIDEBAR (self->sidebar), placeholder);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PLACEHOLDER]);
 }

@@ -41,4 +41,16 @@ ADW_AVAILABLE_IN_1_9
 void           adw_view_switcher_sidebar_set_mode (AdwViewSwitcherSidebar *self,
                                                    AdwSidebarMode          mode);
 
+ADW_AVAILABLE_IN_1_9
+GtkFilter *adw_view_switcher_sidebar_get_filter (AdwViewSwitcherSidebar *self);
+ADW_AVAILABLE_IN_1_9
+void       adw_view_switcher_sidebar_set_filter (AdwViewSwitcherSidebar *self,
+                                                 GtkFilter              *filter);
+
+ADW_AVAILABLE_IN_1_9
+GtkWidget *adw_view_switcher_sidebar_get_placeholder (AdwViewSwitcherSidebar *self);
+ADW_AVAILABLE_IN_1_9
+void       adw_view_switcher_sidebar_set_placeholder (AdwViewSwitcherSidebar *self,
+                                                      GtkWidget              *placeholder);
+
 G_END_DECLS
