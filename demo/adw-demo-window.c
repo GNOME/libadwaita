@@ -97,8 +97,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 static void
 adw_demo_window_init (AdwDemoWindow *self)
 {
-  AdwStyleManager *manager = adw_style_manager_get_default ();
-
   g_type_ensure (ADW_TYPE_DEMO_SIDEBAR_ITEM);
 
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ABOUT);
