@@ -161,7 +161,7 @@
                             <property name="title" translatable="yes">Controls</property>
                             <child>
                               <object class="AdwDemoSidebarItem">
-                                <property name="title" translatable="yes">Lists</property>
+                                <property name="title" translatable="yes">Boxed Lists</property>
                                 <property name="icon-name">widget-list-symbolic</property>
                                 <property name="page-type">AdwDemoPageLists</property>
                               </object>

@@ -13,8 +13,8 @@
         <property name="content">
           <object class="AdwStatusPage">
             <property name="icon-name">widget-list-symbolic</property>
-            <property name="title" translatable="yes">Lists</property>
-            <property name="description" translatable="yes">Rows and helpers for GtkListBox</property>
+            <property name="title" translatable="yes">Boxed Lists</property>
+            <property name="description" translatable="yes">Rows for the boxed list pattern</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="maximum-size">400</property>
