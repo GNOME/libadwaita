@@ -43,7 +43,7 @@
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
           <object class="AdwNavigationSplitView" id="split_view">
-            <property name="min-sidebar-width">200</property>
+            <property name="min-sidebar-width">220</property>
             <property name="sidebar">
               <object class="AdwNavigationPage">
                 <property name="title" bind-source="AdwDemoWindow" bind-property="title" bind-flags="sync-create"/>
@@ -51,6 +51,11 @@
                   <object class="AdwToolbarView">
                     <child type="top">
                       <object class="AdwHeaderBar">
+                        <child type="start">
+                          <object class="GtkToggleButton" id="search_button">
+                            <property name="icon-name">edit-find-symbolic</property>
+                          </object>
+                        </child>
                         <child type="end">
                           <object class="GtkMenuButton">
                             <property name="tooltip-text" translatable="yes">Main Menu</property>
@@ -61,9 +66,38 @@
                         </child>
                       </object>
                     </child>
+                    <child type="top">
+                      <object class="GtkSearchBar">
+                        <property name="search-mode-enabled" bind-source="search_button" bind-property="active" bind-flags="bidirectional|sync-create"/>
+                        <property name="key-capture-widget">AdwDemoWindow</property>
+                        <property name="child">
+                          <object class="GtkSearchEntry" id="search_entry">
+                            <property name="placeholder-text" translatable="yes">Find pages</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                     <property name="content">
                       <object class="AdwSidebar" id="sidebar">
                         <signal name="activated" handler="sidebar_activated_cb" swapped="yes"/>
+                        <property name="filter">
+                          <object class="GtkStringFilter">
+                            <property name="expression">
+                              <lookup name="title" type="AdwSidebarItem"/>
+                            </property>
+                            <binding name="search">
+                              <lookup name="text">search_entry</lookup>
+                            </binding>
+                          </object>
+                        </property>
+                        <property name="placeholder">
+                          <object class="AdwStatusPage">
+                            <property name="icon-name">edit-find-symbolic</property>
+                            <property name="title" translatable="yes">No Results Found</property>
+                            <property name="description" translatable="yes">Try a different search</property>
+                          </object>
+                        </property>
                         <child>
                           <object class="AdwSidebarSection">
                             <child>
