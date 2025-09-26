@@ -1224,6 +1224,9 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
   object_class->get_property = adw_sidebar_get_property;
   object_class->set_property = adw_sidebar_set_property;
 
+  widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
+
   /**
    * AdwSidebar:mode:
    *

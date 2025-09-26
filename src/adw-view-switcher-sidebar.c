@@ -12,6 +12,7 @@
 
 #include "adw-bin.h"
 #include "adw-marshalers.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwViewSwitcherSidebar:
@@ -374,6 +375,9 @@ adw_view_switcher_sidebar_class_init (AdwViewSwitcherSidebarClass *klass)
   object_class->get_property = adw_view_switcher_sidebar_get_property;
   object_class->set_property = adw_view_switcher_sidebar_set_property;
   object_class->dispose = adw_view_switcher_sidebar_dispose;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
 
   /**
    * AdwViewSwitcherSidebar:stack:
