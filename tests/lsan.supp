@@ -12,3 +12,7 @@ leak:gtk_widget_list_mnemonic_labels
 
 # Ignore another GTK leak
 leak:stash_desktop_autostart_id
+
+# Ignore yet another one
+# TODO: Revert this once the fix is in the SDK
+leak:gdk_display_should_use_portal
