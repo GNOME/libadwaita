@@ -6,7 +6,7 @@
     <property name="width-request">360</property>
     <property name="height-request">200</property>
     <property name="content-width">640</property>
-    <property name="content-height">320</property>
+    <property name="content-height">480</property>
     <property name="title" translatable="yes">AdwViewSwitcher Demo</property>
     <property name="child">
       <object class="AdwToolbarView">
@@ -29,12 +29,10 @@
                 <property name="icon-name">clock-world-symbolic</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="GtkLabel">
-                    <property name="margin-top">24</property>
-                    <property name="margin-bottom">24</property>
-                    <property name="margin-start">24</property>
-                    <property name="margin-end">24</property>
-                    <property name="label" translatable="yes">World</property>
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">clock-world-symbolic</property>
+                    <property name="title" translatable="yes">World</property>
+                    <property name="description" translatable="yes">View the time in cities around the world</property>
                   </object>
                 </property>
               </object>
@@ -46,12 +44,10 @@
                 <property name="icon-name">clock-alarm-symbolic</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="GtkLabel">
-                    <property name="margin-top">24</property>
-                    <property name="margin-bottom">24</property>
-                    <property name="margin-start">24</property>
-                    <property name="margin-end">24</property>
-                    <property name="label" translatable="yes">Alarm</property>
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">clock-alarm-symbolic</property>
+                    <property name="title" translatable="yes">Alarm</property>
+                    <property name="description" translatable="yes">Set customizable alarms to go off on specific days</property>
                   </object>
                 </property>
               </object>
@@ -65,12 +61,10 @@
                 <property name="needs-attention">true</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="GtkLabel">
-                    <property name="margin-top">24</property>
-                    <property name="margin-bottom">24</property>
-                    <property name="margin-start">24</property>
-                    <property name="margin-end">24</property>
-                    <property name="label" translatable="yes">Stopwatch</property>
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">clock-stopwatch-symbolic</property>
+                    <property name="title" translatable="yes">Stopwatch</property>
+                    <property name="description" translatable="yes">Use the stopwatch to time how long something takes</property>
                   </object>
                 </property>
               </object>
@@ -82,12 +76,10 @@
                 <property name="icon-name">clock-timer-symbolic</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="GtkLabel">
-                    <property name="margin-top">24</property>
-                    <property name="margin-bottom">24</property>
-                    <property name="margin-start">24</property>
-                    <property name="margin-end">24</property>
-                    <property name="label" translatable="yes">Timer</property>
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">clock-timer-symbolic</property>
+                    <property name="title" translatable="yes">Timer</property>
+                    <property name="description" translatable="yes">Set a countdown in seconds, minutes or hours</property>
                   </object>
                 </property>
               </object>
