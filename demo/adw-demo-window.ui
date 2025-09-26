@@ -51,20 +51,6 @@
                   <object class="AdwToolbarView">
                     <child type="top">
                       <object class="AdwHeaderBar">
-                        <child type="start">
-                          <object class="GtkButton" id="color_scheme_button">
-                            <binding name="icon-name">
-                              <closure type="gchararray" function="get_color_scheme_icon_name">
-                                <lookup name="dark" type="AdwStyleManager">
-                                  <lookup name="style-manager" type="AdwApplication">
-                                    <lookup name="application">AdwDemoWindow</lookup>
-                                  </lookup>
-                                </lookup>
-                              </closure>
-                            </binding>
-                            <signal name="clicked" handler="color_scheme_button_clicked_cb" swapped="yes"/>
-                          </object>
-                        </child>
                         <child type="end">
                           <object class="GtkMenuButton">
                             <property name="tooltip-text" translatable="yes">Main Menu</property>
