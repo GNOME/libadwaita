@@ -30,8 +30,8 @@
   </menu>
   <template class="AdwDemoWindow" parent="AdwApplicationWindow">
     <property name="title" translatable="yes">Adwaita Demo</property>
-    <property name="default_width">800</property>
-    <property name="default_height">576</property>
+    <property name="default-width">1000</property>
+    <property name="default-height">720</property>
     <child>
       <object class="AdwBreakpoint">
         <condition>max-width: 500sp</condition>
