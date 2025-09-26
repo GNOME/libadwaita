@@ -429,7 +429,7 @@ sections_changed_cb (AdwShortcutsDialog *self,
   guint i;
 
   for (i = 0; i < removed; i++) {
-    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, i + N_BUILTIN_WIDGETS);
+    AdwPreferencesGroup *group = adw_preferences_page_get_group (self->contents, index + N_BUILTIN_WIDGETS);
 
     adw_preferences_page_remove (self->contents, group);
   }
