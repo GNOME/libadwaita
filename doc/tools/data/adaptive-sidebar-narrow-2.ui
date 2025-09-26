@@ -9,7 +9,7 @@
       <object class="AdwBreakpoint">
         <condition>max-width: 400sp</condition>
         <setter object="split_view" property="collapsed">True</setter>
-        <setter object="list" property="selection-mode">none</setter>
+        <setter object="sidebar" property="mode">page</setter>
       </object>
     </child>
     <property name="content">
@@ -25,35 +25,51 @@
                   <object class="AdwHeaderBar"/>
                 </child>
                 <property name="content">
-                  <object class="GtkScrolledWindow">
-                    <property name="hscrollbar-policy">never</property>
-                    <property name="width-request">250</property>
-                    <property name="child">
-                      <object class="GtkListBox" id="list">
-                        <property name="selection-mode">browse</property>
-                        <style>
-                          <class name="navigation-sidebar"/>
-                        </style>
+                  <object class="AdwSidebar" id="sidebar">
+                    <child>
+                      <object class="AdwSidebarSection">
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label">Item 1</property>
-                            <property name="xalign">0</property>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 1</property>
+                            <property name="icon-name">applications-system-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label">Item 2</property>
-                            <property name="xalign">0</property>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 2</property>
+                            <property name="icon-name">applications-system-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label">Item 3</property>
-                            <property name="xalign">0</property>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 3</property>
+                            <property name="icon-name">applications-system-symbolic</property>
                           </object>
                         </child>
                       </object>
-                    </property>
+                    </child>
+                    <child>
+                      <object class="AdwSidebarSection">
+                        <child>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 4</property>
+                            <property name="icon-name">applications-system-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 5</property>
+                            <property name="icon-name">applications-system-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSidebarItem">
+                            <property name="title">Item 6</property>
+                            <property name="icon-name">applications-system-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </property>
               </object>

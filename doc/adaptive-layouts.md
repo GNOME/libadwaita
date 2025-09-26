@@ -173,11 +173,14 @@ Both widgets have two children: sidebar and content. They are typically used
 together with a [class@Breakpoint] toggling their `collapsed` property for
 narrow widths.
 
-## Navigation Split View
+## Navigation Split View + Sidebar
 
 `AdwNavigationSplitView` turns into an [class@NavigationView] when collapsed,
 containing the sidebar as the root page and content as its subpage. Only
 [class@NavigationPage] can be used for both the sidebar and content.
+
+[class@Sidebar] and [class@ViewSwitcherSidebar] can turn into boxed list pages.
+This should be done at the same time as collapsing the split view.
 
 <picture>
   <source srcset="adaptive-sidebar-wide-dark.png" media="(prefers-color-scheme: dark)">
@@ -198,6 +201,7 @@ containing the sidebar as the root page and content as its subpage. Only
     <object class="AdwBreakpoint">
       <condition>max-width: 400sp</condition>
       <setter object="split_view" property="collapsed">True</setter>
+      <setter object="sidebar" property="mode">page</setter>
     </object>
   </child>
   <property name="content">
@@ -212,7 +216,9 @@ containing the sidebar as the root page and content as its subpage. Only
                 <object class="AdwHeaderBar"/>
               </child>
               <property name="content">
-                <!-- sidebar -->
+                <object class="AdwSidebar" id="sidebar">
+                  <!-- sidebar contents -->
+                </object>
               </property>
             </object>
           </property>
