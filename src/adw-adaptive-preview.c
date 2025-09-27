@@ -391,8 +391,8 @@ copy_texture (AdwAdaptivePreview *self,
   adw_toast_overlay_add_toast (self->toast_overlay, toast);
 }
 
-static void
-screenshot_clicked_cb (AdwAdaptivePreview *self)
+static GdkTexture *
+take_screenshot (AdwAdaptivePreview *self)
 {
   int width = gtk_widget_get_width (self->device_container);
   int height = gtk_widget_get_height (self->device_container);
@@ -412,12 +412,22 @@ screenshot_clicked_cb (AdwAdaptivePreview *self)
   gsk_render_node_get_bounds (node, &bounds);
 
   renderer = gtk_native_get_renderer (gtk_widget_get_native (GTK_WIDGET (self)));
-  texture = gsk_renderer_render_texture (renderer, node, &bounds);
 
-  copy_texture (self, texture);
+  texture = gsk_renderer_render_texture (renderer, node, &bounds);
 
   gsk_transform_unref (transform);
   gsk_render_node_unref (node);
+
+  return texture;
+}
+
+static void
+screenshot_clicked_cb (AdwAdaptivePreview *self)
+{
+  GdkTexture *texture = take_screenshot (self);
+
+  copy_texture (self, texture);
+
   g_object_unref (texture);
 }
 
@@ -1014,5 +1024,15 @@ adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
 GtkWidget *
 adw_adaptive_preview_get_screen (AdwAdaptivePreview *self)
 {
+  g_return_val_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self), FALSE);
+
   return self->screen_view;
+}
+
+GdkTexture *
+adw_adaptive_preview_take_screenshot (AdwAdaptivePreview *self)
+{
+  g_return_val_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self), NULL);
+
+  return take_screenshot (self);
 }

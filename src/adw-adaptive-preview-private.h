@@ -42,4 +42,6 @@ void     adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
 
 GtkWidget *adw_adaptive_preview_get_screen (AdwAdaptivePreview *self);
 
+GdkTexture *adw_adaptive_preview_take_screenshot (AdwAdaptivePreview *self);
+
 G_END_DECLS

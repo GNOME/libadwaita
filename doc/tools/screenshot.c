@@ -1,5 +1,7 @@
 #include <adwaita.h>
 
+#include "adw-window-private.h"
+
 #define RESOURCE_PATH "/org/gnome/Adwaita/Screenshot/"
 
 static GMainLoop *loop;
@@ -58,6 +60,7 @@ typedef struct {
   char *name;
   GtkCssProvider *provider;
   gboolean dark;
+  gboolean mobile;
 } ScreenshotData;
 
 static void
@@ -212,6 +215,23 @@ draw_paintable_cb (ScreenshotData *data)
   int x, y, width, height;
   graphene_rect_t bounds;
 
+  if (data->mobile) {
+    if (ADW_IS_WINDOW (data->window))
+      texture = adw_window_take_mobile_screenshot (ADW_WINDOW (data->window));
+    else
+      g_assert_not_reached ();
+
+    gdk_texture_save_to_png (texture, data->name);
+
+    screenshot_data_free (data);
+
+    g_main_loop_quit (loop);
+
+    g_object_unref (texture);
+
+    return;
+  }
+
   if (GTK_IS_NATIVE (data->widget)) {
     g_assert (gtk_widget_compute_bounds (data->widget, data->widget, &bounds));
 
@@ -361,6 +381,13 @@ take_screenshot_cb (ScreenshotData *data)
                                  }, 2);
   }
 
+  if (data->mobile) {
+    if (ADW_IS_WINDOW (data->window))
+      adw_window_prepare_mobile_screenshot (ADW_WINDOW (data->window));
+    else
+      g_assert_not_reached ();
+  }
+
   g_signal_connect_swapped (data->paintable, "invalidate-contents",
                             G_CALLBACK (draw_paintable), data);
 
@@ -452,6 +479,7 @@ take_screenshot (const char *name,
   data->name = g_file_get_path (output_file);
   data->provider = load_css ("style");
   data->dark = dark;
+  data->mobile = gtk_widget_has_css_class (window, "mobile");
 
   if (dark)
     g_object_set (data->provider, "prefers-color-scheme", GTK_INTERFACE_COLOR_SCHEME_DARK, NULL);

@@ -4,8 +4,11 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="AdwWindow" id="widget">
     <property name="title">Tab View</property>
-    <property name="default-width">360</property>
-    <property name="default-height">640</property>
+    <property name="default-width">800</property>
+    <property name="default-height">300</property>
+    <style>
+      <class name="mobile"/>
+    </style>
     <child>
       <object class="AdwBreakpoint">
         <condition>max-width: 500px</condition>

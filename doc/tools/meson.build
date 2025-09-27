@@ -2,7 +2,7 @@ screenshot_resources = gnome.compile_resources(
    'screenshot-resources',
    'screenshot.gresources.xml',
 
-   c_name: 'adw',
+   c_name: 'adw_screenshot',
 )
 
 screenshot_sources = [
@@ -13,5 +13,5 @@ screenshot_sources = [
 
 screenshot = executable('screenshot'.format(apiversion),
   screenshot_sources,
-  dependencies: libadwaita_deps + [libadwaita_dep],
+  dependencies: libadwaita_deps + [libadwaita_internal_dep],
 )

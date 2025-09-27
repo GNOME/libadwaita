@@ -7,7 +7,7 @@
 
 #include "config.h"
 
-#include "adw-window.h"
+#include "adw-window-private.h"
 
 #include "adw-adaptive-preview-private.h"
 #include "adw-breakpoint-bin-private.h"
@@ -607,4 +607,30 @@ adw_window_set_adaptive_preview (AdwWindow *self,
   g_object_unref (priv->dialog_host);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ADAPTIVE_PREVIEW]);
+}
+
+void
+adw_window_prepare_mobile_screenshot (AdwWindow *self)
+{
+  AdwWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_WINDOW (self));
+
+  priv = adw_window_get_instance_private (self);
+
+  adw_window_set_adaptive_preview (self, TRUE);
+  adw_adaptive_preview_set_window_controls (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview), FALSE);
+}
+
+GdkTexture *
+adw_window_take_mobile_screenshot (AdwWindow *self)
+{
+  AdwWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_WINDOW (self), NULL);
+  g_return_val_if_fail (adw_window_get_adaptive_preview (self), NULL);
+
+  priv = adw_window_get_instance_private (self);
+
+  return adw_adaptive_preview_take_screenshot (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview));
 }

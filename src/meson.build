@@ -424,7 +424,7 @@ libadwaita_dep = declare_dependency(
   include_directories: include_directories('.'),
 )
 
-if get_option('tests')
+if get_option('tests') or get_option('documentation')
   libadwaita_internal = static_library(
     'adwaita-' + apiversion + '-internal',
     libadwaita_sources,
