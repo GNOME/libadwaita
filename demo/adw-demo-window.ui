@@ -202,7 +202,9 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Spinner</property>
-                                <property name="icon-name">image-missing-symbolic</property>
+                                <property name="icon-paintable">
+                                  <object class="AdwSpinnerPaintable"/>
+                                </property>
                                 <property name="page-type">AdwDemoPageSpinner</property>
                               </object>
                             </child>
