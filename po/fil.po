@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-03-07 06:58+0000\n"
-"PO-Revision-Date: 2025-03-10 17:43+0800\n"
+"POT-Creation-Date: 2025-09-26 18:51+0000\n"
+"PO-Revision-Date: 2025-09-28 20:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: Filipino <fil@li.org>\n"
 "Language: fil\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.7\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -86,30 +86,30 @@ msgstr "Mozilla Public License 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Code ni(na)/ng"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Disenyo ni(na)/ng"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Guhit ni(na)/ng"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Dokumentasyon ni(na)/ng"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Isinalin ni(na)/ng"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -118,47 +118,47 @@ msgstr ""
 "Walang anumang warranty na kasama sa aplikasyong ito. Sumangguni sa <a "
 "href=\"%s\">%s</a> para sa higit pang detalye."
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Aplikasyong Ito"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Bersyon %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Hindi maproseso ang mga tala sa release:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linya: %d, karakter: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Kinopya sa clipboard"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Hindi ma-save ang impormasyon sa pag-debug"
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Isara"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "I-save ang impormasyon sa pag-debug"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Iba pang App ni(na)/ng %s"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Iba pang App"
 
@@ -167,15 +167,15 @@ msgid "About"
 msgstr "Tungkol"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-msgid "_What’s New"
+msgid "What’s _New"
 msgstr "Ano'ng _Bago"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
 msgstr "Mga _Detalye"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
 msgid "_Website"
 msgstr "_Website"
 
@@ -207,15 +207,15 @@ msgstr "Pasa_salamat"
 msgid "What’s New"
 msgstr "Ano'ng Bago"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
 msgid "Details"
 msgstr "Mga Detalye"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
 msgid "Troubleshooting"
 msgstr "Pag-troubleshoot"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -225,31 +225,31 @@ msgstr ""
 "debug. Nakatutulong ang impormasyong ito para masuri ng mga developer ang "
 "anumang problemang naranasan mo kapag nag-ulat ka ng problema."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
 msgid "_Debugging Information"
 msgstr "Impormasyon sa Pag-_debug"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
 msgid "Debugging Information"
 msgstr "Impormasyon sa Pag-debug"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
 msgid "_Copy Text"
 msgstr "_Kopyahin ang Teksto"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "I-_save Bilang…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
 msgid "Credits"
 msgstr "Credits"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Legal"
 msgstr "Ligal"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
 msgid "Acknowledgements"
 msgstr "Pasasalamat"
 
@@ -257,7 +257,7 @@ msgstr "Pasasalamat"
 msgid "Screenshot Copied to Clipboard"
 msgstr "Kinopya sa Clipboard ang Screenshot"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Adaptive na Pasilip"
@@ -332,53 +332,66 @@ msgid "Exit"
 msgstr "Umalis"
 
 #: src/adw-adaptive-preview.ui:197
-msgid "Screenshot"
-msgstr "Screenshot"
+msgid "Take Screenshot"
+msgstr "Kumuha ng Screenshot"
 
 #: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
 msgid "Desktop Shell"
 msgstr "Shell Pang-Desktop"
 
 #: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Shell Pang-Mobile"
 
 #: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
 msgid "Phosh"
 msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Buong Screen"
 
 #: src/adw-adaptive-preview-presets-private.h:28
-#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Pasadya"
 
 #: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Generikong Cellphone"
 
 #: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Generikong Tablet"
 
 #: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "Pasadya"
 
 #: src/adw-avatar.c:159
 #, c-format
 msgid "Avatar of %s"
 msgstr "Avatar ni/ng %s"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Bumalik"
 
@@ -392,56 +405,56 @@ msgstr "Maghanap"
 msgid "Apply"
 msgstr "I-apply"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:131
 msgid "No Preference"
 msgstr "Walang Kagustuhan"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:133
 msgid "Prefer Dark"
 msgstr "Mas Gustuhin ang Madilim"
 
-#: src/adw-inspector-page.c:133
+#: src/adw-inspector-page.c:135
 msgid "Prefer Light"
 msgstr "Mas Gustuhin ang Maliwanag"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:148
 msgid "Blue"
 msgstr "Asul"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:150
 msgid "Teal"
 msgstr "Teal"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:152
 msgid "Green"
 msgstr "Berde"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:154
 msgid "Yellow"
 msgstr "Dilaw"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:156
 msgid "Orange"
 msgstr "Kahel"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:158
 msgid "Red"
 msgstr "Pula"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:160
 msgid "Pink"
 msgstr "Pink"
 
-#: src/adw-inspector-page.c:160
+#: src/adw-inspector-page.c:162
 msgid "Purple"
 msgstr "Lila"
 
-#: src/adw-inspector-page.c:162
+#: src/adw-inspector-page.c:164
 msgid "Slate"
 msgstr "Slate"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:301
+#: src/adw-inspector-page.c:303
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -510,7 +523,7 @@ msgstr "Naka-on ang Caps Lock"
 msgid "_Show Password"
 msgstr "Ipa_kita ang Password"
 
-#: src/adw-preferences-dialog.c:216 src/adw-preferences-window.c:217
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
 msgid "Untitled page"
 msgstr "Pahinang walang pangalan"
 
@@ -523,10 +536,12 @@ msgid "Search preferences"
 msgstr "Mga kagustuhan sa paghahanap"
 
 #: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:74
 msgid "No Results Found"
 msgstr "Walang Nahanap na Resulta"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Subukang maghanap ng iba"
 
@@ -537,6 +552,38 @@ msgstr "Subukang maghanap ng iba."
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
 msgstr "Isarado ang window"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "L"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "R"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Mga Shortcut Pang-_Keyboard"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Maghanap ng shortcut"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "Walang Shortcut"
 
 #: src/adw-split-button.c:530 src/adw-split-button.c:1044
 msgid "More Options"
@@ -578,25 +625,28 @@ msgstr "Bagong _Tab"
 msgid "Close Tab"
 msgstr "Isara ang Tab"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "May lumabas na toast: %s, may pindutan: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "May lumabas na toast: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "May lumabas na toast, may pindutan: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "May lumabas na toast"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Alisin"
+
+#~ msgid "_What’s New"
+#~ msgstr "Ano'ng _Bago"
