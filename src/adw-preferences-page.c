@@ -856,3 +856,15 @@ adw_preferences_page_scroll_to_top (AdwPreferencesPage *self)
 
   gtk_adjustment_set_value (adjustment, gtk_adjustment_get_lower (adjustment));
 }
+
+GtkWidget *
+adw_preferences_page_get_viewport (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (priv->scrolled_window));
+}

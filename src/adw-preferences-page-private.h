@@ -12,4 +12,6 @@ G_BEGIN_DECLS
 
 GListModel *adw_preferences_page_get_rows (AdwPreferencesPage *self) G_GNUC_WARN_UNUSED_RESULT;
 
+GtkWidget *adw_preferences_page_get_viewport (AdwPreferencesPage *self);
+
 G_END_DECLS
