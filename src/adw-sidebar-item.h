@@ -97,6 +97,12 @@ void     adw_sidebar_item_set_enabled (AdwSidebarItem *self,
                                        gboolean        enabled);
 
 ADW_AVAILABLE_IN_1_9
+gboolean adw_sidebar_item_get_drag_motion_activate (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_9
+void     adw_sidebar_item_set_drag_motion_activate (AdwSidebarItem *self,
+                                                    gboolean        drag_motion_activate);
+
+ADW_AVAILABLE_IN_1_9
 AdwSidebarSection *adw_sidebar_item_get_section (AdwSidebarItem *self);
 
 ADW_AVAILABLE_IN_1_9

@@ -42,6 +42,9 @@
  * the sidebar, using [method@SidebarItem.get_section_index] and
  * [method@SidebarItem.get_index] respectively.
  *
+ * Dragging content over sidebar items activates them by default. To disable
+ * this behavior, set [property@SidebarItem:drag-motion-activate] to `FALSE`.
+ *
  * `AdwSidebarItem` is derivable, and applications that need to associate each
  * page with data can store it in the items themselves  this way.
  *
@@ -61,6 +64,7 @@ typedef struct
   GtkWidget *suffix;
   gboolean visible;
   gboolean enabled;
+  gboolean drag_motion_activate;
 
   AdwSidebarSection *section;
   guint local_index;
@@ -79,6 +83,7 @@ enum {
   PROP_SUFFIX,
   PROP_VISIBLE,
   PROP_ENABLED,
+  PROP_DRAG_MOTION_ACTIVATE,
   PROP_SECTION,
   LAST_PROP
 };
@@ -163,6 +168,9 @@ adw_sidebar_item_get_property (GObject    *object,
   case PROP_ENABLED:
     g_value_set_boolean (value, adw_sidebar_item_get_enabled (self));
     break;
+  case PROP_DRAG_MOTION_ACTIVATE:
+    g_value_set_boolean (value, adw_sidebar_item_get_drag_motion_activate (self));
+    break;
   case PROP_SECTION:
     g_value_set_object (value, adw_sidebar_item_get_section (self));
     break;
@@ -207,6 +215,9 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_ENABLED:
     adw_sidebar_item_set_enabled (self, g_value_get_boolean (value));
+    break;
+  case PROP_DRAG_MOTION_ACTIVATE:
+    adw_sidebar_item_set_drag_motion_activate (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -346,6 +357,22 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwSidebarItem:drag-motion-activate:
+   *
+   * Whether to activate the item on pointer motion during Drag-and-Drop.
+   *
+   * This is needed to be able to drag content into the page the item
+   * represents, when the sidebar is used as a page switcher. However, it may be
+   * unwanted when dropping content onto the item itself, so it can be disabled.
+   *
+   * Since: 1.9
+   */
+  props[PROP_DRAG_MOTION_ACTIVATE] =
+    g_param_spec_boolean ("drag-motion-activate", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwSidebarItem:section:
    *
    * The section the item is in.
@@ -370,6 +397,7 @@ adw_sidebar_item_init (AdwSidebarItem *self)
   priv->tooltip = g_strdup ("");
   priv->visible = TRUE;
   priv->enabled = TRUE;
+  priv->drag_motion_activate = TRUE;
 }
 
 /**
@@ -830,6 +858,57 @@ adw_sidebar_item_set_enabled (AdwSidebarItem *self,
   priv->enabled = enabled;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLED]);
+}
+
+/**
+ * adw_sidebar_item_get_drag_motion_activate:
+ * @self: a sidebar item
+ *
+ * Gets whether @self will be activated on pointer motion during Drag-and-Drop.
+ *
+ * Returns: whether to enable the item on drag motion
+ *
+ * Since: 1.9
+ */
+gboolean
+adw_sidebar_item_get_drag_motion_activate (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), FALSE);
+
+  return priv->drag_motion_activate;
+}
+
+/**
+ * adw_sidebar_item_set_drag_motion_activate:
+ * @self: a sidebar item
+ * @drag_motion_activate: whether to enable the item on drag motion
+ *
+ * Sets whether to activate @self on pointer motion during Drag-and-Drop.
+ *
+ * This is needed to be able to drag content into the page the item
+ * represents, when the sidebar is used as a page switcher. However, it may be
+ * unwanted when dropping content onto the item itself, so it can be disabled.
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_item_set_drag_motion_activate (AdwSidebarItem *self,
+                                           gboolean        drag_motion_activate)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+
+  drag_motion_activate = !!drag_motion_activate;
+
+  if (drag_motion_activate == priv->drag_motion_activate)
+    return;
+
+  priv->drag_motion_activate = drag_motion_activate;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DRAG_MOTION_ACTIVATE]);
 }
 
 /**

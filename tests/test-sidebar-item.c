@@ -229,6 +229,32 @@ test_adw_sidebar_item_enabled (void)
 }
 
 static void
+test_adw_sidebar_item_drag_motion_activate (void)
+{
+  AdwSidebarItem *item = adw_sidebar_item_new ("Item");
+  gboolean drag_motion_activate;
+  int notified = 0;
+
+  g_assert_nonnull (item);
+
+  g_signal_connect_swapped (item, "notify::drag-motion-activate", G_CALLBACK (increment), &notified);
+
+  g_object_get (item, "drag-motion-activate", &drag_motion_activate, NULL);
+  g_assert_true (drag_motion_activate);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_sidebar_item_set_drag_motion_activate (item, FALSE);
+  g_assert_false (adw_sidebar_item_get_drag_motion_activate (item));
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (item, "drag-motion-activate", TRUE, NULL);
+  g_assert_true (adw_sidebar_item_get_drag_motion_activate (item));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (item);
+}
+
+static void
 test_adw_sidebar_item_get_section (void)
 {
   AdwSidebarItem *item = adw_sidebar_item_new ("Item");
@@ -320,6 +346,7 @@ main (int   argc,
   g_test_add_func("/Adwaita/SidebarItem/suffix", test_adw_sidebar_item_suffix);
   g_test_add_func("/Adwaita/SidebarItem/visible", test_adw_sidebar_item_visible);
   g_test_add_func("/Adwaita/SidebarItem/enabled", test_adw_sidebar_item_enabled);
+  g_test_add_func("/Adwaita/SidebarItem/drag_motion_activate", test_adw_sidebar_item_drag_motion_activate);
   g_test_add_func("/Adwaita/SidebarItem/get_section", test_adw_sidebar_item_get_section);
   g_test_add_func("/Adwaita/SidebarItem/get_section_index", test_adw_sidebar_item_get_section_index);
 

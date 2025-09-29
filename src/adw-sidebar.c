@@ -19,6 +19,8 @@
 #include "adw-sidebar-section-private.h"
 #include "adw-widget-utils-private.h"
 
+#define TIMEOUT_ACTIVATE 500
+
 /**
  * AdwSidebarMode:
  * @ADW_SIDEBAR_MODE_SIDEBAR: The sidebar should be displayed as a sidebar
@@ -165,6 +167,10 @@
  *
  * In both cases the action will be passed as a parameter to the
  * [signal@Sidebar::drop] signal.
+ *
+ * Regardless of whether a drop target was set up, dragging content over sidebar
+ * items activates them after a timeout. To disable this behavior for specific
+ * items, set [property@SidebarItem:drag-motion-activate] to `FALSE` on them.
  *
  * ## `AdwSidebar` as `GtkBuildable`
  *
@@ -655,6 +661,65 @@ find_list_row (AdwSidebar     *self,
   return NULL;
 }
 
+static void
+activate_timeout_cb (GtkWidget *row)
+{
+  g_object_steal_data (G_OBJECT (row), "activate-timer");
+
+  if (row) {
+    AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+    AdwSidebarSection *section = adw_sidebar_item_get_section (item);
+    AdwSidebar *self = adw_sidebar_section_get_sidebar (section);
+    guint index = adw_sidebar_item_get_index (item);
+
+    if (!adw_sidebar_item_get_drag_motion_activate (item))
+      return;
+
+    adw_sidebar_set_selected (self, index);
+    g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0, index);
+  }
+}
+
+static void
+clear_timer (gpointer data)
+{
+  if (data)
+    g_source_remove (GPOINTER_TO_UINT (data));
+}
+
+static void
+drop_activate_enter_cb (AdwSidebar              *self,
+                        double                   x,
+                        double                   y,
+                        GtkDropControllerMotion *controller)
+{
+  GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (controller));
+  AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+  if (!adw_sidebar_item_get_drag_motion_activate (item))
+    return;
+
+  if (adw_sidebar_item_get_index (item) != self->selected) {
+    guint activate_timer =
+      g_timeout_add_once (TIMEOUT_ACTIVATE, (GSourceOnceFunc) activate_timeout_cb, row);
+
+    g_object_set_data_full (G_OBJECT (row), "activate-timer",
+                            GUINT_TO_POINTER (activate_timer), clear_timer);
+  }
+}
+
+static void
+drop_activate_leave_cb (AdwSidebar              *self,
+                        GtkDropControllerMotion *controller)
+{
+  GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (controller));
+  guint activate_timer =
+    GPOINTER_TO_UINT (g_object_steal_data (G_OBJECT (row), "activate-timer"));
+
+  if (activate_timer)
+    g_source_remove (activate_timer);
+}
+
 static GdkDragAction
 make_action_unique (GdkDragAction actions)
 {
@@ -738,7 +803,17 @@ static void
 setup_drop_target (AdwSidebar *self,
                    GtkWidget  *row)
 {
-  GtkDropTarget *target = gtk_drop_target_new (G_TYPE_INVALID, GDK_ACTION_NONE);
+  GtkEventController *controller;
+  GtkDropTarget *target;
+
+  controller = gtk_drop_controller_motion_new ();
+
+  g_signal_connect_swapped (controller, "enter", G_CALLBACK (drop_activate_enter_cb), self);
+  g_signal_connect_swapped (controller, "leave", G_CALLBACK (drop_activate_leave_cb), self);
+
+  gtk_widget_add_controller (row, controller);
+
+  target = gtk_drop_target_new (G_TYPE_INVALID, GDK_ACTION_NONE);
 
   g_signal_connect_swapped (target, "drop", G_CALLBACK (drop_cb), self);
   g_signal_connect_swapped (target, "enter", G_CALLBACK (drop_enter_cb), self);
