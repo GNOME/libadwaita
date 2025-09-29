@@ -682,6 +682,7 @@ create_row (AdwSidebarItem *item)
 
   g_object_bind_property (item, "visible", row, "visible", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "enabled", row, "sensitive", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "tooltip", row, "tooltip-markup", G_BINDING_SYNC_CREATE);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), box);
@@ -922,6 +923,7 @@ create_boxed_row (AdwSidebarItem *item,
   g_object_bind_property (item, "title", row, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "subtitle", row, "subtitle", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "use-underline", row, "use-underline", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "tooltip", row, "tooltip-markup", G_BINDING_SYNC_CREATE);
 
   icon = g_object_new (GTK_TYPE_IMAGE,
                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,

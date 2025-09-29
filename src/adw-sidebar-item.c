@@ -26,6 +26,9 @@
  * Items can also have subtitles, set with the [property@SidebarItem:subtitle]
  * property. Subtitles should be used sparingly.
  *
+ * To add a tooltip, use [property@SidebarItem:tooltip]. Tooltips always use
+ * Pango markup.
+ *
  * Items can have an arbitrary suffix widget, set with the
  * [property@SidebarItem:suffix] properties. It will be displayed at the end of
  * its row, or before the arrow in the [enum@Adw.SidebarMode.PAGE] mode.
@@ -54,6 +57,7 @@ typedef struct
   gboolean use_underline;
   char *icon_name;
   GdkPaintable *icon_paintable;
+  char *tooltip;
   GtkWidget *suffix;
   gboolean visible;
   gboolean enabled;
@@ -71,6 +75,7 @@ enum {
   PROP_USE_UNDERLINE,
   PROP_ICON_NAME,
   PROP_ICON_PAINTABLE,
+  PROP_TOOLTIP,
   PROP_SUFFIX,
   PROP_VISIBLE,
   PROP_ENABLED,
@@ -114,6 +119,7 @@ adw_sidebar_item_finalize (GObject *object)
   g_free (priv->title);
   g_free (priv->subtitle);
   g_free (priv->icon_name);
+  g_free (priv->tooltip);
 
   G_OBJECT_CLASS (adw_sidebar_item_parent_class)->finalize (object);
 }
@@ -141,6 +147,9 @@ adw_sidebar_item_get_property (GObject    *object,
     break;
   case PROP_ICON_PAINTABLE:
     g_value_set_object (value, adw_sidebar_item_get_icon_paintable (self));
+    break;
+  case PROP_TOOLTIP:
+    g_value_set_string (value, adw_sidebar_item_get_tooltip (self));
     break;
   case PROP_SUFFIX:
     g_value_set_object (value, adw_sidebar_item_get_suffix (self));
@@ -183,6 +192,9 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_ICON_PAINTABLE:
     adw_sidebar_item_set_icon_paintable (self, g_value_get_object (value));
+    break;
+  case PROP_TOOLTIP:
+    adw_sidebar_item_set_tooltip (self, g_value_get_string (value));
     break;
   case PROP_SUFFIX:
     adw_sidebar_item_set_suffix (self, g_value_get_object (value));
@@ -276,6 +288,20 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwSidebarItem:tooltip:
+   *
+   * The tooltip of the item.
+   *
+   * The tooltip can be marked up with the Pango text markup language.
+   *
+   * Since: 1.9
+   */
+  props[PROP_TOOLTIP] =
+    g_param_spec_string ("tooltip", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwSidebarItem:suffix:
    *
    * The suffix widget for this item.
@@ -338,6 +364,7 @@ adw_sidebar_item_init (AdwSidebarItem *self)
 
   priv->title = g_strdup ("");
   priv->subtitle = g_strdup ("");
+  priv->tooltip = g_strdup ("");
   priv->visible = TRUE;
   priv->enabled = TRUE;
 }
@@ -604,6 +631,51 @@ adw_sidebar_item_set_icon_paintable (AdwSidebarItem *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_PAINTABLE]);
 
   g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * adw_sidebar_item_get_tooltip:
+ * @self: a sidebar item
+ *
+ * Gets the tooltip of @self.
+ *
+ * Returns: (nullable): the tooltip
+ *
+ * Since: 1.9
+ */
+const char *
+adw_sidebar_item_get_tooltip (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), NULL);
+
+  return priv->tooltip;
+}
+
+/**
+ * adw_sidebar_item_set_tooltip:
+ * @self: a sidebar item
+ * @tooltip: (nullable): the tooltip
+ *
+ * Sets the tooltip of @self.
+ *
+ * The tooltip can be marked up with the Pango text markup language.
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_item_set_tooltip (AdwSidebarItem *self,
+                              const char     *tooltip)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+
+  if (!g_set_str (&priv->tooltip, tooltip))
+    return;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TOOLTIP]);
 }
 
 /**

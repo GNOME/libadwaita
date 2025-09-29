@@ -73,6 +73,12 @@ void          adw_sidebar_item_set_icon_paintable (AdwSidebarItem *self,
                                                    GdkPaintable   *paintable);
 
 ADW_AVAILABLE_IN_1_9
+const char *adw_sidebar_item_get_tooltip (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_sidebar_item_set_tooltip (AdwSidebarItem *self,
+                                          const char     *tooltip);
+
+ADW_AVAILABLE_IN_1_9
 GtkWidget *adw_sidebar_item_get_suffix (AdwSidebarItem *self);
 ADW_AVAILABLE_IN_1_9
 void       adw_sidebar_item_set_suffix (AdwSidebarItem *self,
