@@ -13,7 +13,7 @@
 #include "adw-action-row.h"
 #include "adw-marshalers.h"
 #include "adw-preferences-group.h"
-#include "adw-preferences-page.h"
+#include "adw-preferences-page-private.h"
 #include "adw-preferences-row.h"
 #include "adw-sidebar-item.h"
 #include "adw-sidebar-section-private.h"
@@ -926,6 +926,8 @@ create_section (AdwSidebar        *self,
   g_object_bind_property_full (filtered, "n-items", group, "visible", G_BINDING_SYNC_CREATE,
                                has_items, NULL, NULL, NULL);
 
+  g_object_set_data (G_OBJECT (group), "-adw-sidebar-section", section);
+
   adw_preferences_group_bind_model (ADW_PREFERENCES_GROUP (group),
                                     G_LIST_MODEL (filtered),
                                     (GtkListBoxCreateWidgetFunc) create_boxed_row,
@@ -982,6 +984,187 @@ update_placeholder (AdwSidebar *self)
     gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
   else
     gtk_widget_remove_css_class (GTK_WIDGET (self), "empty");
+}
+
+static gboolean
+scroll_to (GtkWidget *viewport,
+           GtkWidget *row)
+{
+  graphene_rect_t bounds;
+  GtkAdjustment *vadj;
+  double row_center, page_size;
+
+  if (!gtk_widget_compute_bounds (row, viewport, &bounds))
+    return FALSE;
+
+  row_center = bounds.origin.y + bounds.size.height / 2.0;
+
+  vadj = gtk_scrollable_get_vadjustment (GTK_SCROLLABLE (viewport));
+
+  page_size = gtk_adjustment_get_page_size (vadj);
+  if (page_size < 0.5)
+    return FALSE;
+
+  gtk_adjustment_set_value (vadj, row_center - page_size / 2.0);
+
+  return TRUE;
+}
+
+static GtkWidget *
+find_page_row (AdwSidebar     *self,
+               AdwSidebarItem *item)
+{
+  AdwSidebarSection *section = adw_sidebar_item_get_section (item);
+  AdwPreferencesGroup *group = NULL;
+  GtkWidget *row;
+  guint i = 0;
+
+  while (TRUE) {
+    AdwSidebarSection *s;
+
+    group = adw_preferences_page_get_group (ADW_PREFERENCES_PAGE (self->page), i++);
+    if (!group)
+      break;
+
+    s = g_object_get_data (G_OBJECT (group), "-adw-sidebar-section");
+
+    if (s == section)
+      break;
+  };
+
+  if (!group)
+    return NULL;
+
+  /* If we don't have a filter, we can just fetch it directly */
+  if (!adw_sidebar_get_filter (self)) {
+    guint index = adw_sidebar_item_get_section_index (item);
+
+    return adw_preferences_group_get_row (group, index);
+  }
+
+  i = 0;
+
+  while (TRUE) {
+    row = adw_preferences_group_get_row (group, i++);
+    AdwSidebarItem *item2;
+
+    if (!row)
+      break;
+
+    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+    if (item2 == item)
+      break;
+  }
+
+  return row;
+}
+
+static GtkWidget *
+find_list_row (AdwSidebar     *self,
+               AdwSidebarItem *item)
+{
+  guint i = 0;
+
+  /* If we don't have a filter, we can just fetch it directly */
+  if (!adw_sidebar_get_filter (self)) {
+    guint index = adw_sidebar_item_get_index (item);
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
+
+    return GTK_WIDGET (row);
+  }
+
+  while (TRUE) {
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), i++);
+    AdwSidebarItem *item2;
+
+    if (!row)
+      break;
+
+    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+    if (item2 == item)
+      return GTK_WIDGET (row);
+  }
+
+  return NULL;
+}
+
+static gboolean
+list_mapped_idle_cb (AdwSidebar *self)
+{
+  AdwSidebarItem *selected;
+  GtkWidget *row, *viewport;
+
+  g_assert (self->swindow);
+  g_assert (self->listbox);
+
+  selected = adw_sidebar_get_selected_item (self);
+  if (!selected)
+    return G_SOURCE_REMOVE;
+
+  row = find_list_row (self, selected);
+  if (!row)
+    return G_SOURCE_REMOVE;
+
+  viewport = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (self->swindow));
+
+  if (scroll_to (viewport, GTK_WIDGET (row)))
+    return G_SOURCE_REMOVE;
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+list_mapped_cb (AdwSidebar *self)
+{
+  g_assert (self->swindow);
+
+  g_signal_handlers_disconnect_by_func (self->listbox, list_mapped_cb, self);
+
+  if (list_mapped_idle_cb (self) == G_SOURCE_REMOVE)
+    return;
+
+  /* Sometimes we're already mapped, but not able to scroll yet, so try until it succeeds */
+  g_idle_add (G_SOURCE_FUNC (list_mapped_idle_cb), self);
+}
+
+static gboolean
+page_mapped_idle_cb (AdwSidebar *self)
+{
+  AdwSidebarItem *selected;
+  GtkWidget *row, *viewport;
+
+  g_assert (self->page);
+
+  selected = adw_sidebar_get_selected_item (self);
+  if (!selected)
+    return G_SOURCE_REMOVE;
+
+  row = find_page_row (self, selected);
+  if (!row)
+    return G_SOURCE_REMOVE;
+
+  viewport = adw_preferences_page_get_viewport (ADW_PREFERENCES_PAGE (self->page));
+
+  if (scroll_to (viewport, GTK_WIDGET (row)))
+    return G_SOURCE_REMOVE;
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+page_mapped_cb (AdwSidebar *self)
+{
+  g_assert (self->page);
+
+  g_signal_handlers_disconnect_by_func (self->page, page_mapped_cb, self);
+
+  if (page_mapped_idle_cb (self) == G_SOURCE_REMOVE)
+    return;
+
+  /* Sometimes we're already mapped, but not able to scroll yet, so try until it succeeds */
+  g_idle_add (G_SOURCE_FUNC (page_mapped_idle_cb), self);
 }
 
 static void
@@ -1058,6 +1241,9 @@ recreate_ui (AdwSidebar *self)
                               G_CALLBACK (row_activated_cb), self);
 
     gtk_widget_set_parent (self->swindow, GTK_WIDGET (self));
+
+    g_signal_connect_swapped (self->listbox, "map",
+                              G_CALLBACK (list_mapped_cb), self);
   } else {
     self->page = adw_preferences_page_new ();
 
@@ -1072,6 +1258,9 @@ recreate_ui (AdwSidebar *self)
                              G_CONNECT_SWAPPED);
 
     gtk_widget_set_parent (self->page, GTK_WIDGET (self));
+
+    g_signal_connect_swapped (self->page, "map",
+                              G_CALLBACK (page_mapped_cb), self);
   }
 
   update_placeholder (self);
