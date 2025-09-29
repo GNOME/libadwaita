@@ -1016,6 +1016,8 @@ find_page_row (AdwSidebar     *self,
 {
   AdwSidebarSection *section = adw_sidebar_item_get_section (item);
   AdwPreferencesGroup *group = NULL;
+  GtkFilter *filter = adw_sidebar_get_filter (self);
+  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
   GtkWidget *row;
   guint i = 0;
 
@@ -1035,11 +1037,22 @@ find_page_row (AdwSidebar     *self,
   if (!group)
     return NULL;
 
-  /* If we don't have a filter, we can just fetch it directly */
-  if (!adw_sidebar_get_filter (self)) {
+  if (filter)
+    strictness = gtk_filter_get_strictness (filter);
+
+  switch (strictness) {
+  case GTK_FILTER_MATCH_SOME:
+    /* Continue and just do a linear search */
+    break;
+  case GTK_FILTER_MATCH_NONE:
+    return NULL;
+    break;
+  case GTK_FILTER_MATCH_ALL:
     guint index = adw_sidebar_item_get_section_index (item);
 
     return adw_preferences_group_get_row (group, index);
+  default:
+    g_assert_not_reached ();
   }
 
   i = 0;
@@ -1064,14 +1077,27 @@ static GtkWidget *
 find_list_row (AdwSidebar     *self,
                AdwSidebarItem *item)
 {
+  GtkFilter *filter = adw_sidebar_get_filter (self);
+  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
   guint i = 0;
 
-  /* If we don't have a filter, we can just fetch it directly */
-  if (!adw_sidebar_get_filter (self)) {
+  if (filter)
+    strictness = gtk_filter_get_strictness (filter);
+
+  switch (strictness) {
+  case GTK_FILTER_MATCH_SOME:
+    /* Continue and just do a linear search */
+    break;
+  case GTK_FILTER_MATCH_NONE:
+    return NULL;
+    break;
+  case GTK_FILTER_MATCH_ALL:
     guint index = adw_sidebar_item_get_index (item);
     GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
 
     return GTK_WIDGET (row);
+  default:
+    g_assert_not_reached ();
   }
 
   while (TRUE) {
