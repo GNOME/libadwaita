@@ -516,6 +516,112 @@ adw_sidebar_items_new (AdwSidebar *sidebar)
   return items;
 }
 
+static GtkWidget *
+find_page_row (AdwSidebar     *self,
+               AdwSidebarItem *item)
+{
+  AdwSidebarSection *section = adw_sidebar_item_get_section (item);
+  AdwPreferencesGroup *group = NULL;
+  GtkFilter *filter = adw_sidebar_get_filter (self);
+  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
+  GtkWidget *row;
+  guint i = 0;
+
+  while (TRUE) {
+    AdwSidebarSection *s;
+
+    group = adw_preferences_page_get_group (ADW_PREFERENCES_PAGE (self->page), i++);
+    if (!group)
+      break;
+
+    s = g_object_get_data (G_OBJECT (group), "-adw-sidebar-section");
+
+    if (s == section)
+      break;
+  };
+
+  if (!group)
+    return NULL;
+
+  if (filter)
+    strictness = gtk_filter_get_strictness (filter);
+
+  switch (strictness) {
+  case GTK_FILTER_MATCH_SOME:
+    /* Continue and just do a linear search */
+    break;
+  case GTK_FILTER_MATCH_NONE:
+    return NULL;
+    break;
+  case GTK_FILTER_MATCH_ALL:
+    guint index = adw_sidebar_item_get_section_index (item);
+
+    return adw_preferences_group_get_row (group, index);
+  default:
+    g_assert_not_reached ();
+  }
+
+  i = 0;
+
+  while (TRUE) {
+    row = adw_preferences_group_get_row (group, i++);
+    AdwSidebarItem *item2;
+
+    if (!row)
+      break;
+
+    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+    if (item2 == item)
+      break;
+  }
+
+  return row;
+}
+
+static GtkWidget *
+find_list_row (AdwSidebar     *self,
+               AdwSidebarItem *item)
+{
+  GtkFilter *filter = adw_sidebar_get_filter (self);
+  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
+  guint i = 0;
+
+  if (filter)
+    strictness = gtk_filter_get_strictness (filter);
+
+  switch (strictness) {
+  case GTK_FILTER_MATCH_SOME:
+    /* Continue and just do a linear search */
+    break;
+  case GTK_FILTER_MATCH_NONE:
+    return NULL;
+    break;
+  case GTK_FILTER_MATCH_ALL:
+    guint index = adw_sidebar_item_get_index (item);
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
+
+    return GTK_WIDGET (row);
+  default:
+    g_assert_not_reached ();
+  }
+
+  while (TRUE) {
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), i++);
+    AdwSidebarItem *item2;
+
+    if (!row)
+      break;
+
+    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+    if (item2 == item)
+      return GTK_WIDGET (row);
+  }
+
+  return NULL;
+}
+
 static void
 notify_icon_cb (AdwSidebarItem *item,
                 GParamSpec     *pspec,
@@ -706,58 +812,21 @@ set_header_cb (GtkListBoxRow *row,
   gtk_list_box_row_set_header (row, create_header (section, !before));
 }
 
-static GtkListBoxRow *
-find_selected_row (AdwSidebar *self)
-{
-  GtkListBoxRow *row;
-  int index = 0;
-
-  if (self->selected == GTK_INVALID_LIST_POSITION)
-    return NULL;
-
-  while ((row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index++)) != NULL) {
-    AdwSidebarItem *item = ADW_SIDEBAR_ITEM (g_object_get_data (G_OBJECT (row), "-adw-sidebar-item"));
-    guint item_index = adw_sidebar_item_get_index (item);
-
-    if (item_index == self->selected)
-      return row;
-  }
-
-  return NULL;
-}
-
 static void
 update_list_selection (AdwSidebar *self)
 {
-  GtkListBoxRow *row = NULL;
+  GtkWidget *row = NULL;
 
   if (!self->listbox)
     return;
 
   if (self->selected != GTK_INVALID_LIST_POSITION) {
-    GtkFilter *filter = adw_sidebar_get_filter (self);
-    GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
-
-    if (filter)
-      strictness = gtk_filter_get_strictness (filter);
-
-    switch (strictness) {
-    case GTK_FILTER_MATCH_SOME:
-      row = find_selected_row (self);
-      break;
-    case GTK_FILTER_MATCH_NONE:
-      row = NULL;
-      break;
-    case GTK_FILTER_MATCH_ALL:
-      row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), self->selected);
-      break;
-    default:
-      g_assert_not_reached ();
-    }
+    AdwSidebarItem *selected_item = adw_sidebar_get_selected_item (self);
+    row = find_list_row (self, selected_item);
   }
 
   if (row)
-    gtk_list_box_select_row (GTK_LIST_BOX (self->listbox), row);
+    gtk_list_box_select_row (GTK_LIST_BOX (self->listbox), GTK_LIST_BOX_ROW (row));
   else
     gtk_list_box_unselect_all (GTK_LIST_BOX (self->listbox));
 }
@@ -1008,112 +1077,6 @@ scroll_to (GtkWidget *viewport,
   gtk_adjustment_set_value (vadj, row_center - page_size / 2.0);
 
   return TRUE;
-}
-
-static GtkWidget *
-find_page_row (AdwSidebar     *self,
-               AdwSidebarItem *item)
-{
-  AdwSidebarSection *section = adw_sidebar_item_get_section (item);
-  AdwPreferencesGroup *group = NULL;
-  GtkFilter *filter = adw_sidebar_get_filter (self);
-  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
-  GtkWidget *row;
-  guint i = 0;
-
-  while (TRUE) {
-    AdwSidebarSection *s;
-
-    group = adw_preferences_page_get_group (ADW_PREFERENCES_PAGE (self->page), i++);
-    if (!group)
-      break;
-
-    s = g_object_get_data (G_OBJECT (group), "-adw-sidebar-section");
-
-    if (s == section)
-      break;
-  };
-
-  if (!group)
-    return NULL;
-
-  if (filter)
-    strictness = gtk_filter_get_strictness (filter);
-
-  switch (strictness) {
-  case GTK_FILTER_MATCH_SOME:
-    /* Continue and just do a linear search */
-    break;
-  case GTK_FILTER_MATCH_NONE:
-    return NULL;
-    break;
-  case GTK_FILTER_MATCH_ALL:
-    guint index = adw_sidebar_item_get_section_index (item);
-
-    return adw_preferences_group_get_row (group, index);
-  default:
-    g_assert_not_reached ();
-  }
-
-  i = 0;
-
-  while (TRUE) {
-    row = adw_preferences_group_get_row (group, i++);
-    AdwSidebarItem *item2;
-
-    if (!row)
-      break;
-
-    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
-
-    if (item2 == item)
-      break;
-  }
-
-  return row;
-}
-
-static GtkWidget *
-find_list_row (AdwSidebar     *self,
-               AdwSidebarItem *item)
-{
-  GtkFilter *filter = adw_sidebar_get_filter (self);
-  GtkFilterMatch strictness = GTK_FILTER_MATCH_ALL;
-  guint i = 0;
-
-  if (filter)
-    strictness = gtk_filter_get_strictness (filter);
-
-  switch (strictness) {
-  case GTK_FILTER_MATCH_SOME:
-    /* Continue and just do a linear search */
-    break;
-  case GTK_FILTER_MATCH_NONE:
-    return NULL;
-    break;
-  case GTK_FILTER_MATCH_ALL:
-    guint index = adw_sidebar_item_get_index (item);
-    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
-
-    return GTK_WIDGET (row);
-  default:
-    g_assert_not_reached ();
-  }
-
-  while (TRUE) {
-    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), i++);
-    AdwSidebarItem *item2;
-
-    if (!row)
-      break;
-
-    item2 = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
-
-    if (item2 == item)
-      return GTK_WIDGET (row);
-  }
-
-  return NULL;
 }
 
 static gboolean
