@@ -102,6 +102,9 @@ adw_sidebar_item_dispose (GObject *object)
   AdwSidebarItem *self = ADW_SIDEBAR_ITEM (object);
   AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
 
+  g_clear_object (&priv->icon_paintable);
+  g_clear_object (&priv->suffix);
+
   if (priv->section)
     g_object_weak_unref (G_OBJECT (priv->section), (GWeakNotify) section_weak_notify_cb, self);
 
