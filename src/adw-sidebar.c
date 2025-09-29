@@ -145,6 +145,27 @@
  * be shown when all items have been filtered out, or the sidebar has no items
  * otherwise.
  *
+ * ## Drag-and-Drop
+ *
+ * `AdwSidebar` items can have a drop target for arbitrary content.
+ *
+ * Use [method@Sidebar.setup_drop_target] to set it up, specifying the
+ * supported content types and drag actions, then connect to
+ * [signal@Sidebar::drop] to handle drops.
+ *
+ * In some cases, it may be necessary to determine the used action based on the
+ * dragged content, or the hovered item.
+ *
+ * To determine it based on the sidebar item, connect to the
+ * [signal@Sidebar::drop-enter] signal and return the action from its handler.
+ *
+ * To determine it based on the content, set [property@Sidebar:drop-preload] to
+ * `TRUE`, then connect to [signal@Sidebar::drop-value-loaded] signal and return
+ * the action from its handler.
+ *
+ * In both cases the action will be passed as a parameter to the
+ * [signal@Sidebar::drop] signal.
+ *
  * ## `AdwSidebar` as `GtkBuildable`
  *
  * `AdwSidebar` allows adding sections as children.
@@ -245,6 +266,12 @@ struct _AdwSidebar
   int block_row_selected;
 
   guint restore_scroll_idle_id;
+
+  GdkDragAction drop_actions;
+  GType *drop_types;
+  gsize n_drop_types;
+  gboolean drop_preload;
+  GdkDragAction preferred_action;
 };
 
 static void adw_sidebar_buildable_init (GtkBuildableIface *iface);
@@ -261,6 +288,7 @@ enum {
   PROP_SECTIONS,
   PROP_FILTER,
   PROP_PLACEHOLDER,
+  PROP_DROP_PRELOAD,
   LAST_PROP
 };
 
@@ -268,6 +296,9 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_ACTIVATED,
+  SIGNAL_DROP,
+  SIGNAL_DROP_ENTER,
+  SIGNAL_DROP_VALUE_LOADED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -624,6 +655,133 @@ find_list_row (AdwSidebar     *self,
   return NULL;
 }
 
+static GdkDragAction
+make_action_unique (GdkDragAction actions)
+{
+  if (actions & GDK_ACTION_COPY)
+    return GDK_ACTION_COPY;
+
+  if (actions & GDK_ACTION_MOVE)
+    return GDK_ACTION_MOVE;
+
+  if (actions & GDK_ACTION_LINK)
+    return GDK_ACTION_LINK;
+
+  return 0;
+}
+
+static gboolean
+drop_cb (AdwSidebar    *self,
+         const GValue  *value,
+         double         x,
+         double         y,
+         GtkDropTarget *target)
+{
+  GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (target));
+  GdkDrop *drop = gtk_drop_target_get_current_drop (target);
+  GdkDragAction preferred_action = gdk_drop_get_actions (drop);
+  gboolean ret = GDK_EVENT_PROPAGATE;
+
+  AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+  guint index = adw_sidebar_item_get_index (item);
+
+  g_signal_emit (self, signals[SIGNAL_DROP], 0,
+                 index, value, preferred_action, &ret);
+
+  return ret;
+}
+
+static GdkDragAction
+drop_enter_cb (AdwSidebar    *self,
+               double         x,
+               double         y,
+               GtkDropTarget *target)
+{
+  GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (target));
+  AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+  guint index = adw_sidebar_item_get_index (item);
+
+  g_signal_emit (self, signals[SIGNAL_DROP_ENTER], 0,
+                 index, &self->preferred_action);
+
+  self->preferred_action = make_action_unique (self->preferred_action);
+
+  return self->preferred_action;
+}
+
+static GdkDragAction
+drop_motion_cb (AdwSidebar *self)
+{
+  return self->preferred_action;
+}
+
+static void
+drop_notify_value_cb (AdwSidebar    *self,
+                      GParamSpec    *pspec,
+                      GtkDropTarget *target)
+{
+  GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (target));
+  const GValue *value = gtk_drop_target_get_value (target);
+
+  AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+  guint index = adw_sidebar_item_get_index (item);
+
+  if (value) {
+    g_signal_emit (self, signals[SIGNAL_DROP_VALUE_LOADED], 0,
+                   index, value, &self->preferred_action);
+  }
+
+  self->preferred_action = make_action_unique (self->preferred_action);
+}
+
+static void
+setup_drop_target (AdwSidebar *self,
+                   GtkWidget  *row)
+{
+  GtkDropTarget *target = gtk_drop_target_new (G_TYPE_INVALID, GDK_ACTION_NONE);
+
+  g_signal_connect_swapped (target, "drop", G_CALLBACK (drop_cb), self);
+  g_signal_connect_swapped (target, "enter", G_CALLBACK (drop_enter_cb), self);
+  g_signal_connect_swapped (target, "motion", G_CALLBACK (drop_motion_cb), self);
+  g_signal_connect_swapped (target, "notify::value", G_CALLBACK (drop_notify_value_cb), self);
+
+  gtk_drop_target_set_actions (target, self->drop_actions);
+  gtk_drop_target_set_gtypes (target, self->drop_types, self->n_drop_types);
+  gtk_drop_target_set_preload (target, self->drop_preload);
+
+  gtk_widget_add_controller (row, GTK_EVENT_CONTROLLER (target));
+
+  g_object_set_data (G_OBJECT (row), "-adw-sidebar-drop-target", target);
+}
+
+static void
+setup_drop_target_cb (AdwSidebar     *self,
+                      AdwSidebarItem *item,
+                      GtkWidget      *row)
+{
+  GtkDropTarget *target = g_object_get_data (G_OBJECT (row), "-adw-sidebar-drop-target");
+
+  gtk_drop_target_set_actions (target, self->drop_actions);
+  gtk_drop_target_set_gtypes (target, self->drop_types, self->n_drop_types);
+}
+
+static void
+set_drop_preload_cb (AdwSidebar     *self,
+                     AdwSidebarItem *item,
+                     GtkWidget      *row)
+{
+  GtkDropTarget *target = g_object_get_data (G_OBJECT (row), "-adw-sidebar-drop-target");
+
+  gtk_drop_target_set_preload (target, self->drop_preload);
+}
+
+static GdkDragAction
+drop_enter_default_cb (AdwSidebar *self,
+                       guint       index)
+{
+  return GDK_ACTION_ALL;
+}
+
 static void
 notify_icon_cb (AdwSidebarItem *item,
                 GParamSpec     *pspec,
@@ -674,7 +832,8 @@ notify_suffix_cb (AdwSidebarItem *item,
 }
 
 static GtkWidget *
-create_row (AdwSidebarItem *item)
+create_row (AdwSidebarItem *item,
+            AdwSidebar     *self)
 {
   GtkWidget *row, *box, *icon, *title_box, *title, *subtitle;
 
@@ -729,6 +888,8 @@ create_row (AdwSidebarItem *item)
   g_signal_connect_object (item, "notify::suffix",
                            G_CALLBACK (notify_suffix_cb), row, 0);
   notify_suffix_cb (item, NULL, GTK_LIST_BOX_ROW (row));
+
+  setup_drop_target (self, row);
 
   return row;
 }
@@ -951,6 +1112,8 @@ create_boxed_row (AdwSidebarItem *item,
 
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-arrow", arrow);
 
+  setup_drop_target (self, row);
+
   g_signal_connect_swapped (row, "activated", G_CALLBACK (boxed_row_activated_cb), self);
 
   return row;
@@ -1081,6 +1244,56 @@ scroll_to (GtkWidget *viewport,
   gtk_adjustment_set_value (vadj, row_center - page_size / 2.0);
 
   return TRUE;
+}
+
+typedef void (* ForeachRowFunc) (AdwSidebar     *self,
+                                 AdwSidebarItem *item,
+                                 GtkWidget      *row);
+
+static void
+foreach_row (AdwSidebar     *self,
+             ForeachRowFunc  callback)
+{
+  guint i = 0;
+
+  if (self->listbox) {
+    while (TRUE) {
+      GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), i++);
+      AdwSidebarItem *item;
+
+      if (!row)
+        break;
+
+      item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+      callback (self, item, GTK_WIDGET (row));
+    }
+
+    return;
+  }
+
+  if (self->page) {
+    while (TRUE) {
+      AdwPreferencesGroup *group;
+      guint j = 0;
+
+      group = adw_preferences_page_get_group (ADW_PREFERENCES_PAGE (self->page), i++);
+      if (!group)
+        break;
+
+      while (TRUE) {
+        GtkWidget *row = adw_preferences_group_get_row (group, j++);
+        AdwSidebarItem *item;
+
+        if (!row)
+          break;
+
+        item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+        callback (self, item, row);
+      }
+    }
+  }
 }
 
 static gboolean
@@ -1238,7 +1451,7 @@ recreate_ui (AdwSidebar *self)
     gtk_list_box_bind_model (GTK_LIST_BOX (self->listbox),
                              G_LIST_MODEL (self->filtered_items),
                              (GtkListBoxCreateWidgetFunc) create_row,
-                             NULL, NULL);
+                             self, NULL);
 
     g_signal_connect_object (self->filtered_items, "sections-changed",
                              G_CALLBACK (gtk_list_box_invalidate_headers),
@@ -1354,6 +1567,16 @@ adw_sidebar_dispose (GObject *object)
 }
 
 static void
+adw_sidebar_finalize (GObject *object)
+{
+  AdwSidebar *self = ADW_SIDEBAR (object);
+
+  g_clear_pointer (&self->drop_types, g_free);
+
+  G_OBJECT_CLASS (adw_sidebar_parent_class)->finalize (object);
+}
+
+static void
 adw_sidebar_get_property (GObject    *object,
                           guint       prop_id,
                           GValue     *value,
@@ -1383,6 +1606,9 @@ adw_sidebar_get_property (GObject    *object,
   case PROP_SECTIONS:
     g_value_take_object (value, adw_sidebar_get_sections (self));
     break;
+  case PROP_DROP_PRELOAD:
+    g_value_set_boolean (value, adw_sidebar_get_drop_preload (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
@@ -1410,6 +1636,9 @@ adw_sidebar_set_property (GObject      *object,
   case PROP_PLACEHOLDER:
     adw_sidebar_set_placeholder (self, g_value_get_object (value));
     break;
+  case PROP_DROP_PRELOAD:
+    adw_sidebar_set_drop_preload (self, g_value_get_boolean (value));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
@@ -1423,6 +1652,7 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->dispose = adw_sidebar_dispose;
+  object_class->finalize = adw_sidebar_finalize;
   object_class->get_property = adw_sidebar_get_property;
   object_class->set_property = adw_sidebar_set_property;
 
@@ -1562,6 +1792,20 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
                          G_TYPE_LIST_MODEL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwSidebar:drop-preload:
+   *
+   * Whether the drop data should be preloaded on hover.
+   *
+   * See [property@Gtk.DropTarget:preload].
+   *
+   * Since: 1.9
+   */
+  props[PROP_DROP_PRELOAD] =
+    g_param_spec_boolean ("drop-preload", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -1586,6 +1830,99 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
   g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATED],
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__UINTv);
+
+  /**
+   * AdwSidebar::drop:
+   * @self: a sidebar
+   * @index: index of the item the content was dropped onto
+   * @value: the `GValue` being dropped
+   * @preferred_action: the preferred drop action
+   *
+   * Emitted when content is dropped onto the item at @index.
+   *
+   * The content must be of one of the types set up via
+   * [method@Sidebar.setup_drop_target].
+   *
+   * See [signal@Gtk.DropTarget::drop].
+   *
+   * Returns: whether the drop was accepted
+   *
+   * SinceL 1.9
+   */
+  signals[SIGNAL_DROP] =
+    g_signal_new ("drop",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
+                  G_TYPE_BOOLEAN,
+                  3,
+                  G_TYPE_UINT,
+                  G_TYPE_VALUE,
+                  GDK_TYPE_DRAG_ACTION);
+
+  /**
+   * AdwSidebar::drop-enter:
+   * @self: a sidebar
+   * @index: index of the hovered item
+   *
+   * Emitted when the pointer enters the item at @index.
+   *
+   * Applications can use this to set their default drop action even when
+   * [property@Sidebar:drop-preload] is set to `FALSE`.
+   *
+   * See [signal@Gtk.DropTarget::enter].
+   *
+   * Returns: the preferred action for the drop
+   *
+   * Since: 1.9
+   */
+  signals[SIGNAL_DROP_ENTER] =
+    g_signal_new ("drop-enter",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
+                  1,
+                  G_TYPE_UINT);
+
+  /**
+   * AdwSidebar::drop-value-loaded:
+   * @self: a sidebar
+   * @index: index of the hovered item
+   * @value: the `GValue` being dropped
+   *
+   * Emitted when the dropped content is preloaded for the item at @index.
+   *
+   * In order for data to be preloaded, [property@Sidebar:drop-preload]
+   * must be set to `TRUE`.
+   *
+   * The content must be of one of the types set up via
+   * [method@Sidebar.setup_drop_target].
+   *
+   * See [property@Gtk.DropTarget:value].
+   *
+   * Returns: the preferred action for the drop
+   *
+   * Since: 1.9
+   */
+  signals[SIGNAL_DROP_VALUE_LOADED] =
+    g_signal_new ("drop-value-loaded",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
+                  2,
+                  G_TYPE_UINT,
+                  G_TYPE_VALUE);
+
+  g_signal_override_class_handler ("drop-enter", G_TYPE_FROM_CLASS (klass),
+                                   G_CALLBACK (drop_enter_default_cb));
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "sidebar");
@@ -2163,4 +2500,85 @@ adw_sidebar_remove_all (AdwSidebar *self)
   }
 
   g_ptr_array_unref (old_sections);
+}
+
+/**
+ * adw_sidebar_setup_drop_target:
+ * @self: a sidebar
+ * @actions: the supported actions
+ * @types: (nullable) (transfer none) (array length=n_types):
+ *   all supported `GType`s that can be dropped
+ * @n_types: number of @types
+ *
+ * Sets up a drop target on the items.
+ *
+ * This allows to drag arbitrary content onto items.
+ *
+ * The [signal@Sidebar::drop] signal can be used to handle the drop.
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_setup_drop_target (AdwSidebar    *self,
+                               GdkDragAction  actions,
+                               GType         *types,
+                               gsize          n_types)
+{
+  g_return_if_fail (ADW_IS_SIDEBAR (self));
+  g_return_if_fail (n_types == 0 || types != NULL);
+
+  g_clear_pointer (&self->drop_types, g_free);
+
+  self->drop_actions = actions;
+  self->drop_types = g_memdup2 (types, sizeof (GType) * n_types);
+  self->n_drop_types = n_types;
+
+  foreach_row (self, setup_drop_target_cb);
+
+  self->preferred_action = make_action_unique (actions);
+}
+
+/**
+ * adw_sidebar_get_drop_preload:
+ * @self: a sidebar
+ *
+ * Gets whether drop data should be preloaded on hover.
+ *
+ * Returns: whether drop data should be preloaded on hover
+ *
+ * Since: 1.9
+ */
+gboolean
+adw_sidebar_get_drop_preload (AdwSidebar *self)
+{
+  g_return_val_if_fail (ADW_IS_SIDEBAR (self), FALSE);
+
+  return self->drop_preload;
+}
+
+/**
+ * adw_sidebar_set_drop_preload:
+ * @self: a sidebar
+ * @preload: whether to preload drop data
+ *
+ * Sets whether drop data should be preloaded on hover.
+ *
+ * See [property@Gtk.DropTarget:preload].
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_set_drop_preload (AdwSidebar *self,
+                              gboolean    preload)
+{
+  g_return_if_fail (ADW_IS_SIDEBAR (self));
+
+  if (preload == self->drop_preload)
+    return;
+
+  self->drop_preload = preload;
+
+  foreach_row (self, set_drop_preload_cb);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DROP_PRELOAD]);
 }

@@ -95,4 +95,16 @@ void adw_sidebar_remove (AdwSidebar        *self,
 ADW_AVAILABLE_IN_1_9
 void adw_sidebar_remove_all (AdwSidebar *self);
 
+ADW_AVAILABLE_IN_1_9
+void adw_sidebar_setup_drop_target (AdwSidebar    *self,
+                                    GdkDragAction  actions,
+                                    GType         *types,
+                                    gsize          n_types);
+
+ADW_AVAILABLE_IN_1_9
+gboolean adw_sidebar_get_drop_preload (AdwSidebar *self);
+ADW_AVAILABLE_IN_1_9
+void     adw_sidebar_set_drop_preload (AdwSidebar *self,
+                                       gboolean    preload);
+
 G_END_DECLS
