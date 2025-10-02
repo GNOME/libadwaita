@@ -30,6 +30,7 @@ struct _AdwDemoWindow
 
   AdwNavigationSplitView *split_view;
   AdwSidebar *sidebar;
+  AdwSidebarItem *active_item;
 };
 
 G_DEFINE_FINAL_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -41,6 +42,11 @@ update_content (AdwDemoWindow *self)
   GType type;
   GtkWidget *child;
   const char *title;
+
+  if (self->active_item == item)
+    return;
+
+  self->active_item = item;
 
   if (!item) {
     adw_navigation_split_view_set_content (self->split_view,
