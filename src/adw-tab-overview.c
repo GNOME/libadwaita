@@ -1801,7 +1801,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    * AdwTabOverview::extra-drag-value:
    * @self: a tab overview
    * @page: the page matching the tab the content was dropped onto
-   * @value: the `GValue` being dropped
+   * @value: (nullable): the `GValue` being dropped
    *
    * Emitted when the dropped content is preloaded.
    *

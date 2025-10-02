@@ -719,7 +719,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * AdwTabBar::extra-drag-value:
    * @self: a tab bar
    * @page: the page matching the tab the content was dropped onto
-   * @value: the `GValue` being dropped
+   * @value: (nullable): the `GValue` being dropped
    *
    * Emitted when the dropped content is preloaded.
    *
