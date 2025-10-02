@@ -243,6 +243,8 @@ struct _AdwSidebar
   gboolean in_dispose;
 
   int block_row_selected;
+
+  guint restore_scroll_idle_id;
 };
 
 static void adw_sidebar_buildable_init (GtkBuildableIface *iface);
@@ -1091,17 +1093,23 @@ list_mapped_idle_cb (AdwSidebar *self)
   g_assert (self->listbox);
 
   selected = adw_sidebar_get_selected_item (self);
-  if (!selected)
+  if (!selected) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   row = find_list_row (self, selected);
-  if (!row)
+  if (!row) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   viewport = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (self->swindow));
 
-  if (scroll_to (viewport, GTK_WIDGET (row)))
+  if (scroll_to (viewport, GTK_WIDGET (row))) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   return G_SOURCE_CONTINUE;
 }
@@ -1113,11 +1121,13 @@ list_mapped_cb (AdwSidebar *self)
 
   g_signal_handlers_disconnect_by_func (self->listbox, list_mapped_cb, self);
 
+  g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
+
   if (list_mapped_idle_cb (self) == G_SOURCE_REMOVE)
     return;
 
   /* Sometimes we're already mapped, but not able to scroll yet, so try until it succeeds */
-  g_idle_add (G_SOURCE_FUNC (list_mapped_idle_cb), self);
+  self->restore_scroll_idle_id = g_idle_add (G_SOURCE_FUNC (list_mapped_idle_cb), self);
 }
 
 static gboolean
@@ -1129,17 +1139,23 @@ page_mapped_idle_cb (AdwSidebar *self)
   g_assert (self->page);
 
   selected = adw_sidebar_get_selected_item (self);
-  if (!selected)
+  if (!selected) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   row = find_page_row (self, selected);
-  if (!row)
+  if (!row) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   viewport = adw_preferences_page_get_viewport (ADW_PREFERENCES_PAGE (self->page));
 
-  if (scroll_to (viewport, GTK_WIDGET (row)))
+  if (scroll_to (viewport, GTK_WIDGET (row))) {
+    self->restore_scroll_idle_id = 0;
     return G_SOURCE_REMOVE;
+  }
 
   return G_SOURCE_CONTINUE;
 }
@@ -1151,16 +1167,20 @@ page_mapped_cb (AdwSidebar *self)
 
   g_signal_handlers_disconnect_by_func (self->page, page_mapped_cb, self);
 
+  g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
+
   if (page_mapped_idle_cb (self) == G_SOURCE_REMOVE)
     return;
 
   /* Sometimes we're already mapped, but not able to scroll yet, so try until it succeeds */
-  g_idle_add (G_SOURCE_FUNC (page_mapped_idle_cb), self);
+  self->restore_scroll_idle_id = g_idle_add (G_SOURCE_FUNC (page_mapped_idle_cb), self);
 }
 
 static void
 recreate_ui (AdwSidebar *self)
 {
+  g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
+
   if (self->page) {
     AdwPreferencesGroup *group;
     guint index = 0;
@@ -1304,6 +1324,8 @@ adw_sidebar_dispose (GObject *object)
   AdwSidebar *self = ADW_SIDEBAR (object);
 
   self->in_dispose = TRUE;
+
+  g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
 
   g_clear_pointer (&self->swindow, gtk_widget_unparent);
   g_clear_pointer (&self->page, gtk_widget_unparent);
