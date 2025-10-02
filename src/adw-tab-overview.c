@@ -1687,12 +1687,13 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
   /**
    * AdwTabOverview:extra-drag-preferred-action:
    *
-   * The unique action on the `current-drop` of the
-   * [signal@TabOverview::extra-drag-drop].
+   * The current drag action during a drop.
    *
-   * This property should only be used during a
-   * [signal@TabOverview::extra-drag-drop] and is always a subset of what was
-   * originally passed to [method@TabOverview.setup_extra_drop_target].
+   * This property should only be used from inside a
+   * [signal@TabOverview::extra-drag-drop] handler.
+   *
+   * The action will be a subset of what was originally passed to
+   * [method@TabOverview.setup_extra_drop_target].
    *
    * Since: 1.4
    */
@@ -1753,14 +1754,14 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    * @page: the page matching the tab the content was dropped onto
    * @value: the `GValue` being dropped
    *
-   * This signal is emitted when content is dropped onto a tab.
+   * Emitted when content is dropped onto a tab.
    *
    * The content must be of one of the types set up via
    * [method@TabOverview.setup_extra_drop_target].
    *
    * See [signal@Gtk.DropTarget::drop].
    *
-   * Returns: whether the drop was accepted for @page
+   * Returns: whether the drop was accepted
    *
    * Since: 1.3
    */
@@ -1782,7 +1783,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    * @page: the page matching the tab the content was dropped onto
    * @value: the `GValue` being dropped
    *
-   * This signal is emitted when the dropped content is preloaded.
+   * Emitted when the dropped content is preloaded.
    *
    * In order for data to be preloaded, [property@TabOverview:extra-drag-preload]
    * must be set to `TRUE`.
@@ -1792,7 +1793,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    *
    * See [property@Gtk.DropTarget:value].
    *
-   * Returns: the preferred action for the drop on @page
+   * Returns: the preferred action for the drop
    *
    * Since: 1.3
    */
@@ -2498,8 +2499,6 @@ adw_tab_overview_set_show_end_title_buttons (AdwTabOverview *self,
  *   all supported `GType`s that can be dropped
  * @n_types: number of @types
  *
- * Sets the supported types for this drop target.
- *
  * Sets up an extra drop target on tabs.
  *
  * This allows to drag arbitrary content onto tabs, for example URLs in a web
@@ -2564,9 +2563,15 @@ adw_tab_overview_get_extra_drag_preferred_action (AdwTabOverview *self)
  * adw_tab_overview_get_extra_drag_preload:
  * @self: a tab overview
  *
- * Gets whether drop data should be preloaded on hover.
+ * Gets the current drag action during a drop.
  *
- * Returns: whether drop data should be preloaded on hover
+ * This method should only be used from inside a
+ * [signal@TabOverview::extra-drag-drop] handler.
+ *
+ * The action will be a subset of what was originally passed to
+ * [method@TabOverview.setup_extra_drop_target].
+ *
+ * Returns: the drag action of the current drop
  *
  * Since: 1.3
  */
