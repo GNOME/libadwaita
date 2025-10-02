@@ -34,6 +34,25 @@
  * them. Pinned tabs always stay visible and aren't a part of the scrollable
  * area.
  *
+ * ## Drag-and-Drop
+ *
+ * `AdwTabBar` tabs can have an additional drop target for arbitrary content.
+ *
+ * Use [method@TabBar.setup_extra_drop_target] to set it up, specifying the
+ * supported content types and drag actions, then connect to
+ * [signal@TabBar::extra-drag-drop] to handle a drop.
+ *
+ * In some cases, it may be necessary to determine the used action based on the
+ * content. In that case, set [property@TabBar:extra-drag-preload] to `TRUE`
+ * and connect to [signal@TabBar::extra-drag-value] signal, then return the
+ * action from its handler. To access this action from the
+ * [signal@TabBar::extra-drag-drop] handler, use the
+ * [property@TabBar:extra-drag-preferred-action] property.
+ *
+ * [signal@TabBar::extra-drag-value] is also always emitted when starting to
+ * hover an item, with a `NULL` value. This happens even when
+ * [property@TabBar:extra-drag-preload] is `FALSE`.
+ *
  * ## CSS nodes
  *
  * `AdwTabBar` has a single CSS node with name `tabbar`.

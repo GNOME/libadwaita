@@ -78,6 +78,26 @@
  * If search and window buttons are disabled, and secondary menu is not set, the
  * header bar will be hidden.
  *
+ * ## Drag-and-Drop
+ *
+ * `AdwTabOverview` thumbnails can have an additional drop target for arbitrary
+ * content.
+ *
+ * Use [method@TabOverview.setup_extra_drop_target] to set it up, specifying the
+ * supported content types and drag actions, then connect to
+ * [signal@TabOverview::extra-drag-drop] to handle a drop.
+ *
+ * In some cases, it may be necessary to determine the used action based on the
+ * content. In that case, set [property@TabOverview:extra-drag-preload] to
+ * `TRUE` and connect to [signal@TabOverview::extra-drag-value] signal, then
+ * return the action from its handler. To access this action from the
+ * [signal@TabOverview::extra-drag-drop] handler, use the
+ * [property@TabOverview:extra-drag-preferred-action] property.
+ *
+ * [signal@TabOverview::extra-drag-value] is also always emitted when starting to
+ * hover an item, with a `NULL` value. This happens even when
+ * [property@TabOverview:extra-drag-preload] is `FALSE`.
+ *
  * ## Actions
  *
  * `AdwTabOverview` defines the `overview.open` and `overview.close` actions for
