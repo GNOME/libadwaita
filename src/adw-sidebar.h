@@ -107,4 +107,10 @@ ADW_AVAILABLE_IN_1_9
 void     adw_sidebar_set_drop_preload (AdwSidebar *self,
                                        gboolean    preload);
 
+ADW_AVAILABLE_IN_1_9
+GMenuModel *adw_sidebar_get_menu_model (AdwSidebar *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_sidebar_set_menu_model (AdwSidebar *self,
+                                        GMenuModel *menu_model);
+
 G_END_DECLS

@@ -183,8 +183,13 @@ gridview.navigation-sidebar, flowbox.navigation-sidebar {
 
 sidebar {
   .navigation-sidebar > row {
+    // We have a context menu on these rows, remove padding and re-add it on
+    // the child. Otherwise the edges would be unclickable, and the menu would
+    // be positioned wrong
+    padding: 0;
+
     > box {
-      padding: 3px 6px;
+      padding: 3px 14px;
       min-height: 36px;
       border-spacing: 12px;
 
