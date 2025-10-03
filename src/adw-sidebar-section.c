@@ -78,7 +78,7 @@
  * Result:
  *
  * <picture>
- *   <source srcset="sidebar-section.png" media="(prefers-color-scheme: dark)">
+ *   <source srcset="sidebar-section-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="sidebar-section.png" alt="sidebar-section">
  * </picture>
  *
