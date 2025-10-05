@@ -593,9 +593,11 @@ find_page_row (AdwSidebar     *self,
     return NULL;
     break;
   case GTK_FILTER_MATCH_ALL:
-    guint index = adw_sidebar_item_get_section_index (item);
+    {
+      guint index = adw_sidebar_item_get_section_index (item);
 
-    return adw_preferences_group_get_row (group, index);
+      return adw_preferences_group_get_row (group, index);
+    }
   default:
     g_assert_not_reached ();
   }
@@ -637,10 +639,12 @@ find_list_row (AdwSidebar     *self,
     return NULL;
     break;
   case GTK_FILTER_MATCH_ALL:
-    guint index = adw_sidebar_item_get_index (item);
-    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
+    {
+      guint index = adw_sidebar_item_get_index (item);
+      GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index);
 
-    return GTK_WIDGET (row);
+      return GTK_WIDGET (row);
+    }
   default:
     g_assert_not_reached ();
   }
