@@ -279,7 +279,8 @@ struct _AdwNavigationView
   gboolean transition_cancel;
   double transition_progress;
   gboolean gesture_active;
-  AdwNavigationDirection swipe_direction;
+  /* AdwNavigationDirection or -1 */
+  int swipe_direction;
 
   AdwShadowHelper *shadow_helper;
   AdwSwipeTracker *swipe_tracker;
