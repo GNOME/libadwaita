@@ -145,6 +145,7 @@ selection_changed (AdwComboRow *self)
 
   selected = gtk_single_selection_get_selected (GTK_SINGLE_SELECTION (priv->selection));
 
+  gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (self->popup_selection), position);
   /* reset the filter so positions are 1-1 */
   filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
   if (GTK_IS_STRING_FILTER (filter))
