@@ -2852,11 +2852,7 @@ do_popup (AdwTabGrid *self,
     gtk_widget_set_parent (self->context_menu, GTK_WIDGET (self));
     gtk_popover_set_position (GTK_POPOVER (self->context_menu), GTK_POS_BOTTOM);
     gtk_popover_set_has_arrow (GTK_POPOVER (self->context_menu), FALSE);
-
-    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
-    else
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
+    gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
 
     g_signal_connect_object (self->context_menu, "notify::visible",
                              G_CALLBACK (touch_menu_notify_visible_cb), self,
@@ -3227,23 +3223,6 @@ adw_tab_grid_unmap (GtkWidget *widget)
 }
 
 static void
-adw_tab_grid_direction_changed (GtkWidget        *widget,
-                                GtkTextDirection  previous_direction)
-{
-  AdwTabGrid *self = ADW_TAB_GRID (widget);
-
-  if (gtk_widget_get_direction (widget) == previous_direction)
-    return;
-
-  if (self->context_menu) {
-    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
-    else
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
-  }
-}
-
-static void
 adw_tab_grid_snapshot (GtkWidget   *widget,
                        GtkSnapshot *snapshot)
 {
@@ -3384,7 +3363,6 @@ adw_tab_grid_class_init (AdwTabGridClass *klass)
   widget_class->grab_focus = adw_tab_grid_grab_focus;
   widget_class->unrealize = adw_tab_grid_unrealize;
   widget_class->unmap = adw_tab_grid_unmap;
-  widget_class->direction_changed = adw_tab_grid_direction_changed;
   widget_class->snapshot = adw_tab_grid_snapshot;
 
   props[PROP_PINNED] =
