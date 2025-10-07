@@ -1220,7 +1220,7 @@ has_items (GBinding     *binding,
            GValue       *to_value,
            gpointer      user_data)
 {
-  uint n_items = g_value_get_uint (from_value);
+  guint n_items = g_value_get_uint (from_value);
 
   g_value_set_boolean (to_value, n_items > 0);
 
