@@ -392,7 +392,7 @@ allocate_editable_area (GtkWidget *widget,
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (width, 0));
   transform = gsk_transform_scale (transform, empty_scale, empty_scale);
   if (is_rtl)
-    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (-width, 0));
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (icon_width - width, 0));
   gtk_widget_allocate (priv->empty_title, width - icon_width, empty_height, -1, transform);
 
   transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, title_offset));
