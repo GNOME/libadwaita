@@ -1,4 +1,21 @@
 =============
+Version 1.7.8
+=============
+
+- AdwComboRow
+  - Allow selecting items via touchscreen
+  - Improve accessibility
+- AdwEntryRow
+  - Fix title ellipsizing too late
+  - Activate the row action when pressing enter
+- AdwNavigationView
+  - Fix a build warning on some platforms
+- AdwTabBar/AdwTabGrid
+  - Fix context menu alignment on RTL
+- Docs
+  - Replace deprecated GApplication flag
+
+=============
 Version 1.7.7
 =============
 
