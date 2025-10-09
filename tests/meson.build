@@ -13,6 +13,7 @@ test_env = [
   'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
   'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
   'G_DEBUG=gc-friendly',
+  'GDK_DEBUG=no-portals',
   'GSETTINGS_BACKEND=memory',
   'PYTHONDONTWRITEBYTECODE=yes',
   'MALLOC_CHECK_=2',
