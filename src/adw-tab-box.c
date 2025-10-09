@@ -2864,11 +2864,7 @@ do_popup (AdwTabBox *self,
     gtk_widget_set_parent (self->context_menu, GTK_WIDGET (self));
     gtk_popover_set_position (GTK_POPOVER (self->context_menu), GTK_POS_BOTTOM);
     gtk_popover_set_has_arrow (GTK_POPOVER (self->context_menu), FALSE);
-
-    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
-    else
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
+    gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
 
     g_signal_connect_object (self->context_menu, "notify::visible",
                              G_CALLBACK (touch_menu_notify_visible_cb), self,
@@ -3544,13 +3540,6 @@ adw_tab_box_direction_changed (GtkWidget        *widget,
 
   gtk_adjustment_set_value (self->adjustment,
                             upper - page_size - self->adjustment_prev_value);
-
-  if (self->context_menu) {
-    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
-    else
-      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
-  }
 }
 
 static void
@@ -4093,3 +4082,4 @@ adw_tab_box_set_extra_drag_preload (AdwTabBox *self,
     adw_tab_set_extra_drag_preload (info->tab, preload);
   }
 }
+
