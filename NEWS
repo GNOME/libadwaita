@@ -1,4 +1,33 @@
 =============
+Version 1.8.1
+=============
+
+- AdwComboRow
+  - Allow selecting items via touchscreen
+  - Improve accessibility
+- AdwEntryRow
+  - Fix title ellipsizing too late
+  - Activate the row action when pressing enter
+- AdwHeaderBar
+  - Fix title buttons on macOS
+- AdwNavigationView
+  - Fix a build warning on some platforms
+- AdwShortcutsDialog
+  - Fix removing sections when the model changes
+- AdwTabBar/AdwTabGrid
+  - Fix context menu alignment on RTL
+- Docs
+  - Replace deprecated GApplication flag
+  - Fix shortcuts screenshots in widget gallery in dark mode
+- Translation updates
+  - Bulgarian
+  - Dutch
+  - Filipino
+  - Occitan
+  - Portuguese
+  - Uighur
+
+=============
 Version 1.8.0
 =============
 
