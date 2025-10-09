@@ -251,10 +251,20 @@ text_activated_cb (AdwEntryRow *self)
   if (gtk_widget_get_child_visible (priv->apply_button)) {
     apply_button_clicked_cb (self);
   } else {
+    const char *action_name;
+
     if (priv->activates_default)
       gtk_widget_activate_default (GTK_WIDGET (self));
 
     g_signal_emit (self, signals[SIGNAL_ENTRY_ACTIVATED], 0);
+
+    action_name = gtk_actionable_get_action_name (GTK_ACTIONABLE (self));
+
+    if (action_name) {
+      GVariant *target = gtk_actionable_get_action_target_value (GTK_ACTIONABLE (self));
+
+      gtk_widget_activate_action_variant (GTK_WIDGET (self), action_name, target);
+    }
   }
 }
 
