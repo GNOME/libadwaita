@@ -192,6 +192,8 @@ struct _AllocationData {
   int available_size;
   int allocated_size;
 
+  int next_line;
+
   // Context, a widget for children and a line data for lines
   union {
     GtkWidget *widget;
@@ -201,73 +203,6 @@ struct _AllocationData {
     } line;
   } data;
 };
-
-static int
-count_line_children (AdwWrapLayout  *self,
-                     int             for_size,
-                     int             spacing,
-                     AllocationData *child_data,
-                     int             n_children)
-{
-  int remaining_space = for_size + spacing;
-  int n_line_children = 0;
-
-  if (for_size < 0)
-    return n_children;
-
-  /* Count how many widgets can fit into this line */
-  while (TRUE) {
-    int delta;
-
-    if (n_line_children >= n_children)
-      break;
-
-    switch (self->wrap_policy) {
-    case ADW_WRAP_MINIMUM:
-      delta = child_data[n_line_children].minimum_size;
-      break;
-    case ADW_WRAP_NATURAL:
-      delta = child_data[n_line_children].natural_size;
-      break;
-    default:
-      g_assert_not_reached ();
-    }
-
-    delta += spacing;
-
-    if (remaining_space < delta)
-      break;
-
-    remaining_space -= delta;
-    n_line_children++;
-  }
-
-  return n_line_children;
-}
-
-static int
-count_lines (AdwWrapLayout  *self,
-             int             for_size,
-             int             child_spacing,
-             AllocationData *child_data,
-             int             n_children)
-{
-  int n_lines = 0;
-
-  while (n_children > 0) {
-    int n_line_children = count_line_children (self, for_size, child_spacing,
-                                               child_data, n_children);
-
-    if (n_line_children == 0)
-      n_line_children++;
-
-    n_children -= n_line_children;
-    child_data = &child_data[n_line_children];
-    n_lines++;
-  }
-
-  return n_lines;
-}
 
 /* child_data may represent both lines within the box and children within the
  * line, the function is used in both orientations */
@@ -366,43 +301,47 @@ box_allocate_homogeneous (AllocationData *child_data,
 }
 
 static int
-compute_line (AdwWrapLayout  *self,
-              int             for_size,
-              int             spacing,
-              AllocationData *child_data,
-              int             n_children,
-              gboolean        last_line)
+get_child_width (AdwWrapLayout  *self,
+                 AllocationData *child)
 {
-  AdwJustifyMode justify;
-  int n_line_children;
+  switch (self->wrap_policy) {
+  case ADW_WRAP_MINIMUM:
+    return child->minimum_size;
 
-  g_assert (n_children > 0);
+  case ADW_WRAP_NATURAL:
+    return child->natural_size;
 
-  /* Count how many widgets can fit into this line */
-  n_line_children = count_line_children (self, for_size, spacing, child_data, n_children);
+  default:
+    g_assert_not_reached ();
+  }
+}
 
-  if (for_size < 0)
-    return n_line_children;
+static void
+compute_line_breaks_greedy (AdwWrapLayout  *self,
+                            int             max_width,
+                            int             ideal_width,
+                            int             spacing,
+                            AllocationData *children,
+                            int             n_children)
+{
+  int line_length = 0;
+  int line_start = 0;
+  int i;
 
-  /* Even one widget doesn't fit. Since we can't have a line with 0 widgets,
-   * we take the first one and allocate it out of bounds. This can happen
-   * when wrap policy is ADW_WRAP_NATURAL, but we're being allocated less
-   * than the child's natural size. */
-  if (n_line_children == 0) {
-    child_data[0].allocated_size = MAX (for_size, child_data[0].minimum_size);
+  for (i = 0; i < n_children; i++) {
+    int width = get_child_width (self, &children[i]);
 
-    return 1;
+    if (line_length + width > ideal_width) {
+      children[line_start].next_line = i;
+      line_start = i;
+      line_length = 0;
+    }
+
+    line_length += width + spacing;
   }
 
-  if (last_line && !self->justify_last_line)
-    justify = ADW_JUSTIFY_NONE;
-  else
-    justify = self->justify;
-
-  /* All widgets fit, we can calculate their exact sizes within the line. */
-  box_allocate (child_data, n_line_children, for_size, spacing, justify);
-
-  return n_line_children;
+  children[line_start].next_line = n_children;
+  children[n_children - 1].next_line = n_children;
 }
 
 static AllocationData *
@@ -413,10 +352,10 @@ compute_sizes (AdwWrapLayout   *self,
                int             *n_lines,
                AllocationData **out_child_data)
 {
-  AllocationData *child_data, *line_data, *line_start;
+  AllocationData *child_data, *line_data;
   GtkWidget *child;
   int n_visible_children = 0;
-  int i = 0, j;
+  int i = 0, j, line_start;
   GtkOrientation opposite_orientation;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -448,32 +387,56 @@ compute_sizes (AdwWrapLayout   *self,
 
     child_data[i].expand = gtk_widget_compute_expand (child, self->orientation);
     child_data[i].data.widget = child;
+    child_data[i].next_line = -1;
     i++;
   }
 
-  *n_lines = count_lines (self, for_size, child_spacing, child_data, n_visible_children);
+  if (for_size >= 0) {
+    compute_line_breaks_greedy (self, for_size, for_size, child_spacing,
+                                child_data, n_visible_children);
+  }
+
+  *n_lines = 0;
+
+  i = 0;
+
+  while (i < n_visible_children) {
+    i = child_data[i].next_line;
+
+    (*n_lines)++;
+  }
+
   line_data = g_new0 (AllocationData, *n_lines);
-  line_start = child_data;
+  line_start = 0;
 
   for (i = 0; i < *n_lines; i++) {
     int line_min = 0, line_nat = 0;
     int n_line_children;
     gboolean expand = FALSE;
+    AdwJustifyMode justify;
 
-    n_line_children = compute_line (self, for_size, child_spacing, line_start,
-                                    n_visible_children, i == *n_lines - 1);
+    n_line_children = child_data[line_start].next_line - line_start;
 
     g_assert (n_line_children > 0);
 
-    for (j = 0; j < n_line_children; j++) {
+    if (i == *n_lines - 1 && !self->justify_last_line)
+      justify = ADW_JUSTIFY_NONE;
+    else
+      justify = self->justify;
+
+    /* All widgets fit, we can calculate their exact sizes within the line. */
+    box_allocate (&child_data[line_start], n_line_children,
+                  for_size, child_spacing, justify);
+
+    for (j = line_start; j < line_start + n_line_children; j++) {
       int child_min = 0, child_nat = 0;
 
-      gtk_widget_measure (line_start[j].data.widget,
+      gtk_widget_measure (child_data[j].data.widget,
                           opposite_orientation,
-                          for_size >= 0 ? line_start[j].allocated_size : -1,
+                          for_size >= 0 ? child_data[j].allocated_size : -1,
                           &child_min, &child_nat, NULL, NULL);
 
-      expand |= gtk_widget_compute_expand (line_start[j].data.widget,
+      expand |= gtk_widget_compute_expand (child_data[j].data.widget,
                                            opposite_orientation);
 
       line_min = MAX (line_min, child_min);
@@ -483,11 +446,10 @@ compute_sizes (AdwWrapLayout   *self,
     line_data[i].minimum_size = line_min;
     line_data[i].natural_size = line_nat;
     line_data[i].expand = expand;
-    line_data[i].data.line.children = line_start;
+    line_data[i].data.line.children = &child_data[line_start];
     line_data[i].data.line.n_children = n_line_children;
 
-    n_visible_children -= n_line_children;
-    line_start = &line_start[n_line_children];
+    line_start += n_line_children;
   }
 
   *out_child_data = child_data;
@@ -528,6 +490,7 @@ adw_wrap_layout_measure (GtkLayoutManager *manager,
       multiple_visible_children = TRUE;
       break;
     }
+
     visible_child = child;
   }
 
