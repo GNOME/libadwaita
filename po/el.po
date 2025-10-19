@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-10-13 12:56+0000\n"
-"PO-Revision-Date: 2024-01-06 11:08+0200\n"
+"POT-Creation-Date: 2025-10-18 21:19+0000\n"
+"PO-Revision-Date: 2025-10-19 10:48+0300\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: Greek <gnome-el-list@gnome.org>\n"
 "Language: el\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.7\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -83,10 +83,8 @@ msgid "Mozilla Public License 2.0"
 msgstr "Δημόσια άδεια Mozilla 2.0"
 
 #: src/adw-about-dialog.c:229 src/adw-about-window.c:224
-#, fuzzy
-#| msgid "BSD 2-Clause License"
 msgid "BSD Zero-Clause License"
-msgstr "BSD 2-Άδεια ρήτρας"
+msgstr "BSD Άδεια μηδενικής ρήτρας"
 
 #: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
@@ -169,10 +167,8 @@ msgid "About"
 msgstr "Περί"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-#, fuzzy
-#| msgid "What’s New"
 msgid "What’s _New"
-msgstr "Τι νέο υπάρχει"
+msgstr "Τι _νέο υπάρχει"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
@@ -243,7 +239,6 @@ msgid "_Copy Text"
 msgstr "_Αντιγραφή κειμένου"
 
 #: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
-#| msgid "_Save as…"
 msgid "_Save As…"
 msgstr "Απο_θήκευση ως…"
 
@@ -324,6 +319,7 @@ msgstr "Προβολή"
 msgid "Scale to Fit"
 msgstr "Κλίμακα Προσαρμογής"
 
+#. Translators: screen bezel, e.g. on a phone
 #: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Επισήμανση Πλαισίου"
@@ -499,6 +495,10 @@ msgstr "Προτιμώμενο Χρώμα Έμφασης"
 msgid "Accessibility"
 msgstr "Προσιτότητα"
 
+#: src/adw-inspector-page.ui:80
+msgid "High Contrast"
+msgstr "Υψηλή Αντίθεση"
+
 #: src/adw-inspector-page.ui:89
 msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
@@ -543,9 +543,8 @@ msgstr "Δε βρέθηκαν αποτελέσματα"
 
 #: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
 #: src/adw-tab-overview.ui:110
-#| msgid "Try a different search."
 msgid "Try a different search"
-msgstr "Δοκιμάστε μια διαφορετική αναζήτηση."
+msgstr "Δοκιμάστε μια διαφορετική αναζήτηση"
 
 #: src/adw-preferences-window.ui:164
 msgid "Try a different search."
@@ -580,7 +579,6 @@ msgid "Keyboard Shortcuts"
 msgstr "Συντομεύσεις Πληκτρολογίου"
 
 #: src/adw-shortcuts-dialog.ui:20
-#| msgid "Search tabs"
 msgid "Search shortcuts"
 msgstr "Αναζήτηση συντομεύσεων"
 
