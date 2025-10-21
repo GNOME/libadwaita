@@ -117,6 +117,9 @@
  * Since: 1.7
  */
 
+#define LINE_PENALTY_STRETCH 15
+#define LINE_PENALTY_SHRINK 15
+
 struct _AdwWrapLayout
 {
   GtkLayoutManager parent_instance;
@@ -193,6 +196,7 @@ struct _AllocationData {
   int allocated_size;
 
   int next_line;
+  int score;
 
   // Context, a widget for children and a line data for lines
   union {
@@ -344,6 +348,79 @@ compute_line_breaks_greedy (AdwWrapLayout  *self,
   children[n_children - 1].next_line = n_children;
 }
 
+static void
+compute_line_breaks_knuth_plass_do (AdwWrapLayout  *self,
+                                    int             initial_index,
+                                    int             max_width,
+                                    int             ideal_width,
+                                    int             spacing,
+                                    AllocationData *children,
+                                    int             n_children)
+{
+  int index = initial_index + 1;
+  int line_length = get_child_width (self, &children[initial_index]);
+  int best_score;
+  int best_break = index;
+
+  best_score = ideal_width - line_length;
+  best_score *= best_score;
+
+  /* Assume width 0, score 0 at the end */
+  while (index < n_children + 1) {
+    int width;
+    int line_score, score = 0;
+
+    if (index < n_children) {
+      width = get_child_width (self, &children[index]);
+
+      // TODO we later get a crash with n_line_children == 0
+      if (line_length + width + spacing > max_width)
+        break;
+    } else {
+      width = -spacing;
+    }
+
+    line_score = ideal_width - (line_length + width + spacing);
+    line_score *= line_score;
+    line_length += width + spacing;
+
+    if (index < n_children) {
+      if (children[index].score == -1) {
+        compute_line_breaks_knuth_plass_do (self, index, max_width, ideal_width,
+                                            spacing, children, n_children);
+      }
+
+      score = children[index].score;
+    }
+
+    if (line_score + score < best_score) {
+      best_score = line_score + score;
+      best_break = index;
+    }
+
+    index++;
+  }
+
+  children[initial_index].score = best_score;
+  children[initial_index].next_line = best_break;
+
+  g_print ("%d -> %d %d\n", initial_index, children[initial_index].next_line, n_children);
+  if (children[initial_index].next_line > n_children)
+    children[initial_index].score = 0;
+}
+
+static inline void
+compute_line_breaks_knuth_plass (AdwWrapLayout  *self,
+                                 int             max_width,
+                                 int             ideal_width,
+                                 int             spacing,
+                                 AllocationData *children,
+                                 int             n_children)
+{
+  compute_line_breaks_knuth_plass_do (self, 0, max_width, ideal_width,
+                                      spacing, children, n_children);
+}
+
 static AllocationData *
 compute_sizes (AdwWrapLayout   *self,
                GtkWidget       *widget,
@@ -388,12 +465,13 @@ compute_sizes (AdwWrapLayout   *self,
     child_data[i].expand = gtk_widget_compute_expand (child, self->orientation);
     child_data[i].data.widget = child;
     child_data[i].next_line = -1;
+    child_data[i].score = -1;
     i++;
   }
 
   if (for_size >= 0) {
-    compute_line_breaks_greedy (self, for_size, for_size, child_spacing,
-                                child_data, n_visible_children);
+    compute_line_breaks_knuth_plass (self, for_size, for_size, child_spacing,
+                                     child_data, n_visible_children);
   }
 
   *n_lines = 0;
