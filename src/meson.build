@@ -305,6 +305,7 @@ libadwaita_private_sources += files([
   'adw-gtkbuilder-utils.c',
   'adw-indicator-bin.c',
   'adw-inspector-page.c',
+  'adw-link-row.c',
   'adw-settings.c',
   'adw-settings-impl.c',
   'adw-settings-impl-gsettings.c',
