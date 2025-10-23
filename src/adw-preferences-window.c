@@ -439,6 +439,22 @@ stop_search_cb (AdwPreferencesWindow *self)
 }
 
 static void
+search_activated_cb (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+  GtkListBoxRow *row;
+
+  if (!gtk_widget_get_mapped (GTK_WIDGET (priv->search_results)))
+    return;
+
+  row = gtk_list_box_get_row_at_index (priv->search_results, 0);
+  if (!row)
+    return;
+
+  gtk_widget_grab_focus (GTK_WIDGET (row));
+}
+
+static void
 adw_preferences_window_get_property (GObject    *object,
                                      guint       prop_id,
                                      GValue     *value,
@@ -653,6 +669,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_results_map);
   gtk_widget_class_bind_template_callback (widget_class, search_results_unmap);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_activated_cb);
 }
 
 static GListModel *
