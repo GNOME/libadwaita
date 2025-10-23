@@ -974,16 +974,6 @@ open_context_menu (AdwSidebar     *self,
                                   -1);
 }
 
-static inline gboolean
-is_touchscreen (GtkGesture *gesture)
-{
-  GtkEventController *controller = GTK_EVENT_CONTROLLER (gesture);
-  GdkDevice *device = gtk_event_controller_get_current_event_device (controller);
-  GdkInputSource input_source = gdk_device_get_source (device);
-
-  return input_source == GDK_SOURCE_TOUCHSCREEN;
-}
-
 static void
 pressed_cb (AdwSidebar *self,
             int         n_press,
@@ -991,14 +981,8 @@ pressed_cb (AdwSidebar *self,
             double      y,
             GtkGesture *gesture)
 {
-  GdkEventSequence *current;
-  GdkEvent *event;
-
-  if (is_touchscreen (gesture))
-    return;
-
-  current = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (gesture));
-  event = gtk_gesture_get_last_event (gesture, current);
+  GdkEventSequence *current = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (gesture));
+  GdkEvent *event = gtk_gesture_get_last_event (gesture, current);
 
    if (gdk_event_triggers_context_menu (event)) {
     GtkWidget *row = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (gesture));
