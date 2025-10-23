@@ -2,7 +2,7 @@ calendar {
   color: var(--view-fg-color);
   background-clip: padding-box;
   border: 1px solid $border_color;
-  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 
   &.view:disabled {
     color: var(--view-fg-color);
