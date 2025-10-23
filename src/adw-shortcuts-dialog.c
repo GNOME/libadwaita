@@ -351,6 +351,21 @@ stop_search_cb (AdwShortcutsDialog *self)
   adw_dialog_close (ADW_DIALOG (self));
 }
 
+static void
+search_activated_cb (AdwShortcutsDialog *self)
+{
+  GtkListBoxRow *row;
+
+  if (adw_view_stack_get_visible_child (self->stack) != GTK_WIDGET (self->search))
+    return;
+
+  row = gtk_list_box_get_row_at_index (self->search_list, 0);
+  if (!row)
+    return;
+
+  gtk_widget_grab_focus (GTK_WIDGET (row));
+}
+
 static GtkWidget *
 create_row (AdwShortcutsItem   *item,
             AdwShortcutsDialog *self)
@@ -572,6 +587,7 @@ adw_shortcuts_dialog_class_init (AdwShortcutsDialogClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_row_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, adw_widget_on_vertical_keynav_failed);
 
