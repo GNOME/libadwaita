@@ -118,20 +118,12 @@
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow" id="website_row">
+                                          <object class="AdwLinkRow" id="website_row">
                                             <property name="visible">False</property>
                                             <property name="title" translatable="yes">_Website</property>
                                             <property name="use-underline">True</property>
-                                            <property name="activatable">True</property>
-                                            <property name="action-name">about.show-url-property</property>
-                                            <property name="action-target">"website"</property>
-                                            <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
-                                            <child>
-                                              <object class="GtkImage">
-                                                <property name="icon-name">adw-external-link-symbolic</property>
-                                                <property name="accessible-role">presentation</property>
-                                              </object>
-                                            </child>
+                                            <property name="uri" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
+                                            <signal name="activate-link" handler="row_activate_link_cb" swapped="yes"/>
                                           </object>
                                         </child>
                                       </object>
@@ -141,37 +133,21 @@
                                       <object class="AdwPreferencesGroup" id="support_group">
                                         <property name="visible">False</property>
                                         <child>
-                                          <object class="AdwActionRow" id="support_row">
+                                          <object class="AdwLinkRow" id="support_row">
                                             <property name="visible">False</property>
-                                            <property name="activatable">True</property>
                                             <property name="title" translatable="yes">_Support Questions</property>
                                             <property name="use-underline">True</property>
-                                            <property name="action-name">about.show-url-property</property>
-                                            <property name="action-target">"support-url"</property>
-                                            <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="support-url" bind-flags="sync-create"/>
-                                            <child>
-                                              <object class="GtkImage">
-                                                <property name="icon-name">adw-external-link-symbolic</property>
-                                                <property name="accessible-role">presentation</property>
-                                              </object>
-                                            </child>
+                                            <property name="uri" bind-source="AdwAboutWindow" bind-property="support-url" bind-flags="sync-create"/>
+                                            <signal name="activate-link" handler="row_activate_link_cb" swapped="yes"/>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow" id="issue_row">
+                                          <object class="AdwLinkRow" id="issue_row">
                                             <property name="visible">False</property>
-                                            <property name="activatable">True</property>
                                             <property name="title" translatable="yes">_Report an Issue</property>
                                             <property name="use-underline">True</property>
-                                            <property name="action-name">about.show-url-property</property>
-                                            <property name="action-target">"issue-url"</property>
-                                            <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="issue-url" bind-flags="sync-create"/>
-                                            <child>
-                                              <object class="GtkImage">
-                                                <property name="icon-name">adw-external-link-symbolic</property>
-                                                <property name="accessible-role">presentation</property>
-                                              </object>
-                                            </child>
+                                            <property name="uri" bind-source="AdwAboutWindow" bind-property="issue-url" bind-flags="sync-create"/>
+                                            <signal name="activate-link" handler="row_activate_link_cb" swapped="yes"/>
                                           </object>
                                         </child>
                                         <child>
@@ -341,20 +317,12 @@
                                   <object class="AdwPreferencesGroup" id="links_group">
                                     <property name="visible">False</property>
                                     <child>
-                                      <object class="AdwActionRow" id="details_website_row">
+                                      <object class="AdwLinkRow" id="details_website_row">
                                         <property name="visible">False</property>
                                         <property name="title" translatable="yes">_Website</property>
                                         <property name="use-underline">True</property>
-                                        <property name="activatable">True</property>
-                                        <property name="action-name">about.show-url-property</property>
-                                        <property name="action-target">"website"</property>
-                                        <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="icon-name">adw-external-link-symbolic</property>
-                                            <property name="accessible-role">presentation</property>
-                                          </object>
-                                        </child>
+                                        <property name="uri" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
+                                        <signal name="activate-link" handler="row_activate_link_cb" swapped="yes"/>
                                       </object>
                                     </child>
                                   </object>
