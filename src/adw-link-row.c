@@ -5,6 +5,7 @@
  */
 
 #include "config.h"
+#include <glib/gi18n-lib.h>
 
 #include "adw-link-row-private.h"
 #include "adw-marshalers.h"
@@ -17,6 +18,8 @@ struct _AdwLinkRow
 
   char *uri;
   gboolean visited;
+
+  GtkWidget *context_menu;
 };
 
 G_DEFINE_FINAL_TYPE (AdwLinkRow, adw_link_row, ADW_TYPE_ACTION_ROW)
@@ -37,6 +40,92 @@ enum {
 };
 
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+static void
+context_menu_closed_cb (AdwLinkRow *self)
+{
+  gtk_widget_remove_css_class (GTK_WIDGET (self), "has-open-popup");
+}
+
+static void
+open_context_menu (AdwLinkRow *self,
+                   double      x,
+                   double      y)
+{
+  GdkRectangle rect;
+
+  if (x > -0.5 && y > -0.5) {
+    rect.x = x;
+    rect.y = y;
+  } else {
+    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
+      rect.x = gtk_widget_get_width (GTK_WIDGET (self));
+    else
+      rect.x = 0;
+
+    rect.y = gtk_widget_get_height (GTK_WIDGET (self));
+  }
+
+  rect.width = 0;
+  rect.height = 0;
+
+  gtk_popover_set_pointing_to (GTK_POPOVER (self->context_menu), &rect);
+
+  gtk_popover_popup (GTK_POPOVER (self->context_menu));
+
+  gtk_widget_add_css_class (GTK_WIDGET (self), "has-open-popup");
+}
+
+static inline gboolean
+is_touchscreen (GtkGesture *gesture)
+{
+  GtkEventController *controller = GTK_EVENT_CONTROLLER (gesture);
+  GdkDevice *device = gtk_event_controller_get_current_event_device (controller);
+  GdkInputSource input_source = gdk_device_get_source (device);
+
+  return input_source == GDK_SOURCE_TOUCHSCREEN;
+}
+
+static void
+pressed_cb (AdwLinkRow *self,
+            int         n_press,
+            double      x,
+            double      y,
+            GtkGesture *gesture)
+{
+  GdkEventSequence *current = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (gesture));
+  GdkEvent *event = gtk_gesture_get_last_event (gesture, current);
+
+   if (gdk_event_triggers_context_menu (event)) {
+    open_context_menu (self, x, y);
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (gesture));
+
+    return;
+  }
+
+  gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+}
+
+static void
+long_pressed_cb (AdwLinkRow *self,
+                 double      x,
+                 double      y,
+                 GtkGesture *gesture)
+{
+  gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+  open_context_menu (self, x, y);
+}
+
+static void
+popup_menu_cb (GtkWidget  *widget,
+               const char *action_name,
+               GVariant   *parameter)
+{
+  AdwLinkRow *self = ADW_LINK_ROW (widget);
+
+  open_context_menu (self, -1, -1);
+}
 
 static void
 launch_done (GObject      *source,
@@ -95,6 +184,25 @@ adw_link_row_activate (AdwActionRow *row)
 }
 
 static void
+link_open_cb (GtkWidget  *widget,
+              const char *name,
+              GVariant   *parameter)
+{
+  adw_link_row_activate (ADW_ACTION_ROW (widget));
+}
+
+static void
+link_copy_cb (GtkWidget  *widget,
+              const char *name,
+              GVariant   *parameter)
+{
+  AdwLinkRow *self = ADW_LINK_ROW (widget);
+  GdkClipboard *clipboard = gtk_widget_get_clipboard (widget);
+
+  gdk_clipboard_set_text (clipboard, self->uri);
+}
+
+static void
 adw_link_row_get_property (GObject    *object,
                            guint       prop_id,
                            GValue     *value,
@@ -139,6 +247,7 @@ adw_link_row_dispose (GObject *object)
 {
   AdwLinkRow *self = ADW_LINK_ROW (object);
 
+  g_clear_pointer (&self->context_menu, gtk_widget_unparent);
   self->icon = NULL;
 
   G_OBJECT_CLASS (adw_link_row_parent_class)->dispose (object);
@@ -198,7 +307,54 @@ adw_link_row_class_init (AdwLinkRowClass *klass)
                                    G_TYPE_FROM_CLASS (klass),
                                    G_CALLBACK (activate_link_default_cb));
 
+  gtk_widget_class_install_action (widget_class, "menu.popup", NULL, popup_menu_cb);
+  gtk_widget_class_install_action (widget_class, "link.open", NULL, link_open_cb);
+  gtk_widget_class_install_action (widget_class, "link.copy", NULL, link_copy_cb);
+
+
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_F10, GDK_SHIFT_MASK, "menu.popup", NULL);
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Menu, 0, "menu.popup", NULL);
+
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_LINK);
+}
+
+static void
+setup_context_menu (AdwLinkRow *self)
+{
+  GtkEventController *controller;
+  GMenu *menu = g_menu_new ();
+
+  g_menu_append (menu, _("_Open Link"), "link.open");
+  g_menu_append (menu, _("Copy _Link Address"), "link.copy");
+
+  self->context_menu = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+  gtk_widget_set_parent (self->context_menu, GTK_WIDGET (self));
+  gtk_popover_set_position (GTK_POPOVER (self->context_menu), GTK_POS_BOTTOM);
+  gtk_popover_set_has_arrow (GTK_POPOVER (self->context_menu), FALSE);
+  gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
+
+  g_signal_connect_object (self->context_menu, "closed",
+                           G_CALLBACK (context_menu_closed_cb), self,
+                           G_CONNECT_AFTER | G_CONNECT_SWAPPED);
+
+  controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
+  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (controller), 0);
+  gtk_gesture_single_set_exclusive (GTK_GESTURE_SINGLE (controller), TRUE);
+  g_signal_connect_swapped (controller, "pressed", G_CALLBACK (pressed_cb), self);
+  gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  controller = GTK_EVENT_CONTROLLER (gtk_gesture_long_press_new ());
+  gtk_gesture_long_press_set_delay_factor (GTK_GESTURE_LONG_PRESS (controller), 2);
+  gtk_gesture_single_set_exclusive (GTK_GESTURE_SINGLE (controller), TRUE);
+  gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (controller), TRUE);
+  g_signal_connect_swapped (controller, "pressed", G_CALLBACK (long_pressed_cb), self);
+  gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  g_object_unref (menu);
+
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
+                                  -1);
 }
 
 static void
@@ -213,6 +369,8 @@ adw_link_row_init (AdwLinkRow *self)
   adw_action_row_add_suffix (ADW_ACTION_ROW (self), self->icon);
 
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), TRUE);
+
+  setup_context_menu (self);
 
   gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_LINK, FALSE);
 
