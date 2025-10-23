@@ -879,6 +879,18 @@ stop_search_cb (AdwTabOverview *self)
   set_search_active (self, FALSE);
 }
 
+static void
+search_activated_cb (AdwTabOverview *self)
+{
+  if (!self->search_active)
+    return;
+
+  if (adw_tab_grid_focus_first_row (self->pinned_grid, 0))
+    return;
+
+  adw_tab_grid_focus_first_row (self->grid, 0);
+}
+
 static AdwTabPage *
 create_tab (AdwTabOverview *self)
 {
@@ -1877,6 +1889,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, empty_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, new_tab_clicked_cb);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
