@@ -399,6 +399,7 @@ adw_view_switcher_sidebar_class_init (AdwViewSwitcherSidebarClass *klass)
 
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_widget_grab_focus_child;
 
   /**
    * AdwViewSwitcherSidebar:stack:

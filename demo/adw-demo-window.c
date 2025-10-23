@@ -74,6 +74,12 @@ sidebar_activated_cb (AdwDemoWindow *self,
 }
 
 static void
+search_activate_cb (AdwDemoWindow *self)
+{
+  gtk_widget_grab_focus (GTK_WIDGET (self->sidebar));
+}
+
+static void
 adaptive_preview_cb (AdwDemoWindow *self)
 {
   gboolean open = adw_application_window_get_adaptive_preview (ADW_APPLICATION_WINDOW (self));
@@ -96,6 +102,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, split_view);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_callback (widget_class, sidebar_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_activate_cb);
 
   gtk_widget_class_install_action (widget_class, "window.adaptive-preview", NULL, (GtkWidgetActionActivateFunc) adaptive_preview_cb);
 }

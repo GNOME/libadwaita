@@ -1836,6 +1836,34 @@ items_changed_cb (AdwSidebar *self,
   }
 }
 
+static gboolean
+adw_sidebar_grab_focus (GtkWidget *widget)
+{
+  AdwSidebar *self = ADW_SIDEBAR (widget);
+  AdwSidebarItem *selected = adw_sidebar_get_selected_item (self);
+  GtkWidget *row = NULL;
+
+  if (selected)
+    row = find_row (self, selected);
+
+  if (!row) {
+    AdwSidebarItem *first;
+
+    if (g_list_model_get_n_items (G_LIST_MODEL (self->filtered_items)) == 0)
+      return FALSE;
+
+    first = g_list_model_get_item (G_LIST_MODEL (self->filtered_items), 0);
+    adw_sidebar_set_selected (self, adw_sidebar_item_get_index (first));
+
+    row = find_row (self, first);
+  }
+
+  if (row)
+    return gtk_widget_grab_focus (row);
+
+  return FALSE;
+}
+
 static void
 adw_sidebar_dispose (GObject *object)
 {
@@ -1973,6 +2001,7 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
 
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_sidebar_grab_focus;
 
   /**
    * AdwSidebar:mode:
