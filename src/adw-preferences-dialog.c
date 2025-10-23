@@ -421,6 +421,22 @@ stop_search_cb (AdwPreferencesDialog *self)
 }
 
 static void
+search_activated_cb (AdwPreferencesDialog *self)
+{
+  AdwPreferencesDialogPrivate *priv = adw_preferences_dialog_get_instance_private (self);
+  GtkListBoxRow *row;
+
+  if (!gtk_widget_get_mapped (GTK_WIDGET (priv->search_results)))
+    return;
+
+  row = gtk_list_box_get_row_at_index (priv->search_results, 0);
+  if (!row)
+    return;
+
+  gtk_widget_grab_focus (GTK_WIDGET (row));
+}
+
+static void
 adw_preferences_dialog_get_property (GObject    *object,
                                      guint       prop_id,
                                      GValue     *value,
@@ -577,6 +593,7 @@ adw_preferences_dialog_class_init (AdwPreferencesDialogClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_results_map);
   gtk_widget_class_bind_template_callback (widget_class, search_results_unmap);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, adw_widget_on_vertical_keynav_failed);
 }
 
