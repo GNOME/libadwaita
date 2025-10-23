@@ -50,6 +50,7 @@
                     <property name="placeholder-text" translatable="yes">Search tabs</property>
                     <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
                     <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
+                    <signal name="activate" handler="search_activated_cb" swapped="yes"/>
                   </object>
                 </property>
               </object>
