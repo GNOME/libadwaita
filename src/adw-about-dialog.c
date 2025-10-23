@@ -13,6 +13,7 @@
 
 #include "adw-action-row.h"
 #include "adw-header-bar.h"
+#include "adw-link-row-private.h"
 #include "adw-marshalers.h"
 #include "adw-alert-dialog.h"
 #include "adw-navigation-view.h"
@@ -382,35 +383,37 @@ update_headerbar_cb (AdwAboutDialog *self)
                                  gtk_adjustment_get_value (adj) > 0);
 }
 
-static inline void
-activate_link (AdwAboutDialog *self,
-               const char     *uri)
-{
-  gboolean ret = FALSE;
-  g_signal_emit (self, signals[SIGNAL_ACTIVATE_LINK], 0, uri, &ret);
-}
-
 static gboolean
 activate_link_cb (AdwAboutDialog *self,
                   const char     *uri)
 {
-  activate_link (self, uri);
+  gboolean ret = FALSE;
 
-  return GDK_EVENT_STOP;
+  g_signal_emit (self, signals[SIGNAL_ACTIVATE_LINK], 0, uri, &ret);
+
+  return ret;
+}
+
+static gboolean
+row_activate_link_cb (AdwAboutDialog *self,
+                      AdwLinkRow     *row)
+{
+  const char *uri = adw_link_row_get_uri (row);
+  gboolean ret = FALSE;
+
+  g_signal_emit (self, signals[SIGNAL_ACTIVATE_LINK], 0, uri, &ret);
+
+  if (ret)
+    adw_link_row_set_visited (row, TRUE);
+
+  return ret;
 }
 
 static gboolean
 activate_link_default_cb (AdwAboutDialog *self,
                           const char     *uri)
 {
-  GtkUriLauncher *launcher = gtk_uri_launcher_new (uri);
-  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
-
-  gtk_uri_launcher_launch (launcher, GTK_WINDOW (root), NULL, NULL, NULL);
-
-  g_object_unref (launcher);
-
-  return GDK_EVENT_STOP;
+  return GDK_EVENT_PROPAGATE;
 }
 
 static void
@@ -495,9 +498,10 @@ parse_person (char      *person,
 }
 
 static void
-add_credits_section (GtkWidget   *box,
-                     const char  *title,
-                     char       **people)
+add_credits_section (AdwAboutDialog  *self,
+                     GtkWidget       *box,
+                     const char      *title,
+                     char           **people)
 {
   GtkWidget *group;
   char **person;
@@ -519,38 +523,28 @@ add_credits_section (GtkWidget   *box,
 
     parse_person (*person, &name, &link, &is_email);
 
-    row = adw_action_row_new ();
+    if (link)
+      row = adw_link_row_new ();
+    else
+      row = adw_action_row_new ();
+
     adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (row), FALSE);
     adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), name);
     adw_preferences_group_add (ADW_PREFERENCES_GROUP (group), row);
 
     if (link) {
-      GtkWidget *image = g_object_new (GTK_TYPE_IMAGE,
-                                       "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                                       NULL);
-
-      if (is_email)
-        gtk_image_set_from_icon_name (GTK_IMAGE (image), "adw-mail-send-symbolic");
-      else
-        gtk_image_set_from_icon_name (GTK_IMAGE (image), "adw-external-link-symbolic");
-
-      adw_action_row_add_suffix (ADW_ACTION_ROW (row), image);
-      gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
-      gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "about.show-url");
-
       if (is_email) {
-        char *escaped = g_uri_escape_string (link, NULL, FALSE);
-        char *mailto = g_strconcat ("mailto:", escaped, NULL);
+        char *mailto = g_strconcat ("mailto:", link, NULL);
 
-        gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", mailto);
+        adw_link_row_set_uri (ADW_LINK_ROW (row), mailto);
 
         g_free (mailto);
-        g_free (escaped);
       } else {
-        gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", link);
+        adw_link_row_set_uri (ADW_LINK_ROW (row), link);
       }
 
-      gtk_widget_set_tooltip_text (row, link);
+      g_signal_connect_swapped (row, "activate-link",
+                                G_CALLBACK (row_activate_link_cb), self);
     }
 
     g_free (name);
@@ -577,16 +571,16 @@ update_credits (AdwAboutDialog *self)
   else
     translators = NULL;
 
-  add_credits_section (self->credits_box, _("Code by"),          self->developers);
-  add_credits_section (self->credits_box, _("Design by"),        self->designers);
-  add_credits_section (self->credits_box, _("Artwork by"),       self->artists);
-  add_credits_section (self->credits_box, _("Documentation by"), self->documenters);
-  add_credits_section (self->credits_box, _("Translated by"),    translators);
+  add_credits_section (self, self->credits_box, _("Code by"),          self->developers);
+  add_credits_section (self, self->credits_box, _("Design by"),        self->designers);
+  add_credits_section (self, self->credits_box, _("Artwork by"),       self->artists);
+  add_credits_section (self, self->credits_box, _("Documentation by"), self->documenters);
+  add_credits_section (self, self->credits_box, _("Translated by"),    translators);
 
   for (l = self->credit_sections; l; l = l->next) {
     CreditsSection *section = l->data;
 
-    add_credits_section (self->credits_box, section->name, section->people);
+    add_credits_section (self, self->credits_box, section->name, section->people);
   }
 
   g_strfreev (translators);
@@ -1268,31 +1262,6 @@ adw_about_dialog_finalize (GObject *object)
 }
 
 static void
-show_url_cb (AdwAboutDialog *self,
-             const char     *action_name,
-             GVariant       *params)
-{
-  const char *url = g_variant_get_string (params, NULL);
-
-  activate_link (self, url);
-}
-
-static void
-show_url_property_cb (AdwAboutDialog *self,
-                      const char     *action_name,
-                      GVariant       *params)
-{
-  const char *property = g_variant_get_string (params, NULL);
-  char *url;
-
-  g_object_get (self, property, &url, NULL);
-
-  activate_link (self, url);
-
-  g_free (url);
-}
-
-static void
 copy_property_cb (AdwAboutDialog *self,
                   const char     *action_name,
                   GVariant       *params)
@@ -1898,12 +1867,9 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, other_apps_group);
 
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
+  gtk_widget_class_bind_template_callback (widget_class, row_activate_link_cb);
   gtk_widget_class_bind_template_callback (widget_class, legal_showing_cb);
 
-  gtk_widget_class_install_action (widget_class, "about.show-url", "s",
-                                   (GtkWidgetActionActivateFunc) show_url_cb);
-  gtk_widget_class_install_action (widget_class, "about.show-url-property", "s",
-                                   (GtkWidgetActionActivateFunc) show_url_property_cb);
   gtk_widget_class_install_action (widget_class, "about.copy-property", "s",
                                    (GtkWidgetActionActivateFunc) copy_property_cb);
   gtk_widget_class_install_action (widget_class, "about.save-debug-info", NULL,
@@ -1911,6 +1877,8 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
 
   gtk_widget_class_add_binding (widget_class, GDK_KEY_S, GDK_CONTROL_MASK,
                                 save_debug_info_shortcut_cb, NULL);
+
+  g_type_ensure (ADW_TYPE_LINK_ROW);
 }
 
 static void
@@ -2682,27 +2650,18 @@ adw_about_dialog_add_link (AdwAboutDialog *self,
                            const char     *url)
 {
   GtkWidget *row;
-  GtkWidget *image;
 
   g_return_if_fail (ADW_IS_ABOUT_DIALOG (self));
   g_return_if_fail (title != NULL);
   g_return_if_fail (url != NULL);
 
-  row = adw_action_row_new ();
+  row = adw_link_row_new ();
   adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), title);
   adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (row), TRUE);
+  adw_link_row_set_uri (ADW_LINK_ROW (row), url);
 
-  image = g_object_new (GTK_TYPE_IMAGE,
-                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                        "icon-name", "adw-external-link-symbolic",
-                        NULL);
-  adw_action_row_add_suffix (ADW_ACTION_ROW (row), image);
-
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "about.show-url");
-  gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", url);
-
-  gtk_widget_set_tooltip_text (row, url);
+  g_signal_connect_swapped (row, "activate-link",
+                            G_CALLBACK (row_activate_link_cb), self);
 
   adw_preferences_group_add (ADW_PREFERENCES_GROUP (self->links_group), row);
 
@@ -3177,7 +3136,7 @@ adw_about_dialog_add_acknowledgement_section (AdwAboutDialog  *self,
   g_return_if_fail (ADW_IS_ABOUT_DIALOG (self));
   g_return_if_fail (people != NULL);
 
-  add_credits_section (self->acknowledgements_box, name, (char **) people);
+  add_credits_section (self, self->acknowledgements_box, name, (char **) people);
 
   gtk_widget_set_visible (self->acknowledgements_box, TRUE);
 
@@ -3482,7 +3441,7 @@ adw_about_dialog_add_other_app (AdwAboutDialog *self,
 
   url = g_strconcat ("appstream:", appid, NULL);
 
-  row = adw_action_row_new ();
+  row = adw_link_row_new ();
 
   icon = gtk_image_new_from_icon_name (appid);
   gtk_image_set_pixel_size (GTK_IMAGE (icon), 32);
@@ -3491,15 +3450,10 @@ adw_about_dialog_add_other_app (AdwAboutDialog *self,
 
   adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), name);
   adw_action_row_set_subtitle (ADW_ACTION_ROW (row), summary);
+  adw_link_row_set_uri (ADW_LINK_ROW (row), url);
 
-  adw_action_row_add_suffix (ADW_ACTION_ROW (row),
-                             gtk_image_new_from_icon_name ("adw-external-link-symbolic"));
-
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "about.show-url");
-  gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", url);
-
-  gtk_widget_set_tooltip_text (row, url);
+  g_signal_connect_swapped (row, "activate-link",
+                            G_CALLBACK (row_activate_link_cb), self);
 
   adw_preferences_group_add (ADW_PREFERENCES_GROUP (self->other_apps_group), row);
   gtk_widget_set_visible (self->other_apps_group, TRUE);
