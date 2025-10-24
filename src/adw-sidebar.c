@@ -880,6 +880,21 @@ set_drop_preload_cb (AdwSidebar     *self,
   gtk_drop_target_set_preload (target, self->drop_preload);
 }
 
+static void
+update_has_popup (AdwSidebar     *self,
+                  AdwSidebarItem *item,
+                  GtkWidget      *row)
+{
+  if (self->menu_model) {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (row),
+                                    GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
+                                    -1);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (row),
+                                   GTK_ACCESSIBLE_PROPERTY_HAS_POPUP);
+  }
+}
+
 static GdkDragAction
 drop_enter_default_cb (AdwSidebar *self,
                        guint       index)
@@ -908,11 +923,8 @@ context_menu_notify_visible_cb (AdwSidebar *self)
   g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
 
   row = find_row (self, self->context_menu_item);
-  if (row) {
+  if (row)
     gtk_widget_remove_css_class (row, "has-open-popup");
-    gtk_accessible_reset_property (GTK_ACCESSIBLE (row),
-                                   GTK_ACCESSIBLE_PROPERTY_HAS_POPUP);
-  }
 
   self->reset_menu_idle_id = g_idle_add_once ((GSourceOnceFunc) reset_setup_menu_cb, self);
 }
@@ -969,9 +981,6 @@ open_context_menu (AdwSidebar     *self,
   gtk_popover_popup (GTK_POPOVER (self->context_menu));
 
   gtk_widget_add_css_class (row, "has-open-popup");
-  gtk_accessible_update_property (GTK_ACCESSIBLE (row),
-                                  GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
-                                  -1);
 }
 
 static void
@@ -1012,8 +1021,9 @@ long_pressed_cb (AdwSidebar *self,
 }
 
 static void
-setup_context_menu (AdwSidebar *self,
-                    GtkWidget  *row)
+setup_context_menu (AdwSidebar     *self,
+                    AdwSidebarItem *item,
+                    GtkWidget      *row)
 {
   GtkEventController *controller;
 
@@ -1029,6 +1039,8 @@ setup_context_menu (AdwSidebar *self,
   gtk_gesture_single_set_touch_only (GTK_GESTURE_SINGLE (controller), TRUE);
   g_signal_connect_swapped (controller, "pressed", G_CALLBACK (long_pressed_cb), self);
   gtk_widget_add_controller (row, controller);
+
+  update_has_popup (self, item, row);
 }
 
 static void
@@ -1177,7 +1189,7 @@ create_row (AdwSidebarItem *item,
   notify_suffix_cb (item, NULL, GTK_LIST_BOX_ROW (row));
 
   setup_drop_target (self, row);
-  setup_context_menu (self, row);
+  setup_context_menu (self, item, row);
 
   return row;
 }
@@ -1401,7 +1413,7 @@ create_boxed_row (AdwSidebarItem *item,
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-arrow", arrow);
 
   setup_drop_target (self, row);
-  setup_context_menu (self, row);
+  setup_context_menu (self, item, row);
 
   g_signal_connect_swapped (row, "activated", G_CALLBACK (boxed_row_activated_cb), self);
 
@@ -2979,6 +2991,8 @@ adw_sidebar_set_menu_model (AdwSidebar *self,
   g_set_object (&self->menu_model, menu_model);
 
   gtk_widget_action_set_enabled (GTK_WIDGET (self), "menu.popup", !!self->menu_model);
+
+  foreach_row (self, update_has_popup);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MENU_MODEL]);
 }
