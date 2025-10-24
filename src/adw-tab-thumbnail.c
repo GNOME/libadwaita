@@ -141,6 +141,19 @@ update_indicator (AdwTabThumbnail *self)
 }
 
 static void
+update_has_popup (AdwTabThumbnail *self)
+{
+  if (adw_tab_view_get_menu_model (self->view)) {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
+                                    -1);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self),
+                                   GTK_ACCESSIBLE_PROPERTY_HAS_POPUP);
+  }
+}
+
+static void
 close_idle_cb (AdwTabThumbnail *self)
 {
   adw_tab_view_close_page (self->view, self->page);
@@ -379,6 +392,12 @@ adw_tab_thumbnail_constructed (GObject *object)
 
     gtk_widget_set_visible (GTK_WIDGET (self->picture), FALSE);
   }
+
+  g_signal_connect_object (self->view, "notify::menu-model",
+                           G_CALLBACK (update_has_popup), self,
+                           G_CONNECT_SWAPPED);
+
+  update_has_popup (self);
 }
 
 static void
