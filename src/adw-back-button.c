@@ -524,6 +524,10 @@ adw_back_button_init (AdwBackButton *self)
                             G_CALLBACK (query_tooltip), self);
   adw_bin_set_child (ADW_BIN (self), button);
 
+  gtk_accessible_update_property (GTK_ACCESSIBLE (button),
+                                  GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
+                                  -1);
+
   gesture = gtk_gesture_click_new ();
   gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture), GDK_BUTTON_SECONDARY);
   g_signal_connect (gesture, "pressed", G_CALLBACK (right_click_pressed_cb), self);
