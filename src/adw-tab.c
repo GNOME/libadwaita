@@ -242,6 +242,19 @@ update_selected (AdwTab *self)
 }
 
 static void
+update_has_popup (AdwTab *self)
+{
+  if (adw_tab_view_get_menu_model (self->view)) {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
+                                    -1);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self),
+                                   GTK_ACCESSIBLE_PROPERTY_HAS_POPUP);
+  }
+}
+
+static void
 close_idle_cb (AdwTab *self)
 {
   adw_tab_view_close_page (self->view, self->page);
@@ -642,6 +655,12 @@ adw_tab_constructed (GObject *object)
   g_signal_connect_object (self->view, "notify::default-icon",
                            G_CALLBACK (update_icons), self,
                            G_CONNECT_SWAPPED);
+
+  g_signal_connect_object (self->view, "notify::menu-model",
+                           G_CALLBACK (update_has_popup), self,
+                           G_CONNECT_SWAPPED);
+
+  update_has_popup (self);
 }
 
 static void
