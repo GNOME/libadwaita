@@ -3840,6 +3840,26 @@ adw_tab_grid_focus_first_row (AdwTabGrid *self,
 }
 
 gboolean
+adw_tab_grid_activate_first (AdwTabGrid *self)
+{
+  GList *l = find_nth_visible_tab (self, 0);
+  TabInfo *info;
+
+  if (!l)
+    return FALSE;
+
+  info = l->data;
+
+  if (!info || !info->page)
+    return FALSE;
+
+  adw_tab_view_set_selected_page (self->view, info->page);
+  adw_tab_overview_set_open (self->tab_overview, FALSE);
+
+  return TRUE;
+}
+
+gboolean
 adw_tab_grid_focus_last_row (AdwTabGrid *self,
                              int         column)
 {

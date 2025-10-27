@@ -363,7 +363,7 @@ search_activated_cb (AdwShortcutsDialog *self)
   if (!row)
     return;
 
-  gtk_widget_grab_focus (GTK_WIDGET (row));
+  gtk_widget_activate (GTK_WIDGET (row));
 }
 
 static GtkWidget *

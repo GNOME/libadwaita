@@ -1848,12 +1848,15 @@ adw_sidebar_grab_focus (GtkWidget *widget)
 
   if (!row) {
     AdwSidebarItem *first;
+    guint index;
 
     if (g_list_model_get_n_items (G_LIST_MODEL (self->filtered_items)) == 0)
       return FALSE;
 
     first = g_list_model_get_item (G_LIST_MODEL (self->filtered_items), 0);
-    adw_sidebar_set_selected (self, adw_sidebar_item_get_index (first));
+    index = adw_sidebar_item_get_index (first);
+    adw_sidebar_set_selected (self, index);
+    g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0, index);
 
     row = find_row (self, first);
   }

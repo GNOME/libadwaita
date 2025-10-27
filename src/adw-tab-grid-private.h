@@ -84,6 +84,8 @@ gboolean adw_tab_grid_focus_first_row (AdwTabGrid *self,
 gboolean adw_tab_grid_focus_last_row  (AdwTabGrid *self,
                                        int         column);
 
+gboolean adw_tab_grid_activate_first (AdwTabGrid *self);
+
 void adw_tab_grid_focus_page (AdwTabGrid *self,
                               AdwTabPage *page);
 

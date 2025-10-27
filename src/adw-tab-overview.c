@@ -884,10 +884,10 @@ search_activated_cb (AdwTabOverview *self)
   if (!self->search_active)
     return;
 
-  if (adw_tab_grid_focus_first_row (self->pinned_grid, 0))
+  if (adw_tab_grid_activate_first (self->pinned_grid))
     return;
 
-  adw_tab_grid_focus_first_row (self->grid, 0);
+  adw_tab_grid_activate_first (self->grid);
 }
 
 static AdwTabPage *
@@ -2641,3 +2641,4 @@ adw_tab_overview_set_extra_drag_preload (AdwTabOverview *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_DRAG_PRELOAD]);
 }
+
