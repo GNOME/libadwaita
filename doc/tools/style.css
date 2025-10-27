@@ -34,8 +34,7 @@
   }
 }
 
-.tags label {
-  padding: 3px 12px;
-  background: color-mix(in srgb, currentColor 10%, transparent);
+.tags button {
   border-radius: 99px;
+  font-weight: normal;
 }

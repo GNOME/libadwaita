@@ -5,47 +5,47 @@
   <object class="AdwWrapBox" id="widget">
     <property name="line-spacing">6</property>
     <property name="child-spacing">6</property>
-    <property name="natural-line-length">280</property>
+    <property name="natural-line-length">300</property>
     <style>
       <class name="tags"/>
     </style>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Audio</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Documents</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Folders</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Images</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Text</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Spreadsheets</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">PDF</property>
       </object>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkButton">
         <property name="label">Videos</property>
       </object>
     </child>
