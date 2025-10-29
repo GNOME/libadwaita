@@ -196,6 +196,8 @@ struct _AdwHeaderBar {
   GtkWidget *dialog_host;
 
   GSList *split_views;
+
+  GtkPackType preferred_side;
 };
 
 enum {
@@ -207,6 +209,7 @@ enum {
   PROP_DECORATION_LAYOUT,
   PROP_CENTERING_POLICY,
   PROP_SHOW_TITLE,
+  PROP_PREFERRED_SIDE,
   LAST_PROP
 };
 
@@ -235,6 +238,147 @@ update_box_visibility (GtkWidget *box)
   }
 
   gtk_widget_set_visible (box, has_visible);
+}
+
+static void
+count_decoration_layout_elements (AdwHeaderBar *self,
+                                  const char   *layout,
+                                  int          *start,
+                                  int          *end)
+{
+  int counts[2];
+  char **sides;
+  int i;
+
+  if (self->sheet) {
+    gboolean prefers_start = adw_decoration_layout_prefers_start (layout);
+
+    *start = prefers_start ? 1 : 0;
+    *end = prefers_start ? 0 : 1;
+    return;
+  }
+
+  *start = 0;
+  *end = 0;
+
+  if (!layout || !strchr (layout, ':'))
+    return;
+
+  sides = g_strsplit (layout, ":", 2);
+
+  for (i = 0; i < 2; i++) {
+    char **elements;
+    int j;
+
+    counts[i] = 0;
+
+    if (sides[i] == NULL)
+      continue;
+
+    elements = g_strsplit (sides[i], ",", -1);
+
+    for (j = 0; elements[j]; j++) {
+      if (!g_strcmp0 (elements[j], "close") ||
+          !g_strcmp0 (elements[j], "minimize") ||
+          !g_strcmp0 (elements[j], "maximize") ||
+          !g_strcmp0 (elements[j], "icon")) {
+        counts[i]++;
+      }
+    }
+
+    g_strfreev (elements);
+  }
+
+  g_strfreev (sides);
+
+  *start = counts[0];
+  *end = counts[1];
+}
+
+static GtkPackType
+get_preferred_side (AdwHeaderBar *self)
+{
+  int start = 0, end = 0;
+
+  if (self->back_button && gtk_widget_get_visible (self->back_button))
+    return GTK_PACK_END;
+
+  if (self->start_controls) {
+    if (self->sheet) {
+      start = -1;
+    } else {
+#ifdef GDK_WINDOWING_MACOS
+      start = 3;
+#else
+      start = -1;
+#endif
+    }
+  }
+
+  if (self->end_controls) {
+    if (self->sheet) {
+      end = -1;
+    } else {
+#ifdef GDK_WINDOWING_MACOS
+      end = 0;
+#else
+      end = -1;
+#endif
+    }
+  }
+
+  if (start < 0 || end < 0) {
+    int layout_start = 0, layout_end = 0;
+
+    if (self->decoration_layout) {
+      count_decoration_layout_elements (self, self->decoration_layout, &layout_start, &layout_end);
+    } else {
+      GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self));
+      char *layout;
+
+      g_object_get (settings, "gtk-decoration-layout", &layout, NULL);
+
+      count_decoration_layout_elements (self, layout, &layout_start, &layout_end);
+
+      g_free (layout);
+    }
+
+    if (start < 0)
+      start = layout_start;
+
+    if (end < 0)
+      end = layout_end;
+  }
+
+  if (end > start)
+    return GTK_PACK_START;
+
+  return GTK_PACK_END;
+
+    // macos
+  // decoration layout
+  // system decoration layout
+    // whether we're showing left
+    // whether we're showing right
+    // whether we're showing back button (exists && visible)
+}
+
+static void
+update_preferred_side (AdwHeaderBar *self)
+{
+  GtkPackType new_side = get_preferred_side (self);
+
+  if (new_side == self->preferred_side)
+    return;
+
+  self->preferred_side = new_side;
+
+  if (new_side == GTK_PACK_END)
+    gtk_widget_add_css_class (GTK_WIDGET (self), "prefer-end");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "prefer-end");
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PREFERRED_SIDE]);
 }
 
 static void
@@ -268,6 +412,8 @@ update_decoration_layout (AdwHeaderBar *self,
                   "decoration-layout", decoration_layout,
                   NULL);
   }
+
+  update_preferred_side (self);
 }
 
 static void
@@ -345,6 +491,13 @@ recreate_end_controls (AdwHeaderBar *self)
 }
 
 static void
+update_back_button (AdwHeaderBar *self)
+{
+  update_box_visibility (self->start_box);
+  update_preferred_side (self);
+}
+
+static void
 create_back_button (AdwHeaderBar *self)
 {
   GtkWidget *button = adw_back_button_new ();
@@ -353,8 +506,8 @@ create_back_button (AdwHeaderBar *self)
                               button,
                               self->start_controls);
   g_signal_connect_swapped (button, "notify::visible",
-                            G_CALLBACK (update_box_visibility),
-                            self->start_box);
+                            G_CALLBACK (update_back_button),
+                            self);
 
   self->back_button = button;
 }
@@ -460,6 +613,7 @@ update_title_buttons (AdwHeaderBar *self)
 {
   update_start_title_buttons (self);
   update_end_title_buttons (self);
+  update_preferred_side (self);
 }
 
 static void
@@ -579,6 +733,7 @@ adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
   GtkWidget *parent, *screen_view = NULL;
+  GtkSettings *settings;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
@@ -679,6 +834,10 @@ adw_header_bar_root (GtkWidget *widget)
     parent = gtk_widget_get_parent (parent);
   }
 
+  settings = gtk_widget_get_settings (widget);
+  g_signal_connect_swapped (settings, "notify::gtk-decoration-layout",
+                            G_CALLBACK (update_preferred_side), self);
+
   update_title (self);
   update_title_buttons (self);
   update_decoration_layout (self, TRUE, TRUE);
@@ -688,7 +847,11 @@ static void
 adw_header_bar_unroot (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
+  GtkSettings *settings;
   GSList *l;
+
+  settings = gtk_widget_get_settings (widget);
+  g_signal_handlers_disconnect_by_func (settings, update_preferred_side, self);
 
   if (self->title_navigation_page) {
     g_signal_handlers_disconnect_by_func (self->title_navigation_page,
@@ -793,6 +956,9 @@ adw_header_bar_get_property (GObject    *object,
     break;
   case PROP_SHOW_TITLE:
     g_value_set_boolean (value, adw_header_bar_get_show_title (self));
+    break;
+  case PROP_PREFERRED_SIDE:
+    g_value_set_enum (value, adw_header_bar_get_preferred_side (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -969,6 +1135,19 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwHeaderBar:preferred-side:
+   *
+   * TODO
+   *
+   * Since: 1.9
+   */
+  props[PROP_PREFERRED_SIDE] =
+    g_param_spec_enum ("preferred-side", NULL, NULL,
+                       GTK_TYPE_PACK_TYPE,
+                       GTK_PACK_START,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
@@ -984,6 +1163,7 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->show_start_title_buttons = TRUE;
   self->show_end_title_buttons = TRUE;
   self->show_back_button = TRUE;
+  self->preferred_side = GTK_PACK_START;
 
   self->handle = gtk_window_handle_new ();
   gtk_widget_set_parent (self->handle, GTK_WIDGET (self));
@@ -1021,6 +1201,7 @@ adw_header_bar_init (AdwHeaderBar *self)
 
   construct_title_label (self);
   create_back_button (self);
+  update_back_button (self);
 }
 
 static void
@@ -1252,8 +1433,10 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
 
   self->show_start_title_buttons = setting;
 
-  if (self->start_box)
+  if (self->start_box) {
     update_start_title_buttons (self);
+    update_preferred_side (self);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_START_TITLE_BUTTONS]);
 }
@@ -1300,8 +1483,10 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 
   self->show_end_title_buttons = setting;
 
-  if (self->end_box)
+  if (self->end_box) {
     update_end_title_buttons (self);
+    update_preferred_side (self);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_END_TITLE_BUTTONS]);
 }
@@ -1357,7 +1542,7 @@ adw_header_bar_set_show_back_button (AdwHeaderBar *self,
       self->back_button = NULL;
     }
 
-    update_box_visibility (self->start_box);
+    update_back_button (self);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_BACK_BUTTON]);
@@ -1497,4 +1682,22 @@ adw_header_bar_set_show_title (AdwHeaderBar *self,
   gtk_widget_set_visible (self->center_bin, show_title);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_TITLE]);
+}
+
+/**
+ * adw_header_bar_get_preferred_side:
+ * @self: a header bar
+ *
+ * TODO
+ *
+ * Returns: TODO
+ *
+ * Since: 1.9
+ */
+GtkPackType
+adw_header_bar_get_preferred_side (AdwHeaderBar *self)
+{
+  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), GTK_PACK_START);
+
+  return self->preferred_side;
 }

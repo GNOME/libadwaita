@@ -96,4 +96,7 @@ ADW_AVAILABLE_IN_1_4
 void     adw_header_bar_set_show_title (AdwHeaderBar *self,
                                         gboolean      show_title);
 
+ADW_AVAILABLE_IN_1_9
+GtkPackType adw_header_bar_get_preferred_side (AdwHeaderBar *self);
+
 G_END_DECLS
