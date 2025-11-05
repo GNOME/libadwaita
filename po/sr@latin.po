@@ -1,0 +1,673 @@
+# Serbian translation for libadwaita.
+# Copyright © 2021 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2021.
+# Miloš Popović <gpopac@gmail.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2025-10-31 17:13+0000\n"
+"PO-Revision-Date: 2025-11-06 00:32+0100\n"
+"Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
+"Language-Team: Serbian <Serbian <gnome-sr@googlegroups.com>>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"X-Generator: Gtranslator 48.0\n"
+
+#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+msgid "GNU General Public License, version 2 or later"
+msgstr "Gnuova Opšta javna licenca, 2. izdanje ili novije"
+
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+msgid "GNU General Public License, version 3 or later"
+msgstr "Gnuova Opšta javna licenca, izdanje 3 ili novije"
+
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Gnuova Manja opšta javna licenca, izdanje 2.1 ili novije"
+
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Gnuova Manja opšta javna licenca, izdanje 3 ili novije"
+
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+msgid "BSD 2-Clause License"
+msgstr "BSD dozvola 2-uslova"
+
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+msgid "The MIT License (MIT)"
+msgstr "MIT-ova dozvola (MIT)"
+
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+msgid "Artistic License 2.0"
+msgstr "Umetnička dozvola 2.0"
+
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+msgid "GNU General Public License, version 2 only"
+msgstr "Gnuova Opšta javna licenca, samo izdanje 2"
+
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+msgid "GNU General Public License, version 3 only"
+msgstr "Gnuova Opšta javna licenca, samo izdanje 3"
+
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Gnuova Manja opšta javna licenca, samo izdanje 2.1"
+
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Gnuova Manja opšta javna licenca, samo izdanje 3"
+
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Gnuova Afero Opšta javna licenca, izdanje 3 ili novije"
+
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Gnuova Afero opšta javna licenca, samo izdanje 3"
+
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+msgid "BSD 3-Clause License"
+msgstr "BSD dozvola 3-uslova"
+
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+msgid "Apache License, Version 2.0"
+msgstr "Apač dozvola, izdanje 2.0"
+
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilina javna dozvola 2.0"
+
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+msgid "BSD Zero-Clause License"
+msgstr "BSD dozvola 0-uslova"
+
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+msgid "Code by"
+msgstr "Kod"
+
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+msgid "Design by"
+msgstr "Dizajn"
+
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+msgid "Artwork by"
+msgstr "Grafika"
+
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+msgid "Documentation by"
+msgstr "Dokumentacija"
+
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+msgid "Translated by"
+msgstr "Prevod"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Ovaj program se isporučuje bez ikakve garancije. Za više podataka, posetite "
+"<a href=\"%s\">%s</a>."
+
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+msgid "This Application"
+msgstr "Ovaj program"
+
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#, c-format
+msgid "Version %s"
+msgstr "Izdanje %s"
+
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+msgid "Unable to parse release notes:"
+msgstr "Ne mogu da pročitam beleške o izdanju:"
+
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Red: %d, znak: %d"
+
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+msgid "Copied to clipboard"
+msgstr "Kopirano u ostavu"
+
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+msgid "Unable to save debugging information"
+msgstr "Ne mogu da sačuvam podatke za popravljanje grešaka"
+
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
+#: src/adw-sheet-controls.c:127
+msgid "Close"
+msgstr "Zatvori"
+
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+msgid "Save debugging information"
+msgstr "Sačuvaj podatke za otklanjanje grešaka"
+
+#: src/adw-about-dialog.c:2302
+#, c-format
+msgid "Other Apps by %s"
+msgstr "Ostali programi od %s"
+
+#: src/adw-about-dialog.c:2308
+msgid "Other Apps"
+msgstr "Ostali programi"
+
+#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+msgid "About"
+msgstr "O programu"
+
+#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
+msgid "What’s _New"
+msgstr "Šta je _novo"
+
+#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
+msgid "_Details"
+msgstr "Poje_dinosti"
+
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
+msgid "_Website"
+msgstr "_Veb stranica"
+
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+msgid "_Support Questions"
+msgstr "Pit_anja podrške"
+
+#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+msgid "_Report an Issue"
+msgstr "P_rijavi problem"
+
+#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+msgid "_Troubleshooting"
+msgstr "Rešavanje pro_blema"
+
+#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+msgid "_Credits"
+msgstr "Zaslu_ge"
+
+#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+msgid "_Legal"
+msgstr "Pra_vno"
+
+#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+msgid "_Acknowledgements"
+msgstr "Z_ahvalnice"
+
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+msgid "What’s New"
+msgstr "Šta je novo"
+
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+msgid "Details"
+msgstr "Pojedinosti"
+
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+msgid "Troubleshooting"
+msgstr "Rešavanje problema"
+
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Da biste pomogli u rešavanju problema, možete pogledati vaše podatke za "
+"rešavanje grešaka. Dostavljanje ovih podataka programerima aplikacije može "
+"pomoći u traženju uzroka, kada prijavite problem."
+
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+msgid "_Debugging Information"
+msgstr "Po_daci za rešavanje grešaka"
+
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+msgid "Debugging Information"
+msgstr "Podaci za rešavanje grešaka"
+
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+msgid "_Copy Text"
+msgstr "_Kopiraj tekst"
+
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+msgid "_Save As…"
+msgstr "_Sačuvaj kao…"
+
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+msgid "Credits"
+msgstr "Zasluge"
+
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+msgid "Legal"
+msgstr "Pravno"
+
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+msgid "Acknowledgements"
+msgstr "Zahvalnice"
+
+#: src/adw-adaptive-preview.c:387
+msgid "Screenshot Copied to Clipboard"
+msgstr "Snimak ekrana je kopiran u ostavu"
+
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
+#: src/adw-inspector-page.ui:88
+msgid "Adaptive Preview"
+msgstr "Prilagodljiv p\tregled"
+
+#: src/adw-adaptive-preview.ui:28
+msgid "Display"
+msgstr " Ekran"
+
+#: src/adw-adaptive-preview.ui:31
+msgid "Device"
+msgstr "Uređaj"
+
+#: src/adw-adaptive-preview.ui:37
+msgid "Width"
+msgstr "Širina"
+
+#: src/adw-adaptive-preview.ui:51
+msgid "Height"
+msgstr "Visina"
+
+#: src/adw-adaptive-preview.ui:65
+msgid "Rotate"
+msgstr "Rotiraj"
+
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+msgid "Rotate Left"
+msgstr "Rotiraj ulevo"
+
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+msgid "Rotate Right"
+msgstr "Rotiraj udesno"
+
+#: src/adw-adaptive-preview.ui:96
+msgid "Shell"
+msgstr "Školjka"
+
+#: src/adw-adaptive-preview.ui:99
+msgid "Preset"
+msgstr "Unapred podešeno"
+
+#: src/adw-adaptive-preview.ui:105
+msgid "Top Bar"
+msgstr "Gornja traka"
+
+#: src/adw-adaptive-preview.ui:119
+msgid "Bottom Bar"
+msgstr "Donja traka"
+
+#: src/adw-adaptive-preview.ui:133
+msgid "Window Controls"
+msgstr "Kontrole prozora"
+
+#: src/adw-adaptive-preview.ui:141
+msgid "View"
+msgstr "Prikaz"
+
+#: src/adw-adaptive-preview.ui:144
+msgid "Scale to Fit"
+msgstr "Uklopi na veličinu"
+
+#. Translators: screen bezel, e.g. on a phone
+#: src/adw-adaptive-preview.ui:151
+msgid "Highlight Bezel"
+msgstr "Istakni okvir"
+
+#: src/adw-adaptive-preview.ui:177
+msgid "Toggle Sidebar"
+msgstr "Prikaži bočnu traku"
+
+#: src/adw-adaptive-preview.ui:187
+msgid "Exit"
+msgstr "Izađi"
+
+#: src/adw-adaptive-preview.ui:197
+msgid "Take Screenshot"
+msgstr "Napravi snimak ekrana"
+
+#: src/adw-adaptive-preview-presets-private.h:24
+msgctxt "Shell preset"
+msgid "Desktop Shell"
+msgstr "Školjka za računar"
+
+#: src/adw-adaptive-preview-presets-private.h:25
+msgctxt "Shell preset"
+msgid "Mobile Shell"
+msgstr "Školjka za mobilni"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
+msgid "Phosh"
+msgstr "Foš"
+
+#: src/adw-adaptive-preview-presets-private.h:27
+msgctxt "Shell preset"
+msgid "Fullscreen"
+msgstr "Preko celog ekrana"
+
+#: src/adw-adaptive-preview-presets-private.h:28
+msgctxt "Shell preset"
+msgid "Custom"
+msgstr "Proizvoljno"
+
+#: src/adw-adaptive-preview-presets-private.h:90
+msgctxt "Device preset"
+msgid "Generic Phone"
+msgstr "Uobičajeni telefon"
+
+#: src/adw-adaptive-preview-presets-private.h:99
+msgctxt "Device preset"
+msgid "Generic Tablet"
+msgstr "Uobičajeni tablet"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
+msgid "OnePlus 6"
+msgstr "OnePlus 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
+msgid "OnePlus 6T"
+msgstr "OnePlus 6T"
+
+#: src/adw-adaptive-preview-presets-private.h:126
+msgctxt "Device preset"
+msgid "Custom"
+msgstr "Proizvoljno"
+
+#: src/adw-avatar.c:159
+#, c-format
+msgid "Avatar of %s"
+msgstr "Avatar od %s"
+
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
+msgid "Back"
+msgstr "Nazad"
+
+#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
+#: src/adw-preferences-window.ui:96
+msgid "Search"
+msgstr "Traži"
+
+#: src/adw-entry-row.ui:96
+msgid "Apply"
+msgstr "Primeni"
+
+#: src/adw-inspector-page.c:131
+msgid "No Preference"
+msgstr "Nema postavki"
+
+#: src/adw-inspector-page.c:133
+msgid "Prefer Dark"
+msgstr "Prednost tamnoj"
+
+#: src/adw-inspector-page.c:135
+msgid "Prefer Light"
+msgstr "Prednost svetloj"
+
+#: src/adw-inspector-page.c:148
+msgid "Blue"
+msgstr "Plava"
+
+#: src/adw-inspector-page.c:150
+msgid "Teal"
+msgstr "Plavo-zelena"
+
+#: src/adw-inspector-page.c:152
+msgid "Green"
+msgstr "Zelena"
+
+#: src/adw-inspector-page.c:154
+msgid "Yellow"
+msgstr "Žuta"
+
+#: src/adw-inspector-page.c:156
+msgid "Orange"
+msgstr "Narandžasta"
+
+#: src/adw-inspector-page.c:158
+msgid "Red"
+msgstr "Crvena"
+
+#: src/adw-inspector-page.c:160
+msgid "Pink"
+msgstr "Roze"
+
+#: src/adw-inspector-page.c:162
+msgid "Purple"
+msgstr "Ljubičasta"
+
+#: src/adw-inspector-page.c:164
+msgid "Slate"
+msgstr "Sivkasta"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:303
+msgid "Adwaita"
+msgstr "Advajta"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Izgled sistema"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Prevaziđite podešavanja za ovaj program. Biće vraćena nakon zatvaranja "
+"inspektora."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Sistem podržava šeme boja"
+
+#: src/adw-inspector-page.ui:20
+msgid "Preferred Color Scheme"
+msgstr "Željena šema boja"
+
+#: src/adw-inspector-page.ui:39
+msgid "Accent Color"
+msgstr "Boja naglašavanja"
+
+#: src/adw-inspector-page.ui:42
+msgid "System Supports Accent Colors"
+msgstr "Sistem podržava boje naglašavanja"
+
+#: src/adw-inspector-page.ui:48
+msgid "Preferred Accent Color"
+msgstr "Željena boja naglašavanja"
+
+#: src/adw-inspector-page.ui:77
+msgid "Accessibility"
+msgstr "Pristupačnost"
+
+#: src/adw-inspector-page.ui:80
+msgid "High Contrast"
+msgstr "Veliki kontrast"
+
+#: src/adw-inspector-page.ui:89
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"Testirajte program na određenim veličinama ekrana da bi simulirali mobilno "
+"okruženje. Otvorite prikaz u bilo kom podržanom prozoru pomoću Shift+Ctrl+M"
+
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "Sakrij lozinku"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "Prikaži lozinku"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Uključena su velika slova"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "Pr_ikaži lozinku"
+
+#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
+msgid "Untitled page"
+msgstr "Neimenovana stranica"
+
+#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Postavke"
+
+#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+msgid "Search preferences"
+msgstr "Postavke pretrage"
+
+#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:74
+msgid "No Results Found"
+msgstr "Nisam pronašao rezultate"
+
+#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-tab-overview.ui:110
+msgid "Try a different search"
+msgstr "Pokušajte drugačiju pretragu"
+
+#: src/adw-preferences-window.ui:164
+msgid "Try a different search."
+msgstr "Pokušajte drugačiju pretragu."
+
+#: src/adw-sheet-controls.c:129
+msgid "Close the window"
+msgstr "Zatvori prozor"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:133
+msgctxt "keyboard side marker"
+msgid "L"
+msgstr "L"
+
+#. Translators: This string is used to mark left/right variants of modifier
+#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. * this string very short, ideally just a single character, since it will
+#. * be rendered as part of the key.
+#.
+#: src/adw-shortcut-label.c:146
+msgctxt "keyboard side marker"
+msgid "R"
+msgstr "D"
+
+#: src/adw-shortcuts-dialog.ui:5
+msgid "Keyboard Shortcuts"
+msgstr "Prečice na tastaturi"
+
+#: src/adw-shortcuts-dialog.ui:20
+msgid "Search shortcuts"
+msgstr "Pretraži prečice"
+
+#: src/adw-shortcut-row.c:257
+msgid "No Shortcut"
+msgstr "Nema prečice"
+
+#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+msgid "More Options"
+msgstr "Više opcija"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Pogledaj otvorene jezičke"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:931
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u jezičak"
+msgstr[1] "%u jezička"
+msgstr[2] "%u jezičaka"
+msgstr[3] "Jedan jezičak"
+
+#: src/adw-tab-overview.ui:20
+msgid "Search Tabs"
+msgstr "Pretraži jezičke"
+
+#: src/adw-tab-overview.ui:50
+msgid "Search tabs"
+msgstr "Pretraži jezičke"
+
+#: src/adw-tab-overview.ui:96
+msgid "No Open Tabs"
+msgstr "Nema otvorenih jezičaka"
+
+#: src/adw-tab-overview.ui:109
+msgid "No Tabs Found"
+msgstr "Nema pronađenih jezičaka"
+
+#: src/adw-tab-overview.ui:130
+msgid "New _Tab"
+msgstr "Novi _jezičak"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
+msgid "Close Tab"
+msgstr "Zatvori jezičak"
+
+#: src/adw-toast-overlay.c:285
+#, c-format
+msgid "A toast appeared: %s, has a button: %s"
+msgstr "Obaveštenje se pojavilo: %s, ima dugme: %s"
+
+#: src/adw-toast-overlay.c:288
+#, c-format
+msgid "A toast appeared: %s"
+msgstr "Obaveštenje se pojavilo: %s"
+
+#: src/adw-toast-overlay.c:290
+#, c-format
+msgid "A toast appeared, has a button: %s"
+msgstr "Obaveštenje sa dugmetom se pojavilo: %s"
+
+#: src/adw-toast-overlay.c:293
+msgid "A toast appeared"
+msgstr "Obaveštenje se pojavilo"
+
+#: src/adw-toast-widget.ui:66
+msgid "Dismiss"
+msgstr "Odbaci"
+
+#~ msgid "_What’s New"
+#~ msgstr "Š_ta je novo"
+
+#~ msgid "Search…"
+#~ msgstr "Potraži…"
+
+#~ msgid "Hide Text"
+#~ msgstr "Sakrij tekst"
+
+#~ msgid "Show Text"
+#~ msgstr "Prikaži tekst"
+
+#~ msgid "_Show Text"
+#~ msgstr "Prikaži _tekst"
+
+#~ msgid "_Save"
+#~ msgstr "_Sačuvaj"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Otkaži"
