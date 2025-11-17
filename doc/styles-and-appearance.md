@@ -164,26 +164,16 @@ it manually.
 
 ## Custom Styles
 
-[class@Application] provides a simple way to load additional styles from
-[struct@Gio.Resource], relative to the application's base path (see
+[class@Application] provides a simple way to load additional styles from a
+resource named `style.css`, relative to the application's base path (see
 [method@Gio.Application.set_resource_base_path]).
 
-The following resources will automatically be loaded if present:
+To add styles conditionally only for certain color schemes or high contrast, use
+the following media queries:
 
-- `style.css` contains styles that are always used.
-- `style-dark.css` contains styles only used with the dark appearance.
-- `style-hc.css` contains styles used with the high contrast appearance.
-- `style-hc-dark.css` contains styles used when both dark and high contrast
-
-Styles are stacked on top of each other: when using dark appearance, both
-`style.css` and `style-dark.css` are loaded, and so on.
-
-:::note
-    `style.css` can contain styles for dark and high contrast appearance as
-    well, using media queries:
-
-    - `prefers-color-scheme: dark` for styles used only with dark appearance.
-    - `prefers-contrast: more` for styles used only with high contrast appearance.
+ - `prefers-color-scheme: dark` for styles used only for dark appearance.
+ - `prefers-contrast: more` for styles used only when the system high contrast
+    preference is enabled.
 
 ## See Also
 

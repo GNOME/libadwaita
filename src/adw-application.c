@@ -22,6 +22,10 @@
  *
  * ## Automatic Resources
  *
+ * `AdwApplication` will automatically load certain resources located in the
+ * application's resource base path (see
+ * [method@Gio.Application.set_resource_base_path], if they're present.
+ *
  * ### Shortcuts Dialog
  *
  * If there's a resource located at `shortcuts-dialog.ui` which defines an
@@ -31,26 +35,24 @@
  *
  * ### Stylesheet
  *
- * `AdwApplication` will automatically load stylesheets located in the
- * application's resource base path (see
- * [method@Gio.Application.set_resource_base_path], if they're present.
+ * If there's a resource located at `style.css`, `AdwApplication` will load
+ * styles from it. This can be used to add custom styles to the application.
  *
- * They can be used to add custom styles to the application, as follows:
+ * #### Additional styles (deprecated)
  *
- * - `style.css` contains styles that are always present.
+ * `AdwApplication` will also load the following stylesheets conditionally:
  *
- * - `style-dark.css` contains styles only used when
- * [property@StyleManager:dark] is `TRUE`.
+ * - `style-dark.css` when [property@StyleManager:dark] is `TRUE`.
  *
- * - `style-hc.css` contains styles used when the system high contrast
- *   preference is enabled.
+ * - `style-hc.css` when the system high contrast preference is enabled.
  *
- * - `style-hc-dark.css` contains styles used when the system high contrast
- *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
+ * - `style-hc-dark.css` when the system high contrast preference is enabled and
+ *   [property@StyleManager:dark] is `TRUE`.
  *
- * :::note
- *     `style.css` can contain styles for dark and high contrast appearance as
- *     well, using media queries:
+ * :::warning
+ *     These resources are deprecated since 1.9.
+ *
+ *     Use `style.css` with the following media queries instead:
  *
  *     - `prefers-color-scheme: dark` for styles used only for dark appearance.
  *     - `prefers-contrast: more` for styles used only when the system high
@@ -217,17 +219,27 @@ update_stylesheet (AdwApplication *self)
 
 static void
 init_provider_from_file (GtkStyleProvider **provider,
-                         GFile             *file)
+                         GFile             *base_file,
+                         const char        *name,
+                         gboolean           deprecated)
 {
+  GFile *file = g_file_get_child (base_file, name);
+
   if (!g_file_query_exists (file, NULL)) {
-    g_clear_object (&file);
+    g_object_unref (file);
     return;
   }
 
   *provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
   gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (*provider), file);
 
-  g_clear_object (&file);
+  if (deprecated) {
+    g_warning ("The resource %s is deprecated and shouldn't be used anymore. "
+               "Use style.css with media queries instead.",
+               name);
+  }
+
+  g_object_unref (file);
 }
 
 static void
@@ -240,14 +252,10 @@ init_providers (AdwApplication *self)
     return;
 
   if (!adw_is_granite_present ()) {
-    init_provider_from_file (&priv->base_style_provider,
-                             g_file_get_child (base_file, "style.css"));
-    init_provider_from_file (&priv->dark_style_provider,
-                             g_file_get_child (base_file, "style-dark.css"));
-    init_provider_from_file (&priv->hc_style_provider,
-                             g_file_get_child (base_file, "style-hc.css"));
-    init_provider_from_file (&priv->hc_dark_style_provider,
-                             g_file_get_child (base_file, "style-hc-dark.css"));
+    init_provider_from_file (&priv->base_style_provider,    base_file, "style.css",         FALSE);
+    init_provider_from_file (&priv->dark_style_provider,    base_file, "style-dark.css",    TRUE);
+    init_provider_from_file (&priv->hc_style_provider,      base_file, "style-hc.css",      TRUE);
+    init_provider_from_file (&priv->hc_dark_style_provider, base_file, "style-hc-dark.css", TRUE);
   }
 
   g_object_unref (base_file);
