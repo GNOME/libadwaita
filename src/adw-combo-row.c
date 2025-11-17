@@ -194,15 +194,13 @@ model_changed (AdwComboRow *self)
 }
 
 static void
-row_activated_cb (AdwComboRow *self,
-                  guint        position)
+row_activated_cb (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
   GtkFilter *filter;
 
   gtk_popover_popdown (GTK_POPOVER (priv->popover));
 
-  gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (priv->popup_selection), position);
   /* reset the filter so positions are 1-1 */
   filter = gtk_filter_list_model_get_filter (GTK_FILTER_LIST_MODEL (priv->filter_model));
   if (GTK_IS_STRING_FILTER (filter))
