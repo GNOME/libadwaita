@@ -1,10 +1,26 @@
 /*
  * Copyright (C) 2022 George Barrett <bob@bob131.so>
+ * Copyright (C) 2025 GNOME Foundation Inc.
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include <adwaita.h>
+
+static void
+test_adw_none_animation_target_basic (void)
+{
+  GtkWidget *widget = g_object_ref_sink (gtk_button_new ());
+  AdwAnimationTarget *target = adw_none_animation_target_new ();
+  AdwAnimation *animation =
+    adw_timed_animation_new (widget, 1, 0, 100, g_object_ref (target));
+
+  adw_animation_play (animation);
+
+  g_assert_finalize_object (animation);
+  g_assert_finalize_object (target);
+  g_assert_finalize_object (widget);
+}
 
 static void
 test_adw_property_animation_target_construct (void)
@@ -62,6 +78,8 @@ main (int   argc,
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();
 
+  g_test_add_func("/Adwaita/NoneAnimationTarget/basic",
+                  test_adw_none_animation_target_basic);
   g_test_add_func("/Adwaita/PropertyAnimationTarget/construct",
                   test_adw_property_animation_target_construct);
   g_test_add_func("/Adwaita/PropertyAnimationTarget/basic",

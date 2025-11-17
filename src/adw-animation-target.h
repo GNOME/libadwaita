@@ -21,6 +21,13 @@ G_BEGIN_DECLS
 ADW_AVAILABLE_IN_ALL
 GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
 
+#define ADW_TYPE_NONE_ANIMATION_TARGET (adw_none_animation_target_get_type())
+
+ADW_AVAILABLE_IN_1_9
+GDK_DECLARE_INTERNAL_TYPE (AdwNoneAnimationTarget, adw_none_animation_target, ADW, NONE_ANIMATION_TARGET, AdwAnimationTarget)
+
+ADW_AVAILABLE_IN_1_9
+AdwAnimationTarget *adw_none_animation_target_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 /**
  * AdwAnimationTargetFunc:
