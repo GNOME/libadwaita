@@ -433,6 +433,8 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
 
   self->needs_attention = needs_attention;
 
+  adw_update_badge_accessibility (GTK_WIDGET (self), self->needs_attention, self->badge_number);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
 }
 
@@ -469,6 +471,8 @@ adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
     return;
 
   self->badge_number = badge_number;
+
+  adw_update_badge_accessibility (GTK_WIDGET (self), self->needs_attention, self->badge_number);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE_NUMBER]);
 }
