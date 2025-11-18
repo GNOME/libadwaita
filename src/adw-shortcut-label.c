@@ -368,14 +368,17 @@ static gboolean
 parse_sequence (AdwShortcutLabel *self,
                 const char       *str)
 {
+  gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   gboolean retval = TRUE;
   char **accels;
   int k;
 
   accels = g_strsplit (str, "+", 0);
   for (k = 0; accels[k]; k++) {
-    if (k > 0)
-      gtk_widget_set_parent (dim_label ("→"), GTK_WIDGET (self));
+    if (k > 0) {
+      const char *arrow = is_rtl ? "←" : "→";
+      gtk_widget_set_parent (dim_label (arrow), GTK_WIDGET (self));
+    }
 
     if (!parse_combination (self, accels[k])) {
       retval = FALSE;
@@ -520,6 +523,15 @@ adw_shortcut_label_set_property (GObject      *object,
 }
 
 static void
+adw_shortcut_label_direction_changed (GtkWidget        *widget,
+                                      GtkTextDirection  previous_direction)
+{
+  AdwShortcutLabel *self = ADW_SHORTCUT_LABEL (widget);
+
+  rebuild (self);
+}
+
+static void
 adw_shortcut_label_class_init (AdwShortcutLabelClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -529,6 +541,8 @@ adw_shortcut_label_class_init (AdwShortcutLabelClass *klass)
   object_class->finalize = adw_shortcut_label_finalize;
   object_class->get_property = adw_shortcut_label_get_property;
   object_class->set_property = adw_shortcut_label_set_property;
+
+  widget_class->direction_changed = adw_shortcut_label_direction_changed;
 
   /**
    * AdwShortcutLabel:accelerator:
