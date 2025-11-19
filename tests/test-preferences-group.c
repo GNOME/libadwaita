@@ -44,6 +44,9 @@ test_adw_preferences_group_title (void)
   adw_preferences_group_set_title (group, "Dummy title");
   g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "Dummy title");
 
+  adw_preferences_group_set_title (group, "<b>Dummy title</b>");
+  g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "<b>Dummy title</b>");
+
   adw_preferences_group_set_title (group, NULL);
   g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "");
 
@@ -61,6 +64,9 @@ test_adw_preferences_group_description (void)
 
   adw_preferences_group_set_description (group, "Dummy description");
   g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "Dummy description");
+
+  adw_preferences_group_set_description (group, "<b>Dummy description</b>");
+  g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "<b>Dummy description</b>");
 
   adw_preferences_group_set_description (group, NULL);
   g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "");
