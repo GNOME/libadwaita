@@ -40,16 +40,27 @@ static void
 test_adw_action_row_subtitle (void)
 {
   AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  int notified = 0;
+
   g_assert_nonnull (row);
 
+  g_signal_connect_swapped (row, "notify::subtitle", G_CALLBACK (increment), &notified);
+
   g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "");
+  g_assert_cmpint (notified, ==, 0);
 
   adw_action_row_set_subtitle (row, "Dummy subtitle");
   g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "Dummy subtitle");
+  g_assert_cmpint (notified, ==, 1);
+
+  adw_action_row_set_subtitle (row, "<b>Dummy subtitle</b>");
+  g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "<b>Dummy subtitle</b>");
+  g_assert_cmpint (notified, ==, 2);
 
   adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (row), FALSE);
   adw_action_row_set_subtitle (row, "Invalid <b>markup");
   g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "Invalid <b>markup");
+  g_assert_cmpint (notified, ==, 3);
 
   g_assert_finalize_object (row);
 }
