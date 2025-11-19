@@ -548,7 +548,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
 
   priv = adw_action_row_get_instance_private (self);
 
-  return gtk_label_get_text (priv->subtitle);
+  return gtk_label_get_label (priv->subtitle);
 }
 
 /**
