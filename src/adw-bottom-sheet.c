@@ -13,7 +13,7 @@
 #include <math.h>
 
 #include "adw-animation-target.h"
-#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-bin.h"
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
@@ -29,6 +29,8 @@
 #define TOP_PADDING_TARGET_VALUE 120
 #define CHILD_SWITCH_THRESHOLD 0.15
 #define REVEAL_BOTTOM_BAR_DURATION 250
+#define SPRING_DAMPING 0.8
+#define SPRING_STIFFNESS 400
 
 /**
  * AdwBottomSheet:
@@ -133,6 +135,7 @@ struct _AdwBottomSheet
   double progress;
   float align;
   gboolean full_width;
+  gboolean use_fade;
 
   gboolean switch_child;
   gboolean showing_bottom_bar;
@@ -200,6 +203,22 @@ enum {
 };
 
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+static void
+update_spring_params (AdwBottomSheet *self,
+                      AdwAnimation   *animation)
+{
+  gboolean reduce_motion = adw_get_reduce_motion (GTK_WIDGET (self));
+  AdwSpringParams *params;
+
+  params = adw_spring_params_new (reduce_motion ? 1.0 : SPRING_DAMPING,
+                                  1,
+                                  SPRING_STIFFNESS);
+
+  adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (animation), params);
+
+  adw_spring_params_unref (params);
+}
 
 static void
 released_cb (GtkGestureClick *gesture,
@@ -292,6 +311,10 @@ open_animation_cb (double          value,
   self->progress = value;
 
   gtk_widget_set_opacity (self->dimming, CLAMP (value, 0, 1));
+
+  if (self->use_fade)
+    gtk_widget_set_opacity (self->sheet_bin, CLAMP (value, 0, 1));
+
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   if (self->switch_child || self->swipe_active) {
@@ -553,6 +576,7 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   int top_padding;
   int bottom_bar_height;
   float align;
+  double progress;
 
   if (width == 0 && height == 0)
     return;
@@ -596,7 +620,12 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
 
   sheet_height = MAX (MIN (sheet_height, height - top_padding), sheet_min_height);
 
-  sheet_y = height - round (adw_lerp (bottom_bar_height, sheet_height, self->progress));
+  if (self->use_fade)
+    progress = G_APPROX_VALUE (self->progress, 0, DBL_EPSILON) ? 0.0 : 1.0;
+  else
+    progress = self->progress;
+
+  sheet_y = height - round (adw_lerp (bottom_bar_height, sheet_height, progress));
 
   set_heights (self,
                MAX (MIN (sheet_height, height - sheet_y), bottom_bar_height),
@@ -1031,6 +1060,8 @@ begin_swipe_cb (AdwSwipeTracker *tracker,
   if (!self->swipe_detected)
     return;
 
+  self->use_fade = FALSE;
+
   adw_animation_pause (self->open_animation);
 
   if (!self->open)
@@ -1060,18 +1091,19 @@ end_swipe_cb (AdwSwipeTracker *tracker,
   if (!self->swipe_active)
     return;
 
-  self->swipe_active = FALSE;
-
   adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->open_animation),
                                              velocity);
 
   if ((to > 0.5) != self->open) {
     adw_bottom_sheet_set_open (self, to > 0.5);
+    self->swipe_active = FALSE;
     return;
   }
 
+  self->swipe_active = FALSE;
   self->switch_child = TRUE;
 
+  update_spring_params (self, self->open_animation);
   adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->open_animation),
                                        self->progress);
   adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->open_animation),
@@ -1191,7 +1223,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->open_animation = adw_spring_animation_new (GTK_WIDGET (self),
                                                    0,
                                                    1,
-                                                   adw_spring_params_new (0.8, 1, 400),
+                                                   adw_spring_params_new (1, 1, SPRING_STIFFNESS),
                                                    target);
   adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.0001);
   g_signal_connect_swapped (self->open_animation, "done",
@@ -1721,6 +1753,12 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
     }
   }
 
+  if (self->swipe_active || self->bottom_bar)
+    self->use_fade = FALSE;
+  else
+    self->use_fade = adw_get_reduce_motion (GTK_WIDGET (self));
+
+  update_spring_params (self, self->open_animation);
   adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->open_animation),
                                        self->progress);
   adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->open_animation),
