@@ -102,11 +102,12 @@ static GHashTable *display_style_managers = NULL;
 static AdwStyleManager *default_instance = NULL;
 
 typedef enum {
-  UPDATE_CONTRAST         = 1 << 0,
-  UPDATE_COLOR_SCHEME = 1 << 1,
-  UPDATE_ACCENT_COLOR = 1 << 2,
-  UPDATE_FONTS        = 1 << 3,
-  UPDATE_ALL = UPDATE_CONTRAST | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR | UPDATE_FONTS
+  UPDATE_CONTRAST       = 1 << 0,
+  UPDATE_COLOR_SCHEME   = 1 << 1,
+  UPDATE_ACCENT_COLOR   = 1 << 2,
+  UPDATE_FONTS          = 1 << 3,
+  UPDATE_REDUCED_MOTION = 1 << 4,
+  UPDATE_ALL            = 0xFF
 } StylesheetUpdateFlags;
 
 static void
@@ -305,6 +306,17 @@ update_stylesheet (AdwStyleManager       *self,
     self->changing_gtk_settings = FALSE;
   }
 
+  if (flags & UPDATE_REDUCED_MOTION) {
+    GtkReducedMotion reduced_motion;
+
+    g_object_get (self->gtk_settings,
+                  "gtk-interface-reduced-motion", &reduced_motion,
+                  NULL);
+
+    if (self->provider)
+      g_object_set (self->provider, "prefers-reduced-motion", reduced_motion, NULL);
+  }
+
   self->animation_timeout_id =
     g_timeout_add_once (SWITCH_DURATION,
                         (GSourceOnceFunc) enable_animations_cb,
@@ -418,6 +430,12 @@ update_fonts (AdwStyleManager *self)
 }
 
 static void
+notify_reduced_motion_cb (AdwStyleManager *self)
+{
+  update_stylesheet (self, UPDATE_REDUCED_MOTION);
+}
+
+static void
 notify_system_supports_color_schemes_cb (AdwStyleManager *self)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES]);
@@ -503,6 +521,10 @@ adw_style_manager_constructed (GObject *object)
 
   g_signal_connect_object (self->gtk_settings, "notify::gtk-font-name",
                            G_CALLBACK (update_fonts),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->gtk_settings, "notify::gtk-interface-reduced-motion",
+                           G_CALLBACK (notify_reduced_motion_cb),
                            self,
                            G_CONNECT_SWAPPED);
 
