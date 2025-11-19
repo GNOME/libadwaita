@@ -1,13 +1,14 @@
 /*
  * Copyright (C) 2019-2020 Purism SPC
  * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
+ * Copyright (C) 2025 GNOME Foundation Inc.
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include "config.h"
 
-#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 
 /**
  * adw_lerp:
@@ -48,4 +49,18 @@ adw_get_enable_animations (GtkWidget *widget)
                 NULL);
 
   return enable_animations;
+}
+
+gboolean
+adw_get_reduce_motion (GtkWidget *widget)
+{
+  GtkReducedMotion reduced_motion = GTK_REDUCED_MOTION_NO_PREFERENCE;
+
+  g_return_val_if_fail (GTK_IS_WIDGET (widget), FALSE);
+
+  g_object_get (gtk_widget_get_settings (widget),
+                "gtk-interface-reduced-motion", &reduced_motion,
+                NULL);
+
+  return reduced_motion == GTK_REDUCED_MOTION_REDUCE;
 }
