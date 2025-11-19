@@ -161,6 +161,10 @@ update_stylesheet (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
   AdwStyleManager *manager = adw_style_manager_get_default ();
+  GtkSettings *settings = gtk_settings_get_default ();
+  GtkInterfaceColorScheme color_scheme;
+  GtkInterfaceContrast contrast;
+  GtkReducedMotion reduced_motion;
   gboolean is_dark, is_hc;
 
   is_dark = adw_style_manager_get_dark (manager);
@@ -175,9 +179,6 @@ update_stylesheet (AdwApplication *self)
   if (priv->hc_dark_style_provider)
     style_provider_set_enabled (priv->hc_dark_style_provider, is_hc && is_dark);
 
-  GtkInterfaceColorScheme color_scheme;
-  GtkInterfaceContrast contrast;
-
   if (is_dark)
     color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
   else
@@ -188,10 +189,15 @@ update_stylesheet (AdwApplication *self)
   else
     contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
 
+  g_object_get (settings,
+                "gtk-interface-reduced-motion", &reduced_motion,
+                NULL);
+
   if (priv->base_style_provider) {
     g_object_set (priv->base_style_provider,
                   "prefers-color-scheme", color_scheme,
                   "prefers-contrast", contrast,
+                  "prefers-reduced-motion", reduced_motion,
                   NULL);
   }
 
@@ -199,6 +205,7 @@ update_stylesheet (AdwApplication *self)
     g_object_set (priv->dark_style_provider,
                   "prefers-color-scheme", color_scheme,
                   "prefers-contrast", contrast,
+                  "prefers-reduced-motion", reduced_motion,
                   NULL);
   }
 
@@ -206,6 +213,7 @@ update_stylesheet (AdwApplication *self)
     g_object_set (priv->hc_style_provider,
                   "prefers-color-scheme", color_scheme,
                   "prefers-contrast", contrast,
+                  "prefers-reduced-motion", reduced_motion,
                   NULL);
   }
 
@@ -213,6 +221,7 @@ update_stylesheet (AdwApplication *self)
     g_object_set (priv->hc_dark_style_provider,
                   "prefers-color-scheme", color_scheme,
                   "prefers-contrast", contrast,
+                  "prefers-reduced-motion", reduced_motion,
                   NULL);
   }
 }
@@ -286,6 +295,11 @@ init_styling (AdwApplication *self)
                            G_CONNECT_SWAPPED);
   g_signal_connect_object (adw_style_manager_get_default (),
                            "notify::high-contrast",
+                           G_CALLBACK (update_stylesheet),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (gtk_settings_get_default (),
+                           "notify::gtk-interface-reduced-motion",
                            G_CALLBACK (update_stylesheet),
                            self,
                            G_CONNECT_SWAPPED);
