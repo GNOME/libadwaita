@@ -33,8 +33,8 @@ libversion = '0.9.0'
 # The so major version of the library
 soversion = 0
 
-glib_min_version = '>= 2.80.0'
-gtk_min_version = '>= 4.19.4'
+glib_min_version = '>= 2.84.0'
+gtk_min_version = '>= 4.21.1'
 
 glib_dep = dependency('glib-2.0', version: glib_min_version)
 gio_dep = dependency('gio-2.0', version: glib_min_version)
