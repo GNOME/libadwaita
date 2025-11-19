@@ -11,7 +11,7 @@
 #include "adw-floating-sheet-private.h"
 
 #include "adw-animation-target.h"
-#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-spring-animation.h"
@@ -30,6 +30,9 @@
 #define VERT_PADDING_MIN_VALUE 20
 #define VERT_PADDING_TARGET_HEIGHT 1440
 #define VERT_PADDING_TARGET_VALUE 120
+
+#define SPRING_DAMPING 0.62
+#define SPRING_STIFFNESS 500
 
 struct _AdwFloatingSheet
 {
@@ -50,6 +53,8 @@ struct _AdwFloatingSheet
   GFunc closing_callback;
   GFunc closed_callback;
   gpointer user_data;
+
+  gboolean use_fade;
 };
 
 G_DEFINE_FINAL_TYPE (AdwFloatingSheet, adw_floating_sheet, GTK_TYPE_WIDGET)
@@ -70,6 +75,21 @@ enum {
 };
 
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+static void
+update_spring_params (AdwFloatingSheet *self,
+                      AdwAnimation     *animation)
+{
+  AdwSpringParams *params;
+
+  params = adw_spring_params_new (self->use_fade ? 1.0 : SPRING_DAMPING,
+                                  1,
+                                  SPRING_STIFFNESS);
+
+  adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (animation), params);
+
+  adw_spring_params_unref (params);
+}
 
 static void
 open_animation_cb (double            value,
@@ -164,10 +184,9 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
                                   int        baseline)
 {
   AdwFloatingSheet *self = ADW_FLOATING_SHEET (widget);
-  GskTransform *transform;
+  GskTransform *transform = NULL;
   int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
   int horz_padding, vert_padding;
-  float scale;
 
   if (width == 0 && height == 0)
     return;
@@ -198,10 +217,14 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
   sheet_x = round ((width - sheet_width) * 0.5);
   sheet_y = round ((height - sheet_height) * 0.5);
 
-  scale = MIN_SCALE + (1 - MIN_SCALE) * self->progress;
-  transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width / 2.0f, height / 2.0f));
-  transform = gsk_transform_scale (transform, scale, scale);
-  transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (-width / 2.0f, -height / 2.0f));
+  if (!self->use_fade) {
+    float scale = MIN_SCALE + (1 - MIN_SCALE) * self->progress;
+
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (width / 2.0f, height / 2.0f));
+    transform = gsk_transform_scale (transform, scale, scale);
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (-width / 2.0f, -height / 2.0f));
+  }
+
   transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (sheet_x, sheet_y));
   gtk_widget_allocate (self->sheet_bin, sheet_width, sheet_height, baseline, transform);
 }
@@ -355,7 +378,7 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   self->open_animation = adw_spring_animation_new (GTK_WIDGET (self),
                                                    0,
                                                    1,
-                                                   adw_spring_params_new (0.62, 1, 500),
+                                                   adw_spring_params_new (1, 1, SPRING_STIFFNESS),
                                                    target);
   adw_spring_animation_set_epsilon (ADW_SPRING_ANIMATION (self->open_animation), 0.01);
   g_signal_connect_swapped (self->open_animation, "done",
@@ -456,6 +479,9 @@ adw_floating_sheet_set_open (AdwFloatingSheet *self,
       return;
   }
 
+  self->use_fade = adw_get_reduce_motion (GTK_WIDGET (self));
+
+  update_spring_params (self, self->open_animation);
   adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->open_animation),
                                        self->progress);
   adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->open_animation),
