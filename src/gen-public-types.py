@@ -11,7 +11,7 @@ def main(argv):
     # Run through the headers fed in to #include them and extract the ADW_TYPE_* macros
     for header in argv[1:]:
         print('#include "%s"' % os.path.basename(header))
-        with open(header, 'r') as file:
+        with open(header, 'r', encoding='utf-8') as file:
             for line in file:
                 match = re.search(r'#define {1,}(ADW_TYPE_[A-Z0-9_]{1,}) {1,}.*', line)
                 if match:
