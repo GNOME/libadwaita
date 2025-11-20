@@ -794,3 +794,19 @@ adw_get_inspector_keybinding_enabled (void)
 
   return enabled;
 }
+
+gboolean
+adw_tab_on_vertical_keynav_failed (GtkWidget        *widget,
+                                   GtkDirectionType  direction)
+{
+  GtkWidget *toplevel = GTK_WIDGET (gtk_widget_get_root (widget));
+
+  if (!toplevel)
+    return FALSE;
+
+  if (direction != GTK_DIR_UP && direction != GTK_DIR_DOWN)
+    return FALSE;
+
+  return gtk_widget_child_focus (toplevel, direction == GTK_DIR_UP ?
+                                 GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
+}
