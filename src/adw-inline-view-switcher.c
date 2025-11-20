@@ -252,6 +252,23 @@ drag_leave_cb (AdwToggle *toggle)
 }
 
 static void
+update_button (GtkWidget        *child,
+               GParamSpec       *pspec,
+               AdwViewStackPage *page)
+{
+  GtkWidget *button = gtk_widget_get_parent (child);
+  gboolean needs_attention = adw_view_stack_page_get_needs_attention (page);
+  guint badge_number = adw_view_stack_page_get_badge_number (page);
+
+  if (button == NULL)
+    return;
+
+  g_assert (GTK_IS_TOGGLE_BUTTON (button));
+
+  adw_update_badge_accessibility (button, needs_attention, badge_number);
+}
+
+static void
 update_toggle (AdwInlineViewSwitcher *self,
                AdwToggle             *toggle,
                AdwViewStackPage      *page)
@@ -340,6 +357,10 @@ update_toggle (AdwInlineViewSwitcher *self,
   gtk_widget_add_controller (child, controller);
 
   update_tooltip (toggle, NULL, page);
+
+  g_signal_connect_object (child, "notify::parent", G_CALLBACK (update_button), page, 0);
+  g_signal_connect_object (page, "notify::needs-attention", G_CALLBACK (update_button), child, G_CONNECT_SWAPPED);
+  g_signal_connect_object (page, "notify::badge-number", G_CALLBACK (update_button), child, G_CONNECT_SWAPPED);
 
   adw_toggle_set_child (toggle, child);
 }
