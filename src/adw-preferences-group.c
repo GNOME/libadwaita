@@ -459,7 +459,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 
   priv = adw_preferences_group_get_instance_private (self);
 
-  return gtk_label_get_text (priv->title);
+  return gtk_label_get_label (priv->title);
 }
 
 /**
@@ -506,7 +506,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
 
   priv = adw_preferences_group_get_instance_private (self);
 
-  return gtk_label_get_text (priv->description);
+  return gtk_label_get_label (priv->description);
 }
 
 /**
