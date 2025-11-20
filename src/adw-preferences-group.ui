@@ -59,7 +59,7 @@
                   <relation name="labelled-by">title</relation>
                   <relation name="described-by">description</relation>
                 </accessibility>
-                <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
+                <signal name="keynav-failed" handler="adw_tab_on_vertical_keynav_failed" swapped="yes"/>
                 <style>
                   <class name="boxed-list"/>
                 </style>

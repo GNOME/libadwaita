@@ -77,4 +77,7 @@ void adw_ensure_child_allocation_size (GtkWidget     *child,
 
 gboolean adw_get_inspector_keybinding_enabled (void);
 
+gboolean adw_tab_on_vertical_keynav_failed (GtkWidget        *widget,
+                                            GtkDirectionType  direction);
+
 G_END_DECLS
