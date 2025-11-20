@@ -59,6 +59,7 @@
                       <object class="GtkListBox" id="search_list">
                         <property name="selection-mode">none</property>
                         <signal name="row-activated" handler="search_row_activated_cb" swapped="yes"/>
+                        <signal name="keynav-failed" handler="adw_tab_on_vertical_keynav_failed" swapped="yes"/>
                         <style>
                           <class name="boxed-list"/>
                         </style>
