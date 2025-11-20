@@ -32,6 +32,9 @@ dialog.shortcuts {
 }
 
 shortcut-label {
+  border-radius: 6px;
+  @include focus-ring($offset: 1px, $outer: true);
+
   &, > box {
     border-spacing: 6px;
   }
