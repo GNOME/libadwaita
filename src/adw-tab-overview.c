@@ -11,7 +11,7 @@
 
 #include "adw-tab-overview-private.h"
 
-#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-bin.h"
 #include "adw-header-bar.h"
 #include "adw-marshalers.h"
@@ -140,6 +140,7 @@ struct _AdwTabOverview
   AdwAnimation *open_animation;
   double progress;
   gboolean animating;
+  gboolean use_crossfade;
 
   AdwTabThumbnail *transition_thumbnail;
   GtkWidget *transition_picture;
@@ -1197,15 +1198,6 @@ adw_tab_overview_snapshot (GtkWidget   *widget,
                            GtkSnapshot *snapshot)
 {
   AdwTabOverview *self = ADW_TAB_OVERVIEW (widget);
-  graphene_rect_t bounds, transition_bounds, clip_bounds;
-  graphene_size_t clip_scale, corner_size, window_corner_size;
-  GskRoundedRect transition_rect;
-  gboolean round_top_left, round_top_right;
-  gboolean round_bottom_left, round_bottom_right;
-  GdkRGBA rgba;
-  GdkDisplay *display;
-  AdwStyleManager *style_manager;
-  gboolean hc;
 
   if (!self->animating) {
     if (self->is_open) {
@@ -1227,91 +1219,111 @@ adw_tab_overview_snapshot (GtkWidget   *widget,
     return;
   }
 
-  calculate_bounds (self, &bounds, &transition_bounds, &clip_bounds, &clip_scale);
-  should_round_corners (self, &round_top_left, &round_top_right,
-                        &round_bottom_left, &round_bottom_right);
+  if (self->use_crossfade) {
+    gtk_snapshot_push_cross_fade (snapshot, self->progress);
 
-  graphene_size_init (&corner_size,
-                      adw_lerp (0, THUMBNAIL_BORDER_RADIUS, self->progress),
-                      adw_lerp (0, THUMBNAIL_BORDER_RADIUS, self->progress));
-
-  graphene_size_init (&window_corner_size,
-                      adw_lerp (WINDOW_BORDER_RADIUS,
-                                THUMBNAIL_BORDER_RADIUS, self->progress),
-                      adw_lerp (WINDOW_BORDER_RADIUS,
-                                THUMBNAIL_BORDER_RADIUS, self->progress));
-
-  gsk_rounded_rect_init (&transition_rect, &transition_bounds,
-                         round_top_left     ? &window_corner_size : &corner_size,
-                         round_top_right    ? &window_corner_size : &corner_size,
-                         round_bottom_right ? &window_corner_size : &corner_size,
-                         round_bottom_left  ? &window_corner_size : &corner_size);
-
-  display = gtk_widget_get_display (widget);
-  style_manager = adw_style_manager_get_for_display (display);
-  hc = adw_style_manager_get_high_contrast (style_manager);
-
-  /* Draw overview */
-  gtk_widget_snapshot_child (widget, self->overview, snapshot);
-
-  /* Draw dim layer */
-  if (!adw_widget_lookup_color (widget, "shade_color", &rgba))
-    rgba.alpha = 0;
-
-  rgba.alpha *= 1 - self->progress;
-
-  gtk_snapshot_append_color (snapshot, &rgba, &bounds);
-
-  /* Draw the transition thumbnail. Unfortunately, since GTK widgets have
-   * integer sizes, we can't use a real widget for this and have to custom
-   * draw it instead. We also want to interpolate border-radius. */
-  gtk_snapshot_push_rounded_clip (snapshot, &transition_rect);
-
-  if (self->transition_pinned)
-    gtk_snapshot_push_cross_fade (snapshot, adw_easing_ease (ADW_EASE_IN_EXPO, self->progress));
-
-  gtk_snapshot_translate (snapshot, &transition_bounds.origin);
-  gtk_snapshot_scale (snapshot, clip_scale.width, clip_scale.height);
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (-clip_bounds.origin.x,
-                                                          -clip_bounds.origin.y));
-  gtk_widget_snapshot_child (widget, self->child_bin, snapshot);
-
-  if (self->transition_pinned) {
-    if (!adw_widget_lookup_color (self->transition_picture,
-                                  "thumbnail_bg_color", &rgba))
-      rgba.red = rgba.green = rgba.blue = rgba.alpha = 1;
-
+    gtk_widget_snapshot_child (widget, self->child_bin, snapshot);
     gtk_snapshot_pop (snapshot);
-    gtk_snapshot_append_color (snapshot, &rgba, &bounds);
+
+    gtk_widget_snapshot_child (widget, self->overview, snapshot);
     gtk_snapshot_pop (snapshot);
-  }
-
-  gtk_snapshot_pop (snapshot);
-
-  /* Draw outer outline */
-  if (hc) {
-    rgba.red = rgba.green = rgba.blue = 0;
-    rgba.alpha = 0.5;
   } else {
+    graphene_rect_t bounds, transition_bounds, clip_bounds;
+    graphene_size_t clip_scale, corner_size, window_corner_size;
+    GskRoundedRect transition_rect;
+    gboolean round_top_left, round_top_right;
+    gboolean round_bottom_left, round_bottom_right;
+    GdkRGBA rgba;
+    GdkDisplay *display;
+    AdwStyleManager *style_manager;
+    gboolean hc;
+
+    calculate_bounds (self, &bounds, &transition_bounds, &clip_bounds, &clip_scale);
+    should_round_corners (self, &round_top_left, &round_top_right,
+                          &round_bottom_left, &round_bottom_right);
+
+    graphene_size_init (&corner_size,
+                        adw_lerp (0, THUMBNAIL_BORDER_RADIUS, self->progress),
+                        adw_lerp (0, THUMBNAIL_BORDER_RADIUS, self->progress));
+
+    graphene_size_init (&window_corner_size,
+                        adw_lerp (WINDOW_BORDER_RADIUS,
+                                  THUMBNAIL_BORDER_RADIUS, self->progress),
+                        adw_lerp (WINDOW_BORDER_RADIUS,
+                                  THUMBNAIL_BORDER_RADIUS, self->progress));
+
+    gsk_rounded_rect_init (&transition_rect, &transition_bounds,
+                           round_top_left     ? &window_corner_size : &corner_size,
+                           round_top_right    ? &window_corner_size : &corner_size,
+                           round_bottom_right ? &window_corner_size : &corner_size,
+                           round_bottom_left  ? &window_corner_size : &corner_size);
+
+    display = gtk_widget_get_display (widget);
+    style_manager = adw_style_manager_get_for_display (display);
+    hc = adw_style_manager_get_high_contrast (style_manager);
+
+    /* Draw overview */
+    gtk_widget_snapshot_child (widget, self->overview, snapshot);
+
+    /* Draw dim layer */
     if (!adw_widget_lookup_color (widget, "shade_color", &rgba))
       rgba.alpha = 0;
-  }
 
-  rgba.alpha *= adw_easing_ease (ADW_EASE_OUT_EXPO, self->progress);
+    rgba.alpha *= 1 - self->progress;
 
-  gtk_snapshot_append_outset_shadow (snapshot, &transition_rect,
-                                     &rgba, 0, 0, 1, 0);
+    gtk_snapshot_append_color (snapshot, &rgba, &bounds);
 
-  /* Draw inner outline */
-  if (!self->transition_pinned || hc) {
-    /* Keep in sync with $window_outline_color */
-    rgba.red = rgba.green = rgba.blue = 1;
-    rgba.alpha = hc ? 0.3 : 0.07;
+    /* Draw the transition thumbnail. Unfortunately, since GTK widgets have
+     * integer sizes, we can't use a real widget for this and have to custom
+     * draw it instead. We also want to interpolate border-radius. */
+    gtk_snapshot_push_rounded_clip (snapshot, &transition_rect);
+
+    if (self->transition_pinned)
+      gtk_snapshot_push_cross_fade (snapshot, adw_easing_ease (ADW_EASE_IN_EXPO, self->progress));
+
+    gtk_snapshot_translate (snapshot, &transition_bounds.origin);
+    gtk_snapshot_scale (snapshot, clip_scale.width, clip_scale.height);
+    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (-clip_bounds.origin.x,
+                                                            -clip_bounds.origin.y));
+    gtk_widget_snapshot_child (widget, self->child_bin, snapshot);
+
+    if (self->transition_pinned) {
+      if (!adw_widget_lookup_color (self->transition_picture,
+                                    "thumbnail_bg_color", &rgba))
+        rgba.red = rgba.green = rgba.blue = rgba.alpha = 1;
+
+      gtk_snapshot_pop (snapshot);
+      gtk_snapshot_append_color (snapshot, &rgba, &bounds);
+      gtk_snapshot_pop (snapshot);
+    }
+
+    gtk_snapshot_pop (snapshot);
+
+    /* Draw outer outline */
+    if (hc) {
+      rgba.red = rgba.green = rgba.blue = 0;
+      rgba.alpha = 0.5;
+    } else {
+      if (!adw_widget_lookup_color (widget, "shade_color", &rgba))
+        rgba.alpha = 0;
+    }
 
     rgba.alpha *= adw_easing_ease (ADW_EASE_OUT_EXPO, self->progress);
 
-    gtk_snapshot_append_inset_shadow (snapshot, &transition_rect,
-                                      &rgba, 0, 0, 1, 0);
+    gtk_snapshot_append_outset_shadow (snapshot, &transition_rect,
+                                       &rgba, 0, 0, 1, 0);
+
+    /* Draw inner outline */
+    if (!self->transition_pinned || hc) {
+      /* Keep in sync with $window_outline_color */
+      rgba.red = rgba.green = rgba.blue = 1;
+      rgba.alpha = hc ? 0.3 : 0.07;
+
+      rgba.alpha *= adw_easing_ease (ADW_EASE_OUT_EXPO, self->progress);
+
+      gtk_snapshot_append_inset_shadow (snapshot, &transition_rect,
+                                        &rgba, 0, 0, 1, 0);
+    }
   }
 }
 
@@ -2176,12 +2188,17 @@ adw_tab_overview_set_open (AdwTabOverview *self,
     set_overview_visible (self, self->is_open, ANIMATION_OUT);
   }
 
+  self->use_crossfade = adw_get_reduce_motion (GTK_WIDGET (self));
+
   if (self->transition_picture)
     adw_tab_thumbnail_fade_in (self->transition_thumbnail);
 
-  self->transition_thumbnail = adw_tab_grid_get_transition_thumbnail (grid);
-  self->transition_picture = g_object_ref (adw_tab_thumbnail_get_thumbnail (self->transition_thumbnail));
-  adw_tab_thumbnail_fade_out (self->transition_thumbnail);
+  if (!self->use_crossfade) {
+    self->transition_thumbnail = adw_tab_grid_get_transition_thumbnail (grid);
+    self->transition_picture = g_object_ref (adw_tab_thumbnail_get_thumbnail (self->transition_thumbnail));
+
+    adw_tab_thumbnail_fade_out (self->transition_thumbnail);
+  }
 
   adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->open_animation),
                                       self->progress);
