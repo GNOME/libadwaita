@@ -481,7 +481,7 @@ adw_preferences_page_get_description (AdwPreferencesPage *self)
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  return gtk_label_get_text (priv->description);
+  return gtk_label_get_label (priv->description);
 }
 
 /**
