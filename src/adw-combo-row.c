@@ -159,7 +159,8 @@ selection_item_changed (AdwComboRow *self)
 {
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
 
-  if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
+  if (priv->current_selection != NULL &&
+      g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
     GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
     char *repr = get_item_representation (self, item);
 
@@ -1123,6 +1124,7 @@ adw_combo_row_set_expression (AdwComboRow   *self,
     gtk_expression_ref (priv->expression);
 
   selection_changed (self);
+  selection_item_changed (self);
 
   update_filter (self);
 
