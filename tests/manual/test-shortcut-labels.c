@@ -33,6 +33,7 @@ create_content (void)
   for (i = 0; i < G_N_ELEMENTS (shortcuts); i++) {
     GtkWidget *label = adw_shortcut_label_new (shortcuts[i]);
 
+    gtk_widget_set_focusable (label, TRUE);
     gtk_widget_set_halign (label, GTK_ALIGN_START);
 
     gtk_box_append (GTK_BOX (box), label);
