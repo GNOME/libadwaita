@@ -577,6 +577,7 @@ adw_preferences_dialog_class_init (AdwPreferencesDialogClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_results_map);
   gtk_widget_class_bind_template_callback (widget_class, search_results_unmap);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+  gtk_widget_class_bind_template_callback (widget_class, adw_tab_on_vertical_keynav_failed);
 }
 
 static GListModel *
