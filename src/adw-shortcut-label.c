@@ -85,7 +85,7 @@
  *
  * ## Accessibility
  *
- * `AdwShortcutLabel` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
+ * `AdwShortcutLabel` uses the `GTK_ACCESSIBLE_ROLE_LABEL` role.
  *
  * See also: [class@ShortcutsDialog].
  *
@@ -341,7 +341,8 @@ display_shortcut (GtkWidget       *self,
 
 static gboolean
 parse_combination (AdwShortcutLabel *self,
-                   const char       *str)
+                   const char       *str,
+                   GString          *accessible_label_string)
 {
   char **accels;
   int k;
@@ -351,12 +352,23 @@ parse_combination (AdwShortcutLabel *self,
 
   accels = g_strsplit (str, "&", 0);
   for (k = 0; accels[k]; k++) {
+    char *accessible_label = NULL;
+
     if (!gtk_accelerator_parse (accels[k], &key, &modifier)) {
       retval = FALSE;
       break;
     }
 
     display_shortcut (GTK_WIDGET (self), key, modifier);
+
+    /* Use gtk_accelerator_get_label() which is meant for user-facing localized
+     * strings, and not gtk_accelerator_get_accessible_label() which corresponds
+     * to the aria-keyshortcuts attribute and has a specific format meant for
+     * screen readers to process. */
+    accessible_label = gtk_accelerator_get_label (key, modifier);
+    g_string_append (accessible_label_string, accessible_label);
+
+    g_free (accessible_label);
   }
 
   g_strfreev (accels);
@@ -366,7 +378,8 @@ parse_combination (AdwShortcutLabel *self,
 
 static gboolean
 parse_sequence (AdwShortcutLabel *self,
-                const char       *str)
+                const char       *str,
+                GString          *accessible_label_string)
 {
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   gboolean retval = TRUE;
@@ -378,9 +391,10 @@ parse_sequence (AdwShortcutLabel *self,
     if (k > 0) {
       const char *arrow = is_rtl ? "←" : "→";
       gtk_widget_set_parent (dim_label (arrow), GTK_WIDGET (self));
+      g_string_append (accessible_label_string, arrow);
     }
 
-    if (!parse_combination (self, accels[k])) {
+    if (!parse_combination (self, accels[k], accessible_label_string)) {
       retval = FALSE;
       break;
     }
@@ -393,21 +407,23 @@ parse_sequence (AdwShortcutLabel *self,
 
 static gboolean
 parse_range (AdwShortcutLabel *self,
-             const char       *str)
+             const char       *str,
+             GString          *accessible_label_string)
 {
   char *dots;
 
   dots = strstr (str, "...");
   if (!dots)
-    return parse_sequence (self, str);
+    return parse_sequence (self, str, accessible_label_string);
 
   dots[0] = '\0';
-  if (!parse_sequence (self, str))
+  if (!parse_sequence (self, str, accessible_label_string))
     return FALSE;
 
   gtk_widget_set_parent (dim_label ("⋯"), GTK_WIDGET (self));
+  g_string_append (accessible_label_string, "…");
 
-  if (!parse_sequence (self, dots + 3))
+  if (!parse_sequence (self, dots + 3, accessible_label_string))
     return FALSE;
 
   return TRUE;
@@ -434,6 +450,8 @@ rebuild (AdwShortcutLabel *self)
 {
   char **accels;
   int k;
+  GString *accessible_label_string = NULL;
+  char *accessible_label = NULL;
 
   clear_children (self);
 
@@ -448,16 +466,25 @@ rebuild (AdwShortcutLabel *self)
 
   accels = g_strsplit (self->accelerator, " ", 0);
 
+  accessible_label_string = g_string_new (NULL);
   for (k = 0; accels[k]; k++) {
-    if (k > 0)
+    if (k > 0) {
       gtk_widget_set_parent (dim_label ("/"), GTK_WIDGET (self));
+      g_string_append (accessible_label_string, " ");
+    }
 
-    if (!parse_range (self, accels[k])) {
+    if (!parse_range (self, accels[k], accessible_label_string)) {
       g_warning ("Failed to parse %s, part of accelerator '%s'", accels[k], self->accelerator);
       break;
     }
   }
 
+  accessible_label = g_string_free (accessible_label_string, FALSE);
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, accessible_label,
+                                  -1);
+
+  g_free (accessible_label);
   g_strfreev (accels);
 }
 
@@ -572,6 +599,8 @@ adw_shortcut_label_class_init (AdwShortcutLabelClass *klass)
 
   gtk_widget_class_set_css_name (widget_class, "shortcut-label");
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
+
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_LABEL);
 }
 
 static void
