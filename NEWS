@@ -1,4 +1,30 @@
 =============
+Version 1.7.9
+=============
+
+- Build
+  - Fix gen-public-types.py encoding
+- AdwActionRow
+  - Fix subtitle comparison
+- AdwComboRow
+  - Revert touchscreen fix from 1.8.1, since it's been fixed in GTK
+  - Update selection when the expression changes
+- AdwHeaderBar
+  - Report back button context menu to screen reader
+- AdwPreferencesDialog
+  - Allow to go from the first search result to header bar by pressing up
+- AdwPreferencesGroup
+  - Fix title and description getters
+- AdwPreferencesPage
+  - Fix description getter
+  - Warn when trying to add incompatible children
+- AdwTabBar/AdwTabOverview
+  - Report context menu to screen reader
+- Translation updates
+  - Serbian
+  - Serbian (Latin)
+
+=============
 Version 1.7.8
 =============
 
