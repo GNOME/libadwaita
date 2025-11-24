@@ -91,7 +91,7 @@ refresh-doc:
     - 'main'
   script:
     - export DOCS_TRIGGER_TOKEN=$( cat "${DOCS_TRIGGER_TOKEN_FILE}" )
-    - "curl -X POST -F token=${DOCS_TRIGGER_TOKEN} -F ref=docs-gtk-org https://gitlab.gnome.org/api/v4/projects/14079/trigger/pipeline"
+    - "curl -X POST -F token=${DOCS_TRIGGER_TOKEN} -F ref=pages https://gitlab.gnome.org/api/v4/projects/14079/trigger/pipeline"
 
 nightly:
   extends: '.publish_nightly'
