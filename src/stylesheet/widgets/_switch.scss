@@ -8,6 +8,13 @@ switch {
   &:hover { background-color: $trough_hover_color; }
   &:active { background-color: $trough_active_color; }
 
+  @media (prefers-contrast: more) {
+    background-color: $trough_color_hc;
+
+    &:hover { background-color: $trough_hover_color_hc; }
+    &:active { background-color: $trough_active_color_hc; }
+  }
+
   @include focus-ring($offset: 1px, $outer: true, $transition: $button_transition);
 
   &:disabled {
@@ -42,7 +49,7 @@ switch {
       background-color: $slider_hover_color;
     }
 
-    @if $contrast == "high" {
+    @media (prefers-contrast: more) {
       > image {  color: inherit; }
     }
   }

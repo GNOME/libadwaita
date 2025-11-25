@@ -63,7 +63,7 @@ toast {
     margin: 0 6px;
   }
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     box-shadow: 0 0 0 1px $border_color;
   }
 }
@@ -196,18 +196,23 @@ statuspage {
     background-color: var(--card-bg-color);
     color: var(--card-fg-color);
     border-radius: $card_radius;
-    box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, RGB(0 0 6 / 3%)),
+    box-shadow: 0 0 0 1px RGB(0 0 6 / 3%),
                 0 1px 3px 1px RGB(0 0 6 / 7%),
                 0 2px 6px 2px RGB(0 0 6 / 3%);
+
+    @media (prefers-contrast: more) {
+      box-shadow: 0 0 0 1px $border_color,
+                  0 1px 3px 1px RGB(0 0 6 / 7%),
+                  0 2px 6px 2px RGB(0 0 6 / 3%);
+    }
 
     .osd &, &.osd {
       background-color: color-mix(in srgb, currentColor 10%, transparent);
       color: $osd_fg_color;
+      box-shadow: none;
 
-      @if $contrast == 'high' {
+      @media (prefers-contrast: more) {
         box-shadow: 0 0 0 1px $border_color;
-      } @else {
-        box-shadow: none;
       }
     }
   }

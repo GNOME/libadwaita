@@ -2,12 +2,19 @@ window {
   &.csd {
     box-shadow: 0 0 14px 5px RGB(0 0 0 / 15%),
                 0 0 5px 2px RGB(0 0 0 / 10%),
-                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+                0 0 0 1px RGB(0 0 0 / 5%);
     margin: 0px;
     border-radius: var(--window-radius);
 
     outline: 1px solid $window_outline_color;
     outline-offset: -1px;
+
+    @media (prefers-contrast: more) {
+      outline-color: $window_outline_color_hc;
+      box-shadow: 0 0 14px 5px RGB(0 0 0 / 15%),
+                  0 0 5px 2px RGB(0 0 0 / 10%),
+                  0 0 0 1px RGB(0 0 0 / 80%);
+    }
 
     &:backdrop {
       // the transparent shadow here is to enforce that the shadow extents don't
@@ -16,15 +23,27 @@ window {
       // or the jumping will happen during the transition.
       box-shadow: 0 0 14px 5px transparent,
                   0 0 10px 5px RGB(0 0 0 / 8%),
-                  0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+                  0 0 0 1px RGB(0 0 0 / 5%);
       transition: box-shadow $backdrop_transition;
+
+      @media (prefers-contrast: more) {
+        box-shadow: 0 0 14px 5px transparent,
+                    0 0 10px 5px RGB(0 0 0 / 8%),
+                    0 0 0 1px RGB(0 0 0 / 80%);
+      }
     }
 
     &.dialog.message,
     &.messagedialog {
       box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
                   0 0 5px 2px RGB(0 0 6 / 10%),
-                  0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+                  0 0 0 1px RGB(0 0 0 / 5%);
+
+      @media (prefers-contrast: more) {
+        box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
+                    0 0 5px 2px RGB(0 0 6 / 10%),
+                    0 0 0 1px RGB(0 0 0 / 80%);
+      }
     }
 
     &.tiled,
@@ -76,6 +95,10 @@ window {
   // server-side decorations as used by mutter
   &.ssd {
     // just doing borders, wm draws actual shadows
-    box-shadow: 0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+    box-shadow: 0 0 0 1px RGB(0 0 0 / 5%);
+
+    @media (prefers-contrast: more) {
+      box-shadow: 0 0 0 1px RGB(0 0 0 / 80%);
+    }
   }
 }

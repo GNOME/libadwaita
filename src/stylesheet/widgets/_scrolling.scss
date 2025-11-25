@@ -16,19 +16,18 @@ scrollbar {
       border-radius: 99px;
       background-clip: padding-box;
       transition: $_scrollbar_transition;
+      background-color: color-mix(in srgb, currentColor 20%, transparent);
 
-      @if $contrast == 'high' {
+      &:hover { background-color: color-mix(in srgb, currentColor 40%, transparent); }
+
+      &:active { background-color: color-mix(in srgb, currentColor 60%, transparent); }
+
+      @media (prefers-contrast: more) {
         background-color: color-mix(in srgb, currentColor 40%, transparent);
 
         &:hover { background-color: color-mix(in srgb, currentColor 60%, transparent); }
 
         &:active { background-color: currentColor; }
-      } @else {
-        background-color: color-mix(in srgb, currentColor 20%, transparent);
-
-        &:hover { background-color: color-mix(in srgb, currentColor 40%, transparent); }
-
-        &:active { background-color: color-mix(in srgb, currentColor 60%, transparent); }
       }
 
       &:disabled { opacity: 0; }
@@ -55,29 +54,31 @@ scrollbar {
       outline: 1px solid transparent;
 
       > slider {
-        @if $contrast == 'high' {
-          outline: 1px solid var(--scrollbar-outline-color);
-        } @else {
-          outline: 1px solid color-mix(in srgb, var(--scrollbar-outline-color) 60%, transparent);
-        }
-
+        outline: 1px solid color-mix(in srgb, var(--scrollbar-outline-color) 60%, transparent);
         outline-offset: -8px;
+
+        @media (prefers-contrast: more) {
+          outline: 1px solid var(--scrollbar-outline-color);
+        }
       }
     }
 
     &:not(.hovering) > range > trough > slider {
       min-width: 3px;
       min-height: 3px;
+      outline-color: color-mix(in srgb, var(--scrollbar-outline-color) 35%, transparent);
 
-      @if $contrast == 'high' {
+      @media (prefers-contrast: more) {
         outline-color: color-mix(in srgb, var(--scrollbar-outline-color) 60%, transparent);
-      } @else {
-        outline-color: color-mix(in srgb, var(--scrollbar-outline-color) 35%, transparent);
       }
     }
 
     &.hovering > range > trough {
-      background-color: color-mix(in srgb, currentColor if($contrast == 'high', 25%, 10%), transparent);
+      background-color: color-mix(in srgb, currentColor 10%, transparent);
+
+      @media (prefers-contrast: more) {
+        background-color: color-mix(in srgb, currentColor 25%, transparent);
+      }
     }
 
     &.horizontal {
@@ -116,10 +117,10 @@ scrollbar {
 
   > range.fine-tune > trough > slider {
     &, &:hover, &:active {
-      @if $contrast == 'high' {
+      background-color: color-mix(in srgb, var(--accent-color) 60%, transparent);
+
+      @media (prefers-contrast: more) {
         background-color: var(--accent-color);
-      } @else {
-        background-color: color-mix(in srgb, var(--accent-color) 60%, transparent);
       }
     }
   }

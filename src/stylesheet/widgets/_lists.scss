@@ -208,6 +208,10 @@ row.entry {
 
       > .indicator {
         opacity: $dimmer_opacity;
+
+        @media (prefers-contrast: more) {
+          opacity: $dimmer_opacity_hc;
+        }
       }
     }
 
@@ -339,7 +343,11 @@ row.combo {
 %boxed_list_row {
   @include focus-ring($offset: -1px, $transition: $row_transition);
 
-  border-bottom: 1px solid if($contrast == 'high', $border_color, var(--card-shade-color));
+  border-bottom: 1px solid var(--card-shade-color);
+
+  @media (prefers-contrast: more) {
+    border-bottom: 1px solid $border_color;
+  }
 
   &:not(:selected).activatable {
     &:hover {
@@ -554,10 +562,17 @@ list.boxed-list-separate {
 
     &:drop(active):focus,
     &:drop(active) {
-      box-shadow: 0 0 0 1px if($contrast == 'high', $border_color, RGB(0 0 6 / 3%)),
+      box-shadow: 0 0 0 1px RGB(0 0 6 / 3%),
                   0 1px 3px 1px RGB(0 0 6 / 7%),
                   0 2px 6px 2px RGB(0 0 6 / 3%),
                   inset 0 0 0 1px $drop_target_color;
+
+      @media (prefers-contrast: more) {
+        box-shadow: 0 0 0 1px $border_color,
+                    0 1px 3px 1px RGB(0 0 6 / 7%),
+                    0 2px 6px 2px RGB(0 0 6 / 3%),
+                    inset 0 0 0 1px $drop_target_color;
+      }
     }
 
     &:selected {

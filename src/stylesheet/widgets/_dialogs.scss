@@ -77,9 +77,16 @@ floating-sheet {
     border-radius: $dialog_radius;
     box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
                 0 0 5px 2px RGB(0 0 6 / 10%),
-                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+                0 0 0 1px RGB(0 0 0 / 5%);
     outline: 1px solid $window_outline_color;
     outline-offset: -1px;
+
+    @media (prefers-contrast: more) {
+      outline-color: $window_outline_color_hc;
+      box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
+                  0 0 5px 2px RGB(0 0 6 / 10%),
+                  0 0 0 1px RGB(0 0 0 / 80%);
+    }
   }
 }
 
@@ -93,6 +100,12 @@ dialog.bottom-sheet {
         box-shadow: inset 1px 0 $window_outline_color,
                     inset -1px 0 $window_outline_color,
                     inset 0 1px $window_outline_color;
+
+        @media (prefers-contrast: more) {
+          box-shadow: inset 1px 0 $window_outline_color_hc,
+                      inset -1px 0 $window_outline_color_hc,
+                      inset 0 1px $window_outline_color_hc;
+        }
       }
     }
   }

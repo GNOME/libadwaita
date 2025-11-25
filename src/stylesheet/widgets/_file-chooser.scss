@@ -146,8 +146,13 @@ filechooser {
 
   // Style the outer action bar with a toolbar view-like shadow
   > box > actionbar {
-    box-shadow: 0 -1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent)),
+    box-shadow: 0 -1px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent),
                 0 -2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
+
+    @media (prefers-contrast: more) {
+      box-shadow: 0 -1px $border_color,
+                  0 -2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
+    }
 
     > revealer > box {
       box-shadow: none;
@@ -209,21 +214,41 @@ filechooser {
   paned.horizontal > separator {
     &:dir(ltr) {
       box-shadow: inset 1px 0 var(--sidebar-bg-color),
-                  inset 1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
+                  inset 1px 0 var(--sidebar-border-color);
+
+      @media (prefers-contrast: more) {
+        box-shadow: inset 1px 0 var(--sidebar-bg-color),
+                    inset 1px 0 $border_color;
+      }
 
       &:backdrop {
         box-shadow: inset 1px 0 var(--sidebar-backdrop-color),
-                    inset 1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
+                    inset 1px 0 var(--sidebar-border-color);
+
+        @media (prefers-contrast: more) {
+          box-shadow: inset 1px 0 var(--sidebar-backdrop-color),
+                      inset 1px 0 $border_color;
+        }
       }
     }
 
     &:dir(rtl) {
       box-shadow: inset -1px 0 var(--sidebar-bg-color),
-                  inset -1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
+                  inset -1px 0 var(--sidebar-border-color);
+
+      @media (prefers-contrast: more) {
+        box-shadow: inset -1px 0 var(--sidebar-bg-color),
+                    inset -1px 0 $border_color;
+      }
 
       &:backdrop {
         box-shadow: inset -1px 0 var(--sidebar-backdrop-color),
-                    inset -1px 0 if($contrast == 'high', $border_color, var(--sidebar-border-color));
+                    inset -1px 0 var(--sidebar-border-color);
+
+        @media (prefers-contrast: more) {
+          box-shadow: inset -1px 0 var(--sidebar-backdrop-color),
+                      inset -1px 0 $border_color;
+        }
       }
     }
 

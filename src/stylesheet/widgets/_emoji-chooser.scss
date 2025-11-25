@@ -34,7 +34,7 @@ popover.emoji-picker emoji {
     background: $active_color;
   }
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     &:focus,
     &:hover,
     &:active {
@@ -86,7 +86,7 @@ emoji-completion-row {
     background-color: $active_color; // matching buttons
   }
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     &:focus,
     &:hover,
     &:active {

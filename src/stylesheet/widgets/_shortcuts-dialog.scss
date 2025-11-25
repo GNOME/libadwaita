@@ -41,11 +41,10 @@ shortcut-label {
 
   .keycap {
     background: color-mix(in srgb, currentColor 10%, transparent);
+    box-shadow: inset 0 -2px var(--card-shade-color);
 
-    @if $contrast == 'high' {
+    @media (prefers-contrast: more) {
       box-shadow: inset 0 -2px var(--card-shade-color), 0 0 0 1px var(--border-color);
-    } @else {
-      box-shadow: inset 0 -2px var(--card-shade-color);
     }
 
     border-radius: 6px;

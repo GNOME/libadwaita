@@ -25,14 +25,22 @@ columnview {
     }
 
     > box {
-      color: color-mix(in srgb, currentColor if($contrast == 'high', 60%, 40%), transparent);
+      color: color-mix(in srgb, currentColor 40%, transparent);
       @extend .caption-heading;
       border-spacing: 6px;
+
+      @media (prefers-contrast: more) {
+        color: color-mix(in srgb, currentColor 60%, transparent);
+      }
     }
 
     &:hover > box {
-      color: color-mix(in srgb, currentColor if($contrast == 'high', 90%, 70%), transparent);
+      color: color-mix(in srgb, currentColor 70%, transparent);
       box-shadow: none;
+
+      @media (prefers-contrast: more) {
+        color: color-mix(in srgb, currentColor 90%, transparent);
+      }
     }
 
     &:active > box {
@@ -107,6 +115,10 @@ columnview {
 
 columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {
   outline: 2px solid $focus_border_color;
+
+  @media (prefers-contrast: more) {
+    outline-color: $focus_border_color_hc;
+  }
 }
 
 columnview row:not(:selected) cell editablelabel.editing:focus-within {

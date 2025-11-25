@@ -85,7 +85,8 @@ levelbar {
       &.empty {
         background-color: $trough_color;
 
-        @if $contrast == "high" {
+        @media (prefers-contrast: more) {
+          background-color: $trough_color_hc;
           box-shadow: inset 0 0 0 1px $border_color;
         }
       }

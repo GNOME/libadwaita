@@ -20,6 +20,10 @@
     outline-color: $focus_border_color;
     outline-width: $width;
     outline-offset: $offset;
+
+    @media (prefers-contrast: more) {
+      outline-color: $focus_border_color_hc;
+    }
   }
 }
 
@@ -55,10 +59,14 @@
   }
 
   #{$_selector} undershoot.#{$p} {
-    box-shadow: inset $_border_pos if($contrast == 'high', $border_color, color-mix(in srgb, var(--shade-color) 75%, transparent));
+    box-shadow: inset $_border_pos color-mix(in srgb, var(--shade-color) 75%, transparent);
     background: linear-gradient(to $_direction,
                                 color-mix(in srgb, var(--shade-color) 75%, transparent),
                                 transparent 4px);
+
+    @media (prefers-contrast: more) {
+      box-shadow: inset $_border_pos $border_color;
+    }
   }
 }
 
@@ -119,7 +127,7 @@
     background: var(--shade-color);
   }
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     > border {
       min-width: 1px;
       min-height: 1px;

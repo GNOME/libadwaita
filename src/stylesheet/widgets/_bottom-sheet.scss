@@ -6,8 +6,14 @@ bottom-sheet {
   > sheet {
     box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
                 0 0 5px 2px RGB(0 0 6 / 10%),
-                0 0 0 1px RGB(0 0 0 / #{if($contrast == 'high', 80%, 5%)});
+                0 0 0 1px RGB(0 0 0 / 5%);
     transition: border-radius 100ms ease-out, box-shadow 250ms ease;
+
+    @media (prefers-contrast: more) {
+      box-shadow: 0 0 14px 2px RGB(0 0 6 / 3%),
+                  0 0 5px 2px RGB(0 0 6 / 10%),
+                  0 0 0 1px RGB(0 0 0 / 80%);
+    }
 
     > stack > widget > drag-handle {
       background-color: color-mix(in srgb, currentColor 25%, transparent);
@@ -22,6 +28,12 @@ bottom-sheet {
                   inset -1px 0 $window_outline_color,
                   inset 0 1px $window_outline_color;
       transition: border-radius 100ms ease-out;
+
+      @media (prefers-contrast: more) {
+        box-shadow: inset 1px 0 $window_outline_color_hc,
+                    inset -1px 0 $window_outline_color_hc,
+                    inset 0 1px $window_outline_color_hc;
+      }
     }
 
     > stack > button {
@@ -74,17 +86,34 @@ bottom-sheet {
       box-shadow: inset 0 1px $window_outline_color;
     }
 
-    &.bottom-bar {
-      $border: color-mix(in srgb, var(--shade-color) 75%, transparent);
-
-      @if $contrast == 'high' {
-        $border: RGB(0 0 6 / 80%);
+    @media (prefers-contrast: more) {
+      &.flush-left > outline {
+        box-shadow: inset -1px 0 $window_outline_color_hc,
+                    inset 0 1px $window_outline_color_hc;
       }
 
-      box-shadow: 0 0 0 1px $border,
+      &.flush-right > outline {
+        box-shadow: inset 1px 0 $window_outline_color_hc,
+                    inset 0 1px $window_outline_color_hc;
+      }
+
+      &.flush-left.flush-right > outline {
+        box-shadow: inset 0 1px $window_outline_color_hc;
+      }
+    }
+
+    &.bottom-bar {
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--shade-color) 75%, transparent),
                   0 2px 8px 2px var(--shade-color),
                   0 3px 20px 10px RGB(0 0 6 / 5%),
                   0 6px 32px 16px RGB(0 0 6 / 2%);
+
+      @media (prefers-contrast: more) {
+        box-shadow: 0 0 0 1px RGB(0 0 6 / 80%),
+                    0 2px 8px 2px var(--shade-color),
+                    0 3px 20px 10px RGB(0 0 6 / 5%),
+                    0 6px 32px 16px RGB(0 0 6 / 2%);
+      }
 
       &.hidden {
         box-shadow: none;
@@ -110,7 +139,7 @@ bottom-sheet {
         }
       }
 
-      @if $contrast != 'high' {
+      @media not (prefers-contrast: more) {
         &, &.flush-left, &.flush-right, &.flush-left.flush-right {
           > outline,
           > stack > widget,

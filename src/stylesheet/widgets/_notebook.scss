@@ -134,7 +134,7 @@ notebook {
 
       &:disabled {
         filter: Opacity(var(--disabled-opacity));
-a
+
         label, button {
           filter: none;
         }

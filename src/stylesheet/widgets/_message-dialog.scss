@@ -8,7 +8,7 @@ window.dialog.message {
   background-color: var(--dialog-bg-color);
   color: var(--dialog-fg-color);
 
-  @if $contrast != 'high' {
+  @media (prefers-contrast: more) {
     &.csd {
       outline: none;
     }
@@ -60,7 +60,7 @@ window.dialog-window.alert {
 dialog-host > dialog.alert sheet {
   border-radius: $alert_radius;
 
-  @if $contrast != 'high' {
+  @media (prefers-contrast: more) {
     outline: none;
   }
 }
@@ -71,7 +71,7 @@ window.dialog-window.alert {
     border-radius: $alert_radius;
   }
 
-  @if $contrast != 'high' {
+  @media (prefers-contrast: more) {
     &.csd {
       outline: none;
     }

@@ -2,9 +2,13 @@ tabbar {
   .box {
     background-color: var(--headerbar-bg-color);
     color: var(--headerbar-fg-color);
-    box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color));
+    box-shadow: inset 0 -1px var(--headerbar-shade-color);
     padding: 1px;
     padding-top: 0;
+
+    @media (prefers-contrast: more) {
+      box-shadow: inset 0 -1px $headerbar_border_color;
+    }
 
     &:backdrop {
       background-color: var(--headerbar-backdrop-color);
@@ -43,14 +47,18 @@ tabbar {
       min-width: 2px;
       border-radius: 2px;
       margin: 3px 6px;
-      background: if($contrast == 'high', var(--accent-color), color-mix(in srgb, var(--accent-color) 50%, transparent));
+      background: color-mix(in srgb, var(--accent-color) 50%, transparent);
+
+      @media (prefers-contrast: more) {
+        background: var(--accent-color);
+      }
     }
   }
 
   tab {
     transition: background 150ms ease-in-out;
 
-    @if $contrast == 'high' {
+    @media (prefers-contrast: more) {
       &:hover,
       &:active,
       &:selected {
@@ -73,7 +81,7 @@ tabbar {
     &, &:hover, &:active {
       background: none;
 
-      @if $contrast == 'high' {
+      @media (prefers-contrast: more) {
         box-shadow: none;
       }
     }
@@ -136,7 +144,7 @@ dnd tab {
               0 1px 3px 1px RGB(0 0 0 / 7%),
               0 2px 6px 2px RGB(0 0 0 / 3%);
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     outline: 1px solid $border_color;
     outline-offset: -1px;
   }
@@ -162,8 +170,12 @@ dnd {
     indicator {
       min-height: 2px;
       border-radius: 2px;
-      background: if($contrast == 'high', var(--accent-color), color-mix(in srgb, var(--accent-color) 50%, transparent));
+      background: color-mix(in srgb, var(--accent-color) 50%, transparent);
       transform: translateY(4px);
+
+      @media (prefers-contrast: more) {
+        background: var(--accent-color);
+      }
     }
   }
 }
@@ -205,12 +217,16 @@ tabthumbnail {
       outline: 1px solid $window_outline_color;
       outline-offset: -1px;
       border-radius: $card_radius;
+
+      @media (prefers-contrast: more) {
+        outline-color: $window_outline_color_hc;
+      }
     }
 
     background: none;
     color: inherit;
 
-    @if $contrast == 'high' {
+    @media (prefers-contrast: more) {
       box-shadow: 0 0 0 1px RGB(0 0 6 / 50%),
                   0 1px 3px 1px RGB(0 0 6 / 7%),
                   0 2px 6px 2px RGB(0 0 6 / 3%);
@@ -221,8 +237,8 @@ tabthumbnail {
     background-color: var(--thumbnail-bg-color);
     color: var(--thumbnail-fg-color);
 
-    @if $contrast == 'high' {
-      outline: 1px solid $window_outline_color;
+    @media (prefers-contrast: more) {
+      outline: 1px solid $window_outline_color_hc;
       outline-offset: -1px;
     }
   }
@@ -257,7 +273,7 @@ tabthumbnail {
       border-radius: 9999px;
       transition: $button_transition;
 
-      @if $contrast == 'high' {
+      @media (prefers-contrast: more) {
         box-shadow: 0 0 0 1px currentColor;
       }
     }

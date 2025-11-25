@@ -2,9 +2,15 @@ headerbar {
   min-height: 47px;
   background-color: var(--headerbar-bg-color);
   color: var(--headerbar-fg-color);
-  box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, var(--headerbar-shade-color)),
+  box-shadow: inset 0 -1px var(--headerbar-shade-color),
               inset  1px 0 $headerbar_border_color,
               inset -1px 0 $headerbar_border_color;
+
+  @media (prefers-contrast: more) {
+    box-shadow: inset 0 -1px $headerbar_border_color,
+                inset  1px 0 $headerbar_border_color,
+                inset -1px 0 $headerbar_border_color;
+  }
 
   margin-left: -1px;
   margin-right: -1px;
@@ -71,8 +77,13 @@ headerbar {
 
 window:not(.ssd-frame) > {
   .titlebar:not(.flat) {
-    box-shadow: 0 1px if($contrast == 'high', $border_color, color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent)),
+    box-shadow: 0 1px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent),
                 0 2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
+
+    @media (prefers-contrast: more) {
+      box-shadow: 0 1px $border_color,
+                  0 2px 4px color-mix(in srgb, var(--headerbar-shade-color) 50%, transparent);
+    }
   }
 
   .titlebar headerbar:not(.flat) {
@@ -180,7 +191,8 @@ windowcontrols {
       border-radius: 100%;
       padding: 4px;
       transition: $button_transition;
-      @if $contrast == 'high' {
+
+      @media (prefers-contrast: more) {
         box-shadow: inset 0 0 0 1px $border_color;
       }
     }

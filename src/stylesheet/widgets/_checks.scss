@@ -24,29 +24,28 @@ radio {
   min-width: 14px;
   -gtk-icon-size: 14px;
   padding: 3px;
+  box-shadow: inset 0 0 0 2px $trough_color;
 
-  @if $contrast == 'high' {
+  @media (prefers-contrast: more) {
     box-shadow: inset 0 0 0 2px $border_color;
-  } @else {
-    box-shadow: inset 0 0 0 2px $trough_color;
   }
 
   &:not(:checked):not(:indeterminate) {
     &:hover {
-      @if $contrast == 'high' {
+      box-shadow: inset 0 0 0 2px $trough_hover_color;
+
+      @media (prefers-contrast: more) {
         box-shadow: inset 0 0 0 2px color-mix(in srgb, currentColor 60%, transparent);
-      } @else {
-        box-shadow: inset 0 0 0 2px $trough_hover_color;
       }
     }
 
     &:active {
-      @if $contrast == 'high' {
-        background-color: color-mix(in srgb, currentColor 60%, transparent);
-      } @else {
-        background-color: $trough_active_color;
-      }
+      background-color: $trough_active_color;
       box-shadow: none;
+
+      @media (prefers-contrast: more) {
+        background-color: color-mix(in srgb, currentColor 60%, transparent);
+      }
     }
   }
 
