@@ -134,7 +134,7 @@ transform_badge (GBinding     *binding,
   guint badge_number = g_value_get_uint (input);
 
   if (badge_number > 0)
-    g_value_take_string (output, g_strdup_printf ("%u", badge_number));
+    g_value_take_string (output, adw_get_badge_text (badge_number));
   else
     g_value_set_string (output, NULL);
 
