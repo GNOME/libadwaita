@@ -396,6 +396,7 @@ adw_link_row_set_uri (AdwLinkRow *self,
                       const char *uri)
 {
   const char *uri_scheme;
+  char *tooltip;
 
   g_return_if_fail (ADW_IS_LINK_ROW (self));
   g_return_if_fail (uri != NULL);
@@ -410,7 +411,9 @@ adw_link_row_set_uri (AdwLinkRow *self,
   else
     gtk_image_set_from_icon_name (GTK_IMAGE (self->icon), "adw-external-link-symbolic");
 
-  gtk_widget_set_tooltip_text (GTK_WIDGET (self), uri);
+  tooltip = g_uri_unescape_string (uri, NULL);
+  gtk_widget_set_tooltip_text (GTK_WIDGET (self), tooltip);
+  g_free (tooltip);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_URI]);
 }
