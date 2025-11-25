@@ -65,21 +65,14 @@ if sassc.found()
     'widgets/_window.scss',
   ])
 
-  scss_files = [
-    'default',
-    'high-contrast',
-  ]
-
-  foreach scss: scss_files
-    stylesheet_deps += custom_target('@0@.scss'.format(scss),
-      input: '@0@.scss'.format(scss),
-      output: '@0@.css'.format(scss),
-      command: [
-        sassc, sassc_opts, '@INPUT@', '@OUTPUT@',
-      ],
-      depend_files: scss_deps,
-    )
-  endforeach
+  stylesheet_deps += custom_target('gtk.scss',
+    input: 'gtk.scss',
+    output: 'gtk.css',
+    command: [
+      sassc, sassc_opts, '@INPUT@', '@OUTPUT@',
+    ],
+    depend_files: scss_deps,
+  )
 endif
 
 libadwaita_stylesheet_resources = gnome.compile_resources(

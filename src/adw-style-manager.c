@@ -496,7 +496,7 @@ adw_style_manager_constructed (GObject *object)
 
       self->provider = gtk_css_provider_new ();
       gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/main.css");
+                                           "/org/gnome/Adwaita/styles/gtk.css");
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);

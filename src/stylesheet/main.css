@@ -1,7 +1,0 @@
-@media not (prefers-contrast: more) {
-  @import url("default.css");
-}
-
-@media (prefers-contrast: more) {
-  @import url("high-contrast.css");
-}
