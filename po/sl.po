@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-10-24 13:46+0000\n"
-"PO-Revision-Date: 2025-10-24 23:59+0200\n"
+"POT-Creation-Date: 2025-11-25 20:17+0000\n"
+"PO-Revision-Date: 2025-11-26 18:18+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -546,12 +546,12 @@ msgstr "Možnosti"
 msgid "Search preferences"
 msgstr "Možnosti iskanja"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:75
 msgid "No Results Found"
 msgstr "Ni najdenih zadetkov."
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-preferences-dialog.ui:154 src/adw-shortcuts-dialog.ui:76
 #: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Poskusite z drugačnim iskalnim nizom"
@@ -605,7 +605,7 @@ msgid "View Open Tabs"
 msgstr "Pogled odprtih zavihkov"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:951
+#: src/adw-tab-overview.c:952
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -660,3 +660,21 @@ msgstr "Pojavila se je zdravica"
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Opusti"
+
+#: src/adw-widget-utils.c:838
+#, fuzzy
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "Pozornost zahtevana."
+
+#: src/adw-widget-utils.c:841
+#, fuzzy
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "Ima značko: več kot 999."
+
+#: src/adw-widget-utils.c:843
+#, fuzzy, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "Ima značko: %u."
