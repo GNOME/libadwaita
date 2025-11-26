@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2025-11-25 20:17+0000\n"
-"PO-Revision-Date: 2025-11-26 18:18+0100\n"
+"PO-Revision-Date: 2025-11-26 18:30+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -665,16 +665,15 @@ msgstr "Opusti"
 #, fuzzy
 msgctxt "view switcher button badge"
 msgid "Attention requested."
-msgstr "Pozornost zahtevana."
+msgstr "Zahtevana je pozornost."
 
 #: src/adw-widget-utils.c:841
-#, fuzzy
 msgctxt "view switcher button badge"
 msgid "Has a badge: more than 999."
 msgstr "Ima značko: več kot 999."
 
 #: src/adw-widget-utils.c:843
-#, fuzzy, c-format
+#, c-format
 msgctxt "view switcher button badge"
 msgid "Has a badge: %u."
 msgstr "Ima značko: %u."
