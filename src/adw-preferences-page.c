@@ -308,7 +308,7 @@ adw_preferences_page_buildable_add_child (GtkBuildable *buildable,
     adw_preferences_page_add (self, ADW_PREFERENCES_GROUP (child));
   } else if (priv->scrolled_window && GTK_IS_WIDGET (child)) {
     g_critical ("Trying to add %s as a child to an AdwPreferencePage, "
-                "but only AdwPreferencesPage is allowed",
+                "but only AdwPreferencesGroup is allowed",
                 G_OBJECT_TYPE_NAME (child));
   } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
