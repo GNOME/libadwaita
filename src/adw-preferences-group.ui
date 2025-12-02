@@ -59,7 +59,7 @@
               <object class="GtkListBox" id="listbox">
                 <property name="visible">False</property>
                 <property name="selection_mode">none</property>
-                <signal name="keynav-failed" handler="adw_tab_on_vertical_keynav_failed" swapped="yes"/>
+                <signal name="keynav-failed" handler="adw_widget_on_vertical_keynav_failed" swapped="yes"/>
                 <style>
                   <class name="boxed-list"/>
                 </style>

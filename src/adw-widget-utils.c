@@ -799,8 +799,8 @@ adw_get_inspector_keybinding_enabled (void)
 }
 
 gboolean
-adw_tab_on_vertical_keynav_failed (GtkWidget        *widget,
-                                   GtkDirectionType  direction)
+adw_widget_on_vertical_keynav_failed (GtkWidget        *widget,
+                                      GtkDirectionType  direction)
 {
   GtkWidget *toplevel = GTK_WIDGET (gtk_widget_get_root (widget));
 
