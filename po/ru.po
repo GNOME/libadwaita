@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-11-05 23:29+0000\n"
-"PO-Revision-Date: 2025-11-13 15:44+0300\n"
+"POT-Creation-Date: 2025-11-29 16:57+0000\n"
+"PO-Revision-Date: 2025-11-30 16:38+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -545,12 +545,12 @@ msgstr "Параметры"
 msgid "Search preferences"
 msgstr "Поиск параметров"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:75
 msgid "No Results Found"
 msgstr "Результатов не найдено"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
+#: src/adw-preferences-dialog.ui:154 src/adw-shortcuts-dialog.ui:76
 #: src/adw-tab-overview.ui:110
 msgid "Try a different search"
 msgstr "Попробуйте другой поисковый запрос"
@@ -604,7 +604,7 @@ msgid "View Open Tabs"
 msgstr "Просмотреть открытые вкладки"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:951
+#: src/adw-tab-overview.c:952
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -658,6 +658,22 @@ msgstr "Появился тост"
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Отклонить"
+
+#: src/adw-widget-utils.c:838
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "Обратите внимание."
+
+#: src/adw-widget-utils.c:841
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "Имеется пиктограмма: более 999."
+
+#: src/adw-widget-utils.c:843
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "Имеется пиктограмма: %u."
 
 #~ msgid "_What’s New"
 #~ msgstr "_Что нового"
