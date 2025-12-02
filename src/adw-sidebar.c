@@ -1981,10 +1981,10 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
    *
    * Determines the sidebar's look and behavior.
    *
-   * If set to [enum@Adw.SidebarMode.SIDEBAR], behaves like a sidebar: with a
+   * If set to [enum@Adw.SidebarMode.sidebar], behaves like a sidebar: with a
    * sidebar style and a persistent selection.
    *
-   * If set to [enum@Adw.SidebarMode.PAGE], behaves like a page of boxed lists.
+   * If set to [enum@Adw.SidebarMode.page], behaves like a page of boxed lists.
    * In this mode, the selection is invisible and only tracked to determine the
    * initially selected item once switched back to sidebar mode.
    *
@@ -2009,9 +2009,9 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
    *
    * If set to [const@Gtk.INVALID_LIST_POSITION], no item is selected.
    *
-   * If [property@Sidebar:mode] is set to [enum@Adw.SidebarMode.PAGE], the
+   * If [property@Sidebar:mode] is set to [enum@Adw.SidebarMode.page], the
    * selection is invisible, but still tracked, indicating which item will be
-   * selected once the mode is changed to [enum@Adw.SidebarMode.SIDEBAR].
+   * selected once the mode is changed to [enum@Adw.SidebarMode.sidebar].
    *
    * See also: [property@Sidebar:selected-item].
    *
@@ -2375,10 +2375,10 @@ adw_sidebar_get_mode (AdwSidebar *self)
  *
  * Sets @self's look and behavior.
  *
- * If set to [enum@Adw.SidebarMode.SIDEBAR], behaves like a sidebar: with a
+ * If set to [enum@Adw.SidebarMode.sidebar], behaves like a sidebar: with a
  * sidebar style and a persistent selection.
  *
- * If set to [enum@Adw.SidebarMode.PAGE], behaves like a page of boxed lists.
+ * If set to [enum@Adw.SidebarMode.page], behaves like a page of boxed lists.
  * In this mode, the selection is invisible and only tracked to determine the
  * initially selected item once switched back to sidebar mode.
  *
@@ -2442,9 +2442,9 @@ adw_sidebar_get_selected (AdwSidebar *self)
  *
  * If set to [const@Gtk.INVALID_LIST_POSITION], no item is selected.
  *
- * If [property@Sidebar:mode] is set to [enum@Adw.SidebarMode.PAGE], the
+ * If [property@Sidebar:mode] is set to [enum@Adw.SidebarMode.page], the
  * selection is invisible, but still tracked, indicating which item will be
- * selected once the mode is changed to [enum@Adw.SidebarMode.SIDEBAR].
+ * selected once the mode is changed to [enum@Adw.SidebarMode.sidebar].
  *
  * See also: [property@Sidebar:selected-item].
  *

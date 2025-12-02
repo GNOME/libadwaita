@@ -66,7 +66,7 @@
  * ```
  *
  * It's recommended to set [property@ViewSwitcher:policy] to
- * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
  *
  * You may have to adjust the breakpoint condition for your specific pages.
  *

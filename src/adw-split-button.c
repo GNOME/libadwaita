@@ -61,7 +61,7 @@
  *
  * ## Accessibility
  *
- * `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwSplitButton` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 enum {
@@ -411,7 +411,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * If the does not fit in the available space in the given direction, GTK will
    * try its best to keep it inside the screen and fully visible.
    *
-   * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
+   * [enum@Gtk.ArrowType.none] behaves same as [enum@Gtk.ArrowType.down].
    */
   props[PROP_DIRECTION] =
     g_param_spec_enum ("direction", NULL, NULL,
@@ -978,7 +978,7 @@ adw_split_button_get_direction (AdwSplitButton *self)
  * If the does not fit in the available space in the given direction, GTK will
  * try its best to keep it inside the screen and fully visible.
  *
- * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
+ * [enum@Gtk.ArrowType.none] behaves same as [enum@Gtk.ArrowType.down].
  */
 void
 adw_split_button_set_direction (AdwSplitButton *self,

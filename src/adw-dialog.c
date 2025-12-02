@@ -25,8 +25,9 @@
 
 /**
  * AdwDialogPresentationMode:
- * @ADW_DIALOG_AUTO: Switch between `ADW_DIALOG_FLOATING` and
- *   `ADW_DIALOG_BOTTOM_SHEET` depending on available size.
+ * @ADW_DIALOG_AUTO: Switch between [enum@Adw.DialogPresentationMode.floating]
+ *   and [enum@Adw.DialogPresentationMode.bottom-sheet] depending on available
+ *   size.
  * @ADW_DIALOG_FLOATING: Present dialog as a centered floating window.
  * @ADW_DIALOG_BOTTOM_SHEET: Present dialog as a bottom sheet.
  *
@@ -1147,13 +1148,14 @@ adw_dialog_class_init (AdwDialogClass *klass)
    *
    * The dialog's presentation mode.
    *
-   * When set to `ADW_DIALOG_AUTO`, the dialog appears as a bottom sheet when
-   * the following condition is met: `max-width: 450px or max-height: 360px`,
-   * and as a floating window otherwise.
+   * When set to [enum@Adw.DialogPresentationMode.auto], the dialog appears as a
+   * bottom sheet when the following condition is met:
+   * `max-width: 450px or max-height: 360px`, and as a floating window otherwise.
    *
-   * Set it to `ADW_DIALOG_FLOATING` or `ADW_DIALOG_BOTTOM_SHEET` to always
-   * present it a floating window or a bottom sheet respectively, regardless of
-   * available size.
+   * Set it to [enum@Adw.DialogPresentationMode.floating] or
+   * [enum@Adw.DialogPresentationMode.bottom-sheet] to always present it a
+   * floating window or a bottom sheet respectively, regardless of available
+   * size.
    *
    * Presentation mode does nothing for dialogs presented as a window.
    *
@@ -1716,13 +1718,13 @@ adw_dialog_get_presentation_mode (AdwDialog *self)
  *
  * Sets presentation mode for @self.
  *
- * When set to `ADW_DIALOG_AUTO`, the dialog appears as a bottom sheet when the
- * following condition is met: `max-width: 450px or max-height: 360px`, and as a
- * floating window otherwise.
+ * When set to [enum@Adw.DialogPresentationMode.auto], the dialog appears as a
+ * bottom sheet when the following condition is met:
+ * `max-width: 450px or max-height: 360px`, and as a floating window otherwise.
  *
- * Set it to `ADW_DIALOG_FLOATING` or `ADW_DIALOG_BOTTOM_SHEET` to always
- * present it a floating window or a bottom sheet respectively, regardless of
- * available size.
+ * Set it to [enum@Adw.DialogPresentationMode.floating] or
+ * [enum@Adw.DialogPresentationMode.bottom-sheet] to always present it a
+ * floating window or a bottom sheet respectively, regardless of available size.
  *
  * Presentation mode does nothing for dialogs presented as a window.
  *

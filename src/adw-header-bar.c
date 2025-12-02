@@ -138,7 +138,7 @@
  *
  * ## Accessibility
  *
- * `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwHeaderBar` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 /**

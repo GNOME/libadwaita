@@ -62,7 +62,7 @@
  *
  * ## Accessibility
  *
- * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
+ * `AdwComboRow` uses the [enum@Gtk.AccessibleRole.combo-box] role.
  */
 
 /*

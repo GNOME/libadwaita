@@ -82,8 +82,8 @@
  *
  * ## Accessibility
  *
- * `AdwViewStack` uses the `GTK_ACCESSIBLE_ROLE_TAB_PANEL` for the stack pages
- * which are the accessible parent objects of the child widgets.
+ * `AdwViewStack` uses the [enum@Gtk.AccessibleRole.tab-panel] for the stack
+ * pages which are the accessible parent objects of the child widgets.
  */
 
 /**

@@ -53,7 +53,7 @@
  * ## Accessibility
  *
  * `AdwSpinRow` uses an internal `GtkSpinButton` with the
- * `GTK_ACCESSIBLE_ROLE_SPIN_BUTTON` role.
+ * [enum@Gtk.AccessibleRole.spin-button] role.
  *
  * Since: 1.4
  */
@@ -384,7 +384,7 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
    * See [signal@Gtk.SpinButton::input].
    *
    * Returns: `TRUE` for a successful conversion, `FALSE` if the input was not
-   *   handled, and `GTK_INPUT_ERROR` if the conversion failed.
+   *   handled, and [const@Gtk.INPUT_ERROR] if the conversion failed.
    *
    * Since: 1.4
    */

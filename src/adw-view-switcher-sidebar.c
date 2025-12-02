@@ -417,10 +417,10 @@ adw_view_switcher_sidebar_class_init (AdwViewSwitcherSidebarClass *klass)
    *
    * Determines the sidebar's look and behavior.
    *
-   * If set to [enum@Adw.SidebarMode.SIDEBAR], behaves like a sidebar: with a
+   * If set to [enum@Adw.SidebarMode.sidebar], behaves like a sidebar: with a
    * sidebar style and a persistent selection.
    *
-   * If set to [enum@Adw.SidebarMode.PAGE], behaves like a page of boxed lists.
+   * If set to [enum@Adw.SidebarMode.page], behaves like a page of boxed lists.
    *
    * The page mode is intended to be used with [class@NavigationSplitView] when
    * collapsed, as the sidebar pane becomes a page there.
@@ -597,10 +597,10 @@ adw_view_switcher_sidebar_get_mode (AdwViewSwitcherSidebar *self)
  *
  * Sets @self's look and behavior.
  *
- * If set to [enum@Adw.SidebarMode.SIDEBAR], behaves like a sidebar: with a
+ * If set to [enum@Adw.SidebarMode.sidebar], behaves like a sidebar: with a
  * sidebar style and a persistent selection.
  *
- * If set to [enum@Adw.SidebarMode.PAGE], behaves like a page of boxed lists.
+ * If set to [enum@Adw.SidebarMode.page], behaves like a page of boxed lists.
  * In this mode, the selection is invisible and only tracked to determine the
  * initially selected item once switched back to sidebar mode.
  *

@@ -49,7 +49,7 @@
  *
  * ## Accessibility
  *
- * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwPreferencesGroup` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 typedef struct

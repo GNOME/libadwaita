@@ -63,7 +63,7 @@ becomes this:
 `AdwToolbarView` defaults to flat header bars, replacing the `.flat` style
 class. To use a raised style, set the [property@ToolbarView:top-bar-style]
 and/or [property@ToolbarView:bottom-bar-style] properties to
-`ADW_TOOLBAR_RAISED`.
+[enum@Adw.ToolbarStyle.raised].
 
 Subsequent sections will assume that you're using `AdwToolbarView`.
 
@@ -301,8 +301,8 @@ If you're using [class@Gtk.HeaderBar], replace it with `AdwHeaderBar` as well:
 ```
 
 Replace [method@Leaflet.navigate] calls with
-[method@NavigationView.push] for `ADW_NAVIGATION_DIRECTION_FORWARD` and
-[method@NavigationView.pop] for `ADW_NAVIGATION_DIRECTION_BACK`. It's also
+[method@NavigationView.push] for [enum@Adw.NavigationDirection.forward] and
+[method@NavigationView.pop] for [enum@Adw.NavigationDirection.back]. It's also
 possible to push a page using the `navigation.push` action and the page's tag as
 parameter, or pop the visible page using the `navigation.pop` action.
 
@@ -664,7 +664,7 @@ A typical `AdwViewSwitcherTitle` use looks as follows:
 ```
 
 Replace your `AdwViewSwitcherTitle` with a regular [class@ViewSwitcher] and set
-the `ADW_VIEW_SWITCHER_POLICY_WIDE` policy on it.
+the [enum@Adw.ViewSwitcherPolicy.wide] policy on it.
 
 Also remove the [property@ViewSwitcherBar:reveal] property binding on your
 switcher bar, and stop setting [property@HeaderBar:centering-policy] on your

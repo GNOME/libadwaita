@@ -85,7 +85,7 @@
  *
  * ## Accessibility
  *
- * `AdwShortcutLabel` uses the `GTK_ACCESSIBLE_ROLE_LABEL` role.
+ * `AdwShortcutLabel` uses the [enum@Gtk.AccessibleRole.label] role.
  *
  * See also: [class@ShortcutsDialog].
  *

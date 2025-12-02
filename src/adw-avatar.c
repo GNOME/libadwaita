@@ -48,7 +48,7 @@
  *
  * ## Accessibility
  *
- * `AdwAvatar` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
+ * `AdwAvatar` uses the [enum@Gtk.AccessibleRole.img] role.
  */
 
 struct _AdwAvatar

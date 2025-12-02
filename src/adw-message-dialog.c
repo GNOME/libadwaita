@@ -146,7 +146,7 @@
  *
  * ## Accessibility
  *
- * `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
+ * `AdwMessageDialog` uses the [enum@Gtk.AccessibleRole.dialog] role.
  *
  * Since: 1.2
  * Deprecated: 1.6: Use [class@AlertDialog].
@@ -2256,14 +2256,15 @@ adw_message_dialog_get_response_appearance (AdwMessageDialog *self,
  *   <img src="message-dialog-appearance.png" alt="message-dialog-appearance">
  * </picture>
  *
- * Use `ADW_RESPONSE_SUGGESTED` to mark important responses such as the
- * affirmative action, like the Save button in the example.
+ * Use [enum@Adw.ResponseAppearance.suggested] to mark important responses such
+ * as the affirmative action, like the Save button in the example.
  *
- * Use `ADW_RESPONSE_DESTRUCTIVE` to draw attention to the potentially damaging
- * consequences of using @response. This appearance acts as a warning to the
- * user. The Discard button in the example is using this appearance.
+ * Use [enum@Adw.ResponseAppearance.destructive] to draw attention to the
+ * potentially damaging consequences of using @response. This appearance acts as
+ * a warning to the user. The Discard button in the example is using this
+ * appearance.
  *
- * The default appearance is `ADW_RESPONSE_DEFAULT`.
+ * The default appearance is [enum@Adw.ResponseAppearance.default].
  *
  * Negative responses like Cancel or Close should use the default appearance.
  *

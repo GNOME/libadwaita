@@ -193,7 +193,7 @@ adw_shortcuts_item_class_init (AdwShortcutsItemClass *klass)
    *
    * The shortcut direction.
    *
-   * If set to [enum@Gtk.TextDirection.LTR] or [enum@Gtk.TextDirection.RTL], the
+   * If set to [enum@Gtk.TextDirection.LTR] or [enum@Gtk.TextDirection.rtl], the
    * shortcut will only be displayed for this direction.
    *
    * Since: 1.8
@@ -452,7 +452,7 @@ adw_shortcuts_item_get_direction (AdwShortcutsItem *self)
  *
  * Sets the direction of @self.
  *
- * If set to [enum@Gtk.TextDirection.LTR] or [enum@Gtk.TextDirection.RTL], the
+ * If set to [enum@Gtk.TextDirection.ltr] or [enum@Gtk.TextDirection.rtl], the
  * shortcut will only be displayed for this direction.
  *
  * Since: 1.8

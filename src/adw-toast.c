@@ -367,10 +367,11 @@ adw_toast_class_init (AdwToastClass *klass)
    * Priority controls how the toast behaves when another toast is already
    * being displayed.
    *
-   * If the priority is `ADW_TOAST_PRIORITY_NORMAL`, the toast will be queued.
+   * If the priority is [enum@Adw.ToastPriority.normal], the toast will be
+   * queued.
    *
-   * If the priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
-   * immediately, pushing the previous toast into the queue instead.
+   * If the priority is [enum@Adw.ToastPriority.high], the toast will be
+   * displayed immediately, pushing the previous toast into the queue instead.
    */
   props[PROP_PRIORITY] =
     g_param_spec_enum ("priority", NULL, NULL,
@@ -813,9 +814,9 @@ adw_toast_get_priority (AdwToast *self)
  * Priority controls how the toast behaves when another toast is already
  * being displayed.
  *
- * If @priority is `ADW_TOAST_PRIORITY_NORMAL`, the toast will be queued.
+ * If @priority is [enum@Adw.ToastPriority.normal], the toast will be queued.
  *
- * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
+ * If @priority is [enum@Adw.ToastPriority.high], the toast will be displayed
  * immediately, pushing the previous toast into the queue instead.
  */
 void

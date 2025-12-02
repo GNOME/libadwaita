@@ -60,7 +60,7 @@
  *
  * ## Accessibility
  *
- * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwButtonContent` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 struct _AdwButtonContent {

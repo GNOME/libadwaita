@@ -2192,14 +2192,15 @@ adw_alert_dialog_get_response_appearance (AdwAlertDialog *self,
  *   <img src="alert-dialog-appearance.png" alt="alert-dialog-appearance">
  * </picture>
  *
- * Use `ADW_RESPONSE_SUGGESTED` to mark important responses such as the
- * affirmative action, like the Save button in the example.
+ * Use [enum@Adw.ResponseAppearance.suggested] to mark important responses such
+ * as the affirmative action, like the Save button in the example.
  *
- * Use `ADW_RESPONSE_DESTRUCTIVE` to draw attention to the potentially damaging
- * consequences of using @response. This appearance acts as a warning to the
- * user. The Discard button in the example is using this appearance.
+ * Use [enum@Adw.ResponseAppearance.destructive] to draw attention to the
+ * potentially damaging consequences of using @response. This appearance acts as
+ * a warning to the user. The Discard button in the example is using this
+ * appearance.
  *
- * The default appearance is `ADW_RESPONSE_DEFAULT`.
+ * The default appearance is [enum@Adw.ResponseAppearance.default].
  *
  * Negative responses like Cancel or Close should use the default appearance.
  *

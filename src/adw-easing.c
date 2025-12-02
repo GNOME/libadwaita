@@ -23,50 +23,59 @@
  * AdwEasing:
  * @ADW_LINEAR: Linear tweening.
  * @ADW_EASE_IN_QUAD: Quadratic tweening.
- * @ADW_EASE_OUT_QUAD: Quadratic tweening, inverse of `ADW_EASE_IN_QUAD`.
- * @ADW_EASE_IN_OUT_QUAD: Quadratic tweening, combining `ADW_EASE_IN_QUAD` and
- *   `ADW_EASE_OUT_QUAD`.
+ * @ADW_EASE_OUT_QUAD: Quadratic tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-quad].
+ * @ADW_EASE_IN_OUT_QUAD: Quadratic tweening, combining
+ *   [enum@Adw.Easing.ease-in-quad] and [enum@Adw.Easing.ease-out-quad].
  * @ADW_EASE_IN_CUBIC: Cubic tweening.
- * @ADW_EASE_OUT_CUBIC: Cubic tweening, inverse of `ADW_EASE_IN_CUBIC`.
- * @ADW_EASE_IN_OUT_CUBIC: Cubic tweening, combining `ADW_EASE_IN_CUBIC` and
- *   `ADW_EASE_OUT_CUBIC`.
+ * @ADW_EASE_OUT_CUBIC: Cubic tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-cubic].
+ * @ADW_EASE_IN_OUT_CUBIC: Cubic tweening, combining
+ *   [enum@Adw.Easing.ease-in-cubic] and [enum@Adw.Easing.ease-out-cubic].
  * @ADW_EASE_IN_QUART: Quartic tweening.
- * @ADW_EASE_OUT_QUART: Quartic tweening, inverse of `ADW_EASE_IN_QUART`.
- * @ADW_EASE_IN_OUT_QUART: Quartic tweening, combining `ADW_EASE_IN_QUART` and
- *   `ADW_EASE_OUT_QUART`.
+ * @ADW_EASE_OUT_QUART: Quartic tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-quart].
+ * @ADW_EASE_IN_OUT_QUART: Quartic tweening, combining
+ *   [enum@Adw.Easing.ease-in-quart] and [enum@Adw.Easing.ease-out-quart].
  * @ADW_EASE_IN_QUINT: Quintic tweening.
- * @ADW_EASE_OUT_QUINT: Quintic tweening, inverse of `ADW_EASE_IN_QUINT`.
- * @ADW_EASE_IN_OUT_QUINT: Quintic tweening, combining `ADW_EASE_IN_QUINT` and
- *   `ADW_EASE_OUT_QUINT`.
+ * @ADW_EASE_OUT_QUINT: Quintic tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-quint].
+ * @ADW_EASE_IN_OUT_QUINT: Quintic tweening, combining
+ *   [enum@Adw.Easing.ease-in-quint] and [enum@Adw.Easing.ease-out-quint].
  * @ADW_EASE_IN_SINE: Sine wave tweening.
- * @ADW_EASE_OUT_SINE: Sine wave tweening, inverse of `ADW_EASE_IN_SINE`.
- * @ADW_EASE_IN_OUT_SINE: Sine wave tweening, combining `ADW_EASE_IN_SINE` and
- *   `ADW_EASE_OUT_SINE`.
+ * @ADW_EASE_OUT_SINE: Sine wave tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-sine].
+ * @ADW_EASE_IN_OUT_SINE: Sine wave tweening, combining
+ *   [enum@Adw.Easing.ease-in-sine] and [enum@Adw.Easing.ease-out-sine].
  * @ADW_EASE_IN_EXPO: Exponential tweening.
- * @ADW_EASE_OUT_EXPO: Exponential tweening, inverse of `ADW_EASE_IN_EXPO`.
- * @ADW_EASE_IN_OUT_EXPO: Exponential tweening, combining `ADW_EASE_IN_EXPO` and
- *   `ADW_EASE_OUT_EXPO`.
+ * @ADW_EASE_OUT_EXPO: Exponential tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-expo].
+ * @ADW_EASE_IN_OUT_EXPO: Exponential tweening, combining
+ *   [enum@Adw.Easing.ease-in-expo] and [enum@Adw.Easing.ease-out-expo].
  * @ADW_EASE_IN_CIRC: Circular tweening.
- * @ADW_EASE_OUT_CIRC: Circular tweening, inverse of `ADW_EASE_IN_CIRC`.
- * @ADW_EASE_IN_OUT_CIRC: Circular tweening, combining `ADW_EASE_IN_CIRC` and
- *   `ADW_EASE_OUT_CIRC`.
+ * @ADW_EASE_OUT_CIRC: Circular tweening, inverse of
+ *   [enum@Adw.Easing.ease-in-circ].
+ * @ADW_EASE_IN_OUT_CIRC: Circular tweening, combining
+ *   [enum@Adw.Easing.ease-in-circ] and [enum@Adw.Easing.ease-out-circ].
  * @ADW_EASE_IN_ELASTIC: Elastic tweening, with offshoot on start.
  * @ADW_EASE_OUT_ELASTIC: Elastic tweening, with offshoot on end, inverse of
- *   `ADW_EASE_IN_ELASTIC`.
+ *   [enum@Adw.Easing.ease-in-elastic].
  * @ADW_EASE_IN_OUT_ELASTIC: Elastic tweening, with offshoot on both ends,
- *   combining `ADW_EASE_IN_ELASTIC` and `ADW_EASE_OUT_ELASTIC`.
+ *   combining [enum@Adw.Easing.ease-in-elastic] and
+ *   [enum@Adw.Easing.ease-out-elastic].
  * @ADW_EASE_IN_BACK: Overshooting cubic tweening, with backtracking on start.
  * @ADW_EASE_OUT_BACK: Overshooting cubic tweening, with backtracking on end,
- *   inverse of `ADW_EASE_IN_BACK`.
+ *   inverse of [enum@Adw.Easing.ease-in-back].
  * @ADW_EASE_IN_OUT_BACK: Overshooting cubic tweening, with backtracking on both
- *   ends, combining `ADW_EASE_IN_BACK` and `ADW_EASE_OUT_BACK`.
+ *   ends, combining [enum@Adw.Easing.ease-in-back] and
+ *   [enum@Adw.Easing.ease-out-back].
  * @ADW_EASE_IN_BOUNCE: Exponentially decaying parabolic (bounce) tweening,
  *   on start.
  * @ADW_EASE_OUT_BOUNCE: Exponentially decaying parabolic (bounce) tweening,
- *   with bounce on end, inverse of `ADW_EASE_IN_BOUNCE`.
+ *   with bounce on end, inverse of [enum@Adw.Easing.ease-in-bounce].
  * @ADW_EASE_IN_OUT_BOUNCE: Exponentially decaying parabolic (bounce) tweening,
- *   with bounce on both ends, combining `ADW_EASE_IN_BOUNCE` and
- *   `ADW_EASE_OUT_BOUNCE`.
+ *   with bounce on both ends, combining [enum@Adw.Easing.ease-in-bounce] and
+ *   [enum@Adw.Easing.ease-out-bounce].
  *
  * Describes the available easing functions for use with
  * [class@TimedAnimation].

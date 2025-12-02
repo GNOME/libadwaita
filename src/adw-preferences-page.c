@@ -30,7 +30,7 @@
  *
  * ## Accessibility
  *
- * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwPreferencesPage` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 typedef struct

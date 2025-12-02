@@ -1761,11 +1761,11 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    *
    * If the application's license is not in the list,
    * [property@AboutWindow:license] can be used instead. The license type will
-   * be automatically set to `GTK_LICENSE_CUSTOM` in that case.
+   * be automatically set to [enum@Gtk.License.custom] in that case.
    *
-   * If set to `GTK_LICENSE_UNKNOWN`, no information will be displayed.
+   * If set to [enum@Gtk.License.unknown], no information will be displayed.
    *
-   * If the license type is different from `GTK_LICENSE_CUSTOM`.
+   * If the license type is different from [enum@Gtk.License.custom].
    * [property@AboutWindow:license] will be cleared out.
    *
    * The license description will be displayed on the Legal page, below the
@@ -1792,7 +1792,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    * via [property@AboutWindow:license-type].
    *
    * When set, [property@AboutWindow:license-type] will be set to
-   * `GTK_LICENSE_CUSTOM`.
+   * [enum@Gtk.License.custom].
    *
    * The license text will be displayed on the Legal page, below the copyright
    * information.
@@ -1981,7 +1981,7 @@ adw_about_window_new (void)
  * * [property@AboutWindow:issue-url] is set from the `<url type="bugtracker">`
  * * [property@AboutWindow:license-type] is set from the `<project_license>`.
  *     If the license type retrieved from AppStream is not listed in
- *     [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+ *     [enum@Gtk.License], it will be set to [enum@Gtk.License.custom].
  *
  * If @release_notes_version is not `NULL`,
  * [property@AboutWindow:release-notes-version] is set to match it, while
@@ -3266,11 +3266,11 @@ adw_about_window_get_license_type (AdwAboutWindow *self)
  *
  * If the application's license is not in the list,
  * [property@AboutWindow:license] can be used instead. The license type will be
- * automatically set to `GTK_LICENSE_CUSTOM` in that case.
+ * automatically set to [enum@Gtk.License.custom] in that case.
  *
- * If @license_type is `GTK_LICENSE_UNKNOWN`, no information will be displayed.
+ * If @license_type is [enum@Gtk.License.unknown], no information will be displayed.
  *
- * If @license_type is different from `GTK_LICENSE_CUSTOM`.
+ * If @license_type is different from [enum@Gtk.License.custom].
  * [property@AboutWindow:license] will be cleared out.
  *
  * The license description will be displayed on the Legal page, below the
@@ -3334,7 +3334,7 @@ adw_about_window_get_license (AdwAboutWindow *self)
  * [property@AboutWindow:license-type].
  *
  * When set, [property@AboutWindow:license-type] will be set to
- * `GTK_LICENSE_CUSTOM`.
+ * [enum@Gtk.License.custom].
  *
  * The license text will be displayed on the Legal page, below the copyright
  * information.

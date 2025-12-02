@@ -7,8 +7,8 @@ Libadwaita provides API to implement the [boxed lists](https://developer.gnome.o
 pattern.
 
 Boxed lists are composed of a [class@Gtk.ListBox] with the
-[property@Gtk.ListBox:selection-mode] set to `GTK_SELECTION_NONE` and with the
-[`.boxed-list` or `.boxed-list-separate`](style-classes.html#boxed-lists-cards)
+[property@Gtk.ListBox:selection-mode] set to [enum@Gtk.SelectionMode.none] and
+with the [`.boxed-list` or `.boxed-list-separate`](style-classes.html#boxed-lists-cards)
 style classes.
 
 [class@Gtk.ListView] cannot be used as a boxed list at the moment.

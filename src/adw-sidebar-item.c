@@ -31,7 +31,7 @@
  *
  * Items can have an arbitrary suffix widget, set with the
  * [property@SidebarItem:suffix] properties. It will be displayed at the end of
- * its row, or before the arrow in the [enum@Adw.SidebarMode.PAGE] mode.
+ * its row, or before the arrow in the [enum@Adw.SidebarMode.page] mode.
  *
  * To hide or disable the item, use the [property@SidebarItem:visible] and
  * [property@SidebarItem:enabled] properties respectively.
@@ -321,7 +321,7 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
    * The suffix widget for this item.
    *
    * Suffix will be shown at the end of the item's row, or before the arrow in
-   * the [enum@Adw.SidebarMode.PAGE] mode.
+   * the [enum@Adw.SidebarMode.page] mode.
    *
    * Since: 1.9
    */
@@ -737,7 +737,7 @@ adw_sidebar_item_get_suffix (AdwSidebarItem *self)
  * Sets the suffix widget for @self.
  *
  * Suffix will be shown at the end of the item's row, or before the arrow in
- * the [enum@Adw.SidebarMode.PAGE] mode.
+ * the [enum@Adw.SidebarMode.page] mode.
  *
  * Since: 1.9
  */

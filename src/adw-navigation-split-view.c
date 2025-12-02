@@ -153,7 +153,7 @@
  *
  * ## Accessibility
  *
- * `AdwNavigationSplitView` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwNavigationSplitView` uses the [enum@Gtk.AccessibleRole.group] role.
  *
  * Since: 1.4
  */
@@ -851,11 +851,11 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
    *
    * The sidebar position.
    *
-   * If set to `GTK_PACK_START`, the sidebar is displayed before the content,
-   * and the sidebar will be the root page when collapsed.
+   * If set to [enum@Gtk.PackType.start], the sidebar is displayed before the
+   * content, and the sidebar will be the root page when collapsed.
    *
-   * If set to `GTK_PACK_END`, the sidebar is displayed after the content,
-   * and the content will be the root page.
+   * If set to [enum@Gtk.PackType.end], the sidebar is displayed after the
+   * content, and the content will be the root page.
    *
    * Since: 1.7
    */
@@ -1252,11 +1252,11 @@ adw_navigation_split_view_get_sidebar_position (AdwNavigationSplitView *self)
  *
  * Sets the sidebar position for @self.
  *
- * If set to `GTK_PACK_START`, the sidebar is displayed before the content,
- * and the sidebar will be the root page when collapsed.
+ * If set to [enum@Gtk.PackType.start], the sidebar is displayed before the
+ * content, and the sidebar will be the root page when collapsed.
  *
- * If set to `GTK_PACK_END`, the sidebar is displayed after the content,
- * and the content will be the root page.
+ * If set to [enum@Gtk.PackType.end], the sidebar is displayed after the
+ * content, and the content will be the root page.
  *
  * Since: 1.7
  */

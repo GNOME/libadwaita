@@ -179,7 +179,7 @@
  *
  * ## Accessibility
  *
- * `AdwNavigationView` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwNavigationView` uses the [enum@Gtk.AccessibleRole.group] role.
  *
  * Since: 1.4
  */
@@ -212,7 +212,7 @@
  *
  * ## Accessibility
  *
- * `AdwNavigationPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwNavigationPage` uses the [enum@Gtk.AccessibleRole.group] role.
  *
  * Since: 1.4
  */

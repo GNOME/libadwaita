@@ -56,7 +56,7 @@
  * [property@Banner:button-label]. The button can be used with a `GAction`,
  * or with the [signal@Banner::button-clicked] signal. The button can have
  * different styles, a gray style and a suggested style.
- * 
+ *
  * <picture>
  *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="banner-suggested.png" alt="banner with suggested button style">
@@ -428,10 +428,11 @@ adw_banner_class_init (AdwBannerClass *klass)
    * AdwBanner:button-style:
    *
    * The style class to use for the banner button.
-   * 
-   * When set to `ADW_BANNER_BUTTON_DEFAULT`, the button stays grey.
-   * When set to `ADW_BANNER_BUTTON_SUGGESTED`, the button follows the [`.suggested-action`](style-classes.html#suggested-action) style
-   * 
+   *
+   * When set to [enum@Adw.BannerButtonStyle.default], the button is grey.
+   * When set to [enum@Adw.BannerButtonStyle.suggested], the button uses the
+   * [`.suggested-action`](style-classes.html#suggested-action) appearance.
+   *
    * <picture>
    *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
    *   <img src="banner-suggested.png" alt="banner with suggested button style">
@@ -459,14 +460,14 @@ adw_banner_class_init (AdwBannerClass *klass)
 
   /**
    * AdwBanner::button-clicked:
-   * 
+   *
    * This signal is emitted after the action button has been clicked.
    *
    * It can be used as an alternative to setting an action.
-   * 
+   *
    * Since: 1.3
    */
-  signals[SIGNAL_BUTTON_CLICKED] = 
+  signals[SIGNAL_BUTTON_CLICKED] =
     g_signal_new ("button-clicked",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
@@ -735,10 +736,11 @@ adw_banner_get_button_style (AdwBanner *self)
  * @style: a button style
  *
  * Sets the style class to use for the banner button.
- * 
- * When set to `ADW_BANNER_BUTTON_DEFAULT`, the button stays grey.
- * When set to `ADW_BANNER_BUTTON_SUGGESTED`, the button follows the [`.suggested-action`](style-classes.html#suggested-action) style
- * 
+ *
+ * When set to [enum@Adw.BannerButtonStyle.default], the button is grey.
+ * When set to [enum@Adw.BannerButtonStyle.suggested], the button uses the
+ * [`.suggested-action`](style-classes.html#suggested-action) appearance.
+ *
  * <picture>
  *   <source srcset="banner-suggested-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="banner-suggested.png" alt="banner with suggested button style">

@@ -153,7 +153,7 @@
  *
  * ## Accessibility
  *
- * `AdwOverlaySplitView` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * `AdwOverlaySplitView` uses the [enum@Gtk.AccessibleRole.group] role.
  *
  * Since: 1.4
  */
@@ -951,8 +951,8 @@ adw_overlay_split_view_class_init (AdwOverlaySplitViewClass *klass)
    *
    * The sidebar position.
    *
-   * If it's set to `GTK_PACK_START`, the sidebar is displayed before the content,
-   * if `GTK_PACK_END`, it's displayed after the content.
+   * If it's set to [enum@Gtk.PackType.start], the sidebar is displayed before
+   * the content; if [enum@Gtk.PackType.end], it's displayed after the content.
    *
    * Since: 1.4
    */
@@ -1503,8 +1503,8 @@ adw_overlay_split_view_get_sidebar_position (AdwOverlaySplitView *self)
  *
  * Sets the sidebar position for @self.
  *
- * If it's set to `GTK_PACK_START`, the sidebar is displayed before the content,
- * if `GTK_PACK_END`, it's displayed after the content.
+ * If it's set to [enum@Gtk.PackType.start], the sidebar is displayed before the
+ * content; if [enum@Gtk.PackType.end], it's displayed after the content.
  *
  * Since: 1.4
  */

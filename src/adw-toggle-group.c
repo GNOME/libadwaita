@@ -108,8 +108,8 @@
  *
  * ## Accessibility
  *
- * `AdwToggleGroup` uses the `GTK_ACCESSIBLE_ROLE_RADIO_GROUP` role. Its toggles
- * use the `GTK_ACCESSIBLE_ROLE_RADIO` role.
+ * `AdwToggleGroup` uses the [enum@Gtk.AccessibleRole.radio-group] role. Its
+ * toggles use the [enum@Gtk.AccessibleRole.radio] role.
  *
  * Since: 1.7
  */
@@ -1525,7 +1525,7 @@ adw_toggle_set_enabled (AdwToggle *self,
  *
  * Gets the index of @self within its toggle group.
  *
- * Returns: the index, or `GTK_INVALID_LIST_POSITION` if it's not in a group
+ * Returns: the index, or [const@Gtk.INVALID_LIST_POSITION] if it's not in a group
  *
  * Since: 1.7
  */
@@ -1752,7 +1752,7 @@ adw_toggle_group_get_n_toggles (AdwToggleGroup *self)
  *
  * Gets the index of the active toggle in @self.
  *
- * Returns `GTK_INVALID_LIST_POSITION` if no toggle is active.
+ * Returns [const@Gtk.INVALID_LIST_POSITION] if no toggle is active.
  *
  * Returns: the active toggle index
  *

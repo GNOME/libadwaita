@@ -21,7 +21,7 @@
  * AdwColorScheme:
  * @ADW_COLOR_SCHEME_DEFAULT: Inherit the parent color-scheme. When set on the
  *   `AdwStyleManager` returned by [func@StyleManager.get_default], it's
- *   equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+ *   equivalent to [enum@Adw.ColorScheme.prefer-light].
  * @ADW_COLOR_SCHEME_FORCE_LIGHT: Always use light appearance.
  * @ADW_COLOR_SCHEME_PREFER_LIGHT: Use light appearance unless the system
  *   prefers dark colors.
@@ -696,26 +696,27 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * [property@StyleManager:dark] property can be used to query the current
    * effective appearance.
    *
-   * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
-   * using light appearance unless the system prefers dark colors. This is the
-   * default value.
+   * The [enum@Adw.ColorScheme.prefer-light] color scheme results in the
+   * application using light appearance unless the system prefers dark colors.
+   * This is the default value.
    *
-   * The `ADW_COLOR_SCHEME_PREFER_DARK` color scheme results in the application
-   * using dark appearance, but can still switch to the light appearance if the
-   * system can prefers it, for example, when the high contrast preference is
+   * The [enum@Adw.ColorScheme.prefer-dark] color scheme results in the
+   * application using dark appearance, but can still switch to the light
+   * appearance if the system can prefers it, for example, when the high
+   * contrast preference is
    * enabled.
    *
-   * The `ADW_COLOR_SCHEME_FORCE_LIGHT` and `ADW_COLOR_SCHEME_FORCE_DARK` values
-   * ignore the system preference entirely. They are useful if the application
-   * wants to match its UI to its content or to provide a separate color scheme
-   * switcher.
+   * The [enum@Adw.ColorScheme.force-light] and [enum@Adw.ColorScheme.force-dark]
+   * values ignore the system preference entirely. They are useful if the
+   * application wants to match its UI to its content or to provide a separate
+   * color scheme switcher.
    *
    * If a per-[class@Gdk.Display] style manager has its color scheme set to
-   * `ADW_COLOR_SCHEME_DEFAULT`, it will inherit the color scheme from the
+   * [enum@Adw.ColorScheme.default], it will inherit the color scheme from the
    * default style manager.
    *
-   * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
-   * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+   * For the default style manager, [enum@Adw.ColorScheme.default] is equivalent
+   * to [enum@Adw.ColorScheme.prefer-light].
    *
    * The [property@StyleManager:system-supports-color-schemes] property can be
    * used to check if the current environment provides a color scheme
@@ -984,26 +985,26 @@ adw_style_manager_get_color_scheme (AdwStyleManager *self)
  * [property@StyleManager:dark] property can be used to query the current
  * effective appearance.
  *
- * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
- * using light appearance unless the system prefers dark colors. This is the
- * default value.
+ * The [enum@Adw.ColorScheme.prefer-light] color scheme results in the
+ * application using light appearance unless the system prefers dark colors.
+ * This is the default value.
  *
- * The `ADW_COLOR_SCHEME_PREFER_DARK` color scheme results in the application
- * using dark appearance, but can still switch to the light appearance if the
- * system can prefers it, for example, when the high contrast preference is
- * enabled.
+ * The [enum@Adw.ColorScheme.prefer-dark] color scheme results in the
+ * application using dark appearance, but can still switch to the light
+ * appearance if the system can prefers it, for example, when the high contrast
+ * preference is enabled.
  *
- * The `ADW_COLOR_SCHEME_FORCE_LIGHT` and `ADW_COLOR_SCHEME_FORCE_DARK` values
- * ignore the system preference entirely. They are useful if the application
- * wants to match its UI to its content or to provide a separate color scheme
- * switcher.
+ * The [enum@Adw.ColorScheme.force-light] and [enum@Adw.ColorScheme.force-dark]
+ * values ignore the system preference entirely. They are useful if the
+ * application wants to match its UI to its content or to provide a separate
+ * color scheme switcher.
  *
  * If a per-[class@Gdk.Display] style manager has its color scheme set to
- * `ADW_COLOR_SCHEME_DEFAULT`, it will inherit the color scheme from the
+ * [enum@Adw.ColorScheme.default], it will inherit the color scheme from the
  * default style manager.
  *
- * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
- * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+ * For the default style manager, [enum@Adw.ColorScheme.default] is equivalent
+ * to [enum@Adw.ColorScheme.prefer-light].
  *
  * The [property@StyleManager:system-supports-color-schemes] property can be
  * used to check if the current environment provides a color scheme

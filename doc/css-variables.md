@@ -581,7 +581,7 @@ overriding header bar colors, make sure to set it to a value matching your
 header bars and similar widgets. This color should always be partially
 transparent black.
 
-`--headerbar-darker-shade-color` is used for the `ADW_TOOLBAR_RAISED_BORDER`
+`--headerbar-darker-shade-color` is used for the [enum@Adw.ToolbarStyle.raised-border]
 border. This color should always be partially transparent black, and is intended
 to be darker than both `--headerbar-bg-color` and `--headerbar-backdrop-color`
 on top of white color.

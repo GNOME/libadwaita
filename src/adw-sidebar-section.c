@@ -22,7 +22,7 @@
  * Section can optionally have a title, set with the
  * [property@SidebarSection:title] property. If a title is not set, the section
  * will have a separator in front of it, or just spacing in the
- * [enum@Adw.SidebarMode.PAGE] mode.
+ * [enum@Adw.SidebarMode.page] mode.
  *
  * To add items, use [method@SidebarSection.append],
  * [method@SidebarSection.prepend] or [method@SidebarSection.insert].

@@ -1750,11 +1750,11 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
    *
    * If the application's license is not in the list,
    * [property@AboutDialog:license] can be used instead. The license type will
-   * be automatically set to `GTK_LICENSE_CUSTOM` in that case.
+   * be automatically set to [enum@Gtk.License.custom] in that case.
    *
-   * If set to `GTK_LICENSE_UNKNOWN`, no information will be displayed.
+   * If set to [enum@Gtk.License.unknown], no information will be displayed.
    *
-   * If the license type is different from `GTK_LICENSE_CUSTOM`.
+   * If the license type is different from [enum@Gtk.License.custom].
    * [property@AboutDialog:license] will be cleared out.
    *
    * The license description will be displayed on the Legal page, below the
@@ -1780,7 +1780,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
    * via [property@AboutDialog:license-type].
    *
    * When set, [property@AboutDialog:license-type] will be set to
-   * `GTK_LICENSE_CUSTOM`.
+   * [enum@Gtk.License.custom].
    *
    * The license text will be displayed on the Legal page, below the copyright
    * information.
@@ -1967,7 +1967,7 @@ adw_about_dialog_new (void)
  * * [property@AboutDialog:issue-url] is set from the `<url type="bugtracker">`
  * * [property@AboutDialog:license-type] is set from the `<project_license>`.
  *     If the license type retrieved from AppStream is not listed in
- *     [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+ *     [enum@Gtk.License], it will be set to [enum@Gtk.License.custom].
  *
  * If @release_notes_version is not `NULL`,
  * [property@AboutDialog:release-notes-version] is set to match it, while
@@ -3221,11 +3221,12 @@ adw_about_dialog_get_license_type (AdwAboutDialog *self)
  *
  * If the application's license is not in the list,
  * [property@AboutDialog:license] can be used instead. The license type will be
- * automatically set to `GTK_LICENSE_CUSTOM` in that case.
+ * automatically set to [enum@Gtk.License.custom] in that case.
  *
- * If @license_type is `GTK_LICENSE_UNKNOWN`, no information will be displayed.
+ * If @license_type is [enum@Gtk.License.unknown], no information will be
+ * displayed.
  *
- * If @license_type is different from `GTK_LICENSE_CUSTOM`.
+ * If @license_type is different from [enum@Gtk.License.custom].
  * [property@AboutDialog:license] will be cleared out.
  *
  * The license description will be displayed on the Legal page, below the
@@ -3287,7 +3288,7 @@ adw_about_dialog_get_license (AdwAboutDialog *self)
  * [property@AboutDialog:license-type].
  *
  * When set, [property@AboutDialog:license-type] will be set to
- * `GTK_LICENSE_CUSTOM`.
+ * [enum@Gtk.License.custom].
  *
  * The license text will be displayed on the Legal page, below the copyright
  * information.

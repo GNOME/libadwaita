@@ -345,11 +345,11 @@ uses the avatar's current size, with no replacement.
 
 ## Adapt to [class@StyleManager] API Changes
 
-When used with the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is now
-equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
+When used with the default style manager, [enum@Adw.ColorScheme.default] is now
+equivalent to [enum@Adw.ColorScheme.prefer-light] instead of
 `HDY_COLOR_SCHEME_FORCE_LIGHT`, following the system dark style preference by
 default. Make sure your application works with it, or otherwise set the
-`ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
+[enum@Adw.ColorScheme.force-light] color scheme manually.
 
 ## Adapt to [class@SwipeTracker] API Changes
 
@@ -365,7 +365,7 @@ changed from `gint64` to `guint`.
 
 The `HdyTabView:shortcut-widget` property has been removed with no replacement;
 [class@TabView] automatically installs shortcuts with the
-`GTK_SHORTCUT_SCOPE_MANAGED` scope, so they are automatically available
+[enum@Gtk.ShortcutScope.managed] scope, so they are automatically available
 throughout the window without the need to set shortcut widget.
 
 If some of these shortcuts conflict with another widget, the latter has
@@ -381,7 +381,8 @@ new properties also handle keyboard and mouse shortcuts in addition to swipes.
 ## Adapt to Miscellaneous Changes
 
 The `hdy_ease_out_cubic()` function has been removed. Instead,
-[func@Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
+[func@Easing.ease] can be used with the [enum@Adw.Easing.ease-out-cubic]
+parameter.
 
 ## Adapt to Stylesheet Changes
 

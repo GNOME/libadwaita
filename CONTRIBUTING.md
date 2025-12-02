@@ -511,7 +511,7 @@ Linking to enum members needs a namespace, see
 https://gitlab.gnome.org/GNOME/gi-docgen/-/issues/186
 
 ```md
-[enum@Adw.AnimationState.PLAYING]
+[enum@Adw.AnimationState.playing]
 ```
 
 *Bad*:

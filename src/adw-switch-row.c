@@ -40,7 +40,7 @@
  *
  * ## Accessibility
  *
- * `AdwSwitchRow` uses the `GTK_ACCESSIBLE_ROLE_SWITCH` role.
+ * `AdwSwitchRow` uses the [enum@Gtk.AccessibleRole.switch] role.
  *
  * Since: 1.4
  */

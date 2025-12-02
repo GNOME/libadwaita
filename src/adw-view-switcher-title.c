@@ -31,7 +31,7 @@
  *
  * In order to center the title in narrow windows, the header bar should have
  * [property@HeaderBar:centering-policy] set to
- * `ADW_CENTERING_POLICY_STRICT`.
+ * [enum@Adw.CenteringPolicy.strict].
  *
  * `AdwViewSwitcherTitle` is intended to be used together with
  * [class@ViewSwitcherBar].

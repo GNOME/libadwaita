@@ -1064,8 +1064,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * Determines when the squeezer will switch children.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when the
-   * visible child cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+   * If set to [enum@Adw.FoldThresholdPolicy.minimum], it will only switch when
+   * the visible child cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural],
    * it will switch as soon as the visible child doesn't get their natural size.
    *
    * This can be useful if you have a long ellipsizing label and want to let it
@@ -1527,8 +1527,8 @@ adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
  *
  * Determines when the squeezer will switch children.
  *
- * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when the
- * visible child cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+ * If set to [enum@Adw.FoldThresholdPolicy.minimum], it will only switch when
+ * the visible child cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural],
  * it will switch as soon as the visible child doesn't get their natural size.
  *
  * This can be useful if you have a long ellipsizing label and want to let it

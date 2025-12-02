@@ -73,7 +73,7 @@
  * ```
  *
  * It's recommended to set [property@ViewSwitcher:policy] to
- * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ * [enum@Adw.ViewSwitcherPolicy.wide] in this case.
  *
  * You may have to adjust the breakpoint condition for your specific pages.
  *
@@ -84,8 +84,8 @@
  *
  * ## Accessibility
  *
- * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
- * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
+ * `AdwViewSwitcher` uses the [enum@Gtk.AccessibleRole.tab-list] role and the
+ * [enum@Gtk.AccessibleRole.tab] role for its buttons.
  *
  * See also: [class@ViewSwitcherBar], [class@InlineViewSwitcher],
  * [class@ViewSwitcherSidebar].

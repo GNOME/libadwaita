@@ -45,7 +45,7 @@
  *
  * # Accessibility
  *
- * `AdwTabButton` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
+ * `AdwTabButton` uses the [enum@Gtk.AccessibleRole.button] role.
  *
  * Since: 1.3
  */

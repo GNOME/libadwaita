@@ -2205,9 +2205,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * Determines when the leaflet will fold.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
-   * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
-   * will fold as soon as children don't get their natural size.
+   * If set to [enum@Adw.FoldThresholdPolicy.minimum], it will only fold when
+   * the children cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural],
+   * it will fold as soon as children don't get their natural size.
    *
    * This can be useful if you have a long ellipsizing label and want to let it
    * ellipsize instead of immediately folding.
@@ -3118,8 +3118,8 @@ adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
  *
  * Sets the fold threshold policy for @self.
  *
- * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
- * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+ * If set to [enum@Adw.FoldThresholdPolicy.minimum], it will only fold when the
+ * children cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural], it
  * will fold as soon as children don't get their natural size.
  *
  * This can be useful if you have a long ellipsizing label and want to let it

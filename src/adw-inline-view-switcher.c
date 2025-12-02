@@ -68,8 +68,8 @@
  *
  * ## Accessibility
  *
- * The internal toggle group uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role. Its
- * toggles use the `GTK_ACCESSIBLE_ROLE_TAB` role.
+ * The internal toggle group uses the [enum@Gtk.AccessibleRole.tab-list] role.
+ * Its toggles use the [enum@Gtk.AccessibleRole.tab] role.
  *
  * See also: [class@ViewSwitcher], [class@ViewSwitcherBar],
  * [class@ViewSwitcherSidebar].

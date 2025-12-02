@@ -66,7 +66,7 @@
  *
  * ## Accessibility
  *
- * `AdwToastOverlay` uses the [enum@Gtk.AccessibleRole.GROUP] role.
+ * `AdwToastOverlay` uses the [enum@Gtk.AccessibleRole.group] role.
  */
 
 typedef struct {

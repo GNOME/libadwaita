@@ -10,14 +10,14 @@ to request a darker UI, or to support a system-wide dark style preference if one
 exists.
 
 By default, applications use light appearance unless the system prefers dark
-appearance, matching the `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme. The
+appearance, matching the [enum@Adw.ColorScheme.prefer-light] color scheme. The
 [property@StyleManager:color-scheme] property allows to change this behavior
 when set to:
 
-* `ADW_COLOR_SCHEME_PREFER_DARK`: Use dark appearance unless the system prefers
+* [enum@Adw.ColorScheme.prefer-dark]: Use dark appearance unless the system prefers
   light appearance.
-* `ADW_COLOR_SCHEME_FORCE_DARK`: Always use dark appearance.
-* `ADW_COLOR_SCHEME_FORCE_LIGHT`: Always use light appearance.
+* [enum@Adw.ColorScheme.force-dark]: Always use dark appearance.
+* [enum@Adw.ColorScheme.force-light]: Always use light appearance.
 
 <table>
   <tr>
@@ -54,15 +54,15 @@ when set to:
 
 Common use cases:
 
-1. An application wants to use dark UI. Use the `ADW_COLOR_SCHEME_PREFER_DARK`
+1. An application wants to use dark UI. Use the [enum@Adw.ColorScheme.prefer-dark]
    color scheme.
 
 2. An application has a style switcher with the system, light and
 dark states. Use the following color scheme values:
 
-    * System: `ADW_COLOR_SCHEME_PREFER_LIGHT`
-    * Light: `ADW_COLOR_SCHEME_FORCE_LIGHT`
-    * Dark: `ADW_COLOR_SCHEME_FORCE_DARK`
+    * System: [enum@Adw.ColorScheme.prefer-light]
+    * Light: [enum@Adw.ColorScheme.force-light]
+    * Dark: [enum@Adw.ColorScheme.force-dark]
 
 If the system does not provide a style preference, the
 [property@StyleManager:system-supports-color-schemes] property can be used to

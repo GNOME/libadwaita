@@ -1310,8 +1310,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The flap position.
    *
-   * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
-   * if `GTK_PACK_END`, it's displayed after the content.
+   * If it's set to [enum@Gtk.PackType.start], the flap is displayed before the
+   * content, if [enum@Gtk.PackType.end], it's displayed after the content.
    *
    * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
    */
@@ -1385,8 +1385,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * Determines when the flap will fold.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when
-   * the children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+   * If set to [enum@Adw.FoldThresholdPolicy.minimum], flap will only fold when
+   * the children cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural],
    * it will fold as soon as children don't get their natural size.
    *
    * This can be useful if you have a long ellipsizing label and want to let it
@@ -1449,7 +1449,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * the type of animation used for reveal and fold transitions.
    *
    * [property@Flap:flap] is transparent by default, which means the content
-   * will be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions;
+   * will be seen through it with [enum@Adw.FlapTransitionType.over] transitions;
    * add the [`.background`](style-classes.html#background) style class to it if
    * this is unwanted.
    *
@@ -1993,8 +1993,8 @@ adw_flap_get_flap_position (AdwFlap *self)
  *
  * Sets the flap position for @self.
  *
- * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
- * if `GTK_PACK_END`, it's displayed after the content.
+ * If it's set to [enum@Gtk.PackType.start], the flap is displayed before the
+ * content, if [enum@Gtk.PackType.end], it's displayed after the content.
  *
  * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
  */
@@ -2207,9 +2207,9 @@ adw_flap_get_fold_threshold_policy (AdwFlap *self)
  *
  * Sets the fold threshold policy for @self.
  *
- * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
- * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
- * will fold as soon as children don't get their natural size.
+ * If set to [enum@Adw.FoldThresholdPolicy.minimum], flap will only fold when
+ * the children cannot fit anymore. With [enum@Adw.FoldThresholdPolicy.natural],
+ * it will fold as soon as children don't get their natural size.
  *
  * This can be useful if you have a long ellipsizing label and want to let it
  * ellipsize instead of immediately folding.
@@ -2367,9 +2367,9 @@ adw_flap_get_transition_type (AdwFlap *self)
  * Sets the type of animation used for reveal and fold transitions in @self.
  *
  * [property@Flap:flap] is transparent by default, which means the content will
- * be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions; add the
- * [`.background`](style-classes.html#background) style class to it if this is
- * unwanted.
+ * be seen through it with [enum@Adw.FlapTransitionType.over] transitions; add
+ * the [`.background`](style-classes.html#background) style class to it if this
+ * is unwanted.
  *
  * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
  */

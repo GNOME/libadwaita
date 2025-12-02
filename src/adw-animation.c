@@ -579,7 +579,7 @@ adw_animation_get_state (AdwAnimation *self)
  * the beginning. This allows to easily play an animation regardless of whether
  * it's already playing or not.
  *
- * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
+ * Sets [property@Animation:state] to [enum@Adw.AnimationState.playing].
  *
  * The animation will be automatically skipped if [property@Animation:widget] is
  * unmapped, or if [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
@@ -613,9 +613,10 @@ adw_animation_play (AdwAnimation *self)
  *
  * Pauses a playing animation for @self.
  *
- * Does nothing if the current state of @self isn't `ADW_ANIMATION_PLAYING`.
+ * Does nothing if the current state of @self isn't
+ * [enum@Adw.AnimationState.playing].
  *
- * Sets [property@Animation:state] to `ADW_ANIMATION_PAUSED`.
+ * Sets [property@Animation:state] to [enum@Adw.AnimationState.paused].
  */
 void
 adw_animation_pause (AdwAnimation *self)
@@ -652,7 +653,7 @@ adw_animation_pause (AdwAnimation *self)
  * This function must only be used if the animation has been paused with
  * [method@Animation.pause].
  *
- * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
+ * Sets [property@Animation:state] to [enum@Adw.AnimationState.playing].
  */
 void
 adw_animation_resume (AdwAnimation *self)
@@ -682,7 +683,7 @@ adw_animation_resume (AdwAnimation *self)
  * skips the animation to the end and causes [signal@Animation::done] to be
  * emitted.
  *
- * Sets [property@Animation:state] to `ADW_ANIMATION_FINISHED`.
+ * Sets [property@Animation:state] to [enum@Adw.AnimationState.finished].
  */
 void
 adw_animation_skip (AdwAnimation *self)
@@ -725,7 +726,7 @@ adw_animation_skip (AdwAnimation *self)
  *
  * Resets the animation for @self.
  *
- * Sets [property@Animation:state] to `ADW_ANIMATION_IDLE`.
+ * Sets [property@Animation:state] to [enum@Adw.AnimationState.idle].
  */
 void
 adw_animation_reset (AdwAnimation *self)
