@@ -88,12 +88,12 @@ indicatorbin {
   }
 
   > indicator {
-    margin: 1px;
+    margin: 2px;
     background: color-mix(in srgb, currentColor 40%, transparent);
   }
 
   > mask {
-    padding: 1px;
+    padding: 2px;
     background: black;
   }
 
