@@ -27,6 +27,7 @@ struct _AdwIndicatorBin
 
   GtkWidget *child;
   gboolean needs_attention;
+  guint badge_number;
 
   GtkWidget *mask;
   GtkWidget *indicator;
@@ -44,18 +45,22 @@ enum {
   PROP_0,
   PROP_CHILD,
   PROP_NEEDS_ATTENTION,
-  PROP_BADGE,
+  PROP_BADGE_NUMBER,
   LAST_PROP
 };
 
 static GParamSpec *props[LAST_PROP];
 
-static gboolean
-has_badge (AdwIndicatorBin *self)
+static char *
+get_badge_label (guint badge_number)
 {
-  const char *text = gtk_label_get_label (GTK_LABEL (self->label));
+  if (badge_number > 999)
+    return g_strdup ("999+");
 
-  return text && text[0];
+  if (badge_number == 0)
+    return g_strdup ("");
+
+  return g_strdup_printf ("%u", badge_number);
 }
 
 static void
@@ -126,7 +131,7 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 {
   AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
 
-  if (!has_badge (self) && !self->needs_attention) {
+  if (self->badge_number == 0 && !self->needs_attention) {
     if (self->child)
       gtk_widget_snapshot_child (widget, self->child, snapshot);
 
@@ -163,8 +168,8 @@ adw_indicator_bin_get_property (GObject    *object,
     g_value_set_boolean (value, adw_indicator_bin_get_needs_attention (self));
     break;
 
-  case PROP_BADGE:
-    g_value_set_string (value, adw_indicator_bin_get_badge (self));
+  case PROP_BADGE_NUMBER:
+    g_value_set_uint (value, adw_indicator_bin_get_badge_number (self));
     break;
 
   default:
@@ -189,8 +194,8 @@ adw_indicator_bin_set_property (GObject      *object,
     adw_indicator_bin_set_needs_attention (self, g_value_get_boolean (value));
     break;
 
-  case PROP_BADGE:
-    adw_indicator_bin_set_badge (self, g_value_get_string (value));
+  case PROP_BADGE_NUMBER:
+    adw_indicator_bin_set_badge_number (self, g_value_get_uint (value));
     break;
 
   default:
@@ -247,14 +252,14 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwIndicatorBin:badge:
+   * AdwIndicatorBin:badge-number:
    *
    * Additional information for the user.
    */
-  props[PROP_BADGE] =
-    g_param_spec_string ("badge", NULL, NULL,
-                         "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+  props[PROP_BADGE_NUMBER] =
+    g_param_spec_uint ("badge-number", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -390,30 +395,41 @@ adw_indicator_bin_set_needs_attention (AdwIndicatorBin *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
 }
 
-const char *
-adw_indicator_bin_get_badge (AdwIndicatorBin *self)
+guint
+adw_indicator_bin_get_badge_number (AdwIndicatorBin *self)
 {
-  g_return_val_if_fail (ADW_IS_INDICATOR_BIN (self), "");
+  g_return_val_if_fail (ADW_IS_INDICATOR_BIN (self), 0);
 
-  return gtk_label_get_label (GTK_LABEL (self->label));
+  return self->badge_number;
 }
 
 void
-adw_indicator_bin_set_badge (AdwIndicatorBin *self,
-                             const char      *badge)
+adw_indicator_bin_set_badge_number (AdwIndicatorBin *self,
+                                    guint            badge_number)
 {
+  char *label;
+
   g_return_if_fail (ADW_IS_INDICATOR_BIN (self));
 
-  gtk_label_set_text (GTK_LABEL (self->label), badge);
+  if (badge_number == self->badge_number)
+    return;
 
-  if (badge && badge[0])
+  self->badge_number = badge_number;
+
+  label = get_badge_label (self->badge_number);
+
+  gtk_label_set_text (GTK_LABEL (self->label), label);
+
+  if (badge_number > 0)
     gtk_widget_add_css_class (GTK_WIDGET (self), "badge");
   else
     gtk_widget_remove_css_class (GTK_WIDGET (self), "badge");
 
-  gtk_widget_set_visible (self->label, badge && badge[0]);
+  gtk_widget_set_visible (self->label, badge_number > 0);
 
   gtk_widget_queue_draw (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE_NUMBER]);
+
+  g_free (label);
 }

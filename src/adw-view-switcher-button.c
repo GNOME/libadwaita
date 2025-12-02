@@ -122,13 +122,6 @@ set_orientation (AdwViewSwitcherButton *self,
   update_mnemonic (self);
 }
 
-static gchar *
-get_badge_text (AdwViewSwitcherButton *self,
-                guint                  badge_number)
-{
-  return adw_get_badge_text (badge_number);
-}
-
 static void
 adw_view_switcher_button_get_property (GObject    *object,
                                        guint       prop_id,
@@ -322,7 +315,6 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label);
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
-  gtk_widget_class_bind_template_callback (widget_class, get_badge_text);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
 

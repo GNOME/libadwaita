@@ -814,18 +814,6 @@ adw_widget_on_vertical_keynav_failed (GtkWidget        *widget,
                                  GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
 }
 
-char *
-adw_get_badge_text (guint badge_number)
-{
-  if (badge_number > 999)
-    return g_strdup ("999+");
-
-  if (!badge_number)
-    return g_strdup ("");
-
-  return g_strdup_printf ("%u", badge_number);
-}
-
 void
 adw_update_badge_accessibility (GtkWidget *widget,
                                 gboolean   needs_attention,

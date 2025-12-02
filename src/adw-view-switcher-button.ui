@@ -20,10 +20,8 @@
             <child>
               <object class="AdwIndicatorBin">
                 <property name="valign">center</property>
-                <binding name="badge">
-                  <closure type="gchararray" function="get_badge_text">
-                    <lookup name="badge-number">AdwViewSwitcherButton</lookup>
-                  </closure>
+                <binding name="badge-number">
+                  <lookup name="badge-number">AdwViewSwitcherButton</lookup>
                 </binding>
                 <binding name="needs-attention">
                   <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
@@ -57,10 +55,8 @@
               <object class="AdwIndicatorBin">
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <binding name="badge">
-                  <closure type="gchararray" function="get_badge_text">
-                    <lookup name="badge-number">AdwViewSwitcherButton</lookup>
-                  </closure>
+                <binding name="badge-number">
+                  <lookup name="badge-number">AdwViewSwitcherButton</lookup>
                 </binding>
                 <binding name="needs-attention">
                   <lookup name="needs-attention">AdwViewSwitcherButton</lookup>

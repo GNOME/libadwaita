@@ -80,7 +80,6 @@ gboolean adw_get_inspector_keybinding_enabled (void);
 gboolean adw_widget_on_vertical_keynav_failed (GtkWidget        *widget,
                                                GtkDirectionType  direction);
 
-char *adw_get_badge_text (guint badge_number);
 void adw_update_badge_accessibility (GtkWidget *widget,
                                      gboolean   needs_attention,
                                      guint      badge_number);

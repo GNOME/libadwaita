@@ -129,22 +129,6 @@ notify_active_cb (AdwInlineViewSwitcher *self)
 }
 
 static gboolean
-transform_badge (GBinding     *binding,
-                 const GValue *input,
-                 GValue       *output,
-                 gpointer      user_data)
-{
-  guint badge_number = g_value_get_uint (input);
-
-  if (badge_number > 0)
-    g_value_take_string (output, adw_get_badge_text (badge_number));
-  else
-    g_value_set_string (output, NULL);
-
-  return TRUE;
-}
-
-static gboolean
 transform_icon_name (GBinding     *binding,
                      const GValue *input,
                      GValue       *output,
@@ -286,8 +270,7 @@ update_toggle (AdwInlineViewSwitcher *self,
       gtk_widget_set_valign (indicator, GTK_ALIGN_CENTER);
 
       g_object_bind_property (page, "needs-attention", indicator, "needs-attention", G_BINDING_SYNC_CREATE);
-      g_object_bind_property_full (page, "badge-number", indicator, "badge", G_BINDING_SYNC_CREATE,
-                                   transform_badge, NULL, NULL, NULL);
+      g_object_bind_property (page, "badge-number", indicator, "badge-number", G_BINDING_SYNC_CREATE);
       g_object_bind_property (page, "title", label, "label", G_BINDING_SYNC_CREATE);
       g_object_bind_property (page, "use-underline", label, "use-underline", G_BINDING_SYNC_CREATE);
       g_object_bind_property_full (self, "can-shrink", label, "ellipsize", G_BINDING_SYNC_CREATE,
@@ -308,8 +291,7 @@ update_toggle (AdwInlineViewSwitcher *self,
       gtk_widget_set_valign (indicator, GTK_ALIGN_CENTER);
 
       g_object_bind_property (page, "needs-attention", indicator, "needs-attention", G_BINDING_SYNC_CREATE);
-      g_object_bind_property_full (page, "badge-number", indicator, "badge", G_BINDING_SYNC_CREATE,
-                                   transform_badge, NULL, NULL, NULL);
+      g_object_bind_property (page, "badge-number", indicator, "badge-number", G_BINDING_SYNC_CREATE);
       g_object_bind_property_full (page, "icon-name", image, "icon-name", G_BINDING_SYNC_CREATE,
                                    transform_icon_name, NULL, NULL, NULL);
 
@@ -330,8 +312,7 @@ update_toggle (AdwInlineViewSwitcher *self,
       gtk_widget_set_valign (indicator, GTK_ALIGN_CENTER);
 
       g_object_bind_property (page, "needs-attention", indicator, "needs-attention", G_BINDING_SYNC_CREATE);
-      g_object_bind_property_full (page, "badge-number", indicator, "badge", G_BINDING_SYNC_CREATE,
-                                   transform_badge, NULL, NULL, NULL);
+      g_object_bind_property (page, "badge-number", indicator, "badge-number", G_BINDING_SYNC_CREATE);
       g_object_bind_property_full (page, "icon-name", image, "icon-name", G_BINDING_SYNC_CREATE,
                                    transform_icon_name, NULL, NULL, NULL);
       g_object_bind_property (page, "title", label, "label", G_BINDING_SYNC_CREATE);
