@@ -1773,6 +1773,8 @@ recreate_ui (AdwSidebar *self)
 
     g_signal_connect_swapped (self->listbox, "map",
                               G_CALLBACK (list_mapped_cb), self);
+    g_signal_connect_swapped (self->listbox, "keynav-failed",
+                              G_CALLBACK (adw_widget_on_vertical_keynav_failed), self);
   } else {
     self->page = adw_preferences_page_new ();
 
