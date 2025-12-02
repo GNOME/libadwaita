@@ -16,7 +16,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n.h>
 
 #include "adw-widget-utils-private.h"
 
@@ -812,44 +811,4 @@ adw_widget_on_vertical_keynav_failed (GtkWidget        *widget,
 
   return gtk_widget_child_focus (toplevel, direction == GTK_DIR_UP ?
                                  GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
-}
-
-void
-adw_update_badge_accessibility (GtkWidget *widget,
-                                gboolean   needs_attention,
-                                guint      badge_number)
-{
-  const char *needs_attention_description = NULL;
-  char *badge_description = NULL;
-
-  if (needs_attention)
-    needs_attention_description = C_("view switcher button badge", "Attention requested.");
-
-  if (badge_number > 999)
-    badge_description = g_strdup (C_("view switcher button badge", "Has a badge: more than 999."));
-  else if (badge_number)
-    badge_description = g_strdup_printf (C_("view switcher button badge", "Has a badge: %u."), badge_number);
-
-  if (needs_attention_description && badge_description) {
-    char *description = g_strdup_printf ("%s\n%s", badge_description, needs_attention_description);
-
-    gtk_accessible_update_property (GTK_ACCESSIBLE (widget),
-                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, description,
-                                    -1);
-
-    g_free (description);
-  } else if (needs_attention_description) {
-    gtk_accessible_update_property (GTK_ACCESSIBLE (widget),
-                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, needs_attention_description,
-                                    -1);
-  } else if (badge_description) {
-    gtk_accessible_update_property (GTK_ACCESSIBLE (widget),
-                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, badge_description,
-                                    -1);
-  } else {
-    gtk_accessible_reset_property (GTK_ACCESSIBLE (widget),
-                                   GTK_ACCESSIBLE_PROPERTY_DESCRIPTION);
-  }
-
-  g_free (badge_description);
 }

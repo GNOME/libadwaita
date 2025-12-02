@@ -34,4 +34,6 @@ guint adw_indicator_bin_get_badge_number (AdwIndicatorBin *self);
 void  adw_indicator_bin_set_badge_number (AdwIndicatorBin *self,
                                           guint            badge_number);
 
+char *adw_indicator_bin_get_description (AdwIndicatorBin *self);
+
 G_END_DECLS

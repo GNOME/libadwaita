@@ -95,6 +95,23 @@ drag_leave_cb (AdwViewSwitcherButton *self)
   g_clear_handle_id (&self->switch_timer, g_source_remove);
 }
 
+static void
+update_description_cb (AdwViewSwitcherButton *self,
+                       GParamSpec            *pspec,
+                       AdwIndicatorBin       *indicator)
+{
+  const char *description = adw_indicator_bin_get_description (indicator);
+
+  if (description && *description) {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, description,
+                                    -1);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self),
+                                   GTK_ACCESSIBLE_PROPERTY_DESCRIPTION);
+  }
+}
+
 static GtkOrientation
 get_orientation (AdwViewSwitcherButton *self)
 {
@@ -315,6 +332,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label);
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
+  gtk_widget_class_bind_template_callback (widget_class, update_description_cb);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
 
@@ -425,8 +443,6 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
 
   self->needs_attention = needs_attention;
 
-  adw_update_badge_accessibility (GTK_WIDGET (self), self->needs_attention, self->badge_number);
-
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
 }
 
@@ -463,8 +479,6 @@ adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
     return;
 
   self->badge_number = badge_number;
-
-  adw_update_badge_accessibility (GTK_WIDGET (self), self->needs_attention, self->badge_number);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE_NUMBER]);
 }
