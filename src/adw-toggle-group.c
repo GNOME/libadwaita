@@ -137,6 +137,7 @@ struct _AdwToggle {
   char *icon_name;
   gboolean use_underline;
   char *tooltip;
+  char *description;
   GtkWidget *child;
   gboolean enabled;
 
@@ -153,6 +154,7 @@ enum {
   TOGGLE_PROP_USE_UNDERLINE,
   TOGGLE_PROP_ICON_NAME,
   TOGGLE_PROP_TOOLTIP,
+  TOGGLE_PROP_DESCRIPTION,
   TOGGLE_PROP_CHILD,
   TOGGLE_PROP_ENABLED,
   LAST_TOGGLE_PROP
@@ -205,12 +207,21 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
-update_content (AdwToggle *self)
+update_button (AdwToggle *self)
 {
   if (!self->button)
     return;
 
   gtk_widget_set_tooltip_markup (self->button, self->tooltip);
+
+  if (self->description && *self->description) {
+    gtk_accessible_update_property (GTK_ACCESSIBLE (self->button),
+                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, self->description,
+                                    -1);
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self->button),
+                                   GTK_ACCESSIBLE_PROPERTY_DESCRIPTION);
+  }
 
   if (self->label && *self->label) {
     if (self->use_underline) {
@@ -262,14 +273,12 @@ update_content (AdwToggle *self)
 
     gtk_accessible_update_property (GTK_ACCESSIBLE (self->button),
                                     GTK_ACCESSIBLE_PROPERTY_LABEL, tooltip_text,
-                                    GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, NULL,
                                     -1);
 
     g_free (tooltip_text);
   } else {
-    gtk_accessible_update_property (GTK_ACCESSIBLE (self->button),
-                                    GTK_ACCESSIBLE_PROPERTY_LABEL, NULL,
-                                    -1);
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self->button),
+                                   GTK_ACCESSIBLE_PROPERTY_LABEL);
   }
 
   if (self->icon_name && *self->icon_name) {
@@ -303,6 +312,9 @@ adw_toggle_get_property (GObject    *object,
     break;
   case TOGGLE_PROP_TOOLTIP:
     g_value_set_string (value, adw_toggle_get_tooltip (self));
+    break;
+  case TOGGLE_PROP_DESCRIPTION:
+    g_value_set_string (value, adw_toggle_get_description (self));
     break;
   case TOGGLE_PROP_CHILD:
     g_value_set_object (value, adw_toggle_get_child (self));
@@ -340,6 +352,9 @@ adw_toggle_set_property (GObject      *object,
   case TOGGLE_PROP_TOOLTIP:
     adw_toggle_set_tooltip (self, g_value_get_string (value));
     break;
+  case TOGGLE_PROP_DESCRIPTION:
+    adw_toggle_set_description (self, g_value_get_string (value));
+    break;
   case TOGGLE_PROP_CHILD:
     adw_toggle_set_child (self, g_value_get_object (value));
     break;
@@ -361,6 +376,7 @@ adw_toggle_finalize (GObject *object)
   g_clear_pointer (&self->label, g_free);
   g_clear_pointer (&self->icon_name, g_free);
   g_clear_pointer (&self->tooltip, g_free);
+  g_clear_pointer (&self->description, g_free);
 
   G_OBJECT_CLASS (adw_toggle_parent_class)->finalize (object);
 }
@@ -442,10 +458,30 @@ adw_toggle_class_init (AdwToggleClass *class)
    *
    * The tooltip can be marked up with the Pango text markup language.
    *
+   * Tooltip text will also be used as accessible description. Use
+   * [property@Toggle:description] to set it separately.
+   *
    * Since: 1.7
    */
   toggle_props[TOGGLE_PROP_TOOLTIP] =
     g_param_spec_string ("tooltip", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwToggle:description:
+   *
+   * The description of the toggle.
+   *
+   * The description will be read out when using screen reader. If not set,
+   * [property@Toggle:tooltip] will be used instead.
+   *
+   * See [enum@Gtk.AccessibleProperty.description].
+   *
+   * Since: 1.9
+   */
+  toggle_props[TOGGLE_PROP_DESCRIPTION] =
+    g_param_spec_string ("description", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -487,6 +523,7 @@ adw_toggle_init (AdwToggle *self)
   self->enabled = TRUE;
   self->index = GTK_INVALID_LIST_POSITION;
   self->tooltip = g_strdup ("");
+  self->description = g_strdup ("");
 }
 
 #define ADW_TYPE_TOGGLE_GROUP_TOGGLES (adw_toggle_group_toggles_get_type ())
@@ -779,7 +816,7 @@ add_toggle (AdwToggleGroup *self,
 
   toggle->separator = gtk_separator_new (self->orientation);
 
-  update_content (toggle);
+  update_button (toggle);
 
   if (self->toggles->len) {
     AdwToggle *first_toggle = g_ptr_array_index (self->toggles, 0);
@@ -1280,7 +1317,7 @@ adw_toggle_set_label (AdwToggle  *self,
   if (!g_set_str (&self->label, label))
     return;
 
-  update_content (self);
+  update_button (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_LABEL]);
 }
@@ -1327,7 +1364,7 @@ adw_toggle_set_use_underline (AdwToggle *self,
 
   self->use_underline = use_underline;
 
-  update_content (self);
+  update_button (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_USE_UNDERLINE]);
 }
@@ -1371,7 +1408,7 @@ adw_toggle_set_icon_name (AdwToggle  *self,
   if (!g_set_str (&self->icon_name, icon_name))
     return;
 
-  update_content (self);
+  update_button (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_ICON_NAME]);
 }
@@ -1403,6 +1440,9 @@ adw_toggle_get_tooltip (AdwToggle *self)
  *
  * @tooltip can be marked up with the Pango text markup language.
  *
+ * Tooltip text will also be used as accessible description. Use
+ * [property@Toggle:description] to set it separately.
+ *
  * Since: 1.7
  */
 void
@@ -1414,9 +1454,55 @@ adw_toggle_set_tooltip (AdwToggle  *self,
   if (!g_set_str (&self->tooltip, tooltip))
     return;
 
-  update_content (self);
+  update_button (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_TOOLTIP]);
+}
+
+/**
+ * adw_toggle_get_description:
+ * @self: a toggle
+ *
+ * Gets the description of @self.
+ *
+ * Returns: the toggle description
+ *
+ * Since: 1.9
+ */
+const char *
+adw_toggle_get_description (AdwToggle *self)
+{
+  g_return_val_if_fail (ADW_IS_TOGGLE (self), NULL);
+
+  return self->description;
+}
+
+/**
+ * adw_toggle_set_description:
+ * @self: a toggle
+ * @description: the description
+ *
+ * Sets the description of @self to @description.
+ *
+ * The description will be read out when using screen reader. If not set,
+ * [property@Toggle:tooltip] will be used instead.
+ *
+ * See [enum@Gtk.AccessibleProperty.description].
+ *
+ * Since: 1.9
+ */
+void
+adw_toggle_set_description (AdwToggle  *self,
+                            const char *description)
+{
+  g_return_if_fail (ADW_IS_TOGGLE (self));
+
+  if (!g_set_str (&self->description, description))
+    return;
+
+  update_button (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_DESCRIPTION]);
 }
 
 /**
@@ -1465,7 +1551,7 @@ adw_toggle_set_child (AdwToggle *self,
   if (child)
     self->child = g_object_ref_sink (child);
 
-  update_content (self);
+  update_button (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), toggle_props[TOGGLE_PROP_CHILD]);
 }

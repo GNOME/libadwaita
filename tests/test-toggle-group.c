@@ -785,6 +785,36 @@ test_adw_toggle_tooltip (void)
 }
 
 static void
+test_adw_toggle_description (void)
+{
+  AdwToggle *toggle = adw_toggle_new ();
+  char *description;
+  int notified = 0;
+
+  g_assert_nonnull (toggle);
+
+  g_signal_connect_swapped (toggle, "notify::description", G_CALLBACK (increment), &notified);
+
+  g_object_get (toggle, "description", &description, NULL);
+  g_assert_cmpstr (description, ==, "");
+  g_clear_pointer (&description, g_free);
+
+  adw_toggle_set_description (toggle, "");
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_toggle_set_description (toggle, "Description");
+  g_assert_cmpstr (adw_toggle_get_description (toggle), ==, "Description");
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (toggle, "description", "", NULL);
+  g_assert_cmpstr (adw_toggle_get_description (toggle), ==, "");
+  g_assert_cmpint (notified, ==, 2);
+
+  g_free (description);
+  g_assert_finalize_object (toggle);
+}
+
+static void
 test_adw_toggle_child (void)
 {
   AdwToggle *toggle = adw_toggle_new ();
@@ -865,6 +895,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Toggle/use_underline", test_adw_toggle_use_underline);
   g_test_add_func ("/Adwaita/Toggle/icon_name", test_adw_toggle_icon_name);
   g_test_add_func ("/Adwaita/Toggle/tooltip", test_adw_toggle_tooltip);
+  g_test_add_func ("/Adwaita/Toggle/description", test_adw_toggle_description);
   g_test_add_func ("/Adwaita/Toggle/child", test_adw_toggle_child);
   g_test_add_func ("/Adwaita/Toggle/enabled", test_adw_toggle_enabled);
 

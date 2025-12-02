@@ -57,6 +57,12 @@ ADW_AVAILABLE_IN_1_7
 void        adw_toggle_set_tooltip (AdwToggle  *self,
                                     const char *tooltip);
 
+ADW_AVAILABLE_IN_1_9
+const char *adw_toggle_get_description (AdwToggle  *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_toggle_set_description (AdwToggle  *self,
+                                        const char *description);
+
 ADW_AVAILABLE_IN_1_7
 GtkWidget *adw_toggle_get_child (AdwToggle *self);
 ADW_AVAILABLE_IN_1_7
