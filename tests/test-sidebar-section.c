@@ -73,6 +73,36 @@ test_adw_sidebar_section_title (void)
 }
 
 static void
+test_adw_sidebar_section_menu_model (void)
+{
+  AdwSidebarSection *section = adw_sidebar_section_new ();
+  GMenuModel *model;
+  GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
+  GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
+  int notified = 0;
+
+  g_assert_nonnull (section);
+
+  g_signal_connect_swapped (section, "notify::menu-model", G_CALLBACK (increment), &notified);
+
+  g_object_get (section, "menu-model", &model, NULL);
+  g_assert_null (model);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_sidebar_section_set_menu_model (section, model1);
+  g_assert_true (adw_sidebar_section_get_menu_model (section) == model1);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (section, "menu-model", model2, NULL);
+  g_assert_true (adw_sidebar_section_get_menu_model (section) == model2);
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (section);
+  g_assert_finalize_object (model1);
+  g_assert_finalize_object (model2);
+}
+
+static void
 test_adw_sidebar_section_add_remove (void)
 {
   AdwSidebarSection *section = adw_sidebar_section_new ();
@@ -221,6 +251,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/SidebarSection/title", test_adw_sidebar_section_title);
+  g_test_add_func("/Adwaita/SidebarSection/menu_model", test_adw_sidebar_section_menu_model);
   g_test_add_func("/Adwaita/SidebarSection/add_remove", test_adw_sidebar_section_add_remove);
   g_test_add_func("/Adwaita/SidebarSection/bind_model", test_adw_sidebar_section_bind_model);
   g_test_add_func("/Adwaita/SidebarSection/get_sidebar", test_adw_sidebar_section_get_sidebar);

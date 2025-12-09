@@ -55,6 +55,12 @@ void        adw_sidebar_section_set_title (AdwSidebarSection *self,
                                            const char        *title);
 
 ADW_AVAILABLE_IN_1_9
+GMenuModel *adw_sidebar_section_get_menu_model (AdwSidebarSection *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_sidebar_section_set_menu_model (AdwSidebarSection *self,
+                                                GMenuModel        *menu_model);
+
+ADW_AVAILABLE_IN_1_9
 GListModel *adw_sidebar_section_get_items (AdwSidebarSection *self) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_1_9
