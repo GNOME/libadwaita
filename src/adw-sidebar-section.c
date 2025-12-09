@@ -90,6 +90,7 @@ struct _AdwSidebarSection
   GObject parent_instance;
 
   char *title;
+  GMenuModel *menu_model;
 
   GPtrArray *items;
   GListModel *items_model;
@@ -112,6 +113,7 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSidebarSection, adw_sidebar_section, G_TYPE_OB
 enum {
   PROP_0,
   PROP_TITLE,
+  PROP_MENU_MODEL,
   PROP_ITEMS,
   PROP_SIDEBAR,
   LAST_PROP
@@ -283,6 +285,7 @@ adw_sidebar_section_dispose (GObject *object)
     g_clear_object (&self->bound_model);
   }
 
+  g_clear_object (&self->menu_model);
   g_clear_pointer (&self->items, g_ptr_array_unref);
 
   G_OBJECT_CLASS (adw_sidebar_section_parent_class)->dispose (object);
@@ -311,6 +314,9 @@ adw_sidebar_section_get_property (GObject    *object,
   case PROP_TITLE:
     g_value_set_string (value, adw_sidebar_section_get_title (self));
     break;
+  case PROP_MENU_MODEL:
+    g_value_set_object (value, adw_sidebar_section_get_menu_model (self));
+    break;
   case PROP_ITEMS:
     g_value_set_object (value, adw_sidebar_section_get_items (self));
     break;
@@ -334,6 +340,9 @@ adw_sidebar_section_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_TITLE:
     adw_sidebar_section_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_MENU_MODEL:
+    adw_sidebar_section_set_menu_model (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -363,6 +372,24 @@ adw_sidebar_section_class_init (AdwSidebarSectionClass *klass)
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
                          "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSidebarSection:menu-model:
+   *
+   * Context menu model for the section items.
+   *
+   * When a context menu is shown for an item, it will be constructed from the
+   * provided menu model. Use the [signal@Sidebar::setup-menu] signal to set up
+   * the menu actions for the particular item.
+   *
+   * If not set, [property@Sidebar:menu-model] will be used instead.
+   *
+   * Since: 1.9
+   */
+  props[PROP_MENU_MODEL] =
+    g_param_spec_object ("menu-model", NULL, NULL,
+                         G_TYPE_MENU_MODEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -476,6 +503,54 @@ adw_sidebar_section_set_title (AdwSidebarSection *self,
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
+}
+
+/**
+ * adw_sidebar_section_get_menu_model:
+ * @self: a sidebar section
+ *
+ * Gets the context menu model for @self's items.
+ *
+ * Returns: (transfer none) (nullable): the context menu model
+ *
+ * Since: 1.9
+ */
+GMenuModel *
+adw_sidebar_section_get_menu_model (AdwSidebarSection *self)
+{
+  g_return_val_if_fail (ADW_IS_SIDEBAR_SECTION (self), NULL);
+
+  return self->menu_model;
+}
+
+/**
+ * adw_sidebar_section_set_menu_model:
+ * @self: a sidebar section
+ * @menu_model: (nullable): a menu model
+ *
+ * Sets the context menu model for @self's items.
+ *
+ * When a context menu is shown for an item, it will be constructed from the
+ * provided menu model. Use the [signal@Sidebar::setup-menu] signal to set up
+ * the menu actions for the particular item.
+ *
+ * If not set, [property@Sidebar:menu-model] will be used instead.
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_section_set_menu_model (AdwSidebarSection *self,
+                                    GMenuModel        *menu_model)
+{
+  g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
+  g_return_if_fail (menu_model == NULL || G_IS_MENU_MODEL (menu_model));
+
+  if (self->menu_model == menu_model)
+    return;
+
+  g_set_object (&self->menu_model, menu_model);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MENU_MODEL]);
 }
 
 /**

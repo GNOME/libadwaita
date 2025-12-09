@@ -153,6 +153,9 @@
  * [property@Sidebar:menu-model] property to provide a menu model, and the
  * [signal@Sidebar::setup-menu] signal to set up actions for the given item.
  *
+ * To set or override the menu for just one section, use
+ * [property@SidebarSection:menu-model] instead.
+ *
  * ## Drag-and-Drop
  *
  * `AdwSidebar` items can have a drop target for arbitrary content.
@@ -880,12 +883,28 @@ set_drop_preload_cb (AdwSidebar     *self,
   gtk_drop_target_set_preload (target, self->drop_preload);
 }
 
+static GMenuModel *
+get_menu_model (AdwSidebar     *self,
+                AdwSidebarItem *item)
+{
+  AdwSidebarSection *section = adw_sidebar_item_get_section (item);
+  GMenuModel *model;
+
+  model = adw_sidebar_section_get_menu_model (section);
+  if (model)
+    return model;
+
+  return self->menu_model;
+}
+
 static void
 update_has_popup (AdwSidebar     *self,
                   AdwSidebarItem *item,
                   GtkWidget      *row)
 {
-  if (self->menu_model) {
+  GMenuModel *model = get_menu_model (self, item);
+
+  if (model) {
     gtk_accessible_update_property (GTK_ACCESSIBLE (row),
                                     GTK_ACCESSIBLE_PROPERTY_HAS_POPUP, TRUE,
                                     -1);
@@ -936,10 +955,11 @@ open_context_menu (AdwSidebar     *self,
                    double          x,
                    double          y)
 {
+  GMenuModel *model = get_menu_model (self, item);
   GdkRectangle rect;
   graphene_point_t point, out_point;
 
-  if (!G_IS_MENU_MODEL (self->menu_model))
+  if (!model)
     return;
 
   g_set_object (&self->context_menu_item, item);
@@ -947,7 +967,7 @@ open_context_menu (AdwSidebar     *self,
   g_signal_emit (self, signals[SIGNAL_SETUP_MENU], 0, item);
 
   if (!self->context_menu) {
-    self->context_menu = gtk_popover_menu_new_from_model (self->menu_model);
+    self->context_menu = gtk_popover_menu_new_from_model (model);
     gtk_widget_set_parent (self->context_menu, GTK_WIDGET (self));
     gtk_popover_set_position (GTK_POPOVER (self->context_menu), GTK_POS_BOTTOM);
     gtk_popover_set_has_arrow (GTK_POPOVER (self->context_menu), FALSE);
@@ -956,6 +976,8 @@ open_context_menu (AdwSidebar     *self,
     g_signal_connect_object (self->context_menu, "notify::visible",
                              G_CALLBACK (context_menu_notify_visible_cb), self,
                              G_CONNECT_AFTER | G_CONNECT_SWAPPED);
+  } else {
+    gtk_popover_menu_set_menu_model (GTK_POPOVER_MENU (self->context_menu), model);
   }
 
   if (x > -0.5 && y > -0.5) {
@@ -1052,7 +1074,7 @@ popup_menu_cb (GtkWidget  *widget,
   AdwSidebarItem *item;
   GtkWidget *row = NULL;
 
-  if (self->selected == GTK_INVALID_LIST_POSITION || !self->menu_model)
+  if (self->selected == GTK_INVALID_LIST_POSITION)
     return;
 
   if (self->page) {
@@ -1130,11 +1152,23 @@ notify_suffix_cb (AdwSidebarItem *item,
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-suffix", suffix);
 }
 
+static void
+section_menu_model_notify_cb (AdwSidebarSection *section,
+                     GParamSpec        *pspec,
+                     GtkWidget         *row)
+{
+  AdwSidebar *self = ADW_SIDEBAR (gtk_widget_get_ancestor (row, ADW_TYPE_SIDEBAR));
+  AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
+
+  update_has_popup (self, item, row);
+}
+
 static GtkWidget *
 create_row (AdwSidebarItem *item,
             AdwSidebar     *self)
 {
   GtkWidget *row, *box, *icon, *title_box, *title, *subtitle;
+  AdwSidebarSection *section;
 
   row = gtk_list_box_row_new ();
 
@@ -1190,6 +1224,10 @@ create_row (AdwSidebarItem *item,
 
   setup_drop_target (self, row);
   setup_context_menu (self, item, row);
+
+  section = adw_sidebar_item_get_section (item);
+  g_signal_connect_object (section, "notify::menu-model",
+                           G_CALLBACK (section_menu_model_notify_cb), row, 0);
 
   return row;
 }
@@ -1372,6 +1410,7 @@ create_boxed_row (AdwSidebarItem *item,
                   AdwSidebar     *self)
 {
   GtkWidget *row, *icon, *arrow;
+  AdwSidebarSection *section;
 
   row = adw_action_row_new ();
 
@@ -1416,6 +1455,10 @@ create_boxed_row (AdwSidebarItem *item,
   setup_context_menu (self, item, row);
 
   g_signal_connect_swapped (row, "activated", G_CALLBACK (boxed_row_activated_cb), self);
+
+  section = adw_sidebar_item_get_section (item);
+  g_signal_connect_object (section, "notify::menu-model",
+                           G_CALLBACK (section_menu_model_notify_cb), row, 0);
 
   return row;
 }
@@ -2131,6 +2174,8 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
    * When a context menu is shown for an item, it will be constructed from the
    * provided menu model. Use the [signal@Sidebar::setup-menu] signal to set up
    * the menu actions for the particular item.
+   *
+   * [property@Sidebar:menu-model] will be preferred over this model if set.
    *
    * Since: 1.9
    */
@@ -2977,6 +3022,8 @@ adw_sidebar_get_menu_model (AdwSidebar *self)
  * When a context menu is shown for an item, it will be constructed from the
  * provided menu model. Use the [signal@Sidebar::setup-menu] signal to set up
  * the menu actions for the particular item.
+ *
+ * [property@Sidebar:menu-model] will be preferred over this model if set.
  *
  * Since: 1.9
  */
