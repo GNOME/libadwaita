@@ -94,6 +94,17 @@ string_is_not_empty (AdwStatusPage *self,
   return string && string[0];
 }
 
+static gboolean
+adw_status_page_grab_focus (GtkWidget *widget)
+{
+  AdwStatusPage *self = ADW_STATUS_PAGE (widget);
+
+  if (self->user_widget)
+    return gtk_widget_grab_focus (self->user_widget);
+
+  return adw_widget_grab_focus_child (self->scrolled_window);
+}
+
 static void
 adw_status_page_get_property (GObject    *object,
                               guint       prop_id,
@@ -199,6 +210,8 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   object_class->finalize = adw_status_page_finalize;
 
   widget_class->compute_expand = adw_widget_compute_expand;
+  widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_status_page_grab_focus;
 
   /**
    * AdwStatusPage:icon-name:
