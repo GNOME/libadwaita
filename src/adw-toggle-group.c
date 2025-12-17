@@ -537,6 +537,15 @@ struct _AdwToggleGroupToggles
   AdwToggleGroup *group;
 };
 
+enum {
+  TOGGLES_PROP_0,
+  TOGGLES_PROP_ITEM_TYPE,
+  TOGGLES_PROP_N_ITEMS,
+  N_TOGGLES_PROPS,
+};
+
+static GParamSpec *toggles_props[N_TOGGLES_PROPS];
+
 static GType
 adw_toggle_group_toggles_get_item_type (GListModel *model)
 {
@@ -631,11 +640,58 @@ adw_toggle_group_toggles_dispose (GObject *object)
 }
 
 static void
+adw_toggle_group_toggles_get_property (GObject    *object,
+                                       guint       prop_id,
+                                       GValue     *value,
+                                       GParamSpec *pspec)
+{
+  AdwToggleGroupToggles *self = ADW_TOGGLE_GROUP_TOGGLES (object);
+
+  switch (prop_id) {
+  case TOGGLES_PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_TOGGLE);
+    break;
+  case TOGGLES_PROP_N_ITEMS:
+    g_value_set_uint (value, adw_toggle_group_toggles_get_n_items (G_LIST_MODEL (self)));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_toggle_group_toggles_class_init (AdwToggleGroupTogglesClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = adw_toggle_group_toggles_dispose;
+  object_class->get_property = adw_toggle_group_toggles_get_property;
+
+  /**
+   * AdwToggleGroupToggles:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  toggles_props[TOGGLES_PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_TOGGLE,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwToggleGroupToggles:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  toggles_props[TOGGLES_PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, N_TOGGLES_PROPS, toggles_props);
 }
 
 static void
@@ -852,6 +908,8 @@ add_toggle (AdwToggleGroup *self,
   if (self->toggles_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->toggles_model),
                                 self->toggles->len - 1, 0, 1);
+    g_object_notify_by_pspec (G_OBJECT (self->toggles_model),
+                              toggle_props[TOGGLES_PROP_N_ITEMS]);
   }
 }
 
@@ -955,6 +1013,8 @@ adw_toggle_group_dispose (GObject *object)
   if (self->toggles_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->toggles_model), 0,
                                 self->toggles->len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->toggles_model),
+                              toggle_props[TOGGLES_PROP_N_ITEMS]);
   }
 
   for (i = 0; i < self->toggles->len; i++) {
@@ -1709,8 +1769,11 @@ adw_toggle_group_remove (AdwToggleGroup *self,
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVE]);
   }
 
-  if (self->toggles_model)
+  if (self->toggles_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->toggles_model), toggle->index, 1, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->toggles_model),
+                              toggle_props[TOGGLES_PROP_N_ITEMS]);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_TOGGLES]);
 
@@ -1763,6 +1826,8 @@ adw_toggle_group_remove_all (AdwToggleGroup *self)
   if (self->toggles_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->toggles_model),
                                 0, self->toggles->len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->toggles_model),
+                              toggle_props[TOGGLES_PROP_N_ITEMS]);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_TOGGLES]);
