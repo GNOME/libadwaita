@@ -171,7 +171,7 @@ adw_sidebar_section_items_get_n_items (GListModel *model)
 {
   AdwSidebarSectionItems *self = ADW_SIDEBAR_SECTION_ITEMS (model);
 
-  if (!self->section)
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR_SECTION (self->section)))
     return 0;
 
   return self->section->items->len;
@@ -184,7 +184,7 @@ adw_sidebar_section_items_get_item (GListModel *model,
   AdwSidebarSectionItems *self = ADW_SIDEBAR_SECTION_ITEMS (model);
   AdwSidebarItem *item;
 
-  if (!self->section)
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR_SECTION (self->section)))
     return NULL;
 
   if (position >= g_list_model_get_n_items (model))
