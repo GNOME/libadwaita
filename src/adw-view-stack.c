@@ -170,6 +170,8 @@ struct _AdwViewStackPages
 
 enum {
   PAGES_PROP_0,
+  PAGES_PROP_ITEM_TYPE,
+  PAGES_PROP_N_ITEMS,
   PAGES_PROP_SELECTED_PAGE,
   N_PAGES_PROPS,
 };
@@ -770,6 +772,12 @@ adw_view_stack_pages_get_property (GObject    *object,
   AdwViewStackPages *self = ADW_VIEW_STACK_PAGES (object);
 
   switch (prop_id) {
+  case PAGES_PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_VIEW_STACK_PAGE);
+    break;
+  case PAGES_PROP_N_ITEMS:
+    g_value_set_uint (value, adw_view_stack_pages_get_n_items (G_LIST_MODEL (self)));
+    break;
   case PAGES_PROP_SELECTED_PAGE:
     g_value_set_object (value, adw_view_stack_pages_get_selected_page (self));
     break;
@@ -807,6 +815,30 @@ adw_view_stack_pages_class_init (AdwViewStackPagesClass *class)
 
   object_class->get_property = adw_view_stack_pages_get_property;
   object_class->set_property = adw_view_stack_pages_set_property;
+
+  /**
+   * AdwViewStackPages:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  pages_props[PAGES_PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_VIEW_STACK_PAGE,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwViewStackPages:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  pages_props[PAGES_PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwViewStackPages:selected-page:
@@ -1106,8 +1138,10 @@ add_page (AdwViewStack     *self,
   gtk_widget_set_child_visible (page->widget, FALSE);
   gtk_widget_set_parent (page->widget, GTK_WIDGET (self));
 
-  if (self->pages)
+  if (self->pages) {
     g_list_model_items_changed (G_LIST_MODEL (self->pages), self->children->len - 1, 0, 1);
+    g_object_notify_by_pspec (G_OBJECT (self->pages), pages_props[PAGES_PROP_N_ITEMS]);
+  }
 
   g_signal_connect (page->widget, "notify::visible",
                     G_CALLBACK (stack_child_visibility_notify_cb), self);
@@ -1447,6 +1481,7 @@ adw_view_stack_dispose (GObject *object)
   if (self->pages) {
     g_list_model_items_changed (G_LIST_MODEL (self->pages), 0,
                                 self->children->len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->pages), pages_props[PAGES_PROP_N_ITEMS]);
   }
 
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
@@ -2220,8 +2255,10 @@ adw_view_stack_remove (AdwViewStack  *self,
 
   stack_remove (self, child, FALSE);
 
-  if (self->pages)
+  if (self->pages) {
     g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 1, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->pages), pages_props[PAGES_PROP_N_ITEMS]);
+  }
 }
 
 /**
