@@ -66,6 +66,12 @@ update_content (AdwDemoWindow *self)
 }
 
 static void
+search_activated_cb (AdwDemoWindow *self)
+{
+  gtk_widget_grab_focus (GTK_WIDGET (self->sidebar));
+}
+
+static void
 sidebar_activated_cb (AdwDemoWindow *self,
                       guint          index)
 {
@@ -95,6 +101,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, split_view);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
+  gtk_widget_class_bind_template_callback (widget_class, search_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, sidebar_activated_cb);
 
   gtk_widget_class_install_action (widget_class, "window.adaptive-preview", NULL, (GtkWidgetActionActivateFunc) adaptive_preview_cb);
