@@ -376,6 +376,9 @@ adw_sidebar_sections_get_n_items (GListModel *model)
 {
   AdwSidebarSections *self = ADW_SIDEBAR_SECTIONS (model);
 
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
+    return 0;
+
   return self->sidebar->sections->len;
 }
 
@@ -387,6 +390,9 @@ adw_sidebar_sections_get_item (GListModel *model,
   AdwSidebarSection *section;
 
   if (position >= g_list_model_get_n_items (model))
+    return NULL;
+
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
     return NULL;
 
   section = g_ptr_array_index (self->sidebar->sections, position);
@@ -436,11 +442,25 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSidebarItems, adw_sidebar_items, G_TYPE_OBJECT
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_sidebar_items_selection_model_init))
 
 static void
+sidebar_weak_notify (gpointer  data,
+                     GObject  *object)
+{
+  AdwSidebarItems *self = data;
+
+  self->sidebar = NULL;
+  g_clear_object (&self->flatten_model);
+}
+
+static void
 adw_sidebar_items_dispose (GObject *object)
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (object);
 
-  g_clear_weak_pointer (&self->sidebar);
+  if (self->sidebar) {
+    g_object_weak_unref (G_OBJECT (self->sidebar), sidebar_weak_notify, self);
+    self->sidebar = NULL;
+  }
+
   g_clear_object (&self->flatten_model);
 
   G_OBJECT_CLASS (adw_sidebar_items_parent_class)->dispose (object);
@@ -470,6 +490,9 @@ adw_sidebar_items_get_n_items (GListModel *model)
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (model);
 
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
+    return 0;
+
   return g_list_model_get_n_items (G_LIST_MODEL (self->flatten_model));
 }
 
@@ -478,6 +501,9 @@ adw_sidebar_items_get_item (GListModel *model,
                             guint       position)
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (model);
+
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
+    return NULL;
 
   return g_list_model_get_item (G_LIST_MODEL (self->flatten_model), position);
 }
@@ -498,6 +524,15 @@ adw_sidebar_items_get_section (GtkSectionModel *model,
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (model);
 
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar))) {
+    if (out_start)
+      *out_start = 0;
+    if (out_end)
+      *out_end = G_MAXUINT;
+
+    return;
+  }
+
   gtk_section_model_get_section (GTK_SECTION_MODEL (self->flatten_model),
                                  position, out_start, out_end);
 }
@@ -514,6 +549,9 @@ adw_sidebar_items_is_selected (GtkSelectionModel *model,
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (model);
 
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
+    return FALSE;
+
   return position == self->sidebar->selected;
 }
 
@@ -523,6 +561,9 @@ adw_sidebar_items_select_item (GtkSelectionModel *model,
                                gboolean           exclusive)
 {
   AdwSidebarItems *self = ADW_SIDEBAR_ITEMS (model);
+
+  if (G_UNLIKELY (!ADW_IS_SIDEBAR (self->sidebar)))
+    return FALSE;
 
   adw_sidebar_set_selected (self->sidebar, position);
 
@@ -554,7 +595,9 @@ adw_sidebar_items_new (AdwSidebar *sidebar)
   GListModel *sections;
 
   items = g_object_new (ADW_TYPE_SIDEBAR_ITEMS, NULL);
-  g_set_weak_pointer (&items->sidebar, sidebar);
+
+  items->sidebar = sidebar;
+  g_object_weak_ref (G_OBJECT (items->sidebar), sidebar_weak_notify, items);
 
   sections = adw_sidebar_get_sections (sidebar);
 
