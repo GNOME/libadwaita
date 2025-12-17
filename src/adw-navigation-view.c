@@ -329,6 +329,15 @@ static guint signals[LAST_SIGNAL];
 
 G_DECLARE_FINAL_TYPE (AdwNavigationViewModel, adw_navigation_view_model, ADW, NAVIGATION_VIEW_MODEL, GObject)
 
+enum {
+  MODEL_PROP_0,
+  MODEL_PROP_ITEM_TYPE,
+  MODEL_PROP_N_ITEMS,
+  N_MODEL_PROPS,
+};
+
+static GParamSpec *model_props[N_MODEL_PROPS];
+
 struct _AdwNavigationViewModel
 {
   GObject parent_instance;
@@ -387,6 +396,26 @@ adw_navigation_view_model_dispose (GObject *object)
 }
 
 static void
+adw_navigation_view_model_get_property (GObject    *object,
+                                        guint       prop_id,
+                                        GValue     *value,
+                                        GParamSpec *pspec)
+{
+  AdwNavigationViewModel *self = ADW_NAVIGATION_VIEW_MODEL (object);
+
+  switch (prop_id) {
+  case MODEL_PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_NAVIGATION_PAGE);
+    break;
+  case MODEL_PROP_N_ITEMS:
+    g_value_set_uint (value, adw_navigation_view_model_get_n_items (G_LIST_MODEL (self)));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_navigation_view_model_init (AdwNavigationViewModel *self)
 {
 }
@@ -397,6 +426,33 @@ adw_navigation_view_model_class_init (AdwNavigationViewModelClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = adw_navigation_view_model_dispose;
+  object_class->get_property = adw_navigation_view_model_get_property;
+
+  /**
+   * AdwNavigationViewModel:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  model_props[MODEL_PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_NAVIGATION_PAGE,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwNavigationViewModel:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  model_props[MODEL_PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, N_MODEL_PROPS, model_props);
 }
 
 static GListModel *
@@ -903,6 +959,7 @@ push_to_stack (AdwNavigationView *self,
 
     g_list_model_items_changed (self->navigation_stack_model,
                                 length - 1, 0, 1);
+    g_object_notify_by_pspec (G_OBJECT (self->navigation_stack_model), model_props[MODEL_PROP_N_ITEMS]);
   }
 }
 
@@ -948,9 +1005,11 @@ pop_from_stack (AdwNavigationView *self,
       adw_navigation_view_remove (self, c);
   }
 
-  if (self->navigation_stack_model)
+  if (self->navigation_stack_model) {
     g_list_model_items_changed (self->navigation_stack_model,
                                 pos + 1, length - pos - 1, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->navigation_stack_model), model_props[MODEL_PROP_N_ITEMS]);
+  }
 
   g_slist_free_full (popped, g_object_unref);
 }
@@ -1712,9 +1771,11 @@ adw_navigation_view_dispose (GObject *object)
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (object);
   GtkWidget *child;
 
-  if (self->navigation_stack_model)
+  if (self->navigation_stack_model) {
     g_list_model_items_changed (self->navigation_stack_model, 0,
                                 g_list_model_get_n_items (G_LIST_MODEL (self->navigation_stack)), 0);
+    g_object_notify_by_pspec (G_OBJECT (self->navigation_stack_model), model_props[MODEL_PROP_N_ITEMS]);
+  }
 
   g_clear_object (&self->shadow_helper);
   g_clear_object (&self->swipe_tracker);
@@ -3027,6 +3088,7 @@ adw_navigation_view_replace (AdwNavigationView  *self,
 
     g_list_model_items_changed (self->navigation_stack_model,
                                 0, old_length, length);
+    g_object_notify_by_pspec (G_OBJECT (self->navigation_stack_model), model_props[MODEL_PROP_N_ITEMS]);
   }
 }
 
