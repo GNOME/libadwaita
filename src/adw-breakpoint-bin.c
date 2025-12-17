@@ -140,7 +140,7 @@ typedef struct
 {
   GtkWidget *child;
 
-  GList *breakpoints;
+  GPtrArray *breakpoints;
   AdwBreakpoint *current_breakpoint;
 
   GskRenderNode *old_node;
@@ -193,7 +193,7 @@ allocate_child (AdwBreakpointBin *self,
   if (!priv->child)
     return;
 
-  if (!priv->block_warnings && priv->breakpoints && priv->enable_min_size_warnings) {
+  if (!priv->block_warnings && priv->breakpoints->len > 0 && priv->enable_min_size_warnings) {
     int window_width, window_height;
     GtkWidget *warning_widget;
 
@@ -332,7 +332,7 @@ adw_breakpoint_bin_get_request_mode (GtkWidget *widget)
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
 
-  if (priv->breakpoints)
+  if (priv->breakpoints->len > 0)
     return GTK_SIZE_REQUEST_CONSTANT_SIZE;
 
   if (priv->child)
@@ -358,7 +358,7 @@ adw_breakpoint_bin_measure (GtkWidget      *widget,
     gtk_widget_measure (priv->child, orientation, for_size,
                         &min, &nat, NULL, NULL);
 
-    if (priv->breakpoints)
+    if (priv->breakpoints->len > 0)
       min = 0;
   }
 
@@ -392,7 +392,7 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
 {
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
-  GList *l;
+  guint i;
   GtkSnapshot *snapshot;
   AdwBreakpoint *new_breakpoint = NULL;
   GtkSettings *settings;
@@ -402,8 +402,8 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
 
   settings = gtk_widget_get_settings (widget);
 
-  for (l = priv->breakpoints; l; l = l->next) {
-    AdwBreakpoint *breakpoint = l->data;
+  for (i = 0; i < priv->breakpoints->len; i++) {
+    AdwBreakpoint *breakpoint = g_ptr_array_index (priv->breakpoints, i);
 
     if (adw_breakpoint_check_condition (breakpoint, settings, width, height)) {
       new_breakpoint = breakpoint;
@@ -531,11 +531,7 @@ adw_breakpoint_bin_dispose (GObject *object)
     priv->tick_cb_id = 0;
   }
 
-  if (priv->breakpoints) {
-    g_list_free_full (priv->breakpoints, g_object_unref);
-    priv->breakpoints = NULL;
-  }
-
+  g_clear_pointer (&priv->breakpoints, g_ptr_array_unref);
   g_clear_pointer (&priv->delayed_focus, g_array_unref);
 
   G_OBJECT_CLASS (adw_breakpoint_bin_parent_class)->dispose (object);
@@ -630,6 +626,7 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
 
+  priv->breakpoints = g_ptr_array_new ();
   priv->natural_width = -1;
   priv->natural_height = -1;
   priv->enable_min_size_warnings = TRUE;
@@ -761,7 +758,7 @@ adw_breakpoint_bin_add_breakpoint (AdwBreakpointBin *self,
 
   priv = adw_breakpoint_bin_get_instance_private (self);
 
-  priv->breakpoints = g_list_prepend (priv->breakpoints, breakpoint);
+  g_ptr_array_add (priv->breakpoints, breakpoint);
 
   breakpoint_notify_condition_cb (self);
 
@@ -789,7 +786,7 @@ adw_breakpoint_bin_remove_breakpoint (AdwBreakpointBin *self,
 
   priv = adw_breakpoint_bin_get_instance_private (self);
 
-  priv->breakpoints = g_list_remove (priv->breakpoints, breakpoint);
+  g_ptr_array_remove (priv->breakpoints, breakpoint);
 
   breakpoint_notify_condition_cb (self);
 
@@ -855,7 +852,7 @@ adw_breakpoint_bin_has_breakpoints (AdwBreakpointBin *self)
 
   priv = adw_breakpoint_bin_get_instance_private (self);
 
-  return !!priv->breakpoints;
+  return priv->breakpoints->len > 0;
 }
 
 void
