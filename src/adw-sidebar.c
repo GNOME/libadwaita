@@ -1881,6 +1881,44 @@ items_changed_cb (AdwSidebar *self,
   }
 }
 
+static gboolean
+adw_sidebar_grab_focus (GtkWidget *widget)
+{
+  AdwSidebar *self = ADW_SIDEBAR (widget);
+
+  if (self->placeholder && gtk_widget_get_child_visible (self->placeholder))
+    return gtk_widget_grab_focus (self->placeholder);
+
+  if (self->listbox) {
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), 0);
+    if (!row)
+      return FALSE;
+
+    return gtk_widget_grab_focus (GTK_WIDGET (row));
+  }
+
+  if (self->page) {
+    AdwPreferencesGroup *group;
+    GtkWidget *row;
+    int i = 0;
+
+    do {
+      group = adw_preferences_page_get_group (ADW_PREFERENCES_PAGE (self->page), i++);
+    } while (group && !gtk_widget_get_visible (GTK_WIDGET (group)));
+
+    if (!group)
+      return FALSE;
+
+    row = adw_preferences_group_get_row (group, 0);
+    if (!row)
+      return FALSE;
+
+    return gtk_widget_grab_focus (row);
+  }
+
+  return FALSE;
+}
+
 static void
 adw_sidebar_dispose (GObject *object)
 {
@@ -2018,6 +2056,7 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
 
   widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_sidebar_grab_focus;
 
   /**
    * AdwSidebar:mode:
