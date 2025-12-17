@@ -137,6 +137,15 @@ static void adw_sidebar_section_items_list_model_init (GListModelInterface *ifac
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSidebarSectionItems, adw_sidebar_section_items, G_TYPE_OBJECT,
                                G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_sidebar_section_items_list_model_init))
 
+enum {
+  ITEMS_PROP_0,
+  ITEMS_PROP_ITEM_TYPE,
+  ITEMS_PROP_N_ITEMS,
+  N_ITEMS_PROPS,
+};
+
+static GParamSpec *items_props[N_ITEMS_PROPS];
+
 static void
 adw_sidebar_section_items_dispose (GObject *object)
 {
@@ -148,11 +157,58 @@ adw_sidebar_section_items_dispose (GObject *object)
 }
 
 static void
+adw_sidebar_section_items_get_property (GObject    *object,
+                                        guint       prop_id,
+                                        GValue     *value,
+                                        GParamSpec *pspec)
+{
+  AdwSidebarSectionItems *self = ADW_SIDEBAR_SECTION_ITEMS (object);
+
+  switch (prop_id) {
+  case ITEMS_PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_SIDEBAR_ITEM);
+    break;
+  case ITEMS_PROP_N_ITEMS:
+    g_value_set_uint (value, g_list_model_get_n_items (G_LIST_MODEL (self)));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_sidebar_section_items_class_init (AdwSidebarSectionItemsClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = adw_sidebar_section_items_dispose;
+  object_class->get_property = adw_sidebar_section_items_get_property;
+
+  /**
+   * AdwSidebarSectionItems:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  items_props[ITEMS_PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_SIDEBAR_ITEM,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwSidebarSectionItems:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  items_props[ITEMS_PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, N_ITEMS_PROPS, items_props);
 }
 
 static void
@@ -258,8 +314,12 @@ bound_model_changed_cb (AdwSidebarSection *self,
     adw_sidebar_item_set_index (item, i);
   }
 
-  if (self->items_model)
+  if (self->items_model) {
     g_list_model_items_changed (self->items_model, position, removed, added);
+
+    if (removed != added)
+      g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
+  }
 }
 
 static void
@@ -275,6 +335,7 @@ adw_sidebar_section_dispose (GObject *object)
   if (self->items_model) {
     g_list_model_items_changed (G_LIST_MODEL (self->items_model),
                                 0, self->items->len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
   }
 
   if (self->bound_model) {
@@ -676,8 +737,10 @@ adw_sidebar_section_insert (AdwSidebarSection *self,
     adw_sidebar_item_set_section (item, self);
     adw_sidebar_item_set_index (item, self->items->len - 1);
 
-    if (self->items_model)
+    if (self->items_model) {
       g_list_model_items_changed (self->items_model, self->items->len - 1, 0, 1);
+      g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
+    }
 
     return;
   }
@@ -692,8 +755,10 @@ adw_sidebar_section_insert (AdwSidebarSection *self,
     adw_sidebar_item_set_index (item2, i);
   }
 
-  if (self->items_model)
+  if (self->items_model) {
     g_list_model_items_changed (self->items_model, position, 0, 1);
+    g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
+  }
 }
 
 /**
@@ -731,8 +796,10 @@ adw_sidebar_section_remove (AdwSidebarSection *self,
     adw_sidebar_item_set_index (item2, i);
   }
 
-  if (self->items_model)
+  if (self->items_model) {
     g_list_model_items_changed (self->items_model, index, 1, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
+  }
 
   adw_sidebar_item_set_section (item, NULL);
   adw_sidebar_item_set_index (item, 0);
@@ -763,8 +830,10 @@ adw_sidebar_section_remove_all (AdwSidebarSection *self)
   old_items = self->items;
   self->items = g_ptr_array_new_with_free_func (g_object_unref);
 
-  if (self->items_model)
+  if (self->items_model) {
     g_list_model_items_changed (self->items_model, 0, len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->items_model), items_props[ITEMS_PROP_N_ITEMS]);
+  }
 
   for (i = 0; i < len; i++) {
     AdwSidebarItem *item = g_ptr_array_index (old_items, i);
