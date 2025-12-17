@@ -32,6 +32,8 @@ struct _AdwEnumListModel
 enum {
   PROP_0,
   PROP_ENUM_TYPE,
+  PROP_ITEM_TYPE,
+  PROP_N_ITEMS,
   LAST_PROP,
 };
 
@@ -234,6 +236,12 @@ adw_enum_list_model_get_property (GObject    *object,
   case PROP_ENUM_TYPE:
     g_value_set_gtype (value, adw_enum_list_model_get_enum_type (self));
     break;
+  case PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_ENUM_LIST_ITEM);
+    break;
+  case PROP_N_ITEMS:
+    g_value_set_uint (value, g_list_model_get_n_items (G_LIST_MODEL (self)));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -275,6 +283,30 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
     g_param_spec_gtype ("enum-type", NULL, NULL,
                         G_TYPE_ENUM,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwEnumListModel:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  props[PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_ENUM_LIST_ITEM,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwEnumListModel:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  props[PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
