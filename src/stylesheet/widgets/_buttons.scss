@@ -394,7 +394,7 @@ menubutton {
   }
 
   &:disabled {
-    filter: opacity(var(--disabled-opacity));
+    filter: Opacity(var(--disabled-opacity));
   }
 
   > button:disabled:not(:checked) {
