@@ -48,6 +48,8 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwShortcutsSection, adw_shortcuts_section, G_TYP
 enum {
   PROP_0,
   PROP_TITLE,
+  PROP_ITEM_TYPE,
+  PROP_N_ITEMS,
   LAST_PROP
 };
 
@@ -75,6 +77,12 @@ adw_shortcuts_section_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_TITLE:
     g_value_set_string (value, adw_shortcuts_section_get_title (self));
+    break;
+  case PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_SHORTCUTS_ITEM);
+    break;
+  case PROP_N_ITEMS:
+    g_value_set_uint (value, g_list_model_get_n_items (G_LIST_MODEL (self)));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -118,6 +126,30 @@ adw_shortcuts_section_class_init (AdwShortcutsSectionClass *klass)
     g_param_spec_string ("title", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwShortcutsSection:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  props[PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_SHORTCUTS_ITEM,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwShortcutsSection:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  props[PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -260,4 +292,5 @@ adw_shortcuts_section_add (AdwShortcutsSection *self,
   g_ptr_array_add (self->items, item);
 
   g_list_model_items_changed (G_LIST_MODEL (self), self->items->len - 1, 0, 1);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_ITEMS]);
 }
