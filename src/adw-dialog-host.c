@@ -59,6 +59,15 @@ struct _AdwDialogModel
   AdwDialogHost *host;
 };
 
+enum {
+  MODEL_PROP_0,
+  MODEL_PROP_ITEM_TYPE,
+  MODEL_PROP_N_ITEMS,
+  N_MODEL_PROPS,
+};
+
+static GParamSpec *model_props[N_MODEL_PROPS];
+
 static GType
 adw_dialog_model_get_item_type (GListModel *model)
 {
@@ -121,11 +130,58 @@ adw_dialog_model_dispose (GObject *object)
 }
 
 static void
+adw_dialog_model_get_property (GObject    *object,
+                               guint       prop_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
+{
+  AdwDialogModel *self = ADW_DIALOG_MODEL (object);
+
+  switch (prop_id) {
+  case MODEL_PROP_ITEM_TYPE:
+    g_value_set_gtype (value, ADW_TYPE_DIALOG);
+    break;
+  case MODEL_PROP_N_ITEMS:
+    g_value_set_uint (value, adw_dialog_model_get_n_items (G_LIST_MODEL (self)));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_dialog_model_class_init (AdwDialogModelClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = adw_dialog_model_dispose;
+  object_class->get_property = adw_dialog_model_get_property;
+
+  /**
+   * AdwDialogModel:item-type:
+   *
+   * The type of the items. See [method@Gio.ListModel.get_item_type].
+   *
+   * Since: 1.9
+   */
+  model_props[MODEL_PROP_ITEM_TYPE] =
+    g_param_spec_gtype ("item-type", NULL, NULL,
+                        ADW_TYPE_DIALOG,
+                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwDialogModel:n-items:
+   *
+   * The number of items. See [method@Gio.ListModel.get_n_items].
+   *
+   * Since: 1.9
+   */
+  model_props[MODEL_PROP_N_ITEMS] =
+    g_param_spec_uint ("n-items", NULL, NULL,
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, N_MODEL_PROPS, model_props);
 }
 
 static GListModel *
@@ -167,8 +223,10 @@ dialog_closing_cb (AdwDialog     *dialog,
 
   adw_dialog_set_closing (dialog, TRUE);
 
-  if (self->dialogs_model)
+  if (self->dialogs_model) {
     g_list_model_items_changed (self->dialogs_model, index, 1, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->dialogs_model), model_props[MODEL_PROP_N_ITEMS]);
+  }
 
   if (self->dialogs->len == 0) {
     gtk_widget_set_can_focus (self->bin, TRUE);
@@ -301,8 +359,10 @@ adw_dialog_host_dispose (GObject *object)
 {
   AdwDialogHost *self = ADW_DIALOG_HOST (object);
 
-  if (self->dialogs_model)
+  if (self->dialogs_model) {
     g_list_model_items_changed (self->dialogs_model, 0, self->dialogs->len, 0);
+    g_object_notify_by_pspec (G_OBJECT (self->dialogs_model), model_props[MODEL_PROP_N_ITEMS]);
+  }
 
   if (self->dialogs) {
     int i;
@@ -564,8 +624,10 @@ adw_dialog_host_present_dialog (AdwDialogHost *self,
 
   g_ptr_array_add (self->dialogs, dialog);
 
-  if (self->dialogs_model)
+  if (self->dialogs_model) {
     g_list_model_items_changed (self->dialogs_model, self->dialogs->len - 1, 0, 1);
+    g_object_notify_by_pspec (G_OBJECT (self->dialogs_model), model_props[MODEL_PROP_N_ITEMS]);
+  }
 
   if (gtk_window_get_focus_visible (GTK_WINDOW (root)))
     gtk_window_set_focus_visible (GTK_WINDOW (root), TRUE);
