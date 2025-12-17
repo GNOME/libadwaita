@@ -1516,9 +1516,13 @@ adw_tab_pages_get_section (GtkSectionModel *model,
   guint start, end;
 
   if (G_UNLIKELY (!ADW_IS_TAB_VIEW (self->view))) {
-    start = end = 0;
+    start = 0;
+    end = G_MAXUINT;
   } else {
-    if (position < self->view->n_pinned_pages) {
+    if (position >= self->view->n_pages) {
+      start = self->view->n_pages;
+      end = G_MAXUINT;
+    } else if (position < self->view->n_pinned_pages) {
       start = 0;
       end = self->view->n_pinned_pages;
     } else {
