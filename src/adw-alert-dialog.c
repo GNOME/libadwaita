@@ -210,7 +210,7 @@ typedef struct
   GtkWidget *child;
   gboolean prefer_wide_layout;
 
-  GList *responses;
+  GPtrArray *responses;
   GHashTable *id_to_response;
   GQuark default_response;
   GQuark close_response;
@@ -386,7 +386,7 @@ adw_alert_dialog_grab_focus (GtkWidget *widget)
 
   if (!focus) {
     GtkWidget *default_widget;
-    GList *l;
+    guint i;
 
     if (adw_widget_grab_focus_child (priv->scrolled_window)) {
       focus = adw_dialog_get_focus (ADW_DIALOG (self));
@@ -401,8 +401,8 @@ adw_alert_dialog_grab_focus (GtkWidget *widget)
     if (default_widget)
       return gtk_widget_grab_focus (default_widget);
 
-    for (l = g_list_last (priv->responses); l; l = l->prev) {
-      ResponseInfo *response = l->data;
+    for (i = 0; i < priv->responses->len; i++) {
+      ResponseInfo *response = g_ptr_array_index (priv->responses, i);
 
       if (!response->enabled)
         continue;
@@ -528,14 +528,14 @@ measure_responses_do (AdwAlertDialog *self,
                       int            *natural)
 {
   AdwAlertDialogPrivate *priv = adw_alert_dialog_get_instance_private (self);
-  GList *l;
+  guint i;
   int min = 0, nat = 0;
   int button_min = 0, button_nat = 0;
   int n_buttons = 0;
   gboolean horiz = (orientation == GTK_ORIENTATION_HORIZONTAL);
 
-  for (l = priv->responses; l; l = l->next) {
-    ResponseInfo *response = l->data;
+  for (i = 0; i < priv->responses->len; i++) {
+    ResponseInfo *response = g_ptr_array_index (priv->responses, i);
     int child_min, child_nat;
 
     gtk_widget_measure (response->button, orientation, -1,
@@ -553,7 +553,7 @@ measure_responses_do (AdwAlertDialog *self,
       nat += child_nat;
     }
 
-    if (horiz != compact && l->next) {
+    if (horiz != compact && i + 1 < priv->responses->len) {
       min += BUTTON_SPACING;
       nat += BUTTON_SPACING;
     }
@@ -630,10 +630,10 @@ allocate_responses (GtkWidget *widget,
 
   if (compact) {
     int pos = height;
-    GList *l;
+    guint i;
 
-    for (l = priv->responses; l; l = l->next) {
-      ResponseInfo *response = l->data;
+    for (i = 0; i < priv->responses->len; i++) {
+      ResponseInfo *response = g_ptr_array_index (priv->responses, i);
       int child_height;
 
       gtk_widget_measure (response->button, GTK_ORIENTATION_VERTICAL, -1,
@@ -649,13 +649,13 @@ allocate_responses (GtkWidget *widget,
   } else {
     gboolean is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
     int pos = is_rtl ? width : 0;
-    int n_buttons = g_list_length (priv->responses);
+    int n_buttons = priv->responses->len;
     int total_width = width - BUTTON_SPACING * MAX (0, (n_buttons - 1));
     int button_width = (int) ceil ((double) total_width / n_buttons);
-    GList *l;
+    guint i;
 
-    for (l = priv->responses; l; l = l->next) {
-      ResponseInfo *response = l->data;
+    for (i = 0; i < priv->responses->len; i++) {
+      ResponseInfo *response = g_ptr_array_index (priv->responses, i);
 
       button_width = MIN (button_width, total_width);
 
@@ -863,11 +863,7 @@ adw_alert_dialog_dispose (GObject *object)
 
   priv->child = NULL;
 
-  if (priv->responses) {
-    g_list_free_full (priv->responses, (GDestroyNotify) response_info_free);
-    priv->responses = NULL;
-  }
-
+  g_clear_pointer (&priv->responses, g_ptr_array_unref);
   g_clear_pointer (&priv->id_to_response, g_hash_table_unref);
 
   G_OBJECT_CLASS (adw_alert_dialog_parent_class)->dispose (object);
@@ -1082,6 +1078,7 @@ adw_alert_dialog_init (AdwAlertDialog *self)
 
   priv->heading = g_strdup ("");
   priv->body = g_strdup ("");
+  priv->responses = g_ptr_array_new_full (0, (GDestroyNotify) response_info_free);
   priv->id_to_response = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -1989,7 +1986,7 @@ adw_alert_dialog_add_response (AdwAlertDialog *self,
   info->button = create_response_button (self, info);
   gtk_widget_set_parent (info->button, priv->response_area);
 
-  priv->responses = g_list_append (priv->responses, info);
+  g_ptr_array_add (priv->responses, info);
   g_hash_table_insert (priv->id_to_response, g_strdup (id), info);
 
   if (priv->default_response == info->id)
@@ -2085,10 +2082,8 @@ adw_alert_dialog_remove_response (AdwAlertDialog *self,
 
   gtk_widget_unparent (info->button);
 
-  priv->responses = g_list_remove (priv->responses, info);
+  g_ptr_array_remove (priv->responses, info);
   g_hash_table_remove (priv->id_to_response, id);
-
-  response_info_free (info);
 }
 
 /**
@@ -2548,4 +2543,3 @@ adw_alert_dialog_choose_finish (AdwAlertDialog *self,
 
   return g_quark_to_string (id);
 }
-
