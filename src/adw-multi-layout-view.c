@@ -105,7 +105,7 @@ struct _AdwMultiLayoutView
 {
   GtkWidget parent_instance;
 
-  GList *layouts;
+  GPtrArray *layouts;
   GHashTable *children;
   GHashTable *child_visible_bindings;
 
@@ -288,16 +288,11 @@ static void
 adw_multi_layout_view_dispose (GObject *object)
 {
   AdwMultiLayoutView *self = ADW_MULTI_LAYOUT_VIEW (object);
-  GList *l;
 
   g_clear_object (&self->current_layout);
   g_clear_pointer (&self->children, g_hash_table_unref);
   g_clear_pointer (&self->child_visible_bindings, g_hash_table_unref);
-
-  for (l = self->layouts; l; l = l->next)
-    g_object_unref (l->data);
-
-  g_clear_pointer (&self->layouts, g_list_free);
+  g_clear_pointer (&self->layouts, g_ptr_array_unref);
   g_clear_pointer (&self->content, gtk_widget_unparent);
   g_clear_pointer (&self->slots, g_hash_table_unref);
 
@@ -394,6 +389,7 @@ adw_multi_layout_view_class_init (AdwMultiLayoutViewClass *klass)
 static void
 adw_multi_layout_view_init (AdwMultiLayoutView *self)
 {
+  self->layouts = g_ptr_array_new_full (0, g_object_unref);
   self->children = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   self->child_visible_bindings = g_hash_table_new_full (NULL, NULL, NULL, binding_unbind_and_unref);
   self->slots = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -554,10 +550,10 @@ adw_multi_layout_view_add_layout (AdwMultiLayoutView *self,
                name);
   }
 
-  if (!self->layouts)
+  if (self->layouts->len == 0)
     adw_multi_layout_view_set_layout (self, layout);
 
-  self->layouts = g_list_append (self->layouts, layout);
+  g_ptr_array_add (self->layouts, layout);
 
   adw_layout_set_view (layout, self);
 }
@@ -578,11 +574,13 @@ adw_multi_layout_view_remove_layout (AdwMultiLayoutView *self,
   g_return_if_fail (ADW_IS_MULTI_LAYOUT_VIEW (self));
   g_return_if_fail (ADW_IS_LAYOUT (layout));
 
-  self->layouts = g_list_remove (self->layouts, layout);
+  g_object_ref (layout);
+
+  g_ptr_array_remove (self->layouts, layout);
 
   if (layout == self->current_layout) {
-    if (self->layouts)
-      set_layout (self, self->layouts->data);
+    if (self->layouts->len > 0)
+      set_layout (self, g_ptr_array_index (self->layouts, 0));
     else
       set_layout (self, NULL);
   }
@@ -607,13 +605,13 @@ AdwLayout *
 adw_multi_layout_view_get_layout_by_name (AdwMultiLayoutView *self,
                                           const char         *name)
 {
-  GList *l;
+  guint i;
 
   g_return_val_if_fail (ADW_IS_MULTI_LAYOUT_VIEW (self), NULL);
   g_return_val_if_fail (name != NULL, NULL);
 
-  for (l = self->layouts; l; l = l->next) {
-    AdwLayout *layout = l->data;
+  for (i = 0; i < self->layouts->len; i++) {
+    AdwLayout *layout = g_ptr_array_index (self->layouts, i);
 
     if (g_strcmp0 (adw_layout_get_name (layout), name) == 0)
       return layout;
