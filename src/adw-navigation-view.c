@@ -342,6 +342,9 @@ adw_navigation_view_model_get_n_items (GListModel *model)
 {
   AdwNavigationViewModel *self = ADW_NAVIGATION_VIEW_MODEL (model);
 
+  if (G_UNLIKELY (!ADW_IS_NAVIGATION_VIEW (self->view)))
+    return 0;
+
   return g_list_model_get_n_items (G_LIST_MODEL (self->view->navigation_stack));
 }
 
@@ -350,6 +353,9 @@ adw_navigation_view_model_get_item (GListModel *model,
                                     guint       position)
 {
   AdwNavigationViewModel *self = ADW_NAVIGATION_VIEW_MODEL (model);
+
+  if (G_UNLIKELY (!ADW_IS_NAVIGATION_VIEW (self->view)))
+    return NULL;
 
   return g_list_model_get_item (G_LIST_MODEL (self->view->navigation_stack),
                                 position);
@@ -367,13 +373,26 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwNavigationViewModel, adw_navigation_view_model
                                G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_navigation_view_model_list_model_init))
 
 static void
+adw_navigation_view_model_dispose (GObject *object)
+{
+  AdwNavigationViewModel *self = ADW_NAVIGATION_VIEW_MODEL (object);
+
+  g_clear_weak_pointer (&self->view);
+
+  G_OBJECT_CLASS (adw_navigation_view_model_parent_class)->dispose (object);
+}
+
+static void
 adw_navigation_view_model_init (AdwNavigationViewModel *self)
 {
 }
 
 static void
-adw_navigation_view_model_class_init (AdwNavigationViewModelClass *class)
+adw_navigation_view_model_class_init (AdwNavigationViewModelClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->dispose = adw_navigation_view_model_dispose;
 }
 
 static GListModel *
@@ -382,7 +401,7 @@ adw_navigation_view_model_new (AdwNavigationView *view)
   AdwNavigationViewModel *model;
 
   model = g_object_new (ADW_TYPE_NAVIGATION_VIEW_MODEL, NULL);
-  model->view = view;
+  g_set_weak_pointer (&model->view, view);
 
   return G_LIST_MODEL (model);
 }
