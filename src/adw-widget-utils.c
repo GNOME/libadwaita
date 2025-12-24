@@ -19,6 +19,8 @@
 
 #include "adw-widget-utils-private.h"
 
+#include <pango/pango.h>
+
 #include "adw-bottom-sheet-private.h"
 #include "adw-floating-sheet-private.h"
 
@@ -679,48 +681,25 @@ adw_decoration_layout_prefers_start (const char *layout)
   return counts[0] > counts[1];
 }
 
-/* Copied and modified from gtklabel.c, separate_uline_pattern() */
 char *
 adw_strip_mnemonic (const char *src)
 {
-  char *new_str = g_new (char, strlen (src) + 1);
-  char *dest = new_str;
-  gboolean underscore = FALSE;
+  char *markup = NULL;
+  char *parsed = NULL;
+  GError *error = NULL;
 
-  while (*src) {
-    gunichar c;
-    const char *next_src;
-
-    c = g_utf8_get_char (src);
-    if (c == (gunichar) -1) {
-      g_warning ("Invalid input string");
-
-      g_free (new_str);
-
-      return NULL;
-    }
-
-    next_src = g_utf8_next_char (src);
-
-    if (underscore) {
-      while (src < next_src)
-        *dest++ = *src++;
-
-      underscore = FALSE;
-    } else {
-      if (c == '_'){
-        underscore = TRUE;
-        src = next_src;
-      } else {
-        while (src < next_src)
-          *dest++ = *src++;
-      }
-    }
+  markup = g_markup_escape_text (src, -1);
+  if (!pango_parse_markup (markup, -1, '_', NULL, &parsed, NULL, &error)) {
+    g_warning ("Failed to strip mnemonic from '%s' due to error parsing markup: %s",
+               src, error->message);
+    g_free (markup);
+    g_error_free (error);
+    return NULL;
   }
 
-  *dest = 0;
+  g_free (markup);
 
-  return new_str;
+  return parsed;
 }
 
 /*
