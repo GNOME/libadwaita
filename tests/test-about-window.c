@@ -24,7 +24,7 @@ test_adw_about_window_from_appdata (void)
   g_assert_cmpstr (adw_about_window_get_application_name (window), ==, "Adwaita Test");
   g_assert_cmpstr (adw_about_window_get_developer_name (window), ==, "The GNOME Project");
   g_assert_cmpstr (adw_about_window_get_issue_url (window), ==, "https://gitlab.gnome.org/GNOME/libadwaita/issues");
-  g_assert_cmpstr (adw_about_window_get_support_url (window), ==, "http://www.gnome.org/friends/");
+  g_assert_cmpstr (adw_about_window_get_support_url (window), ==, "https://discourse.gnome.org");
   g_assert_cmpstr (adw_about_window_get_website (window), ==, "https://gitlab.gnome.org/GNOME/libadwaita");
   g_assert_cmpuint (adw_about_window_get_license_type (window), ==, GTK_LICENSE_LGPL_2_1);
 

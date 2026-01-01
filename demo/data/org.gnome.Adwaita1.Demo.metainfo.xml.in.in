@@ -41,7 +41,7 @@
 
   <url type="homepage">https://gitlab.gnome.org/GNOME/libadwaita</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/libadwaita/issues</url>
-  <url type="donation">https://www.gnome.org/friends/</url>
+  <url type="donation">https://donate.gnome.org</url>
 
   <content_rating type="oars-1.1" />
   <translation type="gettext">libadwaita</translation>
