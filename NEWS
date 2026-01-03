@@ -1,4 +1,37 @@
 =============
+Version 1.8.3
+=============
+
+- Adaptive preview
+  - Fix a leak when taking screenshots
+- AdwAboutDialog
+  - Fix an accessibility warning
+- AdwAlert/MessageDialog
+  - Fix extra padding with hidden extra child
+- AdwInlineViewSwitcher
+  - Limit badges to 999+ to match AdwViewSwitcher
+- AdwNavigationView
+  - Fix a crash
+  - Make :navigation-stack more robust
+- AdwPreferencesGroup
+  - Fix accessible label
+- AdwPreferencesPage
+  - Revert incompatible children warning from 1.8.2
+- AdwShortcutsDialog
+  - Implement search activation
+  - Fix an accessibility warning
+- AdwStatusPage
+  - Implement focus() and grab_focus()
+- AdwTabOverview
+  - Implement search activation
+- AdwViewStack
+  - Fix accessible labels with underlines
+- Docs
+  - Fix banner-suggested screenshot
+- Translation updates
+  - German
+
+=============
 Version 1.8.2
 =============
 
