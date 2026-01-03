@@ -200,6 +200,8 @@ typedef struct
   int parent_height;
 
   guint parent_state_idle_id;
+
+  GBinding *child_visible_binding;
 } AdwMessageDialogPrivate;
 
 static void adw_message_dialog_buildable_init (GtkBuildableIface *iface);
@@ -1965,9 +1967,19 @@ adw_message_dialog_set_extra_child (AdwMessageDialog *self,
   if (child)
     g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
+  g_clear_pointer (&priv->child_visible_binding, g_binding_unbind);
+
   priv->child = child;
   adw_bin_set_child (ADW_BIN (priv->child_bin), child);
-  gtk_widget_set_visible (priv->child_bin, child != NULL);
+
+  if (child) {
+    priv->child_visible_binding =
+      g_object_bind_property (child, "visible",
+                              priv->child_bin, "visible",
+                              G_BINDING_SYNC_CREATE);
+  } else {
+    gtk_widget_set_visible (priv->child_bin, FALSE);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_CHILD]);
 }
