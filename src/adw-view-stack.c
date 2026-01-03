@@ -1555,6 +1555,27 @@ adw_view_stack_accessible_init (GtkAccessibleInterface *iface)
   iface->get_first_accessible_child = adw_view_stack_accessible_get_first_accessible_child;
 }
 
+static void
+update_page (AdwViewStackPage *self)
+{
+  if (self->title && *self->title) {
+    if (self->use_underline) {
+      char *stripped_label = adw_strip_mnemonic (self->title);
+      gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                      GTK_ACCESSIBLE_PROPERTY_LABEL, stripped_label,
+                                      -1);
+      g_free (stripped_label);
+    } else {
+      gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                      GTK_ACCESSIBLE_PROPERTY_LABEL, self->title,
+                                      -1);
+    }
+  } else {
+    gtk_accessible_reset_property (GTK_ACCESSIBLE (self),
+                                   GTK_ACCESSIBLE_PROPERTY_LABEL);
+  }
+}
+
 /**
  * adw_view_stack_page_get_child:
  * @self: a view stack page
@@ -1664,11 +1685,9 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
   if (!g_set_str (&self->title, title))
     return;
 
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
+  update_page (self);
 
-  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
-                                  GTK_ACCESSIBLE_PROPERTY_LABEL, self->title,
-                                  -1);
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
 }
 
 /**
@@ -1702,6 +1721,8 @@ adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
     return;
 
   self->use_underline = use_underline;
+
+  update_page (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_USE_UNDERLINE]);
 }
