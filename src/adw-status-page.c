@@ -463,6 +463,7 @@ adw_status_page_set_title (AdwStatusPage *self,
                            const char    *title)
 {
   g_return_if_fail (ADW_IS_STATUS_PAGE (self));
+  g_return_if_fail (title != NULL);
 
   if (g_strcmp0 (title, adw_status_page_get_title (self)) == 0)
     return;

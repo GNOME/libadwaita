@@ -532,6 +532,7 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
   AdwPreferencesPagePrivate *priv;
 
   g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (title != NULL);
 
   priv = adw_preferences_page_get_instance_private (self);
 
@@ -581,6 +582,7 @@ adw_preferences_page_set_description (AdwPreferencesPage *self,
   AdwPreferencesPagePrivate *priv;
 
   g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (description != NULL);
 
   priv = adw_preferences_page_get_instance_private (self);
 

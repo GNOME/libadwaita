@@ -487,6 +487,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
   AdwPreferencesGroupPrivate *priv;
 
   g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
+  g_return_if_fail (title != NULL);
 
   priv = adw_preferences_group_get_instance_private (self);
 

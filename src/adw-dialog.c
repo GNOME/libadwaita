@@ -1455,6 +1455,7 @@ adw_dialog_set_title (AdwDialog  *self,
   AdwDialogPrivate *priv;
 
   g_return_if_fail (ADW_IS_DIALOG (self));
+  g_return_if_fail (title != NULL);
 
   priv = adw_dialog_get_instance_private (self);
 

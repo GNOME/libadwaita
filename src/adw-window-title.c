@@ -199,6 +199,7 @@ adw_window_title_set_title (AdwWindowTitle *self,
                             const char     *title)
 {
   g_return_if_fail (ADW_IS_WINDOW_TITLE (self));
+  g_return_if_fail (title != NULL);
 
   if (g_strcmp0 (gtk_label_get_label (self->title_label), title) == 0)
     return;
@@ -240,6 +241,7 @@ adw_window_title_set_subtitle (AdwWindowTitle *self,
                                const char     *subtitle)
 {
   g_return_if_fail (ADW_IS_WINDOW_TITLE (self));
+  g_return_if_fail (subtitle != NULL);
 
   if (g_strcmp0 (gtk_label_get_label (self->subtitle_label), subtitle) == 0)
     return;

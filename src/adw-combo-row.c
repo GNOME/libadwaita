@@ -178,7 +178,7 @@ selection_item_changed (AdwComboRow *self)
                                    GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT);
 
     if (priv->use_subtitle)
-      adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
+      adw_action_row_set_subtitle (ADW_ACTION_ROW (self), "");
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_ITEM]);
@@ -1187,7 +1187,7 @@ adw_combo_row_set_use_subtitle (AdwComboRow *self,
   priv->use_subtitle = use_subtitle;
   selection_changed (self);
   if (!use_subtitle)
-    adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
+    adw_action_row_set_subtitle (ADW_ACTION_ROW (self), "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_SUBTITLE]);
 }

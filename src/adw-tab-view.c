@@ -3017,6 +3017,7 @@ adw_tab_page_set_title (AdwTabPage *self,
                         const char *title)
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
+  g_return_if_fail (title != NULL);
 
   if (!g_set_str (&self->title, title ? title : ""))
     return;
