@@ -893,6 +893,9 @@ pop_from_stack (AdwNavigationView *self,
 
   old_page = adw_navigation_view_get_visible_page (self);
 
+  if (page_to == old_page)
+    return;
+
   length = g_list_model_get_n_items (G_LIST_MODEL (self->navigation_stack));
 
   g_assert (g_list_store_find (self->navigation_stack, page_to, &pos));
