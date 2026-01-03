@@ -418,6 +418,7 @@ screenshot_clicked_cb (AdwAdaptivePreview *self)
 
   gsk_transform_unref (transform);
   gsk_render_node_unref (node);
+  g_object_unref (texture);
 }
 
 static void
