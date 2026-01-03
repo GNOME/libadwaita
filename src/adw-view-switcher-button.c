@@ -9,6 +9,7 @@
 
 #include "adw-indicator-bin-private.h"
 #include "adw-view-switcher-button-private.h"
+#include "adw-widget-utils-private.h"
 
 #define TIMEOUT_EXPAND 500
 
@@ -125,13 +126,7 @@ static gchar *
 get_badge_text (AdwViewSwitcherButton *self,
                 guint                  badge_number)
 {
-  if (badge_number > 999)
-    return g_strdup ("999+");
-
-  if (!badge_number)
-    return g_strdup ("");
-
-  return g_strdup_printf ("%u", badge_number);
+  return adw_get_badge_text (badge_number);
 }
 
 static void

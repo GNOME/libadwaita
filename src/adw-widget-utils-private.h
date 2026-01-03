@@ -77,4 +77,6 @@ gboolean adw_get_inspector_keybinding_enabled (void);
 gboolean adw_tab_on_vertical_keynav_failed (GtkWidget        *widget,
                                             GtkDirectionType  direction);
 
+char *adw_get_badge_text (guint badge_number);
+
 G_END_DECLS

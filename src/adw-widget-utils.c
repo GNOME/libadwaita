@@ -779,3 +779,15 @@ adw_tab_on_vertical_keynav_failed (GtkWidget        *widget,
   return gtk_widget_child_focus (toplevel, direction == GTK_DIR_UP ?
                                  GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
 }
+
+char *
+adw_get_badge_text (guint badge_number)
+{
+  if (badge_number > 999)
+    return g_strdup ("999+");
+
+  if (!badge_number)
+    return g_strdup ("");
+
+  return g_strdup_printf ("%u", badge_number);
+}
