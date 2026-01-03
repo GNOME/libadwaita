@@ -1,3 +1,135 @@
+=================
+Version 1.9.alpha
+=================
+
+- Add AdwNoneAnimationTarget
+- Add AdwSidebar
+- Add AdwViewSwitcherSidebar
+- Consistently do null checks for non-nullable strings
+- Adaptive preview
+  - Fix a leak when taking screenshots
+  - Tint the device bezel to match the other styles
+- AdwAboutDialog/Window
+  - Add a context menu to link rows
+  - Fix an accessibility warning
+- AdwActionRow
+  - Fix subtitle comparison
+- AdwAlert/MessageDialog
+  - Fix extra padding with hidden extra child
+  - Port to GPtrArray
+- AdwApplication
+  - Deprecate style-dark.css, style-hc.css and style-hc-dark.css
+- AdwWindow/AdwApplicationWindow
+  - Add :item-type and :n-items to :dialogs
+- AdwBottomSheet
+  - Use crossfade animations when possible for reduced motion
+- AdwBreakpointBin
+  - Port to GPtrArray
+- AdwComboRow
+  - Improve accessibility
+  - Update selection when the expression changes
+- AdwDialog
+  - Use crossfade animations when possible for reduced motion
+- AdwEntryRow
+  - Fix title ellipsizing too late
+  - Activate the row action when pressing enter
+- AdwEnumListModel
+  - Add :item-type and :n-items
+- AdwHeaderBar
+  - Fix title buttons on macOS
+  - Report back button context menu to screen reader
+- AdwInlineViewSwitcher
+  - Limit badges to 999+ to match AdwViewSwitcher
+  - Make badges accessible
+- AdwMultiLayoutView
+  - Port to GPtrArray
+- AdwNavigationView
+  - Use crossfade animations when possible for reduced motion
+  - Fix a build warning on some platforms
+  - Fix a crash
+  - Make :navigation-stack more robust
+  - Add :item-type and :n-items :navigation-stack
+- AdwPreferencesDialog
+  - Allow to go from the first search result to header bar by pressing up
+  - Implement search activation
+- AdwPreferencesGroup
+  - Fix title and description getters
+  - Fix accessible label
+- AdwPreferencesPage
+  - Fix description getter
+  - Warn when trying to add incompatible children
+  - Fix a typo in the add_child() critical
+- AdwShortcutLabel
+  - Make accessible
+  - Flip arrows for RTL
+  - Add focused styles
+- AdwShortcutsDialog
+  - Allow to go from the first search result to header bar by pressing up
+  - Implement search activation
+  - Fix removing sections when the model changes
+  - Fix an accessibility warning
+- AdwShortcutsSection
+  - Add :item-type and :n-items
+- AdwStatusPage
+  - Implement focus() and grab_focus()
+- AdwTabBar/AdwTabOverview
+  - Improve drag-n-drop docs
+  - Fix ::extra-drag-drop annotations
+  - Fix context menu alignment on RTL
+  - Report context menu to screen reader
+- AdwTabOverview
+  - Use crossfade animation for reduced motion
+  - Implement search activation
+- AdwTabView
+  - Implement GtkSectionModel for :pages
+  - Add :item-type and :n-items to :pages
+- AdwToggleGroup
+  - Add a missing tooltip test
+  - Add AdwToggle:description
+  - Add :item-type and :n-items to :toggles
+- AdwViewStack
+  - Add section API to AdwViewStackPage, expose sections via :pages
+  - Add :item-type and :n-items to :pages
+  - Fix accessible labels with underlines
+  - Port to GPtrArray
+- AdwViewSwitcher
+  - Make badges accessible
+- Build
+  - Fix gen-public-types.py encoding
+  - Depend on GTK 4.21.1 and GLib 2.84.0
+- Demo
+  - Port to AdwSidebar, reorganize the sidebar and add icons
+  - Drop the color scheme toggle
+  - Add page search
+  - Improve the view switcher demo
+  - Increase default window size
+  - Update metainfo
+- Docs
+  - Replace deprecated GApplication flag
+  - Mention sidebars on the adaptive layouts page
+  - Consistently link enum values and constants
+  - Fix shortcuts screenshots in widget gallery in dark mode
+  - Fix banner-suggested screenshot
+  - Improve wrap box screenshots
+- Stylesheet
+  - Support prefers-reduced-motion media query
+  - Merge regular and high contrast styles via media queries
+- Translation updates
+  - Dutch
+  - Greek
+  - Japanese
+  - Kabyle
+  - Norwegian Nynorsk
+  - Occitan
+  - Portuguese
+  - Russian
+  - Serbian
+  - Serbian (Latin)
+  - Slovenian
+  - Turkish
+  - Uighur
+  - Uzbek (Latin)
+
 =============
 Version 1.8.0
 =============
