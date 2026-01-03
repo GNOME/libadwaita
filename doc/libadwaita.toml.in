@@ -124,6 +124,8 @@ content_images = [
   "images/avatar-dark.png",
   "images/banner.png",
   "images/banner-dark.png",
+  "images/banner-suggested.png",
+  "images/banner-suggested-dark.png",
   "images/bin.png",
   "images/bin-dark.png",
   "images/bottom-sheet.png",
