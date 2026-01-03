@@ -5,6 +5,6 @@ Icon=org.gnome.Adwaita1.Demo
 Keywords=libadwaita;
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=GTK;Development;
 StartupNotify=true
 NoDisplay=true
