@@ -3484,7 +3484,10 @@ adw_about_dialog_add_other_app (AdwAboutDialog *self,
 
   row = adw_action_row_new ();
 
-  icon = gtk_image_new_from_icon_name (appid);
+  icon = g_object_new (GTK_TYPE_IMAGE,
+                       "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                       "icon-name", appid,
+                       NULL);
   gtk_image_set_pixel_size (GTK_IMAGE (icon), 32);
   gtk_widget_add_css_class (icon, "lowres-icon");
   adw_action_row_add_prefix (ADW_ACTION_ROW (row), icon);
