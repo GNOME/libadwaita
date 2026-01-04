@@ -392,17 +392,18 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
 {
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
-  guint i;
   GtkSnapshot *snapshot;
   AdwBreakpoint *new_breakpoint = NULL;
   GtkSettings *settings;
+  int i;
 
   if (!priv->child)
     return;
 
   settings = gtk_widget_get_settings (widget);
 
-  for (i = 0; i < priv->breakpoints->len; i++) {
+  /* Iterate in reverse order since we prioritize breakpoints added last */
+  for (i = priv->breakpoints->len - 1; i >= 0; i--) {
     AdwBreakpoint *breakpoint = g_ptr_array_index (priv->breakpoints, i);
 
     if (adw_breakpoint_check_condition (breakpoint, settings, width, height)) {
