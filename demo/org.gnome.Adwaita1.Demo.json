@@ -49,9 +49,6 @@
       "config-opts" : [
         "--libdir=/app/lib"
       ],
-      "post-install" : [
-        "desktop-file-edit --remove-key=NoDisplay ${FLATPAK_DEST}/share/applications/org.gnome.Adwaita1.Demo.desktop"
-      ],
       "sources": [
         {
           "type": "git",
