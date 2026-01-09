@@ -2,14 +2,14 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 # Florentina Mușat <florentina.musat.28@gmail.com>, 2020.
-# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-07-09 18:57+0000\n"
-"PO-Revision-Date: 2025-07-15 12:29+0200\n"
+"POT-Creation-Date: 2026-01-03 17:24+0000\n"
+"PO-Revision-Date: 2026-01-09 14:40+0100\n"
 "Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -176,8 +176,8 @@ msgstr "Ce este _nou"
 msgid "_Details"
 msgstr "_Detalii"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
 msgid "_Website"
 msgstr "_Pagina web"
 
@@ -209,56 +209,55 @@ msgstr "_Mulțumiri"
 msgid "What’s New"
 msgstr "Ce este nou"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
 msgid "Details"
 msgstr "Detalii"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
 msgid "Troubleshooting"
 msgstr "Depanare"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
-"Pentru a asista la depanare, puteți vizualiza informațiile de depanare. "
-"Furnizarea acestor informații dezvoltatorilor aplicației poate ajuta la "
-"diagnosticarea oricăror probleme pe care le întâlniți când raportați o "
-"problemă."
+"Pentru a ajuta la rezolvarea problemelor, se pot consulta informațiile de "
+"depanare. Transmiterea acestor informații programatorilor aplicației "
+"facilitează diagnosticarea problemelor."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
 msgid "_Debugging Information"
 msgstr "Informații de _depanare"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
 msgid "Debugging Information"
 msgstr "Informații de depanare"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
 msgid "_Copy Text"
 msgstr "_Copiază textul"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "_Salvează ca…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
 msgid "Credits"
 msgstr "Colaboratori"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Legal"
 msgstr "Legal"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
 msgid "Acknowledgements"
 msgstr "Mulțumiri"
 
 #: src/adw-adaptive-preview.c:387
 msgid "Screenshot Copied to Clipboard"
-msgstr "Instantaneu copiat"
+msgstr "Instantaneu de ecran copiat"
 
 #: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
@@ -336,7 +335,7 @@ msgstr "Închide"
 
 #: src/adw-adaptive-preview.ui:197
 msgid "Take Screenshot"
-msgstr "Fă un instantaneu"
+msgstr "Instantaneu de ecran"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgctxt "Shell preset"
@@ -393,8 +392,8 @@ msgstr "Personalizat"
 msgid "Avatar of %s"
 msgstr "Poza de profil %s"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Înapoi"
 
@@ -499,7 +498,7 @@ msgstr "Accesibilitate"
 
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
-msgstr "Contrast ridicat"
+msgstr "Contrast mare"
 
 #: src/adw-inspector-page.ui:89
 msgid ""
@@ -538,13 +537,13 @@ msgstr "Preferințe"
 msgid "Search preferences"
 msgstr "Caută preferințe"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:55
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "Nu s-au găsit rezultate"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:56
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:154 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Caută altfel"
 
@@ -580,11 +579,11 @@ msgstr "D"
 msgid "Keyboard Shortcuts"
 msgstr "Scurtături"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "Caută scurtături"
 
-#: src/adw-shortcut-row.c:253
+#: src/adw-shortcut-row.c:257
 msgid "No Shortcut"
 msgstr "Nicio scurtătură"
 
@@ -597,7 +596,7 @@ msgid "View Open Tabs"
 msgstr "Arată filele deschise"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:943
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -613,15 +612,15 @@ msgstr "Caută file"
 msgid "Search tabs"
 msgstr "Caută file"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Nicio filă deschisă"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Nu au fost găsite file"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "_Filă nouă"
 
