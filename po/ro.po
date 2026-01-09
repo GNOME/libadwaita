@@ -2,14 +2,14 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 # Florentina Mușat <florentina.musat.28@gmail.com>, 2020.
-# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-03-14 20:41+0000\n"
-"PO-Revision-Date: 2025-03-31 15:42+0200\n"
+"POT-Creation-Date: 2026-01-03 17:35+0000\n"
+"PO-Revision-Date: 2026-01-09 14:40+0100\n"
 "Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -88,30 +88,30 @@ msgstr "Licența Publică Mozilla 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "Licența BSD clauza-zero"
 
-#: src/adw-about-dialog.c:579 src/adw-about-window.c:571
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
 msgid "Code by"
 msgstr "Cod de"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
 msgid "Design by"
 msgstr "Conceput de"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
 msgid "Artwork by"
 msgstr "Grafică de"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
 msgid "Documentation by"
 msgstr "Documentație de"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
 msgid "Translated by"
 msgstr "Tradus de"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:612 src/adw-about-window.c:604
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -120,47 +120,47 @@ msgstr ""
 "Această aplicație nu vine cu niciun fel de garanție. A se vedea <a "
 "href=\"%s\">%s</a> pentru detalii."
 
-#: src/adw-about-dialog.c:690 src/adw-about-window.c:682
+#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
 msgid "This Application"
 msgstr "Această aplicație"
 
-#: src/adw-about-dialog.c:992 src/adw-about-window.c:984
+#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
 #, c-format
 msgid "Version %s"
 msgstr "Versiunea %s"
 
-#: src/adw-about-dialog.c:1018 src/adw-about-window.c:1010
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
 msgid "Unable to parse release notes:"
 msgstr "Nu se pot procesa informațiile de lansare:"
 
-#: src/adw-about-dialog.c:1024 src/adw-about-window.c:1016
+#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Rând: %d, caracter: %d"
 
-#: src/adw-about-dialog.c:1310 src/adw-about-window.c:1302
+#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
 msgid "Copied to clipboard"
 msgstr "Copiat"
 
-#: src/adw-about-dialog.c:1337 src/adw-about-window.c:1330
+#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
 msgid "Unable to save debugging information"
 msgstr "Nu se pot salva informațiile de depanare"
 
-#: src/adw-about-dialog.c:1342 src/adw-about-window.c:1335
+#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Închide"
 
-#: src/adw-about-dialog.c:1359 src/adw-about-window.c:1351
+#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
 msgid "Save debugging information"
 msgstr "Salvează informațiile de depanare"
 
-#: src/adw-about-dialog.c:2301
+#: src/adw-about-dialog.c:2302
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Alte aplicații de %s"
 
-#: src/adw-about-dialog.c:2307
+#: src/adw-about-dialog.c:2308
 msgid "Other Apps"
 msgstr "Alte aplicații"
 
@@ -223,10 +223,9 @@ msgid ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
-"Pentru a asista la depanare, puteți vizualiza informațiile de depanare. "
-"Furnizarea acestor informații dezvoltatorilor aplicației poate ajuta la "
-"diagnosticarea oricăror probleme pe care le întâlniți când raportați o "
-"problemă."
+"Pentru a ajuta la rezolvarea problemelor, se pot consulta informațiile de "
+"depanare. Transmiterea acestor informații programatorilor aplicației "
+"facilitează diagnosticarea problemelor."
 
 #: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
 msgid "_Debugging Information"
@@ -258,9 +257,9 @@ msgstr "Mulțumiri"
 
 #: src/adw-adaptive-preview.c:387
 msgid "Screenshot Copied to Clipboard"
-msgstr "Instantaneu copiat"
+msgstr "Instantaneu de ecran copiat"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:65
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:66
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Previzualizare adaptabilă"
@@ -336,7 +335,7 @@ msgstr "Închide"
 
 #: src/adw-adaptive-preview.ui:197
 msgid "Screenshot"
-msgstr "Instantaneu"
+msgstr "Instantaneu de ecran"
 
 #: src/adw-adaptive-preview-presets-private.h:24
 msgid "Desktop Shell"
@@ -380,8 +379,8 @@ msgstr "OnePlus 6T"
 msgid "Avatar of %s"
 msgstr "Poza de profil %s"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "Înapoi"
 
@@ -395,56 +394,56 @@ msgstr "Caută"
 msgid "Apply"
 msgstr "Aplică"
 
-#: src/adw-inspector-page.c:129
+#: src/adw-inspector-page.c:130
 msgid "No Preference"
 msgstr "Nicio preferință"
 
-#: src/adw-inspector-page.c:131
+#: src/adw-inspector-page.c:132
 msgid "Prefer Dark"
 msgstr "Preferă întunecos"
 
-#: src/adw-inspector-page.c:133
+#: src/adw-inspector-page.c:134
 msgid "Prefer Light"
 msgstr "Preferă luminos"
 
-#: src/adw-inspector-page.c:146
+#: src/adw-inspector-page.c:147
 msgid "Blue"
 msgstr "Albastru"
 
-#: src/adw-inspector-page.c:148
+#: src/adw-inspector-page.c:149
 msgid "Teal"
 msgstr "Turcoaz"
 
-#: src/adw-inspector-page.c:150
+#: src/adw-inspector-page.c:151
 msgid "Green"
 msgstr "Verde"
 
-#: src/adw-inspector-page.c:152
+#: src/adw-inspector-page.c:153
 msgid "Yellow"
 msgstr "Galben"
 
-#: src/adw-inspector-page.c:154
+#: src/adw-inspector-page.c:155
 msgid "Orange"
 msgstr "Portocaliu"
 
-#: src/adw-inspector-page.c:156
+#: src/adw-inspector-page.c:157
 msgid "Red"
 msgstr "Roșu"
 
-#: src/adw-inspector-page.c:158
+#: src/adw-inspector-page.c:159
 msgid "Pink"
 msgstr "Roz"
 
-#: src/adw-inspector-page.c:160
+#: src/adw-inspector-page.c:161
 msgid "Purple"
 msgstr "Mov"
 
-#: src/adw-inspector-page.c:162
+#: src/adw-inspector-page.c:163
 msgid "Slate"
 msgstr "Gri"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:301
+#: src/adw-inspector-page.c:302
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -486,7 +485,7 @@ msgstr "Accesibilitate"
 
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
-msgstr "Contrast ridicat"
+msgstr "Contrast mare"
 
 #: src/adw-inspector-page.ui:89
 msgid ""
@@ -525,11 +524,11 @@ msgstr "Preferințe"
 msgid "Search preferences"
 msgstr "Caută preferințe"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:163
 msgid "No Results Found"
 msgstr "Nu s-au găsit rezultate"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:154 src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Caută altfel"
 
@@ -550,7 +549,7 @@ msgid "View Open Tabs"
 msgstr "Arată filele deschise"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:943
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -566,15 +565,15 @@ msgstr "Caută file"
 msgid "Search tabs"
 msgstr "Caută file"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Nicio filă deschisă"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Nu au fost găsite file"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "_Filă nouă"
 
@@ -582,22 +581,22 @@ msgstr "_Filă nouă"
 msgid "Close Tab"
 msgstr "Închide fila"
 
-#: src/adw-toast-overlay.c:278
+#: src/adw-toast-overlay.c:285
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "A apărut o notificare: %s, are un buton: %s"
 
-#: src/adw-toast-overlay.c:281
+#: src/adw-toast-overlay.c:288
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "A apărut o notificare: %s"
 
-#: src/adw-toast-overlay.c:283
+#: src/adw-toast-overlay.c:290
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "A apărut o notificare, are un buton: %s"
 
-#: src/adw-toast-overlay.c:286
+#: src/adw-toast-overlay.c:293
 msgid "A toast appeared"
 msgstr "A apărut o notificare"
 
