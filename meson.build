@@ -40,13 +40,12 @@ glib_dep = dependency('glib-2.0', version: glib_min_version)
 gio_dep = dependency('gio-2.0', version: glib_min_version)
 gtk_dep = dependency('gtk4', version: gtk_min_version)
 fribidi_dep = dependency('fribidi')
-appstream_dep = dependency('appstream',
-  fallback : ['appstream', 'appstream_dep'],
-  default_options : [
-    'systemd=false', 'apidocs=false', 'install-docs=false',
-    'stemming=false', 'svg-support=false', 'gir=false',
-  ],
-)
+ministream_dep = dependency('ministream', default_options: [
+  'introspection=disabled',
+  'as-compare=disabled',
+  'tests=false',
+  'default_library=static'
+])
 
 target_system = host_machine.system()
 if target_system == 'darwin'

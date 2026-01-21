@@ -332,7 +332,7 @@ libadwaita_deps = [
   fribidi_dep,
   gio_dep,
   gtk_dep,
-  appstream_dep,
+  ministream_dep,
   cc.find_library('m', required: false),
 ]
 

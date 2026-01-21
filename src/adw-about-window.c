@@ -6,7 +6,7 @@
 
 #include "config.h"
 #include <glib/gi18n-lib.h>
-#include <appstream.h>
+#include <ministream.h>
 
 #include "adw-about-window.h"
 
@@ -425,13 +425,6 @@ legal_showing_cb (AdwAboutWindow *self)
 {
   self->legal_showing_idle_id =
     g_idle_add_once ((GSourceOnceFunc) legal_showing_idle_cb, self);
-}
-
-static gboolean
-get_release_for_version (AsRelease  *rel,
-                         const char *version)
-{
-  return !g_strcmp0 (as_release_get_version (rel), version);
 }
 
 static void
@@ -1998,104 +1991,86 @@ adw_about_window_new_from_appdata (const char *resource_path,
                                    const char *release_notes_version)
 {
   AdwAboutWindow *self;
-  GFile *appdata_file;
-  char *appdata_uri;
-  AsMetadata *metadata;
-  GPtrArray *releases;
-  AsComponent *component;
+  GBytes *resource;
+  gsize resource_len;
+  const guchar *resource_data;
+  MsComponent *component;
   char *application_id;
+  guint releases_len;
+  const MsRelease **releases;
   const char *name, *developer_name, *project_license;
   const char *issue_url, *support_url, *website_url;
   GError *error = NULL;
 
   g_return_val_if_fail (resource_path, NULL);
 
-  appdata_uri = g_strconcat ("resource://", resource_path, NULL);
-  appdata_file = g_file_new_for_uri (appdata_uri);
+  resource = g_resources_lookup_data (resource_path, G_RESOURCE_LOOKUP_FLAGS_NONE, &error);
+  if (!resource) {
+    g_error ("Could not read metadata file: %s", error->message);
+    g_clear_error (&error);
+  }
+  resource_data = g_bytes_get_data (resource, &resource_len);
 
   self = ADW_ABOUT_WINDOW (adw_about_window_new ());
-  metadata = as_metadata_new ();
 
-  if (!as_metadata_parse_file (metadata, appdata_file, AS_FORMAT_KIND_UNKNOWN, &error)) {
+  component = ms_component_new_from_xml_data (resource_data, resource_len, &error);
+  if (!component) {
     g_error ("Could not parse metadata file: %s", error->message);
     g_clear_error (&error);
   }
 
-  component = as_metadata_get_component (metadata);
-
-  if (component == NULL)
-    g_error ("Could not find valid AppStream metadata");
-
-  application_id = g_strdup (as_component_get_id (component));
+  application_id = g_strdup (ms_component_get_id (component));
 
   if (g_str_has_suffix (application_id, ".desktop")) {
-    AsLaunchable *launchable;
+    const char **desktop_launchables;
     char *appid_desktop;
-    GPtrArray *entries = NULL;
 
-    launchable = as_component_get_launchable (component,
-                                              AS_LAUNCHABLE_KIND_DESKTOP_ID);
-
-    if (launchable)
-      entries = as_launchable_get_entries (launchable);
-
+    desktop_launchables = ms_component_get_desktop_launchables (component);
     appid_desktop = g_strconcat (application_id, ".desktop", NULL);
 
-    if (!entries || !g_ptr_array_find_with_equal_func (entries, appid_desktop,
-                                                       g_str_equal, NULL))
+    if (!desktop_launchables || !g_strv_contains (desktop_launchables, appid_desktop))
       application_id[strlen(application_id) - 8] = '\0';
 
     g_free (appid_desktop);
   }
 
-#if AS_CHECK_VERSION (1, 0, 0)
-  releases = as_release_list_get_entries (as_component_get_releases_plain (component));
-#else
-  releases = as_component_get_releases (component);
-#endif
+  releases = ms_component_get_releases (component, &releases_len);
 
   if (release_notes_version) {
-    guint release_index = 0;
+    gboolean found_release = FALSE;
+    for (guint i = 0; i < releases_len; i++) {
+        const char *release_notes, *version;
 
-    if (g_ptr_array_find_with_equal_func (releases, release_notes_version,
-                                         (GEqualFunc) get_release_for_version,
-                                         &release_index)) {
-      AsRelease *notes_release;
-      const char *release_notes, *version;
+        version = ms_release_get_version (releases[i]);
+        if (g_strcmp0 (version, release_notes_version) != 0)
+            continue;
 
-      notes_release = g_ptr_array_index (releases, release_index);
+        release_notes = ms_release_get_description (releases[i]);
+        if (release_notes && version) {
+            adw_about_window_set_release_notes (self, release_notes);
+            adw_about_window_set_release_notes_version (self, version);
+        }
 
-      release_notes = as_release_get_description (notes_release);
-      version = as_release_get_version (notes_release);
-
-      if (release_notes && version) {
-        adw_about_window_set_release_notes (self, release_notes);
-        adw_about_window_set_release_notes_version (self, version);
-      }
-    } else {
-      g_critical ("No valid release found for version %s", release_notes_version);
+        found_release = TRUE;
+        break;
     }
+    if (!found_release)
+        g_critical ("No valid release found for version %s", release_notes_version);
   }
 
-  if (releases->len > 0) {
-    AsRelease *latest_release = g_ptr_array_index (releases, 0);
-    const char *version = as_release_get_version (latest_release);
+  if (releases_len > 0) {
+    const char *version = ms_release_get_version (releases[0]);
 
     if (version)
       adw_about_window_set_version (self, version);
   }
 
-  name = as_component_get_name (component);
-  project_license = as_component_get_project_license (component);
-  issue_url = as_component_get_url (component, AS_URL_KIND_BUGTRACKER);
-  support_url = as_component_get_url (component, AS_URL_KIND_HELP);
-  website_url = as_component_get_url (component, AS_URL_KIND_HOMEPAGE);
-
-#if AS_CHECK_VERSION (0, 16, 4)
-  developer_name = as_developer_get_name (as_component_get_developer (component));
-#else
-  developer_name = as_component_get_developer_name (component);
-#endif
+  name = ms_component_get_name (component);
+  project_license = ms_component_get_project_license (component);
+  issue_url = ms_component_get_bugtracker_uri (component);
+  support_url = ms_component_get_help_uri (component);
+  website_url = ms_component_get_homepage_uri (component);
+  developer_name = ms_component_get_developer_name (component);
 
   adw_about_window_set_application_icon (self, application_id);
 
@@ -2136,10 +2111,9 @@ adw_about_window_new_from_appdata (const char *resource_path,
   if (website_url)
     adw_about_window_set_website (self, website_url);
 
-  g_object_unref (appdata_file);
-  g_object_unref (metadata);
   g_free (application_id);
-  g_free (appdata_uri);
+  ms_component_unref (component);
+  g_bytes_unref (resource);
 
   return GTK_WIDGET (self);
 }
