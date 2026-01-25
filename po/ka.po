@@ -1,14 +1,14 @@
 # Georgian translation for libadwaita.
 # Copyright (C) 2024 libadwaita's authors
 # This file is distributed under the same license as the libadwaita package.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023-2025.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-09-04 08:53+0000\n"
-"PO-Revision-Date: 2025-09-04 11:43+0200\n"
+"POT-Creation-Date: 2025-12-25 12:43+0000\n"
+"PO-Revision-Date: 2026-01-25 10:53+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,100 +16,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU Lesser General Public License Version 2"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License Version 3"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public License Version 2.1"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License Version 3"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause License"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "The MIT License (MIT)"
 msgstr "The MIT License (MIT)"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "Artistic License 2.0"
 msgstr "ხელოვანების ლიცენზია"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU Lesser General Public License Version 2"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU Lesser General Public License Version 3"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License Version 2.1"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License Version 3"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License Version 3"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU General Public License Version 3"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause License"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Apache License, Version 2.0"
 msgstr "Apache License, Version 2.0"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause License"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "კოდის ავტორი"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "დიზაინი"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:576 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "დიზაინის ავტორი"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "დოკუმენტაციის ავტორი"
 
-#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "თარგმნა"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#: src/adw-about-dialog.c:607 src/adw-about-window.c:600
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -118,47 +118,47 @@ msgstr ""
 "პროგრამას ყოველგვარი გარანტიების გარეშე იღებთ. მეტი დეტალებისთვის იხილეთ <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+#: src/adw-about-dialog.c:685 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "ეს აპლიკაცია"
 
-#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#: src/adw-about-dialog.c:987 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "ვერისა %s"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+#: src/adw-about-dialog.c:1013 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "რელიზის შენიშვნების დამუშავების შეცდომა:"
 
-#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "ხაზი: %d, სიმბოლო: %d"
 
-#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+#: src/adw-about-dialog.c:1280 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "დაკოპირდა გაცვლის ბაფერში"
 
-#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+#: src/adw-about-dialog.c:1307 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "გამართვის ინფორმაციის შენახვის შეცდომა"
 
-#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
+#: src/adw-about-dialog.c:1312 src/adw-about-window.c:1306
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "დახურვა"
 
-#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "გამართვის ინფორმაციის შენახვა"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2270
 #, c-format
 msgid "Other Apps by %s"
 msgstr "სხვა აპები %s-სგან"
 
-#: src/adw-about-dialog.c:2308
+#: src/adw-about-dialog.c:2276
 msgid "Other Apps"
 msgstr "სხვა აპები"
 
@@ -174,48 +174,48 @@ msgstr "_რა არის ახალი"
 msgid "_Details"
 msgstr "_დეტალები"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
 msgid "_Website"
 msgstr "_ვებსაიტი"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
 msgid "_Support Questions"
 msgstr "მხარდაჭერის _კითხვები"
 
-#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Report an Issue"
 msgstr "_პრობლემის რეპორტი"
 
-#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
 msgid "_Troubleshooting"
 msgstr "_პრობლემების გადაჭრა"
 
-#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
 msgid "_Credits"
 msgstr "_კრედიტები"
 
-#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
 msgid "_Legal"
 msgstr "_იურიდიული"
 
-#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
 msgid "_Acknowledgements"
 msgstr "_სხვა გამოყენებული პროექტები"
 
-#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
 msgid "What’s New"
 msgstr "რა არის ახალი"
 
-#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
 msgid "Details"
 msgstr "დეტალები"
 
-#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
 msgid "Troubleshooting"
 msgstr "პრობლემების გადაჭრა"
 
-#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -225,31 +225,31 @@ msgstr ""
 "ინფორმაციას. პროგრამისტებისთვის ამ ინფორმაციის გაგზავნით შეგიძლიათ "
 "ნებისმიერი პრობლემა გადაჭრათ."
 
-#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
 msgid "_Debugging Information"
 msgstr "_გამართვის ინფორმაცია"
 
-#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
 msgid "Debugging Information"
 msgstr "გამართვის ინფორმაცია"
 
-#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
 msgid "_Copy Text"
 msgstr "ტექსტის _კოპირება"
 
-#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
 msgid "_Save As…"
 msgstr "შ_ენახვა როგორც…"
 
-#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
 msgid "Credits"
 msgstr "კრედიტები"
 
-#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
 msgid "Legal"
 msgstr "იურიდიული"
 
-#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Acknowledgements"
 msgstr "სხვა გამოყენებული პროექტები"
 
@@ -371,13 +371,11 @@ msgid "Generic Tablet"
 msgstr "ჩვეულებრივი ტაბლეტი"
 
 #: src/adw-adaptive-preview-presets-private.h:108
-#| msgid "OnePlus 6"
 msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
-#| msgid "OnePlus 6T"
 msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
@@ -398,14 +396,30 @@ msgid "Back"
 msgstr "უკან"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "ძებნა"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "გადატარება"
+
+#: src/adw-indicator-bin.c:77
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "მოთხოვნილია ყურადღების მიქცევა."
+
+#: src/adw-indicator-bin.c:80
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "აქვს სამკერდე ნიშანი: 999-ზე მეტი."
+
+#: src/adw-indicator-bin.c:82
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "აქვს სამკერდე ნიშანი: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -508,6 +522,14 @@ msgstr ""
 "შეამოწმეთ აპი სპეციფიკურ ეკრანის ზომებზე მობილური გარემოს სიმულაციისთვის. "
 "გახსენით მინიატურა პირდაპირ მხარდაჭერილ ფანჯარაზე ღილაკებით Shift+Ctrl+M"
 
+#: src/adw-link-row.c:327
+msgid "_Open Link"
+msgstr "_ბმულის გახსნა"
+
+#: src/adw-link-row.c:328
+msgid "Copy _Link Address"
+msgstr "ბმუ_ლის მისამართის კოპირება"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "პაროლის დამალვა"
@@ -536,17 +558,17 @@ msgstr "გამართვა"
 msgid "Search preferences"
 msgstr "ძებნის პარამეტრები"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "შედეგების გარეშე"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "სცადეთ სხვა ძებნა"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "სცადეთ სხვა ძებნა."
 
@@ -578,7 +600,7 @@ msgstr "მარჯ"
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "ძებნის მალსახმობები"
 
@@ -595,7 +617,7 @@ msgid "View Open Tabs"
 msgstr "ღია ჩანართების ნახვა"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:964
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -610,15 +632,15 @@ msgstr "ჩანართების ძებნა"
 msgid "Search tabs"
 msgstr "ჩანართების ძებნა"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "ღია ჩანართების გარეშე"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "შედეგების გარეშე"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "ახალი _ჩანართი"
 
