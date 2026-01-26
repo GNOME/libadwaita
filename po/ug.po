@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-09-10 21:02+0000\n"
-"PO-Revision-Date: 2025-09-17 18:01-0400\n"
+"POT-Creation-Date: 2025-12-25 12:43+0000\n"
+"PO-Revision-Date: 2026-01-26 11:20-0500\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: \n"
 "Language: ug\n"
@@ -16,144 +16,149 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 2-نەشرى ياكى يېڭىسى"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3-نەشرى ياكى يېڭىسى"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 1.‏2‎‏-نەشرى ياكى يېڭىسى"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرى ياكى يېڭىسى"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause ئىجازەتنامىسى"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "The MIT License (MIT)"
 msgstr "MIT ئىجازەتنامىسى (MIT يەنى ماسساچۇسېتس تېخنولوگىيە ئۇنىۋېرسىتېتى)"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "Artistic License 2.0"
 msgstr "سەنئەت ئىجازەتنامىسى ‪2.0"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 2-نەشرىلا"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3-نەشرىلا"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى ‪ 2.‏‬‎1‎-نەشرىلا"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU يېنىكرەك ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎-نەشرىلا"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرى ياكى يېڭىسى"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero ئادەتتىكى ئاممىۋى ئىجازەت كېلىشىمى 3‎‏-نەشرىلا"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "BSD 3-Clause License"
 msgstr "‪BSD 3-Clause ‬ئىجازەتنامىسى"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Apache License, Version 2.0"
 msgstr "Apache ئىجازەتنامىسى، ‪2.0 ‬نەشرى"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla ئاممىۋى ئىجازەتنامىسى ‪2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
 msgid "BSD Zero-Clause License"
 msgstr "BSD نۆل ماددىلىق ئىجازەتنامە"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "كود يازغۇچى"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "لايىھەلىگۈچى"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:576 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "گۈزەل سەنئەت تەھرىرى"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "پۈتۈكچى"
 
-#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "تەرجىمان"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#: src/adw-about-dialog.c:607 src/adw-about-window.c:600
 #, c-format
-msgid "This application comes with absolutely no warranty. See the <a href=\"%s\">%s</a> for details."
-msgstr "بۇ پىروگراممىنىڭ ھېچقانداق كاپالىتى يوق. تەپسىلاتىنى <a href=\"%s\">%s</a> دىن كۆرۈڭ."
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">%s</"
+"a> for details."
+msgstr ""
+"بۇ پىروگراممىنىڭ ھېچقانداق كاپالىتى يوق. تەپسىلاتىنى <a href=\"%s\">%s</a> دىن "
+"كۆرۈڭ."
 
-#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+#: src/adw-about-dialog.c:685 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "بۇ پىروگرامما"
 
-#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#: src/adw-about-dialog.c:987 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "نەشر %s"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+#: src/adw-about-dialog.c:1013 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "تارقىتىش ئىزاھاتىنى يېشەلمىدى:"
 
-#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "قۇر: %d ھەرپ: %d"
 
-#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+#: src/adw-about-dialog.c:1280 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "چاپلاش تاختىسىغا كۆچۈرۈلدى"
 
-#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+#: src/adw-about-dialog.c:1307 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "سازلاش ئۇچۇرىنى ساقلىيالمايدۇ"
 
-#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336 src/adw-sheet-controls.c:127
+#: src/adw-about-dialog.c:1312 src/adw-about-window.c:1306
+#: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "ياپ"
 
-#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "سازلاش ئۇچۇرىنى ساقلا"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2270
 #, c-format
 msgid "Other Apps by %s"
 msgstr "%s نىڭ باشقا پىروگراممىلىرى"
 
-#: src/adw-about-dialog.c:2308
+#: src/adw-about-dialog.c:2276
 msgid "Other Apps"
 msgstr "باشقا پىروگرامما"
 
@@ -169,77 +174,82 @@ msgstr "نېمە يېڭىلىق بار(_N)"
 msgid "_Details"
 msgstr "تەپسىلاتى(_D)"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348 src/adw-about-window.ui:123 src/adw-about-window.ui:346
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
 msgid "_Website"
 msgstr "تور بېكەت(_W)"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
 msgid "_Support Questions"
 msgstr "قوللاش سوئالى(_S)"
 
-#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Report an Issue"
 msgstr "مەسىلە مەلۇم قىل(_R)"
 
-#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
 msgid "_Troubleshooting"
 msgstr "مەسىلە ھەل قىل(_T)"
 
-#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
 msgid "_Credits"
 msgstr "تۆھپىكارلار(_C)"
 
-#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
 msgid "_Legal"
 msgstr "قانۇن ئۇچۇرى(_L)"
 
-#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
 msgid "_Acknowledgements"
 msgstr "تەشەككۈر(_A)"
 
-#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
 msgid "What’s New"
 msgstr "نېمە يېڭىلىق بار"
 
-#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
 msgid "Details"
 msgstr "تەپسىلاتى"
 
-#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
 msgid "Troubleshooting"
 msgstr "مەسىلە ھەل قىلىش"
 
-#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
 msgid ""
-"To assist in troubleshooting, you can view your debugging information. Providing this information to the application developers can help diagnose any problems you encounter when you report an "
-"issue."
-msgstr "سازلاش ئۇچۇرىنى كۆزدىن كەچۈرۈپ مەسىلە ھەل قىلىشقا ياردەملىشىڭ. مەسىلە مەلۇم قىلغاندا بۇ ئۇچۇرلارنى ئىجادكارلارغا تەمىنلەپ يولۇققان ھەر قانداق مەسىلىگە دىياگنوز قويۇشقا ياردەم بېرەلەيسىز."
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose any "
+"problems you encounter when you report an issue."
+msgstr ""
+"سازلاش ئۇچۇرىنى كۆزدىن كەچۈرۈپ مەسىلە ھەل قىلىشقا ياردەملىشىڭ. مەسىلە مەلۇم "
+"قىلغاندا بۇ ئۇچۇرلارنى ئىجادكارلارغا تەمىنلەپ يولۇققان ھەر قانداق مەسىلىگە "
+"دىياگنوز قويۇشقا ياردەم بېرەلەيسىز."
 
-#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
 msgid "_Debugging Information"
 msgstr "سازلاش ئۇچۇرى(_D)"
 
-#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
 msgid "Debugging Information"
 msgstr "سازلاش ئۇچۇرى"
 
-#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
 msgid "_Copy Text"
 msgstr "تېكىست كۆچۈر(_C)"
 
-#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
 msgid "_Save As…"
 msgstr "باشقا ئاتتا ساقلا(_S)…"
 
-#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
 msgid "Credits"
 msgstr "تۆھپىكارلار"
 
-#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
 msgid "Legal"
 msgstr "قانۇن ئۇچۇرى"
 
-#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Acknowledgements"
 msgstr "تەشەككۈر"
 
@@ -247,7 +257,8 @@ msgstr "تەشەككۈر"
 msgid "Screenshot Copied to Clipboard"
 msgstr "ئېكران كۆرۈنۈشى چاپلاش تاختىسىغا كۆچۈرۈلدى"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67 src/adw-inspector-page.ui:88
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
+#: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "ماسلىشىشچانلىق ئالدىن كۆزىتىشى"
 
@@ -384,13 +395,30 @@ msgid "Back"
 msgstr "قايت"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85 src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "ئىزدە"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "قوللان"
+
+#: src/adw-indicator-bin.c:77
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "دىققەت قىلىش تەلەپ قىلىندى."
+
+#: src/adw-indicator-bin.c:80
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "تارتۇقى بار: 999 دىن كۆپ."
+
+#: src/adw-indicator-bin.c:82
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "تارتۇقى بار: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -450,8 +478,12 @@ msgid "System Appearance"
 msgstr "سىستېما قىياپىتى"
 
 #: src/adw-inspector-page.ui:11
-msgid "Override settings for this application. They will be reset upon closing the inspector."
-msgstr "بۇ پىروگراممىنىڭ تەڭشىكىنى قاپلايدۇ. ئۇلار تەكشۈرگۈچنى تاقىغاندا ئەسلىگە قايتۇرىدۇ."
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"بۇ پىروگراممىنىڭ تەڭشىكىنى قاپلايدۇ. ئۇلار تەكشۈرگۈچنى تاقىغاندا ئەسلىگە "
+"قايتۇرىدۇ."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
@@ -482,8 +514,21 @@ msgid "High Contrast"
 msgstr "يۇقىرى سېلىشتۇرما"
 
 #: src/adw-inspector-page.ui:89
-msgid "Test the app at specific screen sizes to simulate a mobile environment. Open the preview directly on any supported window using Shift+Ctrl+M"
-msgstr "پىروگراممىنى بەلگىلەنگەن ئېكران چوڭلۇقىدىكى ئىپادىسىنى سىناپ كۆچمە ئۈسكۈنە مۇھىتىنى تەقلىدلەيدۇ. Shift+Ctrl+M ئارقىلىق قوللايدىغان خالىغان ئېكراندا ئالدىن كۆزىتىشنى بىۋاسىتە ئاچقىلى بولىدۇ"
+msgid ""
+"Test the app at specific screen sizes to simulate a mobile environment. Open "
+"the preview directly on any supported window using Shift+Ctrl+M"
+msgstr ""
+"پىروگراممىنى بەلگىلەنگەن ئېكران چوڭلۇقىدىكى ئىپادىسىنى سىناپ كۆچمە ئۈسكۈنە "
+"مۇھىتىنى تەقلىدلەيدۇ. Shift+Ctrl+M ئارقىلىق قوللايدىغان خالىغان ئېكراندا "
+"ئالدىن كۆزىتىشنى بىۋاسىتە ئاچقىلى بولىدۇ"
+
+#: src/adw-link-row.c:327
+msgid "_Open Link"
+msgstr "ئۇلانما ئاچ(_O)"
+
+#: src/adw-link-row.c:328
+msgid "Copy _Link Address"
+msgstr "ئۇلانما ئادرېسىنى كۆچۈر(_L)"
 
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
@@ -513,15 +558,17 @@ msgstr "مايىللىق"
 msgid "Search preferences"
 msgstr "ئىزدەش مايىللىقى"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163 src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "ھېچقانداق نەتىجە تېپىلمىدى"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75 src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "باشقا بىر پەرقلىق ئىزدەشنى سىناڭ"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "باشقا بىر پەرقلىق ئىزدەشنى سىناڭ."
 
@@ -553,7 +600,7 @@ msgstr "ئوڭ"
 msgid "Keyboard Shortcuts"
 msgstr "ھەرپتاختا تېزلەتمىسى"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "ئىزدەش تېزلەتمىسى"
 
@@ -570,7 +617,7 @@ msgid "View Open Tabs"
 msgstr "ئوچۇق بەتكۈچنى كۆرسەت"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:964
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -585,15 +632,15 @@ msgstr "بەتكۈچ ئىزدەيدۇ"
 msgid "Search tabs"
 msgstr "بەتكۈچ ئىزدەيدۇ"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "ئوچۇق بەتكۈچ يوق"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "بەتكۈچ تاپالمىدى"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "يېڭى بەتكۈچ(_T)"
 
