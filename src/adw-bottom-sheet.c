@@ -158,6 +158,7 @@ struct _AdwBottomSheet
   int sheet_height;
   int bottom_bar_height;
 
+  gboolean handle_focus;
   GtkWidget *last_content_focus;
   GtkWidget *last_sheet_focus;
 
@@ -1701,7 +1702,7 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
 
   root = gtk_widget_get_root (GTK_WIDGET (self));
 
-  if (gtk_widget_get_mapped (GTK_WIDGET (self))) {
+  if (gtk_widget_get_mapped (GTK_WIDGET (self)) && self->handle_focus) {
     if (root)
       focus = gtk_root_get_focus (root);
 
@@ -1721,7 +1722,7 @@ adw_bottom_sheet_set_open (AdwBottomSheet *self,
   if (self->modal)
     gtk_widget_set_can_focus (self->content_bin, !open);
 
-  if (gtk_widget_get_mapped (GTK_WIDGET (self))) {
+  if (gtk_widget_get_mapped (GTK_WIDGET (self)) && self->handle_focus) {
     if (open) {
       if (self->last_sheet_focus) {
         gtk_widget_grab_focus (self->last_sheet_focus);
@@ -2189,6 +2190,15 @@ adw_bottom_sheet_set_reveal_bottom_bar (AdwBottomSheet *self,
     gtk_widget_add_css_class (self->sheet_bin, "hidden");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_BOTTOM_BAR]);
+}
+
+void
+adw_bottom_sheet_set_handle_focus (AdwBottomSheet *self,
+                                   gboolean        handle_focus)
+{
+  g_return_if_fail (ADW_IS_BOTTOM_SHEET (self));
+
+  self->handle_focus = !!handle_focus;
 }
 
 void

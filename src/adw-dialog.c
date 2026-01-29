@@ -511,6 +511,7 @@ update_presentation (AdwDialog *self)
     priv->bottom_sheet = ADW_BOTTOM_SHEET (adw_bottom_sheet_new ());
 
     adw_bottom_sheet_set_min_natural_width (priv->bottom_sheet, 360);
+    adw_bottom_sheet_set_handle_focus (priv->bottom_sheet, FALSE);
 
     if (!priv->first_map)
       adw_bottom_sheet_set_open (priv->bottom_sheet, TRUE);
