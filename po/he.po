@@ -7,116 +7,116 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-07-09 18:57+0000\n"
-"PO-Revision-Date: 2025-07-15 17:38+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2025-12-25 12:43+0000\n"
+"PO-Revision-Date: 2026-01-30 12:04+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
-"2 : 3)\n"
-"X-Generator: Gtranslator 48.0\n"
+"2 : 3);\n"
+"X-Generator: Poedit 3.8\n"
 "X-DL-Team: he\n"
 "X-DL-Module: libadwaita\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: None\n"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
 msgstr "הרישיון הציבורי הכללי של גנו, גרסה 2 או כל גרסה מאוחרת יותר"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 or later"
 msgstr "הרישיון הציבורי הכללי של גנו, גרסה 3 או כל גרסה מאוחרת יותר"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "הרישיון הציבורי הכללי המוקטן של גנו, גרסה 2.1 או כל גרסה מאוחרת יותר"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "הרישיון הציבורי הכללי המוקטן של גנו, גרסה 3 או כל גרסה מאוחרת יותר"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "BSD 2-Clause License"
 msgstr "רשיון BSD דו־סעיפי"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "The MIT License (MIT)"
 msgstr "רישיון MIT ‏(MIT)"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "Artistic License 2.0"
 msgstr "רישיון אמנותי 2.0"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 2 only"
 msgstr "הרישיון הציבורי הכללי של גנו, גרסה 2 בלבד"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU General Public License, version 3 only"
 msgstr "הרישיון הציבורי הכללי של גנו, גרסה 3 בלבד"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "הרישיון הציבורי הכללי המוקטן של גנו, גרסה 2.1 בלבד"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "הרישיון הציבורי הכללי המוקטן של גנו, גרסה 3 בלבד"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr ""
 "הרישיון הציבורי הכללי של גנו במהדורת Affero, גרסה 3 או כל גרסה מאוחרת יותר"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "הרישיון הציבורי הכללי של גנו במהדורת Affero, גרסה 3 בלבד"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "BSD 3-Clause License"
 msgstr "רישיון BSD תלת־סעיפי"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Apache License, Version 2.0"
 msgstr "רישיון אפאצ'י, גרסה 2.0"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "Mozilla Public License 2.0"
 msgstr "הרישיון הציבורי של מוזילה, גרסה 2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
 msgid "BSD Zero-Clause License"
 msgstr "רשיון BSD אפס־סעיפי"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:574 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "קוד על ידי"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:575 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "עיצוב על ידי"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:576 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "אומנות על ידי"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "תיעוד על ידי"
 
-#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "תרגום על ידי"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#: src/adw-about-dialog.c:607 src/adw-about-window.c:600
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -124,47 +124,47 @@ msgid ""
 msgstr ""
 "תכנית זו מופצת ללא שום אחריות. ניתן לבקר בכתובת <a href=\"%s\">%s</a> לפרטים."
 
-#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+#: src/adw-about-dialog.c:685 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "יישום זה"
 
-#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#: src/adw-about-dialog.c:987 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "גרסה %s"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+#: src/adw-about-dialog.c:1013 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "לא ניתן לנתח את הערות השחרור:"
 
-#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "שורה: %d, תו: %d"
 
-#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+#: src/adw-about-dialog.c:1280 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "הועתק ללוח הגזירים"
 
-#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+#: src/adw-about-dialog.c:1307 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "לא ניתן לשמור מידע לניפוי שגיאות"
 
-#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
+#: src/adw-about-dialog.c:1312 src/adw-about-window.c:1306
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "סגירה"
 
-#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "שמירת מידע לניפוי שגיאות"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2270
 #, c-format
 msgid "Other Apps by %s"
 msgstr "יישומים אחרים מאת %s"
 
-#: src/adw-about-dialog.c:2308
+#: src/adw-about-dialog.c:2276
 msgid "Other Apps"
 msgstr "יישומים אחרים"
 
@@ -180,79 +180,79 @@ msgstr "מה _חדש"
 msgid "_Details"
 msgstr "_פרטים"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:345
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:343
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
 msgid "_Website"
 msgstr "_אתר אינטרנט"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
 msgid "_Support Questions"
 msgstr "_שאלות נפוצות"
 
-#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Report an Issue"
 msgstr "_דיווח על תקלה"
 
-#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
 msgid "_Troubleshooting"
 msgstr "_פתרון תקלות"
 
-#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
 msgid "_Credits"
 msgstr "_תודות"
 
-#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
 msgid "_Legal"
 msgstr "_משפטי"
 
-#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
 msgid "_Acknowledgements"
 msgstr "ה_כרה"
 
-#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
 msgid "What’s New"
 msgstr "מה חדש"
 
-#: src/adw-about-dialog.ui:307 src/adw-about-window.ui:305
+#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
 msgid "Details"
 msgstr "פרטים"
 
-#: src/adw-about-dialog.ui:373 src/adw-about-window.ui:371
+#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
 msgid "Troubleshooting"
 msgstr "פתרון תקלות"
 
-#: src/adw-about-dialog.ui:396 src/adw-about-window.ui:394
+#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr "לסיוע בפתרון תקלות, באפשרותך לצפות במידע לניפוי שגיאות."
 
-#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
+#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
 msgid "_Debugging Information"
 msgstr "מידע ל_ניפוי שגיאות"
 
-#: src/adw-about-dialog.ui:434 src/adw-about-window.ui:432
+#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
 msgid "Debugging Information"
 msgstr "מידע לניפוי שגיאות"
 
-#: src/adw-about-dialog.ui:479 src/adw-about-window.ui:477
+#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
 msgid "_Copy Text"
 msgstr "_העתקת טקסט"
 
-#: src/adw-about-dialog.ui:487 src/adw-about-window.ui:485
+#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
 msgid "_Save As…"
 msgstr "_שמירה בשם…"
 
-#: src/adw-about-dialog.ui:500 src/adw-about-window.ui:498
+#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
 msgid "Credits"
 msgstr "תודות"
 
-#: src/adw-about-dialog.ui:531 src/adw-about-window.ui:529
+#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
 msgid "Legal"
 msgstr "משפטי"
 
-#: src/adw-about-dialog.ui:563 src/adw-about-window.ui:561
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Acknowledgements"
 msgstr "הכרה"
 
@@ -393,20 +393,36 @@ msgstr "מותאם אישית"
 msgid "Avatar of %s"
 msgstr "תמונה ייצוגית של %s"
 
-#: src/adw-back-button.c:311 src/adw-back-button.c:409
-#: src/adw-back-button.c:519
+#: src/adw-back-button.c:313 src/adw-back-button.c:411
+#: src/adw-back-button.c:521
 msgid "Back"
 msgstr "אחורה"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "חיפוש"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "החלה"
+
+#: src/adw-indicator-bin.c:77
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "נדרשת תשומת לב"
+
+#: src/adw-indicator-bin.c:80
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "יש עיטור: יותר מ־999."
+
+#: src/adw-indicator-bin.c:82
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "יש עיטור: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -507,6 +523,14 @@ msgstr ""
 "בדיקת היישום בגדלי מסך מסוימים כדי לדמות סביבה ניידת. ניתן לפתוח את התצוגה "
 "המקדימה ישירות בכל חלון נתמך באמצעות Shift+Ctrl+M"
 
+#: src/adw-link-row.c:327
+msgid "_Open Link"
+msgstr "_פתיחת קישור"
+
+#: src/adw-link-row.c:328
+msgid "Copy _Link Address"
+msgstr "ה_עתקת כתובת קישור"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "הסתרת ססמה"
@@ -535,17 +559,17 @@ msgstr "העדפות"
 msgid "Search preferences"
 msgstr "חיפוש העדפות"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:55
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "לא נמצאו תוצאות"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:56
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "יש לנסות חיפוש שונה"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "יש לנסות חיפוש שונה."
 
@@ -577,11 +601,11 @@ msgstr "י"
 msgid "Keyboard Shortcuts"
 msgstr "צירופי מקשים"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "חיפוש קיצורי מקשים"
 
-#: src/adw-shortcut-row.c:253
+#: src/adw-shortcut-row.c:257
 msgid "No Shortcut"
 msgstr "אין צירופי מקשים"
 
@@ -594,7 +618,7 @@ msgid "View Open Tabs"
 msgstr "הצגת לשוניות פתוחות"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:964
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -611,15 +635,15 @@ msgstr "חיפוש לשוניות"
 msgid "Search tabs"
 msgstr "חיפוש לשוניות"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "אין לשוניות פתוחות"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "לא נמצאו לשוניות"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "_לשונית חדשה"
 
