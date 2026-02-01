@@ -1641,7 +1641,7 @@ escape_markup (GBinding     *binding,
   if (str)
     g_value_take_string (to_value, g_markup_escape_text (str, -1));
   else
-    g_value_take_string (to_value, NULL);
+    g_value_take_string (to_value, g_strdup (""));
 
   return TRUE;
 }
