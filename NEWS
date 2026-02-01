@@ -1,4 +1,17 @@
 =============
+Version 1.8.4
+=============
+
+- AdwDialog
+  - Fix initial focus in bottom sheet mode
+- AdwWrapBox
+  - Fix ADW_JUSTIFY_SPREAD
+- Translation updates
+  - Indonesian
+  - Kazakh
+  - Romanian
+
+=============
 Version 1.8.3
 =============
 
