@@ -1939,9 +1939,7 @@ adw_tab_overview_buildable_add_child (GtkBuildable *buildable,
 {
   AdwTabOverview *self = ADW_TAB_OVERVIEW (buildable);
 
-  if (!self->overview)
-    parent_buildable_iface->add_child (buildable, builder, child, type);
-  else if (GTK_IS_WIDGET (child))
+  if (self->overview && GTK_IS_WIDGET (child))
     adw_tab_overview_set_child (self, GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
