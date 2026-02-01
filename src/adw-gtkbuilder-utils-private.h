@@ -47,4 +47,9 @@ const char *_gtk_builder_parser_translate (const char *domain,
                                            const char *context,
                                            const char *text);
 
+void gtk_buildable_child_deprecation_warning (GtkBuildable *buildable,
+                                              GtkBuilder   *builder,
+                                              const char   *type,
+                                              const char   *prop);
+
 G_END_DECLS

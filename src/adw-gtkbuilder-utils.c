@@ -136,3 +136,38 @@ _gtk_builder_parser_translate (const char *domain,
 
   return s;
 }
+
+static inline void
+gdk_debug_message (const char *format, ...) G_GNUC_PRINTF(1, 2);
+static inline void
+gdk_debug_message (const char *format, ...)
+{
+  va_list args;
+
+  va_start (args, format);
+#ifdef GLIB_USING_SYSTEM_PRINTF
+  vfprintf (stderr, format, args);
+#else
+  g_vfprintf (stderr, format, args);
+#endif
+  va_end (args);
+
+  fprintf (stderr, "\n");
+}
+
+void
+gtk_buildable_child_deprecation_warning (GtkBuildable *buildable,
+                                         GtkBuilder   *builder,
+                                         const char   *type,
+                                         const char   *prop)
+{
+  if (GTK_DEBUG_CHECK (BUILDER)) {
+    if (type) {
+      gdk_debug_message ("<child type=\"%s\"> in %s is deprecated, just set the %s property",
+                         type, G_OBJECT_TYPE_NAME (buildable), prop);
+    } else {
+      gdk_debug_message ("<child> in %s is deprecated, just set the %s property",
+                         G_OBJECT_TYPE_NAME (buildable), prop);
+    }
+  }
+}
