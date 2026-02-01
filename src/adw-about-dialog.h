@@ -31,6 +31,9 @@ ADW_AVAILABLE_IN_1_5
 AdwDialog *adw_about_dialog_new_from_appdata (const char *resource_path,
                                               const char *release_notes_version) G_GNUC_WARN_UNUSED_RESULT;
 
+ADW_AVAILABLE_IN_1_9
+const char *adw_about_dialog_get_appdata_resource_path (AdwAboutDialog *self);
+
 ADW_AVAILABLE_IN_1_5
 const char *adw_about_dialog_get_application_name (AdwAboutDialog *self);
 ADW_AVAILABLE_IN_1_5

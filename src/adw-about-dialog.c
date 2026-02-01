@@ -317,12 +317,15 @@ struct _AdwAboutDialog {
   gboolean has_custom_links;
 
   guint legal_showing_idle_id;
+
+  char *appdata_resource_path;
 };
 
 G_DEFINE_FINAL_TYPE (AdwAboutDialog, adw_about_dialog, ADW_TYPE_DIALOG)
 
 enum {
   PROP_0,
+  PROP_APPDATA_RESOURCE_PATH,
   PROP_APPLICATION_ICON,
   PROP_APPLICATION_NAME,
   PROP_DEVELOPER_NAME,
@@ -1072,9 +1075,7 @@ update_support (AdwAboutDialog *self)
 }
 
 static void
-populate_from_appdata (AdwAboutDialog *self,
-                       const char     *resource_path,
-                       const char     *release_notes_version)
+populate_from_appdata (AdwAboutDialog *self)
 {
   GFile *appdata_file;
   char *appdata_uri;
@@ -1086,9 +1087,9 @@ populate_from_appdata (AdwAboutDialog *self,
   const char *issue_url, *support_url, *website_url;
   GError *error = NULL;
 
-  g_return_if_fail (resource_path != NULL);
+  g_assert (self->appdata_resource_path != NULL);
 
-  appdata_uri = g_strconcat ("resource://", resource_path, NULL);
+  appdata_uri = g_strconcat ("resource://", self->appdata_resource_path, NULL);
   appdata_file = g_file_new_for_uri (appdata_uri);
 
   metadata = as_metadata_new ();
@@ -1131,26 +1132,19 @@ populate_from_appdata (AdwAboutDialog *self,
   releases = as_component_get_releases (component);
 #endif
 
-  if (release_notes_version) {
+  if (self->release_notes_version && *self->release_notes_version) {
     guint release_index = 0;
 
-    if (g_ptr_array_find_with_equal_func (releases, release_notes_version,
+    if (g_ptr_array_find_with_equal_func (releases, self->release_notes_version,
                                          (GEqualFunc) get_release_for_version,
                                          &release_index)) {
-      AsRelease *notes_release;
-      const char *release_notes, *version;
+      AsRelease *release = g_ptr_array_index (releases, release_index);
+      const char *release_notes = as_release_get_description (release);
 
-      notes_release = g_ptr_array_index (releases, release_index);
-
-      release_notes = as_release_get_description (notes_release);
-      version = as_release_get_version (notes_release);
-
-      if (release_notes && version) {
+      if (release_notes)
         adw_about_dialog_set_release_notes (self, release_notes);
-        adw_about_dialog_set_release_notes_version (self, version);
-      }
     } else {
-      g_critical ("No valid release found for version %s", release_notes_version);
+      g_critical ("No valid release found for version %s", self->release_notes_version);
     }
   }
 
@@ -1228,6 +1222,9 @@ adw_about_dialog_get_property (GObject    *object,
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
 
   switch (prop_id) {
+  case PROP_APPDATA_RESOURCE_PATH:
+    g_value_set_string (value, adw_about_dialog_get_appdata_resource_path (self));
+    break;
   case PROP_APPLICATION_ICON:
     g_value_set_string (value, adw_about_dialog_get_application_icon (self));
     break;
@@ -1302,6 +1299,9 @@ adw_about_dialog_set_property (GObject      *object,
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
 
   switch (prop_id) {
+  case PROP_APPDATA_RESOURCE_PATH:
+    g_set_str (&self->appdata_resource_path, g_value_get_string (value));
+    break;
   case PROP_APPLICATION_ICON:
     adw_about_dialog_set_application_icon (self, g_value_get_string (value));
     break;
@@ -1368,6 +1368,17 @@ adw_about_dialog_set_property (GObject      *object,
 }
 
 static void
+adw_about_dialog_constructed (GObject *object)
+{
+  AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
+
+  G_OBJECT_CLASS (adw_about_dialog_parent_class)->constructed (object);
+
+  if (self->appdata_resource_path)
+    populate_from_appdata (self);
+}
+
+static void
 adw_about_dialog_dispose (GObject *object)
 {
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
@@ -1405,6 +1416,8 @@ adw_about_dialog_finalize (GObject *object)
   g_free (self->copyright);
   g_free (self->license);
   g_slist_free_full (self->legal_sections, (GDestroyNotify) free_legal_section);
+
+  g_free (self->appdata_resource_path);
 
   G_OBJECT_CLASS (adw_about_dialog_parent_class)->finalize (object);
 }
@@ -1505,10 +1518,30 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->constructed = adw_about_dialog_constructed;
   object_class->dispose = adw_about_dialog_dispose;
   object_class->finalize = adw_about_dialog_finalize;
   object_class->get_property = adw_about_dialog_get_property;
   object_class->set_property = adw_about_dialog_set_property;
+
+  /**
+   * AdwAboutDialog:appdata-resource-path:
+   *
+   * The path to the Appstream metadata resource.
+   *
+   * If provided, the dialog will be constructed from it.
+   *
+   * See [constructor@AboutDialog.from_appdata].
+   *
+   * If [property@AboutDialog:release-notes-version] is set, release notes will
+   * be set from the AppStream release description for that version.
+   *
+   * Since: 1.9
+   */
+  props[PROP_APPDATA_RESOURCE_PATH] =
+    g_param_spec_string ("appdata-resource-path", NULL, NULL,
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAboutDialog:application-icon:
@@ -1597,7 +1630,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   props[PROP_RELEASE_NOTES_VERSION] =
     g_param_spec_string ("release-notes-version", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAboutDialog:release-notes:
@@ -2130,15 +2163,15 @@ AdwDialog *
 adw_about_dialog_new_from_appdata (const char *resource_path,
                                    const char *release_notes_version)
 {
-  AdwAboutDialog *self;
-
   g_return_val_if_fail (resource_path != NULL, NULL);
 
-  self = ADW_ABOUT_DIALOG (adw_about_dialog_new ());
+  if (!release_notes_version)
+    release_notes_version = "";
 
-  populate_from_appdata (self, resource_path, release_notes_version);
-
-  return ADW_DIALOG (self);
+  return g_object_new (ADW_TYPE_ABOUT_DIALOG,
+                       "appdata-resource-path", resource_path,
+                       "release-notes-version", release_notes_version,
+                       NULL);
 }
 
 /**
@@ -2184,6 +2217,24 @@ adw_about_dialog_set_application_icon (AdwAboutDialog *self,
                           application_icon && *application_icon);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_APPLICATION_ICON]);
+}
+
+/**
+ * adw_about_dialog_get_appdata_resource_path:
+ * @self: an about dialog
+ *
+ * Gets the AppStream metadata resource path for @self.
+ *
+ * Returns: (nullable): the resource path
+ *
+ * Since: 1.9
+ */
+const char *
+adw_about_dialog_get_appdata_resource_path (AdwAboutDialog *self)
+{
+  g_return_val_if_fail (ADW_IS_ABOUT_DIALOG (self), NULL);
+
+  return self->appdata_resource_path;
 }
 
 /**

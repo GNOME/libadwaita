@@ -18,6 +18,7 @@ test_adw_about_dialog_from_appdata (void)
 
   g_assert_nonnull (dialog);
 
+  g_assert_cmpstr (adw_about_dialog_get_appdata_resource_path (dialog), ==, "/org/gnome/Adwaita1/Test/org.gnome.Adwaita1.Test.metainfo.xml");
   g_assert_cmpstr (adw_about_dialog_get_release_notes (dialog), ==, "<p>Testing Build</p>\n");
   g_assert_cmpstr (adw_about_dialog_get_release_notes_version (dialog), ==, "1.0");
   g_assert_cmpstr (adw_about_dialog_get_version (dialog), ==, "1.0");
@@ -35,6 +36,7 @@ test_adw_about_dialog_from_appdata (void)
 
   g_assert_nonnull (dialog);
 
+  g_assert_cmpstr (adw_about_dialog_get_appdata_resource_path (dialog), ==, "/org/gnome/Adwaita1/Test/org.gnome.Adwaita1.Test.metainfo.xml");
   g_assert_cmpstr (adw_about_dialog_get_release_notes (dialog), ==, "<p>Testing Build Older</p>\n");
   g_assert_cmpstr (adw_about_dialog_get_release_notes_version (dialog), ==, "0.1");
   g_assert_cmpstr (adw_about_dialog_get_version (dialog), ==, "1.0");
@@ -45,6 +47,7 @@ test_adw_about_dialog_from_appdata (void)
 
   g_assert_nonnull (dialog);
 
+  g_assert_cmpstr (adw_about_dialog_get_appdata_resource_path (dialog), ==, "/org/gnome/Adwaita1/Test/org.gnome.Adwaita1.Test.metainfo.xml");
   g_assert_cmpstr (adw_about_dialog_get_release_notes (dialog), ==, "");
   g_assert_cmpstr (adw_about_dialog_get_release_notes_version (dialog), ==, "");
   g_assert_cmpstr (adw_about_dialog_get_version (dialog), ==, "1.0");
@@ -111,6 +114,7 @@ test_adw_about_dialog_create (void)
                 "license-type", GTK_LICENSE_GPL_3_0,
                 NULL);
 
+  g_assert_null (adw_about_dialog_get_appdata_resource_path (dialog));
   g_assert_cmpstr (adw_about_dialog_get_application_name (dialog), ==, "Example");
   g_assert_cmpstr (adw_about_dialog_get_application_icon (dialog), ==, "org.gnome.Example");
   g_assert_cmpstr (adw_about_dialog_get_developer_name (dialog), ==, "Angela Avery");
