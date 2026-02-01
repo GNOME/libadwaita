@@ -11,6 +11,7 @@
 #include "adw-tab-bar-private.h"
 
 #include "adw-bin.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-tab-box-private.h"
 #include "adw-widget-utils-private.h"
 
@@ -803,12 +804,15 @@ adw_tab_bar_buildable_add_child (GtkBuildable *buildable,
     return;
   }
 
-  if (!type || !g_strcmp0 (type, "start"))
+  if (!type || !g_strcmp0 (type, "start")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "start", "start-action-widget");
     adw_tab_bar_set_start_action_widget (self, GTK_WIDGET (child));
-  else if (!g_strcmp0 (type, "end"))
+  } else if (!g_strcmp0 (type, "end")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "end", "end-action-widget");
     adw_tab_bar_set_end_action_widget (self, GTK_WIDGET (child));
-  else
+  } else {
     GTK_BUILDER_WARN_INVALID_CHILD_TYPE (ADW_TAB_BAR (self), type);
+  }
 }
 
 static void

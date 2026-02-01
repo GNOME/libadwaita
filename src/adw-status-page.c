@@ -8,6 +8,7 @@
 
 #include "adw-status-page.h"
 
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-spinner-paintable.h"
 #include "adw-widget-utils-private.h"
 
@@ -300,10 +301,12 @@ adw_status_page_buildable_add_child (GtkBuildable *buildable,
 {
   AdwStatusPage *self = ADW_STATUS_PAGE (buildable);
 
-  if (self->scrolled_window && GTK_IS_WIDGET (child))
+  if (self->scrolled_window && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_status_page_set_child (self, GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

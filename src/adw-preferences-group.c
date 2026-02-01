@@ -8,6 +8,7 @@
 
 #include "adw-preferences-group-private.h"
 
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-preferences-row.h"
 #include "adw-widget-utils-private.h"
 
@@ -345,12 +346,14 @@ adw_preferences_group_buildable_add_child (GtkBuildable *buildable,
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (buildable);
   AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
 
-  if (g_strcmp0 (type, "header-suffix") == 0 && GTK_IS_WIDGET (child))
+  if (g_strcmp0 (type, "header-suffix") == 0 && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "header-suffix", "header-suffix");
     adw_preferences_group_set_header_suffix (self, GTK_WIDGET (child));
-  else if (priv->box && GTK_IS_WIDGET (child))
+  } else if (priv->box && GTK_IS_WIDGET (child)) {
     adw_preferences_group_add (self, GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

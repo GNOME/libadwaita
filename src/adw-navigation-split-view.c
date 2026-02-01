@@ -13,6 +13,7 @@
 
 #include "adw-bin.h"
 #include "adw-enums.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-length-unit.h"
 #include "adw-navigation-view-private.h"
 #include "adw-widget-utils-private.h"
@@ -1002,20 +1003,24 @@ adw_navigation_split_view_add_child (GtkBuildable *buildable,
                                      GObject      *child,
                                      const char   *type)
 {
-  if (!ADW_IS_NAVIGATION_PAGE (child) && GTK_IS_WIDGET (child))
+  if (!ADW_IS_NAVIGATION_PAGE (child) && GTK_IS_WIDGET (child)) {
     g_warning ("Cannot add an object of type %s to AdwNavigationSplitView",
                g_type_name (G_OBJECT_TYPE (child)));
-  else if (!g_strcmp0 (type, "content"))
+  } else if (!g_strcmp0 (type, "content")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "content", "content");
     adw_navigation_split_view_set_content (ADW_NAVIGATION_SPLIT_VIEW (buildable),
                                            ADW_NAVIGATION_PAGE (child));
-  else if (!g_strcmp0 (type, "sidebar"))
+  } else if (!g_strcmp0 (type, "sidebar")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "sidebar", "sidebar");
     adw_navigation_split_view_set_sidebar (ADW_NAVIGATION_SPLIT_VIEW (buildable),
                                            ADW_NAVIGATION_PAGE (child));
-  else if (!type && ADW_IS_NAVIGATION_PAGE (child))
+  } else if (!type && ADW_IS_NAVIGATION_PAGE (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "content");
     adw_navigation_split_view_set_content (ADW_NAVIGATION_SPLIT_VIEW (buildable),
                                            ADW_NAVIGATION_PAGE (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

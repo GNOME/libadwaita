@@ -9,6 +9,7 @@
 
 #include "adw-split-button.h"
 
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
@@ -598,12 +599,15 @@ adw_split_button_buildable_add_child (GtkBuildable *buildable,
                                       GObject      *child,
                                       const char   *type)
 {
-  if (GTK_IS_POPOVER (child))
+  if (GTK_IS_POPOVER (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "popover");
     adw_split_button_set_popover (ADW_SPLIT_BUTTON (buildable), GTK_POPOVER (child));
-  else if (GTK_IS_WIDGET (child))
+  } else if (GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_split_button_set_child (ADW_SPLIT_BUTTON (buildable), GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

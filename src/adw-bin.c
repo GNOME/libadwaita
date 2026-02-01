@@ -9,6 +9,7 @@
 #include "config.h"
 #include "adw-bin.h"
 
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -133,10 +134,12 @@ adw_bin_buildable_add_child (GtkBuildable *buildable,
                              GObject      *child,
                              const char   *type)
 {
-  if (GTK_IS_WIDGET (child))
+  if (GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_bin_set_child (ADW_BIN (buildable), GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

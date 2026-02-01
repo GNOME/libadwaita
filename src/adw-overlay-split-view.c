@@ -13,6 +13,7 @@
 #include "adw-animation-util.h"
 #include "adw-bin.h"
 #include "adw-gizmo-private.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-length-unit.h"
 #include "adw-shadow-helper-private.h"
 #include "adw-spring-animation.h"
@@ -1177,17 +1178,21 @@ adw_overlay_split_view_add_child (GtkBuildable *buildable,
                                   GObject      *child,
                                   const char   *type)
 {
-  if (!g_strcmp0 (type, "content"))
+  if (!g_strcmp0 (type, "content")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "content", "content");
     adw_overlay_split_view_set_content (ADW_OVERLAY_SPLIT_VIEW (buildable),
                                         GTK_WIDGET (child));
-  else if (!g_strcmp0 (type, "sidebar"))
+  } else if (!g_strcmp0 (type, "sidebar")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "sidebar", "sidebar");
     adw_overlay_split_view_set_sidebar (ADW_OVERLAY_SPLIT_VIEW (buildable),
                                         GTK_WIDGET (child));
-  else if (!type && GTK_IS_WIDGET (child))
+  } else if (!type && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "content");
     adw_overlay_split_view_set_content (ADW_OVERLAY_SPLIT_VIEW (buildable),
                                         GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

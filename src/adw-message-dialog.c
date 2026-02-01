@@ -1429,10 +1429,12 @@ adw_message_dialog_buildable_add_child (GtkBuildable *buildable,
 {
   AdwMessageDialog *self = ADW_MESSAGE_DIALOG (buildable);
 
-  if (GTK_IS_WIDGET (child))
+  if (GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "extra-child");
     adw_message_dialog_set_extra_child (self, GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

@@ -16,6 +16,7 @@
 #include "adw-animation-util-private.h"
 #include "adw-bin.h"
 #include "adw-gizmo-private.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-marshalers.h"
 #include "adw-spring-animation.h"
 #include "adw-swipeable.h"
@@ -1274,16 +1275,21 @@ adw_bottom_sheet_buildable_add_child (GtkBuildable *buildable,
                                       GObject      *child,
                                       const char   *type)
 {
-  if (!g_strcmp0 (type, "sheet"))
+  if (!g_strcmp0 (type, "sheet")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "sheet", "sheet");
     adw_bottom_sheet_set_sheet (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
-  else if (!g_strcmp0 (type, "bottom-bar"))
+  } else if (!g_strcmp0 (type, "bottom-bar")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "bottom-bar", "bottom-bar");
     adw_bottom_sheet_set_bottom_bar (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
-  else if (!g_strcmp0 (type, "content"))
+  } else if (!g_strcmp0 (type, "content")) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "content", "content");
     adw_bottom_sheet_set_content (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
-  else if (!type && GTK_IS_WIDGET (child))
+  } else if (!type && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "content");
     adw_bottom_sheet_set_content (ADW_BOTTOM_SHEET (buildable), GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

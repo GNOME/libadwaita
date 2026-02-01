@@ -15,6 +15,7 @@
 #include "adw-dialog-host-private.h"
 #include "adw-floating-sheet-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
@@ -1326,13 +1327,15 @@ adw_dialog_buildable_add_child (GtkBuildable *buildable,
                                 GObject      *child,
                                 const char   *type)
 {
-  if (GTK_IS_WIDGET (child))
+  if (GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_dialog_set_child (ADW_DIALOG (buildable), GTK_WIDGET (child));
-  else if (ADW_IS_BREAKPOINT (child))
+  } else if (ADW_IS_BREAKPOINT (child)) {
     adw_dialog_add_breakpoint (ADW_DIALOG (buildable),
                                g_object_ref (ADW_BREAKPOINT (child)));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

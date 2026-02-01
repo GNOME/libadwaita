@@ -9,6 +9,7 @@
 #include "config.h"
 #include "adw-toolbar-view.h"
 
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -769,14 +770,16 @@ adw_toolbar_view_buildable_add_child (GtkBuildable *buildable,
 {
   AdwToolbarView *self = ADW_TOOLBAR_VIEW (buildable);
 
-  if (g_strcmp0 (type, "top") == 0)
+  if (g_strcmp0 (type, "top") == 0) {
     adw_toolbar_view_add_top_bar (self, GTK_WIDGET (child));
-  else if (g_strcmp0 (type, "bottom") == 0)
+  } else if (g_strcmp0 (type, "bottom") == 0) {
     adw_toolbar_view_add_bottom_bar (self, GTK_WIDGET (child));
-  else if (!type && GTK_IS_WIDGET (child))
+  } else if (!type && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "content");
     adw_toolbar_view_set_content (self, GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

@@ -11,6 +11,7 @@
 
 #include "adw-animation-util.h"
 #include "adw-easing.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-timed-animation.h"
 #include "adw-toast-private.h"
 #include "adw-toast-widget-private.h"
@@ -569,12 +570,14 @@ adw_toast_overlay_buildable_add_child (GtkBuildable *buildable,
 {
   AdwToastOverlay *self = ADW_TOAST_OVERLAY (buildable);
 
-  if (!type && GTK_IS_WIDGET (child))
+  if (!type && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_toast_overlay_set_child (self, GTK_WIDGET (child));
-  else if (!type && ADW_IS_TOAST (child))
+  } else if (!type && ADW_IS_TOAST (child)) {
     adw_toast_overlay_add_toast (self, g_object_ref (ADW_TOAST (child)));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

@@ -13,6 +13,7 @@
 
 #include "adw-animation-util-private.h"
 #include "adw-bin.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-header-bar.h"
 #include "adw-marshalers.h"
 #include "adw-style-manager.h"
@@ -1939,10 +1940,12 @@ adw_tab_overview_buildable_add_child (GtkBuildable *buildable,
 {
   AdwTabOverview *self = ADW_TAB_OVERVIEW (buildable);
 
-  if (self->overview && GTK_IS_WIDGET (child))
+  if (self->overview && GTK_IS_WIDGET (child)) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, NULL, "child");
     adw_tab_overview_set_child (self, GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void

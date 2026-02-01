@@ -32,6 +32,7 @@
 #include "adw-enums.h"
 #include "adw-floating-sheet-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-gtkbuilder-utils-private.h"
 #include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
 #include "adw-overlay-split-view.h"
@@ -1029,16 +1030,18 @@ adw_header_bar_buildable_add_child (GtkBuildable *buildable,
                                     GObject      *child,
                                     const char   *type)
 {
-  if (g_strcmp0 (type, "title") == 0)
+  if (g_strcmp0 (type, "title") == 0) {
+    gtk_buildable_child_deprecation_warning (buildable, builder, "title", "title-widget");
     adw_header_bar_set_title_widget (ADW_HEADER_BAR (buildable), GTK_WIDGET (child));
-  else if (g_strcmp0 (type, "start") == 0)
+  } else if (g_strcmp0 (type, "start") == 0) {
     adw_header_bar_pack_start (ADW_HEADER_BAR (buildable), GTK_WIDGET (child));
-  else if (g_strcmp0 (type, "end") == 0)
+  } else if (g_strcmp0 (type, "end") == 0) {
     adw_header_bar_pack_end (ADW_HEADER_BAR (buildable), GTK_WIDGET (child));
-  else if (type == NULL && GTK_IS_WIDGET (child))
+  } else if (type == NULL && GTK_IS_WIDGET (child)) {
     adw_header_bar_pack_start (ADW_HEADER_BAR (buildable), GTK_WIDGET (child));
-  else
+  } else {
     parent_buildable_iface->add_child (buildable, builder, child, type);
+  }
 }
 
 static void
