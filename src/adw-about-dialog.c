@@ -1072,6 +1072,154 @@ update_support (AdwAboutDialog *self)
 }
 
 static void
+populate_from_appdata (AdwAboutDialog *self,
+                       const char     *resource_path,
+                       const char     *release_notes_version)
+{
+  GFile *appdata_file;
+  char *appdata_uri;
+  AsMetadata *metadata;
+  GPtrArray *releases;
+  AsComponent *component;
+  char *application_id;
+  const char *name, *developer_name, *project_license;
+  const char *issue_url, *support_url, *website_url;
+  GError *error = NULL;
+
+  g_return_if_fail (resource_path != NULL);
+
+  appdata_uri = g_strconcat ("resource://", resource_path, NULL);
+  appdata_file = g_file_new_for_uri (appdata_uri);
+
+  metadata = as_metadata_new ();
+
+  if (!as_metadata_parse_file (metadata, appdata_file, AS_FORMAT_KIND_UNKNOWN, &error)) {
+    g_error ("Could not parse metadata file: %s", error->message);
+    g_clear_error (&error);
+  }
+
+  component = as_metadata_get_component (metadata);
+
+  if (component == NULL)
+    g_error ("Could not find valid AppStream metadata");
+
+  application_id = g_strdup (as_component_get_id (component));
+
+  if (g_str_has_suffix (application_id, ".desktop")) {
+    AsLaunchable *launchable;
+    char *appid_desktop;
+    GPtrArray *entries = NULL;
+
+    launchable = as_component_get_launchable (component,
+                                              AS_LAUNCHABLE_KIND_DESKTOP_ID);
+
+    if (launchable)
+      entries = as_launchable_get_entries (launchable);
+
+    appid_desktop = g_strconcat (application_id, ".desktop", NULL);
+
+    if (!entries || !g_ptr_array_find_with_equal_func (entries, appid_desktop,
+                                                       g_str_equal, NULL))
+      application_id[strlen(application_id) - 8] = '\0';
+
+    g_free (appid_desktop);
+  }
+
+#if AS_CHECK_VERSION (1, 0, 0)
+  releases = as_release_list_get_entries (as_component_get_releases_plain (component));
+#else
+  releases = as_component_get_releases (component);
+#endif
+
+  if (release_notes_version) {
+    guint release_index = 0;
+
+    if (g_ptr_array_find_with_equal_func (releases, release_notes_version,
+                                         (GEqualFunc) get_release_for_version,
+                                         &release_index)) {
+      AsRelease *notes_release;
+      const char *release_notes, *version;
+
+      notes_release = g_ptr_array_index (releases, release_index);
+
+      release_notes = as_release_get_description (notes_release);
+      version = as_release_get_version (notes_release);
+
+      if (release_notes && version) {
+        adw_about_dialog_set_release_notes (self, release_notes);
+        adw_about_dialog_set_release_notes_version (self, version);
+      }
+    } else {
+      g_critical ("No valid release found for version %s", release_notes_version);
+    }
+  }
+
+  if (releases->len > 0) {
+    AsRelease *latest_release = g_ptr_array_index (releases, 0);
+    const char *version = as_release_get_version (latest_release);
+
+    if (version)
+      adw_about_dialog_set_version (self, version);
+  }
+
+  name = as_component_get_name (component);
+  project_license = as_component_get_project_license (component);
+  issue_url = as_component_get_url (component, AS_URL_KIND_BUGTRACKER);
+  support_url = as_component_get_url (component, AS_URL_KIND_HELP);
+  website_url = as_component_get_url (component, AS_URL_KIND_HOMEPAGE);
+
+#if AS_CHECK_VERSION (0, 16, 4)
+  developer_name = as_developer_get_name (as_component_get_developer (component));
+#else
+  developer_name = as_component_get_developer_name (component);
+#endif
+
+  adw_about_dialog_set_application_icon (self, application_id);
+
+  if (name)
+    adw_about_dialog_set_application_name (self, name);
+
+  if (developer_name)
+    adw_about_dialog_set_developer_name (self, developer_name);
+
+  if (project_license) {
+    int i;
+
+    for (i = 0; i < G_N_ELEMENTS (gtk_license_info); i++) {
+      if (g_strcmp0 (gtk_license_info[i].spdx_id, project_license) == 0) {
+        adw_about_dialog_set_license_type (self, (GtkLicense) i);
+        break;
+      }
+    }
+
+    /* Handle deprecated SPDX IDs */
+    for (i = 0; i < G_N_ELEMENTS (license_aliases); i++) {
+      if (g_strcmp0 (license_aliases[i].spdx_id, project_license) == 0) {
+        adw_about_dialog_set_license_type (self, license_aliases[i].license);
+        break;
+      }
+    }
+
+    if (adw_about_dialog_get_license_type (self) == GTK_LICENSE_UNKNOWN)
+      adw_about_dialog_set_license_type (self, GTK_LICENSE_CUSTOM);
+  }
+
+  if (issue_url)
+    adw_about_dialog_set_issue_url (self, issue_url);
+
+  if (support_url)
+    adw_about_dialog_set_support_url (self, support_url);
+
+  if (website_url)
+    adw_about_dialog_set_website (self, website_url);
+
+  g_object_unref (appdata_file);
+  g_object_unref (metadata);
+  g_free (application_id);
+  g_free (appdata_uri);
+}
+
+static void
 adw_about_dialog_get_property (GObject    *object,
                                guint       prop_id,
                                GValue     *value,
@@ -1983,148 +2131,12 @@ adw_about_dialog_new_from_appdata (const char *resource_path,
                                    const char *release_notes_version)
 {
   AdwAboutDialog *self;
-  GFile *appdata_file;
-  char *appdata_uri;
-  AsMetadata *metadata;
-  GPtrArray *releases;
-  AsComponent *component;
-  char *application_id;
-  const char *name, *developer_name, *project_license;
-  const char *issue_url, *support_url, *website_url;
-  GError *error = NULL;
 
-  g_return_val_if_fail (resource_path, NULL);
-
-  appdata_uri = g_strconcat ("resource://", resource_path, NULL);
-  appdata_file = g_file_new_for_uri (appdata_uri);
+  g_return_val_if_fail (resource_path != NULL, NULL);
 
   self = ADW_ABOUT_DIALOG (adw_about_dialog_new ());
-  metadata = as_metadata_new ();
 
-  if (!as_metadata_parse_file (metadata, appdata_file, AS_FORMAT_KIND_UNKNOWN, &error)) {
-    g_error ("Could not parse metadata file: %s", error->message);
-    g_clear_error (&error);
-  }
-
-  component = as_metadata_get_component (metadata);
-
-  if (component == NULL)
-    g_error ("Could not find valid AppStream metadata");
-
-  application_id = g_strdup (as_component_get_id (component));
-
-  if (g_str_has_suffix (application_id, ".desktop")) {
-    AsLaunchable *launchable;
-    char *appid_desktop;
-    GPtrArray *entries = NULL;
-
-    launchable = as_component_get_launchable (component,
-                                              AS_LAUNCHABLE_KIND_DESKTOP_ID);
-
-    if (launchable)
-      entries = as_launchable_get_entries (launchable);
-
-    appid_desktop = g_strconcat (application_id, ".desktop", NULL);
-
-    if (!entries || !g_ptr_array_find_with_equal_func (entries, appid_desktop,
-                                                       g_str_equal, NULL))
-      application_id[strlen(application_id) - 8] = '\0';
-
-    g_free (appid_desktop);
-  }
-
-#if AS_CHECK_VERSION (1, 0, 0)
-  releases = as_release_list_get_entries (as_component_get_releases_plain (component));
-#else
-  releases = as_component_get_releases (component);
-#endif
-
-  if (release_notes_version) {
-    guint release_index = 0;
-
-    if (g_ptr_array_find_with_equal_func (releases, release_notes_version,
-                                         (GEqualFunc) get_release_for_version,
-                                         &release_index)) {
-      AsRelease *notes_release;
-      const char *release_notes, *version;
-
-      notes_release = g_ptr_array_index (releases, release_index);
-
-      release_notes = as_release_get_description (notes_release);
-      version = as_release_get_version (notes_release);
-
-      if (release_notes && version) {
-        adw_about_dialog_set_release_notes (self, release_notes);
-        adw_about_dialog_set_release_notes_version (self, version);
-      }
-    } else {
-      g_critical ("No valid release found for version %s", release_notes_version);
-    }
-  }
-
-  if (releases->len > 0) {
-    AsRelease *latest_release = g_ptr_array_index (releases, 0);
-    const char *version = as_release_get_version (latest_release);
-
-    if (version)
-      adw_about_dialog_set_version (self, version);
-  }
-
-  name = as_component_get_name (component);
-  project_license = as_component_get_project_license (component);
-  issue_url = as_component_get_url (component, AS_URL_KIND_BUGTRACKER);
-  support_url = as_component_get_url (component, AS_URL_KIND_HELP);
-  website_url = as_component_get_url (component, AS_URL_KIND_HOMEPAGE);
-
-#if AS_CHECK_VERSION (0, 16, 4)
-  developer_name = as_developer_get_name (as_component_get_developer (component));
-#else
-  developer_name = as_component_get_developer_name (component);
-#endif
-
-  adw_about_dialog_set_application_icon (self, application_id);
-
-  if (name)
-    adw_about_dialog_set_application_name (self, name);
-
-  if (developer_name)
-    adw_about_dialog_set_developer_name (self, developer_name);
-
-  if (project_license) {
-    int i;
-
-    for (i = 0; i < G_N_ELEMENTS (gtk_license_info); i++) {
-      if (g_strcmp0 (gtk_license_info[i].spdx_id, project_license) == 0) {
-        adw_about_dialog_set_license_type (self, (GtkLicense) i);
-        break;
-      }
-    }
-
-    /* Handle deprecated SPDX IDs */
-    for (i = 0; i < G_N_ELEMENTS (license_aliases); i++) {
-      if (g_strcmp0 (license_aliases[i].spdx_id, project_license) == 0) {
-        adw_about_dialog_set_license_type (self, license_aliases[i].license);
-        break;
-      }
-    }
-
-    if (adw_about_dialog_get_license_type (self) == GTK_LICENSE_UNKNOWN)
-      adw_about_dialog_set_license_type (self, GTK_LICENSE_CUSTOM);
-  }
-
-  if (issue_url)
-    adw_about_dialog_set_issue_url (self, issue_url);
-
-  if (support_url)
-    adw_about_dialog_set_support_url (self, support_url);
-
-  if (website_url)
-    adw_about_dialog_set_website (self, website_url);
-
-  g_object_unref (appdata_file);
-  g_object_unref (metadata);
-  g_free (application_id);
-  g_free (appdata_uri);
+  populate_from_appdata (self, resource_path, release_notes_version);
 
   return ADW_DIALOG (self);
 }
