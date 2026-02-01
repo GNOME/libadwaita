@@ -14,14 +14,14 @@
           <object class="GtkCenterBox">
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
-            <child type="start">
+            <property name="start-widget">
               <object class="AdwBanner" id="banner">
                 <property name="revealed" bind-source="show_banner_switch" bind-property="active" bind-flags="sync-create|bidirectional" />
                 <property name="title" bind-source="title_row" bind-property="text" bind-flags="sync-create" />
                 <property name="action-name">demo.activate</property>
               </object>
-            </child>
-            <child type="center">
+            </property>
+            <property name="center-widget">
               <object class="AdwStatusPage">
                 <property name="icon-name">widget-banner-symbolic</property>
                 <property name="title" translatable="yes">Banner</property>
@@ -30,7 +30,7 @@
                   <object class="AdwClamp">
                     <property name="maximum-size">400</property>
                     <property name="tightening-threshold">300</property>
-                    <child>
+                    <property name="child">
                       <object class="AdwPreferencesGroup">
                         <child>
                           <object class="AdwSwitchRow" id="show_banner_switch">
@@ -71,11 +71,11 @@
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </property>
               </object>
-            </child>
+            </property>
           </object>
         </property>
       </object>

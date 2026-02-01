@@ -89,7 +89,7 @@
                                   <object class="GtkButton">
                                     <property name="valign">center</property>
                                     <property name="action-name">avatar.open</property>
-                                    <child>
+                                    <property name="child">
                                       <object class="GtkBox">
                                         <property name="spacing">6</property>
                                         <child>
@@ -103,7 +103,7 @@
                                           </object>
                                         </child>
                                       </object>
-                                    </child>
+                                    </property>
                                   </object>
                                 </child>
                                 <child>
