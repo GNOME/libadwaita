@@ -300,9 +300,7 @@ adw_status_page_buildable_add_child (GtkBuildable *buildable,
 {
   AdwStatusPage *self = ADW_STATUS_PAGE (buildable);
 
-  if (!self->scrolled_window && GTK_IS_WIDGET (child))
-    gtk_widget_set_parent (GTK_WIDGET (child), GTK_WIDGET (buildable));
-  else if (GTK_IS_WIDGET (child))
+  if (self->scrolled_window && GTK_IS_WIDGET (child))
     adw_status_page_set_child (self, GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
