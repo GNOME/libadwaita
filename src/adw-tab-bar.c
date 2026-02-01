@@ -98,6 +98,8 @@ static void adw_tab_bar_buildable_init (GtkBuildableIface *iface);
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabBar, adw_tab_bar, GTK_TYPE_WIDGET,
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_tab_bar_buildable_init))
 
+static GtkBuildableIface *parent_buildable_iface;
+
 enum {
   PROP_0,
   PROP_VIEW,
@@ -797,8 +799,7 @@ adw_tab_bar_buildable_add_child (GtkBuildable *buildable,
   AdwTabBar *self = ADW_TAB_BAR (buildable);
 
   if (!self->revealer) {
-    gtk_widget_set_parent (GTK_WIDGET (child), GTK_WIDGET (self));
-
+    parent_buildable_iface->add_child (buildable, builder, child, type);
     return;
   }
 
@@ -813,6 +814,7 @@ adw_tab_bar_buildable_add_child (GtkBuildable *buildable,
 static void
 adw_tab_bar_buildable_init (GtkBuildableIface *iface)
 {
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
   iface->add_child = adw_tab_bar_buildable_add_child;
 }
 
@@ -1315,3 +1317,4 @@ adw_tab_bar_get_pinned_tab_box (AdwTabBar *self)
 
   return self->pinned_box;
 }
+
