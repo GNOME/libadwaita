@@ -12,9 +12,9 @@
             <property name="valign">center</property>
             <property name="child">
               <object class="GtkOverlay">
-                <child>
+                <property name="child">
                   <object class="GtkImage" id="icon"/>
-                </child>
+                </property>
                 <child type="overlay">
                   <object class="GtkLabel" id="label">
                     <property name="halign">center</property>
