@@ -341,11 +341,8 @@ adw_expander_row_buildable_add_child (GtkBuildable *buildable,
                                       const char   *type)
 {
   AdwExpanderRow *self = ADW_EXPANDER_ROW (buildable);
-  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
 
-  if (!priv->box)
-    parent_buildable_iface->add_child (buildable, builder, child, type);
-  else if (type && strcmp (type, "action") == 0)
+  if (type && strcmp (type, "action") == 0)
     adw_expander_row_add_suffix (self, GTK_WIDGET (child));
   else if (type && strcmp (type, "suffix") == 0)
     adw_expander_row_add_suffix (self, GTK_WIDGET (child));
