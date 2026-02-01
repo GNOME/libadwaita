@@ -1,3 +1,31 @@
+================
+Version 1.9.beta
+================
+
+- Print deprecations with GTK_DEBUG=builder
+- AdwAboutDialog
+  - Allow creating dialogs from appstream data using properties
+- AdwBreakpointBin
+  - Fix breakpoints being added in the opposite order
+- AdwDialog
+  - Fix initial focus in bottom sheet mode
+- AdwSidebar
+  - Fix a critical with empty sections in page mode
+- AdwWrapBox
+  - Fix ADW_JUSTIFY_SPREAD
+- Demo
+  - Make desktop file visible for normal installs
+- Translation updates
+  - Brazilian Portuguese
+  - Georgian
+  - Hebrew
+  - Indonesian
+  - Kazakh
+  - Occitan
+  - Romanian
+  - Uighur
+  - Ukrainian
+
 =================
 Version 1.9.alpha
 =================
