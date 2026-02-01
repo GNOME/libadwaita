@@ -16,6 +16,9 @@
 
 G_BEGIN_DECLS
 
+void adw_bottom_sheet_set_handle_focus (AdwBottomSheet *self,
+                                        gboolean        handle_focus);
+
 void adw_bottom_sheet_set_min_natural_width (AdwBottomSheet *self,
                                              int             min_natural_width);
 
