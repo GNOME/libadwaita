@@ -4,6 +4,9 @@ leak:libfontconfig.so.1
 # Ignore mesa leaks
 leak:mesa_cache_db_open
 
+# Ignore EGL leaks
+leak:eglInitialize
+
 # Ignore pango leaks
 leak:pango_layout_get_empty_extents_and_height_at_index
 
