@@ -1,4 +1,15 @@
 ==============
+Version 1.7.11
+==============
+
+- AdwDialog
+  - Fix initial focus in bottom sheet mode
+- AdwWrapBox
+  - Fix ADW_JUSTIFY_SPREAD
+- Translation updates
+  - Romanian
+
+==============
 Version 1.7.10
 ==============
 
