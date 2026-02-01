@@ -421,11 +421,8 @@ adw_action_row_buildable_add_child (GtkBuildable *buildable,
                                     const char   *type)
 {
   AdwActionRow *self = ADW_ACTION_ROW (buildable);
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
 
-  if (!priv->header)
-    parent_buildable_iface->add_child (buildable, builder, child, type);
-  else if (g_strcmp0 (type, "prefix") == 0)
+  if (g_strcmp0 (type, "prefix") == 0)
     adw_action_row_add_prefix (self, GTK_WIDGET (child));
   else if (g_strcmp0 (type, "suffix") == 0)
     adw_action_row_add_suffix (self, GTK_WIDGET (child));
