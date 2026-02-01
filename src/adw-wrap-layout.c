@@ -741,7 +741,7 @@ allocate_line (AdwWrapLayout  *self,
     int x, y, w, h;
 
     if ((is_rtl && horiz) != reverse_line)
-      widget_offset -= allocated_size + spacing;
+      widget_offset -= available_size + spacing;
 
     if (horiz) {
       x = widget_offset;
@@ -773,7 +773,7 @@ allocate_line (AdwWrapLayout  *self,
     gtk_widget_allocate (widget, w, h, -1, transform);
 
     if ((!is_rtl || !horiz) != reverse_line)
-      widget_offset += allocated_size + spacing;
+      widget_offset += available_size + spacing;
   }
 }
 
