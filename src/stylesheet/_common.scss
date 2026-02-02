@@ -15,6 +15,11 @@ $dialog_radius: $button_radius + 6;
 
 :root {
   --window-radius: #{$button_radius + 6};
+
+  -gtk-icon-palette: success var(--success-color),
+                     warning var(--warning-color),
+                     error   var(--error-color),
+                     accent  var(--accent-color);
 }
 
 .background {
