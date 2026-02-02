@@ -17,8 +17,6 @@
 
 #define MIN_RADIUS 8
 #define MAX_RADIUS 32
-#define SMALL_WIDTH 2.5
-#define LARGE_WIDTH 7
 #define SPIN_DURATION_MS 1200
 #define START_ANGLE (G_PI * 0.35)
 #define CIRCLE_OPACITY 0.15
@@ -95,14 +93,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static inline double
-inverse_lerp (double a,
-              double b,
-              double t)
-{
-  return (t - a) / (b - a);
-}
 
 static double
 normalize_angle (double angle)
@@ -290,6 +280,62 @@ adw_spinner_paintable_snapshot_symbolic (GtkSymbolicPaintable *paintable,
                                          const GdkRGBA        *colors,
                                          gsize                 n_colors)
 {
+  gtk_symbolic_paintable_snapshot_with_weight (paintable,
+                                               snapshot,
+                                               width,
+                                               height,
+                                               colors,
+                                               n_colors,
+                                               400);
+}
+
+/* Adapted from gtksvg.c */
+static double
+width_apply_weight (double width,
+                    double minwidth,
+                    double maxwidth,
+                    double weight)
+{
+  if (weight < 1) {
+    g_assert_not_reached ();
+  } else if (weight < 400) {
+    double f = (400 - weight) / (400 - 1);
+    return adw_lerp (width, minwidth, f);
+  } else if (G_APPROX_VALUE (weight, 400, DBL_EPSILON)) {
+    return width;
+  } else if (weight <= 1000) {
+    double f = (weight - 400) / (1000 - 400);
+    return adw_lerp (width, maxwidth, f);
+  } else {
+    g_assert_not_reached ();
+  }
+}
+
+static double
+normalized_diagonal (double width, double height)
+{
+  return hypot (width, height) / M_SQRT2;
+}
+
+static double
+calculate_line_width (double width,
+                      double height,
+                      double weight)
+{
+  double stroke = normalized_diagonal (width, height) / 8.0; /* 2px for 16px */
+
+  return width_apply_weight (stroke, 0.25 * stroke, 3.0 * stroke, weight);
+}
+
+static void
+adw_spinner_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
+                                            GdkSnapshot          *snapshot,
+                                            double                width,
+                                            double                height,
+                                            const GdkRGBA        *colors,
+                                            gsize                 n_colors,
+                                            double                weight)
+{
   AdwSpinnerPaintable *self = ADW_SPINNER_PAINTABLE (paintable);
   float radius, line_width;
   GdkRGBA color;
@@ -302,8 +348,7 @@ adw_spinner_paintable_snapshot_symbolic (GtkSymbolicPaintable *paintable,
   GskPathMeasure *measure;
 
   radius = MIN (floorf (MIN (width, height) / 2), MAX_RADIUS);
-  line_width = adw_lerp (SMALL_WIDTH, LARGE_WIDTH,
-                         inverse_lerp (MIN_RADIUS, MAX_RADIUS, radius));
+  line_width = calculate_line_width (width, height, weight);
 
   if (radius < line_width / 2)
     return;
@@ -379,6 +424,7 @@ static void
 adw_spinner_symbolic_paintable_iface_init (GtkSymbolicPaintableInterface *iface)
 {
   iface->snapshot_symbolic = adw_spinner_paintable_snapshot_symbolic;
+  iface->snapshot_with_weight = adw_spinner_paintable_snapshot_with_weight;
 }
 
 static void
