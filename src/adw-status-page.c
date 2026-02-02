@@ -360,6 +360,11 @@ void
 adw_status_page_set_icon_name (AdwStatusPage *self,
                                const char    *icon_name)
 {
+  GtkIconPaintable *icon_paintable;
+  GFile *file;
+  GBytes *bytes;
+  GtkSvg *svg;
+
   g_return_if_fail (ADW_IS_STATUS_PAGE (self));
 
   if (g_strcmp0 (self->icon_name, icon_name) == 0)
@@ -372,8 +377,32 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAINTABLE]);
   }
 
+  icon_paintable = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_for_display (gdk_display_get_default ()),
+                                               icon_name,
+                                               NULL,
+                                               16,
+                                               1,
+                                               GTK_TEXT_DIR_LTR,
+                                               GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
+  file = gtk_icon_paintable_get_file (icon_paintable);
+  bytes = g_file_load_bytes (file, NULL, NULL, NULL);
+
+  svg = gtk_svg_new_from_bytes (bytes);
+  gtk_svg_set_state (svg, -1);
+  gtk_svg_play (svg);
+  gtk_svg_set_state (svg, 0);
+
+  g_bytes_unref (bytes);
+  g_object_unref (file);
+  g_object_unref (icon_paintable);
+
   g_set_str (&self->icon_name, icon_name);
-  gtk_image_set_from_icon_name (self->image, self->icon_name);
+  gtk_image_set_from_paintable (self->image, GDK_PAINTABLE (svg));
+
+  gtk_svg_set_frame_clock (svg, gtk_widget_get_frame_clock (GTK_WIDGET (self)));
+  gtk_svg_play (svg);
+  gtk_svg_set_state (svg, 0);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 
   g_object_thaw_notify (G_OBJECT (self));

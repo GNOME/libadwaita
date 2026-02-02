@@ -40,6 +40,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/sign-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.example.Typeset.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>

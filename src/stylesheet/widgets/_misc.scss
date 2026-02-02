@@ -134,6 +134,7 @@ statuspage {
       > .icon {
         color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
         -gtk-icon-size: 128px;
+        -gtk-icon-weight: 100;
 
         &:disabled {
           opacity: var(--disabled-opacity);
