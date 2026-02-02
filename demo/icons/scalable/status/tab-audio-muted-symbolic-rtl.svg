@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width='16' height='16'
      xmlns:gpa='https://www.gtk.org/grappa'
      gpa:version='1'
-     gpa:keywords='audio-volume-muted sound audio mute disabled'
+     gpa:keywords='audio-volume-muted-rtl sound audio mute disabled'
      gpa:state='1'>
   <style type='text/css'>
     .not-initial-state {
       display: none;
     }
   </style>
-  <path d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
+  <path d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
         id='stroke'
         gpa:states='0'
         stroke-width='2'
@@ -18,7 +18,7 @@
         fill='none'
         class='foreground-stroke transparent-fill not-initial-state'
         gpa:stroke='foreground'/>
-  <path d='M 10 10 L 14 6 M 10 6 L 14 10'
+  <path d='M 6 10 L 2 6 M 6 6 L 2 10'
         id='x'
         gpa:states='0 1'
         stroke-width='2'
@@ -28,7 +28,7 @@
         fill='none'
         class='foreground-stroke transparent-fill'
         gpa:stroke='foreground'/>
-  <path d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
+  <path d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
         id='fill'
         gpa:states='1'
         stroke-width='2'

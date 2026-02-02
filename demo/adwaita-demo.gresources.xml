@@ -39,12 +39,13 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toggle-group-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.example.Typeset.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
     <file compressed="true">style.css</file>
   </gresource>

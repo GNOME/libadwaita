@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width='16' height='16'
      xmlns:gpa='https://www.gtk.org/grappa'
      gpa:version='1'
-     gpa:keywords='audio-volume-muted sound audio mute disabled'
+     gpa:keywords='audio-speakers-rtl sound audio volume high loud'
      gpa:state='1'>
   <style type='text/css'>
     .not-initial-state {
       display: none;
     }
   </style>
-  <path d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
-        id='stroke'
+  <path d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
+        id='outline'
         gpa:states='0'
         stroke-width='2'
         stroke-linecap='round'
@@ -18,8 +18,8 @@
         fill='none'
         class='foreground-stroke transparent-fill not-initial-state'
         gpa:stroke='foreground'/>
-  <path d='M 10 10 L 14 6 M 10 6 L 14 10'
-        id='x'
+  <path d='M 5.81472635 11.0406027 L 2.4209516 13 M 5.81472635 4.95939684 L 2.4209516 2.99999976 M 4.99999952 8 L 1.08120596 8'
+        id='waves'
         gpa:states='0 1'
         stroke-width='2'
         stroke-linecap='round'
@@ -28,8 +28,8 @@
         fill='none'
         class='foreground-stroke transparent-fill'
         gpa:stroke='foreground'/>
-  <path d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
-        id='fill'
+  <path d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
+        id='filled'
         gpa:states='1'
         stroke-width='2'
         stroke-linecap='round'

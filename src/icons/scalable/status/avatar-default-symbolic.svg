@@ -1,3 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-    <path d="M8 1a3 3 0 100 6 3 3 0 000-6zM6.5 8A4.49 4.49 0 002 12.5V14c0 1 1 1 1 1h10s1 0 1-1v-1.5A4.49 4.49 0 009.5 8z" style="marker:none" color="#bebebe" overflow="visible" fill="#2e3436"/>
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        width='16'
+        height='16'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state='0'
+        gpa:keywords='avatar-default person contact being human'>
+  <defs
+          id='defs1'
+          fill='url("#gpa:foreground") rgb(0,0,0)'
+          stroke='none'
+          class='foreground foreground-fill'
+          gpa:states='none'
+          gpa:animation-repeat='0'
+          gpa:animation-segment='0'>
+  </defs>
+  <path
+          id='path0'
+          fill='none'
+          stroke='url("#gpa:foreground") rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 12 5 C 12 7.20913887, 10.2091389 9, 8 9 C 5.79086113 9, 4 7.20913887, 4 5 C 4 2.79086089, 5.79086113 1, 8 1 C 10.2091389 1, 12 2.79086089, 12 5 Z'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke-width='0.5 2 3'
+          gpa:stroke='foreground'
+          gpa:fill='none'>
+  </path>
+  <path
+          id='path2'
+          transform='matrix(-1, 0, 0, 1, 16, 0)'
+          fill='none'
+          stroke='url("#gpa:foreground") rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 2.78062963 9.67166996 C 1.70704246 10.3889761, 1 11.6119194, 1 13 L 1 13.3655167 C 0.999999702 14.2682171, 1.73178267 15, 2.63448286 15 L 13.3655138 15 C 14.2682142 15, 14.9999971 14.2682171, 14.9999971 13.3655167 L 14.9999971 13 C 14.9999971 11.6119194, 14.2929554 10.3889761, 13.219367 9.67166996'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke-width='0.5 2 3'
+          gpa:stroke='foreground'
+          gpa:fill='none'>
+  </path>
 </svg>

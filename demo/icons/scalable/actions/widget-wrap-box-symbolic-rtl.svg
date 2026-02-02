@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width='16' height='16'
+     xmlns:gpa='https://www.gtk.org/grappa'
+     gpa:version='1'
+     gpa:keywords='text-justify-right block layout'>
+  <path d='M 13 12 L 9 12 M 3 8 L 13 8 M 13 4 L 5 4'
+        id='path0'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        stroke='rgb(0,0,0)'
+        fill='none'
+        class='foreground-stroke transparent-fill'/>
+</svg>

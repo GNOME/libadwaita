@@ -1,2 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 16 16" width="16px"><g fill="#2e3436"><path d="m 13 6.5 c 0 2.761719 -2.238281 5 -5 5 s -5 -2.238281 -5 -5 s 2.238281 -5 5 -5 s 5 2.238281 5 5 z m 0 0"/><path d="m 3 6.5 h 10 v 6 h -10 z m 0 0"/><path d="m 2.5 13 h 11 c 0.550781 0 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 h -11 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 z m 0 0"/><path d="m 10 14 c 0 0.714844 -0.382812 1.375 -1 1.730469 c -0.617188 0.359375 -1.382812 0.359375 -2 0 c -0.617188 -0.355469 -1 -1.015625 -1 -1.730469"/><path d="m 9.5 1.5 c 0 0.828125 -0.671875 1.5 -1.5 1.5 s -1.5 -0.671875 -1.5 -1.5 s 0.671875 -1.5 1.5 -1.5 s 1.5 0.671875 1.5 1.5 z m 0 0"/></g></svg>
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        width='16'
+        height='16'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state='0'
+        gpa:keywords='bell sound alarm noise ring preferences-system-notifications adw widget-toast'>
+  <defs
+          id='defs1'
+          class=''
+          gpa:states='none'
+          gpa:animation-repeat='0'
+          gpa:animation-segment='0'>
+  </defs>
+  <path
+          id='bell'
+          fill='none'
+          stroke='url("#gpa:foreground") rgb(0,0,0)'
+          stroke-opacity='1'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-dasharray='none'
+          d='M 10 13 C 10 13.7145309, 9.61880207 14.3747854, 9 14.7320509 C 8.38119793 15.0893164, 7.61880207 15.0893164, 7 14.7320509 C 6.38119793 14.3747854, 6 13.7145309, 6 13 M 8 3 L 8 1 M 2 12 L 14 12 M 2 12 C 3.02507615 12, 4 11.1057377, 4 10 L 4 7 C 4 4.79086113, 5.79086113 3, 8 3 C 10.2091389 3, 12 4.79086113, 12 7 L 12 10 C 12 11.0847864, 12.9393396 12, 14 12'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke-width='0.5 2 3'
+          gpa:stroke='foreground'
+          gpa:fill='none'>
+  </path>
+</svg>
