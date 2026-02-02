@@ -1,1 +1,31 @@
-<svg height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M2 9.999a1 1 0 0 0 1.708.709L8 6.415l4.293 4.293a1 1 0 1 0 1.414-1.416l-5-5a1 1 0 0 0-1.414 0l-5 5A1 1 0 0 0 2 9.999Z" style="fill:#2e3436;fill-opacity:1"/></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='arrow down adw-expander-arrow-up'>
+    <defs
+            id='defs1'
+            class=''
+            gpa:states='none'
+            gpa:animation-repeat='0'
+            gpa:animation-segment='0'>
+    </defs>
+    <path
+            id='up'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-dashoffset='22.5589'
+            d='M 3 10 L 8 4.99999952 L 13 10'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+  </svg>

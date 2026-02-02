@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path style="stroke:none;fill-rule:nonzero;fill:#222;fill-opacity:1" d="M9 11H7v3l1 1 1-1Zm2.223-8.707A1 1 0 0 0 10.516 2H5.5a1 1 0 1 0 0 2h5.016a1.002 1.002 0 0 0 .707-1.707ZM4 10c0-2.21 1.79-4 4-4s4 1.79 4 4Zm0 0"/><path style="stroke:none;fill-rule:nonzero;fill:#222;fill-opacity:1" d="m5.441 2.973.895 5.164H9.71l.848-5.11Zm0 0"/></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:keywords='view-pin location point of interest'
+          gpa:state='0'>
+    <style
+            type='text/css'>
+    .not-initial-state {
+      display: none;
+    }
+  </style>
+    <path
+            d='M 8 15 L 8 10'
+            id='Pin'
+            stroke-width='1'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            gpa:stroke-width='0.5 1 2'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+    <path
+            d='M 4 9 L 12 9 L 10 6 L 11.2572193 2.85695338 C 11.4240894 2.43977809, 11.3731556 1.96699727, 11.1212578 1.59493721 C 10.8693609 1.22287714, 10.4493113 0.999999702, 10 0.99999994 L 6 1 C 5.54237175 1, 5.11342001 1.22288549, 4.85036755 1.59735489 C 4.58731508 1.97182429, 4.52313042 2.45094609, 4.6783452 2.88144827 L 6 6 Z'
+            id='head'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+  </svg>

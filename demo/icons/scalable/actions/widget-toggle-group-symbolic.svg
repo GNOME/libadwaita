@@ -1,5 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg">
-    <path d="m 4 2 c -2.199219 0 -4 1.800781 -4 4 v 5 c 0 2.199219 1.800781 4 4 4 h 8 c 2.199219 0 4 -1.800781 4 -4 v -5 c 0 -2.199219 -1.800781 -4 -4 -4 z m 0 2 h 8 c 1.125 0 2 0.875 2 2 v 5 c 0 1.125 -0.875 2 -2 2 h -8 c -1.125 0 -2 -0.875 -2 -2 v -5 c 0 -1.125 0.875 -2 2 -2 z m 0 0"/>
-    <path d="m 4 5 h 3 c 0.550781 0 1 0.449219 1 1 v 5 c 0 0.550781 -0.449219 1 -1 1 h -3 c -0.550781 0 -1 -0.449219 -1 -1 v -5 c 0 -0.550781 0.449219 -1 1 -1 z m 0 0" fill="#222222" fill-opacity="0.34902"/>
-</svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='adw widget-toggle-group'>
+    <defs
+            id='defs1'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            stroke='none'
+            class='foreground foreground-fill'
+            gpa:states='none'
+            gpa:animation-repeat='0'
+            gpa:animation-segment='0'
+            gpa:fill='foreground'>
+    </defs>
+    <rect
+            id='toggle'
+            opacity='0.3'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            fill-opacity='1'
+            fill-rule='nonzero'
+            stroke='none'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-dashoffset='22.5589'
+            x='3'
+            y='4'
+            width='7'
+            height='8'
+            rx='1.04423'
+            ry='1.04423'
+            class='foreground foreground-fill'
+            gpa:stroke-width='0.5 2 3'
+            gpa:fill='foreground'>
+    </rect>
+    <rect
+            id='border'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-opacity='1'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-miterlimit='4'
+            stroke-dashoffset='22.5589'
+            x='1'
+            y='2'
+            width='14'
+            height='12'
+            rx='3.30629'
+            ry='3.30629'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </rect>
+  </svg>

@@ -1,1 +1,36 @@
-<svg height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 0a.993.993 0 0 0-.707.293l-1.25 1.25-1.762 1.73c-.191.2-.281.442-.281.75 0 .977 1 1 1 1 .258 0 .527-.128.719-.312L7 3.43V7s0 1 1 1 1-1 1-1V3.43l1.281 1.28c.192.185.41.313.719.313 0 0 1-.023 1-1 0-.308-.09-.55-.281-.75l-1.762-1.73-1.25-1.25A.993.993 0 0 0 8 0zM3 9c-1.645 0-3 1.355-3 3v4h2v-3.8l4.613 3.077a2.505 2.505 0 0 0 2.774 0L14 12.2V16h2v-4c0-1.645-1.355-3-3-3zm.8 2h8.4l-3.923 2.613a.495.495 0 0 1-.554 0zm0 0" fill="#2e3436"/></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='mail-send arrow up envelope online push adw-mail-send'>
+    <path
+            id='path0'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='butt'
+            stroke-linejoin='round'
+            d='M 14.4896545 10.6758623 L 8 15 L 1.51724136 10.6689663 M 1 16 L 1 12 C 1 10.8954296, 1.89543045 10, 3 10 L 13 10 C 14.1045694 10, 15 10.8954296, 15 12 L 15 16'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+    <path
+            id='path2'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M 5 4 L 8 1 L 11 4 M 8 7 L 8 1'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+  </svg>

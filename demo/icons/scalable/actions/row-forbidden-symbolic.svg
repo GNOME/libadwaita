@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 1c3.863 0 7 3.137 7 7s-3.137 7-7 7-7-3.137-7-7 3.137-7 7-7zm0 2a4.93 4.93 0 00-2.75.813l6.937 6.937A4.93 4.93 0 0013 8c0-2.76-2.24-5-5-5zM3.812 5.25A4.93 4.93 0 003 8c0 2.76 2.24 5 5 5a4.93 4.93 0 002.75-.813z" style="line-height:normal;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;marker:none" color="#000" font-weight="400" font-family="Sans" overflow="visible" fill="#2e3436"/></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='round ghost busters forbidden action-unavailable dnd drag drop nodrop crossed circle ghost-busters no disabled action-unavailable row-forbidden adw'>
+    <path
+            id='path0'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M 3.05025268 3.05025268 L 12.949748 12.949748 M 1 8 C 1 11.8659945, 4.13400698 15, 8 15 C 11.8659945 15, 15 11.8659945, 15 8 C 15 4.13400698, 11.8659945 1, 8 1 C 4.13400698 1, 1 4.13400698, 1 8 Z'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+  </svg>

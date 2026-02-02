@@ -1,1 +1,41 @@
-<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M3.006 0c-1.645 0-3 1.355-3 3v10c0 1.645 1.355 3 3 3h10c1.645 0 3-1.355 3-3V3c0-1.645-1.355-3-3-3zm0 2h10c.571 0 1 .429 1 1v10c0 .571-.429 1-1 1h-10c-.571 0-1-.429-1-1V3c0-.571.429-1 1-1z" style="fill:#2e3436;fill-opacity:1"/></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='adw-tab-counter'>
+    <defs
+            id='defs1'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            stroke='none'
+            class='foreground foreground-fill'
+            gpa:states='none'
+            gpa:animation-repeat='0'
+            gpa:animation-segment='0'
+            gpa:fill='foreground'>
+    </defs>
+    <rect
+            id='counter'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-opacity='1'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-miterlimit='4'
+            stroke-dashoffset='22.5589'
+            x='1'
+            y='1'
+            width='14'
+            height='14'
+            rx='2.93631'
+            ry='2.93631'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </rect>
+  </svg>

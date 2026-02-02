@@ -1,8 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg">
-    <g fill="#2e3436">
-        <path d="m 6.5 14 v -12 h -5 v 12 z m 0 0" fill-opacity="0.35"/>
-        <path d="m 3 1 c -1.644531 0 -3 1.355469 -3 3 v 8 c 0 1.644531 1.355469 3 3 3 h 10 c 1.644531 0 3 -1.355469 3 -3 v -8 c 0 -1.644531 -1.355469 -3 -3 -3 z m 0 2 h 10 c 0.570312 0 1 0.429688 1 1 v 8 c 0 0.570312 -0.429688 1 -1 1 h -10 c -0.570312 0 -1 -0.429688 -1 -1 v -8 c 0 -0.570312 0.429688 -1 1 -1 z m 0 0"/>
-        <path d="m 6 2 h 1 v 12 h -1 z m 0 0"/>
-    </g>
-</svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='sidebar-show dock ui view-sidebar-end-symbolic-rtl view-sidebar-end-rtl adw view-sidebar-start widget-split-views'>
+    <path
+            id='path3'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M 15 4 L 15 12 C 15 13.1045694, 14.1045704 14, 13 14 L 3 14 C 1.89543056 14, 1 13.1045694, 1 12 L 1 4 C 1 2.89543056, 1.89543056 2, 3 2 L 13 2 C 14.1045704 2, 15 2.89543056, 15 4 Z'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+    <path
+            id='path4'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            fill-opacity='0.2'
+            fill-rule='nonzero'
+            stroke='none'
+            d='M 6.5 2 L 6.5 14 L 3 14 C 1.89543056 14, 1 13.1045694, 1 12 L 1 4 C 1 2.89543056, 1.89543056 2, 3 2 Z'
+            class='foreground foreground-fill'
+            gpa:fill='foreground'>
+    </path>
+    <path
+            id='path5'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='1'
+            stroke-linecap='butt'
+            stroke-linejoin='round'
+            d='M 6.5 2 L 6.5 14'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.25 1 2'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+  </svg>

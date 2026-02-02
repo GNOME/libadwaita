@@ -1,1 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16.011"><g fill="#2e3436"><path d="M7.492 5.993A.5.5 0 007 6.501V9H5.5a.5.5 0 100 1h2a.5.5 0 00.5-.5v-3a.5.5 0 00-.508-.508z" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" color="#000" font-weight="400" font-family="sans-serif" overflow="visible"/><path d="M7.5 3C3.922 3 1 5.924 1 9.5 1 13.08 3.922 16 7.5 16S14 13.08 14 9.5C14 5.924 11.078 3 7.5 3zm0 2C9.997 5 12 7.005 12 9.5c0 2.498-2.003 4.5-4.5 4.5A4.485 4.485 0 013 9.5C3 7.005 5.003 5 7.5 5z" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1;marker:none" color="#000" font-weight="400" font-family="sans-serif" overflow="visible"/><path d="M4.12 12.897a1 1 0 00-.692.291l-1.125 1.094a1 1 0 101.394 1.436l1.125-1.094a1 1 0 00-.703-1.727zm6.913.094a1 1 0 00-.68 1.68l.907 1a1 1 0 101.48-1.342l-.906-1a1 1 0 00-.8-.338z" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1;marker:none" color="#000" font-weight="400" font-family="sans-serif" overflow="visible"/><path d="M2.111 1.421a2.5 2.5 0 00-.69 3.468L5.58 2.11a2.5 2.5 0 00-3.468-.69zm10.778 0a2.5 2.5 0 01.69 3.468L9.42 2.11a2.5 2.5 0 013.468-.69z"/></g></svg>
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='clock alarm clock-alarm adw'>
+    <defs
+            id='defs1'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            stroke='none'
+            class='foreground foreground-fill'
+            gpa:states='none'
+            gpa:animation-repeat='0'
+            gpa:animation-segment='0'
+            gpa:fill='foreground'>
+    </defs>
+    <path
+            id='hands'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-opacity='1'
+            stroke-width='1'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-miterlimit='4'
+            stroke-dasharray='none'
+            stroke-dashoffset='22.5589'
+            d='M 8 5 L 8 8 L 10 9'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.25 1 1.5'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+    <path
+            id='alarmclock'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-opacity='1'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-miterlimit='4'
+            stroke-dashoffset='22.5589'
+            d='M 1.86201739 3.96615624 L 1.6081512 3.71229005 C 1.35783327 3.461972, 1.3578335 3.05612636, 1.60815132 2.80580854 L 2.82299018 1.59096956 C 3.07330799 1.34065175, 3.47915387 1.34065163, 3.72947168 1.59096944 L 3.98333788 1.84483576 M 10.9954853 11.995719 L 11.9954853 13.9957199 M 4.99548483 11.9957199 L 3.99548459 13.995719 M 14.1463709 3.96615887 L 14.400238 3.71229267 C 14.6505556 3.46197391, 14.6505537 3.0561254, 14.4002342 2.80580831 L 13.1853952 1.5909692 C 12.9350767 1.34065127, 12.529232 1.34065092, 12.2789145 1.59096885 L 12.0250483 1.84483516 M 12.9954844 7.99571896 C 12.9954844 10.757143, 10.7569084 12.995719, 7.99548435 12.995719 C 5.23406076 12.995719, 2.99548531 10.757143, 2.99548483 7.99571991 C 2.99548483 5.23429585, 5.23406124 2.99571967, 7.99548483 2.99571967 C 10.7569084 2.99571991, 12.9954844 5.23429537, 12.9954844 7.99571896 Z'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'>
+    </path>
+  </svg>

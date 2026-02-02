@@ -5,7 +5,7 @@
           height='16'
           xmlns:gpa='https://www.gtk.org/grappa'
           gpa:version='1'
-          gpa:keywords='audio-volume-muted sound audio mute disabled'
+          gpa:keywords='audio-speakers-rtl sound audio volume high loud'
           gpa:state='1'>
     <style
             type='text/css'>
@@ -14,8 +14,8 @@
     }
   </style>
     <path
-            d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
-            id='stroke'
+            d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
+            id='outline'
             gpa:states='0'
             stroke-width='2'
             stroke-linecap='round'
@@ -26,8 +26,8 @@
             gpa:stroke='foreground'>
     </path>
     <path
-            d='M 10 10 L 14 6 M 10 6 L 14 10'
-            id='x'
+            d='M 5.81472635 11.0406027 L 2.4209516 13 M 5.81472635 4.95939684 L 2.4209516 2.99999976 M 4.99999952 8 L 1.08120596 8'
+            id='waves'
             gpa:states='0 1'
             stroke-width='2'
             stroke-linecap='round'
@@ -38,8 +38,8 @@
             gpa:stroke='foreground'>
     </path>
     <path
-            d='M 6 3 L 6 13 L 3 10 L 1 10 L 1 6 L 3 6 Z'
-            id='fill'
+            d='M 10 3 L 10 13 L 13 10 L 15 10 L 15 6 L 13 6 Z'
+            id='filled'
             gpa:states='1'
             stroke-width='2'
             stroke-linecap='round'
