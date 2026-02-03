@@ -19,6 +19,46 @@ copy_icon_rtl() {
   cp "icon-development-kit/icons/$1.svg" "../$2/icons/scalable/$3-symbolic-rtl.svg"
 }
 
+# The following icons are in GTK and don't need updates for now
+# speaker-mid          -> audio-volume-medium
+# caps-lock            -> caps-lock
+# one-way              -> dialog-error
+# questionmark         -> dialog-question
+# dialog-warning       -> dialog-warning
+# document-save        -> document-save
+# document-open        -> document-open
+# clock                -> document-open-recent
+# edit-copy            -> edit-copy
+# scissors             -> edit-cut
+# edit-paste           -> edit-paste
+# loupe                -> edit-find
+# music-node           -> folder-music
+# image                -> folder-pictures
+# video-camera         -> folder-videos
+# go-down              -> go-down
+# go-next              -> go-next
+# go-previous          -> go-previous
+# go-up                -> go-up
+# list-add             -> list-add
+# list-remove          -> list-remove
+# media-playback-pause -> media-playback-pause
+# media-playback-start -> media-playback-start
+# object-select        -> object-select
+# open-menu            -> open-menu
+# pan-down             -> pan-down
+# pan-end              -> pan-end
+# pan-start            -> pan-start
+# pan-up               -> pan-up
+# process-working      -> process-working
+# user-trash           -> user-trash
+# eye-crossed          -> view-conceal
+# view-grid            -> view-grid
+# view-list            -> view-list
+# view-more            -> view-more
+# view-refresh         -> view-refresh
+# eye                  -> view-reveal
+# x                    -> window-close
+
 copy_icon     "adaptive"            "src"  "actions/adw-adaptive-preview"
 copy_icon     "exit"                "src"  "actions/adw-application-exit"
 copy_icon_rtl "exit-rtl"            "src"  "actions/adw-application-exit"
