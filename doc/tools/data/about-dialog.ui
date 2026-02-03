@@ -16,7 +16,7 @@
     </property>
   </object>
   <object class="AdwAboutDialog" id="widget">
-    <property name="application-icon">application-x-executable</property>
+    <property name="application-icon">org.gnome.Example</property>
     <property name="application-name" translatable="yes">Application</property>
     <property name="developer-name" translatable="yes">Developer Name</property>
     <property name="version" translatable="yes">1.2.3</property>
