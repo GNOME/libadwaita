@@ -283,7 +283,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
-                         "text-x-generic-symbolic",
+                         "image-missing",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
