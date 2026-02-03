@@ -1,0 +1,55 @@
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:state='0'
+          gpa:keywords='selection-mode checkmark round circle check'>
+    <defs
+            id='defs1'
+            fill='url("#gpa:foreground") rgb(0,0,0)'
+            stroke='none'
+            class='foreground foreground-fill'
+            gpa:states='none'
+            gpa:animation-repeat='0'
+            gpa:animation-segment='0'
+            gpa:fill='foreground'>
+    </defs>
+    <path
+            id='check'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M 5 8 L 7.40963411 10.2925959 L 15 2'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'
+            gpa:states='0'
+            gpa:transition-type='animate'
+            gpa:transition-easing='ease-out'
+            gpa:transition-duration='200ms'>
+    </path>
+    <path
+            id='circle'
+            fill='none'
+            stroke='url("#gpa:foreground") rgb(0,0,0)'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M 14.9305115 7.00983858 Q 14.9992104 7.49504185, 15 8 C 15 11.8659945, 11.8659945 15, 8 15 C 4.13400698 15, 1 11.8659945, 1 8 C 1 4.13400698, 4.13400698 1, 8 1 C 9.12561226 1, 10.1891727 1.26567793, 11.1313934 1.73774672'
+            class='transparent-fill foreground-stroke'
+            gpa:stroke-width='0.5 2 3'
+            gpa:stroke='foreground'
+            gpa:fill='none'
+            gpa:states='0'
+            gpa:transition-type='fade'
+            gpa:transition-easing='ease-out'
+            gpa:transition-duration='200ms'
+            gpa:transition-delay='200ms'>
+    </path>
+  </svg>

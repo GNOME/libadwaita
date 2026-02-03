@@ -21,7 +21,7 @@
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">tab-new-symbolic</property>
+            <property name="icon-name">adw-tab-new-symbolic</property>
           </object>
         </child>
         <child>

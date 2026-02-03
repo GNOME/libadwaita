@@ -212,7 +212,7 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Avatar</property>
-                                <property name="icon-name">avatar-default-symbolic</property>
+                                <property name="icon-name">adw-avatar-default-symbolic</property>
                                 <property name="page-type">AdwDemoPageAvatar</property>
                               </object>
                             </child>

@@ -2,10 +2,19 @@
 <gresources>
   <gresource prefix="/org/gnome/Adwaita">
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-adaptive-preview-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-application-exit-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-application-exit-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-apply-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-edit-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-external-link-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-mail-send-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-rotate-acw-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-rotate-cw-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-screenshot-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-sidebar-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-sidebar-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-tab-new-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-avatar-default-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-counter-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-icon-missing-symbolic.svg</file>

@@ -1,0 +1,20 @@
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:keywords='curved arrow edit-redo edit-undo-rtl'>
+    <path
+            d='M 11 3 L 15 7 L 11 11 M 15 7 L 4 7 C 2.34314585 7, 1 8.34314537, 1 10 C 1 11.6568546, 2.34314585 13, 4 13'
+            id='path0'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+  </svg>

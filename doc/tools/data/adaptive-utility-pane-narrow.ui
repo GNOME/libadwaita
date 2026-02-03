@@ -19,7 +19,7 @@
           <object class="AdwHeaderBar">
             <child type="start">
               <object class="GtkToggleButton" id="show_sidebar_button">
-                <property name="icon-name">sidebar-show-symbolic</property>
+                <property name="icon-name">adw-sidebar-symbolic</property>
                 <property name="active">True</property>
               </object>
             </child>

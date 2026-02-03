@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita/Screenshot">
+    <file preprocess="xml-stripblanks">icons/scalable/actions/camera-photo-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/camera-video-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-redo-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-redo-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-undo-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-undo-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/generic-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/media-skip-backward-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/media-skip-forward-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/starred-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/success-symbolic.svg</file>
+
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
 
     <file compressed="true">style.css</file>

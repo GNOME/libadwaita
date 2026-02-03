@@ -31,19 +31,19 @@
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 1</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 2</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 3</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -53,19 +53,19 @@
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 4</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 5</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwSidebarItem">
                             <property name="title">Item 6</property>
-                            <property name="icon-name">applications-system-symbolic</property>
+                            <property name="icon-name">generic-symbolic</property>
                           </object>
                         </child>
                       </object>

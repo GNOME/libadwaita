@@ -107,7 +107,7 @@
               <object class="GtkImage" id="edit_icon">
                 <property name="valign">center</property>
                 <property name="can-target">False</property>
-                <property name="icon-name">document-edit-symbolic</property>
+                <property name="icon-name">adw-entry-edit-symbolic</property>
                 <property name="accessible-role">presentation</property>
                 <style>
                   <class name="edit-icon"/>

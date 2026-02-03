@@ -33,7 +33,7 @@
                 </child>
                 <child type="end">
                   <object class="GtkButton" id="new_tab_btn">
-                    <property name="icon-name">tab-new-symbolic</property>
+                    <property name="icon-name">adw-tab-new-symbolic</property>
                   </object>
                 </child>
               </object>

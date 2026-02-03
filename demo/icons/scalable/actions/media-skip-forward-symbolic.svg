@@ -1,0 +1,42 @@
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:keywords='media-skip-forward end'
+          gpa:state='1'>
+    <style
+            type='text/css'>
+    .not-initial-state {
+      display: none;
+    }
+  </style>
+    <path
+            d='M 4.48632765 3.125 L 12.4863281 7.125 C 13.1740217 7.50565195, 13.1740217 8.49434757, 12.4863281 8.875 L 4.48632765 12.875 C 3.81931257 13.2461014, 2.99919558 12.763298, 2.99999952 12 L 2.99999952 4 C 2.99919558 3.23670173, 3.81931257 2.75389957, 4.48632765 3.125 Z M 14 1 L 14 15'
+            id='path4'
+            gpa:states='0'
+            stroke-width='2'
+            stroke-linecap='butt'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill not-initial-state'
+            gpa:stroke='foreground'>
+    </path>
+    <path
+            d='M 3.36102581 3.09375 C 3.12941647 3.22517633, 2.98637462 3.47099662, 2.98654819 3.73729658 L 2.98654819 12.2587404 C 2.98692989 12.8329678, 3.6131804 13.1876097, 4.1058197 12.8925781 L 13 8.63185692 C 13.4782372 8.34460926, 13.4782372 7.65142727, 13 7.36418056 L 4.1058197 3.10345888 C 3.87743545 2.96627474, 3.59290838 2.9625659, 3.36102581 3.09375 Z M 14 1 L 14 15'
+            id='path1'
+            gpa:states='1'
+            stroke-width='2'
+            stroke-linecap='butt'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill-rule='nonzero'
+            fill='rgb(0,0,0)'
+            class='foreground-stroke foreground-fill'
+            gpa:stroke='foreground'
+            gpa:fill='foreground'>
+    </path>
+  </svg>

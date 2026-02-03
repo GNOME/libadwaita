@@ -66,7 +66,7 @@
                             <child type="suffix">
                               <object class="GtkButton">
                                 <property name="label" translatable="yes">Rotate Left</property>
-                                <property name="icon-name">object-rotate-left-symbolic</property>
+                                <property name="icon-name">adw-rotate-acw-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Rotate Left</property>
                                 <property name="valign">center</property>
                                 <signal name="clicked" handler="rotate_left_cb" swapped="yes"/>
@@ -78,7 +78,7 @@
                             <child type="suffix">
                               <object class="GtkButton">
                                 <property name="label" translatable="yes">Rotate Right</property>
-                                <property name="icon-name">object-rotate-right-symbolic</property>
+                                <property name="icon-name">adw-rotate-cw-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Rotate Right</property>
                                 <property name="valign">center</property>
                                 <signal name="clicked" handler="rotate_right_cb" swapped="yes"/>
@@ -173,7 +173,7 @@
                     </property>
                     <child type="start">
                       <object class="GtkToggleButton">
-                        <property name="icon-name">sidebar-show-symbolic</property>
+                        <property name="icon-name">adw-sidebar-symbolic</property>
                         <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                         <property name="active" bind-source="split_view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
                       </object>
@@ -183,7 +183,7 @@
                         <signal name="clicked" handler="exit_clicked_cb" swapped="yes"/>
                         <property name="child">
                           <object class="AdwButtonContent">
-                            <property name="icon-name">application-exit</property>
+                            <property name="icon-name">adw-application-exit</property>
                             <property name="label" translatable="yes">Exit</property>
                             <property name="can-shrink">True</property>
                           </object>
@@ -193,7 +193,7 @@
                     <child type="end">
                       <object class="GtkButton">
                         <signal name="clicked" handler="screenshot_clicked_cb" swapped="yes"/>
-                        <property name="icon-name">camera-photo-symbolic</property>
+                        <property name="icon-name">adw-screenshot-symbolic</property>
                         <property name="tooltip-text" translatable="yes">Take Screenshot</property>
                       </object>
                     </child>

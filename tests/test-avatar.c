@@ -6,7 +6,7 @@
 
 #include <adwaita.h>
 
-#define TEST_ICON_NAME "avatar-default-symbolic"
+#define TEST_ICON_NAME "adw-avatar-default-symbolic"
 #define TEST_STRING "Mario Rossi"
 #define TEST_SIZE 128
 

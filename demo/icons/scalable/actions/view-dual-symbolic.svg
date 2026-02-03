@@ -1,0 +1,39 @@
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:keywords='view-continuous line'
+          gpa:state='0'>
+    <style
+            type='text/css'>
+    .not-initial-state {
+      display: none;
+    }
+  </style>
+    <path
+            d='M 8 2 L 8 14 M 1 4 L 1 12 C 1 13.1045694, 1.89543045 14, 3 14 L 13 14 C 14.1045694 14, 15 13.1045694, 15 12 L 15 4 C 15 2.89543056, 14.1045694 2, 13 2 L 3 2 C 1.89543045 2, 1 2.89543056, 1 4 Z'
+            id='path4'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+    <path
+            d='M 3 6 L 6 6 M 6 9 L 3 9 M 13 9 L 10 9 M 10 6 L 13 6'
+            id='path8'
+            stroke-width='2'
+            stroke-linecap='butt'
+            stroke-linejoin='round'
+            stroke-opacity='0.5'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+  </svg>

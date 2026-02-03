@@ -85,23 +85,30 @@
                             </style>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">view-grid-symbolic</property>
-                                <property name="tooltip" translatable="yes">Thumbnails</property>
-                                <property name="name">thumbnails</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwToggle">
                                 <property name="icon-name">format-justify-left-symbolic</property>
-                                <property name="tooltip" translatable="yes">Outline</property>
-                                <property name="name">outline</property>
+                                <property name="tooltip" translatable="yes">Left Align</property>
+                                <property name="name">left</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">user-bookmarks-symbolic</property>
-                                <property name="tooltip" translatable="yes">Bookmarks</property>
-                                <property name="name">bookmarks</property>
+                                <property name="icon-name">format-justify-center-symbolic</property>
+                                <property name="tooltip" translatable="yes">Center Align</property>
+                                <property name="name">center</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwToggle">
+                                <property name="icon-name">format-justify-right-symbolic</property>
+                                <property name="tooltip" translatable="yes">Right Align</property>
+                                <property name="name">right</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwToggle">
+                                <property name="icon-name">format-justify-fill-symbolic</property>
+                                <property name="tooltip" translatable="yes">Justify</property>
+                                <property name="name">fill</property>
                               </object>
                             </child>
                           </object>

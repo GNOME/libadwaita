@@ -31,7 +31,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 1</property>
-        <property name="icon-name">applications-system-symbolic</property>
+        <property name="icon-name">generic-symbolic</property>
         <property name="child">
           <object class="AdwBin"/>
         </property>
@@ -40,7 +40,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 2</property>
-        <property name="icon-name">applications-system-symbolic</property>
+        <property name="icon-name">generic-symbolic</property>
         <property name="child">
           <object class="AdwBin"/>
         </property>
@@ -49,7 +49,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 3</property>
-        <property name="icon-name">applications-system-symbolic</property>
+        <property name="icon-name">generic-symbolic</property>
         <property name="needs-attention">True</property>
         <property name="badge-number">3</property>
         <property name="child">

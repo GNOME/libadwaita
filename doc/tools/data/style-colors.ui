@@ -46,7 +46,7 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">selection-mode-symbolic</property>
+                <property name="icon-name">success-symbolic</property>
               </object>
             </child>
             <child>

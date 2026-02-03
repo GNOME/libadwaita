@@ -1,0 +1,31 @@
+
+  <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='16'
+          height='16'
+          xmlns:gpa='https://www.gtk.org/grappa'
+          gpa:version='1'
+          gpa:keywords='application-exit quit end stop terminate door arrow rtl'>
+    <path
+            d='M 6 5 L 6 4 C 6 2.89543056, 6.89543056 2, 8 2 L 12 2 C 13.1045694 2, 14 2.89543056, 14 4 L 14 12 C 14 13.1045694, 13.1045694 14, 12 14 L 8 14 C 6.89543056 14, 6 13.1045694, 6 12 L 6 11'
+            id='path0'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+    <path
+            d='M 3 6 L 1 8 L 3 10 M 9 8 L 1 8'
+            id='path1'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke='rgb(0,0,0)'
+            fill='none'
+            class='foreground-stroke transparent-fill'
+            gpa:stroke='foreground'>
+    </path>
+  </svg>
