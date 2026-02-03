@@ -1531,7 +1531,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
    *
    * If provided, the dialog will be constructed from it.
    *
-   * See [constructor@AboutDialog.from_appdata].
+   * See [ctor@AboutDialog.new_from_appdata].
    *
    * If [property@AboutDialog:release-notes-version] is set, release notes will
    * be set from the AppStream release description for that version.
