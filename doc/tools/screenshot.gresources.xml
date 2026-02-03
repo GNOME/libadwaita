@@ -12,6 +12,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/media-skip-forward-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/starred-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/success-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/user-bookmarks-symbolic.svg</file>
 
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Example.svg</file>
