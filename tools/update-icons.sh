@@ -32,8 +32,6 @@ copy_icon     "view-pin"            "src"  "status/adw-tab-unpin"
 copy_icon     "person"              "src"  "status/avatar-default"
 
 copy_icon     "bounce"              "demo" "actions/animations"
-copy_icon     "edit-delete"         "demo" "actions/avatar-delete"
-copy_icon     "document-save"       "demo" "actions/avatar-save"
 copy_icon     "alarm-clock"         "demo" "actions/clock-alarm"
 copy_icon     "stopwatch"           "demo" "actions/clock-stopwatch"
 copy_icon     "sand-watch"          "demo" "actions/clock-timer"

@@ -139,7 +139,7 @@
                                 <child>
                                   <object class="GtkButton">
                                     <property name="valign">center</property>
-                                    <property name="icon-name">avatar-save-symbolic</property>
+                                    <property name="icon-name">document-save-symbolic</property>
                                     <property name="action-name">avatar.save</property>
                                     <style>
                                       <class name="flat"/>
