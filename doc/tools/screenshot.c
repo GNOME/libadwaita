@@ -468,11 +468,11 @@ init_libadwaita (void)
 
   g_object_set (gtk_settings_get_default (),
                 "gtk-enable-animations", FALSE,
-                "gtk-font-name", "Adwaita Sans 11",
-                "gtk-icon-theme-name", "Adwaita",
                 "gtk-decoration-layout", ":close",
-                "gtk-hint-font-metrics", TRUE,
+                "gtk-font-name", "Adwaita Sans 11",
                 "gtk-font-rendering", GTK_FONT_RENDERING_MANUAL,
+                "gtk-hint-font-metrics", TRUE,
+                "gtk-icon-theme-name", "",
                 NULL);
 }
 
