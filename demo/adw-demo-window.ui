@@ -104,7 +104,7 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Welcome</property>
-                                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                                <property name="icon-name">welcome-symbolic</property>
                                 <property name="page-type">AdwDemoPageWelcome</property>
                               </object>
                             </child>

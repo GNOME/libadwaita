@@ -124,6 +124,7 @@ copy_icon     "view-switch"         "demo" "actions/widget-view-switcher"
 copy_icon     "text-left"           "demo" "actions/widget-wrap-box"
 copy_icon_rtl "text-right"          "demo" "actions/widget-wrap-box"
 copy_icon     "view-dual"           "demo" "actions/view-dual"
+copy_icon     "libadwaita-outlines" "demo" "actions/welcome"
 copy_icon     "window-new"          "demo" "actions/window-new"
 
 copy_icon     "speaker-cross"       "demo" "status/tab-audio-muted"

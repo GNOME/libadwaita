@@ -1148,7 +1148,7 @@ audio-volume-medium</property>
           <object class="AdwOverlaySplitView" id="compact_split_view">
             <property name="sidebar">
               <object class="AdwStatusPage">
-                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                <property name="icon-name">welcome-symbolic</property>
                 <property name="title" translatable="yes">Compact</property>
                 <property name="description" translatable="yes">This status page has the "compact" style class</property>
                 <property name="tooltip-text">compact</property>
@@ -1169,7 +1169,7 @@ audio-volume-medium</property>
             <property name="content">
               <object class="AdwStatusPage">
                 <property name="hexpand">True</property>
-                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                <property name="icon-name">welcome-symbolic</property>
                 <property name="title" translatable="yes">Regular</property>
                 <property name="description" translatable="yes">This is a regular status page</property>
                 <property name="child">
