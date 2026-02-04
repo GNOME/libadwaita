@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-10-24 22:01+0000\n"
-"PO-Revision-Date: 2025-10-27 08:17+0900\n"
+"POT-Creation-Date: 2025-12-19 14:23+0000\n"
+"PO-Revision-Date: 2025-12-20 06:35+0900\n"
 "Last-Translator: Makoto Sakaguchi <ycco34vx@gmail.com>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -402,14 +402,30 @@ msgid "Back"
 msgstr "戻る"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "検索"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "適用"
+
+#: src/adw-indicator-bin.c:77
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "要注視。"
+
+#: src/adw-indicator-bin.c:80
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "バッジあり: 999超。"
+
+#: src/adw-indicator-bin.c:82
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "バッジあり: %u。"
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -548,17 +564,17 @@ msgstr "設定"
 msgid "Search preferences"
 msgstr "設定を検索"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:76
 msgid "No Results Found"
 msgstr "結果がありません"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:77
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "他のキーワードを試してください"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "他のキーワードを試してください。"
 
@@ -607,7 +623,7 @@ msgid "View Open Tabs"
 msgstr "開いているタブを表示"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:951
+#: src/adw-tab-overview.c:964
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -621,15 +637,15 @@ msgstr "タブを検索"
 msgid "Search tabs"
 msgstr "タブを検索"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "開いているタブなし"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "タブが見つかりません"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "新しいタブ(_T)"
 
