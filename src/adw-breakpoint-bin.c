@@ -260,6 +260,20 @@ allocate_child (AdwBreakpointBin *self,
 }
 
 static gboolean
+maybe_resize_tick_cb (GtkWidget        *widget,
+                      GdkFrameClock    *frame_clock,
+                      AdwBreakpointBin *self)
+{
+  AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+
+  priv->tick_cb_id = 0;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  return G_SOURCE_REMOVE;
+}
+
+static gboolean
 breakpoint_changed_tick_cb (GtkWidget        *widget,
                             GdkFrameClock    *frame_clock,
                             AdwBreakpointBin *self)
@@ -455,6 +469,10 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
     allocate_child (self, width, height, baseline);
     priv->block_warnings = FALSE;
     priv->first_allocation = FALSE;
+
+    priv->tick_cb_id = gtk_widget_add_tick_callback (widget,
+                                                     (GtkTickCallback) maybe_resize_tick_cb,
+                                                     self, NULL);
   } else {
     priv->tick_cb_id = gtk_widget_add_tick_callback (widget,
                                                      (GtkTickCallback) breakpoint_changed_tick_cb,
