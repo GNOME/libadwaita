@@ -2057,11 +2057,22 @@ adw_sidebar_grab_focus (GtkWidget *widget)
     return gtk_widget_grab_focus (self->placeholder);
 
   if (self->listbox) {
-    GtkListBoxRow *row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), 0);
+    AdwSidebarItem *selected = adw_sidebar_get_selected_item (self);
+    GtkWidget *row = NULL;
+
+    if (selected) {
+      row = find_list_row (self, selected);
+    } else {
+      GtkListBoxRow *first_row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), 0);
+
+      if (first_row)
+        row = GTK_WIDGET (first_row);
+    }
+
     if (!row)
       return FALSE;
 
-    return gtk_widget_grab_focus (GTK_WIDGET (row));
+    return gtk_widget_grab_focus (row);
   }
 
   if (self->page) {
