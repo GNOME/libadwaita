@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2026-02-03 19:01+0000\n"
-"PO-Revision-Date: 2026-02-07 16:24+0100\n"
+"PO-Revision-Date: 2026-02-12 01:32+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -409,18 +409,18 @@ msgstr "Použít"
 #: src/adw-indicator-bin.c:78
 msgctxt "view switcher button badge"
 msgid "Attention requested."
-msgstr ""
+msgstr "Vyžadována pozornost."
 
 #: src/adw-indicator-bin.c:81
 msgctxt "view switcher button badge"
 msgid "Has a badge: more than 999."
-msgstr ""
+msgstr "Má odznak: více než 999."
 
 #: src/adw-indicator-bin.c:83
 #, c-format
 msgctxt "view switcher button badge"
 msgid "Has a badge: %u."
-msgstr ""
+msgstr "Má odznak: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
