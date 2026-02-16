@@ -4,58 +4,61 @@
     <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Adwaita1.Demo.svg">data/org.gnome.Adwaita1.Demo.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/symbolic/apps/org.gnome.Adwaita1.Demo-symbolic.svg">data/org.gnome.Adwaita1.Demo-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="org.gnome.Adwaita1.Demo.metainfo.xml">data/org.gnome.Adwaita1.Demo.metainfo.xml</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/animations-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/camera-photo-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/camera-video-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-alarm-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-stopwatch-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-timer-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-world-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-redo-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-redo-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-undo-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-undo-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/format-justify-center-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/format-justify-fill-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/format-justify-left-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/format-justify-right-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/media-skip-backward-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/media-skip-forward-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-layout-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-search-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/style-classes-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/tab-new-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/view-dual-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-about-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-banner-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-buttons-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-bottom-sheet-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-dialog-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-multi-layout-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-navigation-view-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toast-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toggle-group-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-wrap-box-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/window-new-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/welcome-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/apps/org.example.Typeset.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic-rtl.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/animations-symbolic.svg">icons/animations.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/camera-photo-symbolic.svg">icons/camera-photo.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/camera-video-symbolic.svg">icons/camera-video.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/clock-alarm-symbolic.svg">icons/clock-alarm.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/clock-stopwatch-symbolic.svg">icons/clock-stopwatch.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/clock-timer-symbolic.svg">icons/clock-timer.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/clock-world-symbolic.svg">icons/clock-world.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-redo-symbolic-rtl.svg">icons/edit-redo-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-redo-symbolic.svg">icons/edit-redo.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-undo-symbolic-rtl.svg">icons/edit-undo-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-undo-symbolic.svg">icons/edit-undo.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/format-justify-center-symbolic.svg">icons/format-justify-center.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/format-justify-fill-symbolic.svg">icons/format-justify-fill.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/format-justify-left-symbolic.svg">icons/format-justify-left.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/format-justify-right-symbolic.svg">icons/format-justify-right.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/media-skip-backward-symbolic.svg">icons/media-skip-backward.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/media-skip-forward-symbolic.svg">icons/media-skip-forward.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/preferences-window-layout-symbolic.svg">icons/preferences-window-layout.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/preferences-window-search-symbolic.svg">icons/preferences-window-search.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/style-classes-symbolic.svg">icons/style-classes.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/tab-audio-muted-symbolic-rtl.svg">icons/tab-audio-muted-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/tab-audio-muted-symbolic.svg">icons/tab-audio-muted.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/tab-audio-playing-symbolic-rtl.svg">icons/tab-audio-playing-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/tab-audio-playing-symbolic.svg">icons/tab-audio-playing.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/tab-new-symbolic.svg">icons/tab-new.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/view-dual-symbolic.svg">icons/view-dual.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/view-sidebar-end-symbolic-rtl.svg">icons/view-sidebar-end-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/view-sidebar-end-symbolic.svg">icons/view-sidebar-end.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/view-sidebar-start-symbolic-rtl.svg">icons/view-sidebar-start-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/view-sidebar-start-symbolic.svg">icons/view-sidebar-start.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/welcome-symbolic.svg">icons/welcome.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-about-symbolic.svg">icons/widget-about.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-banner-symbolic.svg">icons/widget-banner.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-bottom-sheet-symbolic.svg">icons/widget-bottom-sheet.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-buttons-symbolic.svg">icons/widget-buttons.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-carousel-symbolic.svg">icons/widget-carousel.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-clamp-symbolic.svg">icons/widget-clamp.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-dialog-symbolic.svg">icons/widget-dialog.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-list-symbolic.svg">icons/widget-list.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-multi-layout-symbolic.svg">icons/widget-multi-layout.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-navigation-view-symbolic.svg">icons/widget-navigation-view.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-split-views-symbolic-rtl.svg">icons/widget-split-views-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-split-views-symbolic.svg">icons/widget-split-views.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-tab-view-symbolic.svg">icons/widget-tab-view.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-toast-symbolic.svg">icons/widget-toast.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-toggle-group-symbolic.svg">icons/widget-toggle-group.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-view-switcher-symbolic.svg">icons/widget-view-switcher.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-wrap-box-symbolic-rtl.svg">icons/widget-wrap-box-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/widget-wrap-box-symbolic.svg">icons/widget-wrap-box.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/window-new-symbolic.svg">icons/window-new.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Boxes.svg">icons/org.gnome.Boxes.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.example.Typeset.svg">icons/org.example.Typeset.svg</file>
+
     <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
     <file compressed="true">style.css</file>
   </gresource>
