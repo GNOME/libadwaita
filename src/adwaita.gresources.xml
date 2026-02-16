@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita">
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-adaptive-preview-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-application-exit-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-application-exit-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-apply-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-edit-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-external-link-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-mail-send-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-rotate-acw-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-rotate-cw-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-screenshot-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-sidebar-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-sidebar-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-tab-new-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/adw-avatar-default-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-counter-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-icon-missing-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-overflow-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-unpin-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-adaptive-preview-symbolic.svg">icons/adw-adaptive-preview.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-application-exit-symbolic-rtl.svg">icons/adw-application-exit-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-application-exit-symbolic.svg">icons/adw-application-exit.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-avatar-default-symbolic.svg">icons/adw-avatar-default.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-entry-apply-symbolic.svg">icons/adw-entry-apply.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-entry-edit-symbolic.svg">icons/adw-entry-edit.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-expander-arrow-symbolic.svg">icons/adw-expander-arrow.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-external-link-symbolic.svg">icons/adw-external-link.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-mail-send-symbolic.svg">icons/adw-mail-send.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-rotate-acw-symbolic.svg">icons/adw-rotate-acw.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-rotate-cw-symbolic.svg">icons/adw-rotate-cw.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-screenshot-symbolic.svg">icons/adw-screenshot.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-sidebar-symbolic-rtl.svg">icons/adw-sidebar-rtl.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-sidebar-symbolic.svg">icons/adw-sidebar.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-tab-counter-symbolic.svg">icons/adw-tab-counter.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-tab-icon-missing-symbolic.svg">icons/adw-tab-icon-missing.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-tab-new-symbolic.svg">icons/adw-tab-new.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-tab-overflow-symbolic.svg">icons/adw-tab-overflow.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-tab-unpin-symbolic.svg">icons/adw-tab-unpin.svg</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-about-dialog.ui</file>
