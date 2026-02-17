@@ -1556,7 +1556,6 @@ adw_toggle_set_description (AdwToggle  *self,
                             const char *description)
 {
   g_return_if_fail (ADW_IS_TOGGLE (self));
-  g_return_if_fail (description != NULL);
 
   if (!g_set_str (&self->description, description))
     return;

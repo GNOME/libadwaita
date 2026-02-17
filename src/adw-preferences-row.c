@@ -229,7 +229,6 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
   AdwPreferencesRowPrivate *priv;
 
   g_return_if_fail (ADW_IS_PREFERENCES_ROW (self));
-  g_return_if_fail (title != NULL);
 
   priv = adw_preferences_row_get_instance_private (self);
 

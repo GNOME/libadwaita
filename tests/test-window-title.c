@@ -17,7 +17,7 @@ increment (int *data)
 static void
 test_adw_window_title_title (void)
 {
-  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", "")));
+  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", NULL)));
   char *title;
   int notified = 0;
 
@@ -46,7 +46,7 @@ test_adw_window_title_title (void)
 static void
 test_adw_window_title_subtitle (void)
 {
-  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("", "Some subtitle")));
+  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new (NULL, "Some subtitle")));
   char *subtitle;
   int notified = 0;
 

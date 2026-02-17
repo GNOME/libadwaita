@@ -554,7 +554,6 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
   AdwExpanderRowPrivate *priv;
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-  g_return_if_fail (subtitle != NULL);
 
   priv = adw_expander_row_get_instance_private (self);
 
