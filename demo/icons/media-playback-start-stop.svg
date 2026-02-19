@@ -6,7 +6,7 @@
         xmlns:dc='http://purl.org/dc/elements/1.1/'
         xmlns:gpa='https://www.gtk.org/grappa'
         gpa:version='1'
-        gpa:state='1'
+        gpa:state='0'
         gpa:keywords='media-playback-start play triangle'
         width='16'
         height='16'>
@@ -26,6 +26,7 @@
           id='path0'
           fill='url(#gpa:foreground) rgb(0,0,0)'
           fill-rule='nonzero'
+          visibility='hidden'
           stroke='none'
           d='M 3 3.348 L 3 12.652 C 3.00011 12.9405, 3.14953 13.2085, 3.39495 13.3602 C 3.64037 13.5119, 3.94683 13.5259, 4.205 13.397 L 13.563 8.718 C 13.8348 8.58189, 14.0064 8.30397, 14.0064 8 C 14.0064 7.69603, 13.8348 7.41811, 13.563 7.282 L 4.205 2.602 C 3.94651 2.47299, 3.63964 2.48711, 3.3941 2.63933 C 3.14856 2.79154, 2.99942 3.06011, 3 3.349'
           class='foreground foreground-fill'
@@ -36,7 +37,6 @@
   </path>
   <path
           id='play'
-          visibility='hidden'
           fill='none'
           stroke='url(#gpa:foreground) rgb(0,0,0)'
           stroke-width='2'
