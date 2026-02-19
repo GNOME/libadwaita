@@ -16,7 +16,7 @@
               <object class="AdwIconPaintable">
                 <property name="icon-name">media-playback-start-stop</property>
                 <property name="state">0</property>
-                <property name="animate-in">true</property>
+                <property name="animate-in">True</property>
                 <property name="widget">AdwDemoPageSplitViews</property>
               </object>
             </property>

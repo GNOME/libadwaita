@@ -30,6 +30,8 @@ struct _AdwIconPaintable
 
   GtkSvg *svg;
   char *path;
+
+  gboolean ready;
 };
 
 static void adw_icon_paintable_iface_init (GdkPaintableInterface *iface);
@@ -55,15 +57,12 @@ static GParamSpec *props[LAST_PROP];
 static void
 update_frame_clock (AdwIconPaintable *self)
 {
-  if (self->widget && gtk_widget_get_mapped (self->widget)) {
-    GdkFrameClock *frame_clock = gtk_widget_get_frame_clock (self->widget);
+  GdkFrameClock *frame_clock = NULL;
 
-    gtk_svg_set_frame_clock (self->svg, frame_clock);
-    gtk_svg_play (self->svg);
-  } else {
-    gtk_svg_pause (self->svg);
-    gtk_svg_set_frame_clock (self->svg, NULL);
-  }
+  if (self->widget && gtk_widget_get_mapped (self->widget))
+    frame_clock = gtk_widget_get_frame_clock (self->widget);
+
+  gtk_svg_set_frame_clock (self->svg, frame_clock);
 }
 
 static void
@@ -79,17 +78,16 @@ recreate_svg (AdwIconPaintable *self)
     g_signal_connect_swapped (self->svg, "invalidate-size",
                               G_CALLBACK (gdk_paintable_invalidate_size), self);
 
-    if (self->widget && gtk_widget_get_mapped (self->widget)) {
-      GdkFrameClock *frame_clock = gtk_widget_get_frame_clock (self->widget);
-
-      gtk_svg_set_frame_clock (self->svg, frame_clock);
-    }
+    update_frame_clock (self);
 
     if (self->animate_in) {
+      g_print ("Initialize with state -1\n");
       gtk_svg_set_state (self->svg, -1);
       gtk_svg_play (self->svg);
+      g_print ("Switch to state %u\n", self->state);
       gtk_svg_set_state (self->svg, self->state);
     } else {
+      g_print ("Initialize with state %u\n", self->state);
       gtk_svg_set_state (self->svg, self->state);
       gtk_svg_play (self->svg);
     }
@@ -104,6 +102,9 @@ reload_icon (AdwIconPaintable *self)
   AdwStyleManager *manager;
   GdkDisplay *display;
   char *path;
+
+  if (!self->ready)
+    return;
 
   if (!self->icon_name || !*self->icon_name) {
     g_clear_object (&self->svg);
@@ -147,6 +148,9 @@ widget_map_cb (AdwIconPaintable *self)
 {
   g_assert (GTK_IS_WIDGET (self->widget));
 
+  if (!self->ready)
+    return;
+
   reload_icon (self);
   update_frame_clock (self);
 }
@@ -156,6 +160,18 @@ widget_unmap_cb (AdwIconPaintable *self)
 {
   if (self->svg)
     update_frame_clock (self);
+}
+
+static void
+adw_icon_paintable_constructed (GObject *object)
+{
+  AdwIconPaintable *self = ADW_ICON_PAINTABLE (object);
+
+  G_OBJECT_CLASS (adw_icon_paintable_parent_class)->constructed (object);
+
+  g_print ("Constructed: %s %u %d\n", self->icon_name, self->state, self->animate_in);
+  self->ready = TRUE;
+  reload_icon (self);
 }
 
 static void
@@ -247,6 +263,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->constructed = adw_icon_paintable_constructed;
   object_class->dispose = adw_icon_paintable_dispose;
   object_class->finalize = adw_icon_paintable_finalize;
   object_class->get_property = adw_icon_paintable_get_property;
@@ -262,7 +279,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIconPaintable:state:
@@ -273,8 +290,8 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
    */
   props[PROP_STATE] =
     g_param_spec_uint ("state", NULL, NULL,
-                       0, G_MAXUINT, GTK_SVG_STATE_EMPTY,
-                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIconPaintable:animate-in:
@@ -286,7 +303,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
   props[PROP_ANIMATE_IN] =
     g_param_spec_boolean ("animate-in", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIconPaintable:widget:
@@ -298,7 +315,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
   props[PROP_WIDGET] =
     g_param_spec_object ("widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -470,7 +487,8 @@ adw_icon_paintable_set_icon_name (AdwIconPaintable *self,
   if (!g_set_str (&self->icon_name, icon_name))
     return;
 
-  reload_icon (self);
+  if (self->ready)
+    reload_icon (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -512,6 +530,8 @@ adw_icon_paintable_set_state (AdwIconPaintable *self,
     return;
 
   self->state = state;
+  g_print ("Set state %s %u\n", self->icon_name, state);
+//  g_on_error_stack_trace ("WTF");
 
   if (self->svg)
     gtk_svg_set_state (self->svg, state);
@@ -617,7 +637,7 @@ adw_icon_paintable_set_widget (AdwIconPaintable *self,
     g_signal_connect_swapped (self->widget, "map", G_CALLBACK (widget_map_cb), self);
     g_signal_connect_swapped (self->widget, "unmap", G_CALLBACK (widget_unmap_cb), self);
 
-    if (gtk_widget_get_mapped (self->widget))
+    if (self->ready && gtk_widget_get_mapped (self->widget))
       widget_map_cb (self);
 
     g_object_weak_ref (G_OBJECT (self->widget),
