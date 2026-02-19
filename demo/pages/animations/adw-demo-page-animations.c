@@ -219,7 +219,7 @@ get_play_pause_state (gpointer          user_data,
   gboolean playing = timed_state  == ADW_ANIMATION_PLAYING ||
                      spring_state == ADW_ANIMATION_PLAYING;
 
-  return playing ? 3 : 2;
+  return playing ? 3 : 0;
 }
 
 static gboolean
