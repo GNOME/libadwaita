@@ -75,7 +75,7 @@
             </child>
             <child>
               <object class="AdwStatusPage" id="empty">
-                <property name="icon-name">edit-find-symbolic</property>
+                <property name="icon-name">edit-find</property>
                 <property name="title" translatable="yes">No Results Found</property>
                 <property name="description" translatable="yes">Try a different search</property>
               </object>

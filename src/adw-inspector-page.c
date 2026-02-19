@@ -63,7 +63,7 @@ create_window_row_cb (GtkWindow        *window,
   adw_action_row_set_subtitle (ADW_ACTION_ROW (row), G_OBJECT_TYPE_NAME (window));
 
   btn = gtk_toggle_button_new ();
-  gtk_button_set_icon_name (GTK_BUTTON (btn), "adw-adaptive-preview-symbolic");
+  gtk_button_set_icon_name (GTK_BUTTON (btn), "adw-adaptive-preview");
   gtk_widget_set_tooltip_text (btn, _("Adaptive Preview"));
   gtk_widget_set_valign (btn, GTK_ALIGN_CENTER);
   gtk_widget_add_css_class (btn, "flat");
@@ -227,7 +227,7 @@ accent_color_item_setup_cb (GtkSignalListItemFactory *factory,
 
   checkmark = g_object_new (GTK_TYPE_IMAGE,
                             "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                            "icon-name", "object-select-symbolic",
+                            "icon-name", "object-select",
                             NULL);
   gtk_box_append (GTK_BOX (box), checkmark);
 

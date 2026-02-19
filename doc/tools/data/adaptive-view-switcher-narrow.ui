@@ -30,7 +30,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">View 1</property>
-                <property name="icon-name">folder-music-symbolic</property>
+                <property name="icon-name">folder-music</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="label">View 1</property>
@@ -44,7 +44,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">View 2</property>
-                <property name="icon-name">folder-pictures-symbolic</property>
+                <property name="icon-name">folder-pictures</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="label">View 2</property>
@@ -58,7 +58,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">View 3</property>
-                <property name="icon-name">folder-videos-symbolic</property>
+                <property name="icon-name">folder-videos</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="label">View 3</property>
@@ -72,7 +72,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">View 4</property>
-                <property name="icon-name">user-bookmarks-symbolic</property>
+                <property name="icon-name">user-bookmarks</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="label">View 4</property>

@@ -1,12 +1,12 @@
 expander {
   min-width: 16px;
   min-height: 16px;
-  -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
-  &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
+  -gtk-icon-source: -gtk-icontheme('pan-end');
+  &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-rtl'); }
 
   &:disabled { filter: Opacity(var(--disabled-opacity)); }
 
-  &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
+  &:checked { -gtk-icon-source: -gtk-icontheme('pan-downs'); }
 }
 
 expander-widget {

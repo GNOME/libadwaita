@@ -23,19 +23,19 @@
         </style>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">go-up-symbolic</property>
+            <property name="icon-name">go-up</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">go-down-symbolic</property>
+            <property name="icon-name">go-down</property>
           </object>
         </child>
       </object>
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">list-add-symbolic</property>
+        <property name="icon-name">list-add</property>
         <style>
           <class name="suggested-action"/>
         </style>
@@ -43,7 +43,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">list-add-symbolic</property>
+        <property name="icon-name">list-add</property>
         <style>
           <class name="destructive-action"/>
         </style>

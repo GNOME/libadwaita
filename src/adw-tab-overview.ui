@@ -16,7 +16,7 @@
           <object class="AdwHeaderBar" id="header_bar">
             <child type="start">
               <object class="GtkToggleButton" id="search_button">
-                <property name="icon-name">edit-find-symbolic</property>
+                <property name="icon-name">edit-find</property>
                 <property name="tooltip-text" translatable="yes">Search Tabs</property>
               </object>
             </child>
@@ -30,7 +30,7 @@
             <child type="end">
               <object class="GtkMenuButton" id="secondary_menu_button">
                 <property name="visible">False</property>
-                <property name="icon-name">view-more-symbolic</property>
+                <property name="icon-name">view-more</property>
                 <property name="primary">True</property>
               </object>
             </child>
@@ -93,7 +93,7 @@
                 <property name="visible">False</property>
                 <property name="can-target">False</property>
                 <property name="can-focus">False</property>
-                <property name="icon-name">view-grid-symbolic</property>
+                <property name="icon-name">view-grid</property>
                 <property name="title" translatable="yes">No Open Tabs</property>
                 <layout>
                   <property name="measure">True</property>
@@ -106,7 +106,7 @@
                 <property name="visible">False</property>
                 <property name="can-target">False</property>
                 <property name="can-focus">False</property>
-                <property name="icon-name">edit-find-symbolic</property>
+                <property name="icon-name">edit-find</property>
                 <property name="title" translatable="yes">No Tabs Found</property>
                 <property name="description" translatable="yes">Try a different search</property>
                 <layout>
@@ -127,7 +127,7 @@
                 </layout>
                 <property name="child">
                   <object class="AdwButtonContent">
-                    <property name="icon-name">adw-tab-new-symbolic</property>
+                    <property name="icon-name">adw-tab-new</property>
                     <property name="label" translatable="yes">New _Tab</property>
                     <property name="use-underline">True</property>
                     <property name="can-shrink">True</property>

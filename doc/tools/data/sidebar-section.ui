@@ -13,19 +13,19 @@
         <child>
           <object class="AdwSidebarItem">
             <property name="title" translatable="yes">Music</property>
-            <property name="icon-name">folder-music-symbolic</property>
+            <property name="icon-name">folder-music</property>
           </object>
         </child>
         <child>
           <object class="AdwSidebarItem">
             <property name="title" translatable="yes">Pictures</property>
-            <property name="icon-name">folder-pictures-symbolic</property>
+            <property name="icon-name">folder-pictures</property>
           </object>
         </child>
         <child>
           <object class="AdwSidebarItem">
             <property name="title" translatable="yes">Videos</property>
-            <property name="icon-name">folder-videos-symbolic</property>
+            <property name="icon-name">folder-videos</property>
           </object>
         </child>
       </object>

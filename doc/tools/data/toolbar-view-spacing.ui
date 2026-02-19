@@ -15,7 +15,7 @@
           <object class="AdwHeaderBar">
             <child type="start">
               <object class="GtkToggleButton">
-                <property name="icon-name">edit-find-symbolic</property>
+                <property name="icon-name">edit-find</property>
                 <property name="active">True</property>
               </object>
             </child>

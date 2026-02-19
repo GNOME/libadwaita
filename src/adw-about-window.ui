@@ -95,7 +95,7 @@
                                             <property name="action-target">"whatsnew"</property>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -111,7 +111,7 @@
                                             <property name="action-target">"details"</property>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -160,7 +160,7 @@
                                             <property name="action-target">"troubleshooting"</property>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -181,7 +181,7 @@
                                             <property name="visible" bind-source="credits_box" bind-property="visible" bind-flags="sync-create"/>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -197,7 +197,7 @@
                                             <property name="visible" bind-source="legal_box" bind-property="visible" bind-flags="sync-create"/>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -213,7 +213,7 @@
                                             <property name="visible" bind-source="acknowledgements_box" bind-property="visible" bind-flags="sync-create"/>
                                             <child>
                                               <object class="GtkImage">
-                                                <property name="icon-name">go-next-symbolic</property>
+                                                <property name="icon-name">go-next</property>
                                                 <property name="accessible-role">presentation</property>
                                               </object>
                                             </child>
@@ -380,7 +380,7 @@
                                         <property name="action-target">"debuginfo"</property>
                                         <child>
                                           <object class="GtkImage">
-                                            <property name="icon-name">go-next-symbolic</property>
+                                            <property name="icon-name">go-next</property>
                                             <property name="accessible-role">presentation</property>
                                           </object>
                                         </child>

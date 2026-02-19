@@ -134,6 +134,7 @@ statuspage {
       > .icon {
         color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
         -gtk-icon-size: 128px;
+        -gtk-icon-weight: 134;
 
         &:disabled {
           opacity: var(--disabled-opacity);
@@ -156,7 +157,8 @@ statuspage {
 
     > clamp > box {
       > .icon {
-        -gtk-icon-size: 96px;
+          -gtk-icon-size: 96px;
+          -gtk-icon-weight: 134;
 
         &:not(:last-child) {
           margin-bottom: 12px;
@@ -176,6 +178,7 @@ statuspage {
     > clamp > box {
       > .icon {
         -gtk-icon-size: 64px;
+        -gtk-icon-weight: 134;
 
         &:not(:last-child) {
           margin-bottom: 12px;

@@ -513,7 +513,7 @@ adw_back_button_init (AdwBackButton *self)
 
   gtk_widget_set_visible (GTK_WIDGET (self), FALSE);
 
-  button = gtk_button_new_from_icon_name ("go-previous-symbolic");
+  button = gtk_button_new_from_icon_name ("go-previous");
   gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "navigation.pop");
   gtk_widget_add_css_class (GTK_WIDGET (button), "back");
   gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
@@ -559,3 +559,4 @@ adw_back_button_gather_navigation_history (AdwBackButton *self)
 
   return pages;
 }
+

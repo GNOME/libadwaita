@@ -12,7 +12,14 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-navigation-view-symbolic</property>
+            <property name="paintable">
+              <object class="AdwIconPaintable">
+                <property name="icon-name">sign</property>
+                <property name="state">0</property>
+                <property name="animate-in">true</property>
+                <property name="widget">AdwDemoPageNavigationView</property>
+              </object>
+            </property>
             <property name="title" translatable="yes">Navigation View</property>
             <property name="description" translatable="yes">A page-based navigation container</property>
             <property name="child">

@@ -19,7 +19,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">window-close-symbolic</property>
+        <property name="icon-name">window-close</property>
         <property name="action-target">false</property>
         <style>
           <class name="flat"/>

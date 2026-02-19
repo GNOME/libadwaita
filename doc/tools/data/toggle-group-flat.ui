@@ -37,14 +37,14 @@
         </style>
         <child>
           <object class="AdwToggle">
-            <property name="icon-name">camera-photo-symbolic</property>
+            <property name="icon-name">camera-photo</property>
             <property name="tooltip" translatable="yes">Picture Mode</property>
             <property name="name">picture</property>
           </object>
         </child>
         <child>
           <object class="AdwToggle">
-            <property name="icon-name">camera-video-symbolic</property>
+            <property name="icon-name">camera-video</property>
             <property name="tooltip" translatable="yes">Recording Mode</property>
             <property name="name">recording</property>
           </object>

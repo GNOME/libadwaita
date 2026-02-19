@@ -95,7 +95,7 @@
                                   <object class="GtkToggleButton" id="search_button">
                                     <property name="valign">center</property>
                                     <property name="tooltip-text" translatable="yes">Search</property>
-                                    <property name="icon_name">edit-find-symbolic</property>
+                                    <property name="icon_name">edit-find</property>
                                     <signal name="notify::active" handler="search_button_notify_active_cb" swapped="yes"/>
                                   </object>
                                 </child>
@@ -160,7 +160,7 @@
                                             <property name="name">no-results</property>
                                             <property name="child">
                                               <object class="AdwStatusPage">
-                                                <property name="icon-name">edit-find-symbolic</property>
+                                                <property name="icon-name">edit-find</property>
                                                 <property name="title" translatable="yes">No Results Found</property>
                                                 <property name="description" translatable="yes">Try a different search.</property>
                                               </object>

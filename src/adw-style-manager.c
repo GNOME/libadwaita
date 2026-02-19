@@ -11,6 +11,7 @@
 #include "adw-style-manager-private.h"
 
 #include "adw-accent-color-private.h"
+#include "adw-icon-provider-private.h"
 #include "adw-main-private.h"
 #include "adw-settings-private.h"
 #include <gtk/gtk.h>
@@ -77,6 +78,8 @@ struct _AdwStyleManager
 
   GtkCssProvider *animations_provider;
   guint animation_timeout_id;
+
+  AdwIconProvider *icon_provider;
 };
 
 G_DEFINE_FINAL_TYPE (AdwStyleManager, adw_style_manager, G_TYPE_OBJECT);
@@ -124,9 +127,15 @@ warn_prefer_dark_theme (AdwStyleManager *self)
 static void
 unregister_display (GdkDisplay *display)
 {
+  GtkIconProvider *provider;
+
   g_assert (g_hash_table_contains (display_style_managers, display));
 
   g_hash_table_remove (display_style_managers, display);
+
+  /* Reset icon provider to the default GTK one */
+  provider = GTK_ICON_PROVIDER (gtk_icon_theme_get_for_display (display));
+  gtk_icon_provider_set_for_display (display, provider);
 }
 
 static void
@@ -515,6 +524,11 @@ adw_style_manager_constructed (GObject *object)
     self->animations_provider = gtk_css_provider_new ();
     gtk_css_provider_load_from_string (self->animations_provider,
                                        "* { transition: none; }");
+
+    self->icon_provider = adw_icon_provider_new (self->display);
+
+    gtk_icon_provider_set_for_display (self->display,
+                                       GTK_ICON_PROVIDER (self->icon_provider));
   } else {
     self->gtk_settings = gtk_settings_get_default ();
   }
@@ -581,6 +595,7 @@ adw_style_manager_dispose (GObject *object)
   g_clear_object (&self->animations_provider);
   g_clear_object (&self->accent_provider);
   g_clear_object (&self->fonts_provider);
+  g_clear_object (&self->icon_provider);
   g_clear_pointer (&self->document_font_name, g_free);
   g_clear_pointer (&self->monospace_font_name, g_free);
 
@@ -1222,4 +1237,35 @@ adw_style_manager_get_monospace_font_name (AdwStyleManager *self)
     return DEFAULT_MONOSPACE_FONT;
 
   return self->monospace_font_name;
+}
+
+void
+adw_style_manager_add_icon_resource_path (AdwStyleManager *self,
+                                          const char      *path)
+{
+  g_return_if_fail (ADW_IS_STYLE_MANAGER (self));
+
+  /* For default style manager, add paths to all of the style managers at once */
+  // TODO only do it if we haven't specified custom paths? Still need to figure out how to do so
+  if (!self->display) {
+    GHashTableIter iter;
+    AdwStyleManager *manager;
+
+    g_hash_table_iter_init (&iter, display_style_managers);
+
+    while (g_hash_table_iter_next (&iter, NULL, (gpointer) &manager))
+      adw_icon_provider_add_resource_path (manager->icon_provider, path);
+  } else {
+    adw_icon_provider_add_resource_path (self->icon_provider, path);
+  }
+}
+
+char *
+adw_style_manager_lookup_icon_path (AdwStyleManager *self,
+                                    const char      *icon_name)
+{
+  g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), NULL);
+  g_return_val_if_fail (ADW_IS_ICON_PROVIDER (self->icon_provider), NULL);
+
+  return adw_icon_provider_lookup_path (self->icon_provider, icon_name);
 }

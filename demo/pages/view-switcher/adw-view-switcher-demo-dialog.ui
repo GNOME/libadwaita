@@ -26,11 +26,11 @@
               <object class="AdwViewStackPage">
                 <property name="name">page1</property>
                 <property name="title" translatable="yes">_World</property>
-                <property name="icon-name">clock-world-symbolic</property>
+                <property name="icon-name">clock-world</property>
                 <property name="use-underline">True</property>
                 <property name="child">
                   <object class="AdwStatusPage">
-                    <property name="icon-name">clock-world-symbolic</property>
+                    <property name="icon-name">clock-world</property>
                     <property name="title" translatable="yes">World</property>
                     <property name="description" translatable="yes">View the time in cities around the world</property>
                   </object>
@@ -41,11 +41,11 @@
               <object class="AdwViewStackPage">
                 <property name="name">page2</property>
                 <property name="title" translatable="yes">_Alarm</property>
-                <property name="icon-name">clock-alarm-symbolic</property>
+                <property name="icon-name">clock-alarm</property>
                 <property name="use-underline">True</property>
                 <property name="child">
                   <object class="AdwStatusPage">
-                    <property name="icon-name">clock-alarm-symbolic</property>
+                    <property name="icon-name">clock-alarm</property>
                     <property name="title" translatable="yes">Alarm</property>
                     <property name="description" translatable="yes">Set customizable alarms to go off on specific days</property>
                   </object>
@@ -56,13 +56,13 @@
               <object class="AdwViewStackPage">
                 <property name="name">page3</property>
                 <property name="title" translatable="yes">_Stopwatch</property>
-                <property name="icon-name">clock-stopwatch-symbolic</property>
+                <property name="icon-name">clock-stopwatch</property>
                 <property name="badge-number">3</property>
                 <property name="needs-attention">true</property>
                 <property name="use-underline">True</property>
                 <property name="child">
                   <object class="AdwStatusPage">
-                    <property name="icon-name">clock-stopwatch-symbolic</property>
+                    <property name="icon-name">clock-stopwatch</property>
                     <property name="title" translatable="yes">Stopwatch</property>
                     <property name="description" translatable="yes">Use the stopwatch to time how long something takes</property>
                   </object>
@@ -73,11 +73,11 @@
               <object class="AdwViewStackPage">
                 <property name="name">page4</property>
                 <property name="title" translatable="yes">Tim_er</property>
-                <property name="icon-name">clock-timer-symbolic</property>
+                <property name="icon-name">clock-timer</property>
                 <property name="use-underline">True</property>
                 <property name="child">
                   <object class="AdwStatusPage">
-                    <property name="icon-name">clock-timer-symbolic</property>
+                    <property name="icon-name">clock-timer</property>
                     <property name="title" translatable="yes">Timer</property>
                     <property name="description" translatable="yes">Set a countdown in seconds, minutes or hours</property>
                   </object>

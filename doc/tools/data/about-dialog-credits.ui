@@ -17,7 +17,7 @@
             <property name="activatable">True</property>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">adw-mail-send-symbolic</property>
+                <property name="icon-name">adw-mail-send</property>
               </object>
             </child>
           </object>
@@ -29,7 +29,7 @@
             <property name="activatable">True</property>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">adw-external-link-symbolic</property>
+                <property name="icon-name">adw-external-link</property>
               </object>
             </child>
           </object>

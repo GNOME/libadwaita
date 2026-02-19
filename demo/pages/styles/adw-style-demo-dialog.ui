@@ -114,7 +114,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
                                 <property name="tooltip-text">pill</property>
-                                <property name="icon-name">list-add-symbolic</property>
+                                <property name="icon-name">list-add</property>
                                 <style>
                                   <class name="circular"/>
                                 </style>
@@ -152,7 +152,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             <property name="hexpand">True</property>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="icon-name">go-previous</property>
                                 <property name="tooltip-text">osd</property>
                                 <style>
                                   <class name="osd"/>
@@ -161,7 +161,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">go-next-symbolic</property>
+                                <property name="icon-name">go-next</property>
                                 <property name="tooltip-text">osd</property>
                                 <style>
                                   <class name="osd"/>
@@ -190,7 +190,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                               <object class="GtkEntry">
                                 <property name="placeholder-text" translatable="yes">Regular</property>
                                 <property name="text" translatable="yes">Regular</property>
-                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <property name="secondary-icon-name">edit-copy</property>
                               </object>
                             </child>
                             <child>
@@ -198,7 +198,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <property name="placeholder-text" translatable="yes">Success</property>
                                 <property name="text" translatable="yes">Success</property>
                                 <property name="tooltip-text">success</property>
-                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <property name="secondary-icon-name">edit-copy</property>
                                 <style>
                                   <class name="success"/>
                                 </style>
@@ -216,7 +216,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <property name="placeholder-text" translatable="yes">Warning</property>
                                 <property name="text" translatable="yes">Warning</property>
                                 <property name="tooltip-text">warning</property>
-                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <property name="secondary-icon-name">edit-copy</property>
                                 <style>
                                   <class name="warning"/>
                                 </style>
@@ -227,7 +227,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <property name="placeholder-text" translatable="yes">Error</property>
                                 <property name="text" translatable="yes">Error</property>
                                 <property name="tooltip-text">error</property>
-                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <property name="secondary-icon-name">edit-copy</property>
                                 <style>
                                   <class name="error"/>
                                 </style>
@@ -320,13 +320,13 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             </style>
                             <child>
                               <object class="GtkToggleButton" id="toggle">
-                                <property name="icon-name">view-grid-symbolic</property>
+                                <property name="icon-name">view-grid</property>
                                 <property name="active">True</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkToggleButton">
-                                <property name="icon-name">view-list-symbolic</property>
+                                <property name="icon-name">view-list</property>
                                 <property name="group">toggle</property>
                               </object>
                             </child>
@@ -373,17 +373,17 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             </style>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">edit-cut-symbolic</property>
+                                <property name="icon-name">edit-cut</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">edit-copy-symbolic</property>
+                                <property name="icon-name">edit-copy</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">edit-paste-symbolic</property>
+                                <property name="icon-name">edit-paste</property>
                               </object>
                             </child>
                           </object>
@@ -917,7 +917,7 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">tab-new-symbolic</property>
+                                <property name="icon-name">tab-new</property>
                               </object>
                             </child>
                             <child>
@@ -930,12 +930,12 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">edit-undo-symbolic</property>
+                                <property name="icon-name">edit-undo</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="icon-name">edit-redo-symbolic</property>
+                                <property name="icon-name">edit-redo</property>
                               </object>
                             </child>
                             <child>
@@ -947,7 +947,7 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                             </child>
                             <child>
                               <object class="GtkMenuButton">
-                                <property name="icon-name">view-more-symbolic</property>
+                                <property name="icon-name">view-more</property>
                                 <property name="menu-model">demo_menu</property>
                               </object>
                             </child>
@@ -964,17 +964,17 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                         </style>
                         <child>
                           <object class="GtkButton">
-                            <property name="icon-name">media-skip-backward-symbolic</property>
+                            <property name="icon-name">media-skip-backward</property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkButton">
-                            <property name="icon-name">media-playback-pause-symbolic</property>
+                            <property name="icon-name">media-playback-pause</property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkButton">
-                            <property name="icon-name">media-skip-forward-symbolic</property>
+                            <property name="icon-name">media-skip-forward</property>
                           </object>
                         </child>
                         <child>
@@ -1068,7 +1068,7 @@ audio-volume-medium</property>
                         <property name="action-name">style.status-page</property>
                         <child>
                           <object class="GtkImage">
-                            <property name="icon-name">go-next-symbolic</property>
+                            <property name="icon-name">go-next</property>
                             <style>
                               <class name="dimmed"/>
                             </style>
@@ -1083,7 +1083,7 @@ audio-volume-medium</property>
                         <property name="action-name">style.sidebar</property>
                         <child>
                           <object class="GtkImage">
-                            <property name="icon-name">go-next-symbolic</property>
+                            <property name="icon-name">go-next</property>
                             <style>
                               <class name="dimmed"/>
                             </style>
@@ -1148,7 +1148,7 @@ audio-volume-medium</property>
           <object class="AdwOverlaySplitView" id="compact_split_view">
             <property name="sidebar">
               <object class="AdwStatusPage">
-                <property name="icon-name">welcome-symbolic</property>
+                <property name="icon-name">welcome:0</property>
                 <property name="title" translatable="yes">Compact</property>
                 <property name="description" translatable="yes">This status page has the "compact" style class</property>
                 <property name="tooltip-text">compact</property>
@@ -1169,7 +1169,7 @@ audio-volume-medium</property>
             <property name="content">
               <object class="AdwStatusPage">
                 <property name="hexpand">True</property>
-                <property name="icon-name">welcome-symbolic</property>
+                <property name="icon-name">welcome:0</property>
                 <property name="title" translatable="yes">Regular</property>
                 <property name="description" translatable="yes">This is a regular status page</property>
                 <property name="child">
@@ -1315,4 +1315,5 @@ audio-volume-medium</property>
     </section>
   </menu>
 </interface>
+
 

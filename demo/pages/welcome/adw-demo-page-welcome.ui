@@ -12,7 +12,14 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">welcome-symbolic</property>
+            <property name="paintable">
+              <object class="AdwIconPaintable">
+                <property name="icon-name">plus-check</property>
+                <property name="state">0</property>
+                <property name="animate-in">true</property>
+                <property name="widget">AdwDemoPageWelcome</property>
+              </object>
+            </property>
             <property name="title" translatable="yes">Welcome to Adwaita Demo</property>
             <property name="description" translatable="yes">This is a tour of the features the library has to offer</property>
           </object>

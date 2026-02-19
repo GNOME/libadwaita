@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-tab-view-symbolic</property>
+            <property name="icon-name">widget-tab-view</property>
             <property name="title" translatable="yes">Tab View</property>
             <property name="description" translatable="yes">A modern tab widget</property>
             <property name="child">

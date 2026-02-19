@@ -15,7 +15,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">media-playback-start-symbolic</property>
+        <property name="icon-name">media-playback-start</property>
         <style>
           <class name="suggested-action"/>
         </style>

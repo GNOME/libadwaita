@@ -73,7 +73,7 @@
         <property name="opacity">0</property>
         <property name="valign">center</property>
         <property name="tooltip-text" translatable="yes">Close Tab</property>
-        <property name="icon-name">window-close-symbolic</property>
+        <property name="icon-name">window-close</property>
         <signal name="clicked" handler="close_clicked_cb" swapped="true"/>
         <style>
           <class name="flat"/>

@@ -15,7 +15,7 @@
         <property name="activatable-widget">button</property>
         <child>
           <object class="GtkButton" id="button">
-            <property name="icon-name">edit-copy-symbolic</property>
+            <property name="icon-name">edit-copy</property>
             <property name="valign">center</property>
             <style>
               <class name="flat"/>

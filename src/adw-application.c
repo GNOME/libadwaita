@@ -98,6 +98,22 @@ get_resource_base_path_file (AdwApplication *self)
   return base_file;
 }
 
+static char *
+to_resource_path (GFile *file)
+{
+  char *uri = g_file_get_uri (file);
+  char *ret;
+
+  g_assert (g_str_has_prefix (uri, "resource://"));
+
+  /* Trim "resource://" to get a resource path */
+  ret = g_strdup (&uri[11]);
+
+  g_free (uri);
+
+  return ret;
+}
+
 static void
 disable_shortcuts_action (AdwApplication *self)
 {
@@ -271,6 +287,21 @@ init_providers (AdwApplication *self)
 }
 
 static void
+init_icons (AdwApplication *self)
+{
+  AdwStyleManager *manager = adw_application_get_style_manager (self);
+  GFile *base_file = get_resource_base_path_file (self);
+  GFile *icons_dir = g_file_get_child (base_file, "icons");
+  char *path = to_resource_path (icons_dir);
+
+  adw_style_manager_add_icon_resource_path (manager, path);
+
+  g_object_unref (base_file);
+  g_object_unref (icons_dir);
+  g_free (path);
+}
+
+static void
 init_styling (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
@@ -313,7 +344,6 @@ init_shortcuts_dialog (AdwApplication *self)
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
   GFile *base_file, *ui_file;
   GSimpleAction *action;
-  char *uri;
 
 #ifdef __APPLE__
   const char * const accels[] = { "<Meta>question", NULL };
@@ -337,10 +367,8 @@ init_shortcuts_dialog (AdwApplication *self)
     return;
   }
 
-  uri = g_file_get_uri (ui_file);
-
   /* Trim "resource://" to get a resource path */
-  priv->shortcuts_dialog_path = g_strdup (&uri[11]);
+  priv->shortcuts_dialog_path = to_resource_path (ui_file);
 
   action = g_simple_action_new ("shortcuts", NULL);
   g_signal_connect_swapped (action, "activate", G_CALLBACK (shortcuts_action_cb), self);
@@ -348,7 +376,6 @@ init_shortcuts_dialog (AdwApplication *self)
 
   gtk_application_set_accels_for_action (GTK_APPLICATION (self), "app.shortcuts", accels);
 
-  g_free (uri);
   g_object_unref (base_file);
   g_object_unref (ui_file);
   g_object_unref (action);
@@ -364,6 +391,7 @@ adw_application_startup (GApplication *application)
   adw_init ();
 
   init_providers (self);
+  init_icons (self);
   init_styling (self);
   init_shortcuts_dialog (self);
 }

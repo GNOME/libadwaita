@@ -452,19 +452,19 @@ menubutton {
     min-height: 16px;
     min-width: 16px;
     &.none {
-      -gtk-icon-source: -gtk-icontheme('open-menu-symbolic');
+      -gtk-icon-source: -gtk-icontheme('open-menu');
     }
     &.down {
-      -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+      -gtk-icon-source: -gtk-icontheme('pan-down');
     }
     &.up {
-      -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+      -gtk-icon-source: -gtk-icontheme('pan-up');
     }
     &.left {
-      -gtk-icon-source: -gtk-icontheme('pan-start-symbolic');
+      -gtk-icon-source: -gtk-icontheme('pan-start');
     }
     &.right {
-      -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+      -gtk-icon-source: -gtk-icontheme('pan-end');
     }
   }
 }
@@ -619,7 +619,7 @@ splitbutton {
   }
 
   > menubutton > button > arrow.none {
-    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+    -gtk-icon-source: -gtk-icontheme('pan-down');
   }
 }
 

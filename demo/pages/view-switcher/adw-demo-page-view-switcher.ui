@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-view-switcher-symbolic</property>
+            <property name="icon-name">widget-view-switcher</property>
             <property name="title" translatable="yes">View Switcher</property>
             <property name="description" translatable="yes">Widgets to switch the window's view</property>
             <property name="child">

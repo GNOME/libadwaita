@@ -211,15 +211,15 @@ timed_animation_skip (AdwDemoPageAnimations *self)
   adw_animation_skip (self->spring_animation);
 }
 
-static char *
-get_play_pause_icon_name (gpointer          user_data,
+static guint
+get_play_pause_state (gpointer          user_data,
                           AdwAnimationState timed_state,
                           AdwAnimationState spring_state)
 {
   gboolean playing = timed_state  == ADW_ANIMATION_PLAYING ||
                      spring_state == ADW_ANIMATION_PLAYING;
 
-  return g_strdup (playing ? "media-playback-pause-symbolic" : "media-playback-start-symbolic");
+  return playing ? 3 : 2;
 }
 
 static gboolean
@@ -356,7 +356,7 @@ adw_demo_page_animations_class_init (AdwDemoPageAnimationsClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, timed_animation_reset);
   gtk_widget_class_bind_template_callback (widget_class, timed_animation_play_pause);
   gtk_widget_class_bind_template_callback (widget_class, timed_animation_skip);
-  gtk_widget_class_bind_template_callback (widget_class, get_play_pause_icon_name);
+  gtk_widget_class_bind_template_callback (widget_class, get_play_pause_state);
   gtk_widget_class_bind_template_callback (widget_class, timed_animation_can_reset);
   gtk_widget_class_bind_template_callback (widget_class, timed_animation_can_skip);
   gtk_widget_class_bind_template_callback (widget_class, notify_spring_params_change);

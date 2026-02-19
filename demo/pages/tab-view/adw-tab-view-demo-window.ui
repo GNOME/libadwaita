@@ -20,7 +20,7 @@
                 <child type="start">
                   <object class="GtkButton">
                     <property name="action-name">win.window-new</property>
-                    <property name="icon-name">window-new-symbolic</property>
+                    <property name="icon-name">window-new</property>
                     <property name="tooltip-text" translatable="yes">New Window</property>
                   </object>
                 </child>
@@ -33,7 +33,7 @@
                 </child>
                 <child type="end">
                   <object class="GtkButton" id="overview_btn">
-                    <property name="icon-name">view-grid-symbolic</property>
+                    <property name="icon-name">view-grid</property>
                     <property name="tooltip-text" translatable="yes">View Open Tabs</property>
                     <property name="action-name">overview.open</property>
                   </object>
@@ -41,7 +41,7 @@
                 <child type="end">
                   <object class="GtkButton" id="new_tab_btn">
                     <property name="action-name">win.tab-new</property>
-                    <property name="icon-name">adw-tab-new-symbolic</property>
+                    <property name="icon-name">adw-tab-new</property>
                     <property name="tooltip-text" translatable="yes">New Tab</property>
                   </object>
                 </child>

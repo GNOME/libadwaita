@@ -171,9 +171,9 @@ popover.menu {
         filter: Opacity(var(--disabled-opacity));
       }
 
-      &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
+      &.left { -gtk-icon-source: -gtk-icontheme("go-previous"); }
 
-      &.right { -gtk-icon-source: -gtk-icontheme("go-next-symbolic"); }
+      &.right { -gtk-icon-source: -gtk-icontheme("go-next"); }
     }
   }
 

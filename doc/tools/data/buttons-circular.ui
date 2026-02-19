@@ -6,7 +6,7 @@
     <property name="spacing">6</property>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">list-add-symbolic</property>
+        <property name="icon-name">list-add</property>
         <style>
           <class name="circular"/>
         </style>
@@ -14,7 +14,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">list-remove-symbolic</property>
+        <property name="icon-name">list-remove</property>
         <style>
           <class name="circular"/>
         </style>
