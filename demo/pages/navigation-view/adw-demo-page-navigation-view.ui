@@ -16,7 +16,7 @@
               <object class="AdwIconPaintable">
                 <property name="icon-name">sign</property>
                 <property name="state">0</property>
-                <property name="animate-in">true</property>
+                <property name="animate-in">True</property>
                 <property name="widget">AdwDemoPageNavigationView</property>
               </object>
             </property>
