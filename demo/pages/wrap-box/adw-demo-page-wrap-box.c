@@ -40,7 +40,7 @@ add_tag (AdwDemoPageWrapBox *self)
 {
   GtkWidget *box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   GtkWidget *label = gtk_label_new (self->text[self->current_word]);
-  GtkWidget *close_btn = gtk_button_new_from_icon_name ("window-close-symbolic");
+  GtkWidget *close_btn = gtk_button_new_from_icon_name ("window-close");
   GtkWidget *last_tag;
 
   gtk_label_set_xalign (GTK_LABEL (label), 0);

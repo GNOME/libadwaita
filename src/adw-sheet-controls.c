@@ -115,7 +115,7 @@ update_window_buttons (AdwSheetControls *self,
   /* The icon is not relevant for accessibility purposes */
   image = g_object_new (GTK_TYPE_IMAGE,
                         "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                        "icon-name", "window-close-symbolic",
+                        "icon-name", "window-close",
                         "use-fallback", TRUE,
                         NULL);
   gtk_widget_add_css_class (button, "close");

@@ -38,7 +38,7 @@
                     <property name="can-focus">False</property>
                     <!-- Translators: tooltip of the close button on tabs -->
                     <property name="tooltip-text" translatable="yes">Close Tab</property>
-                    <property name="icon-name">window-close-symbolic</property>
+                    <property name="icon-name">window-close</property>
                     <property name="valign">start</property>
                     <property name="halign">end</property>
                     <signal name="clicked" handler="close_clicked_cb" swapped="true"/>
@@ -52,7 +52,7 @@
                 </child>
                 <child type="overlay">
                   <object class="GtkImage" id="unpin_icon">
-                    <property name="icon-name">adw-tab-unpin-symbolic</property>
+                    <property name="icon-name">adw-tab-unpin</property>
                     <property name="valign">start</property>
                     <property name="halign">end</property>
                     <layout>
@@ -140,3 +140,4 @@
     </child>
   </template>
 </interface>
+

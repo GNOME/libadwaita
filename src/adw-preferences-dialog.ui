@@ -87,7 +87,7 @@
                                 <property name="valign">center</property>
                                 <!-- Translators: tooltip of the search button -->
                                 <property name="tooltip-text" translatable="yes">Search</property>
-                                <property name="icon_name">edit-find-symbolic</property>
+                                <property name="icon_name">edit-find</property>
                                 <signal name="notify::active" handler="search_button_notify_active_cb" swapped="yes"/>
                               </object>
                             </child>
@@ -153,7 +153,7 @@
                                         <property name="name">no-results</property>
                                         <property name="child">
                                           <object class="AdwStatusPage">
-                                            <property name="icon-name">edit-find-symbolic</property>
+                                            <property name="icon-name">edit-find</property>
                                             <!-- Translators: title of the no search results page -->
                                             <property name="title" translatable="yes">No Results Found</property>
                                             <!-- Translators: description of the no search results page -->
@@ -180,3 +180,4 @@
     </property>
   </template>
 </interface>
+

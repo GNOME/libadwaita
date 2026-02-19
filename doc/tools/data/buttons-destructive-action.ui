@@ -15,7 +15,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">user-trash-symbolic</property>
+        <property name="icon-name">user-trash</property>
         <style>
           <class name="destructive-action"/>
         </style>

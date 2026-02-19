@@ -53,14 +53,14 @@
                       <object class="AdwHeaderBar">
                         <child type="start">
                           <object class="GtkToggleButton" id="search_button">
-                            <property name="icon-name">edit-find-symbolic</property>
+                            <property name="icon-name">edit-find</property>
                           </object>
                         </child>
                         <child type="end">
                           <object class="GtkMenuButton">
                             <property name="tooltip-text" translatable="yes">Main Menu</property>
                             <property name="menu-model">primary_menu</property>
-                            <property name="icon-name">open-menu-symbolic</property>
+                            <property name="icon-name">open-menu</property>
                             <property name="primary">True</property>
                           </object>
                         </child>
@@ -94,7 +94,7 @@
                         </property>
                         <property name="placeholder">
                           <object class="AdwStatusPage">
-                            <property name="icon-name">edit-find-symbolic</property>
+                            <property name="icon-name">edit-find</property>
                             <property name="title" translatable="yes">No Results Found</property>
                             <property name="description" translatable="yes">Try a different search</property>
                           </object>
@@ -104,7 +104,7 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Welcome</property>
-                                <property name="icon-name">welcome-symbolic</property>
+                                <property name="icon-name">welcome:0</property>
                                 <property name="page-type">AdwDemoPageWelcome</property>
                               </object>
                             </child>
@@ -116,42 +116,42 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Navigation View</property>
-                                <property name="icon-name">widget-navigation-view-symbolic</property>
+                                <property name="icon-name">widget-navigation-view</property>
                                 <property name="page-type">AdwDemoPageNavigationView</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Split Views</property>
-                                <property name="icon-name">widget-split-views-symbolic</property>
+                                <property name="icon-name">widget-split-views</property>
                                 <property name="page-type">AdwDemoPageSplitViews</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">View Switcher</property>
-                                <property name="icon-name">widget-view-switcher-symbolic</property>
+                                <property name="icon-name">widget-view-switcher</property>
                                 <property name="page-type">AdwDemoPageViewSwitcher</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Tab View</property>
-                                <property name="icon-name">widget-tab-view-symbolic</property>
+                                <property name="icon-name">widget-tab-view</property>
                                 <property name="page-type">AdwDemoPageTabView</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Bottom Sheet</property>
-                                <property name="icon-name">widget-bottom-sheet-symbolic</property>
+                                <property name="icon-name">widget-bottom-sheet</property>
                                 <property name="page-type">AdwDemoPageBottomSheets</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Carousel</property>
-                                <property name="icon-name">widget-carousel-symbolic</property>
+                                <property name="icon-name">widget-carousel</property>
                                 <property name="page-type">AdwDemoPageCarousel</property>
                               </object>
                             </child>
@@ -163,21 +163,21 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Boxed Lists</property>
-                                <property name="icon-name">widget-list-symbolic</property>
+                                <property name="icon-name">widget-list</property>
                                 <property name="page-type">AdwDemoPageLists</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Toggle Groups</property>
-                                <property name="icon-name">widget-toggle-group-symbolic</property>
+                                <property name="icon-name">widget-toggle-group</property>
                                 <property name="page-type">AdwDemoPageToggles</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Buttons</property>
-                                <property name="icon-name">widget-buttons-symbolic</property>
+                                <property name="icon-name">widget-buttons</property>
                                 <property name="page-type">AdwDemoPageButtons</property>
                               </object>
                             </child>
@@ -189,14 +189,14 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Banner</property>
-                                <property name="icon-name">widget-banner-symbolic</property>
+                                <property name="icon-name">widget-banner</property>
                                 <property name="page-type">AdwDemoPageBanners</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Toasts</property>
-                                <property name="icon-name">widget-toast-symbolic</property>
+                                <property name="icon-name">widget-toast</property>
                                 <property name="page-type">AdwDemoPageToasts</property>
                               </object>
                             </child>
@@ -212,7 +212,7 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Avatar</property>
-                                <property name="icon-name">adw-avatar-default-symbolic</property>
+                                <property name="icon-name">adw-avatar-default</property>
                                 <property name="page-type">AdwDemoPageAvatar</property>
                               </object>
                             </child>
@@ -224,14 +224,14 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Alert Dialog</property>
-                                <property name="icon-name">widget-dialog-symbolic</property>
+                                <property name="icon-name">widget-dialog</property>
                                 <property name="page-type">AdwDemoPageAlerts</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">About Dialog</property>
-                                <property name="icon-name">widget-about-symbolic</property>
+                                <property name="icon-name">widget-about</property>
                                 <property name="page-type">AdwDemoPageAbout</property>
                               </object>
                             </child>
@@ -243,21 +243,21 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Clamp</property>
-                                <property name="icon-name">widget-clamp-symbolic</property>
+                                <property name="icon-name">widget-clamp</property>
                                 <property name="page-type">AdwDemoPageClamp</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Wrap Box</property>
-                                <property name="icon-name">widget-wrap-box-symbolic</property>
+                                <property name="icon-name">widget-wrap-box</property>
                                 <property name="page-type">AdwDemoPageWrapBox</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Multi-Layout View</property>
-                                <property name="icon-name">widget-multi-layout-symbolic</property>
+                                <property name="icon-name">widget-multi-layout</property>
                                 <property name="page-type">AdwDemoPageMultiLayout</property>
                               </object>
                             </child>
@@ -269,14 +269,14 @@
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Style Classes</property>
-                                <property name="icon-name">style-classes-symbolic</property>
+                                <property name="icon-name">style-classes</property>
                                 <property name="page-type">AdwDemoPageStyles</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwDemoSidebarItem">
                                 <property name="title" translatable="yes">Animations</property>
-                                <property name="icon-name">animations-symbolic</property>
+                                <property name="icon-name">animations</property>
                                 <property name="page-type">AdwDemoPageAnimations</property>
                               </object>
                             </child>

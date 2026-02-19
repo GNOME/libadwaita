@@ -14,19 +14,19 @@
         </style>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">list-add-symbolic</property>
+            <property name="icon-name">list-add</property>
           </object>
         </child>
         <child>
           <object class="GtkMenuButton">
-            <property name="icon-name">list-add-symbolic</property>
+            <property name="icon-name">list-add</property>
             <property name="menu-model">demo_menu</property>
             <property name="always-show-arrow">True</property>
           </object>
         </child>
         <child>
           <object class="AdwSplitButton">
-            <property name="icon-name">list-add-symbolic</property>
+            <property name="icon-name">list-add</property>
             <property name="menu-model">demo_menu</property>
           </object>
         </child>
@@ -34,7 +34,7 @@
           <object class="GtkButton">
             <property name="child">
               <object class="AdwButtonContent">
-                <property name="icon-name">list-add-symbolic</property>
+                <property name="icon-name">list-add</property>
                 <property name="label">Add</property>
               </object>
             </property>

@@ -76,7 +76,7 @@
                     <property name="spacing">18</property>
                     <child>
                       <object class="GtkButton">
-                        <property name="icon-name">media-skip-backward-symbolic</property>
+                        <property name="icon-name">media-skip-backward</property>
                         <property name="valign">center</property>
                         <binding name="sensitive">
                           <closure type="gboolean" function="timed_animation_can_reset">
@@ -97,16 +97,26 @@
                     </child>
                     <child>
                       <object class="GtkButton">
-                        <binding name="icon-name">
-                          <closure type="gchararray" function="get_play_pause_icon_name">
-                            <lookup name="state" type="AdwAnimation">
-                              <lookup name="timed-animation">AdwDemoPageAnimations</lookup>
-                            </lookup>
-                            <lookup name="state" type="AdwAnimation">
-                              <lookup name="spring-animation">AdwDemoPageAnimations</lookup>
-                            </lookup>
-                          </closure>
-                        </binding>
+                        <property name="child">
+                          <object class="GtkImage">
+                            <property name="paintable">
+                              <object class="AdwIconPaintable">
+                                <property name="icon-name">media-playback-start-stop</property>
+                                <binding name="state">
+                                  <closure type="guint" function="get_play_pause_state">
+                                    <lookup name="state" type="AdwAnimation">
+                                      <lookup name="timed-animation">AdwDemoPageAnimations</lookup>
+                                    </lookup>
+                                    <lookup name="state" type="AdwAnimation">
+                                      <lookup name="spring-animation">AdwDemoPageAnimations</lookup>
+                                    </lookup>
+                                  </closure>
+                                </binding>
+                                <property name="widget">AdwDemoPageAnimations</property>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
                         <property name="width-request">48</property>
                         <property name="height-request">48</property>
                         <signal name="clicked" handler="timed_animation_play_pause" swapped="true"/>
@@ -118,7 +128,7 @@
                     </child>
                     <child>
                       <object class="GtkButton">
-                        <property name="icon-name">media-skip-forward-symbolic</property>
+                        <property name="icon-name">media-skip-forward</property>
                         <property name="valign">center</property>
                         <binding name="sensitive">
                           <closure type="gboolean" function="timed_animation_can_skip">

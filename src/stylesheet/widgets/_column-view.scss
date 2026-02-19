@@ -49,10 +49,10 @@ columnview {
 
     sort-indicator {
       &.ascending {
-        -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+        -gtk-icon-source: -gtk-icontheme('pan-up');
       }
       &.descending {
-        -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+        -gtk-icon-source: -gtk-icontheme('pan-down');
       }
 
       min-height: 16px;

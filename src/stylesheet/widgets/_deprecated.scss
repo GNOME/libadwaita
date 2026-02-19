@@ -245,15 +245,15 @@ treeview.view {
     // GtkTreeView uses the larger of the expander’s min-width and min-height
     min-width: 16px;
     min-height: 16px;
-    -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+    -gtk-icon-source: -gtk-icontheme('pan-end');
 
-    &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
+    &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-rtl'); }
 
     color: color-mix(in srgb, currentColor 70%, transparent);
 
     &:hover, &:active { color: currentColor; }
 
-    &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
+    &:checked { -gtk-icon-source: -gtk-icontheme('pan-down'); }
 
     &:disabled { color: color-mix(in srgb, currentColor var(--disabled-opacity), transparent); }
   }

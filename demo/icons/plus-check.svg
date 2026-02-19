@@ -1,0 +1,77 @@
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:svg='http://www.w3.org/2000/svg'
+        xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        xmlns:cc='http://creativecommons.org/ns#'
+        xmlns:dc='http://purl.org/dc/elements/1.1/'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state='0'
+        gpa:keywords='add done animation checkmark plus new'
+        width='16'
+        height='16'>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>add done animation checkmark plus new</rdf:li>
+
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <circle
+          id='path0'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          cx='8'
+          cy='8'
+          r='7'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='0 1'
+          gpa:transition-type='fade'
+          gpa:transition-easing='ease-in-out'
+          gpa:transition-duration='200ms'
+          gpa:transition-delay='200ms'>
+  </circle>
+  <path
+          id='path1'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 11 8 L 5 8 M 8 5 L 8 11'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='0'
+          gpa:transition-type='animate'
+          gpa:transition-easing='ease-in-out'
+          gpa:transition-duration='200ms'
+          gpa:origin='1'>
+  </path>
+  <path
+          id='path2'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 5.5 8 L 7.5 10 L 10.5 6'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='1'
+          gpa:transition-type='animate'
+          gpa:transition-easing='ease-out'
+          gpa:transition-duration='600ms'
+          gpa:animation-easing='ease-out'
+          gpa:animation-duration='800ms'>
+  </path>
+</svg>

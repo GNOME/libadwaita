@@ -14,7 +14,7 @@
             </child>
             <property name="content">
               <object class="AdwStatusPage">
-                <property name="icon-name">widget-bottom-sheet-symbolic</property>
+                <property name="icon-name">widget-bottom-sheet</property>
                 <property name="title" translatable="yes">Bottom Sheet</property>
                 <property name="description" translatable="yes">A bottom sheet with an optional bottom bar</property>
                 <property name="margin-bottom" bind-source="sheet" bind-property="bottom-bar-height"/>
@@ -29,7 +29,7 @@
             </child>
             <property name="content">
               <object class="AdwStatusPage">
-                <property name="icon-name">go-down-symbolic</property>
+                <property name="icon-name">go-down</property>
               </object>
             </property>
           </object>

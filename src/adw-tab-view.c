@@ -2578,7 +2578,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * [class@TabOverview] will use default icon for pages with missing
    * thumbnails.
    *
-   * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+   * By default, the `adw-tab-icon-missing` icon is used.
    */
   props[PROP_DEFAULT_ICON] =
     g_param_spec_object ("default-icon", NULL, NULL,
@@ -2858,7 +2858,7 @@ adw_tab_view_init (AdwTabView *self)
   GtkEventController *controller;
 
   self->children = g_list_store_new (ADW_TYPE_TAB_PAGE);
-  self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing-symbolic"));
+  self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing"));
   self->shortcuts = ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS;
 
   tab_view_list = g_slist_prepend (tab_view_list, self);
@@ -3850,7 +3850,7 @@ adw_tab_view_get_default_icon (AdwTabView *self)
  *
  * [class@TabOverview] will use default icon for pages with missing thumbnails.
  *
- * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+ * By default, the `adw-tab-icon-missing` icon is used.
  */
 void
 adw_tab_view_set_default_icon (AdwTabView *self,

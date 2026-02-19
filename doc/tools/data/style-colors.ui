@@ -22,7 +22,7 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">dialog-question-symbolic</property>
+                <property name="icon-name">dialog-question</property>
               </object>
             </child>
             <child>
@@ -46,7 +46,7 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">success-symbolic</property>
+                <property name="icon-name">success</property>
               </object>
             </child>
             <child>
@@ -70,7 +70,7 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">dialog-warning-symbolic</property>
+                <property name="icon-name">dialog-warning</property>
               </object>
             </child>
             <child>
@@ -94,7 +94,7 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="icon-name">dialog-error-symbolic</property>
+                <property name="icon-name">dialog-error</property>
               </object>
             </child>
             <child>

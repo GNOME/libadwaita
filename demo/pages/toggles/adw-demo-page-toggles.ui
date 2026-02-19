@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-toggle-group-symbolic</property>
+            <property name="icon-name">widget-toggle-group</property>
             <property name="title" translatable="yes">Toggle Groups</property>
             <property name="description" translatable="yes">A group of toggle buttons</property>
             <property name="child">
@@ -51,21 +51,21 @@
                             <property name="valign">center</property>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">view-grid-symbolic</property>
+                                <property name="icon-name">view-grid</property>
                                 <property name="tooltip" translatable="yes">Grid View</property>
                                 <property name="name">grid</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">view-list-symbolic</property>
+                                <property name="icon-name">view-list</property>
                                 <property name="tooltip" translatable="yes">List View</property>
                                 <property name="name">list</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">view-dual-symbolic</property>
+                                <property name="icon-name">view-dual</property>
                                 <property name="tooltip" translatable="yes">Dual View</property>
                                 <property name="name">columns</property>
                               </object>
@@ -85,28 +85,28 @@
                             </style>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">format-justify-left-symbolic</property>
+                                <property name="icon-name">format-justify-left</property>
                                 <property name="tooltip" translatable="yes">Left Align</property>
                                 <property name="name">left</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">format-justify-center-symbolic</property>
+                                <property name="icon-name">format-justify-center</property>
                                 <property name="tooltip" translatable="yes">Center Align</property>
                                 <property name="name">center</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">format-justify-right-symbolic</property>
+                                <property name="icon-name">format-justify-right</property>
                                 <property name="tooltip" translatable="yes">Right Align</property>
                                 <property name="name">right</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">format-justify-fill-symbolic</property>
+                                <property name="icon-name">format-justify-fill</property>
                                 <property name="tooltip" translatable="yes">Justify</property>
                                 <property name="name">fill</property>
                               </object>
@@ -126,14 +126,14 @@
                             </style>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">camera-photo-symbolic</property>
+                                <property name="icon-name">camera-photo</property>
                                 <property name="tooltip" translatable="yes">Picture Mode</property>
                                 <property name="name">picture</property>
                               </object>
                             </child>
                             <child>
                               <object class="AdwToggle">
-                                <property name="icon-name">camera-video-symbolic</property>
+                                <property name="icon-name">camera-video</property>
                                 <property name="tooltip" translatable="yes">Recording Mode</property>
                                 <property name="name">recording</property>
                               </object>

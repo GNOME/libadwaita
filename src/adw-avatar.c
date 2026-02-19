@@ -37,8 +37,8 @@
  * The color is picked based on the hash of the [property@Avatar:text].
  *
  * If [property@Avatar:show-initials] is set to `FALSE`,
- * [property@Avatar:icon-name] or `adw-avatar-default-symbolic` is shown instead
- * of the initials.
+ * [property@Avatar:icon-name] or `adw-avatar-default` is shown instead of the
+ * initials.
  *
  * Use [property@Avatar:custom-image] to set a custom image.
  *
@@ -192,7 +192,7 @@ update_icon (AdwAvatar *self)
   if (self->icon_name)
     gtk_image_set_from_icon_name (self->icon, self->icon_name);
   else
-    gtk_image_set_from_icon_name (self->icon, "adw-avatar-default-symbolic");
+    gtk_image_set_from_icon_name (self->icon, "adw-avatar-default");
 }
 
 static void
@@ -403,7 +403,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    *
    * The name of an icon to use as a fallback.
    *
-   * If no name is set, `adw-avatar-default-symbolic` will be used.
+   * If no name is set, `adw-avatar-default` will be used.
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -547,7 +547,7 @@ adw_avatar_get_icon_name (AdwAvatar *self)
  *
  * Sets the name of an icon to use as a fallback.
  *
- * If no name is set, `adw-avatar-default-symbolic` will be used.
+ * If no name is set, `adw-avatar-default` will be used.
  */
 void
 adw_avatar_set_icon_name (AdwAvatar  *self,

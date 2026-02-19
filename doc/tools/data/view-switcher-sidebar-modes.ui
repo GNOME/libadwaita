@@ -28,7 +28,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 1</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="child">
           <object class="AdwBin"/>
         </property>
@@ -37,7 +37,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 2</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="child">
           <object class="AdwBin"/>
         </property>
@@ -46,7 +46,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 3</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="badge-number">3</property>
         <property name="starts-section">True</property>
         <property name="section-title">Badges</property>
@@ -58,7 +58,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 4</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="needs-attention">True</property>
         <property name="badge-number">3</property>
         <property name="child">
@@ -69,7 +69,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 5</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="starts-section">True</property>
         <property name="child">
           <object class="AdwBin"/>
@@ -79,7 +79,7 @@
     <child>
       <object class="AdwViewStackPage">
         <property name="title">Page 6</property>
-        <property name="icon-name">generic-symbolic</property>
+        <property name="icon-name">generic</property>
         <property name="needs-attention">True</property>
         <property name="child">
           <object class="AdwBin"/>

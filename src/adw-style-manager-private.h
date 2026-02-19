@@ -18,4 +18,8 @@ G_BEGIN_DECLS
 
 void adw_style_manager_ensure (void);
 
+char *
+adw_style_manager_lookup_icon_path (AdwStyleManager *self,
+                                    const char      *icon_name);
+
 G_END_DECLS

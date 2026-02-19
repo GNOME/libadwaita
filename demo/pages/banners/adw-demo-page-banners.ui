@@ -23,7 +23,7 @@
             </property>
             <property name="center-widget">
               <object class="AdwStatusPage">
-                <property name="icon-name">widget-banner-symbolic</property>
+                <property name="icon-name">widget-banner</property>
                 <property name="title" translatable="yes">Banner</property>
                 <property name="description" translatable="yes">A bar with contextual information</property>
                 <property name="child">

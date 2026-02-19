@@ -6,7 +6,7 @@
     <property name="spacing">6</property>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">go-previous-symbolic</property>
+        <property name="icon-name">go-previous</property>
         <style>
           <class name="osd"/>
         </style>
@@ -14,7 +14,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">go-next-symbolic</property>
+        <property name="icon-name">go-next</property>
         <style>
           <class name="osd"/>
         </style>

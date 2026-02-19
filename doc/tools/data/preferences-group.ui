@@ -17,7 +17,7 @@
             <property name="valign">center</property>
             <property name="child">
               <object class="AdwButtonContent">
-                <property name="icon-name">list-add-symbolic</property>
+                <property name="icon-name">list-add</property>
                 <property name="label" translatable="yes">Suffix</property>
               </object>
             </property>
