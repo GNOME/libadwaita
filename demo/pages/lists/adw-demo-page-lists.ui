@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-list-symbolic</property>
+            <property name="icon-name">widget-list</property>
             <property name="title" translatable="yes">Boxed Lists</property>
             <property name="description" translatable="yes">Rows for the boxed list pattern</property>
             <property name="child">
@@ -95,7 +95,7 @@
                             <child>
                               <object class="GtkButton">
                                 <property name="valign">center</property>
-                                <property name="icon_name">edit-copy-symbolic</property>
+                                <property name="icon_name">edit-copy</property>
                                 <property name="tooltip-text" translatable="yes">Copy</property>
                                 <style>
                                   <class name="flat"/>
@@ -198,7 +198,7 @@
                             <child type="suffix">
                               <object class="GtkButton">
                                 <property name="valign">center</property>
-                                <property name="icon_name">edit-copy-symbolic</property>
+                                <property name="icon_name">edit-copy</property>
                                 <property name="tooltip-text" translatable="yes">Copy</property>
                                 <style>
                                   <class name="flat"/>
@@ -257,7 +257,7 @@
                           <object class="GtkButton">
                             <property name="child">
                               <object class="AdwButtonContent">
-                                <property name="icon-name">list-add-symbolic</property>
+                                <property name="icon-name">list-add</property>
                                 <property name="label" translatable="yes">Suffix</property>
                               </object>
                             </property>
@@ -280,13 +280,13 @@
                         <child>
                           <object class="AdwButtonRow">
                             <property name="title" translatable="yes">Add Input Source</property>
-                            <property name="start-icon-name">list-add-symbolic</property>
+                            <property name="start-icon-name">list-add</property>
                           </object>
                         </child>
                         <child>
                           <object class="AdwButtonRow">
                             <property name="title" translatable="yes">Add Calendar</property>
-                            <property name="end-icon-name">go-next-symbolic</property>
+                            <property name="end-icon-name">go-next</property>
                           </object>
                         </child>
                         <child>

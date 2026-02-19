@@ -15,7 +15,7 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="icon-name">view-more-symbolic</property>
+        <property name="icon-name">view-more</property>
         <style>
           <class name="raised"/>
         </style>

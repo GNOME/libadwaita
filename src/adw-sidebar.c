@@ -1611,7 +1611,7 @@ create_boxed_row (AdwSidebarItem *item,
 
   arrow = g_object_new (GTK_TYPE_IMAGE,
                         "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                        "icon-name", "go-next-symbolic",
+                        "icon-name", "go-next",
                         NULL);
   gtk_widget_add_css_class (arrow, "arrow");
   adw_action_row_add_suffix (ADW_ACTION_ROW (row), arrow);

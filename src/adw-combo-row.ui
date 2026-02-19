@@ -21,7 +21,7 @@
         <property name="valign">center</property>
         <child>
           <object class="GtkImage">
-            <property name="icon_name">pan-down-symbolic</property>
+            <property name="icon_name">pan-down</property>
             <property name="accessible-role">presentation</property>
             <style>
               <class name="dropdown-arrow"/>

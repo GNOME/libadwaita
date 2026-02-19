@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-about-symbolic</property>
+            <property name="icon-name">widget-about</property>
             <property name="title" translatable="yes">About Dialog</property>
             <property name="description" translatable="yes">An about dialog</property>
             <property name="child">

@@ -595,3 +595,4 @@ sheet on narrow sizes, as follows:
   <source srcset="adaptive-multi-layout-narrow-dark.png" media="(prefers-color-scheme: dark)">
   <img src="adaptive-multi-layout-narrow.png" alt="adaptive-multi-layout-narrow">
 </picture>
+

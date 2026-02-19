@@ -5,7 +5,7 @@
 spinner {
   background: none;
   opacity: 0; // non spinning spinner makes no sense
-  -gtk-icon-source: -gtk-icontheme('process-working-symbolic');
+  -gtk-icon-source: -gtk-icontheme('process-working');
 
   &:checked {
     opacity: 1;

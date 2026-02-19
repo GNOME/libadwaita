@@ -104,7 +104,7 @@ update_icon (AdwTabButton *self)
 {
   gboolean display_label = FALSE;
   gboolean small_label = FALSE;
-  const char *icon_name = "adw-tab-counter-symbolic";
+  const char *icon_name = "adw-tab-counter";
   char *label_text = NULL;
 
   if (self->view) {
@@ -116,7 +116,7 @@ update_icon (AdwTabButton *self)
       display_label = TRUE;
       label_text = g_strdup_printf ("%u", n_pages);
     } else {
-      icon_name = "adw-tab-overflow-symbolic";
+      icon_name = "adw-tab-overflow";
     }
   }
 

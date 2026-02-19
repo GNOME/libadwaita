@@ -71,4 +71,8 @@ const char *adw_style_manager_get_document_font_name (AdwStyleManager *self);
 ADW_AVAILABLE_IN_1_7
 const char *adw_style_manager_get_monospace_font_name (AdwStyleManager *self);
 
+ADW_AVAILABLE_IN_1_9
+void adw_style_manager_add_icon_resource_path (AdwStyleManager *self,
+                                               const char      *path);
+
 G_END_DECLS

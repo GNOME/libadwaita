@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita/Screenshot">
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/camera-photo-symbolic.svg">icons/camera-photo.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/camera-video-symbolic.svg">icons/camera-video.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-redo-symbolic-rtl.svg">icons/edit-redo-rtl.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-redo-symbolic.svg">icons/edit-redo.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-undo-symbolic-rtl.svg">icons/edit-undo-rtl.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/edit-undo-symbolic.svg">icons/edit-undo.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/generic-symbolic.svg">icons/generic.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/media-skip-backward-symbolic.svg">icons/media-skip-backward.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/media-skip-forward-symbolic.svg">icons/media-skip-forward.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/starred-symbolic.svg">icons/starred.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/success-symbolic.svg">icons/success.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/user-bookmarks-symbolic.svg">icons/user-bookmarks.svg</file>
+    <file preprocess="xml-stripblanks">icons/camera-photo.svg</file>
+    <file preprocess="xml-stripblanks">icons/camera-video.svg</file>
+    <file preprocess="xml-stripblanks">icons/edit-redo-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/edit-redo.svg</file>
+    <file preprocess="xml-stripblanks">icons/edit-undo-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/edit-undo.svg</file>
+    <file preprocess="xml-stripblanks">icons/generic.svg</file>
+    <file preprocess="xml-stripblanks">icons/media-skip-backward.svg</file>
+    <file preprocess="xml-stripblanks">icons/media-skip-forward.svg</file>
+    <file preprocess="xml-stripblanks">icons/starred.svg</file>
+    <file preprocess="xml-stripblanks">icons/success.svg</file>
+    <file preprocess="xml-stripblanks">icons/user-bookmarks.svg</file>
 
-    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Boxes.svg">icons/org.gnome.Boxes.svg</file>
-    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Example.svg">icons/org.gnome.Example.svg</file>
+    <file preprocess="xml-stripblanks">icons/org.gnome.Boxes.svg</file>
+    <file preprocess="xml-stripblanks">icons/org.gnome.Example.svg</file>
 
     <file compressed="true">style.css</file>
   </gresource>

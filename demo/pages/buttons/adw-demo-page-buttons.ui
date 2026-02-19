@@ -27,7 +27,7 @@
           <object class="AdwStatusPage">
             <property name="title" translatable="yes">Buttons</property>
             <property name="description" translatable="yes">Button helper widgets</property>
-            <property name="icon-name">widget-buttons-symbolic</property>
+            <property name="icon-name">widget-buttons</property>
             <property name="child">
               <object class="AdwClamp">
                 <property name="maximum-size">400</property>
@@ -42,7 +42,7 @@
                         <property name="row-spacing">12</property>
                         <child>
                           <object class="AdwSplitButton">
-                            <property name="icon-name">document-open-symbolic</property>
+                            <property name="icon-name">document-open</property>
                             <property name="menu-model">sample_menu</property>
                             <property name="tooltip-text" translatable="yes">Open</property>
                             <layout>
@@ -53,7 +53,7 @@
                         </child>
                         <child>
                           <object class="AdwSplitButton">
-                            <property name="icon-name">document-open-symbolic</property>
+                            <property name="icon-name">document-open</property>
                             <property name="menu-model">sample_menu</property>
                             <property name="tooltip-text" translatable="yes">Open</property>
                             <style>
@@ -96,7 +96,7 @@
                           <object class="AdwSplitButton">
                             <property name="child">
                               <object class="AdwButtonContent">
-                                <property name="icon-name">document-open-symbolic</property>
+                                <property name="icon-name">document-open</property>
                                 <property name="label" translatable="yes">_Open</property>
                                 <property name="use-underline">True</property>
                                 <property name="can-shrink">True</property>
@@ -113,7 +113,7 @@
                           <object class="AdwSplitButton">
                             <property name="child">
                               <object class="AdwButtonContent">
-                                <property name="icon-name">document-open-symbolic</property>
+                                <property name="icon-name">document-open</property>
                                 <property name="label" translatable="yes">_Open</property>
                                 <property name="use-underline">True</property>
                                 <property name="can-shrink">True</property>

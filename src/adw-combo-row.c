@@ -305,7 +305,7 @@ setup_item (GtkSignalListItemFactory *factory,
 
   icon = g_object_new (GTK_TYPE_IMAGE,
                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                       "icon-name", "object-select-symbolic",
+                       "icon-name", "object-select",
                        NULL);
   gtk_box_append (GTK_BOX (box), icon);
 

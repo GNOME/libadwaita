@@ -92,7 +92,7 @@
             <child>
               <object class="GtkButton" id="apply_button">
                 <property name="valign">center</property>
-                <property name="icon-name">adw-entry-apply-symbolic</property>
+                <property name="icon-name">adw-entry-apply</property>
                 <property name="tooltip-text" translatable="yes">Apply</property>
                 <property name="focus-on-click">False</property>
                 <signal name="clicked" handler="apply_button_clicked_cb" swapped="yes"/>
@@ -107,7 +107,7 @@
               <object class="GtkImage" id="edit_icon">
                 <property name="valign">center</property>
                 <property name="can-target">False</property>
-                <property name="icon-name">adw-entry-edit-symbolic</property>
+                <property name="icon-name">adw-entry-edit</property>
                 <property name="accessible-role">presentation</property>
                 <style>
                   <class name="edit-icon"/>

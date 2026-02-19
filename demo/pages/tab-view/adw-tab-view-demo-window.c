@@ -226,9 +226,9 @@ get_indicator_icon (AdwTabPage *page)
                                               "adw-tab-view-demo-muted"));
 
   if (muted)
-    return g_themed_icon_new ("tab-audio-muted-symbolic");
+    return g_themed_icon_new ("tab-audio-muted");
   else
-    return g_themed_icon_new ("tab-audio-playing-symbolic");
+    return g_themed_icon_new ("tab-audio-playing");
 }
 
 static char *

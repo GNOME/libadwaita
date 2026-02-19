@@ -94,7 +94,7 @@
                                         <property name="spacing">6</property>
                                         <child>
                                           <object class="GtkImage">
-                                            <property name="icon-name">document-open-symbolic</property>
+                                            <property name="icon-name">document-open</property>
                                           </object>
                                         </child>
                                         <child>
@@ -109,7 +109,7 @@
                                 <child>
                                   <object class="GtkButton">
                                     <property name="valign">center</property>
-                                    <property name="icon-name">user-trash-symbolic</property>
+                                    <property name="icon-name">user-trash</property>
                                     <property name="action-name">avatar.remove</property>
                                     <style>
                                       <class name="flat"/>
@@ -139,7 +139,7 @@
                                 <child>
                                   <object class="GtkButton">
                                     <property name="valign">center</property>
-                                    <property name="icon-name">document-save-symbolic</property>
+                                    <property name="icon-name">document-save</property>
                                     <property name="action-name">avatar.save</property>
                                     <style>
                                       <class name="flat"/>

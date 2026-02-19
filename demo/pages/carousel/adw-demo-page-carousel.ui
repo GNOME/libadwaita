@@ -24,7 +24,7 @@
                 <property name="allow-long-swipes" bind-source="long_swipes" bind-property="active" bind-flags="sync-create|bidirectional"/>
                 <child>
                   <object class="AdwStatusPage">
-                    <property name="icon-name">widget-carousel-symbolic</property>
+                    <property name="icon-name">widget-carousel</property>
                     <property name="title" translatable="yes">Carousel</property>
                     <property name="description" translatable="yes">A widget for paginated scrolling</property>
                     <property name="vexpand">True</property>

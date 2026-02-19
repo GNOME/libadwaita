@@ -1,0 +1,69 @@
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:svg='http://www.w3.org/2000/svg'
+        xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        xmlns:cc='http://creativecommons.org/ns#'
+        xmlns:dc='http://purl.org/dc/elements/1.1/'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state='1'
+        gpa:keywords='media-playback-start play triangle'
+        width='16'
+        height='16'>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>media-playback-start play triangle</rdf:li>
+
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+          id='path0'
+          fill='url(#gpa:foreground) rgb(0,0,0)'
+          fill-rule='nonzero'
+          stroke='none'
+          d='M 3 3.348 L 3 12.652 C 3.00011 12.9405, 3.14953 13.2085, 3.39495 13.3602 C 3.64037 13.5119, 3.94683 13.5259, 4.205 13.397 L 13.563 8.718 C 13.8348 8.58189, 14.0064 8.30397, 14.0064 8 C 14.0064 7.69603, 13.8348 7.41811, 13.563 7.282 L 4.205 2.602 C 3.94651 2.47299, 3.63964 2.48711, 3.3941 2.63933 C 3.14856 2.79154, 2.99942 3.06011, 3 3.349'
+          class='foreground foreground-fill'
+          gpa:fill='foreground'
+          gpa:states='1'
+          gpa:transition-type='fade'
+          gpa:transition-duration='200ms'>
+  </path>
+  <path
+          id='play'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 3 3.348 L 3 12.652 C 3.00011 12.9405, 3.14953 13.2085, 3.39495 13.3602 C 3.64037 13.5119, 3.94683 13.5259, 4.205 13.397 L 13.563 8.718 C 13.8348 8.58189, 14.0064 8.30397, 14.0064 8 C 14.0064 7.69603, 13.8348 7.41811, 13.563 7.282 L 4.205 2.602 C 3.94651 2.47299, 3.63964 2.48711, 3.3941 2.63933 C 3.14856 2.79154, 2.99942 3.06011, 3 3.349'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='0 2'
+          gpa:transition-type='morph'
+          gpa:transition-easing='ease-in-out'
+          gpa:transition-duration='400ms'>
+  </path>
+  <path
+          id='pause'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 6 3.50345 L 6 12.5034 C 6 13.3319, 5.32843 14.0034, 4.5 14.0034 C 3.67157 14.0034, 3 13.3319, 3 12.5034 L 3 3.50345 C 3 2.67502, 3.67157 2.00345, 4.5 2.00345 C 5.32843 2.00345, 6 2.67502, 6 3.50345 Z M 13 3.50345 L 13 12.5034 C 13 13.3319, 12.3284 14.0034, 11.5 14.0034 C 10.6716 14.0034, 10 13.3319, 10 12.5034 L 10 3.50345 C 10 2.67502, 10.6716 2.00345, 11.5 2.00345 C 12.3284 2.00345, 13 2.67502, 13 3.50345 Z'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='3'
+          gpa:transition-type='morph'
+          gpa:transition-easing='ease-in-out'
+          gpa:transition-duration='400ms'>
+  </path>
+</svg>

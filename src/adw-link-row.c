@@ -364,7 +364,7 @@ adw_link_row_init (AdwLinkRow *self)
 
   self->icon = g_object_new (GTK_TYPE_IMAGE,
                              "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                             "icon-name", "adw-external-link-symbolic",
+                             "icon-name", "adw-external-link",
                              NULL);
   adw_action_row_add_suffix (ADW_ACTION_ROW (self), self->icon);
 
@@ -407,9 +407,9 @@ adw_link_row_set_uri (AdwLinkRow *self,
   uri_scheme = g_uri_peek_scheme (self->uri);
 
   if (g_strcmp0 (uri_scheme, "mailto") == 0)
-    gtk_image_set_from_icon_name (GTK_IMAGE (self->icon), "adw-mail-send-symbolic");
+    gtk_image_set_from_icon_name (GTK_IMAGE (self->icon), "adw-mail-send");
   else
-    gtk_image_set_from_icon_name (GTK_IMAGE (self->icon), "adw-external-link-symbolic");
+    gtk_image_set_from_icon_name (GTK_IMAGE (self->icon), "adw-external-link");
 
   tooltip = g_uri_unescape_string (uri, NULL);
   gtk_widget_set_tooltip_text (GTK_WIDGET (self), tooltip);

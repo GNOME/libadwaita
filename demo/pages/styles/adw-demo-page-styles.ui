@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">style-classes-symbolic</property>
+            <property name="icon-name">style-classes</property>
             <property name="title" translatable="yes">Style Classes</property>
             <property name="description" translatable="yes">Various widget styles available for use</property>
             <property name="child">

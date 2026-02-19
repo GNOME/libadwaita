@@ -21,7 +21,7 @@
           <object class="AdwHeaderBar">
             <child type="start">
               <object class="GtkToggleButton" id="show_sidebar_button">
-                <property name="icon-name">view-sidebar-start-symbolic</property>
+                <property name="icon-name">view-sidebar-start</property>
                 <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                 <property name="active">True</property>
                 <property name="visible" bind-source="start_button" bind-property="active" bind-flags="sync-create"/>
@@ -29,7 +29,7 @@
             </child>
             <child type="end">
               <object class="GtkToggleButton">
-                <property name="icon-name">view-sidebar-end-symbolic</property>
+                <property name="icon-name">view-sidebar-end</property>
                 <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                 <property name="active" bind-source="show_sidebar_button" bind-property="active" bind-flags="sync-create|bidirectional"/>
                 <property name="visible" bind-source="end_button" bind-property="active" bind-flags="sync-create"/>

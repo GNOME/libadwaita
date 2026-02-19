@@ -13,12 +13,12 @@
         </style>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">go-previous-symbolic</property>
+            <property name="icon-name">go-previous</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">go-next-symbolic</property>
+            <property name="icon-name">go-next</property>
           </object>
         </child>
         <child>
@@ -30,12 +30,12 @@
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">edit-undo-symbolic</property>
+            <property name="icon-name">edit-undo</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">edit-redo-symbolic</property>
+            <property name="icon-name">edit-redo</property>
           </object>
         </child>
         <child>
@@ -47,17 +47,17 @@
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">media-skip-backward-symbolic</property>
+            <property name="icon-name">media-skip-backward</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">media-playback-pause-symbolic</property>
+            <property name="icon-name">media-playback-pause</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
-            <property name="icon-name">media-skip-forward-symbolic</property>
+            <property name="icon-name">media-skip-forward</property>
           </object>
         </child>
       </object>

@@ -7,7 +7,7 @@
     <property name="search-enabled">True</property>
     <child>
       <object class="AdwPreferencesPage">
-        <property name="icon_name">preferences-window-layout-symbolic</property>
+        <property name="icon_name">preferences-window-layout</property>
         <property name="title">L_ayout</property>
         <property name="description">Preferences pages can have a description</property>
         <property name="use-underline">True</property>
@@ -111,7 +111,7 @@
                 <signal name="activated" handler="subpage1_activated_cb" swapped="yes"/>
                 <child>
                   <object class="GtkImage">
-                    <property name="icon_name">go-next-symbolic</property>
+                    <property name="icon_name">go-next</property>
                   </object>
                 </child>
               </object>
@@ -123,7 +123,7 @@
                 <signal name="activated" handler="subpage2_activated_cb" swapped="yes"/>
                 <child>
                   <object class="GtkImage">
-                    <property name="icon_name">go-next-symbolic</property>
+                    <property name="icon_name">go-next</property>
                   </object>
                 </child>
               </object>
@@ -134,7 +134,7 @@
     </child>
     <child>
       <object class="AdwPreferencesPage">
-        <property name="icon_name">preferences-window-search-symbolic</property>
+        <property name="icon_name">preferences-window-search</property>
         <property name="title">_Search</property>
         <property name="use-underline">True</property>
         <child>

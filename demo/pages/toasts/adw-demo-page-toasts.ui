@@ -12,7 +12,7 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-toast-symbolic</property>
+            <property name="icon-name">widget-toast</property>
             <property name="title" translatable="yes">Toasts</property>
             <property name="description" translatable="yes">Transient in-app notifications</property>
             <property name="child">
@@ -39,7 +39,7 @@
                         <child>
                           <object class="GtkButton">
                             <property name="valign">center</property>
-                            <property name="icon-name">user-trash-symbolic</property>
+                            <property name="icon-name">user-trash</property>
                             <property name="action-name">toast.dismiss</property>
                             <style>
                               <class name="flat"/>
