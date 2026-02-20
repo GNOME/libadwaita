@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">360</property>
+    <property name="default-height">500</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="split_view" property="collapsed">True</setter>
+        <setter object="show_sidebar_button" property="visible">True</setter>
+        <setter object="sidebar_menu_button" property="visible">False</setter>
+        <setter object="content_menu_button" property="visible">True</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwOverlaySplitView" id="split_view">
+        <property name="sidebar">
+          <object class="AdwToolbarView">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="title-widget">
+                  <object class="AdwWindowTitle">
+                    <property name="title">Sidebar</property>
+                  </object>
+                </property>
+                <child type="end">
+                  <object class="GtkMenuButton" id="sidebar_menu_button">
+                    <property name="icon-name">open-menu-symbolic</property>
+                    <property name="primary">True</property>
+                    <property name="popover">
+                      <object class="GtkPopover"/>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwSidebar" id="sidebar">
+                <child>
+                  <object class="AdwSidebarSection">
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 1</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 2</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 3</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwSidebarSection">
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 4</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 5</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwSidebarItem">
+                        <property name="title">Item 6</property>
+                        <property name="icon-name">generic-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="content">
+          <object class="AdwToolbarView" id="content">
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <property name="title-widget">
+                  <object class="AdwWindowTitle">
+                    <property name="title">Content</property>
+                  </object>
+                </property>
+                <child type="start">
+                  <object class="GtkToggleButton" id="show_sidebar_button">
+                    <property name="visible">False</property>
+                    <property name="icon-name">adw-sidebar-symbolic</property>
+                    <property name="active" bind-source="split_view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkMenuButton" id="content_menu_button">
+                    <property name="visible">False</property>
+                    <property name="icon-name">open-menu-symbolic</property>
+                    <property name="primary">True</property>
+                    <property name="popover">
+                      <object class="GtkPopover"/>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="title">Page 1</property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>
