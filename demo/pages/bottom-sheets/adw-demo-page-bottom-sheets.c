@@ -7,12 +7,21 @@ struct _AdwDemoPageBottomSheets
 
 G_DEFINE_FINAL_TYPE (AdwDemoPageBottomSheets, adw_demo_page_bottom_sheets, ADW_TYPE_BIN)
 
+static guint
+get_arrow_state (gpointer user_data,
+                 int      height,
+                 gboolean open)
+{
+  return (height > 350) ? 1 : 0;
+}
+
 static void
 adw_demo_page_bottom_sheets_class_init (AdwDemoPageBottomSheetsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/bottom-sheets/adw-demo-page-bottom-sheets.ui");
+  gtk_widget_class_bind_template_callback (widget_class, get_arrow_state);
 }
 
 static void

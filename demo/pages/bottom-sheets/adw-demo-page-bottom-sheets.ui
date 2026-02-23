@@ -29,7 +29,18 @@
             </child>
             <property name="content">
               <object class="AdwStatusPage">
-                <property name="icon-name">go-down</property>
+                <property name="height-request">400</property>
+                <property name="paintable">
+                  <object class="AdwIconPaintable">
+                    <property name="icon-name">go-up-down</property>
+                    <property name="widget">AdwDemoPageBottomSheets</property>
+                    <binding name="state">
+                      <closure type="guint" function="get_arrow_state">
+                        <lookup name="sheet-height">sheet</lookup>
+                      </closure>
+                    </binding>
+                  </object>
+                </property>
               </object>
             </property>
           </object>
