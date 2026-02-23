@@ -614,8 +614,8 @@ adw_icon_paintable_set_state (AdwIconPaintable *self,
 {
   g_return_if_fail (ADW_IS_ICON_PAINTABLE (self));
 
-  if (self->ready && state != GTK_SVG_STATE_EMPTY)
-    state = MIN (state, self->n_states);
+  if (self->ready && state != GTK_SVG_STATE_EMPTY && state >= self->n_states)
+    state = self->n_states - 1;
 
   if (state == self->state)
     return;

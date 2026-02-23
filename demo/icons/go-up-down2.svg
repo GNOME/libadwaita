@@ -31,11 +31,13 @@
           class='transparent-fill foreground-stroke'
           gpa:stroke='foreground'
           gpa:states='0'>
-    <animate href='path0'
+    <animate href='#path0'
              attributeName='d'
              begin='gpa:states(0).begin'
              dur='200ms'
-             values='M 2 5 L 8 11 L 14 5; M 1 8 L 8 8 L 15 8; M 2 11 L 8 5 L 14 11'
+             values='M 2 5 L 8 11 L 14 5;
+                     M 1 8 L 8 8 L 15 8;
+                     M 2 11 L 8 5 L 14 11'
              keyTimes='0; 0.5; 1'/>
   </path>
   <path
@@ -50,11 +52,13 @@
           class='transparent-fill foreground-stroke'
           gpa:stroke='foreground'
           gpa:states='1'>
-    <animate href='path1'
+    <animate href='#path1'
              attributeName='d'
              begin='gpa:states(1).begin'
              dur='200ms'
-             values='M 2 11 L 8 5 L 14 11; M 1 8 L 8 8 L 15 8; M 2 5 L 8 11 L 14 5'
+             values='M 2 11 L 8 5 L 14 11;
+                     M 1 8 L 8 8 L 15 8;
+                     M 2 5 L 8 11 L 14 5'
              keyTimes='0; 0.5; 1'/>
   </path>
 </svg>

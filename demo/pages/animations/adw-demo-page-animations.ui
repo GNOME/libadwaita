@@ -101,7 +101,7 @@
                           <object class="GtkImage">
                             <property name="paintable">
                               <object class="AdwIconPaintable">
-                                <property name="icon-name">media-playback-start-stop</property>
+                                <property name="icon-name">media-playback-start-stop2</property>
                                 <binding name="state">
                                   <closure type="guint" function="get_play_pause_state">
                                     <lookup name="state" type="AdwAnimation">
