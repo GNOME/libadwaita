@@ -1,0 +1,61 @@
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:svg='http://www.w3.org/2000/svg'
+        xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        xmlns:cc='http://creativecommons.org/ns#'
+        xmlns:dc='http://purl.org/dc/elements/1.1/'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state='0'
+        width='16'
+        height='16'>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>arrow point up</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+          id='path0'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 2 11 L 8 5 L 14 11'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='0'>
+    <animate href='path0'
+             attributeName='transform'
+             begin='gpa:states(0).begin'
+             dur='200ms'
+             from='rotate(180 8 8)'
+             to='rotate(0 8 8)'/>
+  </path>
+  <path
+          id='path1'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          transform='rotate(180 8 8)'
+          d='M 2 11 L 8 5 L 14 11'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='1'>
+    <animate href='path1'
+             attributeName='transform'
+             begin='gpa:states(1).begin'
+             dur='200ms'
+             from='rotate(0 8 8)'
+             to='rotate(180 8 8)'/>
+  </path>
+</svg>
