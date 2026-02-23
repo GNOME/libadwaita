@@ -1,5 +1,5 @@
 pages:
-  image: fedora:latest
+  image: registry.fedoraproject.org/fedora:latest
   script:
     - sudo dnf install -y unzip
     - mkdir public
