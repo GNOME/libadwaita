@@ -29,8 +29,14 @@
                 <property name="icon-name">clock-world</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="AdwStatusPage">
-                    <property name="icon-name">clock-world</property>
+                  <object class="AdwStatusPage" id="world_page">
+            <property name="paintable">
+              <object class="AdwIconPaintable">
+                <property name="icon-name">plus-check</property>
+                <property name="animate-in">True</property>
+                <property name="widget">world_page</property>
+              </object>
+            </property>
                     <property name="title" translatable="yes">World</property>
                     <property name="description" translatable="yes">View the time in cities around the world</property>
                   </object>
@@ -44,8 +50,14 @@
                 <property name="icon-name">clock-alarm</property>
                 <property name="use-underline">True</property>
                 <property name="child">
-                  <object class="AdwStatusPage">
-                    <property name="icon-name">clock-alarm</property>
+                  <object class="AdwStatusPage" id="alarm_page">
+            <property name="paintable">
+              <object class="AdwIconPaintable">
+                <property name="icon-name">sign</property>
+                <property name="animate-in">True</property>
+                <property name="widget">alarm_page</property>
+              </object>
+            </property>
                     <property name="title" translatable="yes">Alarm</property>
                     <property name="description" translatable="yes">Set customizable alarms to go off on specific days</property>
                   </object>
