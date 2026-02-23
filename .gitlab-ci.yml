@@ -77,13 +77,13 @@ abi-check:
     - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
 
 potfiles:
-  image: fedora
+  image: quay.io/fedora/fedora:latest
   stage: build
   script:
     - .gitlab-ci/check-potfiles.sh
 
 refresh-doc:
-  image: fedora
+  image: quay.io/fedora/fedora:latest
   stage: deploy
   needs: ['doc']
   only:
