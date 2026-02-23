@@ -213,13 +213,13 @@ timed_animation_skip (AdwDemoPageAnimations *self)
 
 static guint
 get_play_pause_state (gpointer          user_data,
-                          AdwAnimationState timed_state,
-                          AdwAnimationState spring_state)
+                      AdwAnimationState timed_state,
+                      AdwAnimationState spring_state)
 {
   gboolean playing = timed_state  == ADW_ANIMATION_PLAYING ||
                      spring_state == ADW_ANIMATION_PLAYING;
 
-  return playing ? 3 : 0;
+  return playing ? 1 : 0;
 }
 
 static gboolean
