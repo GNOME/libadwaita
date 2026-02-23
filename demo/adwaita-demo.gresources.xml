@@ -8,6 +8,7 @@
     <file preprocess="xml-stripblanks">icons/plus-check.svg</file>
     <file preprocess="xml-stripblanks">icons/media-playback-start-stop.svg</file>
     <file preprocess="xml-stripblanks">icons/go-up-down.svg</file>
+    <file preprocess="xml-stripblanks">icons/go-up-down2.svg</file>
 
     <file preprocess="xml-stripblanks">icons/animations.svg</file>
     <file preprocess="xml-stripblanks">icons/camera-photo.svg</file>
