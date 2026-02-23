@@ -32,7 +32,7 @@
                 <property name="height-request">400</property>
                 <property name="paintable">
                   <object class="AdwIconPaintable">
-                    <property name="icon-name">go-up-down</property>
+                    <property name="icon-name">go-up-down2</property>
                     <property name="widget">AdwDemoPageBottomSheets</property>
                     <binding name="state">
                       <closure type="guint" function="get_arrow_state">
