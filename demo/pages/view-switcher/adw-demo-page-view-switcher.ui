@@ -12,7 +12,14 @@
         </child>
         <property name="content">
           <object class="AdwStatusPage">
-            <property name="icon-name">widget-view-switcher</property>
+            <property name="paintable">
+              <object class="AdwIconPaintable">
+                <property name="icon-name">plus-check</property>
+                <property name="state">1</property>
+                <property name="animate-in">True</property>
+                <property name="widget">AdwDemoPageViewSwitcher</property>
+              </object>
+            </property>
             <property name="title" translatable="yes">View Switcher</property>
             <property name="description" translatable="yes">Widgets to switch the window's view</property>
             <property name="child">
