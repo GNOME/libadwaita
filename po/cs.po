@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-08-19 21:24+0000\n"
-"PO-Revision-Date: 2025-08-22 13:14+0200\n"
+"POT-Creation-Date: 2026-01-03 17:24+0000\n"
+"PO-Revision-Date: 2026-02-23 21:28+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: src/adw-about-dialog.c:213 src/adw-about-window.c:208
 msgid "GNU General Public License, version 2 or later"
@@ -534,15 +534,15 @@ msgstr "Předvolby"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "Předvolby hledání"
+msgstr "předvolby hledání"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:153 src/adw-preferences-window.ui:163
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "Nic nenalezeno"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:154 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Zkuste jiné hledání"
 
@@ -578,7 +578,7 @@ msgstr "R"
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "hledat zkratky"
 
@@ -595,7 +595,7 @@ msgid "View Open Tabs"
 msgstr "Zobrazit otevřené karty"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:943
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -611,15 +611,15 @@ msgstr "Hledat karty"
 msgid "Search tabs"
 msgstr "hledat karty"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Žádné otevřené karty"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Nenalezena žádná karta"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Nová kar_ta"
 
