@@ -38,6 +38,8 @@
              values='M 2 5 L 8 11 L 14 5;
                      M 1 8 L 8 8 L 15 8;
                      M 2 11 L 8 5 L 14 11'
+             calcMode='spline'
+             keySplines='0.42 0 1 1; 0 0 0.58 1'
              keyTimes='0; 0.5; 1'/>
   </path>
   <path
@@ -59,6 +61,8 @@
              values='M 2 11 L 8 5 L 14 11;
                      M 1 8 L 8 8 L 15 8;
                      M 2 5 L 8 11 L 14 5'
+             calcMode='spline'
+             keySplines='0.42 0 1 1; 0 0 0.58 1'
              keyTimes='0; 0.5; 1'/>
   </path>
 </svg>
