@@ -266,7 +266,9 @@ adw_icon_provider_lookup_icon (GtkIconProvider    *provider,
   AdwIconProvider *self = ADW_ICON_PROVIDER (provider);
   const char *path;
   char **parts;
-  int state = -2;
+  int state = -1;
+  guint n_states = 64;
+  const char *state_name = NULL;
 
   ensure_icons (self);
 
@@ -274,13 +276,20 @@ adw_icon_provider_lookup_icon (GtkIconProvider    *provider,
 
   if (g_strv_length (parts) > 1) {
     long int parsed;
+    const char *result;
+
+    parts[1] = g_strstrip (parts[1]);
 
     icon_name = parts[0];
 
-    parsed = strtol (parts[1], NULL, 10);
+    // TODO run a check to make sure this _is_ a number, and treat it like a name otherwise
+    // TODO also make sure state names don't start from digits and aren't "all" or "none"
+    parsed = strtol (parts[1], (char **) &result, 10);
 
-    if (parsed >= 0 && parsed < 32)
+    if (result != parts[1])
       state = parsed;
+    else
+      state_name = parts[1];
   }
 
   path = g_hash_table_lookup (self->icon_data, icon_name);
@@ -295,8 +304,40 @@ adw_icon_provider_lookup_icon (GtkIconProvider    *provider,
 
     gtk_svg_load_from_resource (svg, path);
 
-    if (!legacy && state >= -1 && state < 64)
-      gtk_svg_set_state (svg, state);
+    if (!legacy) {
+      const char **names;
+      guint n_named_states;
+
+      names = gtk_svg_get_state_names (svg, &n_named_states);
+
+      if (names) {
+        n_states = n_named_states;
+
+        if (state_name) {
+          int i;
+
+          for (i = 0; names[i]; i++) {
+            if (!g_strcmp0 (state_name, names[i])) {
+              state = i;
+              break;
+            }
+          }
+        }
+      }
+
+      if (state_name && !names)
+        g_warning ("Icon %s doesn't have named states", icon_name);
+      else if (state_name && (state < 0 || state >= n_states))
+        g_warning ("Unknown state %s for icon %s", state_name, icon_name);
+      else if (state >= 0 && state >= n_states)
+        g_warning ("Unknown state %d for icon %s", state, icon_name);
+      else if (state >= 0)
+        gtk_svg_set_state (svg, state);
+    } else if (state_name) {
+      g_warning ("Unknown state %s for icon %s. Legacy icons cannot use states", state_name, icon_name);
+    } else if (state >= 0) {
+      g_warning ("Unknown state %d for icon %s. Legacy icons cannot use states", state, icon_name);
+    }
 
 #if 0
       char *uri = g_strconcat ("resource://", path, NULL);

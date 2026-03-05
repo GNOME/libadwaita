@@ -40,7 +40,10 @@ void  adw_icon_paintable_set_state (AdwIconPaintable *self,
                                     guint             state);
 
 ADW_AVAILABLE_IN_1_9
-guint adw_icon_paintable_get_n_states (AdwIconPaintable *self);
+const char *adw_icon_paintable_get_state_name (AdwIconPaintable *self);
+ADW_AVAILABLE_IN_1_9
+void        adw_icon_paintable_set_state_name (AdwIconPaintable *self,
+                                               const char       *state_name);
 
 ADW_AVAILABLE_IN_1_9
 gboolean adw_icon_paintable_get_animate_in (AdwIconPaintable *self);
