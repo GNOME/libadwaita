@@ -6,11 +6,12 @@ create_stack (void)
   AdwViewStack *stack = ADW_VIEW_STACK (adw_view_stack_new ());
   AdwViewStackPage *page;
 
-  adw_view_stack_add_titled_with_icon (stack,
-                                       adw_bin_new (),
-                                       NULL,
-                                       "Page 1",
-                                       "adw-tab-icon-missing-symbolic");
+  page = adw_view_stack_add_titled_with_icon (stack,
+                                              adw_bin_new (),
+                                              NULL,
+                                              "Page 1",
+                                              "adw-tab-icon-missing-symbolic");
+  adw_view_stack_page_set_section_title (page, "Section 1");
 
   page = adw_view_stack_add_titled_with_icon (stack,
                                               adw_bin_new (),
@@ -23,6 +24,15 @@ create_stack (void)
                                               adw_bin_new (),
                                               NULL,
                                               "Page 3",
+                                              "adw-tab-icon-missing-symbolic");
+  adw_view_stack_page_set_badge_number (page, 3);
+  adw_view_stack_page_set_starts_section (page, TRUE);
+  adw_view_stack_page_set_section_title (page, "Section 2");
+
+  page = adw_view_stack_add_titled_with_icon (stack,
+                                              adw_bin_new (),
+                                              NULL,
+                                              "Page 4",
                                               "adw-tab-icon-missing-symbolic");
   adw_view_stack_page_set_needs_attention (page, TRUE);
   adw_view_stack_page_set_badge_number (page, 3);
@@ -92,12 +102,29 @@ create_inline_section (AdwViewStack   *stack,
 }
 
 static GtkWidget *
+create_sidebar (AdwViewStack *stack, AdwSidebarMode mode)
+{
+  GtkWidget *sidebar = adw_view_switcher_sidebar_new ();
+
+  adw_view_switcher_sidebar_set_stack (ADW_VIEW_SWITCHER_SIDEBAR (sidebar), stack);
+  adw_view_switcher_sidebar_set_mode (ADW_VIEW_SWITCHER_SIDEBAR (sidebar), mode);
+
+  return sidebar;
+}
+
+static GtkWidget *
 create_content (void)
 {
   GtkBox *hbox, *vbox1, *vbox2;
   AdwViewStack *stack;
+  AdwOverlaySplitView *split_view1, *split_view2;
 
   stack = create_stack ();
+
+  split_view1 = ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ());
+  split_view2 = ADW_OVERLAY_SPLIT_VIEW (adw_overlay_split_view_new ());
+
+  adw_overlay_split_view_set_sidebar_position (split_view2, GTK_PACK_END);
 
   hbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 18));
   vbox1 = GTK_BOX (gtk_box_new (GTK_ORIENTATION_VERTICAL, 18));
@@ -126,7 +153,13 @@ create_content (void)
   gtk_box_append (hbox, GTK_WIDGET (vbox1));
   gtk_box_append (hbox, GTK_WIDGET (vbox2));
 
-  return GTK_WIDGET (hbox);
+  adw_overlay_split_view_set_sidebar (split_view1, create_sidebar (stack, ADW_SIDEBAR_MODE_SIDEBAR));
+  adw_overlay_split_view_set_content (split_view1, GTK_WIDGET (split_view2));
+
+  adw_overlay_split_view_set_sidebar (split_view2, create_sidebar (stack, ADW_SIDEBAR_MODE_PAGE));
+  adw_overlay_split_view_set_content (split_view2, GTK_WIDGET (hbox));
+
+  return GTK_WIDGET (split_view1);
 }
 
 static void
