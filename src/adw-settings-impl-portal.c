@@ -57,7 +57,7 @@ read_setting (AdwSettingsImplPortal  *self,
   ret = g_dbus_proxy_call_sync (self->settings_portal,
                                 "Read",
                                 g_variant_new ("(ss)", schema, name),
-                                G_DBUS_CALL_FLAGS_NONE,
+                                G_DBUS_CALL_FLAGS_NO_AUTO_START,
                                 G_MAXINT,
                                 NULL,
                                 &error);
