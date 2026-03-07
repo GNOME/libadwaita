@@ -22,6 +22,8 @@
 
 #include "adw-gtkbuilder-utils-private.h"
 
+#include <glib/gstdio.h>
+
 /*< private >
  * @builder: a `GtkBuilder`
  * @context: the `GtkBuildableParseContext`
