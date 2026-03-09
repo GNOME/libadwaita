@@ -1,15 +1,15 @@
 # Danish translation for libadwaita.
-# Copyright (C) 2021, 2024-2025 libadwaita's COPYRIGHT HOLDER
+# Copyright (C) 2021, 2024-2026 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
 # scootergrisen, 2021.
 # Alan Mortensen <alanmortensen.am@gmail.com>, 2022-23.
-# Ask Hjorth Larsen <asklarsen@gmail.com>, 2024-2025.
+# Ask Hjorth Larsen <asklarsen@gmail.com>, 2024-2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-08-31 04:46+0000\n"
-"PO-Revision-Date: 2025-09-02 15:40+0200\n"
+"POT-Creation-Date: 2026-02-25 14:55+0000\n"
+"PO-Revision-Date: 2026-03-10 00:02+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -19,98 +19,98 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public License, version 2 eller senere"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public License, version 3 eller senere"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public License, version 2.1 eller senere"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License, version 3 eller senere"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-klausullicens"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "The MIT License (MIT)"
 msgstr "MIT-licensen (MIT)"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "Artistic License 2.0"
 msgstr "Artistic License 2.0"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public License, kun version 2"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public License, kun version 3"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License, kun version 2.1"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License, kun version 3"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License, version 3 eller senere"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, kun version 3"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-klausullicens"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Apache License, Version 2.0"
 msgstr "Apache-licens, version 2.0"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
 msgid "BSD Zero-Clause License"
 msgstr "BSD-nul-klausullicens"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "Kode af"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "Design af"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "Grafik af"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "Dokumentation af"
 
-#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "Oversat af"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#: src/adw-about-dialog.c:610 src/adw-about-window.c:600
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -119,47 +119,47 @@ msgstr ""
 "Med dette program følger absolut ingen garanti. Detaljer kan findes på <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+#: src/adw-about-dialog.c:688 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "Dette program"
 
-#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#: src/adw-about-dialog.c:990 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "Kan ikke fortolke udgivelsesnoter:"
 
-#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#: src/adw-about-dialog.c:1022 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linje: %d, tegn: %d"
 
-#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+#: src/adw-about-dialog.c:1441 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "Kopieret til udklipsholderen"
 
-#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+#: src/adw-about-dialog.c:1468 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Kan ikke gemme fejlsøgningsinformation"
 
-#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
+#: src/adw-about-dialog.c:1473 src/adw-about-window.c:1306
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Luk"
 
-#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+#: src/adw-about-dialog.c:1490 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Gem fejlsøgningsinformation"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2333
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Andre programmer af %s"
 
-#: src/adw-about-dialog.c:2308
+#: src/adw-about-dialog.c:2339
 msgid "Other Apps"
 msgstr "Andre programmer"
 
@@ -175,48 +175,48 @@ msgstr "_Nyheder"
 msgid "_Details"
 msgstr "_Detaljer"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
 msgid "_Website"
 msgstr "_Websted"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
 msgid "_Support Questions"
 msgstr "_Supportspørgsmål"
 
-#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Report an Issue"
 msgstr "_Rapportér et problem"
 
-#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
 msgid "_Troubleshooting"
 msgstr "_Fejlfinding"
 
-#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
 msgid "_Credits"
 msgstr "_Bidragydere"
 
-#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
 msgid "_Legal"
 msgstr "_Juridisk"
 
-#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
 msgid "_Acknowledgements"
 msgstr "_Taksigelser"
 
-#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
 msgid "What’s New"
 msgstr "Nyheder"
 
-#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
 msgid "Details"
 msgstr "Detaljer"
 
-#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
 msgid "Troubleshooting"
 msgstr "Fejlfinding"
 
-#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -226,31 +226,31 @@ msgstr ""
 "du giver disse oplysninger til programudviklerne, når du rapporterer en "
 "fejl, kan det hjælpe med at diagnosticere eventuelle problemer, du støder på."
 
-#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
 msgid "_Debugging Information"
 msgstr "_Fejlsøgningsinformation"
 
-#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
 msgid "Debugging Information"
 msgstr "Fejlsøgningsinformation"
 
-#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
 msgid "_Copy Text"
 msgstr "_Kopiér tekst"
 
-#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
 msgid "_Save As…"
 msgstr "_Gem som …"
 
-#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
 msgid "Credits"
 msgstr "Bidragydere"
 
-#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
 msgid "Legal"
 msgstr "Juridisk"
 
-#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Acknowledgements"
 msgstr "Taksigelser"
 
@@ -421,14 +421,31 @@ msgid "Back"
 msgstr "Tilbage"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "Søg"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Anvend"
+
+#: src/adw-indicator-bin.c:78
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "Anmoder om opmærksomhed."
+
+# Ikke sikker på hvordan 'badges' ser ud
+#: src/adw-indicator-bin.c:81
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "Har et mærke: mere end 999."
+
+#: src/adw-indicator-bin.c:83
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "Har et mærke: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -531,6 +548,14 @@ msgstr ""
 "Test programmet med bestemte skærmstørrelser for at simulere et mobilmiljø. "
 "Åbn forhåndsvisningen direkte i ethvert understøttet vindue med Skift+Ctrl+M"
 
+#: src/adw-link-row.c:327
+msgid "_Open Link"
+msgstr "_Åbn link"
+
+#: src/adw-link-row.c:328
+msgid "Copy _Link Address"
+msgstr "Kopiér _linkadresse"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "Skjul adgangskode"
@@ -559,17 +584,17 @@ msgstr "Indstillinger"
 msgid "Search preferences"
 msgstr "Søgeindstillinger"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "Ingen resultater fundet"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Prøv en anden søgning"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "Prøv en anden søgning."
 
@@ -601,7 +626,7 @@ msgstr "H"
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturgenveje"
 
-#: src/adw-shortcuts-dialog.ui:20
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "Søg i genveje"
 
@@ -609,7 +634,7 @@ msgstr "Søg i genveje"
 msgid "No Shortcut"
 msgstr "Ingen genvej"
 
-#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+#: src/adw-split-button.c:531 src/adw-split-button.c:1048
 msgid "More Options"
 msgstr "Flere indstillinger"
 
@@ -618,7 +643,7 @@ msgid "View Open Tabs"
 msgstr "Vis åbne faneblade"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:965
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -633,15 +658,15 @@ msgstr "Søg i faneblade"
 msgid "Search tabs"
 msgstr "Søg i faneblade"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "Ingen åbne faneblade"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "Ingen faneblade fundet"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "Ny_t faneblad"
 
@@ -649,22 +674,22 @@ msgstr "Ny_t faneblad"
 msgid "Close Tab"
 msgstr "Luk faneblad"
 
-#: src/adw-toast-overlay.c:285
+#: src/adw-toast-overlay.c:286
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Der er kommet en toastbesked: %s; den har en knap: %s"
 
-#: src/adw-toast-overlay.c:288
+#: src/adw-toast-overlay.c:289
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Der er kommet en toastbesked: %s"
 
-#: src/adw-toast-overlay.c:290
+#: src/adw-toast-overlay.c:291
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Der er kommet en toastbesked; den har en knap: %s"
 
-#: src/adw-toast-overlay.c:293
+#: src/adw-toast-overlay.c:294
 msgid "A toast appeared"
 msgstr "Der er kommet en toastbesked"
 
