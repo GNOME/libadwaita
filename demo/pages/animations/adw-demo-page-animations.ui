@@ -102,8 +102,8 @@
                             <property name="paintable">
                               <object class="AdwIconPaintable">
                                 <property name="icon-name">media-playback-start-stop2</property>
-                                <binding name="state">
-                                  <closure type="guint" function="get_play_pause_state">
+                                <binding name="state-name">
+                                  <closure type="gchararray" function="get_play_pause_state">
                                     <lookup name="state" type="AdwAnimation">
                                       <lookup name="timed-animation">AdwDemoPageAnimations</lookup>
                                     </lookup>

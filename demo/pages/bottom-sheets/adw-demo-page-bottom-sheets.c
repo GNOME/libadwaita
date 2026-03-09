@@ -7,12 +7,12 @@ struct _AdwDemoPageBottomSheets
 
 G_DEFINE_FINAL_TYPE (AdwDemoPageBottomSheets, adw_demo_page_bottom_sheets, ADW_TYPE_BIN)
 
-static guint
+static char *
 get_arrow_state (gpointer user_data,
                  int      height,
                  gboolean open)
 {
-  return (height > 350) ? 1 : 0;
+  return g_strdup (height > 350 ? "down" : "up");
 }
 
 static void

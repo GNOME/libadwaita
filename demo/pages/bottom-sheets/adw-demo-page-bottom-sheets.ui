@@ -34,8 +34,8 @@
                   <object class="AdwIconPaintable">
                     <property name="icon-name">go-up-down2</property>
                     <property name="widget">AdwDemoPageBottomSheets</property>
-                    <binding name="state">
-                      <closure type="guint" function="get_arrow_state">
+                    <binding name="state-name">
+                      <closure type="gchararray" function="get_arrow_state">
                         <lookup name="sheet-height">sheet</lookup>
                       </closure>
                     </binding>
