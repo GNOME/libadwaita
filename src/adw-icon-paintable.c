@@ -68,8 +68,16 @@ static guint
 find_state_by_name (AdwIconPaintable *self,
                     const char       *state_name)
 {
-  const char **names = gtk_svg_get_state_names (self->svg, NULL);
+  const char **names;
   int i;
+
+  if (!self->svg)
+    return 64;
+
+  names = gtk_svg_get_state_names (self->svg, NULL);
+
+  if (!names)
+    return 64;
 
   for (i = 0; names[i]; i++) {
     if (!g_strcmp0 (names[i], state_name))
@@ -79,22 +87,53 @@ find_state_by_name (AdwIconPaintable *self,
   return 64;
 }
 
+static char *
+get_state_name (AdwIconPaintable *self,
+                guint             state)
+{
+  const char **names;
+  guint n_states;
+
+  if (!self->svg || state >= 64)
+    return NULL;
+
+  names = gtk_svg_get_state_names (self->svg, &n_states);
+
+  if (!names || state >= n_states)
+    return NULL;
+
+  return g_strdup (names[state]);
+}
+
 static void
 set_state (AdwIconPaintable *self,
            guint             state,
            const char       *state_name)
 {
-  // Override state, alled with state
-  // Override state name, called with state name
-  // Override both, called with state
-  // Override both, called with state name
-  // Override none, called wth state
-  // Override none, called with state name
-/*
-  const char **names;
-  guint n_states;
   guint effective_state = 64;
   char *effective_name = NULL;
+  const char **names;
+  guint n_states;
+
+  g_assert (state < 64 || state_name);
+
+  if (!self->override_state && !self->override_state_name) {
+    if (state_name)
+      effective_name = g_strdup (state_name);
+    else
+      effective_name = get_state_name (self, state);
+
+    if (state == 64)
+      effective_state = find_state_by_name (self, state_name);
+    else
+      effective_state = state;
+  } else if (self->override_state && state < 64) {
+    effective_state = state;
+    self->override_state_name = FALSE;
+  } else if (self->override_state_name && state_name) {
+    effective_name = g_strdup (state_name);
+    self->override_state = FALSE;
+  }
 
   if (self->svg)
     names = gtk_svg_get_state_names (self->svg, &n_states);
@@ -104,49 +143,27 @@ set_state (AdwIconPaintable *self,
   if (!names)
     n_states = 64;
 
-  if (!self->svg) {
-    if (self->override_state_name)
-      effective_name = g_strdup (state_name);
-    if (self->override_state)
-      effective_state = state;
-  } else {
-    if (state_name && *state_name) {
-      if (names) {
-        effective_state = find_state_by_name (self, state_name);
-
-        if (effective_state < 64)
-          effective_name = g_strdup (state_name);
-      }
-    } else {
-      effective_state = state;
-    }
+  if (self->svg) {
+    if (effective_state < n_states)
+      gtk_svg_set_state (self->svg, effective_state);
   }
-
-  if (effective_state > n_states)
-    effective_state = 0;
-
-  if (self->svg)
-    gtk_svg_set_state (self->svg, effective_state);
-
-  if (!effective_name)
-    effective_name = g_strdup ("");
 
   g_object_freeze_notify (G_OBJECT (self));
 
-  if (effective_state != self->state) {
+  if (effective_state != self->state && effective_state < 64) {
     self->state = effective_state;
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
   }
 
-  if (g_strcmp0 (self->icon_name, effective_name)) {
-    g_free (self->icon_name);
-    self->state_name = g_steal_pointer (&effective_name);
+  if (effective_name && g_strcmp0 (self->state_name, effective_name)) {
+    g_free (self->state_name);
+    self->state_name = effective_name;
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE_NAME]);
+  } else {
+    g_free (effective_name);
   }
 
   g_object_thaw_notify (G_OBJECT (self));
-
-  g_free (effective_name);*/
 }
 
 static void
@@ -185,8 +202,6 @@ recreate_svg (AdwIconPaintable *self)
 
     self->svg = gtk_svg_new_from_resource (self->path);
 
-    g_print ("So do we not set svg here?\n");
-
     self->has_names = !!gtk_svg_get_state_names (self->svg, NULL);
 
     g_signal_connect_swapped (self->svg, "invalidate-contents",
@@ -199,6 +214,12 @@ recreate_svg (AdwIconPaintable *self)
     if ((!self->override_state && !self->override_state_name) || self->state >= 64) {
       /* Reset to the initial state */
       set_state (self, gtk_svg_get_state (self->svg), NULL);
+    } else if (self->override_state_name) {
+      self->override_state_name = FALSE;
+      set_state (self, 64, self->state_name);
+    } else if (self->override_state) {
+      self->override_state = FALSE;
+      set_state (self, self->state, NULL);
     }
 
     self->override_state = FALSE;
@@ -242,8 +263,6 @@ reload_icon (AdwIconPaintable *self)
     display = gtk_widget_get_display (self->widget);
   else
     display = gdk_display_get_default ();
-
-  g_print ("Path!\n");
 
   manager = adw_style_manager_get_for_display (display);
   path = adw_style_manager_lookup_icon_path (manager, self->icon_name);
@@ -452,7 +471,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
   props[PROP_STATE] =
     g_param_spec_uint ("state", NULL, NULL,
                        0, 63, 0,
-                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIconPaintable:state-name:
@@ -464,7 +483,7 @@ adw_icon_paintable_class_init (AdwIconPaintableClass *klass)
   props[PROP_STATE_NAME] =
     g_param_spec_string ("state-name", NULL, NULL,
                          "",
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIconPaintable:animate-in:
@@ -744,7 +763,7 @@ adw_icon_paintable_set_state_name (AdwIconPaintable *self,
   g_return_if_fail (ADW_IS_ICON_PAINTABLE (self));
   g_return_if_fail (state_name != NULL);
 
-  if (!self->ready)
+  if (!self->ready && state_name && *state_name)
      self->override_state_name = TRUE;
 
   set_state (self, 64, state_name);

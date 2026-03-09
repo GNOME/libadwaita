@@ -211,7 +211,7 @@ timed_animation_skip (AdwDemoPageAnimations *self)
   adw_animation_skip (self->spring_animation);
 }
 
-static guint
+static char *
 get_play_pause_state (gpointer          user_data,
                       AdwAnimationState timed_state,
                       AdwAnimationState spring_state)
@@ -219,7 +219,7 @@ get_play_pause_state (gpointer          user_data,
   gboolean playing = timed_state  == ADW_ANIMATION_PLAYING ||
                      spring_state == ADW_ANIMATION_PLAYING;
 
-  return playing ? 1 : 0;
+  return g_strdup (playing ? "pause" : "play");
 }
 
 static gboolean

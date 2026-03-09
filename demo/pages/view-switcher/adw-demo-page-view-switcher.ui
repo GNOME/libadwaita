@@ -15,7 +15,7 @@
             <property name="paintable">
               <object class="AdwIconPaintable">
                 <property name="icon-name">plus-check</property>
-                <property name="state">1</property>
+                <property name="state-name">check</property>
                 <property name="animate-in">True</property>
                 <property name="widget">AdwDemoPageViewSwitcher</property>
               </object>
