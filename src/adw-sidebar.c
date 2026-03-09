@@ -2060,9 +2060,10 @@ adw_sidebar_grab_focus (GtkWidget *widget)
     AdwSidebarItem *selected = adw_sidebar_get_selected_item (self);
     GtkWidget *row = NULL;
 
-    if (selected) {
+    if (selected)
       row = find_list_row (self, selected);
-    } else {
+
+    if (!row) {
       GtkListBoxRow *first_row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), 0);
 
       if (first_row)
