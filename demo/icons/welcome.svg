@@ -6,17 +6,23 @@
         xmlns:dc='http://purl.org/dc/elements/1.1/'
         xmlns:gpa='https://www.gtk.org/grappa'
         gpa:version='1'
+        gpa:state-names='outline state10 empty'
         gpa:state='0'
-        gpa:keywords='libadwaita triangles'
         width='16'
         height='16'>
   <metadata>
     <rdf:RDF>
       <cc:Work>
+        <cc:license
+                rdf:resource='https://creativecommons.org/publicdomain/zero/1.0/'/>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
         <dc:subject>
           <rdf:Bag>
             <rdf:li>libadwaita triangles</rdf:li>
-
           </rdf:Bag>
         </dc:subject>
       </cc:Work>
@@ -37,7 +43,7 @@
           gpa:stroke-maxwidth='3'
           class='transparent-fill foreground-stroke'
           gpa:stroke='foreground'
-          gpa:states='0'>
+          gpa:states='outline'>
   </path>
   <path
           id='faint'
@@ -56,7 +62,7 @@
           gpa:stroke-maxwidth='3'
           class='transparent-fill foreground-stroke'
           gpa:stroke='foreground'
-          gpa:states='10'>
+          gpa:states='state10'>
   </path>
   <path
           id='animated'
@@ -72,9 +78,9 @@
           d='M 9 7 L 9 1 L 15 1 Z M 9 7 L 14 12 L 14 7 Z M 9 7 L 1 7 L 9 15 Z'
           gpa:stroke-minwidth='0.5'
           gpa:stroke-maxwidth='3'
-          class='transparent-fill foreground-stroke'
+          class='transparent-fill accent-stroke'
           gpa:stroke='accent'
-          gpa:states='10'
+          gpa:states='state10'
           gpa:animation-type='automatic'
           gpa:animation-direction='segment-alternate'
           

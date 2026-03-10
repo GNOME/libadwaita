@@ -1,36 +1,23 @@
-
-  <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          xmlns:gpa='https://www.gtk.org/grappa'
-          gpa:version='1'
-          gpa:state='0'
-          gpa:keywords='mail-send arrow up envelope online push adw-mail-send'>
-    <path
-            id='path0'
-            fill='none'
-            stroke='url("#gpa:foreground") rgb(0,0,0)'
-            stroke-width='2'
-            stroke-linecap='butt'
-            stroke-linejoin='round'
-            d='M 14.4896545 10.6758623 L 8 15 L 1.51724136 10.6689663 M 1 16 L 1 12 C 1 10.8954296, 1.89543045 10, 3 10 L 13 10 C 14.1045694 10, 15 10.8954296, 15 12 L 15 16'
-            class='transparent-fill foreground-stroke'
-            gpa:stroke-width='0.5 2 3'
-            gpa:stroke='foreground'
-            gpa:fill='none'>
+<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline empty">
+  <path id="path0" fill="none" stroke="url(&quot;#gpa:foreground&quot;) rgb(0,0,0)" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round" d="M 14.4896545 10.6758623 L 8 15 L 1.51724136 10.6689663 M 1 16 L 1 12 C 1 10.8954296, 1.89543045 10, 3 10 L 13 10 C 14.1045694 10, 15 10.8954296, 15 12 L 15 16" class="transparent-fill foreground-stroke" gpa:stroke-width="0.5 2 3" gpa:stroke="foreground" gpa:fill="none" gpa:states="outline">
     </path>
-    <path
-            id='path2'
-            fill='none'
-            stroke='url("#gpa:foreground") rgb(0,0,0)'
-            stroke-width='2'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            d='M 5 4 L 8 1 L 11 4 M 8 7 L 8 1'
-            class='transparent-fill foreground-stroke'
-            gpa:stroke-width='0.5 2 3'
-            gpa:stroke='foreground'
-            gpa:fill='none'>
+  <path id="path2" fill="none" stroke="url(&quot;#gpa:foreground&quot;) rgb(0,0,0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M 5 4 L 8 1 L 11 4 M 8 7 L 8 1" class="transparent-fill foreground-stroke" gpa:stroke-width="0.5 2 3" gpa:stroke="foreground" gpa:fill="none" gpa:states="outline">
     </path>
-  </svg>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>mail-send arrow up envelope online push adw-mail-send</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

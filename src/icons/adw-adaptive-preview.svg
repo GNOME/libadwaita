@@ -1,36 +1,23 @@
-
-  <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          xmlns:gpa='https://www.gtk.org/grappa'
-          gpa:version='1'
-          gpa:state='1'
-          gpa:keywords='adw-adaptive-preview mobile cell tablet'>
-    <defs
-            id='defs1'
-            fill='url("#gpa:foreground") rgb(0,0,0)'
-            stroke='none'
-            class='foreground foreground-fill'
-            gpa:states='none'
-            gpa:animation-repeat='0'
-            gpa:animation-segment='0'
-            gpa:fill='foreground'>
+<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline state1 empty">
+  <defs id="defs1" fill="url(&quot;#gpa:foreground&quot;) rgb(0,0,0)" stroke="none" class="foreground foreground-fill" gpa:states="none" gpa:animation-repeat="0" gpa:animation-segment="0" gpa:fill="foreground">
     </defs>
-    <path
-            id='form factors'
-            fill='none'
-            stroke='url("#gpa:foreground") rgb(0,0,0)'
-            stroke-opacity='1'
-            stroke-width='2'
-            stroke-linecap='butt'
-            stroke-linejoin='round'
-            stroke-miterlimit='4'
-            stroke-dashoffset='22.5589'
-            d='M 11.0350285 6 L 12.9649715 6 C 14.0923767 6, 15 6.90762281, 15 8.03502846 L 15 12.9649715 C 15 14.0923767, 14.0923767 15, 12.9649715 15 L 11.0350285 15 C 9.90762234 15, 9 14.0923767, 9 12.9649715 L 9 8.03502846 C 9 6.90762281, 9.90762234 6, 11.0350285 6 Z M 7 15 L 4.03502798 15 C 2.90762258 15, 2 14.0923767, 2 12.9649715 L 2 3.03502822 C 2 1.90762258, 2.90762258 1, 4.03502798 1 L 10.9649715 1 C 12.0923767 1, 13 1.90762258, 13 3.03502822 L 13 4'
-            class='transparent-fill foreground-stroke'
-            gpa:stroke-width='0.5 2 3'
-            gpa:stroke='foreground'
-            gpa:fill='none'>
+  <path id="form factors" fill="none" stroke="url(&quot;#gpa:foreground&quot;) rgb(0,0,0)" stroke-opacity="1" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="22.5589" d="M 11.0350285 6 L 12.9649715 6 C 14.0923767 6, 15 6.90762281, 15 8.03502846 L 15 12.9649715 C 15 14.0923767, 14.0923767 15, 12.9649715 15 L 11.0350285 15 C 9.90762234 15, 9 14.0923767, 9 12.9649715 L 9 8.03502846 C 9 6.90762281, 9.90762234 6, 11.0350285 6 Z M 7 15 L 4.03502798 15 C 2.90762258 15, 2 14.0923767, 2 12.9649715 L 2 3.03502822 C 2 1.90762258, 2.90762258 1, 4.03502798 1 L 10.9649715 1 C 12.0923767 1, 13 1.90762258, 13 3.03502822 L 13 4" class="transparent-fill foreground-stroke" gpa:stroke-width="0.5 2 3" gpa:stroke="foreground" gpa:fill="none" gpa:states="outline state1">
     </path>
-  </svg>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>adw-adaptive-preview mobile cell tablet</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
