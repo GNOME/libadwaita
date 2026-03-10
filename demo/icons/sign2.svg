@@ -1,0 +1,122 @@
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:svg='http://www.w3.org/2000/svg'
+        xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        xmlns:cc='http://creativecommons.org/ns#'
+        xmlns:dc='http://purl.org/dc/elements/1.1/'
+        xmlns:gpa='https://www.gtk.org/grappa'
+        gpa:version='1'
+        gpa:state-names='full half color empty'
+        gpa:state='0'
+        width='16'
+        height='16'>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license
+                rdf:resource='https://creativecommons.org/publicdomain/zero/1.0/'/>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>signature color sign animation</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+          id='line'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-opacity='0.25'
+          stroke-width='1'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 0.764585 12.5 L 15.5 12.5'
+          gpa:stroke-minwidth='0.25'
+          gpa:stroke-maxwidth='2'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='full half color'
+          gpa:transition-type='animate'
+          gpa:transition-duration='200ms'>
+  </path>
+  <path
+          id='x-c'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:error) rgb(204,0,0)'
+          stroke-width='1'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 1.56991 10.5 L 4.5 7.5 M 1.56991 7.5 L 4.5 10.5'
+          gpa:stroke-minwidth='0.25'
+          gpa:stroke-maxwidth='2'
+          class='transparent-fill error-stroke'
+          gpa:stroke='error'
+          gpa:states='color'
+          gpa:transition-type='animate'
+          gpa:transition-duration='200ms'
+          gpa:transition-delay='200ms'>
+  </path>
+  <path
+          id='signature-c'
+          visibility='hidden'
+          fill='none'
+          stroke='url(#gpa:accent) rgb(0,34,255)'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M 3.35731 4.84911 C 3.35731 4.84911, 4.20074 2.59336, 6.5149 2.59336 C 10.4928 2.59336, 11.1144 15, 7 15 C 5.27144 15, 4.40984 13.6289, 4.40984 12.1803 C 4.40984 8.72578, 9.89965 4.8789, 12.1466 5.97699 C 13.7715 6.77114, 12.458 10.4885, 12.458 10.4885 C 12.458 10.4885, 12.6536 8.12563, 14.9351 7.10487'
+          gpa:stroke-minwidth='0.5'
+          gpa:stroke-maxwidth='4'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='accent'
+          gpa:states='color'
+          gpa:transition-type='animate'
+          gpa:transition-easing='ease-out'
+          gpa:transition-duration='500ms'
+          gpa:transition-delay='500ms'>
+  </path>
+  <path
+          id='x'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-opacity='1'
+          stroke-width='1'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-miterlimit='4'
+          d='M 1.56991 10.5 L 4.5 7.5 M 1.56991 7.5 L 4.5 10.5'
+          gpa:stroke-minwidth='0.25'
+          gpa:stroke-maxwidth='2'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='full'
+          gpa:transition-duration='200ms'
+          gpa:transition-delay='200ms'>
+  </path>
+  <path
+          id='sign'
+          fill='none'
+          stroke='url(#gpa:foreground) rgb(0,0,0)'
+          stroke-opacity='1'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-miterlimit='4'
+          d='M 3.35731 4.84911 C 3.35731 4.84911, 4.20074 2.59336, 6.5149 2.59336 C 10.4928 2.59336, 11.1144 15, 7 15 C 5.27144 15, 4.40984 13.6289, 4.40984 12.1803 C 4.40984 8.72578, 9.89965 4.8789, 12.1466 5.97699 C 13.7715 6.77114, 12.458 10.4885, 12.458 10.4885 C 12.458 10.4885, 12.6536 8.12563, 14.9351 7.10487'
+          gpa:stroke-minwidth='0.5'
+          gpa:stroke-maxwidth='4'
+          class='transparent-fill foreground-stroke'
+          gpa:stroke='foreground'
+          gpa:states='full'
+          gpa:transition-easing='ease-out'
+          gpa:transition-duration='500ms'
+          gpa:transition-delay='500ms'>
+  </path>
+</svg>
