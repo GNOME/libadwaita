@@ -2,116 +2,116 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 # Zander Brown <zbrown@gnome.org>, 2020.
-# Bruce Cowan <bruce@bcowan.me.uk>, 2020-2025.
 # Andi Chandler <andi@gowling.com>, 2024.
+# Bruce Cowan <bruce@bcowan.me.uk>, 2020-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-08-25 16:10+0000\n"
-"PO-Revision-Date: 2025-08-26 12:30+0100\n"
+"POT-Creation-Date: 2026-02-25 14:55+0000\n"
+"PO-Revision-Date: 2026-03-09 11:22+0000\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
-"Language-Team: English - United Kingdom <en@li.org>\n"
+"Language-Team: British English <en@li.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Gtranslator 49.0\n"
 
-#: src/adw-about-dialog.c:213 src/adw-about-window.c:208
+#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public Licence, version 2 or later"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public Licence, version 2.1 or later"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause Licence"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
 msgid "The MIT License (MIT)"
 msgstr "The MIT Licence (MIT)"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
 msgid "Artistic License 2.0"
 msgstr "Artistic Licence 2.0"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public Licence, version 2 only"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public Licence, version 2.1 only"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public Licence, version 3 or later"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public Licence, version 3 only"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause Licence"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
 msgid "Apache License, Version 2.0"
 msgstr "Apache Licence, Version 2.0"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public Licence 2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause Licence"
 
-#: src/adw-about-dialog.c:580 src/adw-about-window.c:572
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "Code by"
 
-#: src/adw-about-dialog.c:581 src/adw-about-window.c:573
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "Design by"
 
-#: src/adw-about-dialog.c:582 src/adw-about-window.c:574
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "Artwork by"
 
-#: src/adw-about-dialog.c:583 src/adw-about-window.c:575
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "Documentation by"
 
-#: src/adw-about-dialog.c:584 src/adw-about-window.c:576
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "Translated by"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:613 src/adw-about-window.c:605
+#: src/adw-about-dialog.c:610 src/adw-about-window.c:600
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -120,47 +120,47 @@ msgstr ""
 "This application comes with absolutely no warranty. See the <a "
 "href=\"%s\">%s</a> for details."
 
-#: src/adw-about-dialog.c:691 src/adw-about-window.c:683
+#: src/adw-about-dialog.c:688 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "This Application"
 
-#: src/adw-about-dialog.c:993 src/adw-about-window.c:985
+#: src/adw-about-dialog.c:990 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1011
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "Unable to parse release notes:"
 
-#: src/adw-about-dialog.c:1025 src/adw-about-window.c:1017
+#: src/adw-about-dialog.c:1022 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Line: %d, character: %d"
 
-#: src/adw-about-dialog.c:1311 src/adw-about-window.c:1303
+#: src/adw-about-dialog.c:1441 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"
 
-#: src/adw-about-dialog.c:1338 src/adw-about-window.c:1331
+#: src/adw-about-dialog.c:1468 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Unable to save debugging information"
 
-#: src/adw-about-dialog.c:1343 src/adw-about-window.c:1336
+#: src/adw-about-dialog.c:1473 src/adw-about-window.c:1306
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Close"
 
-#: src/adw-about-dialog.c:1360 src/adw-about-window.c:1352
+#: src/adw-about-dialog.c:1490 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Save debugging information"
 
-#: src/adw-about-dialog.c:2302
+#: src/adw-about-dialog.c:2333
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Other Apps by %s"
 
-#: src/adw-about-dialog.c:2308
+#: src/adw-about-dialog.c:2339
 msgid "Other Apps"
 msgstr "Other Apps"
 
@@ -169,7 +169,6 @@ msgid "About"
 msgstr "About"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
-#| msgid "What’s New"
 msgid "What’s _New"
 msgstr "What’s _New"
 
@@ -177,48 +176,48 @@ msgstr "What’s _New"
 msgid "_Details"
 msgstr "_Details"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:348
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:346
+#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
+#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
 msgid "_Website"
 msgstr "_Website"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
 msgid "_Support Questions"
 msgstr "_Support Questions"
 
-#: src/adw-about-dialog.ui:161 src/adw-about-window.ui:164
+#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
 msgid "_Report an Issue"
 msgstr "_Report an Issue"
 
-#: src/adw-about-dialog.ui:177 src/adw-about-window.ui:180
+#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
 msgid "_Troubleshooting"
 msgstr "_Troubleshooting"
 
-#: src/adw-about-dialog.ui:197 src/adw-about-window.ui:200
+#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
 msgid "_Credits"
 msgstr "_Credits"
 
-#: src/adw-about-dialog.ui:213 src/adw-about-window.ui:216
+#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
 msgid "_Legal"
 msgstr "_Legal"
 
-#: src/adw-about-dialog.ui:229 src/adw-about-window.ui:232
+#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
 msgid "_Acknowledgements"
 msgstr "_Acknowledgements"
 
-#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
+#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
 msgid "What’s New"
 msgstr "What’s New"
 
-#: src/adw-about-dialog.ui:310 src/adw-about-window.ui:308
+#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
 msgid "Details"
 msgstr "Details"
 
-#: src/adw-about-dialog.ui:376 src/adw-about-window.ui:374
+#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
 msgid "Troubleshooting"
 msgstr "Troubleshooting"
 
-#: src/adw-about-dialog.ui:399 src/adw-about-window.ui:397
+#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -228,31 +227,31 @@ msgstr ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 
-#: src/adw-about-dialog.ui:410 src/adw-about-window.ui:408
+#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
 msgid "_Debugging Information"
 msgstr "_Debugging Information"
 
-#: src/adw-about-dialog.ui:437 src/adw-about-window.ui:435
+#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
 msgid "Debugging Information"
 msgstr "Debugging Information"
 
-#: src/adw-about-dialog.ui:485 src/adw-about-window.ui:483
+#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
 msgid "_Copy Text"
 msgstr "_Copy Text"
 
-#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
+#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
 msgid "_Save As…"
 msgstr "_Save As…"
 
-#: src/adw-about-dialog.ui:506 src/adw-about-window.ui:504
+#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
 msgid "Credits"
 msgstr "Credits"
 
-#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
 msgid "Legal"
 msgstr "Legal"
 
-#: src/adw-about-dialog.ui:569 src/adw-about-window.ui:567
+#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
 msgid "Acknowledgements"
 msgstr "Acknowledgements"
 
@@ -335,66 +334,55 @@ msgid "Exit"
 msgstr "Exit"
 
 #: src/adw-adaptive-preview.ui:197
-#| msgid "Screenshot"
 msgid "Take Screenshot"
 msgstr "Take Screenshot"
 
 #: src/adw-adaptive-preview-presets-private.h:24
-#| msgid "Desktop Shell"
 msgctxt "Shell preset"
 msgid "Desktop Shell"
 msgstr "Desktop Shell"
 
 #: src/adw-adaptive-preview-presets-private.h:25
-#| msgid "Mobile Shell"
 msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Mobile Shell"
 
 #: src/adw-adaptive-preview-presets-private.h:26
-#| msgid "Phosh"
 msgctxt "Shell preset"
 msgid "Phosh"
 msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
-#| msgid "Fullscreen"
 msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Fullscreen"
 
 #: src/adw-adaptive-preview-presets-private.h:28
-#| msgid "Custom"
 msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Custom"
 
 #: src/adw-adaptive-preview-presets-private.h:90
-#| msgid "Generic Phone"
 msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Generic Phone"
 
 #: src/adw-adaptive-preview-presets-private.h:99
-#| msgid "Generic Tablet"
 msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Generic Tablet"
 
 #: src/adw-adaptive-preview-presets-private.h:108
-#| msgid "OnePlus 6"
 msgctxt "Device preset"
 msgid "OnePlus 6"
 msgstr "OnePlus 6"
 
 #: src/adw-adaptive-preview-presets-private.h:117
-#| msgid "OnePlus 6T"
 msgctxt "Device preset"
 msgid "OnePlus 6T"
 msgstr "OnePlus 6T"
 
 #: src/adw-adaptive-preview-presets-private.h:126
-#| msgid "Custom"
 msgctxt "Device preset"
 msgid "Custom"
 msgstr "Custom"
@@ -410,14 +398,30 @@ msgid "Back"
 msgstr "Back"
 
 #. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:85
-#: src/adw-preferences-window.ui:96
+#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
+#: src/adw-preferences-window.ui:97
 msgid "Search"
 msgstr "Search"
 
 #: src/adw-entry-row.ui:96
 msgid "Apply"
 msgstr "Apply"
+
+#: src/adw-indicator-bin.c:78
+msgctxt "view switcher button badge"
+msgid "Attention requested."
+msgstr "Attention requested."
+
+#: src/adw-indicator-bin.c:81
+msgctxt "view switcher button badge"
+msgid "Has a badge: more than 999."
+msgstr "Has a badge: more than 999."
+
+#: src/adw-indicator-bin.c:83
+#, c-format
+msgctxt "view switcher button badge"
+msgid "Has a badge: %u."
+msgstr "Has a badge: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
@@ -520,6 +524,14 @@ msgstr ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
 
+#: src/adw-link-row.c:327
+msgid "_Open Link"
+msgstr "_Open Link"
+
+#: src/adw-link-row.c:328
+msgid "Copy _Link Address"
+msgstr "Copy _Link Address"
+
 #: src/adw-password-entry-row.c:70
 msgid "Hide Password"
 msgstr "Hide Password"
@@ -548,17 +560,17 @@ msgstr "Preferences"
 msgid "Search preferences"
 msgstr "Search preferences"
 
-#: src/adw-preferences-dialog.ui:152 src/adw-preferences-window.ui:163
-#: src/adw-shortcuts-dialog.ui:74
+#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
+#: src/adw-shortcuts-dialog.ui:79
 msgid "No Results Found"
 msgstr "No Results Found"
 
-#: src/adw-preferences-dialog.ui:153 src/adw-shortcuts-dialog.ui:75
-#: src/adw-tab-overview.ui:110
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Try a different search"
 
-#: src/adw-preferences-window.ui:164
+#: src/adw-preferences-window.ui:165
 msgid "Try a different search."
 msgstr "Try a different search."
 
@@ -590,8 +602,7 @@ msgstr "R"
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
-#: src/adw-shortcuts-dialog.ui:20
-#| msgid "Search tabs"
+#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
 msgid "Search shortcuts"
 msgstr "Search shortcuts"
 
@@ -599,7 +610,7 @@ msgstr "Search shortcuts"
 msgid "No Shortcut"
 msgstr "No Shortcut"
 
-#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+#: src/adw-split-button.c:531 src/adw-split-button.c:1048
 msgid "More Options"
 msgstr "More Options"
 
@@ -608,7 +619,7 @@ msgid "View Open Tabs"
 msgstr "View Open Tabs"
 
 #. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:931
+#: src/adw-tab-overview.c:965
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -623,15 +634,15 @@ msgstr "Search Tabs"
 msgid "Search tabs"
 msgstr "Search tabs"
 
-#: src/adw-tab-overview.ui:96
+#: src/adw-tab-overview.ui:97
 msgid "No Open Tabs"
 msgstr "No Open Tabs"
 
-#: src/adw-tab-overview.ui:109
+#: src/adw-tab-overview.ui:110
 msgid "No Tabs Found"
 msgstr "No Tabs Found"
 
-#: src/adw-tab-overview.ui:130
+#: src/adw-tab-overview.ui:131
 msgid "New _Tab"
 msgstr "New _Tab"
 
@@ -639,640 +650,25 @@ msgstr "New _Tab"
 msgid "Close Tab"
 msgstr "Close Tab"
 
-#: src/adw-toast-overlay.c:285
+#: src/adw-toast-overlay.c:286
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "A toast appeared: %s, has a button: %s"
 
-#: src/adw-toast-overlay.c:288
+#: src/adw-toast-overlay.c:289
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "A toast appeared: %s"
 
-#: src/adw-toast-overlay.c:290
+#: src/adw-toast-overlay.c:291
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "A toast appeared, has a button: %s"
 
-#: src/adw-toast-overlay.c:293
+#: src/adw-toast-overlay.c:294
 msgid "A toast appeared"
 msgstr "A toast appeared"
 
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Dismiss"
-
-#~ msgid "_What’s New"
-#~ msgstr "_What’s New"
-
-#~ msgid "Hide Text"
-#~ msgstr "Hide Text"
-
-#~ msgid "Show Text"
-#~ msgstr "Show Text"
-
-#~ msgid "_Show Text"
-#~ msgstr "_Show Text"
-
-#~ msgid "_Save"
-#~ msgstr "_Save"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Cancel"
-
-#~ msgid "Insert placeholder to %s"
-#~ msgstr "Insert placeholder to %s"
-
-#~ msgid "Remove placeholder from %s"
-#~ msgstr "Remove placeholder from %s"
-
-#~ msgid "This property does not apply when a custom title is set"
-#~ msgstr "This property does not apply when a custom title is set"
-
-#~ msgid ""
-#~ "The decoration layout does not apply to header bars which do no show "
-#~ "window controls"
-#~ msgstr ""
-#~ "The decoration layout does not apply to header bars which do no show "
-#~ "window controls"
-
-#~ msgid "This property only applies when the leaflet is folded"
-#~ msgstr "This property only applies when the leaflet is folded"
-
-#~ msgid "Add group to %s"
-#~ msgstr "Add group to %s"
-
-#~ msgid "Add page to %s"
-#~ msgstr "Add page to %s"
-
-#~ msgid "Search bar is already full"
-#~ msgstr "Search bar is already full"
-
-#~ msgid "Only objects of type %s can be added to objects of type %s."
-#~ msgstr "Only objects of type %s can be added to objects of type %s."
-
-#~ msgid "Icon name"
-#~ msgstr "Icon name"
-
-#~ msgid "Activatable widget"
-#~ msgstr "Activatable widget"
-
-#~ msgid "The widget to be activated when the row is activated"
-#~ msgstr "The widget to be activated when the row is activated"
-
-#~ msgid "Subtitle"
-#~ msgstr "Subtitle"
-
-#~ msgid "Use underline"
-#~ msgstr "Use underline"
-
-#~ msgid ""
-#~ "If set, an underline in the text indicates the next character should be "
-#~ "used for the mnemonic accelerator key"
-#~ msgstr ""
-#~ "If set, an underline in the text indicates the next character should be "
-#~ "used for the mnemonic accelerator key"
-
-#~ msgid "Number of pages"
-#~ msgstr "Number of pages"
-
-#~ msgid "Position"
-#~ msgstr "Position"
-
-#~ msgid "Current scrolling position"
-#~ msgstr "Current scrolling position"
-
-#~ msgid "Spacing"
-#~ msgstr "Spacing"
-
-#~ msgid "Spacing between pages"
-#~ msgstr "Spacing between pages"
-
-#~ msgid "Reveal duration"
-#~ msgstr "Reveal duration"
-
-#~ msgid "Page reveal duration"
-#~ msgstr "Page reveal duration"
-
-#~ msgid "Interactive"
-#~ msgstr "Interactive"
-
-#~ msgid "Whether the widget can be swiped"
-#~ msgstr "Whether the widget can be swiped"
-
-#~ msgid "Animation duration"
-#~ msgstr "Animation duration"
-
-#~ msgid "Default animation duration"
-#~ msgstr "Default animation duration"
-
-#~ msgid "Allow mouse drag"
-#~ msgstr "Allow mouse drag"
-
-#~ msgid "Whether to allow dragging with mouse pointer"
-#~ msgstr "Whether to allow dragging with mouse pointer"
-
-#~ msgid "Carousel"
-#~ msgstr "Carousel"
-
-#~ msgid "Maximum size"
-#~ msgstr "Maximum size"
-
-#~ msgid "The maximum size allocated to the child"
-#~ msgstr "The maximum size allocated to the child"
-
-#~ msgid "Tightening threshold"
-#~ msgstr "Tightening threshold"
-
-#~ msgid "The size from which the clamp will tighten its grip on the child"
-#~ msgstr "The size from which the clamp will tighten its grip on the child"
-
-#~ msgid "Selected index"
-#~ msgstr "Selected index"
-
-#~ msgid "The index of the selected item"
-#~ msgstr "The index of the selected item"
-
-#~ msgid "Use subtitle"
-#~ msgstr "Use subtitle"
-
-#~ msgid "Set the current value as the subtitle"
-#~ msgstr "Set the current value as the subtitle"
-
-#~ msgid "Horizontally homogeneous"
-#~ msgstr "Horizontally homogeneous"
-
-#~ msgid "Horizontally homogeneous sizing"
-#~ msgstr "Horizontally homogeneous sizing"
-
-#~ msgid "Vertically homogeneous"
-#~ msgstr "Vertically homogeneous"
-
-#~ msgid "Vertically homogeneous sizing"
-#~ msgstr "Vertically homogeneous sizing"
-
-#~ msgid "Visible child"
-#~ msgstr "Visible child"
-
-#~ msgid "The widget currently visible"
-#~ msgstr "The widget currently visible"
-
-#~ msgid "Name of visible child"
-#~ msgstr "Name of visible child"
-
-#~ msgid "The name of the widget currently visible"
-#~ msgstr "The name of the widget currently visible"
-
-#~ msgid "Transition type"
-#~ msgstr "Transition type"
-
-#~ msgid "The type of animation used to transition between children"
-#~ msgstr "The type of animation used to transition between children"
-
-#~ msgid "Transition duration"
-#~ msgstr "Transition duration"
-
-#~ msgid "The transition animation duration, in milliseconds"
-#~ msgstr "The transition animation duration, in milliseconds"
-
-#~ msgid "Transition running"
-#~ msgstr "Transition running"
-
-#~ msgid "Whether or not the transition is currently running"
-#~ msgstr "Whether or not the transition is currently running"
-
-#~ msgid "Interpolate size"
-#~ msgstr "Interpolate size"
-
-#~ msgid ""
-#~ "Whether or not the size should smoothly change when changing between "
-#~ "differently sized children"
-#~ msgstr ""
-#~ "Whether or not the size should smoothly change when changing between "
-#~ "differently sized children"
-
-#~ msgid "Can swipe back"
-#~ msgstr "Can swipe back"
-
-#~ msgid ""
-#~ "Whether or not swipe gesture can be used to switch to the previous child"
-#~ msgstr ""
-#~ "Whether or not swipe gesture can be used to switch to the previous child"
-
-#~ msgid "Can swipe forward"
-#~ msgstr "Can swipe forward"
-
-#~ msgid "Whether or not swipe gesture can be used to switch to the next child"
-#~ msgstr ""
-#~ "Whether or not swipe gesture can be used to switch to the next child"
-
-#~ msgid "Name"
-#~ msgstr "Name"
-
-#~ msgid "The name of the child page"
-#~ msgstr "The name of the child page"
-
-#~ msgid "The subtitle for this row"
-#~ msgstr "The subtitle for this row"
-
-#~ msgid "Expanded"
-#~ msgstr "Expanded"
-
-#~ msgid "Whether the row is expanded"
-#~ msgstr "Whether the row is expanded"
-
-#~ msgid "Enable expansion"
-#~ msgstr "Enable expansion"
-
-#~ msgid "Whether the expansion is enabled"
-#~ msgstr "Whether the expansion is enabled"
-
-#~ msgid "Show enable switch"
-#~ msgstr "Show enable switch"
-
-#~ msgid "Whether the switch enabling the expansion is visible"
-#~ msgstr "Whether the switch enabling the expansion is visible"
-
-#~ msgid "Minimize"
-#~ msgstr "Minimise"
-
-#~ msgid "Restore"
-#~ msgstr "Restore"
-
-#~ msgid "Maximize"
-#~ msgstr "Maximise"
-
-#~ msgid "Pack type"
-#~ msgstr "Pack type"
-
-#~ msgid ""
-#~ "A GtkPackType indicating whether the child is packed with reference to "
-#~ "the start or end of the parent"
-#~ msgstr ""
-#~ "A GtkPackType indicating whether the child is packed with reference to "
-#~ "the start or end of the parent"
-
-#~ msgid "The index of the child in the parent"
-#~ msgstr "The index of the child in the parent"
-
-#~ msgid "Title"
-#~ msgstr "Title"
-
-#~ msgid "The title to display"
-#~ msgstr "The title to display"
-
-#~ msgid "The subtitle to display"
-#~ msgstr "The subtitle to display"
-
-#~ msgid "Custom title widget to display"
-#~ msgstr "Custom title widget to display"
-
-#~ msgid "The amount of space between children"
-#~ msgstr "The amount of space between children"
-
-#~ msgid "Show decorations"
-#~ msgstr "Show decorations"
-
-#~ msgid "Whether to show window decorations"
-#~ msgstr "Whether to show window decorations"
-
-#~ msgid "Decoration Layout"
-#~ msgstr "Decoration Layout"
-
-#~ msgid "The layout for window decorations"
-#~ msgstr "The layout for window decorations"
-
-#~ msgid "Decoration Layout Set"
-#~ msgstr "Decoration Layout Set"
-
-#~ msgid "Whether the decoration-layout property has been set"
-#~ msgstr "Whether the decoration-layout property has been set"
-
-#~ msgid "Has Subtitle"
-#~ msgstr "Has Subtitle"
-
-#~ msgid "Whether to reserve space for a subtitle"
-#~ msgstr "Whether to reserve space for a subtitle"
-
-#~ msgid "Centering policy"
-#~ msgstr "Centring policy"
-
-#~ msgid "The policy to horizontally align the center widget"
-#~ msgstr "The policy to horizontally align the centre widget"
-
-#~ msgid "The animation duration, in milliseconds"
-#~ msgstr "The animation duration, in milliseconds"
-
-#~ msgid "Decorate all"
-#~ msgstr "Decorate all"
-
-#~ msgid ""
-#~ "Whether the elements of the group should all receive the full decoration"
-#~ msgstr ""
-#~ "Whether the elements of the group should all receive the full decoration"
-
-#~ msgid "Digit"
-#~ msgstr "Digit"
-
-#~ msgid "The keypad digit of the button"
-#~ msgstr "The keypad digit of the button"
-
-#~ msgid "Symbols"
-#~ msgstr "Symbols"
-
-#~ msgid ""
-#~ "The keypad symbols of the button. The first symbol is used as the digit"
-#~ msgstr ""
-#~ "The keypad symbols of the button. The first symbol is used as the digit"
-
-#~ msgid "Show symbols"
-#~ msgstr "Show symbols"
-
-#~ msgid "Whether the second line of symbols should be shown or not"
-#~ msgstr "Whether the second line of symbols should be shown or not"
-
-#~ msgid "Row spacing"
-#~ msgstr "Row spacing"
-
-#~ msgid "The amount of space between two consecutive rows"
-#~ msgstr "The amount of space between two consecutive rows"
-
-#~ msgid "Column spacing"
-#~ msgstr "Column spacing"
-
-#~ msgid "The amount of space between two consecutive columns"
-#~ msgstr "The amount of space between two consecutive columns"
-
-#~ msgid "Letters visible"
-#~ msgstr "Letters visible"
-
-#~ msgid "Whether the letters below the digits should be visible"
-#~ msgstr "Whether the letters below the digits should be visible"
-
-#~ msgid "Symbols visible"
-#~ msgstr "Symbols visible"
-
-#~ msgid "Whether the hash, plus, and asterisk symbols should be visible"
-#~ msgstr "Whether the hash, plus, and asterisk symbols should be visible"
-
-#~ msgid "Entry"
-#~ msgstr "Entry"
-
-#~ msgid "The entry widget connected to the keypad"
-#~ msgstr "The entry widget connected to the keypad"
-
-#~ msgid "End action"
-#~ msgstr "End action"
-
-#~ msgid "The end action widget"
-#~ msgstr "The end action widget"
-
-#~ msgid "Start action"
-#~ msgstr "Start action"
-
-#~ msgid "The start action widget"
-#~ msgstr "The start action widget"
-
-#~ msgid "Folded"
-#~ msgstr "Folded"
-
-#~ msgid "Whether the widget is folded"
-#~ msgstr "Whether the widget is folded"
-
-#~ msgid "Horizontally homogeneous folded"
-#~ msgstr "Horizontally homogeneous folded"
-
-#~ msgid "Horizontally homogeneous sizing when the leaflet is folded"
-#~ msgstr "Horizontally homogeneous sizing when the leaflet is folded"
-
-#~ msgid "Vertically homogeneous folded"
-#~ msgstr "Vertically homogeneous folded"
-
-#~ msgid "Vertically homogeneous sizing when the leaflet is folded"
-#~ msgstr "Vertically homogeneous sizing when the leaflet is folded"
-
-#~ msgid "Box horizontally homogeneous"
-#~ msgstr "Box horizontally homogeneous"
-
-#~ msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
-#~ msgstr "Horizontally homogeneous sizing when the leaflet is unfolded"
-
-#~ msgid "Box vertically homogeneous"
-#~ msgstr "Box vertically homogeneous"
-
-#~ msgid "Vertically homogeneous sizing when the leaflet is unfolded"
-#~ msgstr "Vertically homogeneous sizing when the leaflet is unfolded"
-
-#~ msgid "The widget currently visible when the leaflet is folded"
-#~ msgstr "The widget currently visible when the leaflet is folded"
-
-#~ msgid ""
-#~ "The name of the widget currently visible when the children are stacked"
-#~ msgstr ""
-#~ "The name of the widget currently visible when the children are stacked"
-
-#~ msgid "The type of animation used to transition between modes and children"
-#~ msgstr "The type of animation used to transition between modes and children"
-
-#~ msgid "Mode transition duration"
-#~ msgstr "Mode transition duration"
-
-#~ msgid "The mode transition animation duration, in milliseconds"
-#~ msgstr "The mode transition animation duration, in milliseconds"
-
-#~ msgid "Child transition duration"
-#~ msgstr "Child transition duration"
-
-#~ msgid "The child transition animation duration, in milliseconds"
-#~ msgstr "The child transition animation duration, in milliseconds"
-
-#~ msgid "Child transition running"
-#~ msgstr "Child transition running"
-
-#~ msgid "Whether or not the child transition is currently running"
-#~ msgstr "Whether or not the child transition is currently running"
-
-#~ msgid "Navigatable"
-#~ msgstr "Navigable"
-
-#~ msgid "Whether the child can be navigated to"
-#~ msgstr "Whether the child can be navigated to"
-
-#~ msgid "Description"
-#~ msgstr "Description"
-
-#~ msgid "The title of the preference"
-#~ msgstr "The title of the preference"
-
-#~ msgid "Whether search is enabled"
-#~ msgstr "Whether search is enabled"
-
-#~ msgid ""
-#~ "Whether or not swipe gesture can be used to switch from a subpage to the "
-#~ "preferences"
-#~ msgstr ""
-#~ "Whether or not swipe gesture can be used to switch from a sub-page to the "
-#~ "preferences"
-
-#~ msgid "Search Mode Enabled"
-#~ msgstr "Search Mode Enabled"
-
-#~ msgid "Whether the search mode is on and the search bar shown"
-#~ msgstr "Whether the search mode is on and the search bar shown"
-
-#~ msgid "Show Close Button"
-#~ msgstr "Show Close Button"
-
-#~ msgid "Whether to show the close button in the toolbar"
-#~ msgstr "Whether to show the close button in the toolbar"
-
-#~ msgid "Widget"
-#~ msgstr "Widget"
-
-#~ msgid "The widget the shadow will be drawn for"
-#~ msgstr "The widget the shadow will be drawn for"
-
-#~ msgid "Homogeneous"
-#~ msgstr "Homogeneous"
-
-#~ msgid "Homogeneous sizing"
-#~ msgstr "Homogeneous sizing"
-
-#~ msgid "The widget currently visible in the squeezer"
-#~ msgstr "The widget currently visible in the squeezer"
-
-#~ msgid "The type of animation used to transition"
-#~ msgstr "The type of animation used to transition"
-
-#~ msgid "X align"
-#~ msgstr "X align"
-
-#~ msgid "The horizontal alignment, from 0 (start) to 1 (end)"
-#~ msgstr "The horizontal alignment, from 0 (start) to 1 (end)"
-
-#~ msgid "Y align"
-#~ msgstr "Y align"
-
-#~ msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-#~ msgstr "The vertical alignment, from 0 (top) to 1 (bottom)"
-
-#~ msgid "Enabled"
-#~ msgstr "Enabled"
-
-#~ msgid ""
-#~ "Whether the child can be picked or should be ignored when looking for the "
-#~ "child fitting the available size best"
-#~ msgstr ""
-#~ "Whether the child can be picked or should be ignored when looking for the "
-#~ "child fitting the available size best"
-
-#~ msgid "Horizontally homogeneous sizing when the widget is folded"
-#~ msgstr "Horizontally homogeneous sizing when the widget is folded"
-
-#~ msgid "Vertically homogeneous sizing when the widget is folded"
-#~ msgstr "Vertically homogeneous sizing when the widget is folded"
-
-#~ msgid "Horizontally homogeneous sizing when the widget is unfolded"
-#~ msgstr "Horizontally homogeneous sizing when the widget is unfolded"
-
-#~ msgid "Vertically homogeneous sizing when the widget is unfolded"
-#~ msgstr "Vertically homogeneous sizing when the widget is unfolded"
-
-#~ msgid "The widget currently visible when the widget is folded"
-#~ msgstr "The widget currently visible when the widget is folded"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientation"
-
-#~ msgid "Swipeable"
-#~ msgstr "Swipe-able"
-
-#~ msgid "The swipeable the swipe tracker is attached to"
-#~ msgstr "The swipe-able the swipe tracker is attached to"
-
-#~ msgid "Whether the swipe tracker processes events"
-#~ msgstr "Whether the swipe tracker processes events"
-
-#~ msgid "Reversed"
-#~ msgstr "Reversed"
-
-#~ msgid "Whether swipe direction is reversed"
-#~ msgstr "Whether swipe direction is reversed"
-
-#~ msgid "Selection mode"
-#~ msgstr "Selection mode"
-
-#~ msgid "Whether or not the title bar is in selection mode"
-#~ msgstr "Whether or not the title bar is in selection mode"
-
-#~ msgctxt "HdyValueObjectClass"
-#~ msgid "Value"
-#~ msgstr "Value"
-
-#~ msgctxt "HdyValueObjectClass"
-#~ msgid "The contained value"
-#~ msgstr "The contained value"
-
-#~ msgid "Policy"
-#~ msgstr "Policy"
-
-#~ msgid "The policy to determine the mode to use"
-#~ msgstr "The policy to determine the mode to use"
-
-#~ msgid "Stack"
-#~ msgstr "Stack"
-
-#~ msgid "Reveal"
-#~ msgstr "Reveal"
-
-#~ msgid "Whether the view switcher is revealed"
-#~ msgstr "Whether the view switcher is revealed"
-
-#~ msgid "Icon Name"
-#~ msgstr "Icon Name"
-
-#~ msgid "Icon name for image"
-#~ msgstr "Icon name for image"
-
-#~ msgid "Icon Size"
-#~ msgstr "Icon Size"
-
-#~ msgid "Symbolic size to use for named icon"
-#~ msgstr "Symbolic size to use for named icon"
-
-#~ msgid "Needs attention"
-#~ msgstr "Needs attention"
-
-#~ msgid "Hint the view needs attention"
-#~ msgstr "Hint the view needs attention"
-
-#~ msgid "Narrow ellipsize"
-#~ msgstr "Narrow ellipsise"
-
-#~ msgid ""
-#~ "The preferred place to ellipsize the string, if the narrow mode label "
-#~ "does not have enough room to display the entire string"
-#~ msgstr ""
-#~ "The preferred place to ellipsise the string, if the narrow mode label "
-#~ "does not have enough room to display the entire string"
-
-#~ msgid "View switcher enabled"
-#~ msgstr "View switcher enabled"
-
-#~ msgid "Whether the view switcher is enabled"
-#~ msgstr "Whether the view switcher is enabled"
-
-#~ msgid "Title visible"
-#~ msgstr "Title visible"
-
-#~ msgid "Whether the title label is visible"
-#~ msgstr "Whether the title label is visible"
-
-#~ msgid "Move"
-#~ msgstr "Move"
-
-#~ msgid "Resize"
-#~ msgstr "Resize"
-
-#~ msgid "Always on Top"
-#~ msgstr "Always on Top"
