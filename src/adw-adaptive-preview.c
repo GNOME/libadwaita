@@ -855,7 +855,6 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
 {
   AdwAnimationTarget *target;
 
-  self->window_controls = TRUE;
   self->rotation = ROTATION_0DEG;
   self->scale_to_fit = TRUE;
   self->last_device_preset = -1;
