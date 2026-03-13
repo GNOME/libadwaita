@@ -1,3 +1,21 @@
+=============
+Version 1.9.0
+=============
+
+- Fix build with certain GLib configurations
+- Adaptive preview
+  - Disable window controls by default
+- AdwSidebar
+  - Fix grab_focus()
+  - Add a screenshot to :mode docs
+- AdwViewSwitcherSidebar
+  - Add a screenshot to :mode docs
+- Translation updates
+  - British English
+  - Danish
+  - Polish
+  - Portuguese
+
 ==============
 Version 1.9.rc
 ==============
