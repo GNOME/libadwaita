@@ -3,11 +3,11 @@
 DOC_DIR=public/doc
 REFS="
 main
-libadwaita-1-7
 libadwaita-1-8
+libadwaita-1-9
 "
 
-LATEST_STABLE_1=1.8
+LATEST_STABLE_1=1.9
 
 IFS='
 '
@@ -40,4 +40,5 @@ ln -s $LATEST_STABLE_1 $DOC_DIR/1.3
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.4
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.5
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.6
+ln -s $LATEST_STABLE_1 $DOC_DIR/1.7
 ln -s widget-gallery.html $DOC_DIR/main/visual-index.html
