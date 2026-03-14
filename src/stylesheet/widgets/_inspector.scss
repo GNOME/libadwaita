@@ -9,6 +9,12 @@
 }
 
 adaptive-preview {
+  window.adaptive-preview {
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+  }
+
   headerbar.adaptive-mode-flat {
     @extend .flat;
   }

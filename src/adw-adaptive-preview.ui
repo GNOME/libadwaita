@@ -163,6 +163,9 @@
                    undershoots to the window content by accident -->
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
+                <style>
+                  <class name="background"/>
+                </style>
                 <child>
                   <object class="AdwHeaderBar">
                     <style>
@@ -231,7 +234,9 @@
                                     <child>
                                       <object class="AdwBin" id="child_bin">
                                         <property name="overflow">hidden</property>
+                                        <property name="css-name">window</property>
                                         <style>
+                                          <class name="adaptive-preview"/>
                                           <class name="background"/>
                                         </style>
                                       </object>
