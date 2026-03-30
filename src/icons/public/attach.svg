@@ -1,0 +1,26 @@
+<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline state1 empty">
+  <style type="text/css">
+    .not-initial-state {
+      visibility: hidden;
+    }
+  </style>
+  <path d="M 1 9 L 1 13 C 1 14.1045694, 1.89543045 15, 3 15 L 5.58578634 15 C 6.491292 15, 7.35971069 14.6402893, 8 14 L 13.772809 8.22719097 C 14.8773785 7.12262154, 14.8773785 5.33176088, 13.772809 4.22719145 L 11.772809 2.22719121 C 10.6682396 1.12262154, 8.87737846 1.12262166, 7.77280855 2.22719145 L 4.40769243 5.59230757 C 3.63024569 6.36975479, 3.63024569 7.63024473, 4.40769243 8.40769196 L 4.59230757 8.59230804 C 5.36975479 9.36975479, 6.63024521 9.36975479, 7.40769243 8.59230804 L 9.48658276 6.51341677" id="paperclip" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0,0,0)" fill="none" gpa:stroke="foreground" class="foreground-stroke transparent-fill" gpa:states="outline state1">
+    </path>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>office paperclip mail-attachment</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

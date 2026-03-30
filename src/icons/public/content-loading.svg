@@ -1,0 +1,26 @@
+<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline empty">
+  <style type="text/css">
+    .not-initial-state {
+      visibility: hidden;
+    }
+  </style>
+  <path d="M 2.00000048 9 C 1.44771385 9.00000095, 0.999999106 8.55228615, 0.999999344 8.00000095 C 0.999999404 7.44771624, 1.44771516 7.00000048, 1.99999893 7.00000143 C 2.55228543 7.00000048, 3.00000072 7.44771528, 3 8 C 2.99999928 8.55228615, 2.55228519 9.00000095, 2.00000048 9 M 8 9.00000095 C 7.44771481 9.00000095, 6.99999952 8.55228615, 7 8.00000095 C 7 7.44771576, 7.44771481 7.00000048, 8 7.00000048 C 8.55228424 7.00000048, 9 7.44771576, 9 8.00000095 C 9 8.55228615, 8.55228424 9.00000095, 8 9.00000095 M 14 9 C 13.4477148 9.00000095, 13 8.55228615, 13 8.00000095 C 13 7.44771528, 13.4477148 7.00000048, 13.999999 7 C 14.5522852 7.00000048, 15 7.44771528, 14.999999 8 C 14.999999 8.55228519, 14.5522852 9.00000095, 14 9" id="path0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0,0,0)" fill="none" class="foreground-stroke transparent-fill" gpa:stroke="foreground" gpa:states="outline">
+    </path>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>view-more-horizontal shashlik more inline menu</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

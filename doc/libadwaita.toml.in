@@ -45,6 +45,7 @@ content_files = [
   "adaptive-layouts.md",
 
   "styles-and-appearance.md",
+  "icons.md",
   "css-variables.md",
   "style-classes.md",
 
@@ -390,6 +391,7 @@ content_images = [
   "images/window-title-dark.png",
   "images/wrap-box.png",
   "images/wrap-box-dark.png",
+  "../src/icons/public/info.svg",
   "libadwaita.svg",
 ]
 

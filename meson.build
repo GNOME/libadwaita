@@ -68,6 +68,7 @@ add_project_arguments([
 
 root_inc = include_directories('.')
 src_inc = include_directories('src')
+srcdir = meson.project_source_root() / 'src'
 
 cc = meson.get_compiler('c')
 

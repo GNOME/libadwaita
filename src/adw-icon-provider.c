@@ -45,6 +45,7 @@ static GParamSpec *props[LAST_PROP];
 static void
 scan_icons_for_path (AdwIconProvider *self,
                      const char      *path,
+                     gboolean         recursive,
                      gboolean         trim_symbolic)
 {
   GError *error = NULL;
@@ -63,6 +64,18 @@ scan_icons_for_path (AdwIconProvider *self,
 
   for (i = 0; children[i]; i++) {
     char *icon_name, *icon_path;
+
+    if (recursive && g_str_has_suffix (children[i], "/")) {
+      char *child_path = g_strconcat (path, "/", children[i], NULL);
+
+      /* Remove the trailing slash */
+      child_path[strlen(child_path) - 1] = '\0';
+
+      scan_icons_for_path (self, child_path, recursive, trim_symbolic);
+
+      g_free (child_path);
+      continue;
+    }
 
     if (!g_str_has_suffix (children[i], ".svg") &&
         !g_str_has_suffix (children[i], ".gpa")) {
@@ -108,13 +121,13 @@ ensure_icons (AdwIconProvider *self)
   if (!self->invalidated)
     return;
 
-  scan_icons_for_path (self, GTK_PATH, TRUE);
-  scan_icons_for_path (self, INTERNAL_PATH, TRUE);
+  scan_icons_for_path (self, GTK_PATH, FALSE, TRUE);
+  scan_icons_for_path (self, INTERNAL_PATH, TRUE, TRUE);
 
   for (i = 0; i < self->resource_paths->len; i++) {
     const char *path = g_ptr_array_index (self->resource_paths, i);
 
-    scan_icons_for_path (self, path, TRUE);
+    scan_icons_for_path (self, path, TRUE, TRUE);
   }
 
   self->invalidated = FALSE;

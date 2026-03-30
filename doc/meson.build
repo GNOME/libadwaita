@@ -2,6 +2,19 @@ if get_option('documentation')
 
 subdir('tools')
 
+embed_icons = meson.project_source_root () / 'build-aux' / 'embed-icons.py'
+
+icon_paths = [
+  srcdir / 'icons',
+  srcdir / 'icons' / 'public',
+]
+
+icons_md = custom_target('icons.md',
+  input: 'icons.md.in',
+  output: 'icons.md',
+  command: [python3, embed_icons, '@INPUT@', '@OUTPUT@', icon_paths],
+)
+
 expand_content_md_files = [
   'adaptive-layouts.md',
   'boxed-lists.md',
@@ -45,8 +58,10 @@ custom_target('libadwaita-doc',
     '--output-dir=@OUTPUT@',
     '--no-namespace-dir',
     '--content-dir=@0@'.format(meson.current_source_dir()),
+    '--content-dir=@0@'.format(meson.current_build_dir()),
     '@INPUT1@',
   ],
+  depends: icons_md,
   depend_files: [ expand_content_md_files ],
   build_by_default: true,
   install: true,

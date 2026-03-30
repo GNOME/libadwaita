@@ -1,0 +1,28 @@
+<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline filled empty">
+  <style type="text/css">
+    .not-initial-state {
+      visibility: hidden;
+    }
+  </style>
+  <path d="M 6 13 C 4.67998171 13, 4 11.8612242, 4 11 C 4 9.89543056, 4.89543056 9, 6 9 M 10.0069036 5 C 11.1114731 5, 12.0069036 5.89543056, 12.0069036 7 L 12.0069036 11 C 12.0069036 12.1045694, 11.1114731 13, 10.0069036 13 M 9 5 C 10.1045694 5, 11 5.89543056, 11 7 L 11 11 C 11 12.1045694, 10.1045694 13, 9 13 M 7 13 C 5.67998171 13, 5 11.8612242, 5 11 C 5 9.89543056, 5.89543056 9, 7 9 M 4 5 L 11 5 C 12.1045694 5, 13 5.89543056, 13 7 L 13 11 C 13 12.1045694, 12.1045694 13, 11 13 L 5 13 C 3.89543056 13, 3 12.1045694, 3 11 C 3 9.89543056, 3.89543056 9, 5 9 L 13 9" id="path0" gpa:states="outline" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0,0,0)" fill="none" class="foreground-stroke transparent-fill not-initial-state" gpa:stroke="foreground">
+    </path>
+  <path d="M 4 4 C 3.44771528 4, 3 4.44771528, 3 5 C 3 5.55228472, 3.44771528 6, 4 6 L 9 6 C 9.56412888 6, 10 6.43587112, 10 7 L 10 8 L 7 8 L 5 8 C 3.35499048 8, 2 9.35499001, 2 11 C 2 12.645009, 3.35499001 14, 5 14 L 7 14 L 9 14 L 11 14 C 12.64501 14, 14 12.64501, 14 11 L 14 9 L 14 7 C 14 5.35499001, 12.645009 4, 11 4 L 9 4 Z M 7 10 L 10 10 L 10 11 C 10 11.5641279, 9.56412792 12, 9 12 L 7 12 C 6.6275568 12, 6.43667507 11.8741608, 6.265625 11.6738281 C 6.09457493 11.4734945, 6 11.167428, 6 11 C 6 10.4358711, 6.43587065 10, 7 10 Z" id="path1" gpa:states="filled" stroke="none" fill-rule="nonzero" fill="rgb(0,0,0)" class="foreground-fill" gpa:fill="foreground">
+    </path>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>text font a bold weight type typeface</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

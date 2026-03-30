@@ -1,0 +1,245 @@
+Title: Icons
+Slug: icons
+
+<style type="text/css" rel="stylesheet">
+svg {
+  width: 16px;
+  height: 16px;
+  --success-color: light-dark(#007c3d, #78e9ab);
+  --warning-color: light-dark(#905400, #ffc252);
+  --error-color:   light-dark(#c30000, #ff938c);
+  --accent-color:  light-dark(#0461be, #81d0ff);
+}
+
+svg .foreground-stroke { stroke: currentColor         !important; }
+svg .foreground-fill   { fill:   currentColor         !important; }
+svg .success-stroke    { stroke: var(--success-color) !important; }
+svg .success-fill      { fill:   var(--success-color) !important; }
+svg .warning-stroke    { stroke: var(--warning-color) !important; }
+svg .warning-fill      { fill:   var(--warning-color) !important; }
+svg .error-stroke      { stroke: var(--error-color)   !important; }
+svg .error-fill        { fill:   var(--error-color)   !important; }
+svg .accent-stroke     { stroke: var(--accent-color)  !important; }
+svg .accent-fill       { fill:   var(--accent-color)  !important; }
+</style>
+
+# Using icons
+
+Use `icon-name` property in various widgets like [class@Gtk.Button].
+
+For icons that have multiple state, their state can be specified as `icon-name:state`.
+
+# Animations
+
+Icons used via their icon name cannot be animated. To do that, use [class@IconPaintable].
+
+# Built-in icons
+
+<table>
+  <tr>
+    <th>Icon</th>
+    <th>Name</th>
+    <th>Comments</th>
+  </tr>
+  <tr id="open-menu">
+    <td>@icon:open-menu@</td>
+    <td><tt>open-menu</tt></td>
+  </tr>
+  <tr id="view-more">
+    <td>@icon:view-more@</td>
+    <td><tt>view-more</tt></td>
+  </tr>
+  <tr id="content-loading">
+    <td>@icon:content-loading@</td>
+    <td><tt>content-loading</tt></td>
+  </tr>
+  <tr id="go-previous">
+    <td>@icon:go-previous@</td>
+    <td><tt>go-previous</tt></td>
+    <td>Has an RTL version</td>
+  </tr>
+  <tr id="go-next">
+    <td>@icon:go-next@</td>
+    <td><tt>go-next</tt></td>
+    <td>Has an RTL version</td>
+  </tr>
+  <tr id="info">
+    <td>@icon:info@</td>
+    <td><tt>info</tt></td>
+  </tr>
+  <tr id="document-open">
+    <td>@icon:document-open@</td>
+    <td><tt>document-open</tt></td>
+  </tr>
+  <tr id="document-save">
+    <td>@icon:document-save@</td>
+    <td><tt>document-save</tt></td>
+  </tr>
+  <tr id="document-save-as">
+    <td>@icon:document-save-as@</td>
+    <td><tt>document-save-as</tt></td>
+  </tr>
+  <tr id="edit">
+    <td>@icon:edit@</td>
+    <td><tt>edit</tt></td>
+  </tr>
+  <tr id="edit-copy">
+    <td>@icon:edit-copy@</td>
+    <td><tt>edit-copy</tt></td>
+  </tr>
+  <tr id="edit-cut">
+    <td>@icon:edit-cut@</td>
+    <td><tt>edit-cut</tt></td>
+  </tr>
+  <tr id="edit-paste">
+    <td>@icon:edit-paste@</td>
+    <td><tt>edit-paste</tt></td>
+  </tr>
+  <tr id="undo">
+    <td>@icon:undo@</td>
+    <td><tt>undo</tt></td>
+    <td>Has an RTL version</td>
+  </tr>
+  <tr id="redo">
+    <td>@icon:redo@</td>
+    <td><tt>redo</tt></td>
+    <td>Has an RTL version</td>
+  </tr>
+  <tr id="search">
+    <td>@icon:search@</td>
+    <td><tt>search</tt></td>
+  </tr>
+  <tr id="window-close">
+    <td>@icon:window-close@</td>
+    <td><tt>window-close</tt></td>
+  </td>
+  <tr id="tab-new">
+    <td>@icon:tab-new@</td>
+    <td><tt>tab-new</tt></td>
+  </td>
+  <tr id="document-new">
+    <td>@icon:document-new@</td>
+    <td><tt>document-new</tt></td>
+  </td>
+  <tr id="view-fullcreen">
+    <td>@icon:view-fullcreen@</td>
+    <td><tt>view-fullcreen</tt></td>
+  </td>
+  <tr id="view-restore">
+    <td>@icon:view-restore@</td>
+    <td><tt>view-restore</tt></td>
+  </td>
+  <tr id="favorite">
+    <td>@icon:favorite@</td>
+    <td><tt>favorite</tt></td>
+  </td>
+  <tr id="view-list">
+    <td>@icon:view-list@</td>
+    <td><tt>view-list</tt></td>
+  </td>
+  <tr id="view-grid">
+    <td>@icon:view-grid@</td>
+    <td><tt>view-grid</tt></td>
+  </td>
+  <tr id="text-justify-left">
+    <td>@icon:text-justify-left@</td>
+    <td><tt>text-justify-left</tt></td>
+  </td>
+  <tr id="text-justify-right">
+    <td>@icon:text-justify-right@</td>
+    <td><tt>text-justify-right</tt></td>
+  </td>
+  <tr id="text-justify-center">
+    <td>@icon:text-justify-center@</td>
+    <td><tt>text-justify-center</tt></td>
+  </td>
+  <tr id="text-justify-fill">
+    <td>@icon:text-justify-fill@</td>
+    <td><tt>text-justify-fill</tt></td>
+  </td>
+  <tr id="text-italic">
+    <td>@icon:text-italic@</td>
+    <td><tt>text-italic</tt></td>
+  </td>
+  <tr id="text-bold">
+    <td>@icon:text-bold@</td>
+    <td><tt>text-bold</tt></td>
+  </td>
+  <tr id="text-underline">
+    <td>@icon:text-underline@</td>
+    <td><tt>text-underline</tt></td>
+  </td>
+  <tr id="text-strikethrough">
+    <td>@icon:text-strikethrough@</td>
+    <td><tt>text-strikethrough</tt></td>
+  </td>
+  <tr id="system-menu">
+    <td>@icon:system-menu@</td>
+    <td><tt>system-menu</tt></td>
+  </td>
+  <tr id="audio-volume-low">
+    <td>@icon:audio-volume-low@</td>
+    <td><tt>audio-volume-low</tt></td>
+  </td>
+  <tr id="audio-volume-medium">
+    <td>@icon:audio-volume-medium@</td>
+    <td><tt>audio-volume-medium</tt></td>
+  </td>
+  <tr id="audio-volume-high">
+    <td>@icon:audio-volume-high@</td>
+    <td><tt>audio-volume-high</tt></td>
+  </td>
+  <tr id="attach">
+    <td>@icon:attach@</td>
+    <td><tt>attach</tt></td>
+  </td>
+  <tr id="sidebar-left">
+    <td>@icon:sidebar-left@</td>
+    <td><tt>sidebar-left</tt></td>
+    <td>Has an RTL version</td>
+  </td>
+  <tr id="sidebar-right">
+    <td>@icon:sidebar-right@</td>
+    <td><tt>sidebar-right</tt></td>
+    <td>Has an RTL version</td>
+  </td>
+  <tr id="clock">
+    <td>@icon:clock@</td>
+    <td><tt>clock</tt></td>
+  </td>
+  <tr id="bell">
+    <td>@icon:bell@</td>
+    <td><tt>bell</tt></td>
+  </td>
+  <tr id="star">
+    <td>@icon:star@</td>
+    <td><tt>star</tt></td>
+  </td>
+  <tr id="folder">
+    <td>@icon:folder@</td>
+    <td><tt>folder</tt></td>
+  </td>
+  <tr id="import">
+    <td>@icon:import@</td>
+    <td><tt>import</tt></td>
+  </td>
+  <tr id="export">
+    <td>@icon:export@</td>
+    <td><tt>export</tt></td>
+  </td>
+</table>
+
+# Custom icons
+
+Additional icons can be found in the
+[icon development kit](https://teams.pages.gitlab.gnome.org/Design/icon-development-kit/).
+
+To copy one of these icons into your app:
+
+1. ???
+2. ???
+3. ???
+
+# Legacy icons
+
+Icons can also be used from the system icon theme
