@@ -1958,6 +1958,7 @@ recreate_ui (AdwSidebar *self)
     self->listbox = gtk_list_box_new ();
     gtk_widget_add_css_class (self->listbox, "navigation-sidebar");
     gtk_list_box_set_selection_mode (GTK_LIST_BOX (self->listbox), GTK_SELECTION_SINGLE);
+    gtk_list_box_set_tab_behavior (GTK_LIST_BOX (self->listbox), GTK_LIST_TAB_ITEM);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (self->swindow), self->listbox);
 
     gtk_list_box_set_header_func (GTK_LIST_BOX (self->listbox),
