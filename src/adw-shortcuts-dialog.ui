@@ -2,6 +2,7 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwShortcutsDialog" parent="AdwDialog">
+    <!-- Translators: default title in shortcuts dialogs -->
     <property name="title" translatable="yes">Keyboard Shortcuts</property>
     <property name="content-width">600</property>
     <style>
@@ -17,8 +18,10 @@
                 <property name="hexpand">True</property>
                 <property name="child">
                   <object class="GtkSearchEntry" id="search_entry">
+                    <!-- Translators: placeholder text for the search entry. Search is a verb here -->
                     <property name="placeholder-text" translatable="yes">Search shortcuts</property>
                     <accessibility>
+                      <!-- Translators: accessible label for the search entry -->
                       <property name="label" translatable="yes">Search shortcuts</property>
                     </accessibility>
                     <signal name="search-started" handler="search_started_cb" swapped="yes"/>
@@ -76,7 +79,9 @@
             <child>
               <object class="AdwStatusPage" id="empty">
                 <property name="icon-name">edit-find-symbolic</property>
+                <!-- Translators: title of the no search results page -->
                 <property name="title" translatable="yes">No Results Found</property>
+                <!-- Translators: description of the no search results page -->
                 <property name="description" translatable="yes">Try a different search</property>
               </object>
             </child>

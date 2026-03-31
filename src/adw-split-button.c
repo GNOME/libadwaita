@@ -528,6 +528,7 @@ adw_split_button_init (AdwSplitButton *self)
 
   self->menu_button = gtk_menu_button_new ();
   gtk_widget_set_parent (self->menu_button, GTK_WIDGET (self));
+  /* Translators: default tooltip of a split button's dropdown */
   gtk_widget_set_tooltip_text (self->menu_button, _("More Options"));
 
   /* FIXME: This is iffy, but we don't have any other way to do it */
@@ -1042,10 +1043,12 @@ adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
 
   self->has_dropdown_tooltip = tooltip && *tooltip;
 
-  if (self->has_dropdown_tooltip)
+  if (self->has_dropdown_tooltip) {
     gtk_widget_set_tooltip_markup (self->menu_button, tooltip);
-  else
+  } else {
+    /* Translators: default tooltip of a split button's dropdown */
     gtk_widget_set_tooltip_text (self->menu_button, _("More Options"));
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DROPDOWN_TOOLTIP]);
 }

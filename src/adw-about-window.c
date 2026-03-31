@@ -206,22 +206,39 @@ typedef struct {
 static const LicenseInfo gtk_license_info [] = {
   { NULL, NULL, NULL },
   { NULL, NULL, NULL },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU General Public License, version 2 or later"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0-or-later" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU General Public License, version 3 or later"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0-or-later" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Lesser General Public License, version 2.1 or later"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html", "LGPL-2.1-or-later" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Lesser General Public License, version 3 or later"), "https://www.gnu.org/licenses/lgpl-3.0.html", "LGPL-3.0-or-later" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("BSD 2-Clause License"), "https://opensource.org/licenses/bsd-license.php", "BSD-2-Clause" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("The MIT License (MIT)"), "https://opensource.org/licenses/mit-license.php", "MIT" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("Artistic License 2.0"), "https://opensource.org/licenses/artistic-license-2.0.php", "Artistic-2.0" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU General Public License, version 2 only"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0-only" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU General Public License, version 3 only"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0-only" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Lesser General Public License, version 2.1 only"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html", "LGPL-2.1-only" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Lesser General Public License, version 3 only"), "https://www.gnu.org/licenses/lgpl-3.0.html", "LGPL-3.0-only" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Affero General Public License, version 3 or later"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-or-later" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("GNU Affero General Public License, version 3 only"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-only" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("BSD 3-Clause License"), "https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("Apache License, Version 2.0"), "https://opensource.org/licenses/Apache-2.0", "Apache-2.0" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("Mozilla Public License 2.0"), "https://opensource.org/licenses/MPL-2.0", "MPL-2.0" },
+  /* Translators: license name, shown in the legal section in about dialog */
   { N_("BSD Zero-Clause License"), "https://opensource.org/license/0bsd", "0BSD" }
 };
 /* Copied from GTK 4 for consistency with GtkAboutDialog. */
@@ -557,10 +574,15 @@ update_credits (AdwAboutWindow *self)
   else
     translators = NULL;
 
+  /* Translators: developers section title in credits */
   add_credits_section (self, self->credits_box, _("Code by"),          self->developers);
+  /* Translators: designers section title in credits */
   add_credits_section (self, self->credits_box, _("Design by"),        self->designers);
+  /* Translators: artists section title in credits */
   add_credits_section (self, self->credits_box, _("Artwork by"),       self->artists);
+  /* Translators: documenters section title in credits */
   add_credits_section (self, self->credits_box, _("Documentation by"), self->documenters);
+  /* Translators: translators section title in credits */
   add_credits_section (self, self->credits_box, _("Translated by"),    translators);
 
   for (l = self->credit_sections; l; l = l->next) {
@@ -587,9 +609,9 @@ get_license_text (GtkLicense  license_type,
   if (license_type == GTK_LICENSE_CUSTOM)
     return g_strdup (license);
 
-  /* Translators: this is the license preamble; the string at the end
-   * contains the name of the license as link text.
-   */
+  /* Translators: this is the license preamble. The 2 variables are the link to
+     the license and its name. Names are translatable separately, links are
+     hardcoded. */
   return g_strdup_printf (_("This application comes with absolutely no warranty. See the <a href=\"%s\">%s</a> for details."),
                           gtk_license_info[license_type].url,
                           _(gtk_license_info[license_type].name));
@@ -667,10 +689,17 @@ update_legal (AdwAboutWindow *self)
     gtk_box_remove (GTK_BOX (self->legal_box), widget);
 
   /* We only want to show the default title if there's more than one section */
-  if (self->legal_sections)
+  if (self->legal_sections) {
+    /* Translators: Shown in the legal page when there are multiple sections, in
+       that case this is the title of the first section, while subsequent titles
+       are app-provided. For example:
+       This Application: Copyright, license.
+       Dependency 1: Copyright, license.
+       Dependency 2: Copyright, license.*/
     default_section.title = _("This Application");
-  else
+  } else {
     default_section.title = NULL;
+  }
 
   default_section.copyright = self->copyright;
   default_section.license_type = self->license_type;
@@ -970,6 +999,8 @@ update_release_notes (AdwAboutWindow *self)
     version = self->version;
 
   if (version) {
+    /* Translators: title on the "What's new" page. The variable is the
+       specified version: e.g. "Version 1.2.3" */
     char *heading = g_strdup_printf (_("Version %s"), version);
 
     gtk_text_buffer_insert_with_tags_by_name (self->release_notes_buffer,
@@ -991,17 +1022,28 @@ update_release_notes (AdwAboutWindow *self)
     char *position;
     g_markup_parse_context_get_position (context, &line_number, &char_number);
 
-    g_critical ("Unable to parse release notes: %s at line %d, char %d", error->message, line_number, char_number);
+    /* Translators: error message printed when release notes are invalid.
+       The first variable is error message, then the two numbers are line number
+       and the character number within the line. */
+    g_critical (_("Unable to parse release notes: %s at line %d, char %d"),
+                error->message, line_number, char_number);
 
     gtk_text_buffer_set_text (self->release_notes_buffer, "", -1);
     gtk_text_buffer_get_start_iter (self->release_notes_buffer, &pdata.iter);
 
+    /* Translators: this is an error message, displayed when the release notes
+       are invalid. It will appear in the UI, instead of release notes.
+       The error message will be on the next line, followed by the
+       "Line: %d, character: %d" string. */
     gtk_text_buffer_insert (self->release_notes_buffer, &pdata.iter, _("Unable to parse release notes:"), -1);
     gtk_text_buffer_insert (self->release_notes_buffer, &pdata.iter, "\n", -1);
 
     gtk_text_buffer_insert (self->release_notes_buffer, &pdata.iter, error->message, -1);
     gtk_text_buffer_insert (self->release_notes_buffer, &pdata.iter, "\n", -1);
 
+    /* Translators: shown after the error when release notes couldn't be parsed.
+       The first variable is the line number, the second one is the position
+       within the line. */
     position = g_strdup_printf (_("Line: %d, character: %d"), line_number, char_number);
     gtk_text_buffer_insert (self->release_notes_buffer, &pdata.iter, position, -1);
 
@@ -1263,6 +1305,8 @@ copy_property_cb (AdwAboutWindow *self,
     gdk_clipboard_set_text (clipboard, value);
 
     adw_toast_overlay_add_toast (ADW_TOAST_OVERLAY (self->toast_overlay),
+                                 /* Translators: shown in a toast in response
+                                    to copying version or debug information */
                                  adw_toast_new (_("Copied to clipboard")));
   }
 
@@ -1290,12 +1334,15 @@ save_debug_info_dialog_cb (GtkFileDialog  *dialog,
                              &error);
 
     if (error) {
-      GtkWidget *message = adw_message_dialog_new (GTK_WINDOW (self),
-                                                  _("Unable to save debugging information"),
-                                                  NULL);
+      /* Translators: error message, shown when saving debug info fails */
+      const char *heading = _("Unable to save debugging information");
+
+      GtkWidget *message =adw_message_dialog_new (GTK_WINDOW (self),
+                                                  heading, NULL);
       adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (message),
                                       "%s", error->message);
       adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (message),
+                                       /* Translators: label of the close button in an error dialog */
                                        "close", _("Close"));
 
       gtk_window_present (GTK_WINDOW (message));
@@ -1312,6 +1359,7 @@ save_debug_info_cb (AdwAboutWindow *self)
 {
   GtkFileDialog *dialog = gtk_file_dialog_new ();
 
+  /* Translators: title of the file chooser that appears when saving debug info */
   gtk_file_dialog_set_title (dialog, _("Save debugging information"));
   gtk_file_dialog_set_initial_name (dialog, self->debug_info_filename);
 
@@ -3500,3 +3548,4 @@ adw_show_about_window_from_appdata (GtkWindow  *parent,
 
   gtk_window_present (GTK_WINDOW (window));
 }
+

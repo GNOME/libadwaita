@@ -26,6 +26,8 @@
                       <object class="AdwHeaderBar">
                         <property name="title-widget">
                           <object class="AdwWindowTitle">
+                            <!-- Translators: the window title for the adaptive preview view,
+                                 accessed with Ctrl+Shift+M or from inspector -->
                             <property name="title" translatable="yes">Adaptive Preview</property>
                           </object>
                         </property>
@@ -35,15 +37,19 @@
                       <object class="AdwPreferencesPage">
                         <child>
                           <object class="AdwPreferencesGroup">
+                            <!-- Translators: the title of the device group in the adaptive preview sidebar,
+                                 referring to the screen size and bezels of the preview -->
                             <property name="title" translatable="yes">Display</property>
                             <child>
                               <object class="AdwComboRow" id="device_preset_row">
+                                <!-- Translators: title of the device selector row -->
                                 <property name="title" translatable="yes">Device</property>
                                 <signal name="notify::selected" handler="device_preset_cb" swapped="yes"/>
                               </object>
                             </child>
                             <child>
                               <object class="AdwSpinRow" id="width_row">
+                                <!-- Translators: title of the custom screen width row -->
                                 <property name="title" translatable="yes">Width</property>
                                 <property name="adjustment">
                                   <object class="GtkAdjustment" id="width_adj">
@@ -58,6 +64,7 @@
                             </child>
                             <child>
                               <object class="AdwSpinRow" id="height_row">
+                                <!-- Translators: title of the custom screen height row -->
                                 <property name="title" translatable="yes">Height</property>
                                 <property name="adjustment">
                                   <object class="GtkAdjustment" id="height_adj">
@@ -72,11 +79,12 @@
                             </child>
                             <child>
                               <object class="AdwActionRow">
+                                <!-- Translators: title of the screen rotation row -->
                                 <property name="title" translatable="yes">Rotate</property>
                                 <child type="suffix">
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Rotate Left</property>
                                     <property name="icon-name">adw-rotate-acw-symbolic</property>
+                                    <!-- Translators: tooltip of the button that rotates left/counterclockwise -->
                                     <property name="tooltip-text" translatable="yes">Rotate Left</property>
                                     <property name="valign">center</property>
                                     <signal name="clicked" handler="rotate_left_cb" swapped="yes"/>
@@ -87,8 +95,8 @@
                                 </child>
                                 <child type="suffix">
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Rotate Right</property>
                                     <property name="icon-name">adw-rotate-cw-symbolic</property>
+                                    <!-- Translators: tooltip of the button that rotates right/clockwise -->
                                     <property name="tooltip-text" translatable="yes">Rotate Right</property>
                                     <property name="valign">center</property>
                                     <signal name="clicked" handler="rotate_right_cb" swapped="yes"/>
@@ -103,15 +111,19 @@
                         </child>
                         <child>
                           <object class="AdwPreferencesGroup">
+                                <!-- Translators: title of the shell group in the adaptive preview sidebar,
+                                     referring to the top/bottom bars within the preview -->
                             <property name="title" translatable="yes">Shell</property>
                             <child>
                               <object class="AdwComboRow" id="shell_preset_row">
+                                <!-- Translators: title of the shell preset selector row -->
                                 <property name="title" translatable="yes">Preset</property>
                                 <signal name="notify::selected" handler="shell_preset_cb" swapped="yes"/>
                               </object>
                             </child>
                             <child>
                               <object class="AdwSpinRow" id="top_bar_row">
+                                <!-- Translators: title of the custom top bar height row -->
                                 <property name="title" translatable="yes">Top Bar</property>
                                 <property name="adjustment">
                                   <object class="GtkAdjustment" id="top_bar_adj">
@@ -126,6 +138,7 @@
                             </child>
                             <child>
                               <object class="AdwSpinRow" id="bottom_bar_row">
+                                <!-- Translators: title of the custom bottom bar height row -->
                                 <property name="title" translatable="yes">Bottom Bar</property>
                                 <property name="adjustment">
                                   <object class="GtkAdjustment" id="bottom_bar_adj">
@@ -140,6 +153,8 @@
                             </child>
                             <child>
                               <object class="AdwSwitchRow">
+                                <!-- Translators: title of the window controls switch row -
+                                     refers to close/minimize/maximize buttons -->
                                 <property name="title" translatable="yes">Window Controls</property>
                                 <property name="active" bind-source="AdwAdaptivePreview" bind-property="window-controls" bind-flags="sync-create|bidirectional"/>
                               </object>
@@ -148,16 +163,22 @@
                         </child>
                         <child>
                           <object class="AdwPreferencesGroup">
+                            <!-- Translators: title of the view group in the adaptive preview sidebar -->
                             <property name="title" translatable="yes">View</property>
                             <child>
                               <object class="AdwSwitchRow">
+                                <!-- Translators: title of the scale to fit option - it selects between
+                                     scaling the preview as the window resizes, or having scrollbars instead -->
                                 <property name="title" translatable="yes">Scale to Fit</property>
                                 <property name="active" bind-source="AdwAdaptivePreview" bind-property="scale-to-fit" bind-flags="sync-create|bidirectional"/>
                               </object>
                             </child>
                             <child>
                               <object class="AdwSwitchRow">
-                                <!-- Translators: screen bezel, e.g. on a phone -->
+                                <!-- Translators: title of the "highlight bezel" row -
+                                     it makes screen bezel in the preview colored,
+                                     so that it doesn't blend with the app when the app
+                                     has black background -->
                                 <property name="title" translatable="yes">Highlight Bezel</property>
                                 <property name="active" bind-source="AdwAdaptivePreview" bind-property="highlight-bezel" bind-flags="sync-create|bidirectional"/>
                               </object>
@@ -187,6 +208,7 @@
                         <child type="start">
                           <object class="GtkToggleButton">
                             <property name="icon-name">adw-sidebar-symbolic</property>
+                            <!-- Translators: tooltip of the button that toggles the preview sidebar -->
                             <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                             <property name="active" bind-source="split_view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
                           </object>
@@ -197,6 +219,7 @@
                             <property name="child">
                               <object class="AdwButtonContent">
                                 <property name="icon-name">adw-application-exit</property>
+                                <!-- Translators: label of the button that exits adaptive preview -->
                                 <property name="label" translatable="yes">Exit</property>
                                 <property name="can-shrink">True</property>
                               </object>
@@ -207,6 +230,7 @@
                           <object class="GtkButton">
                             <signal name="clicked" handler="screenshot_clicked_cb" swapped="yes"/>
                             <property name="icon-name">adw-screenshot-symbolic</property>
+                            <!-- Translators: tooltip of the button that takes a screenshot -->
                             <property name="tooltip-text" translatable="yes">Take Screenshot</property>
                           </object>
                         </child>

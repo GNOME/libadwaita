@@ -283,14 +283,23 @@ show_toast (AdwToastOverlay *self,
   button_label = adw_toast_get_button_label (info->toast);
 
   if (title && button_label) {
+    /* Translators: an announcement screen reader reads out when a toast with a
+       button appears. The first variable is the toast's title, the second one
+       is the button label. */
     announcement = g_strdup_printf (_("A toast appeared: %s, has a button: %s"),
                                     title, button_label);
   } else if (title && !button_label) {
+    /* Translators: an announcement screen reader reads out when a toast without
+       a button appears. The variable is the toast's title. */
     announcement = g_strdup_printf (_("A toast appeared: %s"), title);
   } else if (!title && button_label) {
+    /* Translators: an announcement screen reader reads out when a toast with a
+       button, but without a title appears. The variable is the button label. */
     announcement = g_strdup_printf (_("A toast appeared, has a button: %s"),
                                     button_label);
   } else {
+    /* Translators: an announcement screen reader reads out when a toast without
+       a button or a title appears. */
     announcement = g_strdup (_("A toast appeared"));
   }
 

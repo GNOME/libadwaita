@@ -64,6 +64,7 @@ create_window_row_cb (GtkWindow        *window,
 
   btn = gtk_toggle_button_new ();
   gtk_button_set_icon_name (GTK_BUTTON (btn), "adw-adaptive-preview-symbolic");
+  /* Translators: tooltip of the buttons in each row in the adaptive preview section */
   gtk_widget_set_tooltip_text (btn, _("Adaptive Preview"));
   gtk_widget_set_valign (btn, GTK_ALIGN_CENTER);
   gtk_widget_add_css_class (btn, "flat");
@@ -128,10 +129,17 @@ get_system_color_scheme_name (GtkEnumListItem *item,
 {
   switch (gtk_enum_list_item_get_value (item)) {
   case ADW_SYSTEM_COLOR_SCHEME_DEFAULT:
+    /* Translators: one of the color scheme dropdown options in inspector.
+       No preference here means that the system doesn't care if the app is
+       light or dark. */
     return g_strdup (_("No Preference"));
   case ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK:
+    /* Translators: one of the color scheme dropdown options in inspector.
+       The system prefers apps to be dark. */
     return g_strdup (_("Prefer Dark"));
   case ADW_SYSTEM_COLOR_SCHEME_PREFER_LIGHT:
+    /* Translators: one of the color scheme dropdown options in inspector.
+       The system prefers apps to be light. */
     return g_strdup (_("Prefer Light"));
   default:
     return NULL;
@@ -145,22 +153,31 @@ get_accent_color_name (GtkEnumListItem *item,
 {
   switch (gtk_enum_list_item_get_value (item)) {
   case ADW_ACCENT_COLOR_BLUE:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Blue"));
   case ADW_ACCENT_COLOR_TEAL:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Teal"));
   case ADW_ACCENT_COLOR_GREEN:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Green"));
   case ADW_ACCENT_COLOR_YELLOW:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Yellow"));
   case ADW_ACCENT_COLOR_ORANGE:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Orange"));
   case ADW_ACCENT_COLOR_RED:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Red"));
   case ADW_ACCENT_COLOR_PINK:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Pink"));
   case ADW_ACCENT_COLOR_PURPLE:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Purple"));
   case ADW_ACCENT_COLOR_SLATE:
+    /* Translators: one of the accent color dropdown options in inspector */
     return g_strdup (_("Slate"));
   default:
     g_assert_not_reached ();
@@ -299,7 +316,7 @@ adw_inspector_page_get_property (GObject    *object,
 
   switch (prop_id) {
   case PROP_TITLE:
-    /* Translators: The name of the library, not the stylesheet */
+    /* Translators: the name of the library, not the stylesheet */
     g_value_set_string (value, _("Adwaita"));
     break;
   case PROP_OBJECT:

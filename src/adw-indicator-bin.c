@@ -74,13 +74,23 @@ update_description (AdwIndicatorBin *self)
   char *badge_description = NULL;
   gboolean changed;
 
-  if (self->needs_attention)
+  if (self->needs_attention) {
+    /* Translators: used by screen reader when reading out view switcher pages
+       which have needs-attention=true (the blue dot or number badge) */
     needs_attention_description = C_("view switcher button badge", "Attention requested.");
+  }
 
-  if (self->badge_number > 999)
+  if (self->badge_number > 999) {
+    /* Translators: used by screen reader when reading out view switcher pages
+       which have the unread badge (e.g. the number of updates/notifications).
+       This string is used when the badge is showing "999+". */
     badge_description = g_strdup (C_("view switcher button badge", "Has a badge: more than 999."));
-  else if (self->badge_number)
+  } else if (self->badge_number) {
+    /* Translators: used by screen reader when reading out view switcher pages
+       which have the unread badge (e.g. the number of updates/notifications).
+       The variable is what's displayed on the badge. */
     badge_description = g_strdup_printf (C_("view switcher button badge", "Has a badge: %u."), self->badge_number);
+  }
 
   if (needs_attention_description && badge_description) {
     char *description = g_strdup_printf ("%s %s", badge_description, needs_attention_description);

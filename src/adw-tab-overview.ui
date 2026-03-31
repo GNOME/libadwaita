@@ -17,6 +17,7 @@
             <child type="start">
               <object class="GtkToggleButton" id="search_button">
                 <property name="icon-name">edit-find-symbolic</property>
+                <!-- Translators: tooltip of the search button -->
                 <property name="tooltip-text" translatable="yes">Search Tabs</property>
               </object>
             </child>
@@ -47,6 +48,7 @@
                 <property name="child">
                   <object class="GtkSearchEntry" id="search_entry">
                     <property name="hexpand">True</property>
+                    <!-- Translators: placeholder text of the search entry. Search is a verb here -->
                     <property name="placeholder-text" translatable="yes">Search tabs</property>
                     <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
                     <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
@@ -94,6 +96,7 @@
                 <property name="can-target">False</property>
                 <property name="can-focus">False</property>
                 <property name="icon-name">view-grid-symbolic</property>
+                <!-- Translators: title of the no open tabs page -->
                 <property name="title" translatable="yes">No Open Tabs</property>
                 <layout>
                   <property name="measure">True</property>
@@ -107,7 +110,9 @@
                 <property name="can-target">False</property>
                 <property name="can-focus">False</property>
                 <property name="icon-name">edit-find-symbolic</property>
+                <!-- Translators: title of the no search results page -->
                 <property name="title" translatable="yes">No Tabs Found</property>
+                <!-- Translators: description of the no search results page -->
                 <property name="description" translatable="yes">Try a different search</property>
                 <layout>
                   <property name="measure">True</property>
@@ -128,6 +133,7 @@
                 <property name="child">
                   <object class="AdwButtonContent">
                     <property name="icon-name">adw-tab-new-symbolic</property>
+                    <!-- Translators: label of the new tab button -->
                     <property name="label" translatable="yes">New _Tab</property>
                     <property name="use-underline">True</property>
                     <property name="can-shrink">True</property>

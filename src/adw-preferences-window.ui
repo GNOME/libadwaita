@@ -5,6 +5,7 @@
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="icon_name">gtk-preferences</property>
+    <!-- Translators: default title in the preferences dialog -->
     <property name="title" translatable="yes">Preferences</property>
     <property name="default-width">640</property>
     <property name="default-height">576</property>
@@ -78,6 +79,7 @@
                                             <property name="maximum-size">400</property>
                                             <property name="child">
                                               <object class="GtkSearchEntry" id="search_entry">
+                                                <!-- Translators: placeholder text in the search entry, search is a verb here -->
                                                 <property name="placeholder-text" translatable="yes">Search preferences</property>
                                                 <signal name="search-started" handler="search_started_cb" swapped="yes"/>
                                                 <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
@@ -94,6 +96,7 @@
                                 <child type="start">
                                   <object class="GtkToggleButton" id="search_button">
                                     <property name="valign">center</property>
+                                    <!-- Translators: tooltip of the search button -->
                                     <property name="tooltip-text" translatable="yes">Search</property>
                                     <property name="icon_name">edit-find-symbolic</property>
                                     <signal name="notify::active" handler="search_button_notify_active_cb" swapped="yes"/>
@@ -161,7 +164,9 @@
                                             <property name="child">
                                               <object class="AdwStatusPage">
                                                 <property name="icon-name">edit-find-symbolic</property>
+                                                <!-- Translators: title of the no search results page -->
                                                 <property name="title" translatable="yes">No Results Found</property>
+                                                <!-- Translators: description of the no search results page -->
                                                 <property name="description" translatable="yes">Try a different search</property>
                                               </object>
                                             </property>

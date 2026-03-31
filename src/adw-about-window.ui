@@ -2,6 +2,7 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwAboutWindow" parent="AdwWindow">
+    <!-- Translators: about dialog title -->
     <property name="title" translatable="yes">About</property>
     <property name="default-width">360</property>
     <property name="width-request">360</property>
@@ -88,6 +89,7 @@
                                         <child>
                                           <object class="AdwActionRow" id="whats_new_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the release notes page -->
                                             <property name="title" translatable="yes">What’s _New</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -104,6 +106,7 @@
                                         <child>
                                           <object class="AdwActionRow" id="details_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the details page (comment, website etc) -->
                                             <property name="title" translatable="yes">_Details</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -120,6 +123,7 @@
                                         <child>
                                           <object class="AdwLinkRow" id="website_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the app's website -->
                                             <property name="title" translatable="yes">_Website</property>
                                             <property name="use-underline">True</property>
                                             <property name="uri" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
@@ -135,6 +139,7 @@
                                         <child>
                                           <object class="AdwLinkRow" id="support_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the app's support forum -->
                                             <property name="title" translatable="yes">_Support Questions</property>
                                             <property name="use-underline">True</property>
                                             <property name="uri" bind-source="AdwAboutWindow" bind-property="support-url" bind-flags="sync-create"/>
@@ -144,6 +149,7 @@
                                         <child>
                                           <object class="AdwLinkRow" id="issue_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the app's issue tracker -->
                                             <property name="title" translatable="yes">_Report an Issue</property>
                                             <property name="use-underline">True</property>
                                             <property name="uri" bind-source="AdwAboutWindow" bind-property="issue-url" bind-flags="sync-create"/>
@@ -153,6 +159,7 @@
                                         <child>
                                           <object class="AdwActionRow" id="troubleshooting_row">
                                             <property name="visible">False</property>
+                                            <!-- Translators: title of the row that opens the troubleshooting page -->
                                             <property name="title" translatable="yes">_Troubleshooting</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -173,6 +180,7 @@
                                         <property name="visible">False</property>
                                         <child>
                                           <object class="AdwActionRow">
+                                            <!-- Translators: title of the row that opens the credits page -->
                                             <property name="title" translatable="yes">_Credits</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -189,6 +197,7 @@
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
+                                            <!-- Translators: title of the row that opens the legal page (copyright, license) -->
                                             <property name="title" translatable="yes">_Legal</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -205,6 +214,8 @@
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
+                                            <!-- Translators: title of the row that opens the acknowledgements page
+                                                 (like credits but separate, e.g. for patreon backers) -->
                                             <property name="title" translatable="yes">_Acknowledgements</property>
                                             <property name="use-underline">True</property>
                                             <property name="activatable">True</property>
@@ -235,6 +246,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage" id="whatsnew_page">
+                <!-- Translators: title of the release notes page -->
                 <property name="title" translatable="yes">What’s New</property>
                 <property name="tag">whatsnew</property>
                 <property name="child">
@@ -281,6 +293,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage">
+                <!-- Translators: title of the details page (comment, website etc) -->
                 <property name="title" translatable="yes">Details</property>
                 <property name="tag">details</property>
                 <property name="child">
@@ -319,6 +332,7 @@
                                     <child>
                                       <object class="AdwLinkRow" id="details_website_row">
                                         <property name="visible">False</property>
+                                        <!-- Translators: title of the row that opens the app's website -->
                                         <property name="title" translatable="yes">_Website</property>
                                         <property name="use-underline">True</property>
                                         <property name="uri" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
@@ -339,6 +353,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage">
+                <!-- Translators: title of the troubleshooting page -->
                 <property name="title" translatable="yes">Troubleshooting</property>
                 <property name="tag">troubleshooting</property>
                 <property name="child">
@@ -362,6 +377,7 @@
                                     <property name="wrap">True</property>
                                     <property name="wrap-mode">word-char</property>
                                     <property name="xalign">0</property>
+                                    <!-- Translators: comment at the top of the troubleshooting page -->
                                     <property name="label" translatable="yes">To assist in troubleshooting, you can view your debugging information. Providing this information to the application developers can help diagnose any problems you encounter when you report an issue.</property>
                                     <signal name="activate-link" handler="activate_link_cb" swapped="yes"/>
                                     <style>
@@ -373,6 +389,7 @@
                                   <object class="AdwPreferencesGroup">
                                     <child>
                                       <object class="AdwActionRow">
+                                        <!-- Translators: title of the row that opens the debug information page -->
                                         <property name="title" translatable="yes">_Debugging Information</property>
                                         <property name="use-underline">True</property>
                                         <property name="activatable">True</property>
@@ -400,6 +417,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage" id="debug_info_page">
+                <!-- Translators: title of the debug information page -->
                 <property name="title" translatable="yes">Debugging Information</property>
                 <property name="tag">debuginfo</property>
                 <property name="child">
@@ -448,6 +466,7 @@
                           <object class="GtkButton">
                             <property name="action-name">about.copy-property</property>
                             <property name="action-target">"debug-info"</property>
+                            <!-- Translators: label of a button on the debug information page -->
                             <property name="label" translatable="yes">_Copy Text</property>
                             <property name="use-underline">True</property>
                             <property name="can-shrink">True</property>
@@ -456,6 +475,7 @@
                         <child type="end">
                           <object class="GtkButton">
                             <property name="action-name">about.save-debug-info</property>
+                            <!-- Translators: label of a button on the debug information page -->
                             <property name="label" translatable="yes">_Save As…</property>
                             <property name="use-underline">True</property>
                             <property name="can-shrink">True</property>
@@ -469,6 +489,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage">
+                <!-- Translators: title of the credits page -->
                 <property name="title" translatable="yes">Credits</property>
                 <property name="tag">credits</property>
                 <property name="child">
@@ -500,6 +521,7 @@
             </child>
             <child>
               <object class="AdwNavigationPage">
+                 <!-- Translators: title of the legal page (copyright, license) -->
                 <property name="title" translatable="yes">Legal</property>
                 <property name="tag">legal</property>
                 <signal name="showing" handler="legal_showing_cb" swapped="yes"/>
@@ -532,6 +554,8 @@
             </child>
             <child>
               <object class="AdwNavigationPage">
+                <!-- Translators: title of the acknowledgements page
+                     (like credits but separate, e.g. for patreon backers) -->
                 <property name="title" translatable="yes">Acknowledgements</property>
                 <property name="tag">acknowledgements</property>
                 <property name="child">

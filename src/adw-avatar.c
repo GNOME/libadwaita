@@ -156,6 +156,8 @@ update_initials (AdwAvatar *self)
   char *initials;
 
  if (self->text && *self->text) {
+    /* Translators: accessible label for an avatar. The variable is a name of
+       the person the avatar refers to */
     char *accessible_label = g_strdup_printf (_("Avatar of %s"), self->text);
 
     gtk_accessible_update_property (GTK_ACCESSIBLE (self),

@@ -124,8 +124,10 @@ update_window_buttons (AdwSheetControls *self,
   gtk_actionable_set_action_name (GTK_ACTIONABLE (button),
                                   "sheet.close");
   gtk_accessible_update_property (GTK_ACCESSIBLE (button),
+                                  /* Translators: accessible label of the sheet close button */
                                   GTK_ACCESSIBLE_PROPERTY_LABEL, _("Close"),
                                   GTK_ACCESSIBLE_PROPERTY_DESCRIPTION,
+                                    /* Translators: accessible description of the sheet close button */
                                     _("Close the window"),
                                   -1);
 

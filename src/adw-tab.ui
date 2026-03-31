@@ -72,6 +72,7 @@
         <property name="can-focus">False</property>
         <property name="opacity">0</property>
         <property name="valign">center</property>
+        <!-- Translators: tooltip of the close button on tabs -->
         <property name="tooltip-text" translatable="yes">Close Tab</property>
         <property name="icon-name">window-close-symbolic</property>
         <signal name="clicked" handler="close_clicked_cb" swapped="true"/>

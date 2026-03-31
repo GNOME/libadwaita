@@ -324,7 +324,9 @@ setup_context_menu (AdwLinkRow *self)
   GtkEventController *controller;
   GMenu *menu = g_menu_new ();
 
+  /* Translators: context menu item for link rows in about dialog */
   g_menu_append (menu, _("_Open Link"), "link.open");
+  /* Translators: context menu item for link rows in about dialog */
   g_menu_append (menu, _("Copy _Link Address"), "link.copy");
 
   self->context_menu = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));

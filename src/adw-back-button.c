@@ -310,6 +310,9 @@ create_navigation_menu (AdwBackButton *self)
   for (i = 0; i < history->len; i++) {
     AdwNavigationPage *page = g_ptr_array_index (history, i);
     const char *title = adw_navigation_page_get_title (page);
+    /* Translators: entry in the back button's context menu. Normally the entry
+       titles here are page titles, but if a title is missing, "Back" is used
+       instead. */
     GMenuItem *item = g_menu_item_new ((title && *title) ? title : _("Back"), NULL);
 
     g_menu_item_set_action_and_target (item, "menu.pop-to-page", "i", i);
@@ -408,6 +411,9 @@ query_tooltip (AdwBackButton *self,
   page = get_inner_page (self->page);
   title = adw_navigation_page_get_title (page);
 
+  /* Translators: back button tooltip. Normally it's the title of the previous
+     page (the one that will appear after clicking the button), but "Back" is
+     used as a fallback if that page has no title. */
   gtk_tooltip_set_text (tooltip, (title && *title) ? title : _("Back"));
 
   return TRUE;
@@ -510,15 +516,20 @@ adw_back_button_init (AdwBackButton *self)
 {
   GtkWidget *button;
   GtkGesture *gesture;
+  const char *label;
 
   gtk_widget_set_visible (GTK_WIDGET (self), FALSE);
+
+  /* Translators: accessible label of back buttons. Unlike the tooltip and menu
+     entries, this one is always used, regardless of page titles. */
+  label = _("Back");
 
   button = gtk_button_new_from_icon_name ("go-previous-symbolic");
   gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "navigation.pop");
   gtk_widget_add_css_class (GTK_WIDGET (button), "back");
   gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
   gtk_accessible_update_property (GTK_ACCESSIBLE (button),
-                                  GTK_ACCESSIBLE_PROPERTY_LABEL, _("Back"),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, label,
                                   -1);
   g_signal_connect_swapped (button, "query-tooltip",
                             G_CALLBACK (query_tooltip), self);

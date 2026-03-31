@@ -126,10 +126,9 @@ get_modifier_label (guint key)
   case GDK_KEY_Super_L:
   case GDK_KEY_Hyper_L:
     /* Translators: This string is used to mark left/right variants of modifier
-     * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
-     * this string very short, ideally just a single character, since it will
-     * be rendered as part of the key.
-     */
+       keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+       this string very short, ideally just a single character, since it will
+       be rendered as part of the key. */
     subscript = C_("keyboard side marker", "L");
     break;
   case GDK_KEY_Shift_R:
@@ -139,10 +138,9 @@ get_modifier_label (guint key)
   case GDK_KEY_Super_R:
   case GDK_KEY_Hyper_R:
     /* Translators: This string is used to mark left/right variants of modifier
-     * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
-     * this string very short, ideally just a single character, since it will
-     * be rendered as part of the key.
-     */
+       keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+       this string very short, ideally just a single character, since it will
+       be rendered as part of the key. */
     subscript = C_("keyboard side marker", "R");
     break;
   default:

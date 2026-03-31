@@ -214,10 +214,17 @@ create_search_row_subtitle (AdwPreferencesWindow *self,
   if (group_title) {
     gchar *result;
 
-    if (get_n_pages (self) > 1)
-      result = g_strdup_printf ("%s → %s", page_title ? page_title : _("Untitled page"), group_title);
-    else
+    if (get_n_pages (self) > 1) {
+      /* Translators: shown in the search view in preferences dialog, in
+         subtitles. When the dialog has more than 1 page, the search results
+         display what page each row is from, e.g. Appearance → Fonts for a row
+         from a Fonts group row on the Appearance page. If a page is missing a
+         title, this string is used as a fallback, i.e. Untitled page → Fonts */
+      const char *effective_page_title = page_title ? page_title : _("Untitled page");
+      result = g_strdup_printf ("%s → %s", effective_page_title, group_title);
+    } else {
       result = g_strdup (group_title);
+    }
 
     g_free (page_title);
 

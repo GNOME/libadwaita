@@ -254,6 +254,8 @@ adw_shortcut_row_init (AdwShortcutRow *self)
 
   self->accel_label = adw_shortcut_label_new ("");
   gtk_widget_set_valign (self->accel_label, GTK_ALIGN_CENTER);
+  /* Translators: shown in shortcuts dialog, when an action is listed, but
+     doesn't actually have a shortcut */
   adw_shortcut_label_set_disabled_text (ADW_SHORTCUT_LABEL (self->accel_label), _("No Shortcut"));
   adw_shortcut_label_set_wrap (ADW_SHORTCUT_LABEL (self->accel_label), TRUE);
   adw_wrap_box_append (ADW_WRAP_BOX (box), self->accel_label);

@@ -21,10 +21,22 @@ typedef struct {
 } ShellPreset;
 
 static const ShellPreset shell_presets[] = {
+  /* Translators: one of the values in the shell preset dropdown, it controls
+     the height of the top and bottom bar in the preview. This one refers to the
+     upstream gnome-shell - it only has a top bar */
   { NC_("Shell preset", "Desktop Shell"), 32, 0  },
+  /* Translators: one of the values in the shell preset dropdown, it controls
+     the height of the top and bottom bar in the preview. This one refers to the
+     mobile fork of gnome-shell - it has a top bar and a bottom bar */
   { NC_("Shell preset", "Mobile Shell"),  32, 18 },
   { "Phosh",                              32, 15 },
+  /* Translators: one of the values in the shell preset dropdown, it controls
+     the height of the top and bottom bar in the preview. Fullscreen mode means
+     no top/bottom bars */
   { NC_("Shell preset", "Fullscreen"),    0,  0 },
+  /* Translators: one of the values in the shell preset dropdown, it controls
+     the height of the top and bottom bar in the preview. Custom mode allows to
+     set the panel heights manually */
   { NC_("Shell preset", "Custom"),        -1, -1 },
 };
 
@@ -87,6 +99,9 @@ static const DevicePreset device_presets[] = {
 */
   {
     "generic-phone",
+  /* Translators: one of the values in the device preset dropdown, it controls
+     the screen size and bezels of the preview. This is a "generic" linux
+     phone, with the same dimensions as Librem 5, PinePhone and PinePhone Pro */
     NC_("Device preset", "Generic Phone"),
     720, 1440,
     5.85, 2.0,
@@ -96,6 +111,9 @@ static const DevicePreset device_presets[] = {
   },
   {
     "generic-tablet",
+  /* Translators: one of the values in the device preset dropdown, it controls
+     the screen size and bezels of the preview. This is a tablet, so it has a
+     larger size and is horizontally oriented */
     NC_("Device preset", "Generic Tablet"),
     1280, 800,
     10.0, 1.0,
@@ -123,6 +141,9 @@ static const DevicePreset device_presets[] = {
   },
   {
     "custom",
+  /* Translators: one of the values in the device preset dropdown, it controls
+     the screen size and bezels of the preview. This is a custom device, it
+     allows to set the screen size manually and has no bezels */
     NC_("Device preset", "Custom"),
     -1, -1,
     1.0, 1.0,
