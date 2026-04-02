@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2026-02-03 19:01+0000\n"
-"PO-Revision-Date: 2026-02-23 21:22+0100\n"
+"POT-Creation-Date: 2026-03-19 14:31+0000\n"
+"PO-Revision-Date: 2026-04-02 11:56+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
@@ -558,7 +558,7 @@ msgstr "Předvolby"
 
 #: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
 msgid "Search preferences"
-msgstr "předvolby hledání"
+msgstr "hledat předvolby"
 
 #: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
 #: src/adw-shortcuts-dialog.ui:79
