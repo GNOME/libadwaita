@@ -69,7 +69,13 @@ demo_run_cb (AdwDemoPageAbout *self)
                                       _("Fonts"),
                                       NULL,
                                       GTK_LICENSE_CUSTOM,
-                                      "This application uses font data from <a href='https://example.org'>somewhere</a>.");
+                                      "This <i>application</i> <a href=\"https://example.org\">uses</a> font <b>data</b> from <a href='https://example.org'>somewhere</a>.");
+
+  adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
+                                      _("Fonts"),
+                                      NULL,
+                                      GTK_LICENSE_CUSTOM,
+                                      "<b>This</b> <small>application</small> <i>u<u>s</u>es</i> font data from blah.");
 
   adw_about_dialog_add_acknowledgement_section (ADW_ABOUT_DIALOG (about),
                                                 _("Special thanks to"),

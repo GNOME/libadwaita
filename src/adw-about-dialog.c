@@ -287,8 +287,10 @@ struct _AdwAboutDialog {
 
   GtkWidget *credits_legal_group;
   GtkWidget *credits_box;
-  GtkWidget *legal_box;
+  GtkTextView *legal_view;
+  GtkTextBuffer *legal_buffer;
   GtkWidget *acknowledgements_box;
+  gboolean legal_hovering_link;
 
   GtkWidget *other_apps_group;
 
@@ -315,8 +317,6 @@ struct _AdwAboutDialog {
   GtkLicense license_type;
   GSList *legal_sections;
   gboolean has_custom_links;
-
-  guint legal_showing_idle_id;
 
   char *appdata_resource_path;
 };
@@ -397,6 +397,45 @@ activate_link_cb (AdwAboutDialog *self,
   return ret;
 }
 
+static void
+launch_done (GObject      *source,
+             GAsyncResult *result,
+             gpointer      data)
+{
+  GError *error = NULL;
+  gboolean success;
+
+  if (GTK_IS_FILE_LAUNCHER (source))
+    success = gtk_file_launcher_launch_finish (GTK_FILE_LAUNCHER (source), result, &error);
+  else if (GTK_IS_URI_LAUNCHER (source))
+    success = gtk_uri_launcher_launch_finish (GTK_URI_LAUNCHER (source), result, &error);
+  else
+    g_assert_not_reached ();
+
+  if (!success) {
+    g_warning ("Failed to launch handler: %s", error->message);
+    g_error_free (error);
+  }
+}
+
+static void
+legal_activate_link (AdwAboutDialog *self,
+                     const char     *uri)
+{
+  gboolean ret = FALSE;
+
+  g_signal_emit (self, signals[SIGNAL_ACTIVATE_LINK], 0, uri, &ret);
+
+  if (!ret) {
+    GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+    GtkUriLauncher *launcher = gtk_uri_launcher_new (uri);
+
+    gtk_uri_launcher_launch (launcher, GTK_WINDOW (root), NULL, launch_done, NULL);
+
+    g_object_unref (launcher);
+  }
+}
+
 static gboolean
 row_activate_link_cb (AdwAboutDialog *self,
                       AdwLinkRow     *row)
@@ -420,29 +459,11 @@ activate_link_default_cb (AdwAboutDialog *self,
 }
 
 static void
-legal_showing_idle_cb (AdwAboutDialog *self)
-{
-  GtkWidget *focus = adw_dialog_get_focus (ADW_DIALOG (self));
-
-  if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
-    gtk_label_select_region (GTK_LABEL (focus), 0, 0);
-}
-
-static void
-legal_showing_cb (AdwAboutDialog *self)
-{
-  self->legal_showing_idle_id =
-    g_idle_add_once ((GSourceOnceFunc) legal_showing_idle_cb, self);
-
-  self->legal_showing_idle_id = 0;
-}
-
-static void
 update_credits_legal_group (AdwAboutDialog *self)
 {
   gtk_widget_set_visible (self->credits_legal_group,
                           gtk_widget_get_visible (self->credits_box) ||
-                          gtk_widget_get_visible (self->legal_box) ||
+                       //   gtk_widget_get_visible (self->legal_box) || TODO
                           gtk_widget_get_visible (self->acknowledgements_box));
 }
 
@@ -605,12 +626,139 @@ get_license_text (GtkLicense  license_type,
                           _(gtk_license_info[license_type].name));
 }
 
+typedef struct {
+  char *href;
+  char *title;
+  int start;
+  int end;
+} LinkData;
+
+typedef struct {
+  GString *text;
+  GString *current_text;
+  GArray *links;
+  gsize length;
+} LinkParserData;
+
+static void
+link_data_free (LinkData *data)
+{
+  g_free (data->href);
+  g_free (data->title);
+}
+
+static void
+finish_text (LinkParserData *pdata)
+{
+  if (pdata->current_text->str) {
+    char *text = pdata->current_text->str;
+    gsize len = pdata->current_text->len;
+    char *escaped;
+
+    escaped = g_markup_escape_text (text, len);
+
+    g_string_append (pdata->text, escaped);
+    pdata->length += len;
+
+    g_string_set_size (pdata->current_text, 0);
+
+    g_free (escaped);
+  }
+}
+
+static void
+link_start_element_handler (GMarkupParseContext  *context,
+                            const char           *element_name,
+                            const char          **attribute_names,
+                            const char          **attribute_values,
+                            gpointer              user_data,
+                            GError              **error)
+{
+  LinkParserData *pdata = user_data;
+  int i;
+
+  finish_text (pdata);
+
+  if (!g_strcmp0 (element_name, "a")) {
+    LinkData data;
+
+    data.href = NULL;
+    data.title = NULL;
+    data.start = pdata->length;
+    data.end = 0;
+
+    for (i = 0; attribute_names[i]; i++) {
+      if (!g_strcmp0 (attribute_names[i], "href"))
+        data.href = g_strdup (attribute_values[i]);
+      else if (!g_strcmp0 (attribute_names[i], "title"))
+        data.title = g_strdup (attribute_values[i]);
+    }
+
+    g_array_append_val (pdata->links, data);
+
+    return;
+  }
+
+  g_string_append (pdata->text, "<");
+  g_string_append (pdata->text, element_name);
+
+  for (i = 0; attribute_names[i]; i++) {
+    g_string_append_printf (pdata->text, " %s=\"%s\"",
+                            attribute_names[i], attribute_values[i]);
+  }
+
+  g_string_append_c (pdata->text, '>');
+}
+
+static void
+link_end_element_handler (GMarkupParseContext  *context,
+                          const char           *element_name,
+                          gpointer              user_data,
+                          GError              **error)
+{
+  LinkParserData *pdata = user_data;
+
+  finish_text (pdata);
+
+  if (!g_strcmp0 (element_name, "a")) {
+    LinkData *data = &g_array_index (pdata->links, LinkData, pdata->links->len - 1);
+    data->end = pdata->length;
+    return;
+  }
+
+  g_string_append (pdata->text, "</");
+  g_string_append (pdata->text, element_name);
+  g_string_append_c (pdata->text, '>');
+}
+
+static void
+link_text_handler (GMarkupParseContext  *context,
+                   const char           *text,
+                   gsize                 text_len,
+                   gpointer              user_data,
+                   GError              **error)
+{
+  LinkParserData *pdata = user_data;
+
+  g_string_append_len (pdata->current_text, text, text_len);
+}
+
+static const GMarkupParser link_parser =
+{
+  link_start_element_handler,
+  link_end_element_handler,
+  link_text_handler,
+  NULL,
+  NULL
+};
+
 static void
 append_legal_section (AdwAboutDialog *self,
                       LegalSection   *section,
+                      GtkTextIter    *iter,
                       gboolean        force_title)
 {
-  GtkWidget *label;
+  GArray *links = g_array_new (FALSE, TRUE, sizeof (LinkData));
   char *license;
 
   if (force_title)
@@ -618,63 +766,127 @@ append_legal_section (AdwAboutDialog *self,
 
   license = get_license_text (section->license_type, section->license);
 
+  if (license) {
+    GMarkupParseContext *context;
+    LinkParserData pdata;
+    GError *error = NULL;
+
+    pdata.text = g_string_sized_new (strlen (license));
+    pdata.current_text = g_string_new (NULL);
+    pdata.links = links;
+    pdata.length = 0;
+
+    g_array_set_clear_func (pdata.links, (GDestroyNotify) link_data_free);
+
+    context = g_markup_parse_context_new (&link_parser, 0, &pdata, NULL);
+
+    if (!g_markup_parse_context_parse (context, "<markup>", -1, &error) ||
+        !g_markup_parse_context_parse (context, license, -1, &error) ||
+        !g_markup_parse_context_parse (context, "</markup>", -1, &error) ||
+        !g_markup_parse_context_end_parse (context, &error)) {
+      g_markup_parse_context_free (context);
+      g_print ("Bad! %s\n", error->message);
+      return;
+    }
+
+    g_free (license);
+    license = g_string_free_and_steal (pdata.text);
+
+    g_string_free (pdata.current_text, TRUE);
+
+    g_markup_parse_context_free (context);
+  }
+
   if ((!section->copyright || !*section->copyright) &&
       (!license || !*license) && !force_title) {
     g_free (license);
+    g_array_free (links, TRUE);
 
     return;
   }
 
   if (section->title && *section->title) {
-    label = gtk_label_new (section->title);
-    gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-    gtk_label_set_wrap_mode (GTK_LABEL (label), PANGO_WRAP_WORD_CHAR);
-    gtk_label_set_xalign (GTK_LABEL (label), 0);
-    gtk_widget_add_css_class (label, "heading");
-    gtk_box_append (GTK_BOX (self->legal_box), label);
+    gtk_text_buffer_insert_with_tags_by_name (self->legal_buffer,
+                                              iter, section->title, -1,
+                                              "heading", NULL);
+    gtk_text_buffer_insert (self->legal_buffer, iter, "\n", -1);
   }
 
   if ((!section->copyright || !*section->copyright) &&
       (!license || !*license)) {
     g_free (license);
+    g_array_free (links, TRUE);
 
     return;
   }
 
-  label = gtk_label_new (NULL);
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_label_set_wrap_mode (GTK_LABEL (label), PANGO_WRAP_WORD_CHAR);
-  gtk_label_set_xalign (GTK_LABEL (label), 0);
-  gtk_label_set_selectable (GTK_LABEL (label), TRUE);
-  gtk_widget_add_css_class (label, "body");
-  g_signal_connect_swapped (label, "activate-link", G_CALLBACK (activate_link_cb), self);
+  if (section->copyright && *section->copyright) {
+    int start_offset = gtk_text_iter_get_offset (iter);
+    GtkTextIter start_iter;
 
-  if (section->copyright && *section->copyright && license && *license) {
-    char *text = g_strconcat (section->copyright, "\n\n", license, NULL);
+    gtk_text_buffer_insert (self->legal_buffer, iter, section->copyright, -1);
+    gtk_text_buffer_insert (self->legal_buffer, iter, "\n", -1);
 
-    gtk_label_set_markup (GTK_LABEL (label), text);
+    gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &start_iter,
+                                        start_offset);
 
-    g_free (text);
-  } else if (section->copyright && *section->copyright) {
-    gtk_label_set_markup (GTK_LABEL (label), section->copyright);
-  } else {
-    gtk_label_set_markup (GTK_LABEL (label), license);
+    gtk_text_buffer_apply_tag_by_name (self->legal_buffer,
+                                       "section", &start_iter, iter);
   }
 
-  gtk_box_append (GTK_BOX (self->legal_box), label);
+  if (license && *license) {
+    int start_offset = gtk_text_iter_get_offset (iter);
+    GtkTextIter start_iter;
+    int i;
+
+    gtk_text_buffer_insert_markup (self->legal_buffer, iter, license, -1);
+    gtk_text_buffer_insert (self->legal_buffer, iter, "\n", -1);
+
+    gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &start_iter,
+                                        start_offset);
+
+    gtk_text_buffer_apply_tag_by_name (self->legal_buffer,
+                                       "section", &start_iter, iter);
+
+    for (i = 0; i < links->len; i++) {
+      LinkData *data = &g_array_index (links, LinkData, i);
+      GtkTextIter link_start, link_end;
+      GtkTextTag *link_tag;
+
+      gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &link_start,
+                                          start_offset + data->start);
+      gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &link_end,
+                                          start_offset + data->end);
+
+      // TODO this tag is being leaked
+      link_tag = gtk_text_buffer_create_tag (self->legal_buffer, NULL,
+                                             "foreground", "blue",
+                                             "underline", PANGO_UNDERLINE_SINGLE,
+                                             NULL);
+
+      g_object_set_data_full (G_OBJECT (link_tag), "href",
+                              g_strdup (data->href), g_free);
+      g_object_set_data_full (G_OBJECT (link_tag), "title",
+                              g_strdup (data->title), g_free);
+
+      gtk_text_buffer_apply_tag (self->legal_buffer, link_tag,
+                                 &link_start, &link_end);
+    }
+  }
 
   g_free (license);
+  g_array_free (links, TRUE);
 }
 
 static void
 update_legal (AdwAboutDialog *self)
 {
   LegalSection default_section;
-  GtkWidget *widget;
+  GtkTextIter iter, end_iter;
   GSList *l;
 
-  while ((widget = gtk_widget_get_first_child (self->legal_box)))
-    gtk_box_remove (GTK_BOX (self->legal_box), widget);
+  gtk_text_buffer_set_text (self->legal_buffer, "", -1);
+  gtk_text_buffer_get_start_iter (self->legal_buffer, &iter);
 
   /* We only want to show the default title if there's more than one section */
   if (self->legal_sections)
@@ -685,15 +897,186 @@ update_legal (AdwAboutDialog *self)
   default_section.copyright = self->copyright;
   default_section.license_type = self->license_type;
   default_section.license = self->license;
-  append_legal_section (self, &default_section, FALSE);
+  append_legal_section (self, &default_section, &iter, FALSE);
 
   for (l = self->legal_sections; l; l = l->next)
-    append_legal_section (self, l->data, TRUE);
+    append_legal_section (self, l->data, &iter, TRUE);
 
-  gtk_widget_set_visible (self->legal_box,
-                          !!gtk_widget_get_first_child (self->legal_box));
+  /* Remove the trailing newline */
+  gtk_text_iter_backward_chars (&iter, 1);
+  gtk_text_buffer_get_end_iter (self->legal_buffer, &end_iter);
+  gtk_text_buffer_delete (self->legal_buffer, &iter, &end_iter);
+
+  // TODO
+//  gtk_widget_set_visible (self->legal_box,
+//                          !!gtk_widget_get_first_child (self->legal_box));
 
   update_credits_legal_group (self);
+}
+
+static gboolean
+legal_find_link (AdwAboutDialog  *self,
+                 GtkTextIter     *iter,
+                 const char     **out_href,
+                 const char     **out_title)
+{
+  GSList *l, *tags = gtk_text_iter_get_tags (iter);
+
+  for (l = tags; l; l = l->next) {
+    GtkTextTag *tag = l->data;
+    const char *href = g_object_get_data (G_OBJECT (tag), "href");
+
+    if (href) {
+      if (out_href)
+        *out_href = href;
+
+      if (out_title)
+        *out_title = g_object_get_data (G_OBJECT (tag), "title");
+
+      g_slist_free (tags);
+
+      return TRUE;
+    }
+  }
+
+  if (out_href)
+    *out_href = NULL;
+  if (out_title)
+    *out_title = NULL;
+
+  g_slist_free (tags);
+
+  return FALSE;
+}
+
+static gboolean
+follow_if_link (AdwAboutDialog *self,
+                GtkTextIter    *iter)
+{
+  const char *uri;
+
+  if (!legal_find_link (self, iter, &uri, NULL))
+    return FALSE;
+
+  legal_activate_link (self, uri);
+
+/* TODO visited
+  if (!g_ptr_array_find_with_equal_func (about->visited_links, uri, (GCompareFunc)strcmp, NULL)) {
+    const GdkRGBA *visited_link_color;
+    GtkCssStyle *style;
+
+    style = gtk_css_node_get_style (about->visited_link_node);
+    visited_link_color = gtk_css_color_value_get_rgba (style->used->color);
+    g_object_set (G_OBJECT (tag), "foreground-rgba", visited_link_color, NULL);
+
+    g_ptr_array_add (about->visited_links, g_strdup (uri));
+  }*/
+
+  return TRUE;
+}
+
+static void
+legal_released_cb (AdwAboutDialog *self,
+                   int             n_press,
+                   double          x,
+                   double          y,
+                   GtkGesture     *gesture)
+{
+  GtkTextIter start, end, iter;
+  int tx, ty;
+
+  /* We shouldn't follow a link if the user has selected something */
+  gtk_text_buffer_get_selection_bounds (self->legal_buffer, &start, &end);
+  if (gtk_text_iter_get_offset (&start) != gtk_text_iter_get_offset (&end)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  gtk_text_view_window_to_buffer_coords (self->legal_view, GTK_TEXT_WINDOW_WIDGET,
+                                         (int) round (x), (int) round (y),
+                                         &tx, &ty);
+
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (self->legal_view),
+                                      &iter, tx, ty);
+
+  if (follow_if_link (self, &iter)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+    return;
+  }
+}
+
+static void
+legal_motion_cb (AdwAboutDialog *self,
+                 double         x,
+                 double         y)
+{
+  GtkTextIter iter;
+  int tx, ty;
+  gboolean hovering_over_link;
+  const char *title = NULL;
+
+  gtk_text_view_window_to_buffer_coords (self->legal_view, GTK_TEXT_WINDOW_WIDGET,
+                                         (int) round (x), (int) round (y),
+                                         &tx, &ty);
+
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (self->legal_view),
+                                      &iter, tx, ty);
+
+  hovering_over_link = legal_find_link (self, &iter, NULL, &title);
+
+  gtk_widget_set_has_tooltip (GTK_WIDGET (self->legal_view), title != NULL);
+
+  if (hovering_over_link != self->legal_hovering_link) {
+    self->legal_hovering_link = hovering_over_link;
+
+    if (hovering_over_link)
+      gtk_widget_set_cursor_from_name (GTK_WIDGET (self->legal_view), "pointer");
+    else
+      gtk_widget_set_cursor_from_name (GTK_WIDGET (self->legal_view), "text");
+  }
+}
+
+static gboolean
+legal_key_pressed_cb (AdwAboutDialog  *self,
+                      guint            keyval,
+                      guint            keycode,
+                      GdkModifierType  state)
+{
+  if (keyval == GDK_KEY_Return || keyval == GDK_KEY_ISO_Enter || keyval == GDK_KEY_KP_Enter) {
+    GtkTextIter iter;
+
+    gtk_text_buffer_get_iter_at_mark (self->legal_buffer, &iter,
+                                      gtk_text_buffer_get_insert (self->legal_buffer));
+
+    if (follow_if_link (self, &iter))
+      return GDK_EVENT_STOP;
+  }
+
+  return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+legal_query_tooltip_cb (AdwAboutDialog *self,
+                        int             x,
+                        int             y,
+                        gboolean        keyboard_mode,
+                        GtkTooltip     *tooltip)
+{
+  GtkTextIter iter;
+  int tx, ty;
+  const char *title = NULL;
+
+  gtk_text_view_window_to_buffer_coords (self->legal_view, GTK_TEXT_WINDOW_WIDGET,
+                                         x, y, &tx, &ty);
+
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (self->legal_view),
+                                      &iter, tx, ty);
+
+  legal_find_link (self, &iter, NULL, &title);
+
+  gtk_tooltip_set_text (tooltip, title);
+
+  return GDK_EVENT_STOP;
 }
 
 typedef enum {
@@ -1361,7 +1744,7 @@ adw_about_dialog_dispose (GObject *object)
 {
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
 
-  g_clear_handle_id (&self->legal_showing_idle_id, g_source_remove);
+  // TODO empty
 
   G_OBJECT_CLASS (adw_about_dialog_parent_class)->dispose (object);
 }
@@ -2020,14 +2403,18 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
 
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, credits_legal_group);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, credits_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, legal_box);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, legal_view);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, legal_buffer);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, acknowledgements_box);
 
   gtk_widget_class_bind_template_child (widget_class, AdwAboutDialog, other_apps_group);
 
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
   gtk_widget_class_bind_template_callback (widget_class, row_activate_link_cb);
-  gtk_widget_class_bind_template_callback (widget_class, legal_showing_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_released_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_motion_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_key_pressed_cb);
+  gtk_widget_class_bind_template_callback (widget_class, legal_query_tooltip_cb);
 
   gtk_widget_class_install_action (widget_class, "about.copy-property", "s",
                                    (GtkWidgetActionActivateFunc) copy_property_cb);
@@ -2080,6 +2467,14 @@ adw_about_dialog_init (AdwAboutDialog *self)
                               NULL);
   gtk_text_buffer_create_tag (self->release_notes_buffer, "heading",
                               "weight", PANGO_WEIGHT_BOLD,
+                              NULL);
+
+  gtk_text_buffer_create_tag (self->legal_buffer, "heading",
+                              "weight", PANGO_WEIGHT_BOLD,
+                              "pixels-above-lines", 12,
+                              NULL);
+  gtk_text_buffer_create_tag (self->legal_buffer, "section",
+                              "pixels-above-lines", 12,
                               NULL);
 
   g_object_bind_property (manager, "monospace-font-name", code_tag, "font", G_BINDING_SYNC_CREATE);

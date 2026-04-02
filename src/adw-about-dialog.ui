@@ -191,7 +191,7 @@
                                             <property name="activatable">True</property>
                                             <property name="action-name">navigation.push</property>
                                             <property name="action-target">"legal"</property>
-                                            <property name="visible" bind-source="legal_box" bind-property="visible" bind-flags="sync-create"/>
+<!-- TODO                                            <property name="visible" bind-source="legal_box" bind-property="visible" bind-flags="sync-create"/>-->
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">go-next-symbolic</property>
@@ -501,10 +501,9 @@
               </object>
             </child>
             <child>
-              <object class="AdwNavigationPage">
+              <object class="AdwNavigationPage" id="legal_page">
                 <property name="title" translatable="yes">Legal</property>
                 <property name="tag">legal</property>
-                <signal name="showing" handler="legal_showing_cb" swapped="yes"/>
                 <property name="child">
                   <object class="AdwToolbarView">
                     <child type="top">
@@ -517,11 +516,42 @@
                           <class name="subpage"/>
                         </style>
                         <property name="child">
-                          <object class="AdwClamp">
+                          <object class="AdwClampScrollable">
                             <property name="child">
-                              <object class="GtkBox" id="legal_box">
-                                <property name="orientation">vertical</property>
-                                <property name="visible">False</property>
+                              <object class="GtkTextView" id="legal_view">
+                                <property name="left-margin">12</property>
+                                <property name="right-margin">12</property>
+                                <property name="top-margin">6</property>
+                                <property name="bottom-margin">18</property>
+                                <property name="wrap-mode">word-char</property>
+                                <property name="editable">False</property>
+                                <signal name="query-tooltip" handler="legal_query_tooltip_cb" swapped="yes"/>
+                                <property name="buffer">
+                                  <object class="GtkTextBuffer" id="legal_buffer">
+                                    <property name="enable-undo">False</property>
+                                  </object>
+                                </property>
+                                <style>
+                                  <class name="body"/>
+                                </style>
+                                <accessibility>
+                                  <relation name="labelled-by">legal_page</relation>
+                                </accessibility>
+                                <child>
+                                  <object class="GtkGestureClick">
+                                    <signal name="released" handler="legal_released_cb" swapped="yes"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkEventControllerMotion">
+                                    <signal name="motion" handler="legal_motion_cb" swapped="yes"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkEventControllerKey">
+                                    <signal name="key-pressed" handler="legal_key_pressed_cb" swapped="yes"/>
+                                  </object>
+                                </child>
                               </object>
                             </property>
                           </object>
