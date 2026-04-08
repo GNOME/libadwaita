@@ -3832,7 +3832,17 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
 
   self->legal_sections = g_slist_append (self->legal_sections, section);
 
-  update_legal (self);
+//  update_legal (self);
+  GtkTextIter iter, end_iter;
+
+  gtk_text_buffer_get_end_iter (self->legal_buffer, &iter);
+  gtk_text_buffer_insert (self->legal_buffer, &iter, "\n", -1);
+
+  append_legal_section (self, section, &iter, TRUE);
+
+  gtk_text_iter_backward_chars (&iter, 1);
+  gtk_text_buffer_get_end_iter (self->legal_buffer, &end_iter);
+  gtk_text_buffer_delete (self->legal_buffer, &iter, &end_iter);
 }
 
 /**
