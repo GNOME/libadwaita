@@ -107,7 +107,7 @@ typedef enum {
   UPDATE_FONTS          = 1 << 3,
   UPDATE_REDUCED_MOTION = 1 << 4,
   UPDATE_ALL            = 0xFF
-} StylesheetUpdateFlags;
+} G_GNUC_FLAG_ENUM StylesheetUpdateFlags;
 
 static void
 unregister_display (GdkDisplay *display)

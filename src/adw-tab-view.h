@@ -34,7 +34,7 @@ typedef enum /*< flags >*/ {
   ADW_TAB_VIEW_SHORTCUT_ALT_DIGITS              = 1 << 10,
   ADW_TAB_VIEW_SHORTCUT_ALT_ZERO                = 1 << 11,
   ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS           = 0xFFF
-} AdwTabViewShortcuts;
+} G_GNUC_FLAG_ENUM AdwTabViewShortcuts;
 
 #define ADW_TYPE_TAB_PAGE (adw_tab_page_get_type())
 
