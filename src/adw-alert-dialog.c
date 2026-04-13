@@ -357,6 +357,12 @@ adw_alert_dialog_closed (AdwDialog *dialog)
 }
 
 static void
+adw_alert_dialog_response (AdwAlertDialog *dialog,
+                           const char     *response)
+{
+}
+
+static void
 adw_alert_dialog_map (GtkWidget *widget)
 {
   AdwAlertDialog *self = ADW_ALERT_DIALOG (widget);
@@ -914,6 +920,8 @@ adw_alert_dialog_class_init (AdwAlertDialogClass *klass)
   widget_class->grab_focus = adw_alert_dialog_grab_focus;
 
   dialog_class->closed = adw_alert_dialog_closed;
+
+  klass->response = adw_alert_dialog_response;
 
   /**
    * AdwAlertDialog:heading:
