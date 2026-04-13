@@ -1707,7 +1707,7 @@ sections_changed_cb (AdwPreferencesPage *page,
 
     adw_preferences_page_insert (page,
                                  ADW_PREFERENCES_GROUP (group),
-                                 index + added);
+                                 index + i);
 
     g_object_unref (section);
   }
