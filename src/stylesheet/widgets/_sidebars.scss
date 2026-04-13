@@ -141,7 +141,8 @@ stacksidebar row {
     }
   }
 
-  padding: $menu_margin 0; //only vertical padding. horizontal row size would clip
+  padding-top: $menu_margin;
+  padding-bottom: $menu_margin - 2px; // Compensate for the last row's margin
 
   > separator,
   > .header > separator {
