@@ -1792,7 +1792,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   props[PROP_DEVELOPERS] =
       g_param_spec_boxed ("developers", NULL, NULL,
                           G_TYPE_STRV,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAboutDialog:designers:
@@ -1818,7 +1818,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   props[PROP_DESIGNERS] =
       g_param_spec_boxed ("designers", NULL, NULL,
                           G_TYPE_STRV,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAboutDialog:artists:
@@ -1844,7 +1844,7 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   props[PROP_ARTISTS] =
       g_param_spec_boxed ("artists", NULL, NULL,
                           G_TYPE_STRV,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAboutDialog:documenters:
