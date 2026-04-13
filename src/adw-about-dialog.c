@@ -12,6 +12,7 @@
 #include "adw-about-dialog.h"
 
 #include "adw-action-row.h"
+#include "adw-animation-util.h"
 #include "adw-header-bar.h"
 #include "adw-link-row-private.h"
 #include "adw-marshalers.h"
@@ -291,6 +292,8 @@ struct _AdwAboutDialog {
   GtkTextBuffer *legal_buffer;
   GtkWidget *acknowledgements_box;
   gboolean legal_hovering_link;
+  GSList *link_tags;
+  GHashTable *visited_links;
 
   GtkWidget *other_apps_group;
 
@@ -651,18 +654,13 @@ static void
 finish_text (LinkParserData *pdata)
 {
   if (pdata->current_text->str) {
-    char *text = pdata->current_text->str;
+    const char *text = pdata->current_text->str;
     gsize len = pdata->current_text->len;
-    char *escaped;
 
-    escaped = g_markup_escape_text (text, len);
-
-    g_string_append (pdata->text, escaped);
+    g_string_append (pdata->text, text);
     pdata->length += len;
 
     g_string_set_size (pdata->current_text, 0);
-
-    g_free (escaped);
   }
 }
 
@@ -753,6 +751,59 @@ static const GMarkupParser link_parser =
 };
 
 static void
+get_link_color (AdwAboutDialog *self,
+                gboolean        visited,
+                GdkRGBA        *rgba)
+{
+  GdkDisplay *display = gtk_widget_get_display (GTK_WIDGET (self));
+  AdwStyleManager *style_manager;
+  AdwAccentColor accent;
+  gboolean dark;
+
+  if (display)
+    style_manager = adw_style_manager_get_for_display (display);
+  else
+    style_manager = adw_style_manager_get_default ();
+
+  accent = adw_style_manager_get_accent_color (style_manager);
+  dark = adw_style_manager_get_dark (style_manager);
+
+  adw_accent_color_to_standalone_rgba (accent, dark, rgba);
+
+  if (visited) {
+    GdkRGBA fg;
+
+    gtk_widget_get_color (GTK_WIDGET (self->legal_view), &fg);
+
+    /* Keep in sync with CSS */
+    rgba->red   = adw_lerp (fg.red,   rgba->red,   0.8);
+    rgba->green = adw_lerp (fg.green, rgba->green, 0.8);
+    rgba->blue  = adw_lerp (fg.blue,  rgba->blue,  0.8);
+    rgba->alpha = adw_lerp (fg.alpha, rgba->alpha, 0.8);
+  }
+}
+
+static void
+refresh_links_cb (AdwAboutDialog *self)
+{
+  GdkRGBA link_color, visited_color;
+  GSList *l;
+
+  get_link_color (self, FALSE, &link_color);
+  get_link_color (self, TRUE, &visited_color);
+
+  for (l = self->link_tags; l; l = l->next) {
+    GtkTextTag *tag = l->data;
+    gboolean visited = !!GPOINTER_TO_INT (g_object_get_data (G_OBJECT (tag), "visited"));
+
+    if (visited)
+      g_object_set (tag, "foreground-rgba", &visited_color, NULL);
+    else
+      g_object_set (tag, "foreground-rgba", &link_color, NULL);
+  }
+}
+
+static void
 append_legal_section (AdwAboutDialog *self,
                       LegalSection   *section,
                       GtkTextIter    *iter,
@@ -838,6 +889,7 @@ append_legal_section (AdwAboutDialog *self,
     int start_offset = gtk_text_iter_get_offset (iter);
     GtkTextIter start_iter;
     int i;
+    GdkRGBA link_color, visited_color;
 
     gtk_text_buffer_insert_markup (self->legal_buffer, iter, license, -1);
     gtk_text_buffer_insert (self->legal_buffer, iter, "\n", -1);
@@ -848,26 +900,39 @@ append_legal_section (AdwAboutDialog *self,
     gtk_text_buffer_apply_tag_by_name (self->legal_buffer,
                                        "section", &start_iter, iter);
 
+    get_link_color (self, FALSE, &link_color);
+    get_link_color (self, TRUE, &visited_color);
+
     for (i = 0; i < links->len; i++) {
       LinkData *data = &g_array_index (links, LinkData, i);
       GtkTextIter link_start, link_end;
       GtkTextTag *link_tag;
+      gboolean visited;
+      GdkRGBA color;
+
+      visited = g_hash_table_contains (self->visited_links, data->href);
+
+      color = visited ? visited_color : link_color;
 
       gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &link_start,
                                           start_offset + data->start);
       gtk_text_buffer_get_iter_at_offset (self->legal_buffer, &link_end,
                                           start_offset + data->end);
 
-      // TODO this tag is being leaked
       link_tag = gtk_text_buffer_create_tag (self->legal_buffer, NULL,
-                                             "foreground", "blue",
+                                             "foreground-rgba", &color,
                                              "underline", PANGO_UNDERLINE_SINGLE,
                                              NULL);
+
+      self->link_tags = g_slist_prepend (self->link_tags, link_tag);
 
       g_object_set_data_full (G_OBJECT (link_tag), "href",
                               g_strdup (data->href), g_free);
       g_object_set_data_full (G_OBJECT (link_tag), "title",
                               g_strdup (data->title), g_free);
+
+      if (visited)
+        g_object_set_data (G_OBJECT (link_tag), "visited", GINT_TO_POINTER (1));
 
       gtk_text_buffer_apply_tag (self->legal_buffer, link_tag,
                                  &link_start, &link_end);
@@ -887,6 +952,7 @@ update_legal (AdwAboutDialog *self)
 
   gtk_text_buffer_set_text (self->legal_buffer, "", -1);
   gtk_text_buffer_get_start_iter (self->legal_buffer, &iter);
+  g_clear_pointer (&self->link_tags, g_slist_free);
 
   /* We only want to show the default title if there's more than one section */
   if (self->legal_sections)
@@ -914,11 +980,10 @@ update_legal (AdwAboutDialog *self)
   update_credits_legal_group (self);
 }
 
-static gboolean
+static GtkTextTag *
 legal_find_link (AdwAboutDialog  *self,
                  GtkTextIter     *iter,
-                 const char     **out_href,
-                 const char     **out_title)
+                 const char     **out_href)
 {
   GSList *l, *tags = gtk_text_iter_get_tags (iter);
 
@@ -930,23 +995,18 @@ legal_find_link (AdwAboutDialog  *self,
       if (out_href)
         *out_href = href;
 
-      if (out_title)
-        *out_title = g_object_get_data (G_OBJECT (tag), "title");
-
       g_slist_free (tags);
 
-      return TRUE;
+      return tag;
     }
   }
 
   if (out_href)
     *out_href = NULL;
-  if (out_title)
-    *out_title = NULL;
 
   g_slist_free (tags);
 
-  return FALSE;
+  return NULL;
 }
 
 static gboolean
@@ -954,23 +1014,30 @@ follow_if_link (AdwAboutDialog *self,
                 GtkTextIter    *iter)
 {
   const char *uri;
+  GtkTextTag *tag;
+  gboolean visited;
 
-  if (!legal_find_link (self, iter, &uri, NULL))
+  tag = legal_find_link (self, iter, &uri);
+
+  if (!tag)
     return FALSE;
 
   legal_activate_link (self, uri);
 
-/* TODO visited
-  if (!g_ptr_array_find_with_equal_func (about->visited_links, uri, (GCompareFunc)strcmp, NULL)) {
-    const GdkRGBA *visited_link_color;
-    GtkCssStyle *style;
+  visited = !!GPOINTER_TO_INT (g_object_get_data (G_OBJECT (tag), "visited"));
 
-    style = gtk_css_node_get_style (about->visited_link_node);
-    visited_link_color = gtk_css_color_value_get_rgba (style->used->color);
-    g_object_set (G_OBJECT (tag), "foreground-rgba", visited_link_color, NULL);
+  if (!visited) {
+    GdkRGBA rgba;
 
-    g_ptr_array_add (about->visited_links, g_strdup (uri));
-  }*/
+    g_object_set_data (G_OBJECT (tag), "visited", GINT_TO_POINTER (1));
+
+    if (!g_hash_table_contains (self->visited_links, uri))
+      g_hash_table_add (self->visited_links, g_strdup (uri));
+
+    get_link_color (self, TRUE, &rgba);
+
+    g_object_set (tag, "foreground-rgba", &rgba, NULL);
+  }
 
   return TRUE;
 }
@@ -1012,8 +1079,7 @@ legal_motion_cb (AdwAboutDialog *self,
 {
   GtkTextIter iter;
   int tx, ty;
-  gboolean hovering_over_link;
-  const char *title = NULL;
+  GtkTextTag *tag = NULL;
 
   gtk_text_view_window_to_buffer_coords (self->legal_view, GTK_TEXT_WINDOW_WIDGET,
                                          (int) round (x), (int) round (y),
@@ -1022,14 +1088,14 @@ legal_motion_cb (AdwAboutDialog *self,
   gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (self->legal_view),
                                       &iter, tx, ty);
 
-  hovering_over_link = legal_find_link (self, &iter, NULL, &title);
+  tag = legal_find_link (self, &iter, NULL);
 
-  gtk_widget_set_has_tooltip (GTK_WIDGET (self->legal_view), title != NULL);
+  gtk_widget_set_has_tooltip (GTK_WIDGET (self->legal_view), tag != NULL);
 
-  if (hovering_over_link != self->legal_hovering_link) {
-    self->legal_hovering_link = hovering_over_link;
+  if ((tag != NULL) != self->legal_hovering_link) {
+    self->legal_hovering_link = (tag != NULL);
 
-    if (hovering_over_link)
+    if (self->legal_hovering_link)
       gtk_widget_set_cursor_from_name (GTK_WIDGET (self->legal_view), "pointer");
     else
       gtk_widget_set_cursor_from_name (GTK_WIDGET (self->legal_view), "text");
@@ -1064,7 +1130,8 @@ legal_query_tooltip_cb (AdwAboutDialog *self,
 {
   GtkTextIter iter;
   int tx, ty;
-  const char *title = NULL;
+  GtkTextTag *tag = NULL;
+  const char *uri = NULL, *title = NULL;
 
   gtk_text_view_window_to_buffer_coords (self->legal_view, GTK_TEXT_WINDOW_WIDGET,
                                          x, y, &tx, &ty);
@@ -1072,9 +1139,15 @@ legal_query_tooltip_cb (AdwAboutDialog *self,
   gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (self->legal_view),
                                       &iter, tx, ty);
 
-  legal_find_link (self, &iter, NULL, &title);
+  tag = legal_find_link (self, &iter, &uri);
 
-  gtk_tooltip_set_text (tooltip, title);
+  if (tag)
+    title = g_object_get_data (G_OBJECT (tag), "title");
+
+  if (title)
+    gtk_tooltip_set_text (tooltip, title);
+  else
+    gtk_tooltip_set_text (tooltip, uri);
 
   return GDK_EVENT_STOP;
 }
@@ -1575,6 +1648,38 @@ populate_from_appdata (AdwAboutDialog *self)
 }
 
 static void
+adw_about_dialog_realize (GtkWidget *widget)
+{
+  AdwAboutDialog *self = ADW_ABOUT_DIALOG (widget);
+  GdkDisplay *display;
+  AdwStyleManager *style_manager;
+
+  GTK_WIDGET_CLASS (adw_about_dialog_parent_class)->realize (widget);
+
+  display = gtk_widget_get_display (widget);
+  style_manager = adw_style_manager_get_for_display (display);
+
+  g_assert (style_manager != NULL);
+
+  g_signal_connect_swapped (style_manager, "notify::dark",
+                            G_CALLBACK (refresh_links_cb), self);
+  g_signal_connect_swapped (style_manager, "notify::accent-color",
+                            G_CALLBACK (refresh_links_cb), self);
+}
+
+static void
+adw_about_dialog_unrealize (GtkWidget *widget)
+{
+  AdwAboutDialog *self = ADW_ABOUT_DIALOG (widget);
+  GdkDisplay *display = gtk_widget_get_display (widget);
+  AdwStyleManager *style_manager = adw_style_manager_get_for_display (display);
+
+  g_signal_handlers_disconnect_by_func (style_manager, refresh_links_cb, self);
+
+  GTK_WIDGET_CLASS (adw_about_dialog_parent_class)->unrealize (widget);
+}
+
+static void
 adw_about_dialog_get_property (GObject    *object,
                                guint       prop_id,
                                GValue     *value,
@@ -1744,7 +1849,8 @@ adw_about_dialog_dispose (GObject *object)
 {
   AdwAboutDialog *self = ADW_ABOUT_DIALOG (object);
 
-  // TODO empty
+  // TODO do sth here?
+  g_clear_pointer (&self->link_tags, g_slist_free);
 
   G_OBJECT_CLASS (adw_about_dialog_parent_class)->dispose (object);
 }
@@ -1779,6 +1885,8 @@ adw_about_dialog_finalize (GObject *object)
   g_slist_free_full (self->legal_sections, (GDestroyNotify) free_legal_section);
 
   g_free (self->appdata_resource_path);
+
+  g_hash_table_unref (self->visited_links);
 
   G_OBJECT_CLASS (adw_about_dialog_parent_class)->finalize (object);
 }
@@ -1884,6 +1992,8 @@ adw_about_dialog_class_init (AdwAboutDialogClass *klass)
   object_class->finalize = adw_about_dialog_finalize;
   object_class->get_property = adw_about_dialog_get_property;
   object_class->set_property = adw_about_dialog_set_property;
+  widget_class->realize = adw_about_dialog_realize;
+  widget_class->unrealize = adw_about_dialog_unrealize;
 
   /**
    * AdwAboutDialog:appdata-resource-path:
@@ -2450,6 +2560,8 @@ adw_about_dialog_init (AdwAboutDialog *self)
   self->copyright = g_strdup ("");
   self->license = g_strdup ("");
   self->translator_credits = g_strdup ("");
+
+  self->visited_links = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -3818,6 +3930,7 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
                                     const char     *license)
 {
   LegalSection *section;
+  GtkTextIter iter, end_iter;
 
   g_return_if_fail (ADW_IS_ABOUT_DIALOG (self));
   g_return_if_fail (title != NULL);
@@ -3831,9 +3944,6 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
   section->license = g_strdup (license);
 
   self->legal_sections = g_slist_append (self->legal_sections, section);
-
-//  update_legal (self);
-  GtkTextIter iter, end_iter;
 
   gtk_text_buffer_get_end_iter (self->legal_buffer, &iter);
   gtk_text_buffer_insert (self->legal_buffer, &iter, "\n", -1);

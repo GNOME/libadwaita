@@ -65,17 +65,19 @@ demo_run_cb (AdwDemoPageAbout *self)
                              _("_Documentation"),
                              "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/class.AboutDialog.html");
 
-  adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
-                                      _("Fonts"),
-                                      NULL,
-                                      GTK_LICENSE_CUSTOM,
-                                      "This <i>application</i> <a href=\"https://example.org\">uses</a> font <b>data</b> from <a href='https://example.org'>somewhere</a>.");
+  for (int i = 0; i < 300; i++) {
+    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
+                                        _("Fonts"),
+                                        NULL,
+                                        GTK_LICENSE_CUSTOM,
+                                        "This <i>application</i> <a href=\"https://example.org\">uses</a> font <b>data</b> from <a href='https://example.org'>somewhere</a>.");
 
-  adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
-                                      _("Fonts"),
-                                      NULL,
-                                      GTK_LICENSE_CUSTOM,
-                                      "<b>This</b> <small>application</small> <i>u<u>s</u>es</i> font data from blah.");
+    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
+                                        _("Fonts"),
+                                        NULL,
+                                        GTK_LICENSE_CUSTOM,
+                                        "<b>This</b> <small>application</small> <i>u<u>s</u>es</i> font data from blah.");
+}
 
   adw_about_dialog_add_acknowledgement_section (ADW_ABOUT_DIALOG (about),
                                                 _("Special thanks to"),
