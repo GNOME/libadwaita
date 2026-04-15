@@ -3140,7 +3140,11 @@ adw_about_window_add_credit_section (AdwAboutWindow  *self,
 
   self->credit_sections = g_slist_append (self->credit_sections, section);
 
-  update_credits (self);
+  add_credits_section (self, self->credits_box, section->name, section->people);
+
+  gtk_widget_set_visible (self->credits_box, TRUE);
+
+  update_credits_legal_group (self);
 }
 
 /**
