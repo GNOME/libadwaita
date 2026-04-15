@@ -3459,7 +3459,11 @@ adw_about_dialog_add_legal_section (AdwAboutDialog *self,
 
   self->legal_sections = g_slist_append (self->legal_sections, section);
 
-  update_legal (self);
+  append_legal_section (self, section, TRUE);
+
+  gtk_widget_set_visible (self->legal_box, TRUE);
+
+  update_credits_legal_group (self);
 }
 
 /**
