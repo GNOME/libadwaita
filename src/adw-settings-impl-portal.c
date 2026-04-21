@@ -58,7 +58,7 @@ read_setting (AdwSettingsImplPortal  *self,
                                 "Read",
                                 g_variant_new ("(ss)", schema, name),
                                 G_DBUS_CALL_FLAGS_NONE,
-                                G_MAXINT,
+                                -1,
                                 NULL,
                                 &error);
   if (error) {
