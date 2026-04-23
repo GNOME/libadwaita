@@ -126,10 +126,6 @@ empty_animation_value_cb (double       value,
   priv->empty_progress = value;
 
   gtk_widget_queue_allocate (priv->editable_area);
-
-  gtk_widget_set_opacity (priv->text, value);
-  gtk_widget_set_opacity (priv->title, value);
-  gtk_widget_set_opacity (priv->empty_title, 1 - value);
 }
 
 static gboolean
@@ -421,6 +417,27 @@ allocate_editable_area (GtkWidget *widget,
     gtk_widget_allocate (priv->indicator, icon_width, height, -1, gsk_transform_ref (transform));
     gtk_widget_allocate (priv->apply_button, icon_width, height, -1, transform);
   }
+}
+
+static void
+snapshot_editable_area (GtkWidget   *widget,
+                        GtkSnapshot *snapshot)
+{
+  AdwEntryRow *self = g_object_get_data (G_OBJECT (widget), "row");
+  AdwEntryRowPrivate *priv = adw_entry_row_get_instance_private (self);
+
+  gtk_widget_snapshot_child (widget, priv->indicator, snapshot);
+  gtk_widget_snapshot_child (widget, priv->apply_button, snapshot);
+  gtk_widget_snapshot_child (widget, priv->edit_icon, snapshot);
+
+  gtk_snapshot_push_cross_fade (snapshot, 1 - priv->empty_progress);
+
+  gtk_widget_snapshot_child (widget, priv->title, snapshot);
+  gtk_widget_snapshot_child (widget, priv->text, snapshot);
+  gtk_snapshot_pop (snapshot);
+
+  gtk_widget_snapshot_child (widget, priv->empty_title, snapshot);
+  gtk_snapshot_pop (snapshot);
 }
 
 static gboolean
@@ -750,6 +767,7 @@ adw_entry_row_init (AdwEntryRow *self)
   adw_gizmo_set_measure_func (ADW_GIZMO (priv->editable_area), (AdwGizmoMeasureFunc) measure_editable_area);
   adw_gizmo_set_allocate_func (ADW_GIZMO (priv->editable_area), (AdwGizmoAllocateFunc) allocate_editable_area);
   adw_gizmo_set_focus_func (ADW_GIZMO (priv->editable_area), (AdwGizmoFocusFunc) adw_widget_focus_child);
+  adw_gizmo_set_snapshot_func (ADW_GIZMO (priv->editable_area), (AdwGizmoSnapshotFunc) snapshot_editable_area);
 
   g_object_set_data (G_OBJECT (priv->editable_area), "row", self);
 
