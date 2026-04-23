@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2026-04-01 20:03+0000\n"
-"PO-Revision-Date: 2026-04-10 14:53+0200\n"
+"POT-Creation-Date: 2026-04-15 18:23+0000\n"
+"PO-Revision-Date: 2026-04-23 22:19+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -106,30 +106,30 @@ msgstr "Licencia Mozilla Public License 2.0"
 msgid "BSD Zero-Clause License"
 msgstr "Licencia BSD Zero-Clause"
 
-#: src/adw-about-dialog.c:570 src/adw-about-window.c:560
+#: src/adw-about-dialog.c:577 src/adw-about-window.c:567
 msgid "Code by"
 msgstr "Kód vytvorili"
 
-#: src/adw-about-dialog.c:571 src/adw-about-window.c:561
+#: src/adw-about-dialog.c:578 src/adw-about-window.c:568
 msgid "Design by"
 msgstr "Vzhľad vytvorili"
 
-#: src/adw-about-dialog.c:572 src/adw-about-window.c:562
+#: src/adw-about-dialog.c:579 src/adw-about-window.c:569
 msgid "Artwork by"
 msgstr "Grafiku vytvorili"
 
-#: src/adw-about-dialog.c:573 src/adw-about-window.c:563
+#: src/adw-about-dialog.c:580 src/adw-about-window.c:570
 msgid "Documentation by"
 msgstr "Dokumentáciu vytvorili"
 
-#: src/adw-about-dialog.c:574 src/adw-about-window.c:564
+#: src/adw-about-dialog.c:581 src/adw-about-window.c:571
 msgid "Translated by"
 msgstr "Preklad vytvorili"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-dialog.c:603 src/adw-about-window.c:593
+#: src/adw-about-dialog.c:610 src/adw-about-window.c:600
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -138,48 +138,48 @@ msgstr ""
 "Táto aplikácia je vydaná absolútne bez záruky. Podrobnosti nájdete na <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-dialog.c:681 src/adw-about-window.c:671
+#: src/adw-about-dialog.c:688 src/adw-about-window.c:678
 msgid "This Application"
 msgstr "Táto aplikácia"
 
-#: src/adw-about-dialog.c:983 src/adw-about-window.c:973
+#: src/adw-about-dialog.c:990 src/adw-about-window.c:980
 #, c-format
 msgid "Version %s"
 msgstr "Verzia %s"
 
-#: src/adw-about-dialog.c:1009 src/adw-about-window.c:999
+#: src/adw-about-dialog.c:1016 src/adw-about-window.c:1006
 msgid "Unable to parse release notes:"
 msgstr "Nie je možné analyzovať poznámky k vydaniu:"
 
-#: src/adw-about-dialog.c:1015 src/adw-about-window.c:1005
+#: src/adw-about-dialog.c:1022 src/adw-about-window.c:1012
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Riadok: %d, znak: %d"
 
-#: src/adw-about-dialog.c:1419 src/adw-about-window.c:1266
+#: src/adw-about-dialog.c:1441 src/adw-about-window.c:1273
 msgid "Copied to clipboard"
 msgstr "Skopírované do schránky"
 
-#: src/adw-about-dialog.c:1446 src/adw-about-window.c:1294
+#: src/adw-about-dialog.c:1468 src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Nie je možné uložiť ladiace informácie"
 
-#: src/adw-about-dialog.c:1451 src/adw-about-window.c:1299
+#: src/adw-about-dialog.c:1473 src/adw-about-window.c:1306
 #: src/adw-sheet-controls.c:127
 msgid "Close"
 msgstr "Zavrieť"
 
 # gtk file chooser
-#: src/adw-about-dialog.c:1468 src/adw-about-window.c:1315
+#: src/adw-about-dialog.c:1490 src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Uloženie ladiacich informácií"
 
-#: src/adw-about-dialog.c:2311
+#: src/adw-about-dialog.c:2333
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Ďalšie aplikácie od %s"
 
-#: src/adw-about-dialog.c:2317
+#: src/adw-about-dialog.c:2339
 msgid "Other Apps"
 msgstr "Ďalšie aplikácie"
 
@@ -244,7 +244,7 @@ msgid ""
 "any problems you encounter when you report an issue."
 msgstr ""
 "Pre pomoc pri riešení problémov môžete zobraziť vaše ladiace informácie. "
-"Poskytnutím týchto informácií počas nahlasovania problému, môžete vývojárom "
+"Poskytnutím týchto informácií počas nahlasovania problému môžete vývojárom "
 "tejto aplikácie pomôcť diagnostikovať akékoľvek problémy, na ktoré ste "
 "narazili."
 
@@ -277,84 +277,85 @@ msgid "Acknowledgements"
 msgstr "Poďakovanie"
 
 #: src/adw-adaptive-preview.c:387
-msgid "Screenshot copied to clipboard"
-msgstr "Snímka obrazovky skopírovaná do schránky"
+#| msgid "Screenshot copied to clipboard"
+msgid "Screenshot Copied to Clipboard"
+msgstr "Snímka obrazovky bola skopírovaná do schránky"
 
-#: src/adw-adaptive-preview.ui:29 src/adw-inspector-page.c:67
+#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
 #: src/adw-inspector-page.ui:88
 msgid "Adaptive Preview"
 msgstr "Adaptívny náhľad"
 
-#: src/adw-adaptive-preview.ui:38
+#: src/adw-adaptive-preview.ui:28
 msgid "Display"
 msgstr "Displej"
 
-#: src/adw-adaptive-preview.ui:41
+#: src/adw-adaptive-preview.ui:31
 msgid "Device"
 msgstr "Zariadenie"
 
-#: src/adw-adaptive-preview.ui:47
+#: src/adw-adaptive-preview.ui:37
 msgid "Width"
 msgstr "Šírka"
 
-#: src/adw-adaptive-preview.ui:61
+#: src/adw-adaptive-preview.ui:51
 msgid "Height"
 msgstr "Výška"
 
-#: src/adw-adaptive-preview.ui:75
+#: src/adw-adaptive-preview.ui:65
 msgid "Rotate"
 msgstr "Otočiť"
 
-#: src/adw-adaptive-preview.ui:78 src/adw-adaptive-preview.ui:80
+#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
 msgid "Rotate Left"
 msgstr "Otočiť doľava"
 
-#: src/adw-adaptive-preview.ui:90 src/adw-adaptive-preview.ui:92
+#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
 msgid "Rotate Right"
 msgstr "Otočiť doprava"
 
-#: src/adw-adaptive-preview.ui:106
+#: src/adw-adaptive-preview.ui:96
 msgid "Shell"
 msgstr "Shell"
 
-#: src/adw-adaptive-preview.ui:109
+#: src/adw-adaptive-preview.ui:99
 msgid "Preset"
 msgstr "Prednastavenie"
 
-#: src/adw-adaptive-preview.ui:115
+#: src/adw-adaptive-preview.ui:105
 msgid "Top Bar"
 msgstr "Horná lišta"
 
-#: src/adw-adaptive-preview.ui:129
+#: src/adw-adaptive-preview.ui:119
 msgid "Bottom Bar"
 msgstr "Spodná lišta"
 
-#: src/adw-adaptive-preview.ui:143
+#: src/adw-adaptive-preview.ui:133
 msgid "Window Controls"
 msgstr "Ovládanie okien"
 
-#: src/adw-adaptive-preview.ui:151
+#: src/adw-adaptive-preview.ui:141
 msgid "View"
 msgstr "Zobrazenie"
 
-#: src/adw-adaptive-preview.ui:154
+#: src/adw-adaptive-preview.ui:144
 msgid "Scale to Fit"
 msgstr "Prispôsobiť veľkosti"
 
 #. Translators: screen bezel, e.g. on a phone
-#: src/adw-adaptive-preview.ui:161
+#: src/adw-adaptive-preview.ui:151
 msgid "Highlight Bezel"
 msgstr "Zvýrazniť rámček"
 
-#: src/adw-adaptive-preview.ui:190
+#: src/adw-adaptive-preview.ui:177
 msgid "Toggle Sidebar"
 msgstr "Prepnúť bočný panel"
 
-#: src/adw-adaptive-preview.ui:200
+#: src/adw-adaptive-preview.ui:187
 msgid "Exit"
 msgstr "Ukončiť"
 
-#: src/adw-adaptive-preview.ui:210
+#: src/adw-adaptive-preview.ui:197
 msgid "Take Screenshot"
 msgstr "Vytvoriť snímku obrazovky"
 
@@ -367,6 +368,11 @@ msgstr "Shell pracovnej plochy"
 msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Mobilný shell"
+
+#: src/adw-adaptive-preview-presets-private.h:26
+msgctxt "Shell preset"
+msgid "Phosh"
+msgstr "Phosh"
 
 #: src/adw-adaptive-preview-presets-private.h:27
 msgctxt "Shell preset"
@@ -387,6 +393,16 @@ msgstr "Všeobecný telefón"
 msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Všeobecný tablet"
+
+#: src/adw-adaptive-preview-presets-private.h:108
+msgctxt "Device preset"
+msgid "OnePlus 6"
+msgstr "OnePlus 6"
+
+#: src/adw-adaptive-preview-presets-private.h:117
+msgctxt "Device preset"
+msgid "OnePlus 6T"
+msgstr "OnePlus 6T"
 
 #: src/adw-adaptive-preview-presets-private.h:126
 msgctxt "Device preset"
@@ -518,7 +534,7 @@ msgstr "Uprednostňovaná farba zvýraznenia"
 
 #: src/adw-inspector-page.ui:77
 msgid "Accessibility"
-msgstr "Prístupnosť"
+msgstr "Zjednodušené ovládanie"
 
 #: src/adw-inspector-page.ui:80
 msgid "High Contrast"
@@ -574,10 +590,14 @@ msgstr "Hľadať v predvoľbách"
 msgid "No Results Found"
 msgstr "Nenašli sa žiadne výsledky"
 
-#: src/adw-preferences-dialog.ui:155 src/adw-preferences-window.ui:165
-#: src/adw-shortcuts-dialog.ui:80 src/adw-tab-overview.ui:111
+#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
+#: src/adw-tab-overview.ui:111
 msgid "Try a different search"
 msgstr "Skúste vyhľadať niečo iné"
+
+#: src/adw-preferences-window.ui:165
+msgid "Try a different search."
+msgstr "Skúste vyhľadať niečo iné."
 
 #: src/adw-sheet-controls.c:129
 msgid "Close the window"
@@ -683,9 +703,6 @@ msgstr "Zobrazilo sa oznámenie"
 #: src/adw-toast-widget.ui:66
 msgid "Dismiss"
 msgstr "Zamietnuť"
-
-#~ msgid "Try a different search."
-#~ msgstr "Skúste vyhľadať niečo iné."
 
 #~ msgid "_What’s New"
 #~ msgstr "Čo _je nové"
