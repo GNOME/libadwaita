@@ -42,7 +42,7 @@ check_items (AdwSidebarSection *section,
 
   va_end (args);
 
-  g_assert_finalize_object (items);
+  g_object_unref (items);
 }
 
 static void
@@ -105,6 +105,7 @@ test_adw_sidebar_section_menu_model (void)
 static void
 test_adw_sidebar_section_add_remove (void)
 {
+  AdwSidebar *sidebar = ADW_SIDEBAR (g_object_ref_sink (adw_sidebar_new ()));
   AdwSidebarSection *section = adw_sidebar_section_new ();
   AdwSidebarItem *item1 = adw_sidebar_item_new ("Item 1");
   AdwSidebarItem *item2 = adw_sidebar_item_new ("Item 2");
@@ -114,6 +115,8 @@ test_adw_sidebar_section_add_remove (void)
   g_assert_nonnull (item1);
   g_assert_nonnull (item2);
   g_assert_nonnull (item3);
+
+  adw_sidebar_append (sidebar, g_object_ref (section));
 
   check_items (section, 0);
 
@@ -157,6 +160,7 @@ test_adw_sidebar_section_add_remove (void)
   adw_sidebar_section_insert (section, g_object_ref (item3), -1);
   check_items (section, 3, "Item 1", "Item 2", "Item 3");
 
+  g_assert_finalize_object (sidebar);
   g_assert_finalize_object (section);
   g_assert_finalize_object (item1);
   g_assert_finalize_object (item2);
@@ -175,6 +179,7 @@ create_item (gpointer item,
 static void
 test_adw_sidebar_section_bind_model (void)
 {
+  AdwSidebar *sidebar = ADW_SIDEBAR (g_object_ref_sink (adw_sidebar_new ()));
   AdwSidebarSection *section = adw_sidebar_section_new ();
   GtkStringList *list = gtk_string_list_new (NULL);
 
@@ -184,6 +189,8 @@ test_adw_sidebar_section_bind_model (void)
   gtk_string_list_append (list, "Item 1");
   gtk_string_list_append (list, "Item 2");
   gtk_string_list_append (list, "Item 3");
+
+  adw_sidebar_append (sidebar, g_object_ref (section));
 
   adw_sidebar_section_append (section, adw_sidebar_item_new ("Item"));
   check_items (section, 1, "Item");
@@ -198,12 +205,16 @@ test_adw_sidebar_section_bind_model (void)
   gtk_string_list_remove (list, 2);
   check_items (section, 3, "Item 1", "Item 2", "Item 4");
 
+  gtk_string_list_splice (list, 1, 2, NULL);
+  check_items (section, 1, "Item 1");
+
   adw_sidebar_section_bind_model (section, NULL, NULL, NULL, NULL);
   check_items (section, 0);
 
   adw_sidebar_section_append (section, adw_sidebar_item_new ("Item"));
   check_items (section, 1, "Item");
 
+  g_assert_finalize_object (sidebar);
   g_assert_finalize_object (section);
   g_assert_finalize_object (list);
 }

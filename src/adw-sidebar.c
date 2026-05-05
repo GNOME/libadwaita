@@ -1339,7 +1339,8 @@ create_row (AdwSidebarItem *item,
 
   row = gtk_list_box_row_new ();
 
-  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item", item);
+  g_object_set_data_full (G_OBJECT (row), "-adw-sidebar-item",
+                          g_object_ref (item), g_object_unref);
 
   g_object_bind_property (item, "visible", row, "visible", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "enabled", row, "sensitive", G_BINDING_SYNC_CREATE);
@@ -1460,9 +1461,13 @@ set_header_cb (GtkListBoxRow *row,
   AdwSidebarItem *item;
 
   item = ADW_SIDEBAR_ITEM (g_object_get_data (G_OBJECT (row), "-adw-sidebar-item"));
+
+  g_assert (ADW_IS_SIDEBAR_ITEM (item));
+
   section = adw_sidebar_item_get_section (item);
 
-  g_assert (section != NULL);
+  if (!section)
+    return;
 
   if (before) {
     AdwSidebarItem *prev_item =
@@ -1583,7 +1588,8 @@ create_boxed_row (AdwSidebarItem *item,
 
   adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (row), FALSE);
 
-  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item", item);
+  g_object_set_data_full (G_OBJECT (row), "-adw-sidebar-item",
+                          g_object_ref (item), g_object_unref);
 
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
 
