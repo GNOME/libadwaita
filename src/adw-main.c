@@ -12,6 +12,35 @@
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
+#ifdef G_OS_WIN32
+#include <windows.h>
+
+extern IMAGE_DOS_HEADER __ImageBase;
+
+static const char *
+adw_get_localedir (void)
+{
+  static char *localedir = NULL;
+
+  if (localedir == NULL) {
+    const char *last = g_strrstr (LOCALEDIR, "/");
+    const char *suffix = g_strrstr_len (LOCALEDIR, last - LOCALEDIR, "/");
+    char *basedir, *utf8_path;
+
+    if (!suffix)
+      suffix = last;
+
+    basedir = g_win32_get_package_installation_directory_of_module ((HMODULE) &__ImageBase);
+    utf8_path = g_build_filename (basedir, suffix, NULL);
+    localedir = g_win32_locale_filename_from_utf8 (utf8_path);
+    g_free (utf8_path);
+    g_free (basedir);
+  }
+
+  return localedir;
+}
+#endif
+
 static gboolean adw_initialized = FALSE;
 static gboolean adw_adaptive_preview = FALSE;
 
@@ -55,7 +84,11 @@ adw_init (void)
   gtk_init ();
 
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#ifdef G_OS_WIN32
+  bindtextdomain (GETTEXT_PACKAGE, adw_get_localedir ());
+#else
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+#endif
   adw_init_public_types ();
 
   if (!adw_is_granite_present ()) {
