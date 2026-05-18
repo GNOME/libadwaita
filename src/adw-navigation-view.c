@@ -1341,7 +1341,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
   if (!adw_navigation_view_get_visible_page (self))
     return;
 
-  self->swipe_direction = ADW_NAVIGATION_DIRECTION_BACK;
+  self->swipe_direction = direction;
 }
 
 static void
