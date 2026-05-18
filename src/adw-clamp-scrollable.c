@@ -64,11 +64,12 @@ struct _AdwClampScrollable
 
 static GParamSpec *props[LAST_PROP];
 
+static void adw_clamp_scrollable_scrollable_init (GtkScrollableInterface *iface);
 static void adw_clamp_scrollable_buildable_init (GtkBuildableIface *iface);
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwClampScrollable, adw_clamp_scrollable, GTK_TYPE_WIDGET,
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, adw_clamp_scrollable_scrollable_init)
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_clamp_scrollable_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
@@ -331,6 +332,24 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
 static void
 adw_clamp_scrollable_init (AdwClampScrollable *self)
 {
+}
+
+static gboolean
+adw_clamp_scrollable_scrollable_get_border (GtkScrollable *scrollable,
+                                            GtkBorder     *border)
+{
+  AdwClampScrollable *self = ADW_CLAMP_SCROLLABLE (scrollable);
+
+  if (GTK_IS_SCROLLABLE (self->child))
+    return gtk_scrollable_get_border (GTK_SCROLLABLE (self->child), border);
+
+  return FALSE;
+}
+
+static void
+adw_clamp_scrollable_scrollable_init (GtkScrollableInterface *iface)
+{
+  iface->get_border = adw_clamp_scrollable_scrollable_get_border;
 }
 
 static void
