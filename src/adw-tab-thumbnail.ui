@@ -29,7 +29,7 @@
                 <property name="child">
                   <object class="GtkPicture" id="picture">
                     <property name="can-shrink">True</property>
-                    <property name="keep-aspect-ratio">False</property>
+                    <property name="content-fit">fill</property>
                     <property name="vexpand">True</property>
                   </object>
                 </property>
