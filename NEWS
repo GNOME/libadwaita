@@ -1,4 +1,45 @@
 =============
+Version 1.9.1
+=============
+
+- Use G_PARAM_STATIC_STRINGS where it wasn't used
+- Fix a build error in the example
+- AdwAboutDialog/AdwAboutWindow
+  - Speed up adding legal sections
+  - Speed up adding credit sections
+- AdwAlertDialog
+  - Fix a crash when chaining up in response()
+  - Fix the Since annotation on get_prefer_wide_layout()
+- AdwButtonRow
+  - Fix availability annotation
+- AdwClampScrollable
+  - Implement GtkScrollable.get_border()
+- AdwEntryRow
+  - Fix clicking edit icon
+- AdwNavigationView
+  - Fix swipe direction
+- AdwSidebar
+  - Set tab behavior to 'item'
+  - Fix adding multiple sections at once
+  - Fix a crash when removing multiple items at once
+- AdwStyleManager
+  - Use default timeout when talking to the settings portal
+  - Fix gtk-application-prefer-dark-theme warnings with newer GTK
+- AdwTabView
+  - Fix a deprecation
+- Stylesheet
+  - Fix bottom padding with .navigation-sidebar
+- Translation updates
+  - Belarusian
+  - Czech
+  - Dutch
+  - German
+  - Norwegian Bokmål
+  - Persian
+  - Serbian
+  - Slovak
+
+=============
 Version 1.9.0
 =============
 
