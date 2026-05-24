@@ -216,6 +216,7 @@ pressed_cb (GtkGesture  *gesture,
 
   if (picked != GTK_WIDGET (self) &&
       picked != priv->header &&
+      picked != priv->editable_area &&
       picked != priv->indicator &&
       picked != GTK_WIDGET (priv->prefixes) &&
       picked != GTK_WIDGET (priv->suffixes)) {
