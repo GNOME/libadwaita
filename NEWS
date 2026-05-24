@@ -1,3 +1,30 @@
+=============
+Version 1.8.6
+=============
+
+- Use G_PARAM_STATIC_STRINGS where it wasn't used
+- Fix a build error in the example
+- AdwAboutDialog/AdwAboutWindow
+  - Speed up adding legal sections
+- AdwAlertDialog
+  - Fix a crash when chaining up in response()
+  - Fix the Since annotation on get_prefer_wide_layout()
+- AdwButtonRow
+  - Fix availability annotation
+- AdwClampScrollable
+  - Implement GtkScrollable.get_border()
+- AdwEntryRow
+  - Fix clicking edit icon
+- AdwNavigationView
+  - Fix swipe direction
+- AdwStyleManager
+  - Use default timeout when talking to the settings portal
+  - Fix gtk-application-prefer-dark-theme warnings with newer GTK
+- AdwTabView
+  - Fix a deprecation
+- Translation updates
+  - Czech
+
 ===============
 Version 1.8.5.1
 ===============
