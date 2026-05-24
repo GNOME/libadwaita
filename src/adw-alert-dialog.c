@@ -1893,7 +1893,7 @@ adw_alert_dialog_set_extra_child (AdwAlertDialog *self,
  *
  * Returns: whether to prefer wide layout
  *
- * Since: 1.5
+ * Since: 1.6
  */
 gboolean
 adw_alert_dialog_get_prefer_wide_layout (AdwAlertDialog *self)
