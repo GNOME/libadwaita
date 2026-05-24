@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 
 #define ADW_TYPE_BUTTON_ROW (adw_button_row_get_type())
 
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_6
 G_DECLARE_FINAL_TYPE (AdwButtonRow, adw_button_row, ADW, BUTTON_ROW, AdwPreferencesRow)
 
 ADW_AVAILABLE_IN_1_6
