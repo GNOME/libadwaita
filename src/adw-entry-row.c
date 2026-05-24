@@ -649,7 +649,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   props[PROP_TEXT_LENGTH] =
     g_param_spec_uint ("text-length", NULL, NULL,
                        0, G_MAXUINT16, 0,
-                       G_PARAM_READABLE);
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwEntryRow:max-length:
@@ -662,7 +662,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
     g_param_spec_int ("max-length", NULL, NULL,
                       0, GTK_ENTRY_BUFFER_MAX_SIZE,
                       0,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 

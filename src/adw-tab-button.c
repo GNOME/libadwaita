@@ -258,7 +258,7 @@ adw_tab_button_class_init (AdwTabButtonClass *klass)
   props[PROP_VIEW] =
     g_param_spec_object ("view", NULL, NULL,
                          ADW_TYPE_TAB_VIEW,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
