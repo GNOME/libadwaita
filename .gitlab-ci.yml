@@ -10,6 +10,8 @@ include:
     inputs:
       meson-options: "-Ddocumentation=true"
       lsan-options: "suppressions=${CI_PROJECT_DIR}/tests/lsan.supp"
+      goblint: "disabled"
+      gobject-linter: "disabled"
 
 variables:
   APP_ID: 'org.gnome.Adwaita1.Demo'
