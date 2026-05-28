@@ -29,9 +29,13 @@
 /**
  * AdwCssClassBinding:
  *
- * A binding between a [class@GObject.Object] property and a CSS class on a [class@Gtk.Widget].
+ * A binding between a [class@GObject.Object] property and a CSS class on a
+ * [class@Gtk.Widget].
  *
- * Whenever the source property changes, a CSS class is toggled on the target object; for instance, given the following binding:
+ * To create a binding, use [func@Adw.bind_property_to_css_class].
+ *
+ * Whenever the source property changes, a CSS class is toggled on the target
+ * object; for instance, given the following binding:
  *
  * ```c
  * adw_bind_property_to_css_class (source, "property",
@@ -39,12 +43,14 @@
  *                                 G_BINDING_DEFAULT);
  * ```
  *
- * when `property` is a boolean property, the class `css-class` will be enabled every time the value of property `property`
- * is changed to a True state, and vice versa.
+ * when `property` is a boolean property, `css-class` will be set every time the
+ * value of `property` is changed to `TRUE`, and vice versa.
  *
- * It is possible to define a custom mapping between a property and the boolean enable state, that is, defining a mapping between
- * any arbitrary property type and a boolean type. This allows for any property, not just boolean properties, to be bound to a CSS class;
- * for instance, the following binding
+ * Using [func@Adw.bind_property_to_css_class_full], it's possible to define a
+ * custom mapping between a property and the boolean enable state, that is,
+ * defining a mapping between any arbitrary property type and a boolean type.
+ * This allows for any property, not just boolean properties, to be bound to a
+ * CSS class; for instance, the following binding
  *
  * ```c
  * adw_bind_property_to_css_class_full (source, "property",
@@ -55,17 +61,20 @@
  *                                      NULL, NULL);
  * ```
  *
- * will map an integer-typed `property` to a boolean value, and use the value of that boolean
- * to toggle the CSS class.
+ * will map an integer-typed `property` to a boolean value, and use the value of
+ * that boolean to toggle the CSS class.
  *
- * It is possible to invert the type of a boolean without using a custom map function
- * by using the [flags@GObject.BindingFlags.INVERT_BOOLEAN] flag.
+ * It is possible to invert the type of a boolean without using a custom map
+ * function by using the [flags@GObject.BindingFlags.INVERT_BOOLEAN] flag.
  *
- * A binding will be removed, and any allocated resources freed, whenever either one of the source  or target instances
- * are finalized, or when the binding instances loses its last reference.
+ * A binding will be removed, and any allocated resources freed, whenever either
+ * one of the source or target instances are finalized, or when the binding
+ * instances loses its last reference.
  *
- * Languages with garbage collection, or developers wanting to fully control the lifecycle of a binding may use [method@CssClassBinding.unbind]
- * to expliticly release a binding, instead of relying on the last reference on the binding, source, and target instances to drop.
+ * Languages with garbage collection, or developers wanting to fully control the
+ * lifecycle of a binding may use [method@CssClassBinding.unbind] to expliticly
+ * release a binding, instead of relying on the last reference on the binding,
+ * source, and target instances to drop.
  *
  * Since: 1.10
  */
@@ -441,7 +450,7 @@ adw_css_class_binding_class_init (AdwCssClassBindingClass *klass)
   /**
    * AdwCssClassBinding:source:
    *
-   * The object that should be used as the source of the CSS class binding.
+   * The object to use as the source of the CSS class binding.
    *
    * Since: 1.10
    */
@@ -453,7 +462,7 @@ adw_css_class_binding_class_init (AdwCssClassBindingClass *klass)
   /**
    * AdwCssClassBinding:target:
    *
-   * The widget that should be used as the target of the CSS class binding.
+   * The widget to use as the target of the CSS class binding.
    *
    * Since: 1.10
    */
@@ -511,9 +520,9 @@ adw_css_class_binding_init (AdwCssClassBinding *self)
  * adw_css_class_binding_get_flags:
  * @self: a binding
  *
- * Retrieves the flags passed when constructing the binding.
+ * Gets the flags passed when constructing the binding.
  *
- * Returns: Binding flags
+ * Returns: the binding flags
  *
  * Since: 1.10
  */
@@ -529,15 +538,15 @@ adw_css_class_binding_get_flags (AdwCssClassBinding *self)
  * adw_css_class_binding_get_source:
  * @self: a binding
  *
- * Retrieves the object instance passed as the source of the binding.
+ * Gets the object instance passed as the source of the binding.
  *
- * Note that while a binding can outlive the source as the binding does
- * not hold a strong reference to the source, the binding will try to finalize itself when it does
- * not have a valid source. If the source, however, is destroyed before the binding is fully finalized then
- * this function will return `NULL`.
+ * While a binding can outlive the source as the binding doesn't hold a strong
+ * reference to the source, the binding will try to finalize itself when it does
+ * not have a valid source. If the source, however, is destroyed before the
+ * binding is fully finalized then this function will return `NULL`.
  *
- * Returns: (transfer full) (nullable): the source, or `NULL` if the source
- *  does not exist anymore.
+ * Returns: (transfer full) (nullable): the source, or `NULL` if it doesn't
+ *   exist anymore
  *
  * Since: 1.10
  */
@@ -553,15 +562,15 @@ adw_css_class_binding_get_source (AdwCssClassBinding *self)
  * adw_css_class_binding_get_target:
  * @self: a binding
  *
- * Retrieves the widget instance passed as the target of the binding.
+ * Gets the widget instance passed as the target of the binding.
  *
- * Note that while a binding can outlive the target as the binding does
- * not hold a strong reference to the target, the binding will try to finalize itself when it does
- * not have a valid target. If the target, however, is destroyed before the binding is fully finalized then
- * this function will return `NULL`.
+ * While a binding can outlive the target as the binding doesn't hold a strong
+ * reference to the target, the binding will try to finalize itself when it does
+ * not have a valid target. If the target, however, is destroyed before the
+ * binding is fully finalized then this function will return `NULL`.
  *
- * Returns: (transfer full) (nullable): the target, or `NULL` if the target
- *  does not exist anymore.
+ * Returns: (transfer full) (nullable): the target, or `NULL` if it doesn't
+ *   exist anymore
  *
  * Since: 1.10
  */
@@ -577,7 +586,7 @@ adw_css_class_binding_get_target (AdwCssClassBinding *self)
  * adw_css_class_binding_get_source_property:
  * @self: a binding
  *
- * Retrieves the name of the property bound from [property@CssClassBinding:source] as the source of the binding.
+ * Gets the name of the property bound from [property@CssClassBinding:source].
  *
  * Returns: the name of the source property
  *
@@ -595,9 +604,9 @@ adw_css_class_binding_get_source_property (AdwCssClassBinding *self)
  * adw_css_class_binding_get_target_css_class:
  * @self: a binding
  *
- * Retrieves the CSS class to toggle on [property@CssClassBinding:target].
+ * Gets the CSS class to toggle on [property@CssClassBinding:target].
  *
- * Returns: the name of the target CSS class.
+ * Returns: the name of the target CSS class
  *
  * Since: 1.10
  */
@@ -613,15 +622,15 @@ adw_css_class_binding_get_target_css_class (AdwCssClassBinding *self)
  * adw_css_class_binding_unbind:
  * @self: a binding
  *
- * Explicitly releases the binding between the source and targets as expressed by @self.
+ * Explicitly releases the binding between the source and the target.
  *
- * This function will release the reference that is being held on @self if the binding is still bound;
- * if you want to hold on to the binding instance after calling this method,
- * you will need to manually hold a reference to it.
+ * This function will release the reference that is being held on @self if the
+ * binding is still bound; if you want to hold on to the binding instance after
+ * calling this method, you will need to manually hold a reference to it.
  *
- * Note that this function does not take ownership of @self, it only
- * unrefs the instance that was initially created by [func@Adw.bind_property_to_css_class] and
- * is owned by the binding.
+ * Note that this function does not take ownership of @self, it only unrefs the
+ * instance that was initially created by [func@Adw.bind_property_to_css_class]
+ * and is owned by the binding.
  *
  * Since: 1.10
  */
@@ -633,7 +642,6 @@ adw_css_class_binding_unbind (AdwCssClassBinding *self)
   weak_notify (self, NULL);
 }
 
-
 /**
  * adw_bind_property_to_css_class:
  * @source: (type GObject): the source object
@@ -642,27 +650,32 @@ adw_css_class_binding_unbind (AdwCssClassBinding *self)
  * @target_css_class: the CSS class on @target to bind
  * @flags: flags to pass to @self
  *
- * Creates a binding between @source_property on @source and @target_css_class
- * on @target.
+ * Creates a binding between a property on @source and a CSS class on @target.
  *
- * Whenever @source_property is changed the @target_css_class is toggled either on or off
- * on @target using the boolean value of @source_property. For instance:
+ * Whenever @source_property is changed the @target_css_class is toggled either
+ * on or off on @target using the boolean value of @source_property.
+ *
+ * For instance:
  *
  * ```c
  * adw_bind_property_to_css_class (action, "active", widget, "active-widget", 0);
  * ```
  *
- * Will result in the `active-widget` CSS class on the widget instance being applied when `active` is `TRUE`,
- * and `active-widget` being removed when `active` is `FALSE`.
+ * will result in the `active-widget` CSS class on the widget instance being
+ * applied when `active` is `TRUE`, and `active-widget` being removed when
+ * `active` is `FALSE`.
  *
- * The binding will automatically be removed when either the @source or @target instances are finalized. To remove the binding
- * without affecting the @source or @target you can just call [method@GObject.Object.unref] on the returned binding.
- * It is recommended to only call [method@GObject.Object.unref] when it is clear that both @source and @target will outlive the binding.
+ * The binding will automatically be removed when either the @source or @target
+ * instances are finalized. To remove the binding without affecting the @source
+ * or @target, call [method@GObject.Object.unref] on the returned binding. It is
+ * recommended to only call [method@GObject.Object.unref] when it is clear that
+ * both @source and @target will outlive the binding.
  *
  * This function is not thread safe. A source can have multiple bindings.
  *
- * Returns: (transfer none): the binding representing the binding between a property and
- *  a CSS class. The binding is released whenever the bindings' reference count reaches zero.
+ * See also: [func@Adw.bind_property_to_css_class_full].
+ *
+ * Returns: (transfer none): the new binding
  *
  * Since: 1.10
  */
@@ -687,37 +700,44 @@ adw_bind_property_to_css_class (gpointer       source,
  * @target: the target widget
  * @target_css_class: the CSS class on @target to bind
  * @flags: flags to pass to @self
- * @map_to_class: (destroy notify) (closure user_data) (scope notified) (nullable): the mapping function
- *  from the @source_property to a boolean value, or `NULL` to use the default
- * @map_to_property: (destroy notify) (closure user_data) (scope notified) (nullable): the mapping function
- *  from the @target_css_class to a value, or `NULL` to use the default
- * @user_data: (nullable): custom data to be passed to @map_to_class and @map_to_property
- * @notify: (nullable): a function to call when disposing the binding, to free resources used
- *  by @map_to_class and @map_to_property
+ * @map_to_class: (destroy notify) (closure user_data) (scope notified) (nullable):
+ *   the mapping function from the @source_property to a boolean value, or
+ *   `NULL` to use the default
+ * @map_to_property: (destroy notify) (closure user_data) (scope notified) (nullable):
+ *   the mapping function from the @target_css_class to a value, or `NULL` to
+ *   use the default
+ * @user_data: (nullable): custom data to be passed to @map_to_class and
+ *   @map_to_property
+ * @notify: (nullable): a function to call when disposing the binding, to free
+ *   resources used by @map_to_class and @map_to_property
+ *
+ * Creates a binding between a property on @source and a CSS class on @target
+ * with a custom mapping.
  *
  * Complete version of [func@Adw.bind_property_to_css_class].
  *
- * Creates a binding between @source_property on @source and @target_css_class
- * on @target.
+ * Whenever @source_property is changed the @target_css_class is toggled either
+ * on or off on @target using the boolean value of @source_property.
  *
- * Whenever @source_property is changed the @target_css_class is toggled either on or off
- * on @target using the boolean value of @source_property. For instance:
+ * For instance:
  *
  * ```c
- *   adw_bind_property_to_css_class (action, "active", widget, "active-widget", 0);
+ * adw_bind_property_to_css_class (action, "active", widget, "active-widget", 0);
  * ```
  *
- * Will result in the `active-widget` CSS class on the widget instance being applied when `active` is `TRUE`,
- * and `active-widget` being removed when `active` is `FALSE`.
+ * will result in the `active-widget` CSS class on the widget instance being
+ * applied when `active` is `TRUE`, and `active-widget` being removed when
+ * `active` is `FALSE`.
  *
- * The binding will automatically be removed when either the @source or @target instances are finalized. To remove the binding
- * without affecting the @source or @target you can just call [method@GObject.Object.unref] on the returned binding.
- * It is recommended to only call [method@GObject.Object.unref] when it is clear that both @source and @target will outlive the binding.
+ * The binding will automatically be removed when either the @source or @target
+ * instances are finalized. To remove the binding without affecting the @source
+ * or @target, call [method@GObject.Object.unref] on the returned binding. It is
+ * recommended to only call [method@GObject.Object.unref] when it is clear that
+ * both @source and @target will outlive the binding.
  *
  * This function is not thread safe. A source can have multiple bindings.
  *
- * Returns: (transfer none): the binding representing the binding between a property and
- *  a CSS class. The binding is released whenever the bindings' reference count reaches zero.
+ * Returns: (transfer none): the new binding
  *
  * Since: 1.10
  */
@@ -915,21 +935,28 @@ mapping_closure_free_func (gpointer data)
  * @target: the target widget
  * @target_css_class: the CSS class on @target to bind
  * @flags: flags to pass to @self
- * @map_to_class: a [struct@GObject.Closure] wrapping the @source_property to boolean value map,
- *  or `NULL` to use the default
- * @map_to_property:  a [struct@GObject.Closure] wrapping the @target_css_class to [struct@GObject.Value] map,
- *  or `NULL` to use the default
+ * @map_to_class: a closure wrapping the @source_property to boolean value map,
+ *   or `NULL` to use the default
+ * @map_to_property: a closure wrapping the @target_css_class to
+ *   [struct@GObject.Value] map, or `NULL` to use the default
  *
- * Creates a binding between @source_property on @source and @target_css_class
- * on @target, allowing for custom mapping functions to be used.
+ * Creates a binding between a property on @source and a CSS class on @target
+ * with a custom mapping using closures.
  *
- * This function is the language bindings friendly version of [func@Adw.bind_property_to_css_class_full],
- * using closures instead of function pointers.
+ * This function is the language bindings friendly version of
+ * [func@Adw.bind_property_to_css_class_full].
+ *
+ * The binding will automatically be removed when either the @source or @target
+ * instances are finalized. To remove the binding without affecting the @source
+ * or @target, call [method@GObject.Object.unref] on the returned binding. It is
+ * recommended to only call [method@GObject.Object.unref] when it is clear that
+ * both @source and @target will outlive the binding.
  *
  * This function is not thread safe. A source can have multiple bindings.
  *
- * Returns: (transfer none): the binding representing the binding between a property and
- *  a CSS class. The binding is released whenever the bindings' reference count reaches zero.
+ * See also: [func@Adw.bind_property_to_css_class].
+ *
+ * Returns: (transfer none): the new binding
  *
  * Since: 1.10
  */
