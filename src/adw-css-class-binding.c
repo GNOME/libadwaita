@@ -935,9 +935,9 @@ mapping_closure_free_func (gpointer data)
  * @target: the target widget
  * @target_css_class: the CSS class on @target to bind
  * @flags: flags to pass to @self
- * @map_to_class: a closure wrapping the @source_property to boolean value map,
- *   or `NULL` to use the default
- * @map_to_property: a closure wrapping the @target_css_class to
+ * @map_to_class: (nullable): a closure wrapping the @source_property to
+ *   boolean value map, or `NULL` to use the default
+ * @map_to_property: (nullable): a closure wrapping the @target_css_class to
  *   [struct@GObject.Value] map, or `NULL` to use the default
  *
  * Creates a binding between a property on @source and a CSS class on @target
