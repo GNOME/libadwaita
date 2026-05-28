@@ -8,6 +8,7 @@
 
 #include "adw-preferences-group-private.h"
 
+#include "adw-css-class-binding.h"
 #include "adw-gtkbuilder-utils-private.h"
 #include "adw-preferences-row.h"
 #include "adw-widget-utils-private.h"
@@ -62,6 +63,7 @@ typedef struct
   GtkLabel *title;
   GtkBox *header_box;
   GtkWidget *header_suffix;
+  gboolean separate_rows;
 
   GListModel *rows;
 } AdwPreferencesGroupPrivate;
@@ -335,6 +337,13 @@ adw_preferences_group_init (AdwPreferencesGroup *self)
   g_signal_connect_object (priv->rows, "items-changed",
                            G_CALLBACK (update_listbox_visibility), self,
                            G_CONNECT_SWAPPED);
+
+  adw_bind_property_to_css_class (self, "separate-rows",
+                                  GTK_WIDGET (priv->listbox), "boxed-list-separate",
+                                  G_BINDING_SYNC_CREATE);
+  adw_bind_property_to_css_class (self, "separate-rows",
+                                  GTK_WIDGET (priv->listbox), "boxed-list",
+                                  G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 }
 
 static void
@@ -634,7 +643,7 @@ adw_preferences_group_get_separate_rows (AdwPreferencesGroup *self)
 
   priv = adw_preferences_group_get_instance_private (self);
 
-  return gtk_widget_has_css_class (GTK_WIDGET (priv->listbox), "boxed-list-separate");
+  return priv->separate_rows;
 }
 
 /**
@@ -662,16 +671,10 @@ adw_preferences_group_set_separate_rows (AdwPreferencesGroup *self,
 
   separate_rows = !!separate_rows;
 
-  if (separate_rows == adw_preferences_group_get_separate_rows (self))
+  if (separate_rows == priv->separate_rows)
     return;
 
-  if (separate_rows) {
-    gtk_widget_add_css_class (GTK_WIDGET (priv->listbox), "boxed-list-separate");
-    gtk_widget_remove_css_class (GTK_WIDGET (priv->listbox), "boxed-list");
-  } else {
-    gtk_widget_add_css_class (GTK_WIDGET (priv->listbox), "boxed-list");
-    gtk_widget_remove_css_class (GTK_WIDGET (priv->listbox), "boxed-list-separate");
-  }
+  priv->separate_rows = separate_rows;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEPARATE_ROWS]);
 }
