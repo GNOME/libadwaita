@@ -42,3 +42,9 @@ Toast
 // Mark boxed types with reference counting as non-compact
 
 SpringParams compact=false
+
+// Match GObject.bind_property()
+bind_property_to_css_class skip=true
+bind_property_to_css_class_with_closures name="bind_property_to_css_class"
+  .map_to_class type="Adw.CssClassBindingMapToClassFunc?" default=null
+  .map_to_property type="Adw.CssClassBindingMapToPropertyFunc?" default=null
