@@ -16,6 +16,7 @@
 #include "adw-animation-util.h"
 #include "adw-bin.h"
 #include "adw-combo-row.h"
+#include "adw-css-class-binding.h"
 #include "adw-gizmo-private.h"
 #include "adw-marshalers.h"
 #include "adw-spring-animation.h"
@@ -904,6 +905,10 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
                               target);
 
   self->device_paintable = gtk_widget_paintable_new (self->device_container);
+
+  adw_bind_property_to_css_class (self, "highlight-bezel",
+                                  self->device_view, "highlight",
+                                  G_BINDING_DEFAULT);
 }
 
 GtkWidget *
@@ -1008,11 +1013,6 @@ adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
     return;
 
   self->highlight_bezel = highlight_bezel;
-
-  if (highlight_bezel)
-    gtk_widget_add_css_class (self->device_view, "highlight");
-  else
-    gtk_widget_remove_css_class (self->device_view, "highlight");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGHLIGHT_BEZEL]);
 }
