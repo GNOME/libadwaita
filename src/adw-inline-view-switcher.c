@@ -139,7 +139,7 @@ transform_icon_name (GBinding     *binding,
   if (icon_name && *icon_name)
     g_value_set_string (output, icon_name);
   else
-    g_value_set_string (output, "image-missing");
+    g_value_set_static_string (output, "image-missing");
 
   return TRUE;
 }

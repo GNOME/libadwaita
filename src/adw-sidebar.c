@@ -1426,9 +1426,9 @@ get_header_stack_page (GBinding     *binding,
   const char *str = g_value_get_string (from_value);
 
   if (str && *str)
-    g_value_set_string (to_value, "title");
+    g_value_set_static_string (to_value, "title");
   else
-    g_value_set_string (to_value, "separator");
+    g_value_set_static_string (to_value, "separator");
 
   return TRUE;
 }
