@@ -395,6 +395,8 @@ adw_css_class_binding_constructed (GObject *object)
   AdwCssClassBinding *self = ADW_CSS_CLASS_BINDING (object);
   guint notify_signal_id;
 
+  G_OBJECT_CLASS (adw_css_class_binding_parent_class)->constructed (object);
+
   g_assert (self->source != NULL);
   g_assert (self->target != NULL);
   g_assert (self->source_property != NULL);
