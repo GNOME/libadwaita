@@ -517,7 +517,7 @@ adw_message_dialog_map (GtkWidget *widget)
     guint i;
 
     do {
-      g_signal_emit_by_name (self, "move_focus", GTK_DIR_TAB_FORWARD);
+      g_signal_emit_by_name (self, "move-focus", GTK_DIR_TAB_FORWARD);
 
       focus = gtk_window_get_focus (GTK_WINDOW (self));
       if (GTK_IS_LABEL (focus) &&
