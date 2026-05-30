@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2026-04-15 18:23+0000\n"
-"PO-Revision-Date: 2026-05-05 19:55+0200\n"
-"Last-Translator: Kjartan Maraas <kjartan.maraas@gmail.com>\n"
+"POT-Creation-Date: 2026-05-24 17:02+0000\n"
+"PO-Revision-Date: 2026-05-30 17:59+0200\n"
+"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/adw-about-dialog.c:214 src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 or later"
@@ -408,18 +408,18 @@ msgstr "Bruk"
 #: src/adw-indicator-bin.c:78
 msgctxt "view switcher button badge"
 msgid "Attention requested."
-msgstr ""
+msgstr "Trenger oppmerksomhet."
 
 #: src/adw-indicator-bin.c:81
 msgctxt "view switcher button badge"
 msgid "Has a badge: more than 999."
-msgstr ""
+msgstr "Merket med verdi: større enn 999."
 
 #: src/adw-indicator-bin.c:83
 #, c-format
 msgctxt "view switcher button badge"
 msgid "Has a badge: %u."
-msgstr ""
+msgstr "Merket med verdi: %u."
 
 #: src/adw-inspector-page.c:131
 msgid "No Preference"
