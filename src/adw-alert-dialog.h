@@ -37,6 +37,13 @@ struct _AdwAlertDialogClass
 {
   AdwDialogClass parent_class;
 
+  /**
+   * response:
+   * @self: an alert dialog
+   * @response: a response ID
+   *
+   * This signal is emitted when the dialog is closed.
+   */
   void (* response) (AdwAlertDialog *self,
                      const char     *response);
 
