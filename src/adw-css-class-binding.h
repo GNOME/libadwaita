@@ -24,12 +24,12 @@ G_DECLARE_FINAL_TYPE (AdwCssClassBinding, adw_css_class_binding, ADW, CSS_CLASS_
 /**
  * AdwCssClassBindingMapToClassFunc:
  * @self: The binding class
- * @property_value: whether a CSS class is applied or not.
+ * @property_value: the source property value
  * @user_data: (nullable): The user data provided when creating the binding
  *
  * Prototype for mapping properties to CSS classes for a [class@CssClassBinding].
  *
- * Returns: whether to apply [property@CssClassBinding:target-css-class] or not.
+ * Returns: whether to apply the target CSS class
  *
  * Since: 1.10
  */
@@ -40,10 +40,8 @@ typedef gboolean (* AdwCssClassBindingMapToClassFunc) (AdwCssClassBinding *self,
 /**
  * AdwCssClassBindingMapToPropertyFunc:
  * @self: The binding class
- * @class_value: whether [property@CssClassBinding:target-css-class] is applied
- *     or not.
- * @property_value: The value to use for
- *     [property@CssClassBinding:source-property]
+ * @class_value: whether the target CSS class is applied
+ * @property_value: The value to use for the source property
  * @user_data: (nullable): The user data provided when creating the binding
  *
  * Prototype for mapping CSS classes to properties for a [class@CssClassBinding].
