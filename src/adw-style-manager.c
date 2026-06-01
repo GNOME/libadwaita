@@ -77,9 +77,7 @@ struct _AdwStyleManager
   GtkCssProvider *animations_provider;
   guint animation_timeout_id;
 
-#if !GTK_CHECK_VERSION (4, 23, 1)
   gboolean changing_gtk_settings;
-#endif
 };
 
 G_DEFINE_FINAL_TYPE (AdwStyleManager, adw_style_manager, G_TYPE_OBJECT);
@@ -112,7 +110,6 @@ typedef enum {
   UPDATE_ALL = UPDATE_CONTRAST | UPDATE_COLOR_SCHEME | UPDATE_ACCENT_COLOR | UPDATE_FONTS
 } StylesheetUpdateFlags;
 
-#if !GTK_CHECK_VERSION (4, 23, 1)
 static void
 warn_prefer_dark_theme (AdwStyleManager *self)
 {
@@ -123,7 +120,6 @@ warn_prefer_dark_theme (AdwStyleManager *self)
              "libadwaita is unsupported. Please use "
              "AdwStyleManager:color-scheme instead.");
 }
-#endif
 
 static void
 unregister_display (GdkDisplay *display)
@@ -277,15 +273,15 @@ update_stylesheet (AdwStyleManager       *self,
     if (self->provider)
       g_object_set (self->provider, "prefers-color-scheme", color_scheme, NULL);
 
-#if !GTK_CHECK_VERSION (4, 23, 1)
-    self->changing_gtk_settings = TRUE;
+    if (gtk_check_version (4, 23, 1) != NULL) {
+      self->changing_gtk_settings = TRUE;
 
-    g_object_set (self->gtk_settings,
-                  "gtk-application-prefer-dark-theme", self->dark,
-                  NULL);
+      g_object_set (self->gtk_settings,
+                    "gtk-application-prefer-dark-theme", self->dark,
+                    NULL);
 
-    self->changing_gtk_settings = FALSE;
-#endif
+      self->changing_gtk_settings = FALSE;
+    }
 
     g_object_set (self->gtk_settings,
                   "gtk-interface-color-scheme", color_scheme,
@@ -460,22 +456,22 @@ adw_style_manager_constructed (GObject *object)
   if (self->display) {
     self->gtk_settings = gtk_settings_get_for_display (self->display);
 
-#if !GTK_CHECK_VERSION (4, 23, 1)
-    gboolean prefer_dark_theme;
+    if (gtk_check_version (4, 23, 1) != NULL) {
+      gboolean prefer_dark_theme;
 
-    g_object_get (self->gtk_settings,
-                  "gtk-application-prefer-dark-theme", &prefer_dark_theme,
-                  NULL);
+      g_object_get (self->gtk_settings,
+                    "gtk-application-prefer-dark-theme", &prefer_dark_theme,
+                    NULL);
 
-    if (prefer_dark_theme)
-      warn_prefer_dark_theme (self);
+      if (prefer_dark_theme)
+        warn_prefer_dark_theme (self);
 
-    g_signal_connect_object (self->gtk_settings,
-                             "notify::gtk-application-prefer-dark-theme",
-                             G_CALLBACK (warn_prefer_dark_theme),
-                             self,
-                             G_CONNECT_SWAPPED);
-#endif
+      g_signal_connect_object (self->gtk_settings,
+                               "notify::gtk-application-prefer-dark-theme",
+                               G_CALLBACK (warn_prefer_dark_theme),
+                               self,
+                               G_CONNECT_SWAPPED);
+    }
 
     if (!adw_is_granite_present () && !g_getenv ("GTK_THEME")) {
       g_object_set (self->gtk_settings,
