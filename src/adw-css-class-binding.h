@@ -40,7 +40,7 @@ typedef gboolean (* AdwCssClassBindingMapToClassFunc) (AdwCssClassBinding *self,
 /**
  * AdwCssClassBindingMapToPropertyFunc:
  * @self: The binding class
- * @class_value: whether the target CSS class is applied
+ * @class_applied: whether the target CSS class is applied
  * @property_value: The value to use for the source property
  * @user_data: (nullable): The user data provided when creating the binding
  *
@@ -49,7 +49,7 @@ typedef gboolean (* AdwCssClassBindingMapToClassFunc) (AdwCssClassBinding *self,
  * Since: 1.10
  */
 typedef void (* AdwCssClassBindingMapToPropertyFunc) (AdwCssClassBinding *self,
-                                                      gboolean            class_value,
+                                                      gboolean            class_applied,
                                                       GValue             *property_value,
                                                       gpointer            user_data);
 
