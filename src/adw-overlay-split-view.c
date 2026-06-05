@@ -141,12 +141,12 @@
  *     ╰── [content child]
  * ```
  *
- * When collapsed, the one containing the sidebar child has the `.background`
+ * When collapsed, the one containing the sidebar child has the `.overlay-pane`
  * style class and the other one has no style classes.
  *
  * ```
  * overlay-split-view
- * ├── widget.background
+ * ├── widget.overlay-pane
  * │   ╰── [sidebar child]
  * ╰── widget
  *     ╰── [content child]
@@ -726,7 +726,7 @@ update_collapsed (AdwOverlaySplitView *self)
 
     gtk_widget_remove_css_class (self->content_bin, "content-pane");
     gtk_widget_remove_css_class (self->sidebar_bin, "sidebar-pane");
-    gtk_widget_add_css_class (self->sidebar_bin, "background");
+    gtk_widget_add_css_class (self->sidebar_bin, "overlay-pane");
   } else {
     gtk_widget_set_layout_manager (GTK_WIDGET (self),
                                    gtk_custom_layout_new (adw_widget_get_request_mode,
@@ -735,7 +735,7 @@ update_collapsed (AdwOverlaySplitView *self)
 
     gtk_widget_add_css_class (self->content_bin, "content-pane");
     gtk_widget_add_css_class (self->sidebar_bin, "sidebar-pane");
-    gtk_widget_remove_css_class (self->sidebar_bin, "background");
+    gtk_widget_remove_css_class (self->sidebar_bin, "overlay-pane");
   }
 }
 

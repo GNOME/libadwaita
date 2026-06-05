@@ -87,6 +87,11 @@
   color: inherit;
 }
 
+.overlay-pane {
+  color: var(--window-fg-color);
+  background-color: var(--window-bg-color);
+}
+
 stacksidebar row {
   padding: 10px 4px;
 
