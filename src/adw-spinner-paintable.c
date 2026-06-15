@@ -312,22 +312,10 @@ width_apply_weight (double width,
 }
 
 static double
-normalized_diagonal (double width, double height)
-{
-  return hypot (width, height) / M_SQRT2;
-}
-
-static double
-calculate_line_width (double width,
-                      double height,
+calculate_line_width (double radius,
                       double weight)
 {
-  double stroke;
-
-  width = MIN (width, MAX_RADIUS * 2);
-  height = MIN (height, MAX_RADIUS * 2);
-
-  stroke = normalized_diagonal (width, height) / 8.0; /* 2px for 16px */
+  double stroke = radius / 8.0; /* 2px for 16px */
 
   return width_apply_weight (stroke, 0.25 * stroke, 1.5 * stroke, weight);
 }
@@ -353,7 +341,7 @@ adw_spinner_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
   GskPathMeasure *measure;
 
   radius = MIN (floorf (MIN (width, height) / 2), MAX_RADIUS);
-  line_width = calculate_line_width (width, height, weight);
+  line_width = calculate_line_width (radius * 2, weight);
 
   if (radius < line_width / 2)
     return;
