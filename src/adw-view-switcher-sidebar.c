@@ -189,7 +189,7 @@ add_item (AdwViewSwitcherSidebar *self,
 {
   AdwSidebarItem *item = adw_sidebar_item_new ("");
 
-  g_hash_table_insert (self->items, page, g_object_ref (item));
+  g_hash_table_insert (self->items, page, item);
 
   g_object_bind_property (page, "title", item, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "icon-name", item, "icon-name", G_BINDING_SYNC_CREATE);
