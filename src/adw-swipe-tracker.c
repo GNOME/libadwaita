@@ -29,6 +29,7 @@
 #define DRAG_THRESHOLD_DISTANCE 16
 #define EPSILON 0.005
 #define OVERSHOOT_DISTANCE_MULTIPLIER 0.1
+#define SCROLL_ORIENTATION_FACTOR 1.2
 
 #define SIGN(x) ((x) > 0.0 ? 1.0 : ((x) < 0.0 ? -1.0 : 0.0))
 
@@ -832,9 +833,20 @@ handle_scroll_event (AdwSwipeTracker *self,
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE) {
     AdwNavigationDirection direction;
+    double cross_delta;
 
     if (gdk_scroll_event_is_stop (event))
       return GDK_EVENT_PROPAGATE;
+
+    if (G_APPROX_VALUE (delta, 0, DBL_EPSILON))
+      return GDK_EVENT_PROPAGATE;
+
+    cross_delta = is_vertical ? dx : dy;
+
+    if (ABS (delta) < ABS (cross_delta) * SCROLL_ORIENTATION_FACTOR) {
+      self->state = ADW_SWIPE_TRACKER_STATE_REJECTED;
+      return GDK_EVENT_PROPAGATE;
+    }
 
     direction = delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
 
