@@ -1,4 +1,27 @@
 =============
+Version 1.9.2
+=============
+
+- Build
+  - Include prebuilt styles again
+  - Resolve locale directory at runtime on Windows
+- AdwApplication
+  - Speed up initial style loading
+- AdwStyleManager
+  - Speed up initial loading
+  - Check GTK version in runtime instead of build time
+- AdwSwipeTracker
+  - Ignore mostly orthogonal touchpad scrolls
+- AdwViewSwitcherSidebar
+  - Fix a leak
+- Stylesheet
+  - Fix a copypaste error
+- Translation updates
+  - Filipino
+  - Norwegian Bokmål
+  - Polish
+
+=============
 Version 1.9.1
 =============
 
