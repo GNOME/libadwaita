@@ -157,14 +157,44 @@ style_provider_set_enabled (GtkStyleProvider *provider,
 }
 
 static void
-update_stylesheet (AdwApplication *self)
+update_css_provider (AdwApplication   *self,
+                     GtkStyleProvider *provider)
 {
-  AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
   AdwStyleManager *manager = adw_style_manager_get_default ();
   GtkSettings *settings = gtk_settings_get_default ();
   GtkInterfaceColorScheme color_scheme;
   GtkInterfaceContrast contrast;
   GtkReducedMotion reduced_motion;
+
+  if (!provider)
+    return;
+
+  if (adw_style_manager_get_dark (manager))
+    color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
+  else
+    color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+
+  if (adw_style_manager_get_high_contrast (manager))
+    contrast = GTK_INTERFACE_CONTRAST_MORE;
+  else
+    contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+
+  g_object_get (settings,
+                "gtk-interface-reduced-motion", &reduced_motion,
+                NULL);
+
+  g_object_set (provider,
+                "prefers-color-scheme", color_scheme,
+                "prefers-contrast", contrast,
+                "prefers-reduced-motion", reduced_motion,
+                NULL);
+}
+
+static void
+update_stylesheet (AdwApplication *self)
+{
+  AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
+  AdwStyleManager *manager = adw_style_manager_get_default ();
   gboolean is_dark, is_hc;
 
   is_dark = adw_style_manager_get_dark (manager);
@@ -179,55 +209,15 @@ update_stylesheet (AdwApplication *self)
   if (priv->hc_dark_style_provider)
     style_provider_set_enabled (priv->hc_dark_style_provider, is_hc && is_dark);
 
-  if (is_dark)
-    color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-  else
-    color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
-
-  if (is_hc)
-    contrast = GTK_INTERFACE_CONTRAST_MORE;
-  else
-    contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
-
-  g_object_get (settings,
-                "gtk-interface-reduced-motion", &reduced_motion,
-                NULL);
-
-  if (priv->base_style_provider) {
-    g_object_set (priv->base_style_provider,
-                  "prefers-color-scheme", color_scheme,
-                  "prefers-contrast", contrast,
-                  "prefers-reduced-motion", reduced_motion,
-                  NULL);
-  }
-
-  if (priv->dark_style_provider) {
-    g_object_set (priv->dark_style_provider,
-                  "prefers-color-scheme", color_scheme,
-                  "prefers-contrast", contrast,
-                  "prefers-reduced-motion", reduced_motion,
-                  NULL);
-  }
-
-  if (priv->hc_style_provider) {
-    g_object_set (priv->hc_style_provider,
-                  "prefers-color-scheme", color_scheme,
-                  "prefers-contrast", contrast,
-                  "prefers-reduced-motion", reduced_motion,
-                  NULL);
-  }
-
-  if (priv->hc_dark_style_provider) {
-    g_object_set (priv->hc_dark_style_provider,
-                  "prefers-color-scheme", color_scheme,
-                  "prefers-contrast", contrast,
-                  "prefers-reduced-motion", reduced_motion,
-                  NULL);
-  }
+  update_css_provider (self, priv->base_style_provider);
+  update_css_provider (self, priv->dark_style_provider);
+  update_css_provider (self, priv->hc_style_provider);
+  update_css_provider (self, priv->hc_dark_style_provider);
 }
 
 static void
-init_provider_from_file (GtkStyleProvider **provider,
+init_provider_from_file (AdwApplication    *self,
+                         GtkStyleProvider **provider,
                          GFile             *base_file,
                          const char        *name,
                          gboolean           deprecated)
@@ -240,9 +230,12 @@ init_provider_from_file (GtkStyleProvider **provider,
   }
 
   *provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
+
+  update_css_provider (self, *provider);
+
   gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (*provider), file);
 
-  if (deprecated) {
+    if (deprecated) {
     g_warning ("The resource %s is deprecated and shouldn't be used anymore. "
                "Use style.css with media queries instead.",
                name);
@@ -261,10 +254,12 @@ init_providers (AdwApplication *self)
     return;
 
   if (!adw_is_granite_present ()) {
-    init_provider_from_file (&priv->base_style_provider,    base_file, "style.css",         FALSE);
-    init_provider_from_file (&priv->dark_style_provider,    base_file, "style-dark.css",    TRUE);
-    init_provider_from_file (&priv->hc_style_provider,      base_file, "style-hc.css",      TRUE);
-    init_provider_from_file (&priv->hc_dark_style_provider, base_file, "style-hc-dark.css", TRUE);
+    init_provider_from_file (self, &priv->base_style_provider,    base_file, "style.css",         FALSE);
+    init_provider_from_file (self, &priv->dark_style_provider,    base_file, "style-dark.css",    TRUE);
+    init_provider_from_file (self, &priv->hc_style_provider,      base_file, "style-hc.css",      TRUE);
+    init_provider_from_file (self, &priv->hc_dark_style_provider, base_file, "style-hc-dark.css", TRUE);
+
+    update_stylesheet (self);
   }
 
   g_object_unref (base_file);
