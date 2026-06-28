@@ -1,3 +1,96 @@
+==================
+Version 1.10.alpha
+==================
+
+- Add translation comments across the project
+- Add AdwCssClassBinding
+- Deprecate AdwEnumListModel; switch everything to GtkEnumList
+- Build
+  - Require GTK 4.23.1
+  - Depend on ministream instead of appstream
+  - Make it possible to build on Android
+  - Include prebuilt styles again
+  - Resolve locale directory at runtime on Windows
+- Adaptive preview
+  - Try to contain window styles within the preview
+  - Collapse the sidebar on small sizes
+  - Fix casing in a message
+  - Don't make device model names and Phosh names translatable
+- AdwAboutDialog
+  - Add :other-apps-title
+- AdwAboutDialog and AdwAboutWindow
+  - Speed up adding legal sections
+  - Speed up adding credit sections
+- AdwAlertDialog
+  - Fix a crash when chaining up in response()
+  - Fix the Since annotation on get_prefer_wide_layout()
+- AdwApplication
+  - Speed up initial style loading
+- AdwBreakpointBin
+  - Fix initial focus
+- AdwButtonRow
+  - Fix availability annotation
+- AdwClampScrollable
+  - Implement GtkScrollable.get_border()
+- AdwEntryRow
+  - Fix clicking edit icon
+  - Reduce the number of notify::opacity emissions on children
+- AdwNavigationView
+  - Fix swipe direction
+- AdwOverlaySplitView
+  - Add a unique style class to the overlay sidebar
+- AdwShortcutLabel
+  - Use a more natural modifier ordering
+  - Improve key labels on macOS
+- AdwSidebar
+  - Add :prefix and :suffix
+  - Set tab behavior to 'item'
+  - Fix adding multiple sections at once
+  - Fix a crash when removing multiple items at once
+- AdwSpinnerPaintable
+  - Support icon weight
+- AdwStyleManager
+  - Implement Android settings backend
+  - Use default timeout when talking to the settings portal
+  - Fix gtk-application-prefer-dark-theme warnings with newer GTK
+  - Speed up initial loading
+- AdwSwipeTracker
+  - Ignore mostly orthogonal touchpad scrolls
+- AdwTabView
+  - Fix a deprecation
+- AdwViewSwitcherSidebar
+  - Add :prefix and :suffix
+  - Fix a leak
+- Demo
+  - Adjust shortcuts on macOS
+- Examples
+  - Fix a build error
+- Stylesheet
+  - Reduce icon weight for large icons
+  - Improve popover shadow
+  - Fix svg asset rendering with newer GTK
+  - Adapt to GtkSpinner changes in newer GTK
+  - Fix bottom padding with .navigation-sidebar
+  - Fix a copypaste error
+- Update internal icons
+- Various cleanups
+- Translation updates
+  - Belarusian
+  - Chinese (Taiwan)
+  - Cornish
+  - Czech
+  - Dutch
+  - Filipino
+  - Kabyle
+  - Norwegian Bokmål
+  - Persian
+  - Polish
+  - Romanian
+  - Russian
+  - Serbian
+  - Slovak
+  - Slovenian
+
 =============
 Version 1.9.0
 =============
