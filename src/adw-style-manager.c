@@ -457,8 +457,6 @@ adw_style_manager_constructed (GObject *object)
                     NULL);
 
       self->provider = gtk_css_provider_new ();
-      gtk_css_provider_load_from_resource (self->provider,
-                                           "/org/gnome/Adwaita/styles/gtk.css");
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
@@ -531,6 +529,11 @@ adw_style_manager_constructed (GObject *object)
   update_dark (self);
   update_fonts (self);
   update_stylesheet (self, UPDATE_ALL);
+
+  if (self->provider) {
+    gtk_css_provider_load_from_resource (self->provider,
+                                         "/org/gnome/Adwaita/styles/gtk.css");
+  }
 }
 
 static void
