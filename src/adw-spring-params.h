@@ -17,7 +17,7 @@ G_BEGIN_DECLS
 typedef struct _AdwSpringParams AdwSpringParams;
 
 ADW_AVAILABLE_IN_ALL
-GType adw_spring_params_get_type (void) G_GNUC_CONST;
+GType adw_spring_params_get_type (void);
 
 ADW_AVAILABLE_IN_ALL
 AdwSpringParams *adw_spring_params_new         (double damping_ratio,

@@ -37,7 +37,7 @@ typedef enum {
 typedef struct _AdwBreakpointCondition AdwBreakpointCondition;
 
 ADW_AVAILABLE_IN_1_4
-GType adw_breakpoint_condition_get_type (void) G_GNUC_CONST;
+GType adw_breakpoint_condition_get_type (void);
 
 ADW_AVAILABLE_IN_1_4
 AdwBreakpointCondition *adw_breakpoint_condition_new_length (AdwBreakpointConditionLengthType type,
