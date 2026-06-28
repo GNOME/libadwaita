@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2026-05-24 17:02+0000\n"
-"PO-Revision-Date: 2026-05-30 17:59+0200\n"
+"PO-Revision-Date: 2026-06-28 16:37+0200\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <nb@li.org>\n"
 "Language: nb\n"
@@ -168,7 +168,7 @@ msgstr "Om appen"
 
 #: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
 msgid "What’s _New"
-msgstr "Hva er _nytt"
+msgstr "Dette er _nytt"
 
 #: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
 msgid "_Details"
