@@ -4,14 +4,14 @@
 #
 # Muhammet Kara <muhammetk@gmail.com>, 2021.
 # Sabri Ünal <yakushabb@gmail.com>, 2022-2025.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2022-2025.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2022-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2025-12-25 12:43+0000\n"
-"PO-Revision-Date: 2025-12-28 08:00+0300\n"
+"POT-Creation-Date: 2026-06-15 08:32+0000\n"
+"PO-Revision-Date: 2026-06-30 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -21,98 +21,120 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.8\n"
 
-#: src/adw-about-dialog.c:214 src/adw-about-window.c:209
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:219 src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU Genel Kamu Lisansı, sürüm 2 ya da sonrası"
 
-#: src/adw-about-dialog.c:215 src/adw-about-window.c:210
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:221 src/adw-about-window.c:212
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU Genel Kamu Lisansı, sürüm 3 ya da sonrası"
 
-#: src/adw-about-dialog.c:216 src/adw-about-window.c:211
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:223 src/adw-about-window.c:214
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Kısıtlı GNU Genel Kamu Lisansı, sürüm 2.1 ya da sonrası"
 
-#: src/adw-about-dialog.c:217 src/adw-about-window.c:212
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:225 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Kısıtlı GNU Genel Kamu Lisansı, sürüm 3 ya da sonrası"
 
-#: src/adw-about-dialog.c:218 src/adw-about-window.c:213
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:227 src/adw-about-window.c:218
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-Clause Lisansı"
 
-#: src/adw-about-dialog.c:219 src/adw-about-window.c:214
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:229 src/adw-about-window.c:220
 msgid "The MIT License (MIT)"
 msgstr "MIT Lisansı (MIT)"
 
-#: src/adw-about-dialog.c:220 src/adw-about-window.c:215
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:231 src/adw-about-window.c:222
 msgid "Artistic License 2.0"
 msgstr "Sanatsal Lisans 2.0"
 
-#: src/adw-about-dialog.c:221 src/adw-about-window.c:216
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:233 src/adw-about-window.c:224
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU Genel Kamu Lisansı, yalnızca sürüm 2"
 
-#: src/adw-about-dialog.c:222 src/adw-about-window.c:217
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:235 src/adw-about-window.c:226
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU Genel Kamu Lisansı, yalnızca sürüm 3"
 
-#: src/adw-about-dialog.c:223 src/adw-about-window.c:218
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:237 src/adw-about-window.c:228
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Kısıtlı Genel Kamu Lisansı, yalnızca sürüm 2.1"
 
-#: src/adw-about-dialog.c:224 src/adw-about-window.c:219
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:239 src/adw-about-window.c:230
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Kısıtlı Genel Kamu Lisansı, yalnızca sürüm 3"
 
-#: src/adw-about-dialog.c:225 src/adw-about-window.c:220
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:241 src/adw-about-window.c:232
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero Genel Kamu Lisansı, sürüm 3 ya da sonrası"
 
-#: src/adw-about-dialog.c:226 src/adw-about-window.c:221
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:243 src/adw-about-window.c:234
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero Genel Kamu Lisansı, yalnızca sürüm 3"
 
-#: src/adw-about-dialog.c:227 src/adw-about-window.c:222
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:245 src/adw-about-window.c:236
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-Clause Lisansı"
 
-#: src/adw-about-dialog.c:228 src/adw-about-window.c:223
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:247 src/adw-about-window.c:238
 msgid "Apache License, Version 2.0"
 msgstr "Apache Lisansı, Sürüm 2.0"
 
-#: src/adw-about-dialog.c:229 src/adw-about-window.c:224
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:249 src/adw-about-window.c:240
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Kamu Lisansı 2.0"
 
-#: src/adw-about-dialog.c:230 src/adw-about-window.c:225
+#. Translators: license name, shown in the legal section in about dialog
+#: src/adw-about-dialog.c:251 src/adw-about-window.c:242
 msgid "BSD Zero-Clause License"
 msgstr "BSD Zero-Clause Lisansı"
 
-#: src/adw-about-dialog.c:574 src/adw-about-window.c:567
+#. Translators: developers section title in credits
+#: src/adw-about-dialog.c:594 src/adw-about-window.c:578
 msgid "Code by"
 msgstr "Kodlayan"
 
-#: src/adw-about-dialog.c:575 src/adw-about-window.c:568
+#. Translators: designers section title in credits
+#: src/adw-about-dialog.c:596 src/adw-about-window.c:580
 msgid "Design by"
 msgstr "Tasarlayan"
 
-#: src/adw-about-dialog.c:576 src/adw-about-window.c:569
+#. Translators: artists section title in credits
+#: src/adw-about-dialog.c:598 src/adw-about-window.c:582
 msgid "Artwork by"
 msgstr "Grafikler"
 
-#: src/adw-about-dialog.c:577 src/adw-about-window.c:570
+#. Translators: documenters section title in credits
+#: src/adw-about-dialog.c:600 src/adw-about-window.c:584
 msgid "Documentation by"
 msgstr "Belgelendiren"
 
-#: src/adw-about-dialog.c:578 src/adw-about-window.c:571
+#. Translators: translators section title in credits
+#: src/adw-about-dialog.c:602 src/adw-about-window.c:586
 msgid "Translated by"
 msgstr "Çeviren"
 
-#. Translators: this is the license preamble; the string at the end
-#. * contains the name of the license as link text.
-#.
-#: src/adw-about-dialog.c:607 src/adw-about-window.c:600
+#. Translators: this is the license preamble. The 2 variables are the link to
+#. the license and its name. Names are translatable separately, links are
+#. hardcoded.
+#: src/adw-about-dialog.c:631 src/adw-about-window.c:615
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -121,104 +143,154 @@ msgstr ""
 "Bu uygulama kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a "
 "href=\"%s\">%s</a> bağlantısına bakın."
 
-#: src/adw-about-dialog.c:685 src/adw-about-window.c:678
+#. Translators: Shown in the legal page when there are multiple sections, in
+#. that case this is the title of the first section, while subsequent titles
+#. are app-provided. For example:
+#. This Application: Copyright, license.
+#. Dependency 1: Copyright, license.
+#. Dependency 2: Copyright, license.
+#: src/adw-about-dialog.c:715 src/adw-about-window.c:699
 msgid "This Application"
 msgstr "Bu Uygulama"
 
-#: src/adw-about-dialog.c:987 src/adw-about-window.c:980
+#. Translators: title on the "What's new" page. The variable is the
+#. specified version: e.g. "Version 1.2.3"
+#: src/adw-about-dialog.c:1020 src/adw-about-window.c:1004
 #, c-format
 msgid "Version %s"
 msgstr "Sürüm %s"
 
-#: src/adw-about-dialog.c:1013 src/adw-about-window.c:1006
+#. Translators: error message printed when release notes are invalid.
+#. The first variable is error message, then the two numbers are line number
+#. and the character number within the line.
+#: src/adw-about-dialog.c:1044 src/adw-about-window.c:1028
+#, c-format
+msgid "Unable to parse release notes: %s at line %d, char %d"
+msgstr "Sürüm notları ayrıştırılamadı: %s (satır %d, karakter %d)"
+
+#. Translators: this is an error message, displayed when the release notes
+#. are invalid. It will appear in the UI, instead of release notes.
+#. The error message will be on the next line, followed by the
+#. "Line: %d, character: %d" string.
+#: src/adw-about-dialog.c:1054 src/adw-about-window.c:1038
 msgid "Unable to parse release notes:"
 msgstr "Sürüm notları ayrıştırılamadı:"
 
-#: src/adw-about-dialog.c:1019 src/adw-about-window.c:1012
+#. Translators: shown after the error when release notes couldn't be parsed.
+#. The first variable is the line number, the second one is the position
+#. within the line.
+#: src/adw-about-dialog.c:1063 src/adw-about-window.c:1047
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Satır: %d, karakter: %d"
 
-#: src/adw-about-dialog.c:1280 src/adw-about-window.c:1273
-msgid "Copied to clipboard"
-msgstr "Panoya kopyalandı"
-
-#: src/adw-about-dialog.c:1307 src/adw-about-window.c:1301
-msgid "Unable to save debugging information"
-msgstr "Hata ayıklama bilgisi kaydedilemedi"
-
-#: src/adw-about-dialog.c:1312 src/adw-about-window.c:1306
-#: src/adw-sheet-controls.c:127
-msgid "Close"
-msgstr "Kapat"
-
-#: src/adw-about-dialog.c:1329 src/adw-about-window.c:1322
-msgid "Save debugging information"
-msgstr "Hata ayıklama bilgisini kaydet"
-
-#: src/adw-about-dialog.c:2270
+#. Translators: app developers can showcase their other apps in the about
+#. dialog. This is the title of that section. The variable is the developer
+#. name.
+#: src/adw-about-dialog.c:1252
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Diğer %s Uygulamaları"
 
-#: src/adw-about-dialog.c:2276
+#. Translators: app developers can showcase their other apps in the about
+#. dialog. This is the title of that section when the developer name has not
+#. been specified.
+#: src/adw-about-dialog.c:1260
 msgid "Other Apps"
 msgstr "Diğer Uygulamalar"
 
-#: src/adw-about-dialog.ui:5 src/adw-about-window.ui:5
+#. Translators: shown in a toast in response
+#. to copying version or debug information
+#: src/adw-about-dialog.c:1500 src/adw-about-window.c:1310
+msgid "Copied to clipboard"
+msgstr "Panoya kopyalandı"
+
+#. Translators: error message, shown when saving debug info fails
+#: src/adw-about-dialog.c:1528 src/adw-about-window.c:1338
+msgid "Unable to save debugging information"
+msgstr "Hata ayıklama bilgisi kaydedilemedi"
+
+#. Translators: label of the close button in an error dialog
+#. Translators: accessible label of the sheet close button
+#: src/adw-about-dialog.c:1534 src/adw-about-window.c:1346
+#: src/adw-sheet-controls.c:128
+msgid "Close"
+msgstr "Kapat"
+
+#. Translators: title of the file chooser that appears when saving debug info
+#: src/adw-about-dialog.c:1552 src/adw-about-window.c:1363
+msgid "Save debugging information"
+msgstr "Hata ayıklama bilgisini kaydet"
+
+#. Translators: about dialog title
+#: src/adw-about-dialog.ui:6 src/adw-about-window.ui:6
 msgid "About"
 msgstr "Hakkında"
 
-#: src/adw-about-dialog.ui:88 src/adw-about-window.ui:91
+#. Translators: title of the row that opens the release notes page
+#: src/adw-about-dialog.ui:90 src/adw-about-window.ui:93
 msgid "What’s _New"
 msgstr "Neler _Yeni"
 
-#: src/adw-about-dialog.ui:104 src/adw-about-window.ui:107
+#. Translators: title of the row that opens the details page (comment, website etc)
+#: src/adw-about-dialog.ui:107 src/adw-about-window.ui:110
 msgid "_Details"
 msgstr "_Ayrıntılar"
 
-#: src/adw-about-dialog.ui:120 src/adw-about-dialog.ui:324
-#: src/adw-about-window.ui:123 src/adw-about-window.ui:322
+#. Translators: title of the row that opens the app's website
+#: src/adw-about-dialog.ui:124 src/adw-about-dialog.ui:338
+#: src/adw-about-window.ui:127 src/adw-about-window.ui:336
 msgid "_Website"
 msgstr "_Web Sitesi"
 
-#: src/adw-about-dialog.ui:135 src/adw-about-window.ui:138
+#. Translators: title of the row that opens the app's support forum
+#: src/adw-about-dialog.ui:140 src/adw-about-window.ui:143
 msgid "_Support Questions"
 msgstr "_Destek Soruları"
 
-#: src/adw-about-dialog.ui:144 src/adw-about-window.ui:147
+#. Translators: title of the row that opens the app's issue tracker
+#: src/adw-about-dialog.ui:150 src/adw-about-window.ui:153
 msgid "_Report an Issue"
 msgstr "Sorun _Bildir"
 
-#: src/adw-about-dialog.ui:153 src/adw-about-window.ui:156
+#. Translators: title of the row that opens the troubleshooting page
+#: src/adw-about-dialog.ui:160 src/adw-about-window.ui:163
 msgid "_Troubleshooting"
 msgstr "_Sorun Giderme"
 
-#: src/adw-about-dialog.ui:173 src/adw-about-window.ui:176
+#. Translators: title of the row that opens the credits page
+#: src/adw-about-dialog.ui:181 src/adw-about-window.ui:184
 msgid "_Credits"
 msgstr "_Oluşturanlar"
 
-#: src/adw-about-dialog.ui:189 src/adw-about-window.ui:192
+#. Translators: title of the row that opens the legal page (copyright, license)
+#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
 msgid "_Legal"
 msgstr "_Yasal"
 
-#: src/adw-about-dialog.ui:205 src/adw-about-window.ui:208
+#. Translators: title of the row that opens the acknowledgements page
+#. (like credits but separate, e.g. for patreon backers)
+#: src/adw-about-dialog.ui:216 src/adw-about-window.ui:219
 msgid "_Acknowledgements"
 msgstr "_Teşekkürler"
 
-#: src/adw-about-dialog.ui:240 src/adw-about-window.ui:238
+#. Translators: title of the release notes page
+#: src/adw-about-dialog.ui:252 src/adw-about-window.ui:250
 msgid "What’s New"
 msgstr "Yenilikler"
 
-#: src/adw-about-dialog.ui:286 src/adw-about-window.ui:284
+#. Translators: title of the details page (comment, website etc)
+#: src/adw-about-dialog.ui:299 src/adw-about-window.ui:297
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: src/adw-about-dialog.ui:344 src/adw-about-window.ui:342
+#. Translators: title of the troubleshooting page
+#: src/adw-about-dialog.ui:359 src/adw-about-window.ui:357
 msgid "Troubleshooting"
 msgstr "Sorun Giderme"
 
-#: src/adw-about-dialog.ui:367 src/adw-about-window.ui:365
+#. Translators: comment at the top of the troubleshooting page
+#: src/adw-about-dialog.ui:383 src/adw-about-window.ui:381
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -229,295 +301,391 @@ msgstr ""
 "geliştiricilerine vermeniz durumunda sorunların saptanmasına yardımcı "
 "olursunuz."
 
-#: src/adw-about-dialog.ui:378 src/adw-about-window.ui:376
+#. Translators: title of the row that opens the debug information page
+#: src/adw-about-dialog.ui:395 src/adw-about-window.ui:393
 msgid "_Debugging Information"
 msgstr "_Hata Ayıklama Bilgisi"
 
-#: src/adw-about-dialog.ui:405 src/adw-about-window.ui:403
+#. Translators: title of the debug information page
+#: src/adw-about-dialog.ui:423 src/adw-about-window.ui:421
 msgid "Debugging Information"
 msgstr "Hata Ayıklama Bilgisi"
 
-#: src/adw-about-dialog.ui:453 src/adw-about-window.ui:451
+#. Translators: label of a button on the debug information page
+#: src/adw-about-dialog.ui:472 src/adw-about-window.ui:470
 msgid "_Copy Text"
 msgstr "_Metni Kopyala"
 
-#: src/adw-about-dialog.ui:461 src/adw-about-window.ui:459
+#. Translators: label of a button on the debug information page
+#: src/adw-about-dialog.ui:481 src/adw-about-window.ui:479
 msgid "_Save As…"
 msgstr "Farklı K_aydet…"
 
-#: src/adw-about-dialog.ui:474 src/adw-about-window.ui:472
+#. Translators: title of the credits page
+#: src/adw-about-dialog.ui:495 src/adw-about-window.ui:493
 msgid "Credits"
 msgstr "Oluşturanlar"
 
-#: src/adw-about-dialog.ui:505 src/adw-about-window.ui:503
+#. Translators: title of the legal page (copyright, license)
+#: src/adw-about-dialog.ui:527 src/adw-about-window.ui:525
 msgid "Legal"
 msgstr "Yasal"
 
-#: src/adw-about-dialog.ui:537 src/adw-about-window.ui:535
+#. Translators: title of the acknowledgements page
+#. (like credits but separate, e.g. for patreon backers)
+#: src/adw-about-dialog.ui:561 src/adw-about-window.ui:559
 msgid "Acknowledgements"
 msgstr "Teşekkürler"
 
-#: src/adw-adaptive-preview.c:387
-msgid "Screenshot Copied to Clipboard"
-msgstr "Ekran Görüntüsü Panoya Kopyalandı"
+#. Translators: title of the toast that appears after taking a screenshot
+#: src/adw-adaptive-preview.c:392
+msgid "Screenshot copied to clipboard"
+msgstr "Ekran görüntüsü panoya kopyalandı"
 
-#: src/adw-adaptive-preview.ui:19 src/adw-inspector-page.c:67
-#: src/adw-inspector-page.ui:88
+#. Translators: the window title for the adaptive preview view,
+#. accessed with Ctrl+Shift+M or from inspector
+#. Translators: tooltip of the buttons in each row in the adaptive preview section
+#. Translators: title of the adaptive preview group in inspector.
+#. This group lists compatible windows and allows to open or close
+#. adaptive preview for them.
+#: src/adw-adaptive-preview.ui:31 src/adw-inspector-page.c:68
+#: src/adw-inspector-page.ui:104
 msgid "Adaptive Preview"
 msgstr "Uyarlanır Ön İzleme"
 
-#: src/adw-adaptive-preview.ui:28
+#. Translators: the title of the device group in the adaptive preview sidebar,
+#. referring to the screen size and bezels of the preview
+#: src/adw-adaptive-preview.ui:42
 msgid "Display"
 msgstr "Görüntüle"
 
-#: src/adw-adaptive-preview.ui:31
+#. Translators: title of the device selector row
+#: src/adw-adaptive-preview.ui:46
 msgid "Device"
 msgstr "Aygıt"
 
-#: src/adw-adaptive-preview.ui:37
+#. Translators: title of the custom screen width row
+#: src/adw-adaptive-preview.ui:53
 msgid "Width"
 msgstr "Genişlik"
 
-#: src/adw-adaptive-preview.ui:51
+#. Translators: title of the custom screen height row
+#: src/adw-adaptive-preview.ui:68
 msgid "Height"
 msgstr "Yükseklik"
 
-#: src/adw-adaptive-preview.ui:65
+#. Translators: title of the screen rotation row
+#: src/adw-adaptive-preview.ui:83
 msgid "Rotate"
 msgstr "Döndür"
 
-#: src/adw-adaptive-preview.ui:68 src/adw-adaptive-preview.ui:70
+#. Translators: tooltip of the button that rotates left/counterclockwise
+#: src/adw-adaptive-preview.ui:88
 msgid "Rotate Left"
 msgstr "Sola Döndür"
 
-#: src/adw-adaptive-preview.ui:80 src/adw-adaptive-preview.ui:82
+#. Translators: tooltip of the button that rotates right/clockwise
+#: src/adw-adaptive-preview.ui:100
 msgid "Rotate Right"
 msgstr "Sağa Döndür"
 
-#: src/adw-adaptive-preview.ui:96
+#. Translators: title of the shell group in the adaptive preview sidebar,
+#. referring to the top/bottom bars within the preview
+#: src/adw-adaptive-preview.ui:116
 msgid "Shell"
 msgstr "Kabuk"
 
-#: src/adw-adaptive-preview.ui:99
+#. Translators: title of the shell preset selector row
+#: src/adw-adaptive-preview.ui:120
 msgid "Preset"
 msgstr "Ön Ayar"
 
-#: src/adw-adaptive-preview.ui:105
+#. Translators: title of the custom top bar height row
+#: src/adw-adaptive-preview.ui:127
 msgid "Top Bar"
 msgstr "Üst Çubuk"
 
-#: src/adw-adaptive-preview.ui:119
+#. Translators: title of the custom bottom bar height row
+#: src/adw-adaptive-preview.ui:142
 msgid "Bottom Bar"
 msgstr "Alt Çubuk"
 
-#: src/adw-adaptive-preview.ui:133
+#. Translators: title of the window controls switch row -
+#. refers to close/minimize/maximize buttons
+#: src/adw-adaptive-preview.ui:158
 msgid "Window Controls"
 msgstr "Pencere Denetimleri"
 
-#: src/adw-adaptive-preview.ui:141
+#. Translators: title of the view group in the adaptive preview sidebar
+#: src/adw-adaptive-preview.ui:167
 msgid "View"
 msgstr "Görünüm"
 
-#: src/adw-adaptive-preview.ui:144
+#. Translators: title of the scale to fit option - it selects between
+#. scaling the preview as the window resizes, or having scrollbars instead
+#: src/adw-adaptive-preview.ui:172
 msgid "Scale to Fit"
 msgstr "Sığdırmak İçin Ölçekle"
 
-#. Translators: screen bezel, e.g. on a phone
-#: src/adw-adaptive-preview.ui:151
+#. Translators: title of the "highlight bezel" row -
+#. it makes screen bezel in the preview colored,
+#. so that it doesn't blend with the app when the app
+#. has black background
+#: src/adw-adaptive-preview.ui:182
 msgid "Highlight Bezel"
 msgstr "Çerçeveyi Vurgula"
 
-#: src/adw-adaptive-preview.ui:177
+#. Translators: tooltip of the button that toggles the preview sidebar
+#: src/adw-adaptive-preview.ui:212
 msgid "Toggle Sidebar"
 msgstr "Kenar Çubuğunu Aç/Kapa"
 
-#: src/adw-adaptive-preview.ui:187
+#. Translators: label of the button that exits adaptive preview
+#: src/adw-adaptive-preview.ui:223
 msgid "Exit"
 msgstr "Çık"
 
-#: src/adw-adaptive-preview.ui:197
+#. Translators: tooltip of the button that takes a screenshot
+#: src/adw-adaptive-preview.ui:234
 msgid "Take Screenshot"
 msgstr "Ekran Görüntüsü Al"
 
-#: src/adw-adaptive-preview-presets-private.h:24
+#. Translators: one of the values in the shell preset dropdown, it controls
+#. the height of the top and bottom bar in the preview. This one refers to the
+#. upstream gnome-shell - it only has a top bar
+#: src/adw-adaptive-preview-presets-private.h:27
 msgctxt "Shell preset"
 msgid "Desktop Shell"
 msgstr "Masaüstü Kabuğu"
 
-#: src/adw-adaptive-preview-presets-private.h:25
+#. Translators: one of the values in the shell preset dropdown, it controls
+#. the height of the top and bottom bar in the preview. This one refers to the
+#. mobile fork of gnome-shell - it has a top bar and a bottom bar
+#: src/adw-adaptive-preview-presets-private.h:31
 msgctxt "Shell preset"
 msgid "Mobile Shell"
 msgstr "Mobil Kabuk"
 
-#: src/adw-adaptive-preview-presets-private.h:26
-msgctxt "Shell preset"
-msgid "Phosh"
-msgstr "Phosh"
-
-#: src/adw-adaptive-preview-presets-private.h:27
+#. Translators: one of the values in the shell preset dropdown, it controls
+#. the height of the top and bottom bar in the preview. Fullscreen mode means
+#. no top/bottom bars
+#: src/adw-adaptive-preview-presets-private.h:36
 msgctxt "Shell preset"
 msgid "Fullscreen"
 msgstr "Tam Ekran"
 
-#: src/adw-adaptive-preview-presets-private.h:28
+#. Translators: one of the values in the shell preset dropdown, it controls
+#. the height of the top and bottom bar in the preview. Custom mode allows to
+#. set the panel heights manually
+#: src/adw-adaptive-preview-presets-private.h:40
 msgctxt "Shell preset"
 msgid "Custom"
 msgstr "Özel"
 
-#: src/adw-adaptive-preview-presets-private.h:90
+#. Translators: one of the values in the device preset dropdown, it controls
+#. the screen size and bezels of the preview. This is a "generic" linux
+#. phone, with the same dimensions as Librem 5, PinePhone and PinePhone Pro
+#: src/adw-adaptive-preview-presets-private.h:105
 msgctxt "Device preset"
 msgid "Generic Phone"
 msgstr "Genel Telefon"
 
-#: src/adw-adaptive-preview-presets-private.h:99
+#. Translators: one of the values in the device preset dropdown, it controls
+#. the screen size and bezels of the preview. This is a tablet, so it has a
+#. larger size and is horizontally oriented
+#: src/adw-adaptive-preview-presets-private.h:117
 msgctxt "Device preset"
 msgid "Generic Tablet"
 msgstr "Genel Tablet"
 
-#: src/adw-adaptive-preview-presets-private.h:108
-msgctxt "Device preset"
-msgid "OnePlus 6"
-msgstr "OnePlus 6"
-
-#: src/adw-adaptive-preview-presets-private.h:117
-msgctxt "Device preset"
-msgid "OnePlus 6T"
-msgstr "OnePlus 6T"
-
-#: src/adw-adaptive-preview-presets-private.h:126
+#. Translators: one of the values in the device preset dropdown, it controls
+#. the screen size and bezels of the preview. This is a custom device, it
+#. allows to set the screen size manually and has no bezels
+#: src/adw-adaptive-preview-presets-private.h:147
 msgctxt "Device preset"
 msgid "Custom"
 msgstr "Özel"
 
-#: src/adw-avatar.c:159
+#. Translators: accessible label for an avatar. The variable is a name of
+#. the person the avatar refers to
+#: src/adw-avatar.c:161
 #, c-format
 msgid "Avatar of %s"
 msgstr "%s avatarı"
 
-#: src/adw-back-button.c:313 src/adw-back-button.c:411
-#: src/adw-back-button.c:521
+#. Translators: entry in the back button's context menu. Normally the entry
+#. titles here are page titles, but if a title is missing, "Back" is used
+#. instead.
+#. Translators: back button tooltip. Normally it's the title of the previous
+#. page (the one that will appear after clicking the button), but "Back" is
+#. used as a fallback if that page has no title.
+#. Translators: accessible label of back buttons. Unlike the tooltip and menu
+#. entries, this one is always used, regardless of page titles.
+#: src/adw-back-button.c:316 src/adw-back-button.c:417
+#: src/adw-back-button.c:525
 msgid "Back"
 msgstr "Geri"
 
-#. Translators: This is a placeholder text of the search entry from AdwComboRow. It should be phrased as a verb.
-#: src/adw-combo-row.ui:50 src/adw-preferences-dialog.ui:86
-#: src/adw-preferences-window.ui:97
+#. Translators: placeholder text of the search entry from AdwComboRow.
+#. It should be phrased as a verb
+#. Translators: tooltip of the search button
+#: src/adw-combo-row.ui:52 src/adw-preferences-dialog.ui:89
+#: src/adw-preferences-window.ui:100
 msgid "Search"
 msgstr "Ara"
 
-#: src/adw-entry-row.ui:96
+#. Translators: tooltip of the apply button in entry row
+#: src/adw-entry-row.ui:95
 msgid "Apply"
 msgstr "Uygula"
 
-#: src/adw-indicator-bin.c:77
+#. Translators: used by screen reader when reading out view switcher pages
+#. which have needs-attention=true (the blue dot or number badge)
+#: src/adw-indicator-bin.c:80
 msgctxt "view switcher button badge"
 msgid "Attention requested."
 msgstr "İlgi istendi."
 
-#: src/adw-indicator-bin.c:80
+#. Translators: used by screen reader when reading out view switcher pages
+#. which have the unread badge (e.g. the number of updates/notifications).
+#. This string is used when the badge is showing "999+".
+#: src/adw-indicator-bin.c:87
 msgctxt "view switcher button badge"
 msgid "Has a badge: more than 999."
 msgstr "Rozet var: 999’dan çok."
 
-#: src/adw-indicator-bin.c:82
+#. Translators: used by screen reader when reading out view switcher pages
+#. which have the unread badge (e.g. the number of updates/notifications).
+#. The variable is what's displayed on the badge.
+#: src/adw-indicator-bin.c:92
 #, c-format
 msgctxt "view switcher button badge"
 msgid "Has a badge: %u."
 msgstr "Rozet var: %u"
 
-#: src/adw-inspector-page.c:131
+#. Translators: one of the color scheme dropdown options in inspector.
+#. No preference here means that the system doesn't care if the app is
+#. light or dark.
+#: src/adw-inspector-page.c:135
 msgid "No Preference"
 msgstr "Yeğsiz"
 
-#: src/adw-inspector-page.c:133
+#. Translators: one of the color scheme dropdown options in inspector.
+#. The system prefers apps to be dark.
+#: src/adw-inspector-page.c:139
 msgid "Prefer Dark"
 msgstr "Koyu Yeğle"
 
-#: src/adw-inspector-page.c:135
+#. Translators: one of the color scheme dropdown options in inspector.
+#. The system prefers apps to be light.
+#: src/adw-inspector-page.c:143
 msgid "Prefer Light"
 msgstr "Açık Yeğle"
 
-#: src/adw-inspector-page.c:148
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:157
 msgid "Blue"
 msgstr "Mavi"
 
-#: src/adw-inspector-page.c:150
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:160
 msgid "Teal"
 msgstr "Deniz Mavisi"
 
-#: src/adw-inspector-page.c:152
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:163
 msgid "Green"
 msgstr "Yeşil"
 
-#: src/adw-inspector-page.c:154
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:166
 msgid "Yellow"
 msgstr "Sarı"
 
-#: src/adw-inspector-page.c:156
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:169
 msgid "Orange"
 msgstr "Turuncu"
 
-#: src/adw-inspector-page.c:158
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:172
 msgid "Red"
 msgstr "Kırmızı"
 
-#: src/adw-inspector-page.c:160
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:175
 msgid "Pink"
 msgstr "Pembe"
 
-#: src/adw-inspector-page.c:162
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:178
 msgid "Purple"
 msgstr "Mor"
 
-#: src/adw-inspector-page.c:164
+#. Translators: one of the accent color dropdown options in inspector
+#: src/adw-inspector-page.c:181
 msgid "Slate"
 msgstr "Kayrak"
 
-#. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:303
+#. Translators: the name of the library, not the stylesheet
+#: src/adw-inspector-page.c:320
 msgid "Adwaita"
 msgstr "Adwaita"
 
-#: src/adw-inspector-page.ui:10
+#. Translators: title of the accent system appearance group in inspector
+#: src/adw-inspector-page.ui:11
 msgid "System Appearance"
 msgstr "Sistem Görünümü"
 
-#: src/adw-inspector-page.ui:11
+#. Translators: description of the accent system appearance group
+#: src/adw-inspector-page.ui:13
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
 msgstr ""
 "Bu uygulama için ayarları çiğne. Bunlar, denetçi kapatılınca sıfırlanacaktır."
 
-#: src/adw-inspector-page.ui:14
+#. Translators: title of the system-supports-color-scheme switch row.
+#. It's used to emulate systems that don't have their own light/dark
+#. setting, as opposed to those that do.
+#: src/adw-inspector-page.ui:19
 msgid "System Supports Color Schemes"
 msgstr "Sistem Renk Şemalarını Destekliyor"
 
-#: src/adw-inspector-page.ui:20
+#. Translators: title of the color scheme picker combo row
+#: src/adw-inspector-page.ui:26
 msgid "Preferred Color Scheme"
 msgstr "Yeğlenen Renk Şeması"
 
-#: src/adw-inspector-page.ui:39
+#. Translators: title of the accent color group in inspector
+#: src/adw-inspector-page.ui:46
 msgid "Accent Color"
 msgstr "Vurgu Rengi"
 
-#: src/adw-inspector-page.ui:42
+#. Translators: title of the system-supports-accent-color switch row.
+#. It's used to emulate systems that don't have their own accent color
+#. setting, as opposed to those that do.
+#: src/adw-inspector-page.ui:52
 msgid "System Supports Accent Colors"
 msgstr "Sistem Vurgu Renklerini Destekler"
 
-#: src/adw-inspector-page.ui:48
+#. Translators: title of the accent color picker picker row
+#: src/adw-inspector-page.ui:59
 msgid "Preferred Accent Color"
 msgstr "Yeğlenen Vurgu Rengi"
 
-#: src/adw-inspector-page.ui:77
+#. Translators: title of the accessibility group in inspector
+#: src/adw-inspector-page.ui:89
 msgid "Accessibility"
 msgstr "Erişilebilirlik"
 
-#: src/adw-inspector-page.ui:80
+#. Translators: title of the high contrast switch row
+#: src/adw-inspector-page.ui:93
 msgid "High Contrast"
 msgstr "Yüksek Karşıtlık"
 
-#: src/adw-inspector-page.ui:89
+#. Translators: description of the adaptive preview group
+#: src/adw-inspector-page.ui:106
 msgid ""
 "Test the app at specific screen sizes to simulate a mobile environment. Open "
 "the preview directly on any supported window using Shift+Ctrl+M"
@@ -526,150 +694,198 @@ msgstr ""
 "izlemeyi, desteklenen herhangi bir pencerede doğrudan açmak için "
 "Shift+Ctrl+M tuşlarını kullan"
 
-#: src/adw-link-row.c:327
+#. Translators: context menu item for link rows in about dialog
+#: src/adw-link-row.c:328
 msgid "_Open Link"
 msgstr "Bağlantı _Aç"
 
-#: src/adw-link-row.c:328
+#. Translators: context menu item for link rows in about dialog
+#: src/adw-link-row.c:330
 msgid "Copy _Link Address"
 msgstr "_Bağlantı Adresini Kopyala"
 
-#: src/adw-password-entry-row.c:70
+#. Translators: tooltip of the hide password button in password entry rows
+#: src/adw-password-entry-row.c:71
 msgid "Hide Password"
 msgstr "Parolayı Gizle"
 
-#: src/adw-password-entry-row.c:74
+#. Translators: tooltip of the show password button in password entry rows
+#: src/adw-password-entry-row.c:76
 msgid "Show Password"
 msgstr "Parolayı Göster"
 
-#: src/adw-password-entry-row.c:168
+#. Translators: tooltip of the caps lock indicator in password entry rows
+#: src/adw-password-entry-row.c:171
 msgid "Caps Lock is on"
 msgstr "Caps Lock açık"
 
-#: src/adw-password-entry-row.c:176
+#. Translators: context menu entry in password entry rows
+#: src/adw-password-entry-row.c:180
 msgid "_Show Password"
 msgstr "Parolayı _Göster"
 
-#: src/adw-preferences-dialog.c:217 src/adw-preferences-window.c:218
+#. Translators: shown in the search view in preferences dialog, in
+#. subtitles. When the dialog has more than 1 page, the search results
+#. display what page each row is from, e.g. Appearance → Fonts for a row
+#. from a Fonts group row on the Appearance page. If a page is missing a
+#. title, this string is used as a fallback, i.e. Untitled page → Fonts
+#: src/adw-preferences-dialog.c:222 src/adw-preferences-window.c:223
 msgid "Untitled page"
 msgstr "Başlıksız sayfa"
 
-#: src/adw-preferences-dialog.ui:5 src/adw-preferences-window.ui:8
+#. Translators: default title in the preferences dialog
+#: src/adw-preferences-dialog.ui:6 src/adw-preferences-window.ui:9
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: src/adw-preferences-dialog.ui:70 src/adw-preferences-window.ui:81
+#. Translators: placeholder text in the search entry, search is a verb here
+#: src/adw-preferences-dialog.ui:72 src/adw-preferences-window.ui:83
 msgid "Search preferences"
 msgstr "Tercihleri ara"
 
-#: src/adw-preferences-dialog.ui:154 src/adw-preferences-window.ui:164
-#: src/adw-shortcuts-dialog.ui:79
+#. Translators: title of the no search results page
+#: src/adw-preferences-dialog.ui:158 src/adw-preferences-window.ui:168
+#: src/adw-shortcuts-dialog.ui:83
 msgid "No Results Found"
 msgstr "Sonuç Bulunamadı"
 
-#: src/adw-preferences-dialog.ui:155 src/adw-shortcuts-dialog.ui:80
-#: src/adw-tab-overview.ui:111
+#. Translators: description of the no search results page
+#: src/adw-preferences-dialog.ui:160 src/adw-preferences-window.ui:170
+#: src/adw-shortcuts-dialog.ui:85 src/adw-tab-overview.ui:116
 msgid "Try a different search"
 msgstr "Başka arama dene"
 
-#: src/adw-preferences-window.ui:165
-msgid "Try a different search."
-msgstr "Başka arama deneyin."
-
-#: src/adw-sheet-controls.c:129
+#. Translators: accessible description of the sheet close button
+#: src/adw-sheet-controls.c:131
 msgid "Close the window"
 msgstr "Pencereyi kapat"
 
 #. Translators: This string is used to mark left/right variants of modifier
-#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
-#. * this string very short, ideally just a single character, since it will
-#. * be rendered as part of the key.
-#.
-#: src/adw-shortcut-label.c:133
+#. keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. this string very short, ideally just a single character, since it will
+#. be rendered as part of the key.
+#: src/adw-shortcut-label.c:132
 msgctxt "keyboard side marker"
 msgid "L"
 msgstr "Sl"
 
 #. Translators: This string is used to mark left/right variants of modifier
-#. * keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
-#. * this string very short, ideally just a single character, since it will
-#. * be rendered as part of the key.
-#.
-#: src/adw-shortcut-label.c:146
+#. keys in the shortcut window (e.g. Control_L vs Control_R). Please keep
+#. this string very short, ideally just a single character, since it will
+#. be rendered as part of the key.
+#: src/adw-shortcut-label.c:144
 msgctxt "keyboard side marker"
 msgid "R"
 msgstr "Sğ"
 
-#: src/adw-shortcuts-dialog.ui:5
+#. Translators: default title in shortcuts dialogs
+#: src/adw-shortcuts-dialog.ui:6
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: src/adw-shortcuts-dialog.ui:20 src/adw-shortcuts-dialog.ui:22
+#. Translators: placeholder text for the search entry. Search is a verb here
+#. Translators: accessible label for the search entry
+#: src/adw-shortcuts-dialog.ui:22 src/adw-shortcuts-dialog.ui:25
 msgid "Search shortcuts"
 msgstr "Kısayolları ara"
 
-#: src/adw-shortcut-row.c:257
+#. Translators: shown in shortcuts dialog, when an action is listed, but
+#. doesn't actually have a shortcut
+#: src/adw-shortcut-row.c:259
 msgid "No Shortcut"
 msgstr "Kısayol Yok"
 
-#: src/adw-split-button.c:530 src/adw-split-button.c:1044
+#. Translators: default tooltip of a split button's dropdown
+#: src/adw-split-button.c:532 src/adw-split-button.c:1050
 msgid "More Options"
 msgstr "Daha Çok Seçenek"
 
-#: src/adw-tab-button.ui:7
+#. Translators: tooltip of AdwTabButton
+#: src/adw-tab-button.ui:8
 msgid "View Open Tabs"
 msgstr "Açık Sekmeleri Gör"
 
-#. Translators: Tab overview title, %u is the number of open tabs
-#: src/adw-tab-overview.c:964
+#. Translators: tab overview title. The variable is the number of open tabs
+#: src/adw-tab-overview.c:965
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
 msgstr[0] "%u Sekme"
 
-#: src/adw-tab-overview.ui:20
+#. Translators: tooltip of the search button
+#: src/adw-tab-overview.ui:21
 msgid "Search Tabs"
 msgstr "Sekmeleri Ara"
 
-#: src/adw-tab-overview.ui:50
+#. Translators: placeholder text of the search entry. Search is a verb here
+#: src/adw-tab-overview.ui:52
 msgid "Search tabs"
 msgstr "Sekmeleri ara"
 
-#: src/adw-tab-overview.ui:97
+#. Translators: title of the no open tabs page
+#: src/adw-tab-overview.ui:100
 msgid "No Open Tabs"
 msgstr "Açık Sekme Yok"
 
-#: src/adw-tab-overview.ui:110
+#. Translators: title of the no search results page
+#: src/adw-tab-overview.ui:114
 msgid "No Tabs Found"
 msgstr "Sekme Bulunamadı"
 
-#: src/adw-tab-overview.ui:131
+#. Translators: label of the new tab button
+#: src/adw-tab-overview.ui:137
 msgid "New _Tab"
 msgstr "Yeni _Sekme"
 
-#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:75
+#. Translators: tooltip of the close button on tabs
+#: src/adw-tab-thumbnail.ui:40 src/adw-tab.ui:76
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
 
-#: src/adw-toast-overlay.c:285
+#. Translators: an announcement screen reader reads out when a toast with a
+#. button appears. The first variable is the toast's title, the second one
+#. is the button label.
+#: src/adw-toast-overlay.c:289
 #, c-format
 msgid "A toast appeared: %s, has a button: %s"
 msgstr "Bildirim gösterildi: %s, düğmesi var: %s"
 
-#: src/adw-toast-overlay.c:288
+#. Translators: an announcement screen reader reads out when a toast without
+#. a button appears. The variable is the toast's title.
+#: src/adw-toast-overlay.c:294
 #, c-format
 msgid "A toast appeared: %s"
 msgstr "Bildirim gösterildi: %s"
 
-#: src/adw-toast-overlay.c:290
+#. Translators: an announcement screen reader reads out when a toast with a
+#. button, but without a title appears. The variable is the button label.
+#: src/adw-toast-overlay.c:298
 #, c-format
 msgid "A toast appeared, has a button: %s"
 msgstr "Bildirim gösterildi, düğmesi var: %s"
 
-#: src/adw-toast-overlay.c:293
+#. Translators: an announcement screen reader reads out when a toast without
+#. a button or a title appears.
+#: src/adw-toast-overlay.c:303
 msgid "A toast appeared"
 msgstr "Bildirim gösterildi"
 
-#: src/adw-toast-widget.ui:66
+#. Translators: tooltip of the dismiss (close) button on toasts
+#: src/adw-toast-widget.ui:67
 msgid "Dismiss"
 msgstr "Kapat"
+
+#~ msgctxt "Shell preset"
+#~ msgid "Phosh"
+#~ msgstr "Phosh"
+
+#~ msgctxt "Device preset"
+#~ msgid "OnePlus 6"
+#~ msgstr "OnePlus 6"
+
+#~ msgctxt "Device preset"
+#~ msgid "OnePlus 6T"
+#~ msgstr "OnePlus 6T"
+
+#~ msgid "Try a different search."
+#~ msgstr "Başka arama deneyin."
