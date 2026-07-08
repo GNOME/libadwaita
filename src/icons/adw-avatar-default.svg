@@ -11,12 +11,12 @@
         <dc:description></dc:description>
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>avatar-default person contact being human</rdf:li>
+            <rdf:li>avatar-default person contact being human libadwaita</rdf:li>
           </rdf:Bag>
         </dc:subject>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <path id="person" fill="none" stroke="rgb(0,0,0)" gpa:stroke="foreground" stroke-width="2" gpa:stroke-width="0.5 2 3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" paint-order="stroke markers fill" d="M 15 15 A 4 4 45 0 0 11 11 L 5 11 A 4 4 135 0 0 1 15 M 12 5 C 12 7.20914, 10.2091 9, 8 9 C 5.79086 9, 4 7.20914, 4 5 C 4 2.79086, 5.79086 1, 8 1 C 10.2091 1, 12 2.79086, 12 5 Z" class="transparent-fill foreground-stroke" gpa:states="outline">
+  <path id="person" fill="none" stroke="rgb(0,0,0)" gpa:stroke="foreground" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" paint-order="stroke markers fill" d="M 15 15 A 4 4 45 0 0 11 11 L 5 11 A 4 4 135 0 0 1 15 M 12 5 C 12 7.20914, 10.2091 9, 8 9 C 5.79086 9, 4 7.20914, 4 5 C 4 2.79086, 5.79086 1, 8 1 C 10.2091 1, 12 2.79086, 12 5 Z" class="transparent-fill foreground-stroke" gpa:states="outline" gpa:stroke-minwidth="25%" gpa:stroke-maxwidth="150%" >
   </path>
 </svg>
