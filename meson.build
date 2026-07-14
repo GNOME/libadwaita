@@ -44,6 +44,7 @@ ministream_dep = dependency('ministream', default_options: [
   'introspection=disabled',
   'as-compare=disabled',
   'tests=false',
+  'install-profile=vendored-no-excludelibs',
   'default_library=static'
 ])
 
