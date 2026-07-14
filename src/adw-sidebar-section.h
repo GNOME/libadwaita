@@ -54,6 +54,12 @@ ADW_AVAILABLE_IN_1_9
 void        adw_sidebar_section_set_title (AdwSidebarSection *self,
                                            const char        *title);
 
+ADW_AVAILABLE_IN_1_10
+GtkWidget *adw_sidebar_section_get_suffix (AdwSidebarSection *self);
+ADW_AVAILABLE_IN_1_10
+void       adw_sidebar_section_set_suffix (AdwSidebarSection *self,
+                                           GtkWidget         *suffix);
+
 ADW_AVAILABLE_IN_1_9
 GMenuModel *adw_sidebar_section_get_menu_model (AdwSidebarSection *self);
 ADW_AVAILABLE_IN_1_9

@@ -73,6 +73,34 @@ test_adw_sidebar_section_title (void)
 }
 
 static void
+test_adw_sidebar_section_suffix (void)
+{
+  AdwSidebarSection *section = adw_sidebar_section_new ();
+  GtkWidget *suffix;
+  int notified = 0;
+
+  g_assert_nonnull (section);
+
+  g_signal_connect_swapped (section, "notify::suffix", G_CALLBACK (increment), &notified);
+
+  g_object_get (section, "suffix", &suffix, NULL);
+  g_assert_null (suffix);
+  g_assert_cmpint (notified, ==, 0);
+
+  suffix = g_object_ref_sink (gtk_switch_new ());
+  adw_sidebar_section_set_suffix (section, suffix);
+  g_assert_true (adw_sidebar_section_get_suffix (section) == suffix);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (section, "suffix", NULL, NULL);
+  g_assert_null (adw_sidebar_section_get_suffix (section));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (suffix);
+  g_assert_finalize_object (section);
+}
+
+static void
 test_adw_sidebar_section_menu_model (void)
 {
   AdwSidebarSection *section = adw_sidebar_section_new ();
@@ -262,6 +290,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/SidebarSection/title", test_adw_sidebar_section_title);
+  g_test_add_func("/Adwaita/SidebarSection/suffix", test_adw_sidebar_section_suffix);
   g_test_add_func("/Adwaita/SidebarSection/menu_model", test_adw_sidebar_section_menu_model);
   g_test_add_func("/Adwaita/SidebarSection/add_remove", test_adw_sidebar_section_add_remove);
   g_test_add_func("/Adwaita/SidebarSection/bind_model", test_adw_sidebar_section_bind_model);

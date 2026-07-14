@@ -1338,8 +1338,8 @@ notify_suffix_cb (AdwSidebarItem *item,
 
 static void
 section_menu_model_notify_cb (AdwSidebarSection *section,
-                     GParamSpec        *pspec,
-                     GtkWidget         *row)
+                              GParamSpec        *pspec,
+                              GtkWidget         *row)
 {
   AdwSidebar *self = ADW_SIDEBAR (gtk_widget_get_ancestor (row, ADW_TYPE_SIDEBAR));
   AdwSidebarItem *item = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item");
@@ -1417,46 +1417,82 @@ create_row (AdwSidebarItem *item,
   return row;
 }
 
-static gboolean
-get_header_stack_page (GBinding     *binding,
-                       const GValue *from_value,
-                       GValue       *to_value,
-                       gpointer      user_data)
+static void
+update_header_page_cb (AdwSidebarSection *section,
+                       GParamSpec        *pspec,
+                       GtkStack          *stack)
 {
-  const char *str = g_value_get_string (from_value);
+  const char *title = adw_sidebar_section_get_title (section);
+  GtkWidget *suffix = adw_sidebar_section_get_suffix (section);
 
-  if (str && *str)
-    g_value_set_static_string (to_value, "title");
+  if ((title && *title) || suffix)
+    gtk_stack_set_visible_child_name (stack, "title");
   else
-    g_value_set_static_string (to_value, "separator");
+    gtk_stack_set_visible_child_name (stack, "separator");
+}
 
-  return TRUE;
+static void
+notify_section_suffix_cb (AdwSidebarSection *section,
+                          GParamSpec        *pspec,
+                          GtkWidget         *header)
+{
+  GtkWidget *old_suffix = g_object_get_data (G_OBJECT (header), "-adw-sidebar-section-suffix");
+  GtkBox *box = g_object_get_data (G_OBJECT (header), "-adw-sidebar-section-box");
+  GtkWidget *suffix;
+
+  if (old_suffix)
+    gtk_box_remove (box, old_suffix);
+
+  suffix = adw_sidebar_section_get_suffix (section);
+
+  if (suffix)
+    gtk_box_append (box, suffix);
+
+  g_object_set_data (G_OBJECT (header), "-adw-sidebar-section-suffix", suffix);
+
+  if (suffix)
+    gtk_widget_add_css_class (header, "has-suffix");
+  else
+    gtk_widget_remove_css_class (header, "has-suffix");
 }
 
 static GtkWidget *
 create_header (AdwSidebarSection *section,
                gboolean           first_section)
 {
-  GtkWidget *stack, *title, *separator;
+  GtkWidget *stack, *box, *title, *separator;
 
   stack = gtk_stack_new ();
   gtk_widget_add_css_class (stack, "header");
   gtk_stack_set_hhomogeneous (GTK_STACK (stack), FALSE);
   gtk_stack_set_vhomogeneous (GTK_STACK (stack), FALSE);
 
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_stack_add_named (GTK_STACK (stack), box, "title");
+
   title = gtk_label_new (NULL);
   gtk_label_set_ellipsize (GTK_LABEL (title), PANGO_ELLIPSIZE_END);
   gtk_label_set_xalign (GTK_LABEL (title), 0.0);
+  gtk_widget_set_hexpand (title, TRUE);
   gtk_widget_add_css_class (title, "heading");
-  gtk_stack_add_named (GTK_STACK (stack), title, "title");
+  gtk_box_append (GTK_BOX (box), title);
 
   separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
   gtk_stack_add_named (GTK_STACK (stack), separator, "separator");
 
   g_object_bind_property (section, "title", title, "label", G_BINDING_SYNC_CREATE);
-  g_object_bind_property_full (section, "title", stack, "visible-child-name",
-                               G_BINDING_SYNC_CREATE,
-                               get_header_stack_page, NULL, NULL, NULL);
+
+  g_signal_connect_object (section, "notify::title",
+                           G_CALLBACK (update_header_page_cb), stack, 0);
+  g_signal_connect_object (section, "notify::suffix",
+                           G_CALLBACK (update_header_page_cb), stack, 0);
+  update_header_page_cb (section, NULL, GTK_STACK (stack));
+
+  g_object_set_data (G_OBJECT (stack), "-adw-sidebar-section-box", box);
+
+  g_signal_connect_object (section, "notify::suffix",
+                           G_CALLBACK (notify_section_suffix_cb), stack, 0);
+  notify_section_suffix_cb (section, NULL, stack);
 
   if (first_section) {
     g_object_bind_property_full (section, "title", stack, "visible",
@@ -1691,6 +1727,7 @@ create_section (AdwSidebar        *self,
   GtkFilterListModel *filtered = gtk_filter_list_model_new (items, NULL);
 
   g_object_bind_property (self, "filter", filtered, "filter", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (section, "suffix", group, "header-suffix", G_BINDING_SYNC_CREATE);
   g_object_bind_property_full (section, "title", group, "title", G_BINDING_SYNC_CREATE,
                                escape_markup, NULL, NULL, NULL);
   g_object_bind_property_full (filtered, "n-items", group, "visible", G_BINDING_SYNC_CREATE,
@@ -1988,6 +2025,8 @@ recreate_ui (AdwSidebar *self)
           g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-suffix", NULL);
         }
       }
+
+      adw_preferences_group_set_header_suffix (group, NULL);
     }
 
     if (self->prefix)
@@ -2003,6 +2042,23 @@ recreate_ui (AdwSidebar *self)
   if (self->swindow) {
     GtkListBoxRow *row;
     int index = 0;
+
+    while ((row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index++)) != NULL) {
+      GtkWidget *header = gtk_list_box_row_get_header (row);
+
+      if (header) {
+        GtkWidget *suffix = g_object_get_data (G_OBJECT (header), "-adw-sidebar-section-suffix");
+
+        if (suffix) {
+          GtkBox *box = g_object_get_data (G_OBJECT (header), "-adw-sidebar-section-box");
+
+          gtk_box_remove (box, suffix);
+          g_object_set_data (G_OBJECT (header), "-adw-sidebar-section-suffix", NULL);
+        }
+      }
+    }
+
+    gtk_list_box_set_header_func (GTK_LIST_BOX (self->listbox), NULL, NULL, NULL);
 
     while ((row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index++)) != NULL) {
       GtkWidget *suffix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-suffix");
@@ -2234,6 +2290,9 @@ adw_sidebar_dispose (GObject *object)
 
   g_clear_handle_id (&self->restore_scroll_idle_id, g_source_remove);
   g_clear_handle_id (&self->reset_menu_idle_id, g_source_remove);
+
+  if (self->listbox)
+    gtk_list_box_set_header_func (GTK_LIST_BOX (self->listbox), NULL, NULL, NULL);
 
   g_clear_pointer (&self->swindow, gtk_widget_unparent);
   g_clear_pointer (&self->page, gtk_widget_unparent);

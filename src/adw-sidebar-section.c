@@ -24,6 +24,10 @@
  * will have a separator in front of it, or just spacing in the
  * [enum@Adw.SidebarMode.page] mode.
  *
+ * Sections can also have an arbitrary suffix widget, set with the
+ * [property@SidebarSection:suffix] properties. It will be displayed at the end
+ * of its header.
+ *
  * To add items, use [method@SidebarSection.append],
  * [method@SidebarSection.prepend] or [method@SidebarSection.insert].
  *
@@ -90,6 +94,7 @@ struct _AdwSidebarSection
   GObject parent_instance;
 
   char *title;
+  GtkWidget *suffix;
   GMenuModel *menu_model;
 
   GPtrArray *items;
@@ -113,6 +118,7 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSidebarSection, adw_sidebar_section, G_TYPE_OB
 enum {
   PROP_0,
   PROP_TITLE,
+  PROP_SUFFIX,
   PROP_MENU_MODEL,
   PROP_ITEMS,
   PROP_SIDEBAR,
@@ -346,6 +352,7 @@ adw_sidebar_section_dispose (GObject *object)
     g_clear_object (&self->bound_model);
   }
 
+  g_clear_object (&self->suffix);
   g_clear_object (&self->menu_model);
   g_clear_pointer (&self->items, g_ptr_array_unref);
 
@@ -375,6 +382,9 @@ adw_sidebar_section_get_property (GObject    *object,
   case PROP_TITLE:
     g_value_set_string (value, adw_sidebar_section_get_title (self));
     break;
+  case PROP_SUFFIX:
+    g_value_set_object (value, adw_sidebar_section_get_suffix (self));
+    break;
   case PROP_MENU_MODEL:
     g_value_set_object (value, adw_sidebar_section_get_menu_model (self));
     break;
@@ -401,6 +411,9 @@ adw_sidebar_section_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_TITLE:
     adw_sidebar_section_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_SUFFIX:
+    adw_sidebar_section_set_suffix (self, g_value_get_object (value));
     break;
   case PROP_MENU_MODEL:
     adw_sidebar_section_set_menu_model (self, g_value_get_object (value));
@@ -433,6 +446,20 @@ adw_sidebar_section_class_init (AdwSidebarSectionClass *klass)
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
                          "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSidebarSection:suffix:
+   *
+   * The suffix widget for this section.
+   *
+   * Suffix will be displayed at the end of the header.
+   *
+   * Since: 1.10
+   */
+  props[PROP_SUFFIX] =
+    g_param_spec_object ("suffix", NULL, NULL,
+                         GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -564,6 +591,56 @@ adw_sidebar_section_set_title (AdwSidebarSection *self,
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
+}
+
+/**
+ * adw_sidebar_section_get_suffix:
+ * @self: a sidebar section
+ *
+ * Gets the suffix widget for @self.
+ *
+ * Returns: (nullable) (transfer none): the suffix widget
+ *
+ * Since: 1.10
+ */
+GtkWidget *
+adw_sidebar_section_get_suffix (AdwSidebarSection *self)
+{
+  g_return_val_if_fail (ADW_IS_SIDEBAR_SECTION (self), NULL);
+
+  return self->suffix;
+}
+
+/**
+ * adw_sidebar_section_set_suffix:
+ * @self: a sidebar section
+ * @suffix: (nullable): the suffix widget
+ *
+ * Sets the suffix widget for @self.
+ *
+ * Suffix will be shown at the end of the header.
+ *
+ * Since: 1.10
+ */
+void
+adw_sidebar_section_set_suffix (AdwSidebarSection *self,
+                                GtkWidget         *suffix)
+{
+  g_return_if_fail (ADW_IS_SIDEBAR_SECTION (self));
+  g_return_if_fail (suffix == NULL || GTK_IS_WIDGET (suffix));
+
+  if (suffix == self->suffix)
+    return;
+
+  if (self->suffix)
+    g_object_unref (self->suffix);
+
+  self->suffix = suffix;
+
+  if (self->suffix)
+    g_object_ref_sink (self->suffix);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUFFIX]);
 }
 
 /**

@@ -155,12 +155,17 @@ stacksidebar row {
   }
 
 
-  > .header > .heading {
-    margin: $menu_margin + 6px;
+  > .header > box {
+    margin: $menu_margin;
+
+    > .heading {
+      margin: 6px;
+    }
   }
 
   /* No top margin on the first header */
-  > .header.first > .heading {
+  > .header.first > box,
+  > .header.first:not(.has-suffix) > box > .heading {
     margin-top: 0;
   }
 
