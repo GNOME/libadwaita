@@ -1622,7 +1622,7 @@ create_boxed_row (AdwSidebarItem *item,
   gtk_widget_add_css_class (arrow, "arrow");
   adw_action_row_add_suffix (ADW_ACTION_ROW (row), arrow);
 
-  g_object_set_data (G_OBJECT (row), "-adw-sidebar-arrow", arrow);
+  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-arrow", arrow);
 
   setup_drop_target (self, row);
   setup_context_menu (self, item, row);
