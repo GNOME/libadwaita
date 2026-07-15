@@ -45,6 +45,22 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
+adw_preferences_row_root (GtkWidget *widget)
+{
+  GtkWidget *parent;
+
+  GTK_WIDGET_CLASS (adw_preferences_row_parent_class)->root (widget);
+
+  parent = gtk_widget_get_parent (widget);
+
+  if (!GTK_IS_LIST_BOX (parent)) {
+    g_warning ("%s %p placed into %s %p, can only be placed into GtkListBox",
+               G_OBJECT_TYPE_NAME (widget), widget,
+               G_OBJECT_TYPE_NAME (parent), parent);
+  }
+}
+
+static void
 adw_preferences_row_get_property (GObject    *object,
                                   guint       prop_id,
                                   GValue     *value,
@@ -110,10 +126,13 @@ static void
 adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->get_property = adw_preferences_row_get_property;
   object_class->set_property = adw_preferences_row_set_property;
   object_class->finalize = adw_preferences_row_finalize;
+
+  widget_class->root = adw_preferences_row_root;
 
   /**
    * AdwPreferencesRow:title:
