@@ -2113,6 +2113,8 @@ recreate_ui (AdwSidebar *self)
 
     gtk_list_box_set_header_func (GTK_LIST_BOX (self->listbox), NULL, NULL, NULL);
 
+    index = 0;
+
     while ((row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index++)) != NULL) {
       GtkWidget *prefix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-prefix");
       GtkWidget *suffix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-suffix");
