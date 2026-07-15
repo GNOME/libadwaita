@@ -9,6 +9,7 @@ test_names = [
   'test-breakpoints',
   'test-button-states',
   'test-navigation',
+  'test-sidebars',
   'test-shortcut-labels',
   'test-shortcuts-dialogs',
   'test-split-views',
