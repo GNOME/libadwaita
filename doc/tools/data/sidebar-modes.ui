@@ -87,6 +87,14 @@
         <child>
           <object class="AdwSidebarSection">
             <property name="title" translatable="yes">Places</property>
+            <property name="suffix">
+              <object class="GtkButton">
+                <property name="icon-name">list-add-symbolic</property>
+                <style>
+                  <class name="flat"/>
+                </style>
+              </object>
+            </property>
             <child>
               <object class="AdwSidebarItem">
                 <property name="title" translatable="yes">Music</property>
