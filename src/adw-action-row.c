@@ -167,6 +167,19 @@ row_activated_cb (AdwActionRow  *self,
 }
 
 static void
+activatable_widget_weak_notify (gpointer  data,
+                                GObject  *where_the_object_was)
+{
+  AdwActionRow *self = ADW_ACTION_ROW (data);
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  priv->activatable_widget = NULL;
+  priv->activatable_binding = NULL;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
+}
+
+static void
 adw_action_row_root (GtkWidget *widget)
 {
   GtkWidget *parent;
@@ -263,8 +276,22 @@ static void
 adw_action_row_dispose (GObject *object)
 {
   AdwActionRow *self = ADW_ACTION_ROW (object);
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
 
-  adw_action_row_set_activatable_widget (self, NULL);
+  g_clear_pointer (&priv->activatable_binding, g_binding_unbind);
+
+  if (priv->activatable_widget) {
+    gtk_accessible_reset_relation (GTK_ACCESSIBLE (priv->activatable_widget),
+                                   GTK_ACCESSIBLE_RELATION_LABELLED_BY);
+    gtk_accessible_reset_relation (GTK_ACCESSIBLE (priv->activatable_widget),
+                                   GTK_ACCESSIBLE_RELATION_DESCRIBED_BY);
+
+    g_object_weak_unref (G_OBJECT (priv->activatable_widget),
+                         activatable_widget_weak_notify,
+                         self);
+
+    priv->activatable_widget = NULL;
+  }
 
   G_OBJECT_CLASS (adw_action_row_parent_class)->dispose (object);
 }
@@ -649,19 +676,6 @@ adw_action_row_get_activatable_widget (AdwActionRow *self)
   priv = adw_action_row_get_instance_private (self);
 
   return priv->activatable_widget;
-}
-
-static void
-activatable_widget_weak_notify (gpointer  data,
-                                GObject  *where_the_object_was)
-{
-  AdwActionRow *self = ADW_ACTION_ROW (data);
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
-  priv->activatable_widget = NULL;
-  priv->activatable_binding = NULL;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
 }
 
 /**
