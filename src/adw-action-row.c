@@ -73,8 +73,6 @@ typedef struct
   GtkLabel *title;
   GtkBox *title_box;
 
-  GtkWidget *previous_parent;
-
   int title_lines;
   int subtitle_lines;
   gboolean subtitle_selectable;
@@ -169,21 +167,32 @@ row_activated_cb (AdwActionRow  *self,
 }
 
 static void
-parent_cb (AdwActionRow *self)
+adw_action_row_root (GtkWidget *widget)
 {
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (self));
+  GtkWidget *parent;
 
-  if (priv->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
-    priv->previous_parent = NULL;
+  GTK_WIDGET_CLASS (adw_action_row_parent_class)->root (widget);
+
+  parent = gtk_widget_get_parent (widget);
+
+  if (GTK_IS_LIST_BOX (parent)) {
+    g_signal_connect_swapped (parent, "row-activated",
+                              G_CALLBACK (row_activated_cb), widget);
+  }
+}
+
+static void
+adw_action_row_unroot (GtkWidget *widget)
+{
+  GtkWidget *parent = gtk_widget_get_parent (widget);
+
+  if (GTK_IS_LIST_BOX (parent)) {
+    g_signal_handlers_disconnect_by_func (parent,
+                                          G_CALLBACK (row_activated_cb),
+                                          widget);
   }
 
-  if (parent == NULL || !GTK_IS_LIST_BOX (parent))
-    return;
-
-  priv->previous_parent = parent;
-  g_signal_connect_swapped (parent, "row-activated", G_CALLBACK (row_activated_cb), self);
+  GTK_WIDGET_CLASS (adw_action_row_parent_class)->unroot (widget);
 }
 
 static void
@@ -254,12 +263,6 @@ static void
 adw_action_row_dispose (GObject *object)
 {
   AdwActionRow *self = ADW_ACTION_ROW (object);
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
-  if (priv->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
-    priv->previous_parent = NULL;
-  }
 
   adw_action_row_set_activatable_widget (self, NULL);
 
@@ -286,6 +289,9 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   object_class->get_property = adw_action_row_get_property;
   object_class->set_property = adw_action_row_set_property;
   object_class->dispose = adw_action_row_dispose;
+
+  widget_class->root = adw_action_row_root;
+  widget_class->unroot = adw_action_row_unroot;
 
   klass->activate = adw_action_row_activate_real;
 
@@ -410,8 +416,6 @@ static void
 adw_action_row_init (AdwActionRow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
 }
 
 static void
