@@ -1707,13 +1707,6 @@ create_boxed_row (AdwSidebarItem *item,
   notify_icon_cb (item, NULL, icon);
   adw_action_row_add_prefix (ADW_ACTION_ROW (row), icon);
 
-  arrow = g_object_new (GTK_TYPE_IMAGE,
-                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
-                        "icon-name", "go-next-symbolic",
-                        NULL);
-  gtk_widget_add_css_class (arrow, "arrow");
-  adw_action_row_add_suffix (ADW_ACTION_ROW (row), arrow);
-
   g_signal_connect_object (item, "notify::prefix",
                            G_CALLBACK (boxed_notify_prefix_cb), row, 0);
   boxed_notify_prefix_cb (item, NULL, ADW_ACTION_ROW (row));
@@ -1722,7 +1715,14 @@ create_boxed_row (AdwSidebarItem *item,
                            G_CALLBACK (boxed_notify_suffix_cb), row, 0);
   boxed_notify_suffix_cb (item, NULL, ADW_ACTION_ROW (row));
 
-  g_object_set_data (G_OBJECT (row), "-adw-sidebar-arrow", arrow);
+  arrow = g_object_new (GTK_TYPE_IMAGE,
+                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                        "icon-name", "go-next-symbolic",
+                        NULL);
+  gtk_widget_add_css_class (arrow, "arrow");
+  adw_action_row_add_suffix (ADW_ACTION_ROW (row), arrow);
+
+  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-arrow", arrow);
 
   setup_drop_target (self, row);
   setup_context_menu (self, item, row);
