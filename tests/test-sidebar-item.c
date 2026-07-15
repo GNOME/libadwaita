@@ -149,6 +149,34 @@ test_adw_sidebar_item_icon (void)
 }
 
 static void
+test_adw_sidebar_item_prefix (void)
+{
+  AdwSidebarItem *item = adw_sidebar_item_new ("Item");
+  GtkWidget *prefix;
+  int notified = 0;
+
+  g_assert_nonnull (item);
+
+  g_signal_connect_swapped (item, "notify::prefix", G_CALLBACK (increment), &notified);
+
+  g_object_get (item, "prefix", &prefix, NULL);
+  g_assert_null (prefix);
+  g_assert_cmpint (notified, ==, 0);
+
+  prefix = g_object_ref_sink (gtk_switch_new ());
+  adw_sidebar_item_set_prefix (item, prefix);
+  g_assert_true (adw_sidebar_item_get_prefix (item) == prefix);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (item, "prefix", NULL, NULL);
+  g_assert_null (adw_sidebar_item_get_prefix (item));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (prefix);
+  g_assert_finalize_object (item);
+}
+
+static void
 test_adw_sidebar_item_suffix (void)
 {
   AdwSidebarItem *item = adw_sidebar_item_new ("Item");
@@ -343,6 +371,7 @@ main (int   argc,
   g_test_add_func("/Adwaita/SidebarItem/subtitle", test_adw_sidebar_item_subtitle);
   g_test_add_func("/Adwaita/SidebarItem/use_underline", test_adw_sidebar_item_use_underline);
   g_test_add_func("/Adwaita/SidebarItem/icon", test_adw_sidebar_item_icon);
+  g_test_add_func("/Adwaita/SidebarItem/prefix", test_adw_sidebar_item_prefix);
   g_test_add_func("/Adwaita/SidebarItem/suffix", test_adw_sidebar_item_suffix);
   g_test_add_func("/Adwaita/SidebarItem/visible", test_adw_sidebar_item_visible);
   g_test_add_func("/Adwaita/SidebarItem/enabled", test_adw_sidebar_item_enabled);

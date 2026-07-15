@@ -1317,6 +1317,26 @@ string_is_not_empty (GBinding     *binding,
 }
 
 static void
+notify_prefix_cb (AdwSidebarItem *item,
+                  GParamSpec     *pspec,
+                  GtkListBoxRow  *row)
+{
+  GtkWidget *old_prefix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-prefix");
+  GtkBox *box = g_object_get_data (G_OBJECT (row), "-adw-sidebar-box");
+  GtkWidget *prefix;
+
+  if (old_prefix)
+    gtk_box_remove (box, old_prefix);
+
+  prefix = adw_sidebar_item_get_prefix (item);
+
+  if (prefix)
+    gtk_box_prepend (box, prefix);
+
+  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-prefix", prefix);
+}
+
+static void
 notify_suffix_cb (AdwSidebarItem *item,
                   GParamSpec     *pspec,
                   GtkListBoxRow  *row)
@@ -1402,6 +1422,10 @@ create_row (AdwSidebarItem *item,
   gtk_box_append (GTK_BOX (title_box), subtitle);
 
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-box", box);
+
+  g_signal_connect_object (item, "notify::prefix",
+                           G_CALLBACK (notify_prefix_cb), row, 0);
+  notify_prefix_cb (item, NULL, GTK_LIST_BOX_ROW (row));
 
   g_signal_connect_object (item, "notify::suffix",
                            G_CALLBACK (notify_suffix_cb), row, 0);
@@ -1588,6 +1612,25 @@ row_activated_cb (AdwSidebar    *self,
 }
 
 static void
+boxed_notify_prefix_cb (AdwSidebarItem *item,
+                        GParamSpec     *pspec,
+                        AdwActionRow   *row)
+{
+  GtkWidget *old_prefix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-prefix");
+  GtkWidget *prefix;
+
+  if (old_prefix)
+    adw_action_row_remove (row, old_prefix);
+
+  prefix = adw_sidebar_item_get_prefix (item);
+
+  if (prefix)
+    adw_action_row_add_prefix (row, prefix);
+
+  g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-prefix", prefix);
+}
+
+static void
 boxed_notify_suffix_cb (AdwSidebarItem *item,
                         GParamSpec     *pspec,
                         AdwActionRow   *row)
@@ -1664,16 +1707,20 @@ create_boxed_row (AdwSidebarItem *item,
   notify_icon_cb (item, NULL, icon);
   adw_action_row_add_prefix (ADW_ACTION_ROW (row), icon);
 
-  g_signal_connect_object (item, "notify::suffix",
-                           G_CALLBACK (boxed_notify_suffix_cb), row, 0);
-  boxed_notify_suffix_cb (item, NULL, ADW_ACTION_ROW (row));
-
   arrow = g_object_new (GTK_TYPE_IMAGE,
                         "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
                         "icon-name", "go-next-symbolic",
                         NULL);
   gtk_widget_add_css_class (arrow, "arrow");
   adw_action_row_add_suffix (ADW_ACTION_ROW (row), arrow);
+
+  g_signal_connect_object (item, "notify::prefix",
+                           G_CALLBACK (boxed_notify_prefix_cb), row, 0);
+  boxed_notify_prefix_cb (item, NULL, ADW_ACTION_ROW (row));
+
+  g_signal_connect_object (item, "notify::suffix",
+                           G_CALLBACK (boxed_notify_suffix_cb), row, 0);
+  boxed_notify_suffix_cb (item, NULL, ADW_ACTION_ROW (row));
 
   g_object_set_data (G_OBJECT (row), "-adw-sidebar-arrow", arrow);
 
@@ -2018,7 +2065,13 @@ recreate_ui (AdwSidebar *self)
       guint row_index = 0;
 
       while ((row = adw_preferences_group_get_row (group, row_index++)) != NULL) {
+        GtkWidget *prefix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-prefix");
         GtkWidget *suffix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-suffix");
+
+        if (prefix) {
+          adw_action_row_remove (ADW_ACTION_ROW (row), prefix);
+          g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-prefix", NULL);
+        }
 
         if (suffix) {
           adw_action_row_remove (ADW_ACTION_ROW (row), suffix);
@@ -2061,13 +2114,21 @@ recreate_ui (AdwSidebar *self)
     gtk_list_box_set_header_func (GTK_LIST_BOX (self->listbox), NULL, NULL, NULL);
 
     while ((row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->listbox), index++)) != NULL) {
+      GtkWidget *prefix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-prefix");
       GtkWidget *suffix = g_object_get_data (G_OBJECT (row), "-adw-sidebar-item-suffix");
 
-      if (suffix) {
+      if (prefix || suffix) {
         GtkBox *box = g_object_get_data (G_OBJECT (row), "-adw-sidebar-box");
 
-        gtk_box_remove (box, suffix);
-        g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-suffix", NULL);
+        if (prefix) {
+          gtk_box_remove (box, prefix);
+          g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-prefix", NULL);
+        }
+
+        if (suffix) {
+          gtk_box_remove (box, suffix);
+          g_object_set_data (G_OBJECT (row), "-adw-sidebar-item-suffix", NULL);
+        }
       }
     }
 

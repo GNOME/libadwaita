@@ -29,9 +29,10 @@
  * To add a tooltip, use [property@SidebarItem:tooltip]. Tooltips always use
  * Pango markup.
  *
- * Items can have an arbitrary suffix widget, set with the
- * [property@SidebarItem:suffix] properties. It will be displayed at the end of
- * its row, or before the arrow in the [enum@Adw.SidebarMode.page] mode.
+ * Items can have an arbitrary prefix and suffix widgets, set with the
+ * [property@SidebarItem:prefix] and [property@SidebarItem:suffix] properties.
+ * They will be displayed at the start (before icon) and end of its row, and
+ * before the arrow in the [enum@Adw.SidebarMode.page] mode.
  *
  * To hide or disable the item, use the [property@SidebarItem:visible] and
  * [property@SidebarItem:enabled] properties respectively.
@@ -61,6 +62,7 @@ typedef struct
   char *icon_name;
   GdkPaintable *icon_paintable;
   char *tooltip;
+  GtkWidget *prefix;
   GtkWidget *suffix;
   gboolean visible;
   gboolean enabled;
@@ -80,6 +82,7 @@ enum {
   PROP_ICON_NAME,
   PROP_ICON_PAINTABLE,
   PROP_TOOLTIP,
+  PROP_PREFIX,
   PROP_SUFFIX,
   PROP_VISIBLE,
   PROP_ENABLED,
@@ -108,6 +111,7 @@ adw_sidebar_item_dispose (GObject *object)
   AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
 
   g_clear_object (&priv->icon_paintable);
+  g_clear_object (&priv->prefix);
   g_clear_object (&priv->suffix);
 
   if (priv->section)
@@ -159,6 +163,9 @@ adw_sidebar_item_get_property (GObject    *object,
   case PROP_TOOLTIP:
     g_value_set_string (value, adw_sidebar_item_get_tooltip (self));
     break;
+  case PROP_PREFIX:
+    g_value_set_object (value, adw_sidebar_item_get_prefix (self));
+    break;
   case PROP_SUFFIX:
     g_value_set_object (value, adw_sidebar_item_get_suffix (self));
     break;
@@ -206,6 +213,9 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_TOOLTIP:
     adw_sidebar_item_set_tooltip (self, g_value_get_string (value));
+    break;
+  case PROP_PREFIX:
+    adw_sidebar_item_set_prefix (self, g_value_get_object (value));
     break;
   case PROP_SUFFIX:
     adw_sidebar_item_set_suffix (self, g_value_get_object (value));
@@ -313,6 +323,20 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
   props[PROP_TOOLTIP] =
     g_param_spec_string ("tooltip", NULL, NULL,
                          "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSidebarItem:prefix:
+   *
+   * The prefix widget for this item.
+   *
+   * Prefix will be shown at the start of the item's row, before the icon.
+   *
+   * Since: 1.9
+   */
+  props[PROP_PREFIX] =
+    g_param_spec_object ("prefix", NULL, NULL,
+                         GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -707,6 +731,60 @@ adw_sidebar_item_set_tooltip (AdwSidebarItem *self,
     return;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TOOLTIP]);
+}
+
+/**
+ * adw_sidebar_item_get_prefix:
+ * @self: a sidebar item
+ *
+ * Gets the prefix widget for @self.
+ *
+ * Returns: (nullable) (transfer none): the prefix widget
+ *
+ * Since: 1.9
+ */
+GtkWidget *
+adw_sidebar_item_get_prefix (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), NULL);
+
+  return priv->prefix;
+}
+
+/**
+ * adw_sidebar_item_set_prefix:
+ * @self: a sidebar item
+ * @prefix: (nullable): the prefix widget
+ *
+ * Sets the prefix widget for @self.
+ *
+ * Prefix will be shown at the start of the item's row, before the icon.
+ *
+ * Since: 1.9
+ */
+void
+adw_sidebar_item_set_prefix (AdwSidebarItem *self,
+                             GtkWidget      *prefix)
+{
+  AdwSidebarItemPrivate *priv = adw_sidebar_item_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+  g_return_if_fail (prefix == NULL || GTK_IS_WIDGET (prefix));
+
+  if (prefix == priv->prefix)
+    return;
+
+  if (priv->prefix)
+    g_object_unref (priv->prefix);
+
+  priv->prefix = prefix;
+
+  if (priv->prefix)
+    g_object_ref_sink (priv->prefix);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PREFIX]);
 }
 
 /**
