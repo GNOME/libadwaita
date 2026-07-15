@@ -69,8 +69,6 @@ struct _AdwButtonRow
 
   char *start_icon_name;
   char *end_icon_name;
-
-  GtkWidget *previous_parent;
 };
 
 G_DEFINE_FINAL_TYPE (AdwButtonRow, adw_button_row, ADW_TYPE_PREFERENCES_ROW)
@@ -108,20 +106,32 @@ row_activated_cb (AdwButtonRow  *self,
 }
 
 static void
-parent_cb (AdwButtonRow *self)
+adw_button_row_root (GtkWidget *widget)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (self));
+  GtkWidget *parent;
 
-  if (self->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (self->previous_parent, G_CALLBACK (row_activated_cb), self);
-    self->previous_parent = NULL;
+  GTK_WIDGET_CLASS (adw_button_row_parent_class)->root (widget);
+
+  parent = gtk_widget_get_parent (widget);
+
+  if (GTK_IS_LIST_BOX (parent)) {
+    g_signal_connect_swapped (parent, "row-activated",
+                              G_CALLBACK (row_activated_cb), widget);
+  }
+}
+
+static void
+adw_button_row_unroot (GtkWidget *widget)
+{
+  GtkWidget *parent = gtk_widget_get_parent (widget);
+
+  if (GTK_IS_LIST_BOX (parent)) {
+    g_signal_handlers_disconnect_by_func (parent,
+                                          G_CALLBACK (row_activated_cb),
+                                          widget);
   }
 
-  if (parent == NULL || !GTK_IS_LIST_BOX (parent))
-    return;
-
-  self->previous_parent = parent;
-  g_signal_connect_swapped (parent, "row-activated", G_CALLBACK (row_activated_cb), self);
+  GTK_WIDGET_CLASS (adw_button_row_parent_class)->unroot (widget);
 }
 
 static void
@@ -165,19 +175,6 @@ adw_button_row_set_property (GObject      *object,
 }
 
 static void
-adw_button_row_dispose (GObject *object)
-{
-  AdwButtonRow *self = ADW_BUTTON_ROW (object);
-
-  if (self->previous_parent != NULL) {
-    g_signal_handlers_disconnect_by_func (self->previous_parent, G_CALLBACK (row_activated_cb), self);
-    self->previous_parent = NULL;
-  }
-
-  G_OBJECT_CLASS (adw_button_row_parent_class)->dispose (object);
-}
-
-static void
 adw_button_row_finalize (GObject *object)
 {
   AdwButtonRow *self = ADW_BUTTON_ROW (object);
@@ -196,8 +193,10 @@ adw_button_row_class_init (AdwButtonRowClass *klass)
 
   object_class->get_property = adw_button_row_get_property;
   object_class->set_property = adw_button_row_set_property;
-  object_class->dispose = adw_button_row_dispose;
   object_class->finalize = adw_button_row_finalize;
+
+  widget_class->root = adw_button_row_root;
+  widget_class->unroot = adw_button_row_unroot;
 
   /**
    * AdwButtonRow:start-icon-name:
@@ -257,8 +256,6 @@ adw_button_row_init (AdwButtonRow *self)
   self->end_icon_name = g_strdup ("");
 
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
 }
 
 /**
