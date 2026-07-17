@@ -68,6 +68,7 @@ struct _AdwStyleManager
   GtkCssProvider *provider;
   GtkCssProvider *accent_provider;
   GtkCssProvider *fonts_provider;
+  GtkCssProvider *user_style_provider;
 
   AdwColorScheme color_scheme;
   gboolean dark;
@@ -260,6 +261,8 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-color-scheme", color_scheme, NULL);
+    if (self->user_style_provider)
+      g_object_set (self->user_style_provider, "prefers-color-scheme", color_scheme, NULL);
 
     g_object_set (self->gtk_settings,
                   "gtk-interface-color-scheme", color_scheme,
@@ -277,6 +280,8 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-contrast", contrast, NULL);
+    if (self->user_style_provider)
+      g_object_set (self->user_style_provider, "prefers-contrast", contrast, NULL);
 
     g_object_set (self->gtk_settings,
                   "gtk-interface-contrast", contrast,
@@ -292,6 +297,8 @@ update_stylesheet (AdwStyleManager       *self,
 
     if (self->provider)
       g_object_set (self->provider, "prefers-reduced-motion", reduced_motion, NULL);
+    if (self->user_style_provider)
+      g_object_set (self->user_style_provider, "prefers-reduced-motion", reduced_motion, NULL);
   }
 
   self->animation_timeout_id =
@@ -441,6 +448,29 @@ notify_high_contrast_cb (AdwStyleManager *self)
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
 }
 
+static GFile *
+find_user_style (void)
+{
+  const char *disable_style = g_getenv ("ADW_DISABLE_USER_STYLE");
+  GFile *file;
+
+  if (disable_style && disable_style[0] == '1')
+    return NULL;
+
+  file = g_file_new_build_filename (g_get_user_config_dir (),
+                                    "libadwaita-1",
+                                    "style.css",
+                                    NULL);
+
+  if (!g_file_query_exists (file, NULL)) {
+    g_object_unref (file);
+
+    return NULL;
+  }
+
+  return file;
+}
+
 static void
 adw_style_manager_constructed (GObject *object)
 {
@@ -449,6 +479,8 @@ adw_style_manager_constructed (GObject *object)
   G_OBJECT_CLASS (adw_style_manager_parent_class)->constructed (object);
 
   if (self->display) {
+    GFile *user_style = find_user_style ();
+
     self->gtk_settings = gtk_settings_get_for_display (self->display);
 
     if (!adw_is_granite_present () && !g_getenv ("GTK_THEME")) {
@@ -470,6 +502,18 @@ adw_style_manager_constructed (GObject *object)
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->fonts_provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
+
+      if (user_style) {
+        self->user_style_provider = gtk_css_provider_new ();
+
+        gtk_css_provider_load_from_file (self->user_style_provider, user_style);
+
+        gtk_style_context_add_provider_for_display (self->display,
+                                                    GTK_STYLE_PROVIDER (self->user_style_provider),
+                                                    GTK_STYLE_PROVIDER_PRIORITY_THEME + 10);
+
+        g_object_unref (user_style);
+      }
     }
 
     self->animations_provider = gtk_css_provider_new ();
@@ -546,6 +590,7 @@ adw_style_manager_dispose (GObject *object)
   g_clear_object (&self->animations_provider);
   g_clear_object (&self->accent_provider);
   g_clear_object (&self->fonts_provider);
+  g_clear_object (&self->user_style_provider);
   g_clear_pointer (&self->document_font_name, g_free);
   g_clear_pointer (&self->monospace_font_name, g_free);
 
