@@ -65,6 +65,7 @@ typedef struct
   GtkStyleProvider *dark_style_provider;
   GtkStyleProvider *hc_style_provider;
   GtkStyleProvider *hc_dark_style_provider;
+  GtkStyleProvider *user_style_provider;
   char *shortcuts_dialog_path;
 } AdwApplicationPrivate;
 
@@ -213,6 +214,7 @@ update_stylesheet (AdwApplication *self)
   update_css_provider (self, priv->dark_style_provider);
   update_css_provider (self, priv->hc_style_provider);
   update_css_provider (self, priv->hc_dark_style_provider);
+  update_css_provider (self, priv->user_style_provider);
 }
 
 static void
@@ -244,6 +246,31 @@ init_provider_from_file (AdwApplication    *self,
   g_object_unref (file);
 }
 
+static GFile *
+find_user_style (AdwApplication *self)
+{
+  const char *disable_style = g_getenv ("ADW_DISABLE_USER_STYLE");
+  GFile *file;
+  char *filename;
+
+  if (disable_style && disable_style[0] == '1')
+    return NULL;
+
+  filename = g_strdup_printf ("%s.css", g_application_get_application_id (G_APPLICATION (self)));
+  file = g_file_new_build_filename (g_get_user_config_dir (),
+                                    "libadwaita-1",
+                                    filename,
+                                    NULL);
+
+  if (!g_file_query_exists (file, NULL)) {
+    g_object_unref (file);
+
+    return NULL;
+  }
+
+  return file;
+}
+
 static void
 init_providers (AdwApplication *self)
 {
@@ -254,10 +281,22 @@ init_providers (AdwApplication *self)
     return;
 
   if (!adw_is_granite_present ()) {
+    GFile *user_style = find_user_style (self);
+
     init_provider_from_file (self, &priv->base_style_provider,    base_file, "style.css",         FALSE);
     init_provider_from_file (self, &priv->dark_style_provider,    base_file, "style-dark.css",    TRUE);
     init_provider_from_file (self, &priv->hc_style_provider,      base_file, "style-hc.css",      TRUE);
     init_provider_from_file (self, &priv->hc_dark_style_provider, base_file, "style-hc-dark.css", TRUE);
+
+    if (user_style) {
+      priv->user_style_provider = GTK_STYLE_PROVIDER (gtk_css_provider_new ());
+
+      update_css_provider (self, priv->user_style_provider);
+
+      gtk_css_provider_load_from_file (GTK_CSS_PROVIDER (priv->user_style_provider), user_style);
+
+      g_object_unref (user_style);
+    }
 
     update_stylesheet (self);
   }
@@ -275,10 +314,17 @@ init_styling (AdwApplication *self)
   if (display == NULL)
     return;
 
-  if (priv->base_style_provider != NULL)
+  if (priv->base_style_provider != NULL) {
     gtk_style_context_add_provider_for_display (display,
                                                 priv->base_style_provider,
                                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  }
+
+  if (priv->user_style_provider != NULL) {
+    gtk_style_context_add_provider_for_display (display,
+                                                priv->user_style_provider,
+                                                GTK_STYLE_PROVIDER_PRIORITY_USER);
+  }
 
   /* If gdk_display_get_default() worked, it means that
    * gtk_settings adw_style_manager_get_default() won't return NULL, so we don't
@@ -373,6 +419,7 @@ adw_application_dispose (GObject *object)
   g_clear_object (&priv->dark_style_provider);
   g_clear_object (&priv->hc_style_provider);
   g_clear_object (&priv->hc_dark_style_provider);
+  g_clear_object (&priv->user_style_provider);
 
   G_OBJECT_CLASS (adw_application_parent_class)->dispose (object);
 }
