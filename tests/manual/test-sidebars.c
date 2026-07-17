@@ -180,6 +180,20 @@ create_sidebar (void)
     adw_sidebar_append (sidebar, section);
   }
 
+  {
+    GtkWidget *prefix, *suffix;
+
+    prefix = adw_avatar_new (48, "Test", TRUE);
+
+    suffix = gtk_button_new_with_label ("New");
+    gtk_widget_set_halign (suffix, GTK_ALIGN_CENTER);
+    gtk_widget_add_css_class (suffix, "pill");
+    gtk_widget_add_css_class (suffix, "suggested-action");
+
+    adw_sidebar_set_prefix (sidebar, prefix);
+    adw_sidebar_set_suffix (sidebar, suffix);
+  }
+
   return GTK_WIDGET (sidebar);
 }
 
