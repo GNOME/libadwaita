@@ -600,6 +600,7 @@ main (int    argc,
   g_setenv ("ADW_DEBUG_COLOR_SCHEME", "default", TRUE);
   g_setenv ("ADW_DEBUG_HIGH_CONTRAST", "0", TRUE);
   g_setenv ("ADW_DEBUG_ACCENT_COLOR", "blue", TRUE);
+  g_setenv ("ADW_DISABLE_USER_STYLE", "1", TRUE);
 
   g_option_context_add_main_entries (context, entries, NULL);
   if (!g_option_context_parse (context, &argc, &argv, NULL)) {
