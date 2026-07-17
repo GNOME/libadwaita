@@ -149,6 +149,7 @@ adw_demo_generate_debug_info (void)
     const char *adw_debug_accent_color = g_getenv ("ADW_DEBUG_ACCENT_COLOR");
     const char *adw_debug_high_contrast = g_getenv ("ADW_DEBUG_HIGH_CONTRAST");
     const char *adw_disable_portal = g_getenv ("ADW_DISABLE_PORTAL");
+    const char *adw_disable_user_style = g_getenv ("ADW_DISABLE_USER_STYLE");
 
     g_string_append (string, "Environment:\n");
     g_string_append_printf (string, "- Desktop: %s\n", desktop);
@@ -169,6 +170,8 @@ adw_demo_generate_debug_info (void)
       g_string_append_printf (string, "- ADW_DEBUG_HIGH_CONTRAST: %s\n", adw_debug_high_contrast);
     if (adw_disable_portal)
       g_string_append_printf (string, "- ADW_DISABLE_PORTAL: %s\n", adw_disable_portal);
+    if (adw_debug_high_contrast)
+      g_string_append_printf (string, "- ADW_DISABLE_USER_STYLE: %s\n", adw_disable_user_style);
   }
 
   return g_string_free_and_steal (string);
