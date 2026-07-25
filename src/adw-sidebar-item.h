@@ -78,9 +78,9 @@ ADW_AVAILABLE_IN_1_9
 void        adw_sidebar_item_set_tooltip (AdwSidebarItem *self,
                                           const char     *tooltip);
 
-ADW_AVAILABLE_IN_1_9
+ADW_AVAILABLE_IN_1_10
 GtkWidget *adw_sidebar_item_get_prefix (AdwSidebarItem *self);
-ADW_AVAILABLE_IN_1_9
+ADW_AVAILABLE_IN_1_10
 void       adw_sidebar_item_set_prefix (AdwSidebarItem *self,
                                         GtkWidget      *prefix);
 

@@ -332,7 +332,7 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
    *
    * Prefix will be shown at the start of the item's row, before the icon.
    *
-   * Since: 1.9
+   * Since: 1.10
    */
   props[PROP_PREFIX] =
     g_param_spec_object ("prefix", NULL, NULL,
@@ -741,7 +741,7 @@ adw_sidebar_item_set_tooltip (AdwSidebarItem *self,
  *
  * Returns: (nullable) (transfer none): the prefix widget
  *
- * Since: 1.9
+ * Since: 1.10
  */
 GtkWidget *
 adw_sidebar_item_get_prefix (AdwSidebarItem *self)
@@ -762,7 +762,7 @@ adw_sidebar_item_get_prefix (AdwSidebarItem *self)
  *
  * Prefix will be shown at the start of the item's row, before the icon.
  *
- * Since: 1.9
+ * Since: 1.10
  */
 void
 adw_sidebar_item_set_prefix (AdwSidebarItem *self,
