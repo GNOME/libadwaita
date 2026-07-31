@@ -510,7 +510,7 @@ adw_style_manager_constructed (GObject *object)
 
         gtk_style_context_add_provider_for_display (self->display,
                                                     GTK_STYLE_PROVIDER (self->user_style_provider),
-                                                    GTK_STYLE_PROVIDER_PRIORITY_THEME + 10);
+                                                    GTK_STYLE_PROVIDER_PRIORITY_THEME);
 
         g_object_unref (user_style);
       }
