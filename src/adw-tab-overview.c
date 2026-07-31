@@ -12,6 +12,7 @@
 #include "adw-tab-overview-private.h"
 
 #include "adw-animation-util-private.h"
+#include "adw-application-window.h"
 #include "adw-bin.h"
 #include "adw-gtkbuilder-utils-private.h"
 #include "adw-header-bar.h"
@@ -22,6 +23,7 @@
 #include "adw-tab-view-private.h"
 #include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
+#include "adw-window.h"
 #include "adw-window-title.h"
 
 #define SCROLL_ANIMATION_DURATION 200
@@ -1172,6 +1174,16 @@ should_round_corners (AdwTabOverview *self,
                 GDK_TOPLEVEL_STATE_BOTTOM_TILED |
                 GDK_TOPLEVEL_STATE_LEFT_TILED)) > 0)
     return;
+
+  if (ADW_IS_WINDOW (root) &&
+      adw_window_get_adaptive_preview (ADW_WINDOW (root))) {
+    return;
+  }
+
+  if (ADW_IS_APPLICATION_WINDOW (root) &&
+      adw_application_window_get_adaptive_preview (ADW_APPLICATION_WINDOW (root))) {
+    return;
+  }
 
   if (!gtk_widget_has_css_class (GTK_WIDGET (root), "csd") ||
       gtk_widget_has_css_class (GTK_WIDGET (root), "solid-csd"))
