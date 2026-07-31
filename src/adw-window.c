@@ -594,15 +594,28 @@ adw_window_set_adaptive_preview (AdwWindow *self,
   g_object_ref (priv->dialog_host);
 
   if (adaptive_preview) {
+    GtkWidget *screen;
+
     priv->adaptive_preview = adw_adaptive_preview_new ();
     gtk_window_set_child (GTK_WINDOW (self), priv->adaptive_preview);
     g_signal_connect_swapped (priv->adaptive_preview, "exit",
                               G_CALLBACK (adaptive_preview_exit_cb), self);
+
+    screen = adw_adaptive_preview_get_screen (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview));
+
+    adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->bin), screen);
+    adw_breakpoint_bin_set_warnings (ADW_BREAKPOINT_BIN (priv->bin), FALSE, TRUE);
+
     adw_adaptive_preview_set_child (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview),
                                     priv->dialog_host);
   } else {
     adw_adaptive_preview_set_child (ADW_ADAPTIVE_PREVIEW (priv->adaptive_preview),
                                     NULL);
+
+    adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->bin),
+                                           GTK_WIDGET (self));
+    adw_breakpoint_bin_set_warnings (ADW_BREAKPOINT_BIN (priv->bin), TRUE, TRUE);
+
     gtk_window_set_child (GTK_WINDOW (self), priv->dialog_host);
     priv->adaptive_preview = NULL;
   }
