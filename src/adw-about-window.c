@@ -275,7 +275,7 @@ struct _AdwAboutWindow {
   GtkWidget *navigation_view;
   GtkWidget *toast_overlay;
   GtkWidget *main_scrolled_window;
-  GtkWidget *main_headerbar;
+  GtkWidget *main_title_revealer;
 
   GtkWidget *app_icon_image;
   GtkWidget *app_name_label;
@@ -327,6 +327,7 @@ struct _AdwAboutWindow {
   gboolean has_custom_links;
 
   guint legal_showing_idle_id;
+  guint update_headerbar_idle_id;
 };
 
 G_DEFINE_FINAL_TYPE (AdwAboutWindow, adw_about_window, ADW_TYPE_WINDOW)
@@ -383,14 +384,36 @@ free_legal_section (LegalSection *section)
 }
 
 static void
+update_headerbar_idle_cb (AdwAboutWindow *self)
+{
+  graphene_rect_t bounds = {};
+  int single_line_height;
+
+  self->update_headerbar_idle_id = 0;
+
+  if (!gtk_widget_compute_bounds (self->app_name_label, self->main_scrolled_window, &bounds)) {
+    gtk_revealer_set_reveal_child (GTK_REVEALER (self->main_title_revealer), FALSE);
+    return;
+  }
+
+  gtk_widget_measure (self->app_name_label,
+                      GTK_ORIENTATION_VERTICAL, -1,
+                      NULL, &single_line_height,
+                      NULL, NULL);
+
+  float target = bounds.origin.y + bounds.size.height;
+
+  gtk_revealer_set_reveal_child (GTK_REVEALER (self->main_title_revealer), target < 0);
+}
+
+static void
 update_headerbar_cb (AdwAboutWindow *self)
 {
-  GtkAdjustment *adj;
+  if (self->update_headerbar_idle_id)
+    return;
 
-  adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
-
-  adw_header_bar_set_show_title (ADW_HEADER_BAR (self->main_headerbar),
-                                 gtk_adjustment_get_value (adj) > 0);
+  self->update_headerbar_idle_id =
+    g_idle_add_once ((GSourceOnceFunc) update_headerbar_idle_cb, self);
 }
 
 static gboolean
@@ -1253,6 +1276,7 @@ adw_about_window_dispose (GObject *object)
   AdwAboutWindow *self = ADW_ABOUT_WINDOW (object);
 
   g_clear_handle_id (&self->legal_showing_idle_id, g_source_remove);
+  g_clear_handle_id (&self->update_headerbar_idle_id, g_source_remove);
 
   G_OBJECT_CLASS (adw_about_window_parent_class)->dispose (object);
 }
@@ -1892,7 +1916,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, navigation_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, toast_overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_scrolled_window);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_headerbar);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_title_revealer);
 
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_icon_image);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_name_label);

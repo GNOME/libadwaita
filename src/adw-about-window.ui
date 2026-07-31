@@ -22,7 +22,19 @@
                 <property name="child">
                   <object class="AdwToolbarView">
                     <child type="top">
-                      <object class="AdwHeaderBar" id="main_headerbar"/>
+                      <object class="AdwHeaderBar">
+                        <property name="title-widget">
+                          <object class="GtkRevealer" id="main_title_revealer">
+                            <property name="transition-type">fade-slide-up</property>
+                            <property name="valign">center</property>
+                            <property name="child">
+                              <object class="AdwWindowTitle">
+                                <property name="title" bind-source="AdwAboutWindow" bind-property="application-name" bind-flags="sync-create"/>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
+                      </object>
                     </child>
                     <property name="content">
                       <object class="GtkScrolledWindow" id="main_scrolled_window">
