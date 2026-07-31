@@ -40,7 +40,7 @@
  *         <object class="AdwHeaderBar"/>
  *       </child>
  *       <property name="content">
- *         <!-- ... -->
+ *         <!-- put your content here -->
  *       </property>
  *     </object>
  *   </property>
@@ -71,7 +71,7 @@
  *         <object class="AdwHeaderBar"/>
  *       </child>
  *       <property name="content">
- *         <!-- ... -->
+ *         <!-- put your content here -->
  *       </property>
  *       <child type="bottom">
  *         <object class="GtkActionBar" id="bottom_bar">

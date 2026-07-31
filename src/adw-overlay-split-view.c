@@ -75,10 +75,10 @@
  *   <property name="content">
  *     <object class="AdwOverlaySplitView" id="split_view">
  *       <property name="sidebar">
- *         <!-- ... -->
+ *         <!-- put your sidebar here -->
  *       </property>
  *       <property name="content">
- *         <!-- ... -->
+ *         <!-- put your content here -->
  *       </property>
  *     </object>
  *   </property>

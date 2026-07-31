@@ -160,7 +160,7 @@
  *             <object class="AdwHeaderBar"/>
  *           </child>
  *           <property name="content">
- *             <!-- ... -->
+ *             <!-- put your content here -->
  *           </property>
  *         </object>
  *       </property>
@@ -3468,3 +3468,4 @@ adw_navigation_view_get_navigation_stack (AdwNavigationView *self)
 
   return self->navigation_stack_model;
 }
+
