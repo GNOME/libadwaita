@@ -9,16 +9,22 @@ test_resources = gnome.compile_resources(
    c_name: 'test',
 )
 
-test_env = [
-  'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
-  'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
-  'G_DEBUG=gc-friendly',
-  'GDK_DEBUG=no-portals',
-  'GSETTINGS_BACKEND=memory',
-  'PYTHONDONTWRITEBYTECODE=yes',
-  'MALLOC_CHECK_=2',
-  'GTK_A11Y=none',
-]
+test_env = {
+  'G_DEBUG': 'gc-friendly,fatal-warnings',
+  'G_ENABLE_DIAGNOSTIC': '1',
+  'G_TEST_BUILDDIR': meson.current_build_dir(),
+  'G_TEST_SRCDIR': meson.current_source_dir(),
+  'GDK_DEBUG': 'no-portals',
+  'GDK_DISABLE': 'vulkan',
+  'GIO_USE_VFS': 'local',
+  'GSETTINGS_BACKEND': 'memory',
+  'GTK_A11Y': 'test',
+  'GTK_EXE_PREFIX': '',
+  'MALLOC_CHECK_': '2',
+  'NO_AT_BRIDGE': '1',
+  'PYTHONDEVMODE': '1',
+  'PYTHONDONTWRITEBYTECODE': 'yes',
+}
 
 test_cflags = [
   '-DADW_LOG_DOMAIN="Adwaita"',
@@ -116,7 +122,7 @@ foreach test_name : test_names
                  dependencies: libadwaita_deps + [libadwaita_internal_dep],
                           pie: use_pie,
                 )
-  test(test_name, t, env: test_env)
+  test(test_name, t, protocol: 'tap', env: test_env)
 endforeach
 
 endif
