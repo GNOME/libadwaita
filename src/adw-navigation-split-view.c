@@ -61,7 +61,15 @@
  *         <object class="AdwNavigationPage">
  *           <property name="title" translatable="yes">Sidebar</property>
  *           <property name="child">
- *             <!-- ... -->
+ *             <object class="AdwToolbarView">
+ *               <child type="top">
+ *                 <object class="AdwHeaderBar"/>
+ *               </child>
+ *               <property name="content">
+ *                 <!-- put your sidebar here, e.g.
+ *                      AdwSidebar or AdwViewSwitcherSidebar -->
+ *               </property>
+ *             <object>
  *           </property>
  *         </object>
  *       </property>
@@ -69,7 +77,14 @@
  *         <object class="AdwNavigationPage">
  *           <property name="title" translatable="yes">Content</property>
  *           <property name="child">
- *             <!-- ... -->
+ *             <object class="AdwToolbarView">
+ *               <child type="top">
+ *                 <object class="AdwHeaderBar"/>
+ *               </child>
+ *               <property name="content">
+ *                 <!-- put your content here -->
+ *               </property>
+ *             <object>
  *           </property>
  *         </object>
  *       </property>

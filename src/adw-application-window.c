@@ -43,7 +43,7 @@
  *         <object class="AdwHeaderBar"/>
  *       </child>
  *       <property name="content">
- *         <!-- ... -->
+ *         <!-- put your content here -->
  *       </property>
  *     </object>
  *   </property>

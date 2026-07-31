@@ -86,10 +86,10 @@
  *     </object>
  *   </child>
  *   <child type="primary">
- *     <!-- ... -->
+ *     <!-- put your primary child here -->
  *   </child>
  *   <child type="secondary">
- *     <!-- ... -->
+ *     <!-- put your secondary child here -->
  *   </child>
  * </object>
  * ```
