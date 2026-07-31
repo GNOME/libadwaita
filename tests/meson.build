@@ -106,7 +106,8 @@ foreach test_name : test_names
   test_sources = [
     test_name + '.c',
     test_resources,
-    libadwaita_generated_headers
+    libadwaita_generated_headers,
+    'ignore-deprecations.h',
   ]
 
   t = executable(test_name, test_sources,
