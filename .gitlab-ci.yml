@@ -9,7 +9,6 @@ include:
     inputs:
       job-stage: deploy
       dist-job-name: "build-gnomeos"
-  - component: gitlab.gnome.org/GNOME/citemplates/gnomeos-build-sysext@master
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
       meson-options: "-Ddocumentation=true --force-fallback-for=ministream"
