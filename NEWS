@@ -1,4 +1,19 @@
 =============
+Version 1.8.7
+=============
+
+- Build
+  - Resolve locale directory at runtime on Windows
+- AdwAboutDialog
+  - Fix a bug with deselecting text in the legal section
+- AdwStyleManager
+  - Check GTK version in runtime instead of build time
+- AdwSwipeTracker
+  - Ignore mostly orthogonal touchpad scrolls
+- AdwWindow/AdwApplicationWindow
+  - Fix false minimum size warnings in adaptive preview
+
+=============
 Version 1.8.6
 =============
 
