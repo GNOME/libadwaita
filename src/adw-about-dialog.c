@@ -420,6 +420,8 @@ legal_showing_idle_cb (AdwAboutDialog *self)
 
   if (GTK_IS_LABEL (focus) && !gtk_label_get_current_uri (GTK_LABEL (focus)))
     gtk_label_select_region (GTK_LABEL (focus), 0, 0);
+
+  self->legal_showing_idle_id = 0;
 }
 
 static void
@@ -427,8 +429,6 @@ legal_showing_cb (AdwAboutDialog *self)
 {
   self->legal_showing_idle_id =
     g_idle_add_once ((GSourceOnceFunc) legal_showing_idle_cb, self);
-
-  self->legal_showing_idle_id = 0;
 }
 
 static gboolean
