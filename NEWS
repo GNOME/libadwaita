@@ -1,3 +1,36 @@
+=================
+Version 1.10.beta
+=================
+
+- Build
+  - Ministream-related fixes
+- AdwAboutDialog
+  - Fix a bug with deselecting text in the legal section
+  - Animate showing/hiding the title on the main page
+- AdwActionRow
+  - Don't emit signals in dispose
+- AdwPreferencesRow
+  - Warn when placed
+- AdwSidebarItem
+  - Add :prefix
+- AdwSidebarSection
+  - Add :suffix
+- AdwTabOverview
+  - Make sure we don't round corners in adaptive preview
+- AdwWindow/AdwApplicationWindow
+  - Fix false minimum size warnings in adaptive preview
+- Update internal icons
+- Docs
+  - Use more detailed placeholder comments in examples
+- Translation updates
+  - Chinese (China)
+  - Czech
+  - Georgian
+  - Kazakh
+  - Norwegian Bokmål
+  - Occitan
+  - Ukrainian
+
 ==================
 Version 1.10.alpha.1
 ==================
