@@ -8,6 +8,9 @@
 
 #include <adwaita.h>
 
+#include "ignore-deprecations.h"
+
+
 static void
 increment (int *data)
 {
@@ -17,6 +20,8 @@ increment (int *data)
 static void
 test_adw_flap_flap (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:flap", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
   int notified = 0;
@@ -41,11 +46,14 @@ test_adw_flap_flap (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_separator (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:separator", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
   int notified = 0;
@@ -70,11 +78,14 @@ test_adw_flap_separator (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_flap_position (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:flap-position", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkPackType position;
   int notified = 0;
@@ -98,11 +109,14 @@ test_adw_flap_flap_position (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_reveal_flap (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:reveal-flap", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean reveal;
   int notified = 0;
@@ -128,11 +142,14 @@ test_adw_flap_reveal_flap (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_reveal_progress (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:reveal-progress", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   double progress;
   int notified = 0;
@@ -153,11 +170,14 @@ test_adw_flap_reveal_progress (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_fold_policy (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:fold-policy", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapFoldPolicy policy;
   int notified = 0;
@@ -181,11 +201,14 @@ test_adw_flap_fold_policy (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_fold_duration (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:fold-duration", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   guint duration;
   int notified = 0;
@@ -209,11 +232,14 @@ test_adw_flap_fold_duration (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_folded (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:folded", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean folded;
   int notified = 0;
@@ -233,11 +259,14 @@ test_adw_flap_folded (void)
   g_assert_cmpint (notified, ==, 1);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_locked (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:locked", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean locked;
   int notified = 0;
@@ -263,11 +292,14 @@ test_adw_flap_locked (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_transition_type (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:transition-type", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapTransitionType policy;
   int notified = 0;
@@ -291,11 +323,14 @@ test_adw_flap_transition_type (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_modal (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:modal", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean modal;
   int notified = 0;
@@ -321,11 +356,14 @@ test_adw_flap_modal (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_swipe_to_open (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:swipe-to-open", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_open;
   int notified = 0;
@@ -351,11 +389,14 @@ test_adw_flap_swipe_to_open (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
 test_adw_flap_swipe_to_close (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwFlap:swipe-to-close", NULL);
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_close;
   int notified = 0;
@@ -381,7 +422,9 @@ test_adw_flap_swipe_to_close (void)
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (flap);
+  adw_ignore_deprecation_free (ignore);
 }
+
 
 int
 main (int   argc,

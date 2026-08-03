@@ -6,9 +6,15 @@
 
 #include <adwaita.h>
 
+#include "ignore-deprecations.h"
+
 static void
 test_adw_preferences_window_add_remove (void)
 {
+  AdwIgnoreDeprecation *ignore =
+    adw_ignore_deprecation_new ("AdwLeaflet:can-unfold",
+                                "AdwPreferencesWindow:can-navigate-back",
+                                NULL);
   AdwPreferencesWindow *window = ADW_PREFERENCES_WINDOW (adw_preferences_window_new ());
   AdwPreferencesPage *page;
 
@@ -21,6 +27,7 @@ test_adw_preferences_window_add_remove (void)
   adw_preferences_window_remove (window, page);
 
   g_assert_finalize_object (window);
+  adw_ignore_deprecation_free (ignore);
 }
 
 static void
