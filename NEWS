@@ -1,4 +1,19 @@
 =============
+Version 1.9.3
+=============
+
+- AdwAboutDialog
+  - Fix a bug with deselecting text in the legal section
+- AdwSidebar
+  - Fix item suffixes ending up after the arrow in page mode
+- AdwTabOverview
+  - Make sure we don't round corners in adaptive preview
+- AdwWindow/AdwApplicationWindow
+  - Fix false minimum size warnings in adaptive preview
+- Translation updates
+  - Norwegian Bokmål
+
+=============
 Version 1.9.2
 =============
 
