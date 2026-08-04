@@ -3,7 +3,7 @@ fs = import('fs')
 stylesheet_deps = []
 
 # For git checkouts, but not for tarballs...
-if not fs.exists('base.css')
+if not fs.exists('gtk.css')
   sassc = find_program('sassc', required: false)
   if not sassc.found()
     subproject('sassc', default_options: ['warning_level=0', 'werror=false'])
