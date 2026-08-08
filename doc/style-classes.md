@@ -68,7 +68,8 @@ Button inside [toolbars and similar widgets](#toolbars) appear flat by default.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
+Can also be used with [class@Gtk.MenuButton], [class@SplitButton] or
+[class@Gtk.DropDown].
 
 Can be set via [property@Gtk.Button:has-frame] and
 [property@Gtk.MenuButton:has-frame].
@@ -87,7 +88,8 @@ This style class is only useful inside [toolbars and similar widgets](#toolbars)
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
+Can also be used with [class@Gtk.MenuButton], [class@SplitButton] or
+[class@Gtk.DropDown].
 
 ## Circular
 
@@ -206,6 +208,7 @@ The following buttons get flat appearance:
 * Buttons with an icon and a label (using [class@ButtonContent]);
 * Menu buttons containing an arrow;
 * [class@SplitButton];
+* [class@Gtk.DropDown];
 * Any other button with the [`.flat`](#flat) style class.
 
 The following buttons keep default appearance:
@@ -223,7 +226,8 @@ The following buttons keep default appearance:
   [`.opaque`](style-classes.html#opaque) style classes;
 * Buttons with the [`.destructive-action`](style-classes.html#destructive-action)
   style class;
-* Buttons with the [`.raised`](#raised) style class.
+* Buttons with the [`.raised`](#raised) style class;
+* [class@Gtk.DropDown] with the [`.raised`](#raised) style class.
 
 It also ensures 6px margins and spacing between widgets. The
 [`.spacer`](#spacers) style class can be useful to separate groups of widgets.

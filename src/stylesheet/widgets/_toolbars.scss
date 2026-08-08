@@ -65,6 +65,10 @@
     @extend %flat_split_button;
   }
 
+  dropdown:not(.raised) > button {
+    @extend %button_basic_flat;
+  }
+
   switch {
     margin-top: 4px;
     margin-bottom: 4px;
@@ -84,6 +88,10 @@
       &.image-button > button {
         @extend %button_basic_raised;
       }
+    }
+
+    dropdown:not(.flat):not(.raised) > button {
+      @extend %button_basic_raised;
     }
   }
 }
