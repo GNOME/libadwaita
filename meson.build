@@ -33,7 +33,7 @@ libversion = '0.10.0'
 # The so major version of the library
 soversion = 0
 
-glib_min_version = '>= 2.84.0'
+glib_min_version = '>= 2.89.3'
 gtk_min_version = '>= 4.23.1'
 
 glib_dep = dependency('glib-2.0', version: glib_min_version)
