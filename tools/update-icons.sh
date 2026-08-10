@@ -122,7 +122,7 @@ copy_icon "view-switch"         "demo" "widget-view-switcher"
 copy_icon "text-left"           "demo" "widget-wrap-box"
 copy_icon "text-right"          "demo" "widget-wrap-box-rtl"
 copy_icon "view-dual"           "demo" "view-dual"
-copy_icon "libadwaita"          "demo" "welcome"
+copy_icon "libadwaita-outlines" "demo" "welcome"
 copy_icon "window-new"          "demo" "window-new"
 
 copy_icon "camera"              "doc/tools" "camera-photo"
