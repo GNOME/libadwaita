@@ -6,14 +6,14 @@
 # Assumpta, 2020
 # Jaume Jorba <jaume.jorba@gmail.com>, 2020
 # Jordi Mas i Hernàndez <jmas@softcatala.org>, 2022-2025
-#
+# Xavi Ivars <xavi.ivars@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2026-08-01 06:46+0000\n"
-"PO-Revision-Date: 2026-08-09 09:13+0000\n"
-"Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
+"PO-Revision-Date: 2026-08-14 17:05+0000\n"
+"Last-Translator: Xavi Ivars <xavi.ivars@gmail.com>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)"
 "\n"
 "Language: ca\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Minairó 0.1.0\n"
+"X-Generator: Minairó 1.0.0\n"
 "X-Poedit-Bookmarks: -1,31,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #. Translators: license name, shown in the legal section in about dialog
@@ -168,7 +168,6 @@ msgstr "Versió %s"
 #. and the character number within the line.
 #: src/adw-about-dialog.c:1061 src/adw-about-window.c:1051
 #, c-format
-#| msgid "Unable to parse release notes:"
 msgid "Unable to parse release notes: %s at line %d, char %d"
 msgstr ""
 "No s'han pogut analitzar les notes de llançament: %s a la línia %d, caràcter "
@@ -345,7 +344,6 @@ msgstr "Reconeixements"
 
 #. Translators: title of the toast that appears after taking a screenshot
 #: src/adw-adaptive-preview.c:392
-#| msgid "Screenshot Copied to Clipboard"
 msgid "Screenshot copied to clipboard"
 msgstr "S'ha copiat la captura de pantalla al porta-retalls"
 
@@ -789,7 +787,7 @@ msgstr "R"
 #. Translators: default title in shortcuts dialogs
 #: src/adw-shortcuts-dialog.ui:6
 msgid "Keyboard Shortcuts"
-msgstr "Dreceres del teclat"
+msgstr "Dreceres de teclat"
 
 #. Translators: placeholder text for the search entry. Search is a verb here
 #. Translators: accessible label for the search entry
