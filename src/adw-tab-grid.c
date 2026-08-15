@@ -119,6 +119,7 @@ struct _AdwTabGrid
   AdwTabOverview *tab_overview;
   AdwTabView *view;
   gboolean inverted;
+  guint view_reset_setup_menu_id;
 
   GtkEventController *view_drop_target;
   GtkGesture *drag_gesture;
@@ -2817,6 +2818,7 @@ drag_enter_motion_cb (AdwTabGrid              *self,
 static void
 reset_setup_menu_cb (AdwTabGrid *self)
 {
+  self->view_reset_setup_menu_id = 0;
   g_signal_emit_by_name (self->view, "setup-menu", NULL);
 }
 
@@ -2830,7 +2832,9 @@ touch_menu_notify_visible_cb (AdwTabGrid *self)
   get_other_tab_grid (self)->hovering = FALSE;
   update_hover (self);
 
-  g_idle_add_once ((GSourceOnceFunc) reset_setup_menu_cb, self);
+  g_clear_handle_id (&self->view_reset_setup_menu_id, g_source_remove);
+  self->view_reset_setup_menu_id =
+    g_idle_add_once ((GSourceOnceFunc) reset_setup_menu_cb, self);
 }
 
 static void
@@ -3565,6 +3569,7 @@ adw_tab_grid_set_view (AdwTabGrid *self,
     g_signal_handlers_disconnect_by_func (self->view, page_attached_cb, self);
     g_signal_handlers_disconnect_by_func (self->view, page_detached_cb, self);
     g_signal_handlers_disconnect_by_func (self->view, page_reordered_cb, self);
+    g_clear_handle_id (&self->view_reset_setup_menu_id, g_source_remove);
 
     if (!self->pinned) {
       gtk_widget_remove_controller (GTK_WIDGET (self->view), self->view_drop_target);
