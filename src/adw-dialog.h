@@ -25,6 +25,7 @@ typedef enum {
   ADW_DIALOG_AUTO,
   ADW_DIALOG_FLOATING,
   ADW_DIALOG_BOTTOM_SHEET,
+  ADW_DIALOG_FILL,
 } AdwDialogPresentationMode;
 
 #define ADW_TYPE_DIALOG (adw_dialog_get_type())

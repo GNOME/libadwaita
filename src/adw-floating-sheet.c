@@ -55,6 +55,7 @@ struct _AdwFloatingSheet
   gpointer user_data;
 
   gboolean use_fade;
+  gboolean fill;
 };
 
 G_DEFINE_FINAL_TYPE (AdwFloatingSheet, adw_floating_sheet, GTK_TYPE_WIDGET)
@@ -64,6 +65,7 @@ enum {
   PROP_CHILD,
   PROP_OPEN,
   PROP_CAN_CLOSE,
+  PROP_FILL,
   LAST_PROP
 };
 
@@ -111,6 +113,9 @@ open_animation_done_cb (AdwFloatingSheet *self)
 
     if (self->closed_callback)
       self->closed_callback (self, self->user_data);
+  } else if (self->fill) {
+    gtk_widget_set_child_visible (self->dimming, FALSE);
+    gtk_widget_add_css_class (GTK_WIDGET (self), "fill");
   }
 }
 
@@ -185,37 +190,45 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
 {
   AdwFloatingSheet *self = ADW_FLOATING_SHEET (widget);
   GskTransform *transform = NULL;
-  int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
-  int horz_padding, vert_padding;
+  int sheet_x, sheet_y, sheet_width, sheet_height;
 
   if (width == 0 && height == 0)
     return;
 
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
-  horz_padding = adw_lerp (HORZ_PADDING_MIN_VALUE,
-                           HORZ_PADDING_TARGET_VALUE,
-                           MAX (0, (width - HORZ_PADDING_MIN_WIDTH) /
-                                   (double) (HORZ_PADDING_TARGET_WIDTH -
-                                             HORZ_PADDING_MIN_WIDTH)));
-  vert_padding = adw_lerp (VERT_PADDING_MIN_VALUE,
-                           VERT_PADDING_TARGET_VALUE,
-                           MAX (0, (height - VERT_PADDING_MIN_HEIGHT) /
-                                   (double) (VERT_PADDING_TARGET_HEIGHT -
-                                             VERT_PADDING_MIN_HEIGHT)));
+  if (self->fill) {
+    sheet_width = width;
+    sheet_height = height;
+    sheet_x = sheet_y = 0;
+  } else {
+    int horz_padding, vert_padding;
+    int sheet_min_width, sheet_min_height;
 
-  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &sheet_min_width, &sheet_width, NULL, NULL);
+    horz_padding = adw_lerp (HORZ_PADDING_MIN_VALUE,
+                             HORZ_PADDING_TARGET_VALUE,
+                             MAX (0, (width - HORZ_PADDING_MIN_WIDTH) /
+                                     (double) (HORZ_PADDING_TARGET_WIDTH -
+                                               HORZ_PADDING_MIN_WIDTH)));
+    vert_padding = adw_lerp (VERT_PADDING_MIN_VALUE,
+                             VERT_PADDING_TARGET_VALUE,
+                             MAX (0, (height - VERT_PADDING_MIN_HEIGHT) /
+                                     (double) (VERT_PADDING_TARGET_HEIGHT -
+                                               VERT_PADDING_MIN_HEIGHT)));
 
-  sheet_width = MAX (sheet_min_width, MIN (sheet_width, width - horz_padding * 2));
+    gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
+                        &sheet_min_width, &sheet_width, NULL, NULL);
 
-  gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
-                      &sheet_min_height, &sheet_height, NULL, NULL);
+    sheet_width = MAX (sheet_min_width, MIN (sheet_width, width - horz_padding * 2));
 
-  sheet_height = MAX (sheet_min_height, MIN (sheet_height, height - vert_padding * 2));
+    gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
+                        &sheet_min_height, &sheet_height, NULL, NULL);
 
-  sheet_x = round ((width - sheet_width) * 0.5);
-  sheet_y = round ((height - sheet_height) * 0.5);
+    sheet_height = MAX (sheet_min_height, MIN (sheet_height, height - vert_padding * 2));
+
+    sheet_x = round ((width - sheet_width) * 0.5);
+    sheet_y = round ((height - sheet_height) * 0.5);
+  }
 
   if (!self->use_fade) {
     float scale = MIN_SCALE + (1 - MIN_SCALE) * self->progress;
@@ -260,6 +273,9 @@ adw_floating_sheet_get_property (GObject    *object,
   case PROP_CAN_CLOSE:
     g_value_set_boolean (value, adw_floating_sheet_get_can_close (self));
     break;
+  case PROP_FILL:
+    g_value_set_boolean (value, adw_floating_sheet_get_fill (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -282,6 +298,9 @@ adw_floating_sheet_set_property (GObject      *object,
     break;
   case PROP_CAN_CLOSE:
     adw_floating_sheet_set_can_close (self, g_value_get_boolean (value));
+    break;
+  case PROP_FILL:
+    adw_floating_sheet_set_fill (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -319,6 +338,11 @@ adw_floating_sheet_class_init (AdwFloatingSheetClass *klass)
   props[PROP_CAN_CLOSE] =
     g_param_spec_boolean ("can-close", NULL, NULL,
                           TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_FILL] =
+    g_param_spec_boolean ("fill", NULL, NULL,
+                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -479,6 +503,11 @@ adw_floating_sheet_set_open (AdwFloatingSheet *self,
       return;
   }
 
+  if (self->fill) {
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "fill");
+    gtk_widget_set_child_visible (self->dimming, TRUE);
+  }
+
   self->use_fade = adw_get_reduce_motion (GTK_WIDGET (self));
 
   update_spring_params (self, self->open_animation);
@@ -515,6 +544,46 @@ adw_floating_sheet_set_can_close (AdwFloatingSheet *self,
   self->can_close = can_close;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_CLOSE]);
+}
+
+gboolean
+adw_floating_sheet_get_fill (AdwFloatingSheet *self)
+{
+  g_return_val_if_fail (ADW_IS_FLOATING_SHEET (self), FALSE);
+
+  return self->fill;
+}
+
+void
+adw_floating_sheet_set_fill (AdwFloatingSheet *self,
+                             gboolean          fill)
+{
+  gboolean fully_open;
+
+  g_return_if_fail (ADW_IS_FLOATING_SHEET (self));
+
+  fill = !!fill;
+
+  if (self->fill == fill)
+    return;
+
+  self->fill = fill;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  fully_open = self->progress > 0.5 &&
+               adw_animation_get_state (self->open_animation) != ADW_ANIMATION_PLAYING;
+
+  if (fully_open) {
+    if (self->fill)
+      gtk_widget_add_css_class (GTK_WIDGET (self), "fill");
+    else
+      gtk_widget_remove_css_class (GTK_WIDGET (self), "fill");
+
+    gtk_widget_set_child_visible (self->dimming, !self->fill);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FILL]);
 }
 
 GtkWidget *

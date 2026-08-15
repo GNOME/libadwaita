@@ -42,6 +42,14 @@
  */
 
 /**
+ * ADW_DIALOG_FILL:
+ *
+ * Have the dialog take up the entire parent window.
+ *
+ * Since: 1.11
+ */
+
+/**
  * AdwDialog:
  *
  * An adaptive dialog container.
@@ -452,7 +460,7 @@ update_presentation (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
   AdwBreakpoint *breakpoint;
-  gboolean use_bottom_sheet;
+  AdwDialogPresentationMode effective_mode;
   GtkRoot *root;
   GtkWidget *focus = NULL;
 
@@ -461,8 +469,11 @@ update_presentation (AdwDialog *self)
 
   breakpoint =
     adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->bin));
-  use_bottom_sheet = priv->presentation_mode == ADW_DIALOG_BOTTOM_SHEET ||
-                     (priv->presentation_mode == ADW_DIALOG_AUTO && breakpoint != NULL);
+
+  if (priv->presentation_mode == ADW_DIALOG_AUTO)
+    effective_mode = (breakpoint != NULL) ? ADW_DIALOG_BOTTOM_SHEET : ADW_DIALOG_FLOATING;
+  else
+    effective_mode = priv->presentation_mode;
 
   if (breakpoint == priv->both_breakpoint) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "narrow");
@@ -478,11 +489,23 @@ update_presentation (AdwDialog *self)
     gtk_widget_remove_css_class (GTK_WIDGET (self), "short");
   }
 
-  if (use_bottom_sheet && priv->bottom_sheet)
+  if ((effective_mode == ADW_DIALOG_BOTTOM_SHEET) && priv->bottom_sheet)
     return;
 
-  if (!use_bottom_sheet && priv->floating_sheet)
+  if ((effective_mode != ADW_DIALOG_BOTTOM_SHEET) && priv->floating_sheet) {
+    adw_floating_sheet_set_fill (priv->floating_sheet,
+                                 effective_mode == ADW_DIALOG_FILL);
+
+    if (effective_mode == ADW_DIALOG_FILL) {
+      gtk_widget_add_css_class (GTK_WIDGET (self), "fill");
+      gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
+    } else {
+      gtk_widget_remove_css_class (GTK_WIDGET (self), "fill");
+      gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
+    }
+
     return;
+  }
 
   g_object_ref (priv->child_breakpoint_bin);
 
@@ -508,7 +531,7 @@ update_presentation (AdwDialog *self)
 
   adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin), NULL);
 
-  if (use_bottom_sheet) {
+  if (effective_mode == ADW_DIALOG_BOTTOM_SHEET) {
     priv->bottom_sheet = ADW_BOTTOM_SHEET (adw_bottom_sheet_new ());
 
     adw_bottom_sheet_set_min_natural_width (priv->bottom_sheet, 360);
@@ -534,8 +557,12 @@ update_presentation (AdwDialog *self)
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "bottom-sheet");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "fill");
   } else {
     priv->floating_sheet = ADW_FLOATING_SHEET (adw_floating_sheet_new ());
+
+    adw_floating_sheet_set_fill (priv->floating_sheet,
+                                 effective_mode == ADW_DIALOG_FILL);
 
     if (!priv->first_map)
       adw_floating_sheet_set_open (priv->floating_sheet, TRUE);
@@ -552,6 +579,14 @@ update_presentation (AdwDialog *self)
 
     g_signal_connect_swapped (priv->floating_sheet, "close-attempt",
                               G_CALLBACK (sheet_close_attempt_cb), self);
+
+    if (effective_mode == ADW_DIALOG_FILL) {
+      gtk_widget_add_css_class (GTK_WIDGET (self), "fill");
+      gtk_widget_remove_css_class (GTK_WIDGET (self), "floating");
+    } else {
+      gtk_widget_remove_css_class (GTK_WIDGET (self), "fill");
+      gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
+    }
 
     gtk_widget_add_css_class (GTK_WIDGET (self), "floating");
     gtk_widget_remove_css_class (GTK_WIDGET (self), "bottom-sheet");
@@ -1742,7 +1777,7 @@ adw_dialog_set_presentation_mode (AdwDialog                 *self,
 
   g_return_if_fail (ADW_IS_DIALOG (self));
   g_return_if_fail (presentation_mode >= ADW_DIALOG_AUTO);
-  g_return_if_fail (presentation_mode <= ADW_DIALOG_BOTTOM_SHEET);
+  g_return_if_fail (presentation_mode <= ADW_DIALOG_FILL);
 
   priv = adw_dialog_get_instance_private (self);
 

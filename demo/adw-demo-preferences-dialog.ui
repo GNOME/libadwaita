@@ -5,6 +5,7 @@
   <template class="AdwDemoPreferencesDialog" parent="AdwPreferencesDialog">
     <property name="content-height">1000</property>
     <property name="search-enabled">True</property>
+    <property name="presentation-mode">fill</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
