@@ -251,6 +251,24 @@ adw_action_row_set_property (GObject      *object,
 }
 
 static void
+adw_action_row_constructed (GObject *object)
+{
+  AdwActionRow *self = ADW_ACTION_ROW (object);
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+  gboolean use_markup;
+
+  G_OBJECT_CLASS (adw_action_row_parent_class)->constructed (object);
+
+  /* We use bindings to sync the label text and use-markup properties, which
+   * will happen immediately after constructed. But order matters. use-markup
+   * has to be set first.
+   */
+  use_markup = adw_preferences_row_get_use_markup (ADW_PREFERENCES_ROW (self));
+  gtk_label_set_use_markup (GTK_LABEL (priv->title), use_markup);
+  gtk_label_set_use_markup (GTK_LABEL (priv->subtitle), use_markup);
+}
+
+static void
 adw_action_row_dispose (GObject *object)
 {
   AdwActionRow *self = ADW_ACTION_ROW (object);
@@ -285,6 +303,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 
   object_class->get_property = adw_action_row_get_property;
   object_class->set_property = adw_action_row_set_property;
+  object_class->constructed = adw_action_row_constructed;
   object_class->dispose = adw_action_row_dispose;
 
   klass->activate = adw_action_row_activate_real;
