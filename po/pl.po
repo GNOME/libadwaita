@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2026-06-15 08:32+0000\n"
-"PO-Revision-Date: 2026-06-18 12:50+0200\n"
+"POT-Creation-Date: 2026-08-01 06:46+0000\n"
+"PO-Revision-Date: 2026-08-25 20:20+0200\n"
 "Last-Translator: Victoria Niedzielska <victorian@gnome.org>\n"
 "Language-Team: Polish <https://l10n.gnome.org/teams/pl/>\n"
 "Language: pl\n"
@@ -108,34 +108,34 @@ msgid "BSD Zero-Clause License"
 msgstr "0-klauzulowa licencja BSD"
 
 #. Translators: developers section title in credits
-#: src/adw-about-dialog.c:594 src/adw-about-window.c:578
+#: src/adw-about-dialog.c:611 src/adw-about-window.c:601
 msgid "Code by"
 msgstr "Aplikacja"
 
 #. Translators: designers section title in credits
-#: src/adw-about-dialog.c:596 src/adw-about-window.c:580
+#: src/adw-about-dialog.c:613 src/adw-about-window.c:603
 msgid "Design by"
 msgstr "Projekt"
 
 #. Translators: artists section title in credits
-#: src/adw-about-dialog.c:598 src/adw-about-window.c:582
+#: src/adw-about-dialog.c:615 src/adw-about-window.c:605
 msgid "Artwork by"
 msgstr "Grafika"
 
 #. Translators: documenters section title in credits
-#: src/adw-about-dialog.c:600 src/adw-about-window.c:584
+#: src/adw-about-dialog.c:617 src/adw-about-window.c:607
 msgid "Documentation by"
 msgstr "Dokumentacja"
 
 #. Translators: translators section title in credits
-#: src/adw-about-dialog.c:602 src/adw-about-window.c:586
+#: src/adw-about-dialog.c:619 src/adw-about-window.c:609
 msgid "Translated by"
 msgstr "Tłumaczenie"
 
 #. Translators: this is the license preamble. The 2 variables are the link to
 #. the license and its name. Names are translatable separately, links are
 #. hardcoded.
-#: src/adw-about-dialog.c:631 src/adw-about-window.c:615
+#: src/adw-about-dialog.c:648 src/adw-about-window.c:638
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -150,13 +150,13 @@ msgstr ""
 #. This Application: Copyright, license.
 #. Dependency 1: Copyright, license.
 #. Dependency 2: Copyright, license.
-#: src/adw-about-dialog.c:715 src/adw-about-window.c:699
+#: src/adw-about-dialog.c:732 src/adw-about-window.c:722
 msgid "This Application"
 msgstr "Ta aplikacja"
 
 #. Translators: title on the "What's new" page. The variable is the
 #. specified version: e.g. "Version 1.2.3"
-#: src/adw-about-dialog.c:1020 src/adw-about-window.c:1004
+#: src/adw-about-dialog.c:1037 src/adw-about-window.c:1027
 #, c-format
 msgid "Version %s"
 msgstr "Wersja %s"
@@ -164,24 +164,24 @@ msgstr "Wersja %s"
 #. Translators: error message printed when release notes are invalid.
 #. The first variable is error message, then the two numbers are line number
 #. and the character number within the line.
-#: src/adw-about-dialog.c:1044 src/adw-about-window.c:1028
-#, fuzzy, c-format
-#| msgid "Unable to parse release notes:"
+#: src/adw-about-dialog.c:1061 src/adw-about-window.c:1051
+#, c-format
 msgid "Unable to parse release notes: %s at line %d, char %d"
-msgstr "Nie można przetworzyć informacji o wydaniu:"
+msgstr ""
+"Nie można przetworzyć informacji o wydaniu: %s na %d. wierszu, %d. znaku"
 
 #. Translators: this is an error message, displayed when the release notes
 #. are invalid. It will appear in the UI, instead of release notes.
 #. The error message will be on the next line, followed by the
 #. "Line: %d, character: %d" string.
-#: src/adw-about-dialog.c:1054 src/adw-about-window.c:1038
+#: src/adw-about-dialog.c:1071 src/adw-about-window.c:1061
 msgid "Unable to parse release notes:"
 msgstr "Nie można przetworzyć informacji o wydaniu:"
 
 #. Translators: shown after the error when release notes couldn't be parsed.
 #. The first variable is the line number, the second one is the position
 #. within the line.
-#: src/adw-about-dialog.c:1063 src/adw-about-window.c:1047
+#: src/adw-about-dialog.c:1080 src/adw-about-window.c:1070
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "%d. wiersz, %d. znak"
@@ -189,7 +189,7 @@ msgstr "%d. wiersz, %d. znak"
 #. Translators: app developers can showcase their other apps in the about
 #. dialog. This is the title of that section. The variable is the developer
 #. name.
-#: src/adw-about-dialog.c:1252
+#: src/adw-about-dialog.c:1269
 #, c-format
 msgid "Other Apps by %s"
 msgstr "Inne aplikacje od: %s"
@@ -197,30 +197,30 @@ msgstr "Inne aplikacje od: %s"
 #. Translators: app developers can showcase their other apps in the about
 #. dialog. This is the title of that section when the developer name has not
 #. been specified.
-#: src/adw-about-dialog.c:1260
+#: src/adw-about-dialog.c:1277
 msgid "Other Apps"
 msgstr "Inne aplikacje"
 
 #. Translators: shown in a toast in response
 #. to copying version or debug information
-#: src/adw-about-dialog.c:1500 src/adw-about-window.c:1310
+#: src/adw-about-dialog.c:1518 src/adw-about-window.c:1334
 msgid "Copied to clipboard"
 msgstr "Skopiowano do schowka"
 
 #. Translators: error message, shown when saving debug info fails
-#: src/adw-about-dialog.c:1528 src/adw-about-window.c:1338
+#: src/adw-about-dialog.c:1546 src/adw-about-window.c:1362
 msgid "Unable to save debugging information"
 msgstr "Nie można zapisać informacji debugowania"
 
 #. Translators: label of the close button in an error dialog
 #. Translators: accessible label of the sheet close button
-#: src/adw-about-dialog.c:1534 src/adw-about-window.c:1346
+#: src/adw-about-dialog.c:1552 src/adw-about-window.c:1370
 #: src/adw-sheet-controls.c:128
 msgid "Close"
 msgstr "Zamknij"
 
 #. Translators: title of the file chooser that appears when saving debug info
-#: src/adw-about-dialog.c:1552 src/adw-about-window.c:1363
+#: src/adw-about-dialog.c:1570 src/adw-about-window.c:1387
 msgid "Save debugging information"
 msgstr "Zapis informacji debugowania"
 
@@ -230,69 +230,69 @@ msgid "About"
 msgstr "O aplikacji"
 
 #. Translators: title of the row that opens the release notes page
-#: src/adw-about-dialog.ui:90 src/adw-about-window.ui:93
+#: src/adw-about-dialog.ui:102 src/adw-about-window.ui:105
 msgid "What’s _New"
 msgstr "Co _nowego"
 
 #. Translators: title of the row that opens the details page (comment, website etc)
-#: src/adw-about-dialog.ui:107 src/adw-about-window.ui:110
+#: src/adw-about-dialog.ui:119 src/adw-about-window.ui:122
 msgid "_Details"
 msgstr "_Szczegóły"
 
 #. Translators: title of the row that opens the app's website
-#: src/adw-about-dialog.ui:124 src/adw-about-dialog.ui:338
-#: src/adw-about-window.ui:127 src/adw-about-window.ui:336
+#: src/adw-about-dialog.ui:136 src/adw-about-dialog.ui:350
+#: src/adw-about-window.ui:139 src/adw-about-window.ui:348
 msgid "_Website"
 msgstr "Str_ona internetowa"
 
 #. Translators: title of the row that opens the app's support forum
-#: src/adw-about-dialog.ui:140 src/adw-about-window.ui:143
+#: src/adw-about-dialog.ui:152 src/adw-about-window.ui:155
 msgid "_Support Questions"
 msgstr "Pomo_c"
 
 #. Translators: title of the row that opens the app's issue tracker
-#: src/adw-about-dialog.ui:150 src/adw-about-window.ui:153
+#: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
 msgid "_Report an Issue"
 msgstr "Zgłoś _błąd"
 
 #. Translators: title of the row that opens the troubleshooting page
-#: src/adw-about-dialog.ui:160 src/adw-about-window.ui:163
+#: src/adw-about-dialog.ui:172 src/adw-about-window.ui:175
 msgid "_Troubleshooting"
 msgstr "_Rozwiązywanie problemów"
 
 #. Translators: title of the row that opens the credits page
-#: src/adw-about-dialog.ui:181 src/adw-about-window.ui:184
+#: src/adw-about-dialog.ui:193 src/adw-about-window.ui:196
 msgid "_Credits"
 msgstr "_Zasługi"
 
 #. Translators: title of the row that opens the legal page (copyright, license)
-#: src/adw-about-dialog.ui:198 src/adw-about-window.ui:201
+#: src/adw-about-dialog.ui:210 src/adw-about-window.ui:213
 msgid "_Legal"
 msgstr "_Kwestie prawne"
 
 #. Translators: title of the row that opens the acknowledgements page
 #. (like credits but separate, e.g. for patreon backers)
-#: src/adw-about-dialog.ui:216 src/adw-about-window.ui:219
+#: src/adw-about-dialog.ui:228 src/adw-about-window.ui:231
 msgid "_Acknowledgements"
 msgstr "_Podziękowania"
 
 #. Translators: title of the release notes page
-#: src/adw-about-dialog.ui:252 src/adw-about-window.ui:250
+#: src/adw-about-dialog.ui:264 src/adw-about-window.ui:262
 msgid "What’s New"
 msgstr "Co nowego"
 
 #. Translators: title of the details page (comment, website etc)
-#: src/adw-about-dialog.ui:299 src/adw-about-window.ui:297
+#: src/adw-about-dialog.ui:311 src/adw-about-window.ui:309
 msgid "Details"
 msgstr "Szczegóły"
 
 #. Translators: title of the troubleshooting page
-#: src/adw-about-dialog.ui:359 src/adw-about-window.ui:357
+#: src/adw-about-dialog.ui:371 src/adw-about-window.ui:369
 msgid "Troubleshooting"
 msgstr "Rozwiązywanie problemów"
 
 #. Translators: comment at the top of the troubleshooting page
-#: src/adw-about-dialog.ui:383 src/adw-about-window.ui:381
+#: src/adw-about-dialog.ui:395 src/adw-about-window.ui:393
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -303,45 +303,43 @@ msgstr ""
 "zdiagnozować zgłaszany błąd."
 
 #. Translators: title of the row that opens the debug information page
-#: src/adw-about-dialog.ui:395 src/adw-about-window.ui:393
+#: src/adw-about-dialog.ui:407 src/adw-about-window.ui:405
 msgid "_Debugging Information"
 msgstr "_Informacje debugowania"
 
 #. Translators: title of the debug information page
-#: src/adw-about-dialog.ui:423 src/adw-about-window.ui:421
+#: src/adw-about-dialog.ui:435 src/adw-about-window.ui:433
 msgid "Debugging Information"
 msgstr "Informacje debugowania"
 
 #. Translators: label of a button on the debug information page
-#: src/adw-about-dialog.ui:472 src/adw-about-window.ui:470
+#: src/adw-about-dialog.ui:484 src/adw-about-window.ui:482
 msgid "_Copy Text"
 msgstr "S_kopiuj tekst"
 
 #. Translators: label of a button on the debug information page
-#: src/adw-about-dialog.ui:481 src/adw-about-window.ui:479
+#: src/adw-about-dialog.ui:493 src/adw-about-window.ui:491
 msgid "_Save As…"
 msgstr "_Zapisz jako…"
 
 #. Translators: title of the credits page
-#: src/adw-about-dialog.ui:495 src/adw-about-window.ui:493
+#: src/adw-about-dialog.ui:507 src/adw-about-window.ui:505
 msgid "Credits"
 msgstr "Zasługi"
 
 #. Translators: title of the legal page (copyright, license)
-#: src/adw-about-dialog.ui:527 src/adw-about-window.ui:525
+#: src/adw-about-dialog.ui:539 src/adw-about-window.ui:537
 msgid "Legal"
 msgstr "Kwestie prawne"
 
 #. Translators: title of the acknowledgements page
 #. (like credits but separate, e.g. for patreon backers)
-#: src/adw-about-dialog.ui:561 src/adw-about-window.ui:559
+#: src/adw-about-dialog.ui:573 src/adw-about-window.ui:571
 msgid "Acknowledgements"
 msgstr "Podziękowania"
 
 #. Translators: title of the toast that appears after taking a screenshot
 #: src/adw-adaptive-preview.c:392
-#, fuzzy
-#| msgid "Screenshot Copied to Clipboard"
 msgid "Screenshot copied to clipboard"
 msgstr "Skopiowano zrzut ekranu do schowka"
 
@@ -810,7 +808,7 @@ msgid "View Open Tabs"
 msgstr "Wyświetla otwarte karty"
 
 #. Translators: tab overview title. The variable is the number of open tabs
-#: src/adw-tab-overview.c:965
+#: src/adw-tab-overview.c:967
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -880,18 +878,3 @@ msgstr "Pojawiło się powiadomienie"
 #: src/adw-toast-widget.ui:67
 msgid "Dismiss"
 msgstr "Zamknij"
-
-#~ msgctxt "Shell preset"
-#~ msgid "Phosh"
-#~ msgstr "Phosh"
-
-#~ msgctxt "Device preset"
-#~ msgid "OnePlus 6"
-#~ msgstr "OnePlus 6"
-
-#~ msgctxt "Device preset"
-#~ msgid "OnePlus 6T"
-#~ msgstr "OnePlus 6T"
-
-#~ msgid "Try a different search."
-#~ msgstr "Proszę spróbować innych słów."
