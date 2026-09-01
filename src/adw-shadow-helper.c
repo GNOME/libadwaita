@@ -65,6 +65,9 @@ adw_shadow_helper_constructed (GObject *object)
   gtk_widget_set_parent (self->outline, self->widget);
 
   gtk_widget_set_inset_mode (self->dimming, GTK_INSET_EXTEND);
+  gtk_widget_set_inset_mode (self->shadow, GTK_INSET_EXTEND);
+  gtk_widget_set_inset_mode (self->border, GTK_INSET_EXTEND);
+  gtk_widget_set_inset_mode (self->outline, GTK_INSET_EXTEND);
 
   G_OBJECT_CLASS (adw_shadow_helper_parent_class)->constructed (object);
 }
@@ -235,6 +238,9 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
       g_assert_not_reached ();
     }
     gtk_widget_allocate_inset (self->dimming, &dimming_inset);
+    gtk_widget_allocate_inset (self->shadow, &dimming_inset);
+    gtk_widget_allocate_inset (self->border, &dimming_inset);
+    gtk_widget_allocate_inset (self->outline, &dimming_inset);
   }
   gtk_widget_allocate (self->dimming, width, height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
