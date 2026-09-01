@@ -58,6 +58,8 @@ typedef struct {
   float top_screen_corners;
   float bottom_screen_corners;
   const char *notches;
+  float horizonal_inset;
+  float vertical_inset;
 
   /* In inches so that they can be filled in from specs */
   float top_bezel;
@@ -75,7 +77,7 @@ static const DevicePreset device_presets[] = {
     720, 1440,
     5.7, 2.0,
     0, 0,
-    NULL,
+    NULL, 0, 0,
     0.462, 0.201, 0.462, 0.4, 0.4,
   },
   {
@@ -84,7 +86,7 @@ static const DevicePreset device_presets[] = {
     720, 1440,
     5.95, 2.0,
     0, 0,
-    NULL,
+    NULL, 0, 0,
     0.498, 0.176, 0.498, 0.4, 0.4,
   },
   {
@@ -93,7 +95,7 @@ static const DevicePreset device_presets[] = {
     720, 1440,
     6.0, 2.0,
     0, 0,
-    NULL,
+    NULL, 0, 0,
     0.482, 0.166, 0.482, 0.4, 0.4,
   },
 */
@@ -106,7 +108,7 @@ static const DevicePreset device_presets[] = {
     720, 1440,
     5.85, 2.0,
     0, 0,
-    NULL,
+    NULL, 0, 0,
     0.48, 0.18, 0.48, 0.4, 0.4,
   },
   {
@@ -118,7 +120,7 @@ static const DevicePreset device_presets[] = {
     1280, 800,
     10.0, 1.0,
     0, 0,
-    NULL,
+    NULL, 0, 0,
     0.25, 0.25, 0.25, 0.25, 0.25,
   },
   {
@@ -128,6 +130,7 @@ static const DevicePreset device_presets[] = {
     6.28, 3.0,
     80, 60,
     "M 357 0  A 24 24 0 0 1 381 22  A 64 64 0 0 0 445 80  L 635 80  A 64 64 0 0 0 699 22  A 24 24 0 0 1 723 0  Z",
+    0, 81,
     0.139, 0.139, 0.275, 0.33, 0.33,
   },
   {
@@ -137,6 +140,7 @@ static const DevicePreset device_presets[] = {
     6.41, 3.0,
     120, 120,
     "M 355,0  h 368.34  c -9.77,0.44 -19.57,0.08 -29.28,1.24  c -20.33,1.14 -41.18,5.17 -58.62,16.24  c -16.9,10.79 -29.44,26.78 -43.44,40.81  a 72.73,72.73 0 0 1 -38.29 19.58  c -16.53,2.51 -34,1 -49.09,-6.62  c -9.85,-4.62 -17.88,-12.24 -25.21,-20.18  c -10.46,-11.27 -20.9,-22.75 -33.53,-31.66  c -11.49,-8 -24.9,-12.78 -38.53,-15.42  c -17.27,-3.18 -34.86,-3.6 -52.35,-3.99  Z",
+    0, 81,
     0.129, 0.129, 0.253, 0.425, 0.425,
   },
   {
@@ -147,7 +151,7 @@ static const DevicePreset device_presets[] = {
     NC_("Device preset", "Custom"),
     -1, -1,
     1.0, 1.0,
-    0, 0, NULL,
+    0, 0, NULL, 0, 0,
     0, 0, 0, 0, 0,
   },
 };

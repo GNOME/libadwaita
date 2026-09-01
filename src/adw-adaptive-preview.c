@@ -74,6 +74,8 @@ struct _AdwAdaptivePreview
   gboolean insets;
   float screen_scale;
   const char *notches;
+  int h_inset;
+  int v_inset;
   GskPath *screen_path;
 
   gboolean highlight_bezel;
@@ -273,6 +275,8 @@ device_preset_cb (AdwAdaptivePreview *self)
     gtk_adjustment_set_value (self->height_adj, preset->height / preset->scale_factor);
   self->screen_scale = preset->scale_factor;
   self->notches = preset->notches;
+  self->h_inset = (int) round (preset->horizonal_inset / preset->scale_factor);
+  self->v_inset = (int) round (preset->vertical_inset / preset->scale_factor);
 
   g_clear_pointer (&self->screen_path, gsk_path_unref);
 
@@ -631,7 +635,13 @@ allocate_screen_view (GtkWidget *widget,
       inset.top = inset.bottom = 0;
     }
 
-    inset.left = inset.right = 0;
+    if (rotated)
+      inset.left = inset.right = self->v_inset;
+    else
+      inset.left = inset.right = self->h_inset;
+
+    width -= inset.left + inset.right;
+    transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (inset.left, 0));
 
     gtk_widget_allocate_inset (self->child_bin, &inset);
     gtk_widget_allocate (self->child_bin, width, available_height, -1, transform);
