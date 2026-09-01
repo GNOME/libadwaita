@@ -1067,7 +1067,7 @@ adw_adaptive_preview_set_insets (AdwAdaptivePreview *self,
 
   self->insets = insets;
 
-  gtk_widget_queue_resize (self->screen_view);
+  gtk_widget_queue_allocate (self->screen_view);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INSETS]);
 }
