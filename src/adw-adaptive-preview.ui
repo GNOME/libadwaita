@@ -2,6 +2,7 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwAdaptivePreview" parent="GtkWidget">
+    <property name="inset-mode">extend</property>
     <child>
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
