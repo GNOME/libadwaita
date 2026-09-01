@@ -1258,6 +1258,9 @@ adw_view_stack_size_allocate (GtkWidget *widget,
                               int        baseline)
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   if (self->last_visible_child) {
     GtkAllocation child_allocation;
@@ -1269,6 +1272,7 @@ adw_view_stack_size_allocate (GtkWidget *widget,
 
     adw_ensure_child_allocation_size (self->last_visible_child->widget, &child_allocation);
 
+    gtk_widget_allocate_inset (self->last_visible_child->widget, &inset);
     gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation, -1);
   }
 
@@ -1282,6 +1286,7 @@ adw_view_stack_size_allocate (GtkWidget *widget,
 
     adw_ensure_child_allocation_size (self->visible_child->widget, &child_allocation);
 
+    gtk_widget_allocate_inset (self->visible_child->widget, &inset);
     gtk_widget_size_allocate (self->visible_child->widget, &child_allocation, -1);
   }
 }
@@ -1661,6 +1666,8 @@ adw_view_stack_init (AdwViewStack *self)
 
   g_signal_connect_swapped (self->animation, "done",
                             G_CALLBACK (transition_done_cb), self);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

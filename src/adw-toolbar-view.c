@@ -12,6 +12,8 @@
 #include "adw-gtkbuilder-utils-private.h"
 #include "adw-widget-utils-private.h"
 
+#define WE_WANT_TRANSLUCENT_BARS 1
+
 /**
  * AdwToolbarView:
  *
@@ -364,6 +366,9 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
   int top_min, top_nat, bottom_min, bottom_nat, content_min = 0;
   int top_height, bottom_height;
   int content_height, content_offset;
+  GtkBorder inset, top_inset, bottom_inset, content_inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   gtk_widget_measure (self->top_bar, GTK_ORIENTATION_VERTICAL, width,
                       &top_min, &top_nat, NULL, NULL);
@@ -406,13 +411,35 @@ adw_toolbar_view_size_allocate (GtkWidget *widget,
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BOTTOM_BAR_HEIGHT]);
   }
 
+  top_inset = inset;
+  top_inset.bottom = 0;
+  bottom_inset = inset;
+  bottom_inset.top = 0;
+
+  content_inset = inset;
+#ifdef WE_WANT_TRANSLUCENT_BARS
+  if (!self->extend_content_to_top_edge)
+    content_inset.top += top_height;
+  if (!self->extend_content_to_bottom_edge)
+    content_inset.bottom += bottom_height;
+#else
+  if (!self->extend_content_to_top_edge && top_height != 0)
+    content_inset.top = 0;
+  if (!self->extend_content_to_bottom_edge && bottom_height != 0)
+    content_inset.bottom = 0;
+#endif
+
+  gtk_widget_allocate_inset (self->top_bar, &top_inset);
   gtk_widget_allocate (self->top_bar, width, top_height, -1, NULL);
+  gtk_widget_allocate_inset (self->bottom_bar, &bottom_inset);
   gtk_widget_allocate (self->bottom_bar, width, bottom_height, -1,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, height - bottom_height)));
 
-  if (self->content)
+  if (self->content) {
+    gtk_widget_allocate_inset (self->content, &content_inset);
     gtk_widget_allocate (self->content, width, content_height, -1,
                          gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, content_offset)));
+  }
 
   update_undershoots (self);
 }
@@ -732,6 +759,7 @@ adw_toolbar_view_init (AdwToolbarView *self)
   self->bottom_bar_style = ADW_TOOLBAR_FLAT;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   self->top_bar = gtk_revealer_new ();
   gtk_widget_set_overflow (self->top_bar, GTK_OVERFLOW_VISIBLE);

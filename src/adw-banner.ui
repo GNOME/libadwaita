@@ -11,6 +11,7 @@
         <property name="child">
           <object class="AdwGizmo" id="gizmo">
             <property name="hexpand">True</property>
+            <property name="inset-mode">extend</property>
             <child>
               <object class="GtkLabel" id="title">
                 <property name="hexpand">True</property>

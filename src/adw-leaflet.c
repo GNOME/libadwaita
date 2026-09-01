@@ -1800,7 +1800,7 @@ allocate_shadow (AdwLeaflet *self,
   }
 
   adw_shadow_helper_size_allocate (self->shadow_helper, shadow_rect.width, shadow_rect.height,
-                                   baseline, shadow_rect.x, shadow_rect.y,
+                                   baseline, shadow_rect.x, shadow_rect.y, NULL,
                                    shadow_progress, shadow_direction);
 }
 

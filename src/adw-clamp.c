@@ -247,6 +247,7 @@ adw_clamp_class_init (AdwClampClass *klass)
 static void
 adw_clamp_init (AdwClamp *self)
 {
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

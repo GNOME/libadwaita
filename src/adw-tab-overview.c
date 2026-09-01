@@ -737,6 +737,7 @@ adw_tab_overview_scrollable_init (AdwTabOverviewScrollable *self)
   AdwAnimationTarget *target;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   controller = gtk_event_controller_motion_new ();
   g_signal_connect_swapped (controller, "motion", G_CALLBACK (motion_cb), self);
@@ -1924,6 +1925,7 @@ adw_tab_overview_init (AdwTabOverview *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
   gtk_widget_set_child_visible (self->overview, FALSE);
 
   gtk_search_bar_connect_entry (GTK_SEARCH_BAR (self->search_bar),

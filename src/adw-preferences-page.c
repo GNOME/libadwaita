@@ -288,6 +288,7 @@ adw_preferences_page_init (AdwPreferencesPage *self)
   GtkLayoutManager *layout = gtk_widget_get_layout_manager (GTK_WIDGET (self));
 
   gtk_orientable_set_orientation (GTK_ORIENTABLE (layout), GTK_ORIENTATION_VERTICAL);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   priv->title = g_strdup ("");
   priv->groups = g_ptr_array_new ();

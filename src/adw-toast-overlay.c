@@ -459,10 +459,14 @@ adw_toast_overlay_size_allocate (GtkWidget *widget,
                                  int        baseline)
 {
   AdwToastOverlay *self = ADW_TOAST_OVERLAY (widget);
+  GtkBorder inset;
   GList *l;
 
-  if (self->child && gtk_widget_should_layout (self->child))
+  if (self->child && gtk_widget_should_layout (self->child)) {
+    gtk_widget_get_inset (widget, &inset);
+    gtk_widget_allocate_inset (self->child, &inset);
     gtk_widget_allocate (self->child, width, height, baseline, NULL);
+  }
 
   for (l = self->hiding_toasts; l; l = l->next)
     allocate_toast (self, l->data, width, height);
@@ -569,6 +573,7 @@ adw_toast_overlay_init (AdwToastOverlay *self)
   self->queue = g_queue_new ();
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

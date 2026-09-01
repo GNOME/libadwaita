@@ -186,6 +186,7 @@ allocate_child (AdwBreakpointBin *self,
                 int               baseline)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
+  GtkBorder inset;
   int min_width, min_height;
 
   if (priv->old_node)
@@ -225,7 +226,10 @@ allocate_child (AdwBreakpointBin *self,
   gtk_widget_measure (priv->child, GTK_ORIENTATION_VERTICAL, -1,
                       &min_height, NULL, NULL, NULL);
 
+  gtk_widget_get_inset (GTK_WIDGET (self), &inset);
+
   if (width >= min_width && height >= min_height) {
+    gtk_widget_allocate_inset (priv->child, &inset);
     gtk_widget_allocate (priv->child, width, height, baseline, NULL);
 
     return;
@@ -667,6 +671,7 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
   priv->delayed_focus = g_array_new (FALSE, FALSE, sizeof (DelayedFocus));
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

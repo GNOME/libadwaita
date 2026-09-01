@@ -797,6 +797,7 @@ adw_navigation_page_init (AdwNavigationPage *self)
   gtk_accessible_update_property (GTK_ACCESSIBLE (self),
                                   GTK_ACCESSIBLE_PROPERTY_LABEL, priv->title,
                                   -1);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void
@@ -1565,6 +1566,7 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
   AdwNavigationView *self = ADW_NAVIGATION_VIEW (widget);
   AdwNavigationPage *visible_page = NULL;
   GtkWidget *static_page = NULL, *moving_page = NULL;
+  GtkBorder inset;
   gboolean is_rtl;
   double progress;
   int offset;
@@ -1572,13 +1574,16 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
   visible_page = adw_navigation_view_get_visible_page (self);
 
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
+  gtk_widget_get_inset (widget, &inset);
 
   if (!self->hiding_page || !self->showing_page) {
-    if (visible_page)
+    if (visible_page) {
+      gtk_widget_allocate_inset (GTK_WIDGET (visible_page), &inset);
       gtk_widget_allocate (GTK_WIDGET (visible_page), width, height, baseline, NULL);
+    }
 
     adw_shadow_helper_size_allocate (self->shadow_helper, 0, 0,
-                                     baseline, 0, 0, 1,
+                                     baseline, 0, 0, NULL, 1,
                                      is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT);
     return;
   }
@@ -1605,8 +1610,10 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
   else
     offset = (int) round (progress * width);
 
-  if (static_page)
+  if (static_page) {
+    gtk_widget_allocate_inset (static_page, &inset);
     gtk_widget_allocate (static_page, width, height, baseline, NULL);
+  }
 
   if (gtk_widget_should_layout (self->shield)) {
     GskTransform *transform = NULL;
@@ -1620,26 +1627,33 @@ adw_navigation_view_size_allocate (GtkWidget *widget,
         transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (offset, 0));
     }
 
+    gtk_widget_allocate_inset (self->shield, &inset);
     gtk_widget_allocate (self->shield, width, height, baseline, transform);
   }
 
   if (is_rtl) {
-    if (moving_page)
+    if (moving_page) {
+      gtk_widget_allocate_inset (moving_page, &inset);
       gtk_widget_allocate (moving_page, width, height, baseline,
                            gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-offset, 0)));
+    }
 
     adw_shadow_helper_size_allocate (self->shadow_helper,
                                      MAX (0, offset), height,
-                                     baseline, width - offset, 0, progress,
+                                     baseline, width - offset, 0,
+                                     &inset, progress,
                                      GTK_PAN_DIRECTION_LEFT);
   } else {
-    if (moving_page)
+    if (moving_page) {
+      gtk_widget_allocate_inset (moving_page, &inset);
       gtk_widget_allocate (moving_page, width, height, baseline,
                            gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (offset, 0)));
+    }
 
     adw_shadow_helper_size_allocate (self->shadow_helper,
                                      MAX (0, offset), height,
-                                     baseline, 0, 0, progress,
+                                     baseline, 0, 0,
+                                     &inset, progress,
                                      GTK_PAN_DIRECTION_RIGHT);
   }
 }
@@ -1676,7 +1690,8 @@ adw_navigation_view_snapshot (GtkWidget   *widget,
     GtkWidget *static_page = NULL, *moving_page = NULL;
     int width, height;
     int offset;
-    int clip_x, clip_width;
+    int clip_x, clip_width, clip_y, clip_height;
+    GtkBorder inset;
     double progress;
 
     if (self->transition_pop) {
@@ -1693,6 +1708,7 @@ adw_navigation_view_snapshot (GtkWidget   *widget,
 
     width = gtk_widget_get_width (widget);
     height = gtk_widget_get_height (widget);
+    gtk_widget_get_inset (widget, &inset);
     progress = self->transition_progress;
 
     if (!self->transition_pop)
@@ -1702,27 +1718,31 @@ adw_navigation_view_snapshot (GtkWidget   *widget,
 
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL) {
       clip_x = width - offset;
-      clip_width = offset;
+      clip_width = offset + inset.right;
     } else {
-      clip_x = 0;
-      clip_width = offset;
+      clip_x = -inset.left;
+      clip_width = inset.left + offset;
     }
+    clip_y = -inset.top;
+    clip_height = height + inset.top + inset.bottom;
 
     if (static_page) {
-      gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, 0, clip_width, height));
+      gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, clip_y,
+                                                             clip_width, clip_height));
       gtk_widget_snapshot_child (widget, static_page, snapshot);
       gtk_snapshot_pop (snapshot);
     }
 
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      clip_x = -offset;
+      clip_x = -offset - inset.left;
     else
-      clip_x = offset;
+      clip_x = offset - inset.left;
 
-    clip_width = width;
+    clip_width = width + inset.left + inset.right;
 
     if (moving_page) {
-      gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, 0, clip_width, height));
+      gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, clip_y,
+                                                             clip_width, clip_height));
       gtk_widget_snapshot_child (widget, moving_page, snapshot);
       gtk_snapshot_pop (snapshot);
     }
@@ -2157,6 +2177,7 @@ adw_navigation_view_init (AdwNavigationView *self)
   self->shadow_helper = adw_shadow_helper_new (GTK_WIDGET (self));
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   gesture = gtk_gesture_click_new ();
   gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture), 0);

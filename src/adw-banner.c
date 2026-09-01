@@ -504,6 +504,7 @@ static void
 adw_banner_init (AdwBanner *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
   gtk_widget_set_layout_manager (GTK_WIDGET (self->gizmo), gtk_custom_layout_new (get_content_request_mode,
                                                                                   measure_content,
                                                                                   allocate_content));

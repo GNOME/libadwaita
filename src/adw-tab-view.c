@@ -2279,13 +2279,18 @@ adw_tab_view_size_allocate (GtkWidget *widget,
                             int        baseline)
 {
   AdwTabView *self = ADW_TAB_VIEW (widget);
+  GtkBorder inset;
   int i;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (i = 0; i < self->n_pages; i++) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
 
-    if (gtk_widget_get_child_visible (page->bin))
+    if (gtk_widget_get_child_visible (page->bin)) {
+      gtk_widget_allocate_inset (page->bin, &inset);
       gtk_widget_allocate (page->bin, width, height, baseline, NULL);
+    }
   }
 }
 
@@ -2871,6 +2876,8 @@ adw_tab_view_init (AdwTabView *self)
   init_shortcuts (self, controller);
 
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

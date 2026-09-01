@@ -64,6 +64,8 @@ adw_shadow_helper_constructed (GObject *object)
   gtk_widget_set_parent (self->border, self->widget);
   gtk_widget_set_parent (self->outline, self->widget);
 
+  gtk_widget_set_inset_mode (self->dimming, GTK_INSET_EXTEND);
+
   G_OBJECT_CLASS (adw_shadow_helper_parent_class)->constructed (object);
 }
 
@@ -203,6 +205,7 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                                  int              baseline,
                                  int              x,
                                  int              y,
+                                 const GtkBorder *inset,
                                  double           progress,
                                  GtkPanDirection  direction)
 {
@@ -213,6 +216,26 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
 
   set_style_classes (self, direction);
 
+  if (inset) {
+    GtkBorder dimming_inset = *inset;
+    switch (direction) {
+    case GTK_PAN_DIRECTION_LEFT:
+      dimming_inset.left = 0;
+      break;
+    case GTK_PAN_DIRECTION_RIGHT:
+      dimming_inset.right = 0;
+      break;
+    case GTK_PAN_DIRECTION_UP:
+      dimming_inset.top = 0;
+      break;
+    case GTK_PAN_DIRECTION_DOWN:
+      dimming_inset.bottom = 0;
+      break;
+    default:
+      g_assert_not_reached ();
+    }
+    gtk_widget_allocate_inset (self->dimming, &dimming_inset);
+  }
   gtk_widget_allocate (self->dimming, width, height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
 

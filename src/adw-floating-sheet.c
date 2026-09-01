@@ -187,10 +187,14 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
   GskTransform *transform = NULL;
   int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
   int horz_padding, vert_padding;
+  GtkBorder inset;
 
   if (width == 0 && height == 0)
     return;
 
+  gtk_widget_get_inset (widget, &inset);
+
+  gtk_widget_allocate_inset (self->dimming, &inset);
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
   horz_padding = adw_lerp (HORZ_PADDING_MIN_VALUE,
@@ -207,6 +211,7 @@ adw_floating_sheet_size_allocate (GtkWidget *widget,
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
 
+  /* TODO: we should perhaps count the insets towards the sheet's padding */
   sheet_width = MAX (sheet_min_width, MIN (sheet_width, width - horz_padding * 2));
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_VERTICAL, sheet_width,
@@ -348,6 +353,8 @@ adw_floating_sheet_init (AdwFloatingSheet *self)
   AdwAnimationTarget *target;
   GtkEventController *shortcut_controller;
   GtkShortcut *shortcut;
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   self->can_close = TRUE;
 

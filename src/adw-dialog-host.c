@@ -343,7 +343,11 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
                                int        height,
                                int        baseline)
 {
+  AdwDialogHost *self = ADW_DIALOG_HOST (widget);
   GtkWidget *child;
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (child = gtk_widget_get_first_child (widget);
        child;
@@ -351,6 +355,7 @@ adw_dialog_host_size_allocate (GtkWidget *widget,
     GtkAllocation child_allocation = { 0, 0, width, height };
 
     adw_ensure_child_allocation_size (child, &child_allocation);
+    gtk_widget_allocate_inset (child, &inset);
     gtk_widget_size_allocate (child, &child_allocation, -1);
   }
 }
@@ -485,6 +490,8 @@ adw_dialog_host_init (AdwDialogHost *self)
 
   self->bin = adw_bin_new ();
   gtk_widget_set_parent (self->bin, GTK_WIDGET (self));
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 static void

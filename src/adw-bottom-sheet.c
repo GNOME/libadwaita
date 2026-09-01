@@ -506,6 +506,9 @@ allocate_sheet (GtkWidget *widget,
                 int        baseline)
 {
   AdwBottomSheet *self = ADW_BOTTOM_SHEET (gtk_widget_get_ancestor (widget, ADW_TYPE_BOTTOM_SHEET));
+  GtkBorder inset;
+
+  gtk_widget_get_inset (widget, &inset);
 
   if (gtk_widget_should_layout (self->drag_handle)) {
     int handle_width, handle_height, handle_x;
@@ -527,8 +530,10 @@ allocate_sheet (GtkWidget *widget,
                          baseline, transform);
   }
 
-  if (self->sheet && gtk_widget_should_layout (self->sheet))
+  if (self->sheet && gtk_widget_should_layout (self->sheet)) {
+    gtk_widget_allocate_inset (self->sheet, &inset);
     gtk_widget_allocate (self->sheet, width, height, baseline, NULL);
+  }
 }
 
 static void
@@ -577,11 +582,14 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
   int sheet_x, sheet_y, sheet_min_width, sheet_width, sheet_min_height, sheet_height;
   int top_padding;
   int bottom_bar_height;
+  GtkBorder inset, sheet_inset;
   float align;
   double progress;
 
   if (width == 0 && height == 0)
     return;
+
+  gtk_widget_get_inset (widget, &inset);
 
   gtk_widget_measure (self->sheet_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sheet_min_width, &sheet_width, NULL, NULL);
@@ -634,23 +642,33 @@ adw_bottom_sheet_size_allocate (GtkWidget *widget,
                bottom_bar_height);
 
   sheet_height = MAX (sheet_height, height - sheet_y);
+  sheet_inset = inset;
+  sheet_inset.top = 0;
 
-  if (sheet_x == 0)
+  if (sheet_x == 0) {
     gtk_widget_add_css_class (self->sheet_bin, "flush-left");
-  else
+  } else {
     gtk_widget_remove_css_class (self->sheet_bin, "flush-left");
+    sheet_inset.left = 0;
+  }
 
-  if (sheet_x == width - sheet_width)
+  if (sheet_x == width - sheet_width) {
     gtk_widget_add_css_class (self->sheet_bin, "flush-right");
-  else
+  } else {
     gtk_widget_remove_css_class (self->sheet_bin, "flush-right");
+    sheet_inset.right = 0;
+  }
 
-  if (gtk_widget_should_layout (self->content_bin))
+  if (gtk_widget_should_layout (self->content_bin)) {
+    gtk_widget_allocate_inset (self->content_bin, &inset);
     gtk_widget_allocate (self->content_bin, width, height, baseline, NULL);
+  }
 
+  gtk_widget_allocate_inset (self->dimming, &inset);
   gtk_widget_allocate (self->dimming, width, height, baseline, NULL);
 
   transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (sheet_x, sheet_y));
+  gtk_widget_allocate_inset (self->sheet_bin, &sheet_inset);
   gtk_widget_allocate (self->sheet_bin, sheet_width, sheet_height, baseline, transform);
 }
 
@@ -1133,6 +1151,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->reveal_bottom_bar_progress = 1;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   /* Content */
 
@@ -1146,6 +1165,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   gtk_widget_set_child_visible (self->dimming, FALSE);
   gtk_widget_set_can_focus (self->dimming, FALSE);
   gtk_widget_set_can_target (self->dimming, FALSE);
+  gtk_widget_set_inset_mode (self->dimming, GTK_INSET_EXTEND);
   gtk_widget_set_parent (self->dimming, GTK_WIDGET (self));
 
   gesture = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
@@ -1165,6 +1185,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   gtk_widget_add_css_class (self->sheet_bin, "has-drag-handle");
   gtk_widget_set_focusable (self->sheet_bin, TRUE);
   gtk_widget_set_child_visible (self->sheet_bin, FALSE);
+  gtk_widget_set_inset_mode (self->sheet_bin, GTK_INSET_EXTEND);
   gtk_widget_set_parent (self->sheet_bin, GTK_WIDGET (self));
 
   self->sheet_stack = gtk_stack_new ();
@@ -1179,6 +1200,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                                  NULL, NULL);
   gtk_widget_set_can_target (self->outline, FALSE);
   gtk_widget_set_can_focus (self->outline, FALSE);
+  gtk_widget_set_inset_mode (self->outline, GTK_INSET_EXTEND);
   gtk_widget_set_parent (self->outline, self->sheet_bin);
 
   /* Sheet child */
@@ -1187,6 +1209,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
                                     (AdwGizmoFocusFunc) adw_widget_focus_child,
                                     (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child_or_self);
   gtk_widget_set_overflow (self->sheet_page, GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (self->sheet_page, GTK_INSET_EXTEND);
   gtk_widget_set_layout_manager (self->sheet_page,
                                  gtk_custom_layout_new (adw_widget_get_request_mode,
                                                         measure_sheet,
@@ -1203,6 +1226,7 @@ adw_bottom_sheet_init (AdwBottomSheet *self)
   self->bottom_bar_bin = gtk_button_new ();
   gtk_widget_set_valign (self->bottom_bar_bin, GTK_ALIGN_START);
   gtk_widget_set_overflow (self->bottom_bar_bin, GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (self->bottom_bar_bin, GTK_INSET_EXTEND);
   gtk_stack_add_child (GTK_STACK (self->sheet_stack), self->bottom_bar_bin);
   g_signal_connect_swapped (self->bottom_bar_bin, "clicked", G_CALLBACK (bottom_bar_clicked_cb), self);
 

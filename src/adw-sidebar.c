@@ -2873,6 +2873,7 @@ adw_sidebar_init (AdwSidebar *self)
 
   gtk_widget_action_set_enabled (GTK_WIDGET (self), "menu.popup", FALSE);
 
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
   recreate_ui (self);
 }
 

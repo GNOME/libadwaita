@@ -883,7 +883,7 @@ allocate_shadow (AdwFlap *self,
   }
 
   adw_shadow_helper_size_allocate (self->shadow_helper, width, height,
-                                   baseline, shadow_x, shadow_y,
+                                   baseline, shadow_x, shadow_y, NULL,
                                    shadow_progress, shadow_direction);
 }
 

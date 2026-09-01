@@ -724,10 +724,13 @@ adw_carousel_size_allocate (GtkWidget *widget,
 {
   AdwCarousel *self = ADW_CAROUSEL (widget);
   int size, child_width, child_height;
+  GtkBorder inset;
   GList *children;
   double x, y, offset;
   gboolean is_rtl;
   double snap_point;
+
+  gtk_widget_get_inset (widget, &inset);
 
   if (!G_APPROX_VALUE (self->position_shift, 0, DBL_EPSILON)) {
     set_position (self, self->position + self->position_shift);
@@ -827,6 +830,8 @@ adw_carousel_size_allocate (GtkWidget *widget,
         transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (child_info->position, 0));
       }
 
+      /* Allocate the same full inset to all children, even mid-animation */
+      gtk_widget_allocate_inset (child_info->widget, &inset);
       gtk_widget_allocate (child_info->widget, child_width, child_height, baseline, transform);
     }
 
@@ -1201,6 +1206,7 @@ adw_carousel_init (AdwCarousel *self)
   self->allow_scroll_wheel = TRUE;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->reveal_duration = 0;

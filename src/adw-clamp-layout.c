@@ -324,12 +324,16 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
 {
   AdwClampLayout *self = ADW_CLAMP_LAYOUT (manager);
   GtkSettings *settings = gtk_widget_get_settings (widget);
+  GtkBorder inset;
   GtkWidget *child;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (child = gtk_widget_get_first_child (widget);
        child != NULL;
        child = gtk_widget_get_next_sibling (child)) {
     GtkAllocation child_allocation;
+    GtkBorder child_inset;
     int child_maximum = 0, lower_threshold = 0;
     int child_clamped_size;
 
@@ -382,6 +386,21 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
       child_allocation.y = (height - child_allocation.height) / 2;
     }
 
+    /* TODO: This abruptly skips from passing the inset to not
+     * passing it. We could try to animate the inset instead.
+     */
+    child_inset = inset;
+    if (child_clamped_size > lower_threshold) {
+      if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+        child_inset.left = 0;
+        child_inset.right = 0;
+      } else {
+        child_inset.top = 0;
+        child_inset.bottom = 0;
+      }
+    }
+
+    gtk_widget_allocate_inset (child, &child_inset);
     gtk_widget_size_allocate (child, &child_allocation, baseline);
   }
 }
