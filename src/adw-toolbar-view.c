@@ -1029,7 +1029,7 @@ adw_toolbar_view_set_top_bar_style (AdwToolbarView  *self,
                                     AdwToolbarStyle  style)
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
-  g_return_if_fail (style <= ADW_TOOLBAR_RAISED_BORDER);
+  g_return_if_fail (style <= ADW_TOOLBAR_TRANSPARENT);
 
   if (self->top_bar_style == style)
     return;
@@ -1038,6 +1038,7 @@ adw_toolbar_view_set_top_bar_style (AdwToolbarView  *self,
 
   switch (style) {
     case ADW_TOOLBAR_FLAT:
+    case ADW_TOOLBAR_TRANSPARENT:
       gtk_widget_remove_css_class (self->top_bar, "raised");
       gtk_widget_remove_css_class (self->top_bar, "border");
       break;
@@ -1115,7 +1116,7 @@ adw_toolbar_view_set_bottom_bar_style (AdwToolbarView  *self,
                                        AdwToolbarStyle  style)
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
-  g_return_if_fail (style <= ADW_TOOLBAR_RAISED_BORDER);
+  g_return_if_fail (style <= ADW_TOOLBAR_TRANSPARENT);
 
   if (self->bottom_bar_style == style)
     return;
@@ -1124,6 +1125,7 @@ adw_toolbar_view_set_bottom_bar_style (AdwToolbarView  *self,
 
   switch (style) {
     case ADW_TOOLBAR_FLAT:
+    case ADW_TOOLBAR_TRANSPARENT:
       gtk_widget_remove_css_class (self->bottom_bar, "raised");
       gtk_widget_remove_css_class (self->bottom_bar, "border");
       break;
