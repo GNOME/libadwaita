@@ -40,6 +40,10 @@ gboolean adw_adaptive_preview_get_highlight_bezel (AdwAdaptivePreview *self);
 void     adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
                                                    gboolean            highlight_bezel);
 
+gboolean adw_adaptive_preview_get_insets (AdwAdaptivePreview *self);
+void     adw_adaptive_preview_set_insets (AdwAdaptivePreview *self,
+                                          gboolean            insets);
+
 GtkWidget *adw_adaptive_preview_get_screen (AdwAdaptivePreview *self);
 
 G_END_DECLS

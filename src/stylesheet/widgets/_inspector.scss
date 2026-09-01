@@ -79,8 +79,16 @@ adaptive-preview {
                 drop-shadow(0 -3px 0 var(--accent-bg-color));
       }
 
+      &.insets {
+        .shell-top-bar, .shell-bottom-bar {
+          background: none;
+          color: inherit;
+        }
+      }
+
       .shell-top-bar, .shell-bottom-bar {
         background: black;
+        color: white;
       }
     }
   }

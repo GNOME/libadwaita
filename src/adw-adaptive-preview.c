@@ -71,6 +71,7 @@ struct _AdwAdaptivePreview
   int bottom_bar_height;
   ScreenRotation rotation;
   gboolean scale_to_fit;
+  gboolean insets;
   float screen_scale;
   const char *notches;
   GskPath *screen_path;
@@ -98,6 +99,7 @@ enum {
   PROP_WINDOW_CONTROLS,
   PROP_SCALE_TO_FIT,
   PROP_HIGHLIGHT_BEZEL,
+  PROP_INSETS,
   LAST_PROP
 };
 
@@ -462,8 +464,8 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   GdkRGBA rgba;
 
   if (!self->notches) {
-    gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
     gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
     return;
   }
@@ -500,8 +502,8 @@ snapshot_screen_view (AdwGizmo    *gizmo,
   gtk_snapshot_append_fill (snapshot, self->screen_path, GSK_FILL_RULE_EVEN_ODD, &rgba);
   gtk_snapshot_pop (snapshot);
 
-  gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
   gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->child_bin, snapshot);
+  gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->top_bar, snapshot);
   gtk_widget_snapshot_child (GTK_WIDGET (gizmo), self->bottom_bar, snapshot);
   gtk_snapshot_pop (snapshot);
 }
@@ -598,6 +600,7 @@ allocate_screen_view (GtkWidget *widget,
   if (gtk_widget_should_layout (self->child_bin)) {
     int child_width, child_height, available_height;
     GskTransform *transform = NULL;
+    GtkBorder inset;
 
     available_height = height - top_bar_height - bottom_bar_height;
 
@@ -621,6 +624,16 @@ allocate_screen_view (GtkWidget *widget,
     transform = transform_for_angle (self, transform, TRUE);
     transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, self->top_bar_height));
 
+    if (self->insets) {
+      inset.top = top_bar_height;
+      inset.bottom = bottom_bar_height;
+    } else {
+      inset.top = inset.bottom = 0;
+    }
+
+    inset.left = inset.right = 0;
+
+    gtk_widget_allocate_inset (self->child_bin, &inset);
     gtk_widget_allocate (self->child_bin, width, available_height, -1, transform);
   }
 }
@@ -737,6 +750,9 @@ adw_adaptive_preview_get_property (GObject    *object,
   case PROP_HIGHLIGHT_BEZEL:
     g_value_set_boolean (value, adw_adaptive_preview_get_highlight_bezel (self));
     break;
+  case PROP_INSETS:
+    g_value_set_boolean (value, adw_adaptive_preview_get_insets (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -762,6 +778,9 @@ adw_adaptive_preview_set_property (GObject      *object,
     break;
   case PROP_HIGHLIGHT_BEZEL:
     adw_adaptive_preview_set_highlight_bezel (self, g_value_get_boolean (value));
+    break;
+  case PROP_INSETS:
+    adw_adaptive_preview_set_insets (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -801,6 +820,11 @@ adw_adaptive_preview_class_init (AdwAdaptivePreviewClass *klass)
   props[PROP_HIGHLIGHT_BEZEL] =
     g_param_spec_boolean ("highlight-bezel", NULL, NULL,
                           FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_INSETS] =
+    g_param_spec_boolean ("insets", NULL, NULL,
+                          TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -865,6 +889,7 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
 
   self->rotation = ROTATION_0DEG;
   self->scale_to_fit = TRUE;
+  self->insets = TRUE;
   self->last_device_preset = -1;
 
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -909,6 +934,10 @@ adw_adaptive_preview_init (AdwAdaptivePreview *self)
   adw_bind_property_to_css_class (self, "highlight-bezel",
                                   self->device_view, "highlight",
                                   G_BINDING_DEFAULT);
+
+  adw_bind_property_to_css_class (self, "insets",
+                                  self->screen_view, "insets",
+                                  G_BINDING_SYNC_CREATE);
 }
 
 GtkWidget *
@@ -1015,6 +1044,32 @@ adw_adaptive_preview_set_highlight_bezel (AdwAdaptivePreview *self,
   self->highlight_bezel = highlight_bezel;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGHLIGHT_BEZEL]);
+}
+
+gboolean
+adw_adaptive_preview_get_insets (AdwAdaptivePreview *self)
+{
+  g_return_val_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self), FALSE);
+
+  return self->insets;
+}
+
+void
+adw_adaptive_preview_set_insets (AdwAdaptivePreview *self,
+                                 gboolean            insets)
+{
+  g_return_if_fail (ADW_IS_ADAPTIVE_PREVIEW (self));
+
+  insets = !!insets;
+
+  if (insets == self->insets)
+    return;
+
+  self->insets = insets;
+
+  gtk_widget_queue_resize (self->screen_view);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INSETS]);
 }
 
 GtkWidget *

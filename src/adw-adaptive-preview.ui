@@ -183,6 +183,12 @@
                                 <property name="active" bind-source="AdwAdaptivePreview" bind-property="highlight-bezel" bind-flags="sync-create|bidirectional"/>
                               </object>
                             </child>
+                            <child>
+                              <object class="AdwSwitchRow">
+                                <property name="title" translatable="yes">Insets</property>
+                                <property name="active" bind-source="AdwAdaptivePreview" bind-property="insets" bind-flags="sync-create|bidirectional"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
