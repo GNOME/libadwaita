@@ -1088,6 +1088,7 @@ calculate_bounds (AdwTabOverview  *self,
   graphene_rect_t view_bounds, thumbnail_bounds;
   double view_ratio, thumb_ratio;
   AdwTabPage *page = adw_tab_view_get_selected_page (self->view);
+  GtkBorder inset;
 
   if (!gtk_widget_compute_bounds (GTK_WIDGET (self->view), widget, &view_bounds))
     g_error ("AdwTabView %p must be inside its AdwTabOverview %p", self->view, self);
@@ -1095,9 +1096,11 @@ calculate_bounds (AdwTabOverview  *self,
   if (!gtk_widget_compute_bounds (self->transition_picture, widget, &thumbnail_bounds))
     graphene_rect_init (&thumbnail_bounds, 0, 0, 0, 0);
 
-  graphene_rect_init (bounds, 0, 0,
-                      gtk_widget_get_width (widget),
-                      gtk_widget_get_height (widget));
+  gtk_widget_get_inset (GTK_WIDGET (self), &inset);
+
+  graphene_rect_init (bounds, -inset.left, -inset.top,
+                      gtk_widget_get_width (widget) + inset.left + inset.right,
+                      gtk_widget_get_height (widget) + inset.top + inset.bottom);
 
   view_ratio = view_bounds.size.width / view_bounds.size.height;
   thumb_ratio = thumbnail_bounds.size.width / thumbnail_bounds.size.height;
@@ -1130,11 +1133,11 @@ calculate_bounds (AdwTabOverview  *self,
                       clip_bounds->size.width * clip_scale->width,
                       clip_bounds->size.height * clip_scale->height);
   graphene_point_init (&transition_bounds->origin,
-                       adw_lerp (0, thumbnail_bounds.origin.x,
+                       adw_lerp (-inset.left, thumbnail_bounds.origin.x,
                                  inverse_lerp (bounds->size.width,
                                                thumbnail_bounds.size.width,
                                                transition_bounds->size.width)),
-                       adw_lerp (0, thumbnail_bounds.origin.y,
+                       adw_lerp (-inset.top, thumbnail_bounds.origin.y,
                                  inverse_lerp (bounds->size.height,
                                                thumbnail_bounds.size.height,
                                                transition_bounds->size.height)));
