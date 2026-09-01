@@ -25,6 +25,7 @@ $dialog_radius: $button_radius + 6;
 .background {
   color: var(--window-fg-color);
   background-color: var(--window-bg-color);
+  --current-bg-color: var(--window-bg-color);
 }
 
 dnd {

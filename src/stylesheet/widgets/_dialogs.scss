@@ -117,6 +117,7 @@ dialog-host > dialog.background {
   sheet {
     background-color: var(--window-bg-color);
     color: var(--window-fg-color);
+    --current-bg-color: var(--window-bg-color);
   }
 }
 

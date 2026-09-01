@@ -7,6 +7,7 @@ $alert_radius: 18px;
 window.dialog.message {
   background-color: var(--dialog-bg-color);
   color: var(--dialog-fg-color);
+  --current-bg-color: var(--dialog-bg-color);
 
   @media (prefers-contrast: more) {
     &.csd {
@@ -55,6 +56,7 @@ dialog-host > dialog.alert sheet,
 window.dialog-window.alert {
   background-color: var(--dialog-bg-color);
   color: var(--dialog-fg-color);
+  --current-bg-color: var(--dialog-bg-color);
 }
 
 dialog-host > dialog.alert sheet {

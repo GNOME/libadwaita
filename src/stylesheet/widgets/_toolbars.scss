@@ -296,18 +296,28 @@ toolbarview {
     }
 
     &.raised {
-      background-color: var(--headerbar-bg-color);
+      background: color-mix(in srgb, var(--headerbar-bg-color) 50%, transparent);
       color: var(--headerbar-fg-color);
+      backdrop-filter: blur(15px) saturate(200%);
 
       &:backdrop {
-        background-color: var(--headerbar-backdrop-color);
-        transition: background-color $backdrop_transition;
+        background: color-mix(in srgb, var(--headerbar-backdrop-color) 50%, transparent);
       }
     }
 
     &:backdrop > windowhandle {
       filter: opacity(.5);
       transition: filter $backdrop_transition;
+    }
+  }
+
+  &.undershoot-top > .top-bar,
+  &.undershoot-bottom > .bottom-bar {
+    backdrop-filter: blur(15px) saturate(200%);
+    background: color-mix(in srgb, var(--current-bg-color) var(--dim-opacity), transparent);
+
+    &:backdrop {
+      transition: background-color $backdrop_transition;
     }
   }
 

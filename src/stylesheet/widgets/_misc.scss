@@ -40,6 +40,7 @@ toast {
   color: $toast_fg_color;
   box-shadow: 0 1px 3px 1px RGB(0 0 6 / 7%),
               0 2px 6px 2px RGB(0 0 6 / 3%);
+  --current-bg-color: $toast_bg_color;
 
   --standalone-color-oklab: #{$standalone-color-oklab-dark};
 
@@ -198,6 +199,7 @@ statuspage {
   @at-root %card, & {
     background-color: var(--card-bg-color);
     color: var(--card-fg-color);
+    --current-bg-color: var(--card-bg-color);
     border-radius: $card_radius;
     box-shadow: 0 0 0 1px RGB(0 0 6 / 3%),
                 0 1px 3px 1px RGB(0 0 6 / 7%),

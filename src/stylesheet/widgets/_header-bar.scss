@@ -2,6 +2,7 @@ headerbar {
   min-height: 47px;
   background-color: var(--headerbar-bg-color);
   color: var(--headerbar-fg-color);
+  --current-bg-color: var(--headerbar-bg-color);
   box-shadow: inset 0 -1px var(--headerbar-shade-color),
               inset  1px 0 $headerbar_border_color,
               inset -1px 0 $headerbar_border_color;

@@ -14,6 +14,7 @@ popover {
     padding: 8px;
     border-radius: $popover_radius;
     background-color: var(--popover-bg-color);
+    --current-bg-color: var(--popover-bg-color);
     color: var(--popover-fg-color);
 
     box-shadow: 0 0 0 1px RGB(0 0 0 / 5%),

@@ -52,6 +52,7 @@ window.assistant {
     padding: $menu-margin;
     background-color: var(--sidebar-bg-color);
     color: var(--sidebar-fg-color);
+    --current-bg-color: var(--sidebar-bg-color);
 
     &:not(separator) {
       &:dir(ltr) {

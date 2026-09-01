@@ -2,10 +2,12 @@
 %view {
   color: var(--view-fg-color);
   background-color: var(--view-bg-color);
+  --current-bg-color: var(--view-bg-color);
 
   &:disabled {
     color: color-mix(in srgb, var(--view-fg-color) var(--disabled-opacity), transparent);
     background-color: color-mix(in srgb, var(--window-bg-color) 60%, var(--view-bg-color));
+    --current-bg-color: color-mix(in srgb, var(--window-bg-color) 60%, var(--view-bg-color));
   }
 
   &:selected {

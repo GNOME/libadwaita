@@ -1,9 +1,11 @@
 .sidebar-pane {
   background-color: var(--sidebar-bg-color);
   color: var(--sidebar-fg-color);
+  --current-bg-color: var(--sidebar-bg-color);
 
   &:backdrop {
     background-color: var(--sidebar-backdrop-color);
+    --current-bg-color: var(--sidebar-backdrop-color);
     transition: background-color $backdrop_transition;
   }
 
@@ -19,7 +21,10 @@
   }
 
   &:dir(ltr), &.end:dir(rtl) {
-    &, banner > revealer > widget {
+    &,
+    banner > revealer > widget,
+    toolbarview.undershoot-top > .top-bar,
+    toolbarview.undershoot-bottom > .bottom-bar {
       box-shadow: inset -1px 0 var(--sidebar-border-color);
 
       @media (prefers-contrast: more) {
@@ -29,7 +34,10 @@
   }
 
   &:dir(rtl), &.end:dir(ltr) {
-    &, banner > revealer > widget {
+    &,
+    banner > revealer > widget,
+    toolbarview.undershoot-top > .top-bar,
+    toolbarview.undershoot-bottom > .bottom-bar {
       box-shadow: inset 1px 0 var(--sidebar-border-color);
 
       @media (prefers-contrast: more) {
@@ -44,10 +52,12 @@
 :not(.isolated) > .sidebar-pane :not(.isolated) > .content-pane {
   background-color: var(--secondary-sidebar-bg-color);
   color: var(--secondary-sidebar-fg-color);
+  --current-bg-color: var(--secondary-sidebar-bg-color);
 
   &:backdrop {
     background-color: var(--secondary-sidebar-backdrop-color);
     transition: background-color $backdrop_transition;
+    --current-bg-color: var(--secondary-sidebar-backdrop-color);
   }
 
   --shade-color: var(--secondary-sidebar-shade-color);
@@ -62,7 +72,10 @@
   }
 
   &:dir(ltr), &.end:dir(rtl) {
-    &, banner > revealer > widget {
+    &,
+    banner > revealer > widget,
+    toolbarview.undershoot-top > .top-bar,
+    toolbarview.undershoot-bottom > .bottom-bar {
       box-shadow: inset -1px 0 var(--secondary-sidebar-border-color);
 
       @media (prefers-contrast: more) {
@@ -72,7 +85,10 @@
   }
 
   &:dir(rtl), &.end:dir(ltr) {
-    &, banner > revealer > widget {
+    &,
+    banner > revealer > widget,
+    toolbarview.undershoot-top > .top-bar,
+    toolbarview.undershoot-bottom > .bottom-bar {
       box-shadow: inset 1px 0 var(--secondary-sidebar-border-color);
 
       @media (prefers-contrast: more) {
@@ -90,6 +106,7 @@
 .overlay-pane {
   color: var(--window-fg-color);
   background-color: var(--window-bg-color);
+  --current-bg-color: var(--window-bg-color);
 }
 
 stacksidebar row {
@@ -120,6 +137,7 @@ stacksidebar row {
     &, &:disabled {
       background-color: var(--window-bg-color);
       color: var(--window-fg-color);
+      --current-bg-color: var(--window-bg-color);
     }
   }
 

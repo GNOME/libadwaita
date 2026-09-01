@@ -6,6 +6,7 @@ listview,
 list {
   color: var(--view-fg-color);
   background-color: var(--view-bg-color);
+  --current-bg-color: var(--view-bg-color);
   background-clip: padding-box;
   border-color: $border_color;
 

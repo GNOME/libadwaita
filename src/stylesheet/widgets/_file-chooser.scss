@@ -190,6 +190,7 @@ filechooser {
     > actionbar > revealer > box {
       background: var(--view-bg-color);
       color: var(--view-fg-color);
+      --current-bg-color: var(--view-bg-color);
       box-shadow: none;
       padding-top: 6px;
 
@@ -203,6 +204,7 @@ filechooser {
   placessidebar {
     background-color: var(--sidebar-bg-color);
     color: var(--sidebar-fg-color);
+      --current-bg-color: var(--sidebar-bg-color);
 
     &:backdrop {
       background-color: var(--sidebar-backdrop-color);
