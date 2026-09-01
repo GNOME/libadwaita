@@ -10,6 +10,7 @@
       <object class="AdwToolbarView" id="overview">
         <property name="can-focus">False</property>
         <property name="can-target">False</property>
+        <property name="bottom-bar-style">transparent</property>
         <style>
           <class name="overview"/>
         </style>
@@ -60,6 +61,39 @@
             </property>
           </object>
         </child>
+        <child type="bottom">
+          <object class="AdwBin">
+            <style>
+              <class name="toolbar"/>
+            </style>
+            <property name="child">
+              <object class="GtkButton" id="new_tab_button">
+                <property name="visible">False</property>
+                <property name="halign">center</property>
+                <property name="valign">end</property>
+                <signal name="clicked" handler="new_tab_clicked_cb" swapped="yes"/>
+                <layout>
+                  <property name="measure">True</property>
+                  <property name="clip-overlay">True</property>
+                </layout>
+                <property name="child">
+                  <object class="AdwButtonContent">
+                    <property name="icon-name">adw-tab-new-symbolic</property>
+                    <!-- Translators: label of the new tab button -->
+                    <property name="label" translatable="yes">New _Tab</property>
+                    <property name="use-underline">True</property>
+                    <property name="can-shrink">True</property>
+                  </object>
+                </property>
+                <style>
+                  <class name="pill"/>
+                  <class name="suggested-action"/>
+                  <class name="new-tab-button"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
         <property name="content">
           <object class="GtkOverlay">
             <property name="vexpand">True</property>
@@ -69,7 +103,6 @@
                 <property name="child">
                   <object class="AdwTabOverviewScrollable" id="scrollable">
                     <property name="overview">overview</property>
-                    <property name="new-button">new_tab_button</property>
                     <property name="pinned-grid">
                       <object class="AdwTabGrid" id="pinned_grid">
                         <property name="pinned">True</property>
@@ -119,32 +152,6 @@
                   <property name="measure">True</property>
                   <property name="clip-overlay">True</property>
                 </layout>
-              </object>
-            </child>
-            <child type="overlay">
-              <object class="GtkButton" id="new_tab_button">
-                <property name="visible">False</property>
-                <property name="halign">center</property>
-                <property name="valign">end</property>
-                <signal name="clicked" handler="new_tab_clicked_cb" swapped="yes"/>
-                <layout>
-                  <property name="measure">True</property>
-                  <property name="clip-overlay">True</property>
-                </layout>
-                <property name="child">
-                  <object class="AdwButtonContent">
-                    <property name="icon-name">adw-tab-new-symbolic</property>
-                    <!-- Translators: label of the new tab button -->
-                    <property name="label" translatable="yes">New _Tab</property>
-                    <property name="use-underline">True</property>
-                    <property name="can-shrink">True</property>
-                  </object>
-                </property>
-                <style>
-                  <class name="pill"/>
-                  <class name="suggested-action"/>
-                  <class name="new-tab-button"/>
-                </style>
               </object>
             </child>
           </object>

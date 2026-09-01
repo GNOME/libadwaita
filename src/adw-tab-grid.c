@@ -190,8 +190,6 @@ struct _AdwTabGrid
   double visible_lower;
   double visible_upper;
   double page_size;
-  double lower_inset;
-  double upper_inset;
 
   GtkStringFilter *title_filter;
   GtkStringFilter *tooltip_filter;
@@ -3231,7 +3229,10 @@ adw_tab_grid_snapshot (GtkWidget   *widget,
                        GtkSnapshot *snapshot)
 {
   AdwTabGrid *self = ADW_TAB_GRID (widget);
+  GtkBorder inset;
   GList *l;
+
+  gtk_widget_get_inset (widget, &inset);
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
@@ -3243,10 +3244,10 @@ adw_tab_grid_snapshot (GtkWidget   *widget,
     pos = get_tab_y (self, info, FALSE);
     height = gtk_widget_get_height (info->container);
 
-    if (pos + height < self->visible_lower - self->lower_inset)
+    if (pos + height < self->visible_lower - inset.top)
       continue;
 
-    if (pos > self->visible_upper + self->upper_inset)
+    if (pos > self->visible_upper + inset.bottom)
       continue;
 
     gtk_widget_snapshot_child (widget, info->container, snapshot);
@@ -3552,6 +3553,8 @@ adw_tab_grid_init (AdwTabGrid *self)
 
   g_signal_connect_swapped (self->filter, "changed",
                             G_CALLBACK (search_changed_cb), self);
+
+  gtk_widget_set_inset_mode (GTK_WIDGET (self), GTK_INSET_EXTEND);
 }
 
 void
@@ -3737,17 +3740,13 @@ void
 adw_tab_grid_set_visible_range (AdwTabGrid *self,
                                 double      lower,
                                 double      upper,
-                                double      page_size,
-                                double      lower_inset,
-                                double      upper_inset)
+                                double      page_size)
 {
   g_return_if_fail (ADW_IS_TAB_GRID (self));
 
   self->visible_lower = lower;
   self->visible_upper = upper;
   self->page_size = page_size;
-  self->lower_inset = lower_inset;
-  self->upper_inset = upper_inset;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }

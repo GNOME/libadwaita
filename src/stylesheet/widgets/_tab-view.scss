@@ -291,9 +291,10 @@ tabthumbnail {
 taboverview > .overview {
   color: var(--overview-fg-color);
   background-color: var(--overview-bg-color);
+  --current-bg-color: var(--overview-bg-color);
 
   .new-tab-button {
-    margin: 18px;
+    margin: 12px;
   }
 }
 

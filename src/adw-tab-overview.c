@@ -206,7 +206,6 @@ struct _AdwTabOverviewScrollable
   GtkWidget *grid;
   GtkWidget *pinned_grid;
   GtkWidget *overview;
-  GtkWidget *new_button;
   GtkWidget *search_entry;
 
   GtkAdjustment *hadjustment;
@@ -236,7 +235,6 @@ enum {
   SCROLLABLE_PROP_GRID,
   SCROLLABLE_PROP_PINNED_GRID,
   SCROLLABLE_PROP_OVERVIEW,
-  SCROLLABLE_PROP_NEW_BUTTON,
   /* GtkScrollable */
   SCROLLABLE_PROP_HADJUSTMENT,
   SCROLLABLE_PROP_VADJUSTMENT,
@@ -521,8 +519,9 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
 {
   AdwTabOverviewScrollable *self = ADW_TAB_OVERVIEW_SCROLLABLE (widget);
   double value;
-  int grid_height, pinned_height, new_button_height;
+  int grid_height, pinned_height;
   int final_grid_height, final_pinned_height;
+  GtkBorder inset;
 
   gtk_widget_measure (self->grid, GTK_ORIENTATION_VERTICAL, width,
                       &grid_height, NULL, NULL, NULL);
@@ -532,27 +531,19 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
   final_grid_height = adw_tab_grid_measure_height_final (ADW_TAB_GRID (self->grid), width);
   final_pinned_height = adw_tab_grid_measure_height_final (ADW_TAB_GRID (self->pinned_grid), width);
 
-  if (gtk_widget_should_layout (self->new_button))
-    gtk_widget_measure (self->new_button, GTK_ORIENTATION_VERTICAL, width,
-                        &new_button_height, NULL, NULL, NULL);
-  else
-    new_button_height = 0;
-
   self->pinned_grid_pos = 0;
   self->grid_pos = self->pinned_grid_pos + pinned_height;
 
-  grid_height = MAX (grid_height, height - new_button_height - self->grid_pos);
+  grid_height = MAX (grid_height, height - self->grid_pos);
 
   value = get_scroll_animation_value (self,
-                                      final_grid_height +
-                                      final_pinned_height +
-                                      new_button_height);
+                                      final_grid_height + final_pinned_height);
 
   self->block_scrolling = TRUE;
   gtk_adjustment_configure (self->vadjustment,
                             value,
                             0,
-                            self->grid_pos + grid_height + new_button_height,
+                            self->grid_pos + grid_height,
                             height * 0.1,
                             height * 0.9,
                             height);
@@ -563,16 +554,12 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
 
   adw_tab_grid_set_visible_range (ADW_TAB_GRID (self->pinned_grid),
                                   CLAMP (value - self->pinned_grid_pos, 0, pinned_height),
-                                  CLAMP (value - self->pinned_grid_pos + height - new_button_height, 0, pinned_height),
-                                  height - new_button_height,
-                                  0,
-                                  CLAMP (self->pinned_grid_pos + pinned_height - height + new_button_height - value, 0, new_button_height));
+                                  CLAMP (value - self->pinned_grid_pos + height, 0, pinned_height),
+                                  height);
   adw_tab_grid_set_visible_range (ADW_TAB_GRID (self->grid),
                                   CLAMP (value - self->grid_pos, 0, grid_height),
-                                  CLAMP (value - self->grid_pos + height - new_button_height, 0, grid_height),
-                                  height - new_button_height,
-                                  0,
-                                  CLAMP (self->grid_pos + grid_height - height + new_button_height - value, 0, new_button_height));
+                                  CLAMP (value - self->grid_pos + height, 0, grid_height),
+                                  height);
 
   if (self->scroll_animation_done) {
     g_clear_pointer (&self->scroll_animation_grid, adw_tab_grid_reset_scrolled_tab);
@@ -580,8 +567,13 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
     adw_animation_reset (self->scroll_animation);
   }
 
+  gtk_widget_get_inset (widget, &inset);
+
+  gtk_widget_allocate_inset (self->pinned_grid, &inset);
   gtk_widget_allocate (self->pinned_grid, width, pinned_height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->pinned_grid_pos - value)));
+
+  gtk_widget_allocate_inset (self->grid, &inset);
   gtk_widget_allocate (self->grid, width, grid_height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, self->grid_pos - value)));
 }
@@ -599,7 +591,6 @@ adw_tab_overview_scrollable_dispose (GObject *object)
   g_clear_pointer (&self->pinned_grid, gtk_widget_unparent);
 
   self->overview = NULL;
-  self->new_button = NULL;
 
   G_OBJECT_CLASS (adw_tab_overview_scrollable_parent_class)->dispose (object);
 }
@@ -621,9 +612,6 @@ adw_tab_overview_scrollable_get_property (GObject    *object,
     break;
   case SCROLLABLE_PROP_OVERVIEW:
     g_value_set_object (value, self->overview);
-    break;
-  case SCROLLABLE_PROP_NEW_BUTTON:
-    g_value_set_object (value, self->new_button);
     break;
   case SCROLLABLE_PROP_HADJUSTMENT:
     g_value_set_object (value, self->hadjustment);
@@ -659,9 +647,6 @@ adw_tab_overview_scrollable_set_property (GObject      *object,
     break;
   case SCROLLABLE_PROP_OVERVIEW:
     self->overview = g_value_get_object (value);
-    break;
-  case SCROLLABLE_PROP_NEW_BUTTON:
-    self->new_button = g_value_get_object (value);
     break;
   case SCROLLABLE_PROP_HADJUSTMENT:
     self->hadjustment = g_value_get_object (value);
@@ -706,11 +691,6 @@ adw_tab_overview_scrollable_class_init (AdwTabOverviewScrollableClass *klass)
 
   scrollable_props[SCROLLABLE_PROP_OVERVIEW] =
     g_param_spec_object ("overview", NULL, NULL,
-                         GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-
-  scrollable_props[SCROLLABLE_PROP_NEW_BUTTON] =
-    g_param_spec_object ("new-button", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
