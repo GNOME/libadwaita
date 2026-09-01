@@ -296,12 +296,12 @@ toolbarview {
     }
 
     &.raised {
-      background: color-mix(in srgb, var(--headerbar-bg-color) 50%, transparent);
+      background-color: color-mix(in srgb, var(--headerbar-bg-color) 75%, transparent);
       color: var(--headerbar-fg-color);
-      backdrop-filter: blur(15px) saturate(200%);
+      backdrop-filter: blur(15px) saturate(180%);
 
       &:backdrop {
-        background: color-mix(in srgb, var(--headerbar-backdrop-color) 50%, transparent);
+        background-color: color-mix(in srgb, var(--headerbar-backdrop-color) 85%, transparent);
       }
     }
 
@@ -313,11 +313,12 @@ toolbarview {
 
   &.undershoot-top > .top-bar,
   &.undershoot-bottom > .bottom-bar {
-    backdrop-filter: blur(15px) saturate(200%);
-    background: color-mix(in srgb, var(--current-bg-color) var(--dim-opacity), transparent);
+    backdrop-filter: blur(15px) saturate(180%);
+    background-color: color-mix(in srgb, var(--current-bg-color) 75%, transparent);
 
     &:backdrop {
       transition: background-color $backdrop_transition;
+      background-color: color-mix(in srgb, var(--current-bg-color) 85%, transparent);
     }
   }
 
