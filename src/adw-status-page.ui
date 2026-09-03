@@ -16,6 +16,7 @@
             <property name="valign">center</property>
             <child>
               <object class="AdwClamp">
+                <property name="maximum-size">400</property>
                 <property name="child">
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
