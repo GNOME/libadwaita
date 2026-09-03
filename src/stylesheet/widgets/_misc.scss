@@ -129,7 +129,7 @@ statuspage {
     border-spacing: 36px;
 
     > clamp > box {
-      border-spacing: 12px;
+      border-spacing: 36px;
 
       > .icon {
         color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
@@ -139,14 +139,14 @@ statuspage {
         &:disabled {
           opacity: var(--disabled-opacity);
         }
-
-        &:not(:last-child) {
-          margin-bottom: 24px;
-        }
       }
 
-      > .title {
-        @extend .title-1;
+      > box {
+        border-spacing: 12px;
+
+        > .title {
+          @extend .title-1;
+        }
       }
     }
   }
@@ -156,17 +156,19 @@ statuspage {
     border-spacing: 24px;
 
     > clamp > box {
+      border-spacing: 24px;
+
       > .icon {
         -gtk-icon-size: 96px;
         -gtk-icon-weight: 134;
-
-        &:not(:last-child) {
-          margin-bottom: 12px;
-        }
       }
 
-      > .title {
-        @extend .title-2;
+      > box {
+        border-spacing: 12px;
+
+        > .title {
+          @extend .title-2;
+        }
       }
     }
   }
@@ -176,17 +178,19 @@ statuspage {
     border-spacing: 24px;
 
     > clamp > box {
+      border-spacing: 24px;
+
       > .icon {
         -gtk-icon-size: 64px;
         -gtk-icon-weight: 267;
-
-        &:not(:last-child) {
-          margin-bottom: 12px;
-        }
       }
 
-      > .title {
-        @extend .title-2;
+      > box {
+        border-spacing: 12px;
+
+        > .title {
+          @extend .title-2;
+        }
       }
     }
   }
