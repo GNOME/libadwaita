@@ -1,3 +1,12 @@
+selection {
+  background-color: color-mix(in srgb, var(--view-fg-color) 10%, transparent);
+  color: transparent;
+
+  &:focus-within {
+    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, transparent);
+  }
+}
+
 cursor-handle {
   all: unset;
   padding: 24px 20px;

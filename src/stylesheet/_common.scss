@@ -59,17 +59,6 @@ dnd {
   background-clip: padding-box;
 }
 
-/* Text selection */
-
-selection {
-  background-color: color-mix(in srgb, var(--view-fg-color) 10%, transparent);
-  color: transparent;
-
-  &:focus-within {
-    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, transparent);
-  }
-}
-
 :not(window):drop(active):focus,
 :not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
   border-color: $drop_target_color;
