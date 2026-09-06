@@ -167,6 +167,9 @@ adw_switch_row_init (AdwSwitchRow *self)
   g_object_bind_property (self, "action-target",
                           self->slider, "action-target",
                           G_BINDING_SYNC_CREATE);
+  g_object_bind_property (self, "activatable",
+                          self->slider, "sensitive",
+                          G_BINDING_SYNC_CREATE);
 
   g_signal_connect_swapped (self->slider, "notify::active", G_CALLBACK (slider_notify_active_cb), self);
 }
