@@ -2694,6 +2694,10 @@ adw_sidebar_class_init (AdwSidebarClass *klass)
    *
    * A widget to be displayed after the sidebar items.
    *
+   * The suffix will be displayed immediately after the items. To display it at
+   * the bottom of the sidebar instead, set [property@Gtk.Widget:vexpand] to
+   * `TRUE` and [property@Gtk.Widget:valign] to [enum@Gtk.Align.END].
+   *
    * Since: 1.10
    */
   props[PROP_SUFFIX] =
@@ -3663,6 +3667,10 @@ adw_sidebar_get_suffix (AdwSidebar *self)
  * @suffix: (nullable): the suffix widget
  *
  * Sets the widget to be displayed after the sidebar items.
+ *
+ * The suffix will be displayed immediately after the items. To display it at
+ * the bottom of the sidebar instead, set [property@Gtk.Widget:vexpand] to
+ * `TRUE` and [property@Gtk.Widget:valign] to [enum@Gtk.Align.END].
  *
  * Since: 1.10
  */

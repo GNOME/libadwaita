@@ -516,6 +516,10 @@ adw_view_switcher_sidebar_class_init (AdwViewSwitcherSidebarClass *klass)
    *
    * A widget to be displayed after the sidebar items.
    *
+   * The suffix will be displayed immediately after the items. To display it at
+   * the bottom of the sidebar instead, set [property@Gtk.Widget:vexpand] to
+   * `TRUE` and [property@Gtk.Widget:valign] to [enum@Gtk.Align.END].
+   *
    * See [property@Sidebar:suffix].
    *
    * Since: 1.10
@@ -850,6 +854,10 @@ adw_view_switcher_sidebar_get_suffix (AdwViewSwitcherSidebar *self)
  * @suffix: (nullable): the suffix widget
  *
  * Sets the widget to be displayed after the sidebar items.
+ *
+ * The suffix will be displayed immediately after the items. To display it at
+ * the bottom of the sidebar instead, set [property@Gtk.Widget:vexpand] to
+ * `TRUE` and [property@Gtk.Widget:valign] to [enum@Gtk.Align.END].
  *
  * See [method@Sidebar.set_suffix].
  *
