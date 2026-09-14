@@ -1,4 +1,15 @@
 =============
+Version 1.8.8
+=============
+
+- AdwAnimation
+  - Fix AdwCallbackAnimationTarget annotations
+- AdwActionRow
+  - Ensure :use-markup property is set in constructed()
+- AdwTabBar/AdwTabGrid
+  - Clear a dangling idle callback in dispose
+
+=============
 Version 1.8.7
 =============
 
