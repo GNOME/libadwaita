@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2026-08-01 06:46+0000\n"
-"PO-Revision-Date: 2026-09-05 23:40+0200\n"
+"PO-Revision-Date: 2026-09-14 20:26+0200\n"
 "Last-Translator: Alen Galinec <mind.on.warp@gmail.com>\n"
 "Language-Team: Bosnian\n"
 "Language: bs\n"
@@ -30,22 +30,22 @@ msgstr ""
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:219 src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 or later"
-msgstr "GNU General Public License, verzija 2 ili kasnija"
+msgstr "GNU General Public License, verzija 2 ili novija"
 
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:221 src/adw-about-window.c:212
 msgid "GNU General Public License, version 3 or later"
-msgstr "GNU General Public License, verzija 3 ili kasnija"
+msgstr "GNU General Public License, verzija 3 ili novija"
 
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:223 src/adw-about-window.c:214
 msgid "GNU Lesser General Public License, version 2.1 or later"
-msgstr "GNU Lesser General Public License, verzija 2.1 ili kasnija"
+msgstr "GNU Lesser General Public License, verzija 2.1 ili novija"
 
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:225 src/adw-about-window.c:216
 msgid "GNU Lesser General Public License, version 3 or later"
-msgstr "GNU Lesser General Public License, verzija 3 ili kasnija"
+msgstr "GNU Lesser General Public License, verzija 3 ili novija"
 
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:227 src/adw-about-window.c:218
@@ -85,7 +85,7 @@ msgstr "GNU Lesser General Public License, isključivo verzija 3"
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:241 src/adw-about-window.c:232
 msgid "GNU Affero General Public License, version 3 or later"
-msgstr "GNU Affero General Public License, verzija 3 ili kasnija"
+msgstr "GNU Affero General Public License, verzija 3 ili novija"
 
 #. Translators: license name, shown in the legal section in about dialog
 #: src/adw-about-dialog.c:243 src/adw-about-window.c:234
@@ -252,10 +252,11 @@ msgstr "_Detalji"
 msgid "_Website"
 msgstr "_Web stranica"
 
+# Prethodno prevedeno kao "Pitanja za podršku" ali kada se ovo čita u izborniku prozora izgleda čudno. Stoga, jednostavno "podrška".
 #. Translators: title of the row that opens the app's support forum
 #: src/adw-about-dialog.ui:152 src/adw-about-window.ui:155
 msgid "_Support Questions"
-msgstr "Pitanja za _podršku"
+msgstr "Podrška"
 
 #. Translators: title of the row that opens the app's issue tracker
 #: src/adw-about-dialog.ui:162 src/adw-about-window.ui:165
