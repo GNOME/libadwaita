@@ -1,3 +1,46 @@
+==============
+Version 1.10.0
+==============
+
+- AdwAnimation
+  - Fix AdwCallbackAnimationTarget annotations
+- AdwActionRow
+  - Ensure :use-markup property is set in constructed()
+- AdwStatusPage
+  - Stop using :last-child in styles
+- AdwSidebar/AdwViewSwitcherSidbar
+  - Document how to display suffix at the bottom
+- AdwTabBar/AdwTabGrid
+  - Clear a dangling idle callback in dispose
+- Build
+  - Fix release builds requiring sassc
+  - Depend on glib 2.89.3
+- Stylesheet
+  - Support .flat and .raised for GtkDropDown
+- Update icons from devkit
+- Translation updates
+  - Basque
+  - Bosnian
+  - Brazilian Portuguese
+  - Bulgarian
+  - Catalan
+  - Chinese (China)
+  - Danish
+  - Dutch
+  - Finnish
+  - French
+  - Galician
+  - Hebrew
+  - Hungarian
+  - Korean
+  - Lithuanian
+  - Persian
+  - Polish
+  - Serbian
+  - Spanish
+  - Swedish
+  - Uighur
+
 ===================
 Version 1.10.beta.1
 ===================
