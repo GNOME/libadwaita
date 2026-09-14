@@ -37,7 +37,7 @@ ninja -C _build test
 
 Use descriptive commit messages, see
 
-   https://wiki.gnome.org/Git/CommitMessages
+   https://handbook.gnome.org/development/commit-messages.html
 
 and check
 
