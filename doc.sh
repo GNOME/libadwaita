@@ -5,9 +5,10 @@ REFS="
 main
 libadwaita-1-8
 libadwaita-1-9
+libadwaita-1-10
 "
 
-LATEST_STABLE_1=1.9
+LATEST_STABLE_1=1.10
 
 IFS='
 '
