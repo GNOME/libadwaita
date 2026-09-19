@@ -3616,8 +3616,9 @@ adw_about_dialog_set_other_apps_title (AdwAboutDialog *self,
  *
  * The application will be displayed at the bottom of the main page, in a
  * separate section. Each added application will be presented as a row with
- * @title and @summary, as well as an icon with the name @appid. Clicking the
- * row will show @appid in the software center app.
+ * @title and @summary, as well as an icon with the name @appid. The icon must
+ * be bundled with the app. Clicking the row will show @appid in the software
+ * center app.
  *
  * This can be used to link to your other applications if you have multiple.
  *
