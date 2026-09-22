@@ -24,11 +24,76 @@
  *   <img src="view-switcher-sidebar.png" alt="view-switcher-sidebar">
  * </picture>
  *
- * `AdwViewSwitcherSidebar` is a view switcher implemented using a
- * [class@Sidebar], in a similar fashion to [class@Gtk.StackSidebar].
+ * `AdwViewSwitcherSidebar` is a sidebar that displays pages contained in a
+ * [class@ViewStack]. It automatically creates and populates rows from the
+ * stack's pages.
  *
  * `AdwViewSwitcherSidebar` items have an icon, a label, as well as an unread
  * dot or a badge.
+ *
+ * Example of a UI definition for a window with `AdwViewSwitcherSidebar`:
+ *
+ * ```xml
+ * <object class="AdwWindow">
+ *   <child>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 400sp</condition>
+ *       <setter object="split_view" property="collapsed">True</setter>
+ *       <setter object="sidebar" property="mode">page</setter>
+ *     </object>
+ *   </child>
+ *   <property name="content">
+ *     <object class="AdwNavigationSplitView" id="split_view">
+ *       <property name="sidebar">
+ *         <object class="AdwNavigationPage">
+ *           <property name="title" translatable="yes">Sidebar</property>
+ *           <property name="tag">sidebar</property>
+ *           <property name="child">
+ *             <object class="AdwToolbarView">
+ *               <child type="top">
+ *                 <object class="AdwHeaderBar"/>
+ *               </child>
+ *               <property name="content">
+ *                 <object class="AdwViewSwitcherSidebar" id="sidebar">
+ *                   <property name="stack">stack</property>
+ *                   <signal name="activated" handler="sidebar_activated_cb" swapped="yes"/>
+ *                 </object>
+ *               </property>
+ *             </object>
+ *           </property>
+ *         </object>
+ *       </property>
+ *       <property name="content">
+ *         <object class="AdwNavigationPage">
+ *           <property name="title" translatable="yes">Content</property>
+ *           <property name="tag">content</property>
+ *           <property name="child">
+ *             <object class="AdwViewStack" id="stack">
+ *               <child>
+ *                 <object class="AdwViewStackPage">
+ *                   <!-- page 1 -->
+ *                 </object>
+ *               </child>
+ *               <child>
+ *                 <object class="AdwViewStackPage">
+ *                   <!-- page 2 -->
+ *                 </object>
+ *               </child>
+ *               <child>
+ *                 <object class="AdwViewStackPage">
+ *                   <!-- page 3 -->
+ *                 </object>
+ *               </child>
+ *             </object>
+ *           </property>
+ *         </object>
+ *       </property>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
+ * See [class@ViewStack] documentation for info on how to add pages.
  *
  * Unlike other switchers, `AdwViewSwitcherSidebar` supports grouping pages into
  * sections, using the [property@ViewStackPage:starts-section] and

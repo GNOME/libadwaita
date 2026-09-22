@@ -53,7 +53,23 @@
  *         </object>
  *       </child>
  *       <property name="content">
- *         <object class="AdwViewStack" id="stack"/>
+ *         <object class="AdwViewStack" id="stack">
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 1 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 2 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 3 -->
+ *             </object>
+ *           </child>
+ *         </object>
  *       </property>
  *       <child type="bottom">
  *         <object class="AdwViewSwitcherBar" id="switcher_bar">
@@ -64,6 +80,8 @@
  *   </property>
  * </object>
  * ```
+ *
+ * See [class@ViewStack] documentation for info on how to add pages.
  *
  * It's recommended to set [property@ViewSwitcher:policy] to
  * [enum@Adw.ViewSwitcherPolicy.wide] in this case.

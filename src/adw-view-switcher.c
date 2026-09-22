@@ -26,8 +26,8 @@
  * </picture>
  *
  * An adaptive view switcher designed to switch between multiple views
- * contained in a [class@ViewStack] in a similar fashion to
- * [class@Gtk.StackSwitcher].
+ * contained in a [class@ViewStack]. It automatically creates and populates a
+ * row of buttons, matching the stack's pages.
  *
  * `AdwViewSwitcher` buttons always have an icon and a label. They can be
  * displayed side by side, or icon on top of the label. This can be controlled
@@ -60,7 +60,23 @@
  *         </object>
  *       </child>
  *       <property name="content">
- *         <object class="AdwViewStack" id="stack"/>
+ *         <object class="AdwViewStack" id="stack">
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 1 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 2 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 3 -->
+ *             </object>
+ *           </child>
+ *         </object>
  *       </property>
  *       <child type="bottom">
  *         <object class="AdwViewSwitcherBar" id="switcher_bar">
@@ -71,6 +87,8 @@
  *   </property>
  * </object>
  * ```
+ *
+ * See [class@ViewStack] documentation for info on how to add pages.
  *
  * It's recommended to set [property@ViewSwitcher:policy] to
  * [enum@Adw.ViewSwitcherPolicy.wide] in this case.

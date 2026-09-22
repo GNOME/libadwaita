@@ -41,7 +41,35 @@
  * </picture>
  *
  * A view switcher showing pages of an [class@ViewStack] within an
- * [class@ToggleGroup], similar to [class@ViewSwitcher].
+ * [class@ToggleGroup], similar to [class@ViewSwitcher]. It automatically
+ * creates and populates toggles, matching the stack's pages.
+ *
+ * Example of an `AdwInlineViewSwitcher` UI definition:
+ *
+ * ```xml
+ * <object class="AdwInlineViewSwitcher">
+ *   <property name="stack">stack</property>
+ * </object>
+ * ```
+ * ```xml
+ * <object class="AdwViewStack" id="stack">
+ *   <child>
+ *     <object class="AdwViewStackPage">
+ *       <!-- page 1 -->
+ *     </object>
+ *   </child>
+ *   <child>
+ *     <object class="AdwViewStackPage">
+ *       <!-- page 2 -->
+ *     </object>
+ *   </child>
+ *   <child>
+ *     <object class="AdwViewStackPage">
+ *       <!-- page 3 -->
+ *     </object>
+ *   </child>
+ * </object>
+ * ```
  *
  * The toggles can display either an icon, a label or both. Use the
  * [property@InlineViewSwitcher:display-mode] to control this.

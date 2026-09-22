@@ -56,7 +56,23 @@
  *         </object>
  *       </child>
  *       <property name="content">
- *         <object class="AdwViewStack" id="stack"/>
+ *         <object class="AdwViewStack" id="stack">
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 1 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 2 -->
+ *             </object>
+ *           </child>
+ *           <child>
+ *             <object class="AdwViewStackPage">
+ *               <!-- page 3 -->
+ *             </object>
+ *           </child>
+ *         </object>
  *       </property>
  *       <child type="bottom">
  *         <object class="AdwViewSwitcherBar">
@@ -70,6 +86,8 @@
  *   </property>
  * </object>
  * ```
+ *
+ * See [class@ViewStack] documentation for info on how to add pages.
  *
  * ## CSS nodes
  *
