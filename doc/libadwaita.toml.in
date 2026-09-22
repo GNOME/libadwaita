@@ -204,6 +204,8 @@ content_images = [
   "images/flat-header-bar-dark.png",
   "images/header-bar.png",
   "images/header-bar-dark.png",
+  "images/header-bar-children.png",
+  "images/header-bar-children-dark.png",
   "images/hello-world.png",
   "images/hello-world-dark.png",
   "images/inline-view-switcher.png",

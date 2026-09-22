@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkWindow" id="widget">
+    <property name="title">Window</property>
+    <property name="default-width">400</property>
+    <property name="default-height">100</property>
+    <property name="height-request">-1</property>
+    <property name="title">Header Bar</property>
+    <property name="titlebar">
+      <object class="AdwHeaderBar">
+        <property name="title-widget">
+          <object class="AdwWindowTitle">
+            <property name="title" translatable="yes">Title</property>
+            <property name="subtitle" translatable="yes">Subtitle</property>
+          </object>
+        </property>
+        <child type="start">
+          <object class="GtkButton">
+            <property name="icon-name">list-add-symbolic</property>
+            <property name="tooltip-text" translatable="yes">New Item</property>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkButton">
+            <property name="icon-name">open-menu-symbolic</property>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkButton">
+            <property name="icon-name">edit-find-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Search</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

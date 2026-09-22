@@ -53,23 +53,55 @@
  *   <img src="header-bar.png" alt="header-bar">
  * </picture>
  *
- * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
- * features compared to it. Refer to `GtkHeaderBar` for details. It is typically
- * used as a top bar within [class@ToolbarView].
+ * `AdwHeaderBar` displays a title and allows to place children at the start and
+ * end of it. It also displays the window control buttons on each side. It is
+ * typically used as a top bar within [class@ToolbarView].
  *
- * ## Dialog Integration
+ * ## Title
  *
- * When placed inside an [class@Dialog], `AdwHeaderBar` will display the dialog
- * title instead of window title. It will also adjust the decoration layout to
- * ensure it always has a close button and nothing else. Set
- * [property@HeaderBar:show-start-title-buttons] and
- * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
- * unwanted.
+ * By default, `AdwHeaderBar` displays the title, specifically:
  *
- * ## Navigation View Integration
+ * - [property@NavigationPage:title] when placed in a navigation page;
+ * - [property@Dialog:title] when placed in a dialog;
+ * - [property@Gtk.Window:title] when placed in a window.
  *
- * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
- * page title instead of window title.
+ * To replace the title with a custom widget, use the
+ * [property@HeaderBar:title-widget] property. This is frequently used with
+ * widgets like [class@ViewSwitcher] or [class@WindowTitle].
+ *
+ * To hide the title (either default or custom) using the
+ * [property@HeaderBar:show-title] property.
+ *
+ * :::note
+ *     When placed inside [class@BottomSheet] with the
+ *     [property@BottomSheet:show-drag-handle] property set to `TRUE`,
+ *     `AdwHeaderBar` hides the default title. Custom title widgets will still
+ *     be shown.
+ *
+ * ### Centering Policy
+ *
+ * [property@HeaderBar:centering-policy] allows to enforce strict centering of
+ * the title widget. This can be useful for entries inside [class@Clamp].
+ *
+ * ## Window Controls
+ *
+ * By default, `AdwHeaderBar` shows the window controls, according to the
+ * system layout.
+ *
+ * When placed in a [class@Dialog], it will only show a close button, regardless
+ * of the system button layout. The close button will be on the same side as the
+ * system one. If the system layout doesn't have a close button, it will be on
+ * the right.
+ *
+ * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
+ * it will automatically hide the title buttons other than at the edges of the
+ * window.
+ *
+ * To remove the window controls from the start or end side respectively, set
+ * the [property@HeaderBar:show-start-title-buttons] and
+ * [property@HeaderBar:show-end-title-buttons] properties to `FALSE`.
+ *
+ * ## Back Button
  *
  * When used together with [class@NavigationView] or [class@NavigationSplitView],
  * it will also display a back button that can be used to go back to the previous
@@ -77,32 +109,61 @@
  * once, potentially across multiple navigation views.
  *
  * Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
- * in rare scenarios where it's unwanted.
+ * if it's unwanted, such as when replacing it with a custom back button.
  *
- * ## Split View Integration
+ * ## Adding Children
  *
- * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
- * `AdwHeaderBar` will automatically hide the title buttons other than at the
- * edges of the window.
+ * To add children on the start or the end side respectively, use
+ * [method@HeaderBar.pack_start] or [method@HeaderBar.pack_end] respectively.
  *
- * ## Bottom Sheet Integration
+ * `AdwHeaderBar` supports multiple children on each side, so there's no need
+ * to wrap them into `GtkBox` manually.
  *
- * When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
- * unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
- * of [property@HeaderBar:show-title]. This only applies to the default title,
- * titles set with [property@HeaderBar:title-widget] will still be shown.
+ * They can be removed using [method@HeaderBar.remove].
  *
- * ## Centering Policy
+ * ## `AdwHeaderBar` as `GtkBuildable`
  *
- * [property@HeaderBar:centering-policy] allows to enforce strict centering of
- * the title widget. This can be useful for entries inside [class@Clamp].
+ * `AdwHeaderBar` supports adding children at the start or end sides by
+ * specifying “start“ or “end” as the “type” attribute of a `<child>` element.
  *
- * ## Title Buttons
+ * If the child type is not specified, the child will be added at the end.
  *
- * Unlike `GtkHeaderBar`, `AdwHeaderBar` allows to toggle title button
- * visibility for each side individually, using the
- * [property@HeaderBar:show-start-title-buttons] and
- * [property@HeaderBar:show-end-title-buttons] properties.
+ * An example of an `AdwHeaderBar` UI definition:
+ *
+ * ```xml
+ * <object class="AdwHeaderBar">
+ *   <property name="title-widget">
+ *     <object class="AdwWindowTitle">
+ *       <property name="title" translatable="yes">Title</property>
+ *       <property name="subtitle" translatable="yes">Subtitle</property>
+ *     </object>
+ *   </property>
+ *   <child type="start">
+ *     <object class="GtkButton">
+ *       <property name="icon-name">list-add-symbolic</property>
+ *       <property name="tooltip-text" translatable="yes">New Item</property>
+ *     </object>
+ *   </child>
+ *   <child type="end">
+ *     <object class="GtkMenuButton">
+ *       <property name="icon-name">open-menu-symbolic</property>
+ *       <property name="tooltip-text" translatable="yes">Menu</property>
+ *       <property name="primary">True</property>
+ *     </object>
+ *   </child>
+ *   <child type="end">
+ *     <object class="GtkButton">
+ *       <property name="icon-name">edit-find-symbolic</property>
+ *       <property name="tooltip-text" translatable="yes">Search</property>
+ *     </object>
+ *   </child>
+ * </object>
+ * ```
+ *
+ * <picture>
+ *   <source srcset="header-bar-children-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="header-bar-children.png" alt="header-bar-children">
+ * </picture>
  *
  * ## CSS nodes
  *
@@ -140,6 +201,8 @@
  * ## Accessibility
  *
  * `AdwHeaderBar` uses the [enum@Gtk.AccessibleRole.group] role.
+ *
+ * See also: [class@Gtk.HeaderBar], [class@Gtk.WindowControls].
  */
 
 /**
