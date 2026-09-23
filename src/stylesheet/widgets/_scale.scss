@@ -24,7 +24,7 @@ scale {
 
   min-height: 10px;
   min-width: 10px;
-  padding: 12px;
+  padding: 6px;
 
   @include focus-ring("> trough > slider", $offset: 0);
 
@@ -52,11 +52,13 @@ scale {
 
       border-radius: 100%;
 
-      // the slider is inside the trough, so to have make it bigger there's a negative margin
       min-width: 20px;
       min-height: 20px;
-      margin: -8px;
     }
+  }
+
+  > marks indicator {
+    background-color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
   }
 
   &:hover, &:active {
@@ -96,89 +98,137 @@ scale {
   }
 
   &.horizontal {
+    padding-left: 0;
+    padding-right: 0;
+
+    > trough {
+      margin: 8px 0;
+
+      > slider {
+        // the slider is inside the trough, so to have make it bigger there's a negative margin
+        margin: -8px 0;
+      }
+    }
+
     > marks {
-      color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
-      &.top    { margin-bottom: $_marks_distance; }
-      &.bottom { margin-top: $_marks_distance; }
+      &.top    { margin-bottom: $_marks_distance; margin-top: 2px; }
+      &.bottom { margin-top: $_marks_distance; margin-bottom: 2px; }
 
       indicator {
-        background-color: currentColor;
         min-height: $_marks_length;
         min-width: 1px;
       }
     }
 
     &:not(.marks-before) {
-      > value.top { margin-bottom: $_marks_size; }
+      > value.top { margin-bottom: 3px; }
     }
 
     &:not(.marks-after) {
-      > value.bottom { margin-top: $_marks_size; }
+      > value.bottom { margin-top: 3px; }
     }
 
-    > value.left  { margin-right: 9px; }
-    > value.right { margin-left: 9px; }
+    > value.left  { margin-right: 6px; }
+    > value.right { margin-left: 6px; }
 
     &.fine-tune {
       > trough {
         // to make the trough grow vertically in fine-tune mode
-        margin: -3px 0px;
-        > slider { margin: -5px -8px; }
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        > slider {
+          margin-top: -5px;
+          margin-bottom: -5px;
+        }
       }
 
-      > marks {
-        &.top { margin-top: 3px; }
-        &.bottom { margin-bottom: 3px; }
-
-        indicator { min-height: ($_marks_length - 3px); }
+      > marks indicator {
+        min-height: ($_marks_length - 3px);
       }
     }
 
     &.marks-before {
-      padding-top: 0;
+      padding-top: 0px;
+
+      > trough {
+        margin-top: 0;
+      }
     }
 
     &.marks-after {
-      padding-bottom: 0;
+      padding-bottom: 0px;
+
+      > trough {
+        margin-bottom: 0;
+      }
     }
   }
 
   &.vertical {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    > trough {
+      margin: 0 8px;
+
+      > slider {
+        // the slider is inside the trough, so to have make it bigger there's a negative margin
+        margin: 0 -8px;
+      }
+    }
+
     > marks {
-      color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
-      &.top    { margin-right: $_marks_distance; }
-      &.bottom { margin-left: $_marks_distance; }
+      &.top    { margin-right: $_marks_distance; margin-left: 2px; }
+      &.bottom { margin-left: $_marks_distance; margin-right: 2px; }
 
       indicator {
-        background-color: currentColor;
         min-height: 1px;
         min-width: $_marks_length;
       }
     }
 
     &:not(.marks-before) {
-      > value.left { margin-right: $_marks_size; }
+      > value.left { margin-right: 3px; }
     }
 
     &:not(.marks-after) {
-      > value.right { margin-left: $_marks_size; }
+      > value.right { margin-left: 3px; }
     }
 
-    > value.top    { margin-bottom: 9px; }
-    > value.bottom { margin-top: 9px; }
+    > value.top    { margin-bottom: 6px; }
+    > value.bottom { margin-top: 6px; }
+
+    &.marks-before {
+      padding-left: 0px;
+
+      > trough {
+        margin-left: 0;
+      }
+    }
+
+    &.marks-after {
+      padding-right: 0px;
+
+      > trough {
+        margin-right: 0;
+      }
+    }
 
     &.fine-tune {
       > trough {
         // to make the trough grow horizontally in fine-tune mode
-        margin: 0px -3px;
-        > slider { margin: -8px -5px; }
+        margin-left: 5px;
+        margin-right: 5px;
+
+        > slider {
+          margin-left: -5px;
+          margin-right: -5px;
+        }
       }
 
-      > marks {
-        &.top { margin-left: 3px; }
-        &.bottom { margin-right: 3px; }
-
-        indicator { min-width: ($_marks_length - 3px); }
+      > marks indicator {
+        min-width: ($_marks_length - 3px);
       }
     }
   }
