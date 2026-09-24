@@ -18,8 +18,8 @@
 
 scale {
   // sizing
-  $_marks_length: 6px;
-  $_marks_distance: 6px;
+  $_marks_length: 4px;
+  $_marks_distance: 2px;
   $_marks_size: $_marks_length + $_marks_distance;
 
   min-height: 10px;
@@ -57,8 +57,15 @@ scale {
     }
   }
 
-  > marks indicator {
-    background-color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
+  > marks {
+    indicator {
+      background-color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
+      border-radius: 99px;
+    }
+
+    label {
+      color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
+    }
   }
 
   &:hover, &:active {
@@ -111,12 +118,11 @@ scale {
     }
 
     > marks {
-      &.top    { margin-bottom: $_marks_distance; margin-top: 2px; }
-      &.bottom { margin-top: $_marks_distance; margin-bottom: 2px; }
+      margin: $_marks_distance 0;
 
       indicator {
         min-height: $_marks_length;
-        min-width: 1px;
+        min-width: 2px;
       }
     }
 
@@ -143,8 +149,9 @@ scale {
         }
       }
 
-      > marks indicator {
-        min-height: ($_marks_length - 3px);
+      > marks {
+        &.top    { margin-top: -1px; }
+        &.bottom { margin-bottom: -1px; }
       }
     }
 
@@ -179,11 +186,10 @@ scale {
     }
 
     > marks {
-      &.top    { margin-right: $_marks_distance; margin-left: 2px; }
-      &.bottom { margin-left: $_marks_distance; margin-right: 2px; }
+      margin: 0 $_marks_distance;
 
       indicator {
-        min-height: 1px;
+        min-height: 2px;
         min-width: $_marks_length;
       }
     }
@@ -199,6 +205,24 @@ scale {
     > value.top    { margin-bottom: 6px; }
     > value.bottom { margin-top: 6px; }
 
+    &.fine-tune {
+      > trough {
+        // to make the trough grow horizontally in fine-tune mode
+        margin-left: 5px;
+        margin-right: 5px;
+
+        > slider {
+          margin-left: -5px;
+          margin-right: -5px;
+        }
+      }
+
+      > marks {
+        &.top    { margin-left: -1px; }
+        &.bottom { margin-right: -1px; }
+      }
+    }
+
     &.marks-before {
       padding-left: 0px;
 
@@ -212,23 +236,6 @@ scale {
 
       > trough {
         margin-right: 0;
-      }
-    }
-
-    &.fine-tune {
-      > trough {
-        // to make the trough grow horizontally in fine-tune mode
-        margin-left: 5px;
-        margin-right: 5px;
-
-        > slider {
-          margin-left: -5px;
-          margin-right: -5px;
-        }
-      }
-
-      > marks indicator {
-        min-width: ($_marks_length - 3px);
       }
     }
   }
