@@ -89,6 +89,10 @@ scale {
   &:disabled {
     filter: Opacity(var(--disabled-opacity));
 
+    label {
+      filter: none;
+    }
+
     > trough > slider {
       box-shadow: 0 0 0 1px var(---slider-border-color), 0 2px 4px transparent;
       outline-color: RGB(0 0 6 / 20%);
