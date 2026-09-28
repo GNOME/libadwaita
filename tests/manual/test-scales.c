@@ -24,6 +24,15 @@ create_scales (GtkOrientation orientation)
   gtk_scale_set_has_origin (GTK_SCALE (scale), FALSE);
   gtk_box_append (GTK_BOX (box), scale);
 
+  scale = gtk_scale_new (orientation, adjustment);
+  gtk_range_set_inverted (GTK_RANGE (scale), TRUE);
+  gtk_box_append (GTK_BOX (box), scale);
+
+  scale = gtk_scale_new (orientation, adjustment);
+  gtk_range_set_fill_level (GTK_RANGE (scale), 0.0);
+  gtk_range_set_show_fill_level (GTK_RANGE (scale), TRUE);
+  gtk_box_append (GTK_BOX (box), scale);
+
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     GtkWidget *label = gtk_label_new ("Values");
     gtk_label_set_xalign (GTK_LABEL (label), 0);
