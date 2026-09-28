@@ -117,4 +117,16 @@ guint adw_sidebar_item_get_index (AdwSidebarItem *self);
 ADW_AVAILABLE_IN_1_9
 guint adw_sidebar_item_get_section_index (AdwSidebarItem *self);
 
+ADW_AVAILABLE_IN_1_11
+int  adw_sidebar_item_get_title_lines (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_11
+void adw_sidebar_item_set_title_lines (AdwSidebarItem *self,
+                                       int             title_lines);
+
+ADW_AVAILABLE_IN_1_11
+int  adw_sidebar_item_get_subtitle_lines (AdwSidebarItem *self);
+ADW_AVAILABLE_IN_1_11
+void adw_sidebar_item_set_subtitle_lines (AdwSidebarItem *self,
+                                          int             subtitle_lines);
+
 G_END_DECLS

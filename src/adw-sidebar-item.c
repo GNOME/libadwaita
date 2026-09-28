@@ -67,6 +67,8 @@ typedef struct
   gboolean visible;
   gboolean enabled;
   gboolean drag_motion_activate;
+  int title_lines;
+  int subtitle_lines;
 
   AdwSidebarSection *section;
   guint local_index;
@@ -88,6 +90,8 @@ enum {
   PROP_ENABLED,
   PROP_DRAG_MOTION_ACTIVATE,
   PROP_SECTION,
+  PROP_TITLE_LINES,
+  PROP_SUBTITLE_LINES,
   LAST_PROP
 };
 
@@ -181,6 +185,12 @@ adw_sidebar_item_get_property (GObject    *object,
   case PROP_SECTION:
     g_value_set_object (value, adw_sidebar_item_get_section (self));
     break;
+  case PROP_TITLE_LINES:
+    g_value_set_int (value, adw_sidebar_item_get_title_lines (self));
+    break;
+  case PROP_SUBTITLE_LINES:
+    g_value_set_int (value, adw_sidebar_item_get_subtitle_lines (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
@@ -228,6 +238,12 @@ adw_sidebar_item_set_property (GObject      *object,
     break;
   case PROP_DRAG_MOTION_ACTIVATE:
     adw_sidebar_item_set_drag_motion_activate (self, g_value_get_boolean (value));
+    break;
+  case PROP_TITLE_LINES:
+    adw_sidebar_item_set_title_lines (self, g_value_get_int (value));
+    break;
+  case PROP_SUBTITLE_LINES:
+    adw_sidebar_item_set_subtitle_lines (self, g_value_get_int (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -408,6 +424,42 @@ adw_sidebar_item_class_init (AdwSidebarItemClass *klass)
                          ADW_TYPE_SIDEBAR_SECTION,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwSidebarItem:title-lines:
+   *
+   * Maximum number of lines for the title.
+   *
+   * If the title takes more lines than specified, it will be
+   * ellipsized. If set to 0, the number of lines won't be limited.
+   *
+   * By default, only one line is shown.
+   *
+   * Since: 1.11
+   */
+  props[PROP_TITLE_LINES] =
+    g_param_spec_int ("title-lines", NULL, NULL,
+                      0, G_MAXINT,
+                      1,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSidebarItem:subtitle-lines:
+   *
+   * Maximum number of lines for the subtitle.
+   *
+   * If the subtitle takes more lines than specified, it will be
+   * ellipsized. If set to 0, the number of lines won't be limited.
+   *
+   * By default, only one line is shown.
+   *
+   * Since: 1.11
+   */
+  props[PROP_SUBTITLE_LINES] =
+    g_param_spec_int ("subtitle-lines", NULL, NULL,
+                      0, G_MAXINT,
+                      1,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
@@ -422,6 +474,8 @@ adw_sidebar_item_init (AdwSidebarItem *self)
   priv->visible = TRUE;
   priv->enabled = TRUE;
   priv->drag_motion_activate = TRUE;
+  priv->title_lines = 1;
+  priv->subtitle_lines = 1;
 }
 
 /**
@@ -1066,6 +1120,116 @@ adw_sidebar_item_get_section_index (AdwSidebarItem *self)
     return 0;
 
   return priv->local_index;
+}
+
+/**
+ * adw_sidebar_item_get_title_lines:
+ * @self: a sidebar item
+ *
+ * Gets the maximum number of lines for the title of @self.
+ *
+ * Returns: the maximum number of lines for the title
+ *
+ * Since: 1.11
+ */
+int
+adw_sidebar_item_get_title_lines (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), 0);
+
+  priv = adw_sidebar_item_get_instance_private (self);
+
+  return priv->title_lines;
+}
+
+/**
+ * adw_sidebar_item_set_title_lines:
+ * @self: a sidebar item
+ * @title_lines: the maximum number of lines for the title
+ *
+ * Sets the maximum number of lines for the title of @self.
+ *
+ * If the title takes more lines than specified, it will be
+ * ellipsized. If set to 0, the number of lines won't be limited.
+ *
+ * By default, only one line is shown.
+ *
+ * Since: 1.11
+ */
+void
+adw_sidebar_item_set_title_lines (AdwSidebarItem *self,
+                                  int             title_lines)
+{
+  AdwSidebarItemPrivate *priv;
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+  g_return_if_fail (title_lines >= 0);
+
+  priv = adw_sidebar_item_get_instance_private (self);
+
+  if (priv->title_lines == title_lines)
+    return;
+
+  priv->title_lines = title_lines;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE_LINES]);
+}
+
+/**
+ * adw_sidebar_item_get_subtitle_lines:
+ * @self: a sidebar item
+ *
+ * Gets the maximum number of lines for the subtitle of @self.
+ *
+ * Returns: the maximum number of lines for the subtitle
+ *
+ * Since: 1.11
+ */
+int
+adw_sidebar_item_get_subtitle_lines (AdwSidebarItem *self)
+{
+  AdwSidebarItemPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_SIDEBAR_ITEM (self), 0);
+
+  priv = adw_sidebar_item_get_instance_private (self);
+
+  return priv->subtitle_lines;
+}
+
+/**
+ * adw_sidebar_item_set_subtitle_lines:
+ * @self: a sidebar item
+ * @subtitle_lines: the maximum number of lines for the subtitle
+ *
+ * Sets the maximum number of lines for the subtitle of @self.
+ *
+ * If the subtitle takes more lines than specified, it will be
+ * ellipsized. If set to 0, the number of lines won't be limited.
+ *
+ * By default, only one line is shown.
+ *
+ * Since: 1.11
+ */
+void
+adw_sidebar_item_set_subtitle_lines (AdwSidebarItem *self,
+                                     int             subtitle_lines)
+{
+  AdwSidebarItemPrivate *priv;
+
+  g_return_if_fail (ADW_IS_SIDEBAR_ITEM (self));
+  g_return_if_fail (subtitle_lines >= 0);
+
+  priv = adw_sidebar_item_get_instance_private (self);
+
+  if (priv->subtitle_lines == subtitle_lines)
+    return;
+
+  priv->subtitle_lines = subtitle_lines;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_LINES]);
 }
 
 void

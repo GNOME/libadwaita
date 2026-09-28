@@ -360,6 +360,46 @@ test_adw_sidebar_item_get_section_index (void)
   g_assert_finalize_object (item3);
 }
 
+static void
+test_adw_sidebar_item_title_lines (void)
+{
+  AdwSidebarItem *item = adw_sidebar_item_new ("Item");
+  g_assert_nonnull (item);
+
+  g_assert_cmpint (adw_sidebar_item_get_title_lines (item), ==, 1);
+
+  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_sidebar_item_set_title_lines: assertion 'title_lines >= 0' failed");
+  adw_sidebar_item_set_title_lines (item, -1);
+  g_test_assert_expected_messages ();
+
+  g_assert_cmpint (adw_sidebar_item_get_title_lines (item), ==, 1);
+
+  adw_sidebar_item_set_title_lines (item, 0);
+  g_assert_cmpint (adw_sidebar_item_get_title_lines (item), ==, 0);
+
+  g_assert_finalize_object (item);
+}
+
+static void
+test_adw_sidebar_item_subtitle_lines (void)
+{
+  AdwSidebarItem *item = adw_sidebar_item_new ("Item");
+  g_assert_nonnull (item);
+
+  g_assert_cmpint (adw_sidebar_item_get_subtitle_lines (item), ==, 1);
+
+  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_sidebar_item_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed");
+  adw_sidebar_item_set_subtitle_lines (item, -1);
+  g_test_assert_expected_messages ();
+
+  g_assert_cmpint (adw_sidebar_item_get_subtitle_lines (item), ==, 1);
+
+  adw_sidebar_item_set_subtitle_lines (item, 0);
+  g_assert_cmpint (adw_sidebar_item_get_subtitle_lines (item), ==, 0);
+
+  g_assert_finalize_object (item);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -378,6 +418,8 @@ main (int   argc,
   g_test_add_func("/Adwaita/SidebarItem/drag_motion_activate", test_adw_sidebar_item_drag_motion_activate);
   g_test_add_func("/Adwaita/SidebarItem/get_section", test_adw_sidebar_item_get_section);
   g_test_add_func("/Adwaita/SidebarItem/get_section_index", test_adw_sidebar_item_get_section_index);
+  g_test_add_func("/Adwaita/SidebarItem/title_lines", test_adw_sidebar_item_title_lines);
+  g_test_add_func("/Adwaita/SidebarItem/subtitle_lines", test_adw_sidebar_item_subtitle_lines);
 
   return g_test_run();
 }

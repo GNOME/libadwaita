@@ -1303,6 +1303,28 @@ notify_icon_cb (AdwSidebarItem *item,
   gtk_widget_set_visible (image, paintable || (icon_name && *icon_name));
 }
 
+static void
+notify_title_lines_cb (AdwSidebarItem *item,
+                       GParamSpec     *pspec,
+                       GtkLabel       *label)
+{
+  int lines = adw_sidebar_item_get_title_lines (item);
+
+  gtk_label_set_wrap (label, lines != 1);
+  gtk_label_set_ellipsize (label, lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
+}
+
+static void
+notify_subtitle_lines_cb (AdwSidebarItem *item,
+                          GParamSpec     *pspec,
+                          GtkLabel       *label)
+{
+  int lines = adw_sidebar_item_get_subtitle_lines (item);
+
+  gtk_label_set_wrap (label, lines != 1);
+  gtk_label_set_ellipsize (label, lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
+}
+
 static gboolean
 string_is_not_empty (GBinding     *binding,
                      const GValue *from_value,
@@ -1403,20 +1425,28 @@ create_row (AdwSidebarItem *item,
   gtk_box_append (GTK_BOX (box), title_box);
 
   title = gtk_label_new (NULL);
-  gtk_label_set_ellipsize (GTK_LABEL (title), PANGO_ELLIPSIZE_END);
+  gtk_label_set_wrap_mode (GTK_LABEL (title), PANGO_WRAP_WORD_CHAR);
   gtk_label_set_xalign (GTK_LABEL (title), 0.0);
   gtk_widget_add_css_class (title, "title");
+  g_signal_connect_object (item, "notify::title-lines",
+                           G_CALLBACK (notify_title_lines_cb), title, 0);
+  notify_title_lines_cb (item, NULL, GTK_LABEL (title));
   g_object_bind_property (item, "title", title, "label", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "title-lines", title, "lines", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "use-underline", title, "use-underline", G_BINDING_SYNC_CREATE);
   g_object_bind_property_full (item, "title", title, "visible", G_BINDING_SYNC_CREATE,
                                string_is_not_empty, NULL, NULL, NULL);
   gtk_box_append (GTK_BOX (title_box), title);
 
   subtitle = gtk_label_new (NULL);
-  gtk_label_set_ellipsize (GTK_LABEL (subtitle), PANGO_ELLIPSIZE_END);
+  gtk_label_set_wrap_mode (GTK_LABEL (subtitle), PANGO_WRAP_WORD_CHAR);
   gtk_label_set_xalign (GTK_LABEL (subtitle), 0.0);
   gtk_widget_add_css_class (subtitle, "subtitle");
+  g_signal_connect_object (item, "notify::subtitle-lines",
+                           G_CALLBACK (notify_subtitle_lines_cb), subtitle, 0);
+  notify_subtitle_lines_cb (item, NULL, GTK_LABEL (subtitle));
   g_object_bind_property (item, "subtitle", subtitle, "label", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "subtitle-lines", subtitle, "lines", G_BINDING_SYNC_CREATE);
   g_object_bind_property_full (item, "subtitle", subtitle, "visible", G_BINDING_SYNC_CREATE,
                                string_is_not_empty, NULL, NULL, NULL);
   gtk_box_append (GTK_BOX (title_box), subtitle);
@@ -1695,6 +1725,8 @@ create_boxed_row (AdwSidebarItem *item,
   g_object_bind_property (item, "subtitle", row, "subtitle", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "use-underline", row, "use-underline", G_BINDING_SYNC_CREATE);
   g_object_bind_property (item, "tooltip", row, "tooltip-markup", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "title-lines", row, "title-lines", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (item, "subtitle-lines", row, "subtitle-lines", G_BINDING_SYNC_CREATE);
 
   icon = g_object_new (GTK_TYPE_IMAGE,
                        "accessible-role", GTK_ACCESSIBLE_ROLE_PRESENTATION,
