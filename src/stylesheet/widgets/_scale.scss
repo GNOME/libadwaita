@@ -21,6 +21,11 @@ scale {
   $_marks_length: 4px;
   $_marks_distance: 2px;
   $_marks_size: $_marks_length + $_marks_distance;
+  $_trough_size: 4px;
+  $_fine_tune_increase: 3px;
+  $_slider_width: 20px;
+  $_slider_height: 20px;
+  $_trough_padding: ($_slider_height - $_trough_size) / 2;
 
   min-height: 10px;
   min-width: 10px;
@@ -50,10 +55,7 @@ scale {
       background-color: $slider_color;
       box-shadow: 0 0 0 1px var(---slider-border-color), 0 2px 4px RGB(0 0 6 / 20%);
 
-      border-radius: 100%;
-
-      min-width: 20px;
-      min-height: 20px;
+      border-radius: 99px;
     }
   }
 
@@ -113,11 +115,14 @@ scale {
     padding-right: 0;
 
     > trough {
-      margin: 8px 0;
+      margin: $_trough_padding 0;
 
       > slider {
+        min-width: $_slider_width;
+        min-height: $_slider_height;
+
         // the slider is inside the trough, so to have make it bigger there's a negative margin
-        margin: -8px 0;
+        margin: -$_trough_padding 0;
       }
     }
 
@@ -144,18 +149,18 @@ scale {
     &.fine-tune {
       > trough {
         // to make the trough grow vertically in fine-tune mode
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: $_trough_padding - $_fine_tune_increase;
+        margin-bottom: $_trough_padding - $_fine_tune_increase;
 
         > slider {
-          margin-top: -5px;
-          margin-bottom: -5px;
+          margin-top: $_fine_tune_increase - $_trough_padding;
+          margin-bottom: $_fine_tune_increase - $_trough_padding;
         }
       }
 
       > marks {
-        &.top    { margin-top: -1px; }
-        &.bottom { margin-bottom: -1px; }
+        &.top    { margin-top: $_marks_distance - $_fine_tune_increase; }
+        &.bottom { margin-bottom: $_marks_distance - $_fine_tune_increase; }
       }
     }
 
@@ -181,11 +186,14 @@ scale {
     padding-bottom: 0;
 
     > trough {
-      margin: 0 8px;
+      margin: 0 $_trough_padding;
 
       > slider {
+        min-width: $_slider_height;
+        min-height: $_slider_width;
+
         // the slider is inside the trough, so to have make it bigger there's a negative margin
-        margin: 0 -8px;
+        margin: 0 -$_trough_padding;
       }
     }
 
@@ -212,18 +220,18 @@ scale {
     &.fine-tune {
       > trough {
         // to make the trough grow horizontally in fine-tune mode
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: $_trough_padding - $_fine_tune_increase;
+        margin-right: $_trough_padding - $_fine_tune_increase;
 
         > slider {
-          margin-left: -5px;
-          margin-right: -5px;
+          margin-left: $_fine_tune_increase - $_trough_padding;
+          margin-right: $_fine_tune_increase - $_trough_padding;
         }
       }
 
       > marks {
-        &.top    { margin-left: -1px; }
-        &.bottom { margin-right: -1px; }
+        &.top    { margin-left: $_marks_distance - $_fine_tune_increase; }
+        &.bottom { margin-right: $_marks_distance - $_fine_tune_increase; }
       }
     }
 
