@@ -21,10 +21,10 @@ scale {
   $_marks_length: 4px;
   $_marks_distance: 2px;
   $_marks_size: $_marks_length + $_marks_distance;
-  $_trough_size: 4px;
+  $_trough_size: 6px;
   $_fine_tune_increase: 3px;
-  $_slider_width: 20px;
-  $_slider_height: 20px;
+  $_slider_width: 24px;
+  $_slider_height: 18px;
   $_trough_padding: ($_slider_height - $_trough_size) / 2;
 
   min-height: 10px;
