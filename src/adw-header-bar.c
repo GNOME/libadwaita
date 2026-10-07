@@ -1069,11 +1069,17 @@ adw_header_bar_init (AdwHeaderBar *self)
   gtk_widget_set_halign (self->start_box, GTK_ALIGN_START);
   gtk_widget_add_css_class (self->start_box, "start");
   adw_bin_set_child (ADW_BIN (self->start_bin), self->start_box);
+  g_object_bind_property (self->start_box, "visible",
+                          self->start_bin, "visible",
+                          G_BINDING_SYNC_CREATE);
 
   self->end_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_halign (self->end_box, GTK_ALIGN_END);
   gtk_widget_add_css_class (self->end_box, "end");
   adw_bin_set_child (ADW_BIN (self->end_bin), self->end_box);
+  g_object_bind_property (self->end_box, "visible",
+                          self->end_bin, "visible",
+                          G_BINDING_SYNC_CREATE);
 
   self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
