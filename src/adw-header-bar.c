@@ -31,7 +31,6 @@
 #include "adw-dialog-host-private.h"
 #include "adw-enums.h"
 #include "adw-floating-sheet-private.h"
-#include "adw-gizmo-private.h"
 #include "adw-gtkbuilder-utils-private.h"
 #include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
@@ -1056,15 +1055,10 @@ adw_header_bar_init (AdwHeaderBar *self)
   gtk_center_box_set_shrink_center_last (GTK_CENTER_BOX (self->center_box), FALSE);
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (self->handle), self->center_box);
 
-  self->start_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL,
-                                   (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                   (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
-  gtk_widget_set_layout_manager (self->start_bin, gtk_bin_layout_new ());
+  self->start_bin = adw_bin_new ();
   gtk_center_box_set_start_widget (GTK_CENTER_BOX (self->center_box), self->start_bin);
 
-  self->end_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL,
-                                 (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                 (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+  self->end_bin = adw_bin_new ();
   gtk_widget_set_layout_manager (self->end_bin, gtk_bin_layout_new ());
   gtk_center_box_set_end_widget (GTK_CENTER_BOX (self->center_box), self->end_bin);
 
@@ -1074,12 +1068,12 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->start_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_halign (self->start_box, GTK_ALIGN_START);
   gtk_widget_add_css_class (self->start_box, "start");
-  gtk_widget_set_parent (self->start_box, self->start_bin);
+  adw_bin_set_child (ADW_BIN (self->start_bin), self->start_box);
 
   self->end_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_halign (self->end_box, GTK_ALIGN_END);
   gtk_widget_add_css_class (self->end_box, "end");
-  gtk_widget_set_parent (self->end_box, self->end_bin);
+  adw_bin_set_child (ADW_BIN (self->end_bin), self->end_box);
 
   self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
