@@ -61,7 +61,7 @@
 
 typedef struct
 {
-  GtkWidget *header;
+  GtkWidget *content;
   GtkWidget *text;
   GtkWidget *title;
   GtkWidget *empty_title;
@@ -211,7 +211,7 @@ pressed_cb (GtkGesture  *gesture,
   picked = gtk_widget_pick (GTK_WIDGET (self), x, y, GTK_PICK_DEFAULT);
 
   if (picked != GTK_WIDGET (self) &&
-      picked != priv->header &&
+      picked != priv->content &&
       picked != priv->editable_area &&
       picked != priv->indicator &&
       picked != GTK_WIDGET (priv->prefixes) &&
@@ -729,7 +729,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-entry-row.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, header);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, content);
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, prefixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, suffixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwEntryRow, editable_area);

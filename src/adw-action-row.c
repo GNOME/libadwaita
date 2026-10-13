@@ -20,10 +20,23 @@
  *   <img src="action-row.png" alt="action-row">
  * </picture>
  *
- * The `AdwActionRow` widget can have a title, a subtitle and an icon. The row
- * can receive additional widgets at its end, or prefix widgets at its start.
+ * `AdwActionRow` can have a title and a subtitle, as well as additional widgets
+ * at its end or start (added or removed using [method@ActionRow.add_suffix] or
+ * [method@ActionRow.add_prefix] respectively).
  *
- * It is convenient to present a preference and its related actions.
+ * <picture>
+ *   <source srcset="action-row-prefix-suffix-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="action-row-prefix-suffix.png" alt="action-row-prefix-suffix">
+ * </picture>
+ *
+ * `AdwActionRow` can also have a body widget, added using the
+ * [property@ActionRow:body] property. It can be used to add a full-width toggle
+ * group or an illustration below the row header.
+ *
+ * <picture>
+ *   <source srcset="action-row-body-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="action-row-body.png" alt="action-row-body">
+ * </picture>
  *
  * `AdwActionRow` is unactivatable by default, giving it an activatable widget
  * will automatically make it activatable, but unsetting it won't change the
@@ -42,8 +55,9 @@
  *
  * `AdwActionRow` has a main CSS node with name `row`.
  *
- * It contains the subnode `box.header` for its main horizontal box, and
- * `box.title` for the vertical box containing the title and subtitle labels.
+ * It contains the subnode `box.content` for its main content, which contains
+ * the node `box.header`, which contains `box.title` for the vertical box
+ * containing the title and subtitle labels.
  *
  * It contains subnodes `label.title` and `label.subtitle` representing
  * respectively the title label and subtitle label.
@@ -65,6 +79,7 @@
 
 typedef struct
 {
+  GtkWidget *content;
   GtkWidget *header;
   GtkImage *image;
   GtkBox *prefixes;
@@ -72,6 +87,8 @@ typedef struct
   GtkBox *suffixes;
   GtkLabel *title;
   GtkBox *title_box;
+
+  GtkWidget *body;
 
   int title_lines;
   int subtitle_lines;
@@ -97,6 +114,7 @@ enum {
   PROP_TITLE_LINES,
   PROP_SUBTITLE_LINES,
   PROP_SUBTITLE_SELECTABLE,
+  PROP_BODY,
   LAST_PROP,
 };
 
@@ -130,6 +148,7 @@ pressed_cb (AdwActionRow *self,
   picked = gtk_widget_pick (GTK_WIDGET (self), x, y, GTK_PICK_DEFAULT);
 
   if (picked != GTK_WIDGET (self) &&
+      picked != priv->content &&
       picked != priv->header &&
       picked != GTK_WIDGET (priv->prefixes) &&
       picked != GTK_WIDGET (priv->suffixes)) {
@@ -235,6 +254,9 @@ adw_action_row_get_property (GObject    *object,
   case PROP_SUBTITLE_SELECTABLE:
     g_value_set_boolean (value, adw_action_row_get_subtitle_selectable (self));
     break;
+  case PROP_BODY:
+    g_value_set_object (value, adw_action_row_get_body (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -266,6 +288,9 @@ adw_action_row_set_property (GObject      *object,
     break;
   case PROP_SUBTITLE_SELECTABLE:
     adw_action_row_set_subtitle_selectable (self, g_value_get_boolean (value));
+    break;
+  case PROP_BODY:
+    adw_action_row_set_body (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -310,6 +335,8 @@ adw_action_row_dispose (GObject *object)
 
     priv->activatable_widget = NULL;
   }
+
+  priv->body = NULL;
 
   G_OBJECT_CLASS (adw_action_row_parent_class)->dispose (object);
 }
@@ -425,6 +452,21 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwActionRow:body:
+   *
+   * Thebody widget of the row.
+   *
+   * <picture>
+   *   <source srcset="action-row-body-dark.png" media="(prefers-color-scheme: dark)">
+   *   <img src="action-row-body.png" alt="action-row-body">
+   * </picture>
+   */
+  props[PROP_BODY] =
+    g_param_spec_object ("body", NULL, NULL,
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -447,6 +489,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-action-row.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, content);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, header);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, prefixes);
@@ -916,6 +959,65 @@ adw_action_row_set_subtitle_selectable (AdwActionRow *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_SELECTABLE]);
 }
 
+/**
+ * adw_action_row_get_body:
+ * @self: an action row
+ *
+ * Gets the body widget of @self.
+ *
+ * Returns: (nullable) (transfer none): the body widget of @self
+ */
+GtkWidget *
+adw_action_row_get_body (AdwActionRow *self)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_ACTION_ROW (self), NULL);
+
+  return priv->body;
+}
+
+/**
+ * adw_action_row_set_body:
+ * @self: an action row
+ * @body: (nullable): the body widget
+ *
+ * Sets the body widget of @self.
+ *
+ * <picture>
+ *   <source srcset="action-row-body-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="action-row-body.png" alt="action-row-body">
+ * </picture>
+ */
+void
+adw_action_row_set_body (AdwActionRow *self,
+                         GtkWidget    *body)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+  g_return_if_fail (body == NULL || GTK_IS_WIDGET (body));
+
+  if (priv->body == body)
+    return;
+
+  if (body)
+    g_return_if_fail (gtk_widget_get_parent (body) == NULL);
+
+  if (priv->body)
+    gtk_box_remove (GTK_BOX (priv->content), priv->body);
+
+  priv->body = body;
+
+  if (priv->body) {
+    gtk_box_append (GTK_BOX (priv->content), priv->body);
+    gtk_widget_add_css_class (GTK_WIDGET (self), "has-body");
+  } else {
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "has-body");
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BODY]);
+}
 /**
  * adw_action_row_activate:
  * @self: an action row

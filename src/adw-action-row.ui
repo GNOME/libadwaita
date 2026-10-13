@@ -8,91 +8,101 @@
       <relation name="described-by">subtitle</relation>
     </accessibility>
     <property name="child">
-      <object class="GtkBox" id="header">
-        <property name="valign">center</property>
+      <object class="GtkBox" id="content">
+        <property name="orientation">vertical</property>
         <property name="hexpand">False</property>
+        <property name="vexpand">False</property>
         <style>
-          <class name="header"/>
+          <class name="content"/>
         </style>
         <child>
-          <object class="GtkBox" id="prefixes">
-            <property name="visible">False</property>
-            <style>
-              <class name="prefixes"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkImage" id="image">
-            <binding name="visible">
-              <closure function="string_is_not_empty" type="gboolean">
-                <lookup name="icon-name">image</lookup>
-              </closure>
-            </binding>
+          <object class="GtkBox" id="header">
             <property name="valign">center</property>
-            <property name="accessible-role">presentation</property>
+            <property name="vexpand">True</property>
             <style>
-              <class name="icon"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="title_box">
-            <property name="orientation">vertical</property>
-            <property name="valign">center</property>
-            <property name="hexpand">True</property>
-            <style>
-              <class name="title"/>
+              <class name="header"/>
             </style>
             <child>
-              <object class="GtkLabel" id="title">
+              <object class="GtkBox" id="prefixes">
+                <property name="visible">False</property>
+                <style>
+                  <class name="prefixes"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage" id="image">
                 <binding name="visible">
                   <closure function="string_is_not_empty" type="gboolean">
-                    <lookup name="label">title</lookup>
+                    <lookup name="icon-name">image</lookup>
                   </closure>
                 </binding>
-                <property name="ellipsize">none</property>
-                <property name="label" bind-source="AdwActionRow" bind-property="title" bind-flags="sync-create"/>
-                <property name="lines">0</property>
-                <property name="mnemonic-widget">AdwActionRow</property>
-                <property name="use-underline" bind-source="AdwActionRow" bind-property="use-underline" bind-flags="sync-create"/>
-                <property name="selectable" bind-source="AdwActionRow" bind-property="title-selectable" bind-flags="sync-create"/>
-                <property name="wrap">True</property>
-                <property name="wrap-mode">word-char</property>
-                <property name="xalign">0</property>
-                <property name="use-markup" bind-source="AdwActionRow" bind-property="use-markup" bind-flags="sync-create"/>
+                <property name="valign">center</property>
+                <property name="accessible-role">presentation</property>
+                <style>
+                  <class name="icon"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="title_box">
+                <property name="orientation">vertical</property>
+                <property name="valign">center</property>
+                <property name="hexpand">True</property>
                 <style>
                   <class name="title"/>
                 </style>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <binding name="visible">
+                      <closure function="string_is_not_empty" type="gboolean">
+                        <lookup name="label">title</lookup>
+                      </closure>
+                    </binding>
+                    <property name="ellipsize">none</property>
+                    <property name="label" bind-source="AdwActionRow" bind-property="title" bind-flags="sync-create"/>
+                    <property name="lines">0</property>
+                    <property name="mnemonic-widget">AdwActionRow</property>
+                    <property name="use-underline" bind-source="AdwActionRow" bind-property="use-underline" bind-flags="sync-create"/>
+                    <property name="selectable" bind-source="AdwActionRow" bind-property="title-selectable" bind-flags="sync-create"/>
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="xalign">0</property>
+                    <property name="use-markup" bind-source="AdwActionRow" bind-property="use-markup" bind-flags="sync-create"/>
+                    <style>
+                      <class name="title"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="subtitle">
+                    <binding name="visible">
+                      <closure function="string_is_not_empty" type="gboolean">
+                        <lookup name="label">subtitle</lookup>
+                      </closure>
+                    </binding>
+                    <property name="ellipsize">none</property>
+                    <property name="lines">0</property>
+                    <property name="selectable" bind-source="AdwActionRow" bind-property="subtitle-selectable" bind-flags="sync-create"/>
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="xalign">0</property>
+                    <property name="use-markup" bind-source="AdwActionRow" bind-property="use-markup" bind-flags="sync-create"/>
+                    <style>
+                      <class name="subtitle"/>
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="subtitle">
-                <binding name="visible">
-                  <closure function="string_is_not_empty" type="gboolean">
-                    <lookup name="label">subtitle</lookup>
-                  </closure>
-                </binding>
-                <property name="ellipsize">none</property>
-                <property name="lines">0</property>
-                <property name="selectable" bind-source="AdwActionRow" bind-property="subtitle-selectable" bind-flags="sync-create"/>
-                <property name="wrap">True</property>
-                <property name="wrap-mode">word-char</property>
-                <property name="xalign">0</property>
-                <property name="use-markup" bind-source="AdwActionRow" bind-property="use-markup" bind-flags="sync-create"/>
+              <object class="GtkBox" id="suffixes">
+                <property name="visible">False</property>
                 <style>
-                  <class name="subtitle"/>
+                  <class name="suffixes"/>
                 </style>
               </object>
             </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="suffixes">
-            <property name="visible">False</property>
-            <style>
-              <class name="suffixes"/>
-            </style>
           </object>
         </child>
       </object>

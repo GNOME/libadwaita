@@ -126,44 +126,63 @@ row {
     @extend .dimmed;
   }
 
-  > box.header {
+  > box.content {
     margin-left: 12px;
     margin-right: 12px;
-    border-spacing: 6px;
-    min-height: 50px;
 
-    > .icon:disabled {
-      filter: Opacity(var(--disabled-opacity));
-    }
-
-    > box.title {
-      margin-top: 6px;
-      margin-bottom: 6px;
-      border-spacing: 3px;
-      padding: 0;
-
-      // Specificity bump for header bar
-      &,
-      > .title,
-      > .subtitle {
-        padding: 0;
-        font-weight: inherit;
-      }
-    }
-
-    > .prefixes,
-    > .suffixes {
+    > box.header {
       border-spacing: 6px;
+      min-height: 50px;
 
+      > .icon:disabled {
+        filter: Opacity(var(--disabled-opacity));
+      }
+
+      > box.title {
+        margin-top: 6px;
+        margin-bottom: 6px;
+        border-spacing: 3px;
+        padding: 0;
+
+        // Specificity bump for header bar
+        &,
+        > .title,
+        > .subtitle {
+          padding: 0;
+          font-weight: inherit;
+        }
+      }
+
+      > .prefixes,
       > .suffixes {
         border-spacing: 6px;
+
+        > .suffixes {
+          border-spacing: 6px;
+        }
+      }
+
+      > .icon,
+      > .prefixes {
+        &:dir(ltr) { margin-right: 6px; }
+        &:dir(rtl) { margin-left: 6px; }
       }
     }
+  }
 
-    > .icon,
-    > .prefixes {
-      &:dir(ltr) { margin-right: 6px; }
-      &:dir(rtl) { margin-left: 6px; }
+  &.has-body > box.content {
+    min-height: 50px;
+    margin-top: 9px;
+    margin-bottom: 12px;
+    border-spacing: 9px;
+
+    > box.header {
+      min-height: 0;
+
+      > box.title {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -183,10 +202,11 @@ row.entry {
     }
   }
 
-  > box.header {
+  > box.content {
     border-spacing: 0;
     margin-left: 6px;
     margin-right: 6px;
+    min-height: 50px;
 
     > .editable-area {
       padding: 0 6px;
@@ -425,7 +445,7 @@ row.expander {
 
 row.property {
   &, &.expander > box > list > row.header {
-    > box.header > box.title {
+    > box.content > box.header > box.title {
       > .title {
         font-size: smaller;
         @extend .dimmed;
@@ -443,7 +463,7 @@ row.property {
       font-family: inherit;
       font-size: inherit;
 
-      > box.header > box.title > .subtitle {
+      > box.content > box.header > box.title > .subtitle {
         font-family: var(--monospace-font-family);
         font-size: var(--monospace-font-size);
       }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwPreferencesGroup" id="widget">
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <property name="margin-start">6</property>
+    <property name="margin-end">6</property>
+    <property name="width-request">400</property>
+    <child>
+      <object class="AdwActionRow">
+        <property name="title">Title</property>
+        <property name="subtitle">Subtitle</property>
+        <property name="body">
+          <object class="AdwToggleGroup">
+            <child>
+              <object class="AdwToggle">
+                <property name="label">Toggle 1</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwToggle">
+                <property name="label">Toggle 2</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwToggle">
+                <property name="label">Toggle 3</property>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkCheckButton" id="radio"/>
+</interface>

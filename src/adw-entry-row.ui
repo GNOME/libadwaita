@@ -9,10 +9,10 @@
       </object>
     </child>
     <property name="child">
-      <object class="GtkBox" id="header">
+      <object class="GtkBox" id="content">
         <property name="valign">center</property>
         <style>
-          <class name="header"/>
+          <class name="content"/>
         </style>
         <child>
           <object class="GtkBox" id="prefixes">
