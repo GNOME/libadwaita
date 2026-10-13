@@ -220,6 +220,11 @@ notify_popover_visible_cb (AdwComboRow *self)
     gtk_widget_remove_css_class (GTK_WIDGET (self), "has-open-popup");
     gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
   }
+
+  gtk_accessible_update_state (GTK_ACCESSIBLE (self),
+                               GTK_ACCESSIBLE_STATE_EXPANDED,
+                               gtk_widget_get_visible (GTK_WIDGET (priv->popover)),
+                               -1);
 }
 
 static void
@@ -742,6 +747,14 @@ adw_combo_row_init (AdwComboRow *self)
   priv->search_match_mode = GTK_STRING_FILTER_MATCH_MODE_PREFIX;
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_accessible_update_state (GTK_ACCESSIBLE (self),
+                               GTK_ACCESSIBLE_STATE_EXPANDED, FALSE,
+                               -1);
+
+  gtk_accessible_update_relation (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_RELATION_CONTROLS, priv->list, NULL,
+                                  -1);
 
   adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (self), FALSE);
   set_default_factory (self);
