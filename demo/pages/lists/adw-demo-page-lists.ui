@@ -74,6 +74,70 @@
                     </child>
                     <child>
                       <object class="AdwPreferencesGroup">
+                        <property name="title" translatable="yes">Rows With Body</property>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Simple</property>
+                            <property name="body">
+                              <object class="AdwToggleGroup">
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 1</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 2</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 3</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Complex</property>
+                            <property name="subtitle" translatable="yes">Subtitle</property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="valign">center</property>
+                                <property name="icon_name">edit-copy-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Copy</property>
+                                <style>
+                                  <class name="flat"/>
+                                </style>
+                              </object>
+                            </child>
+                            <property name="body">
+                              <object class="AdwToggleGroup">
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 1</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 2</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwToggle">
+                                    <property name="label">Toggle 3</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup">
                         <property name="title" translatable="yes">Entry Rows</property>
                         <property name="separate-rows">True</property>
                         <child>
