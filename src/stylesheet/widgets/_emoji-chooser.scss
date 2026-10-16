@@ -20,27 +20,8 @@ button.emoji-section.image-button:not(.raised):not(.suggested-action):not(.destr
   min-height: 32px;
 }
 
-popover.emoji-picker emoji {
+popover.emoji-picker .emoji {
   font-size: x-large;
-  padding: 6px;
-  border-radius: $button_radius;
-
-  &:focus,
-  &:hover {
-    background: $hover_color;
-  }
-
-  &:active {
-    background: $active_color;
-  }
-
-  @media (prefers-contrast: more) {
-    &:focus,
-    &:hover,
-    &:active {
-      box-shadow: inset 0 0 0 1px $border_color;
-    }
-  }
 }
 
 popover.emoji-picker scrolledwindow.view {
@@ -53,6 +34,15 @@ popover.emoji-picker scrolledwindow.view {
 
   &:not(.undershoot-bottom) {
     @include undershoot(bottom);
+  }
+
+  > gridview.view {
+    background: none;
+    color: inherit;
+
+    header > label {
+      @extend .heading;
+    }
   }
 }
 
