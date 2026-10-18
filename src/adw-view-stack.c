@@ -1487,6 +1487,8 @@ adw_view_stack_dispose (GObject *object)
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
     stack_remove (self, child, TRUE);
 
+  g_clear_object (&self->animation);
+
   G_OBJECT_CLASS (adw_view_stack_parent_class)->dispose (object);
 }
 
