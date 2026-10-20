@@ -658,7 +658,7 @@ adw_breakpoint_bin_init (AdwBreakpointBin *self)
 {
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
 
-  priv->breakpoints = g_ptr_array_new ();
+  priv->breakpoints = g_ptr_array_new_with_free_func (g_object_unref);
   priv->natural_width = -1;
   priv->natural_height = -1;
   priv->enable_min_size_warnings = TRUE;
@@ -796,8 +796,9 @@ adw_breakpoint_bin_add_breakpoint (AdwBreakpointBin *self,
 
   breakpoint_notify_condition_cb (self);
 
-  g_signal_connect_swapped (breakpoint, "notify::condition",
-                            G_CALLBACK (breakpoint_notify_condition_cb), self);
+  g_signal_connect_object (breakpoint, "notify::condition",
+                           G_CALLBACK (breakpoint_notify_condition_cb), self,
+                           G_CONNECT_SWAPPED);
 }
 
 /**
@@ -820,11 +821,18 @@ adw_breakpoint_bin_remove_breakpoint (AdwBreakpointBin *self,
 
   priv = adw_breakpoint_bin_get_instance_private (self);
 
+  g_signal_handlers_disconnect_by_func (breakpoint, breakpoint_notify_condition_cb, self);
+
+  if (breakpoint == priv->current_breakpoint) {
+    adw_breakpoint_transition (priv->current_breakpoint, NULL);
+
+    priv->current_breakpoint = NULL;
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CURRENT_BREAKPOINT]);
+  }
+
   g_ptr_array_remove (priv->breakpoints, breakpoint);
 
   breakpoint_notify_condition_cb (self);
-
-  g_signal_handlers_disconnect_by_func (breakpoint, breakpoint_notify_condition_cb, self);
 }
 
 /**
