@@ -248,6 +248,19 @@ is_running_in_flatpak (void)
 #endif
 }
 
+static gboolean
+is_running_in_snap (void)
+{
+  return g_getenv ("SNAP") != NULL;
+}
+
+static gboolean
+may_have_gsettings (void)
+{
+  return !is_running_in_flatpak () &&
+         !is_running_in_snap (); // TODO: snaps could be unsandboxed, or have a sandbox hole for gsettings
+}
+
 AdwSettingsImpl *
 adw_settings_impl_portal_new (gboolean enable_color_scheme,
                               gboolean enable_high_contrast,
@@ -319,7 +332,8 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
     g_variant_unref (variant);
   }
 
-  if (is_running_in_flatpak ()) {
+  // non-standard portal settings; only read from the portal if there's no better fallback
+  if (!may_have_gsettings ()) {
     if (enable_document_font_name &&
         read_setting (self, "org.gnome.desktop.interface",
                       "document-font-name", "s", &variant)) {
