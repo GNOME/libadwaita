@@ -444,7 +444,7 @@ get_sidebar_width (AdwOverlaySplitView *self,
                    gboolean             collapsed)
 {
   GtkSettings *settings = gtk_widget_get_settings (GTK_WIDGET (self));
-  int sidebar_min, sidebar_max;
+  int sidebar_min, sidebar_max, content_min, sidebar_width;
 
   gtk_widget_measure (self->sidebar_bin, GTK_ORIENTATION_HORIZONTAL, -1,
                       &sidebar_min, NULL, NULL, NULL);
@@ -462,7 +462,12 @@ get_sidebar_width (AdwOverlaySplitView *self,
   if (collapsed)
     return CLAMP (width, sidebar_min, sidebar_max);
 
-  return CLAMP ((int) (width * self->sidebar_width_fraction), sidebar_min, sidebar_max);
+  gtk_widget_measure (self->content_bin, GTK_ORIENTATION_HORIZONTAL, -1,
+                      &content_min, NULL, NULL, NULL);
+  sidebar_width = MIN ((int) (width * self->sidebar_width_fraction),
+                       width - content_min);
+
+  return CLAMP (sidebar_width, sidebar_min, sidebar_max);
 }
 
 static void
@@ -576,13 +581,10 @@ allocate_uncollapsed (GtkWidget *widget,
                       int        baseline)
 {
   AdwOverlaySplitView *self = ADW_OVERLAY_SPLIT_VIEW (widget);
-  int content_min, sidebar_width, sidebar_offset;
+  int sidebar_width, sidebar_offset;
   GskTransform *transform;
 
-  gtk_widget_measure (self->content_bin, GTK_ORIENTATION_HORIZONTAL, -1,
-                      &content_min, NULL, NULL, NULL);
-
-  sidebar_width = MIN (get_sidebar_width (self, width, FALSE), width - content_min);
+  sidebar_width = get_sidebar_width (self, width, FALSE);
   sidebar_offset = (int) (sidebar_width * self->show_progress);
 
   self->sidebar_width = sidebar_width;
