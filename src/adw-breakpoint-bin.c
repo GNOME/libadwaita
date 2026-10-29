@@ -157,6 +157,7 @@ typedef struct
 
   int natural_width;
   int natural_height;
+  gboolean grow_beyond_natural;
 
   GtkWidget *last_focus;
   GArray *delayed_focus;
@@ -390,16 +391,18 @@ adw_breakpoint_bin_measure (GtkWidget      *widget,
   }
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    if (priv->natural_width >= 0)
-      nat = MAX (min, priv->natural_width);
+    if (priv->grow_beyond_natural)
+      nat = MAX (nat, priv->natural_width);
     else
-      nat = MAX (min, nat);
+      nat = priv->natural_width;
   } else {
-    if (priv->natural_height >= 0)
-      nat = MAX (min, priv->natural_height);
+    if (priv->grow_beyond_natural)
+      nat = MAX (nat, priv->natural_height);
     else
-      nat = MAX (min, nat);
+      nat = priv->natural_height;
   }
+
+  nat = MAX (min, nat);
 
   if (minimum)
     *minimum = min;
@@ -913,7 +916,8 @@ adw_breakpoint_bin_set_pass_through (AdwBreakpointBin *self,
 void
 adw_breakpoint_bin_set_natural_size (AdwBreakpointBin *self,
                                      int               width,
-                                     int               height)
+                                     int               height,
+                                     gboolean          grow_beyond_natural)
 {
   AdwBreakpointBinPrivate *priv;
 
@@ -923,6 +927,7 @@ adw_breakpoint_bin_set_natural_size (AdwBreakpointBin *self,
 
   priv->natural_width = width;
   priv->natural_height = height;
+  priv->grow_beyond_natural = grow_beyond_natural;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }

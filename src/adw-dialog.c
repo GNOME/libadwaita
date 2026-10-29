@@ -60,10 +60,11 @@
  * [method@Dialog.present] to show it.
  *
  * `AdwDialog` is not resizable. Use the [property@Dialog:content-width] and
- * [property@Dialog:content-height] properties to set its size, or set
- * [property@Dialog:follows-content-size] to `TRUE` to make the dialog track the
- * content's size as it changes. `AdwDialog` can never be larger than its parent
- * window.
+ * [property@Dialog:content-height] properties to set its size. When setting
+ * [property@Dialog:follows-content-size] to `TRUE` the size of the dialog's
+ * content will be tracked as it changes. It will not shrink below the values
+ * set in [property@Dialog:content-width] and [property@Dialog:content-height].
+ * `AdwDialog` can never be larger than its parent window.
  *
  * `AdwDialog` can be presented as a centered floating window or a bottom sheet.
  * By default it's automatic depending on the available size.
@@ -366,21 +367,14 @@ static void
 update_natural_size (AdwDialog *self)
 {
   AdwDialogPrivate *priv = adw_dialog_get_instance_private (self);
-  int width, height;
-
-  /* Follow default/content size for floating dialogs */
-  if (priv->follows_content_size) {
-    width = height = -1;
-  } else {
-    width = priv->content_width;
-    height = priv->content_height;
-  }
 
   adw_breakpoint_bin_set_natural_size (ADW_BREAKPOINT_BIN (priv->child_breakpoint_bin),
-                                       width, height);
+                                       priv->content_width, priv->content_height,
+                                       priv->follows_content_size);
 
   if (priv->window)
-    gtk_window_set_default_size (GTK_WINDOW (priv->window), width, height);
+    gtk_window_set_default_size (GTK_WINDOW (priv->window),
+                                 priv->content_width, priv->content_height);
 }
 
 static void
@@ -441,7 +435,7 @@ set_content_size (AdwDialog *self,
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT_HEIGHT]);
   }
 
-  if (changed && !priv->follows_content_size)
+  if (changed)
     update_natural_size (self);
 
   g_object_thaw_notify (G_OBJECT (self));
@@ -1132,9 +1126,10 @@ adw_dialog_class_init (AdwDialogClass *klass)
    *
    * Whether to size content automatically.
    *
-   * If set to `TRUE`, always use the content's natural size instead of
-   * [property@Dialog:content-width] and [property@Dialog:content-height]. If
-   * the content resizes, the dialog will immediately resize as well.
+   * If set to `TRUE`, track the content's natural size. If the content resizes
+   * the dialog will immediately resize as well. It will not shrink below the
+   * values set in [property@Dialog:content-width] or
+   * [property@Dialog:content-height].
    *
    * See also: [property@Gtk.Window:resizable]
    *
@@ -1663,9 +1658,10 @@ adw_dialog_get_follows_content_size (AdwDialog *self)
  *
  * Sets whether to size content of @self automatically.
  *
- * If set to `TRUE`, always use the content's natural size instead of
- * [property@Dialog:content-width] and [property@Dialog:content-height]. If
- * the content resizes, the dialog will immediately resize as well.
+ * If set to `TRUE`, track the content's natural size. If the content resizes
+ * the dialog will immediately resize as well. It will not shrink below the
+ * values set in [property@Dialog:content-width] or
+ * [property@Dialog:content-height].
  *
  * See also: [property@Gtk.Window:resizable]
  *

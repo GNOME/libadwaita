@@ -29,6 +29,7 @@ void adw_breakpoint_bin_set_pass_through (AdwBreakpointBin *self,
 
 void adw_breakpoint_bin_set_natural_size (AdwBreakpointBin *self,
                                           int               width,
-                                          int               height);
+                                          int               height,
+                                          gboolean          grow_beyond_natural);
 
 G_END_DECLS
