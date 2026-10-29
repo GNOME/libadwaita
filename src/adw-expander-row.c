@@ -424,6 +424,7 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
     adw_action_row_add_prefix (ADW_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
   }
   gtk_box_append (priv->prefixes, widget);
+  gtk_widget_set_visible (GTK_WIDGET (priv->prefixes), TRUE);
 }
 
 /**
