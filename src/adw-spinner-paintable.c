@@ -353,7 +353,7 @@ adw_spinner_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
   stroke = gsk_stroke_new (line_width);
   gsk_stroke_set_line_cap (stroke, GSK_LINE_CAP_ROUND);
 
-  gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_LUMINANCE);
+  gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_ALPHA);
 
   /* Circle */
 
@@ -364,8 +364,8 @@ adw_spinner_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
                                radius - line_width / 2);
   circle_path = gsk_path_builder_free_to_path (builder);
 
-  color.red = color.green = color.blue = CIRCLE_OPACITY;
-  color.alpha = 1;
+  color.red = color.green = color.blue = 1;
+  color.alpha = CIRCLE_OPACITY;
   gtk_snapshot_append_stroke (snapshot, circle_path, stroke, &color);
 
   /* Moving part */
@@ -395,7 +395,7 @@ adw_spinner_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
   gsk_path_builder_add_segment (builder, circle_path, &end_point, &start_point);
   arc_path = gsk_path_builder_free_to_path (builder);
 
-  color.red = color.green = color.blue = 1;
+  color.alpha = 1;
   gtk_snapshot_append_stroke (snapshot, arc_path, stroke, &color);
 
   /* Mask with the correct color */
