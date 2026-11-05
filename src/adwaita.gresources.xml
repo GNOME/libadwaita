@@ -5,6 +5,7 @@
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-application-exit-symbolic-rtl.svg">icons/adw-application-exit-rtl.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-application-exit-symbolic.svg">icons/adw-application-exit.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-avatar-default-symbolic.svg">icons/adw-avatar-default.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-dropdown-symbolic.svg">icons/adw-dropdown.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-entry-apply-symbolic.svg">icons/adw-entry-apply.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-entry-edit-symbolic.svg">icons/adw-entry-edit.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/scalable/actions/adw-expander-arrow-symbolic.svg">icons/adw-expander-arrow.svg</file>
