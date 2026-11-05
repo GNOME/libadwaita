@@ -452,6 +452,9 @@ adw_style_manager_constructed (GObject *object)
     self->gtk_settings = gtk_settings_get_for_display (self->display);
 
     if (!adw_is_granite_present () && !g_getenv ("GTK_THEME")) {
+      gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (self->display),
+                                        "/org/gnome/Adwaita/icons");
+
       g_object_set (self->gtk_settings,
                     "gtk-theme-name", "Adwaita-empty",
                     NULL);

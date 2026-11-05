@@ -92,9 +92,6 @@ adw_init (void)
   adw_init_public_types ();
 
   if (!adw_is_granite_present ()) {
-    gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (gdk_display_get_default ()),
-                                      "/org/gnome/Adwaita/icons");
-
     adw_style_manager_ensure ();
 
     if (g_io_extension_point_lookup ("gtk-inspector-page"))
