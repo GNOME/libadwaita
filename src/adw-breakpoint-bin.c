@@ -379,32 +379,35 @@ adw_breakpoint_bin_measure (GtkWidget      *widget,
 {
   AdwBreakpointBin *self = ADW_BREAKPOINT_BIN (widget);
   AdwBreakpointBinPrivate *priv = adw_breakpoint_bin_get_instance_private (self);
-  int min = 0, nat = 0;
+  int child_min = 0, child_nat = 0;
+  int self_min, self_nat;
 
   if (priv->child) {
     gtk_widget_measure (priv->child, orientation, for_size,
-                        &min, &nat, NULL, NULL);
+                        &child_min, &child_nat, NULL, NULL);
 
     if (priv->breakpoints->len > 0)
-      min = 0;
+      child_min = 0;
   }
+
+  self_min = child_min;
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     if (priv->natural_width >= 0)
-      nat = MAX (min, priv->natural_width);
+      self_nat = MAX (child_min, priv->natural_width);
     else
-      nat = MAX (min, nat);
+      self_nat = MAX (child_min, child_nat);
   } else {
     if (priv->natural_height >= 0)
-      nat = MAX (min, priv->natural_height);
+      self_nat = MAX (child_min, priv->natural_height);
     else
-      nat = MAX (min, nat);
+      self_nat = MAX (child_min, child_nat);
   }
 
   if (minimum)
-    *minimum = min;
+    *minimum = self_min;
   if (natural)
-    *natural = nat;
+    *natural = self_nat;
   if (minimum_baseline)
     *minimum_baseline = -1;
   if (natural_baseline)
